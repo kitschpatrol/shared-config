@@ -2,10 +2,15 @@
 	"name": "@kitschpatrol/vscode-config",
 	"version": "1.0.0",
 	"type": "module",
+	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
 		"directory": "packages/vscode-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
 	},
 	"author": {
 		"name": "Eric Mika",
@@ -13,11 +18,18 @@
 		"url": "https://ericmika.com"
 	},
 	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"bin": {
 		"vscode-config-init": "./init.js"
 	},
 	"files": [
 		"init.js",
 		"init/*"
-	]
+	],
+	"publishConfig": {
+		"access": "public"
+	}
 }

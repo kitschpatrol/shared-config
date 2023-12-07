@@ -2,10 +2,15 @@
 	"name": "@kitschpatrol/cspell-config",
 	"version": "1.0.0",
 	"type": "module",
+	"description": "CSPell config for @kitschpatrol/shared-config",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
 		"directory": "packages/cspell-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
 	},
 	"author": {
 		"name": "Eric Mika",
@@ -13,11 +18,18 @@
 		"url": "https://ericmika.com"
 	},
 	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"bin": {
 		"cspell-config-init": "./init.js"
 	},
 	"main": "main.json",
 	"peerDependencies": {
 		"cspell": "^8.1.3"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

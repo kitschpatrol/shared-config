@@ -2,10 +2,15 @@
 	"name": "@kitschpatrol/markdownlint-config",
 	"version": "1.0.0",
 	"type": "module",
+	"description": "markdownlint config for @kitschpatrol/shared-config",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
 		"directory": "packages/markdownlint-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
 	},
 	"author": {
 		"name": "Eric Mika",
@@ -13,6 +18,10 @@
 		"url": "https://ericmika.com"
 	},
 	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"bin": {
 		"markdownlint-config-init": "./init.js"
 	},
@@ -20,5 +29,8 @@
 	"peerDependencies": {
 		"markdownlint": "^0.32.1",
 		"markdownlint-cli": "^0.37.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

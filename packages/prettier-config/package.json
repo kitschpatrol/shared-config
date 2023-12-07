@@ -2,10 +2,15 @@
 	"name": "@kitschpatrol/prettier-config",
 	"version": "1.0.0",
 	"type": "module",
+	"description": "Prettier config for @kitschpatrol/shared-config",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
 		"directory": "packages/prettier-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
 	},
 	"author": {
 		"name": "Eric Mika",
@@ -13,6 +18,10 @@
 		"url": "https://ericmika.com"
 	},
 	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"bin": {
 		"prettier-config-init": "./init.js"
 	},
@@ -31,5 +40,8 @@
 		"prettier-plugin-svelte": "^3.1.2",
 		"prettier-plugin-tailwindcss": "^0.5.9",
 		"prettier-plugin-toml": "^2.0.1"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
