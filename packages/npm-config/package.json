@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/npm-config",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"description": "npmrc config for @kitschpatrol/shared-config",
 	"repository": {

@@ -19,7 +19,7 @@ To use just this ESLint config in isolation:
 2. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/eslint-config
+   pnpm add -D @kitschpatrol/eslint-config
    ```
 
 3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:

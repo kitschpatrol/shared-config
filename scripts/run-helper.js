@@ -14,7 +14,7 @@ const commands = stylePrefixes([
 	},
 	// Other commands...
 	{
-		command: 'stylelint --allow-empty-input "**/*.{css,scss,sass,svelte,html,astro}"',
+		command: 'stylelint --ignore-path .gitignore --allow-empty-input "**/*.{css,scss,sass,svelte,html,astro}"',
 		fixArgument: '--fix',
 		lintArgument: '',
 		prefix: 'Stylelint',

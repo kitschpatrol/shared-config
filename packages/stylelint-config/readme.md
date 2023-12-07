@@ -19,7 +19,7 @@ To use just this Stylelint config in isolation:
 2. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/stylelint-config
+   pnpm add -D @kitschpatrol/stylelint-config
    ```
 
 3. Add the starter `.stylelintrc.cjs` file to your project root, and add any customizations you'd like:
@@ -42,3 +42,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 }
 ...
 ```
+
+## Notes
+
+Ignores files in `.gitignore`

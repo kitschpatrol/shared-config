@@ -19,7 +19,7 @@ To use just this Prettier config in isolation:
 2. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/prettier-config
+   pnpm add -D @kitschpatrol/prettier-config
    ```
 
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:

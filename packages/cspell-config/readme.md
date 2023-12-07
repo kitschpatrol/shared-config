@@ -19,7 +19,7 @@ To use just this CSpell config in isolation:
 2. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/cspell-config
+   pnpm add -D @kitschpatrol/cspell-config
    ```
 
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:

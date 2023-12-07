@@ -29,7 +29,7 @@ It's only been tested with `pnpm`.
 2. Install the package:
 
    ```sh
-   pnpm add @kitschpatrol/shared-config
+   pnpm add -D @kitschpatrol/shared-config
    ```
 
 3. Add default config files for all the tools to your project root:

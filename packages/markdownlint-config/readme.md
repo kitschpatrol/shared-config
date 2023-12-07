@@ -19,7 +19,7 @@ To use just this markdownlint config in isolation:
 2. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/markdownlint-config
+   pnpm add -D @kitschpatrol/markdownlint-config
    ```
 
 3. Add the starter `.markdownlint.json` file to your project root, and add any customizations you'd like:
@@ -41,3 +41,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 }
 ...
 ```
+
+## Notes
+
+Ignores files in `.gitignore`

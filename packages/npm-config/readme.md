@@ -27,7 +27,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 1. Add the package:
 
    ```sh
-   pnpm add @kitschpatrol/npm-config
+   pnpm add -D @kitschpatrol/npm-config
    ```
 
 2. If / when you need to regenerate the `.npmrc`, you can run the bundled script:
