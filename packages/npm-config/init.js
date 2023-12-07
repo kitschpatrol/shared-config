@@ -1,26 +1,24 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import console from 'node:console';
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const sourceDir = path.join(__dirname, "init"); // Replace 'source' with your directory name
-const destDir = process.cwd(); // Destination directory (project root)
+const sourceDirectory = path.join(__dirname, 'init');
+const destinationDirectory = process.cwd(); // (project root)
 
-fs.readdirSync(sourceDir).forEach((file) => {
-  const srcPath = path.join(sourceDir, file);
-  const destPath = path.join(destDir, file);
+for (const file of fs.readdirSync(sourceDirectory)) {
+	const sourcePath = path.join(sourceDirectory, file);
+	const destinationPath = path.join(destinationDirectory, file);
 
-  // Copy file to project root if the file doesn't already exist there
-
-  if (!fs.existsSync(destPath)) {
-    fs.copyFileSync(srcPath, destPath);
-    console.log(`Copied ${file} to project root.`);
-  } else {
-    console.log(
-      `${file} already exists in project root. It must include the following:\n\n${fs.readFileSync(
-        srcPath
-      )}`
-    );
-  }
-});
+	if (fs.existsSync(destinationPath)) {
+		console.log(
+			`${file} already exists in project root. It must include the following:\n\n${fs.readFileSync(sourcePath)}`,
+		);
+	} else {
+		fs.copyFileSync(sourcePath, destinationPath);
+		console.log(`Copied ${file} to project root.`);
+	}
+}

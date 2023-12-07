@@ -1,4 +1,3 @@
 {
-  "import": "@kitschpatrol/cspell-config/main.json"
-  // Overrides here
+	"import": "@kitschpatrol/cspell-config/main.json"
 }

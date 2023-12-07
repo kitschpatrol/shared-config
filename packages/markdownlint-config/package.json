@@ -1,24 +1,24 @@
 {
-  "name": "@kitschpatrol/markdownlint-config",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kitschpatrol/shared-config.git",
-    "directory": "packages/markdownlint-config"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Eric Mika",
-    "email": "eric@ericmika.com",
-    "url": "https://ericmika.com"
-  },
-  "main": "main.json",
-  "type": "module",
-  "bin": {
-    "markdownlint-config-init": "./init.js"
-  },
-  "peerDependencies": {
-    "markdownlint": "^0.32.1",
-    "markdownlint-cli": "^0.37.0"
-  }
+	"name": "@kitschpatrol/markdownlint-config",
+	"version": "1.0.0",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/markdownlint-config"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"bin": {
+		"markdownlint-config-init": "./init.js"
+	},
+	"main": "main.json",
+	"peerDependencies": {
+		"markdownlint": "^0.32.1",
+		"markdownlint-cli": "^0.37.0"
+	}
 }

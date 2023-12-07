@@ -1,26 +1,31 @@
 {
-  "name": "@kitschpatrol/shared-config",
-  "version": "1.0.0",
-  "description": "Linting and formatting for web projects.",
-  "license": "MIT",
-  "author": {
-    "name": "Eric Mika",
-    "email": "eric@ericmika.com",
-    "url": "https://ericmika.com"
-  },
-  "type": "module",
-  "bin": {
-    "shared-config-init": "./scripts/init.js",
-    "shared-config-fix": "./scripts/fix.js",
-    "shared-config-lint": "./scripts/lint.js"
-  },
-  "dependencies": {
-    "@kitschpatrol/eslint-config": "file:./packages/eslint-config",
-    "@kitschpatrol/npm-config": "file:./packages/npm-config",
-    "@kitschpatrol/prettier-config": "file:./packages/prettier-config",
-    "@kitschpatrol/stylelint-config": "file:./packages/stylelint-config",
-    "@kitschpatrol/markdownlint-config": "file:./packages/markdownlint-config",
-    "@kitschpatrol/cspell-config": "file:./packages/cspell-config",
-    "@kitschpatrol/vscode-config": "file:./packages/vscode-config"
-  }
+	"name": "@kitschpatrol/shared-config",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Linting and formatting for web projects.",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"bin": {
+		"shared-config-init": "./scripts/init.js",
+		"shared-config-fix": "./scripts/fix.js",
+		"shared-config-lint": "./scripts/lint.js"
+	},
+	"scripts": {
+		"fix": "node ./scripts/fix.js",
+		"lint": "node ./scripts/lint.js",
+		"shared-config-init": "node ./scripts/init.js"
+	},
+	"dependencies": {
+		"@kitschpatrol/cspell-config": "file:./packages/cspell-config",
+		"@kitschpatrol/eslint-config": "file:./packages/eslint-config",
+		"@kitschpatrol/markdownlint-config": "file:./packages/markdownlint-config",
+		"@kitschpatrol/npm-config": "file:./packages/npm-config",
+		"@kitschpatrol/prettier-config": "file:./packages/prettier-config",
+		"@kitschpatrol/stylelint-config": "file:./packages/stylelint-config",
+		"@kitschpatrol/vscode-config": "file:./packages/vscode-config"
+	}
 }

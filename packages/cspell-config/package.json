@@ -1,23 +1,23 @@
 {
-  "name": "@kitschpatrol/cspell-config",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kitschpatrol/shared-config.git",
-    "directory": "packages/cspell-config"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Eric Mika",
-    "email": "eric@ericmika.com",
-    "url": "https://ericmika.com"
-  },
-  "type": "module",
-  "main": "main.json",
-  "bin": {
-    "cspell-config-init": "./init.js"
-  },
-  "peerDependencies": {
-    "cspell": "^8.1.3"
-  }
+	"name": "@kitschpatrol/cspell-config",
+	"version": "1.0.0",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/cspell-config"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"bin": {
+		"cspell-config-init": "./init.js"
+	},
+	"main": "main.json",
+	"peerDependencies": {
+		"cspell": "^8.1.3"
+	}
 }

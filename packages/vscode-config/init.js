@@ -1,33 +1,35 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import console from 'node:console';
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const sourceDir = path.join(__dirname, "init"); // Replace 'source' with your directory name
-const destDir = path.join(process.cwd(), ".vscode"); // Destination directory (project root)
+const sourceDirectory = path.join(__dirname, 'init');
+const destinationDirectory = path.join(process.cwd(), '.vscode'); // (project root)
 
 // create .vscode directory if it doesn't exist
-if (!fs.existsSync(destDir)) {
-  fs.mkdirSync(destDir);
+if (!fs.existsSync(destinationDirectory)) {
+	fs.mkdirSync(destinationDirectory);
 }
 
-fs.readdirSync(sourceDir).forEach((file) => {
-  const srcPath = path.join(sourceDir, file);
-  const destPath = path.join(destDir, file);
+for (const file of fs.readdirSync(sourceDirectory)) {
+	const sourcePath = path.join(sourceDirectory, file);
+	const destinationPath = path.join(destinationDirectory, file);
 
-  // merge with existing, if present
-  if (fs.existsSync(destPath)) {
-    const srcData = JSON.parse(fs.readFileSync(srcPath, "utf8"));
-    const destData = JSON.parse(fs.readFileSync(destPath, "utf8"));
+	// merge with existing, if present
+	if (fs.existsSync(destinationPath)) {
+		const sourceData = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
+		const destinationData = JSON.parse(fs.readFileSync(destinationPath, 'utf8'));
 
-    const mergedData = { ...destData, ...srcData };
+		const mergedData = { ...destinationData, ...sourceData };
 
-    fs.writeFileSync(destPath, JSON.stringify(mergedData, null, 2));
+		fs.writeFileSync(destinationPath, JSON.stringify(mergedData, undefined, 2));
 
-    console.log(`Merged ${file} with the existing file in .vscode folder.`);
-  } else {
-    fs.copyFileSync(srcPath, destPath);
-    console.log(`Copied ${file} to .vscode folder.`);
-  }
-});
+		console.log(`Merged ${file} with the existing file in .vscode folder.`);
+	} else {
+		fs.copyFileSync(sourcePath, destinationPath);
+		console.log(`Copied ${file} to .vscode folder.`);
+	}
+}

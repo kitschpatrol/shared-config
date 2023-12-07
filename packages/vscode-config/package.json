@@ -1,23 +1,23 @@
 {
-  "name": "@kitschpatrol/vscode-config",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kitschpatrol/shared-config.git",
-    "directory": "packages/vscode-config"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Eric Mika",
-    "email": "eric@ericmika.com",
-    "url": "https://ericmika.com"
-  },
-  "files": [
-    "init.js",
-    "init/*"
-  ],
-  "type": "module",
-  "bin": {
-    "vscode-config-init": "./init.js"
-  }
+	"name": "@kitschpatrol/vscode-config",
+	"version": "1.0.0",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/vscode-config"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"bin": {
+		"vscode-config-init": "./init.js"
+	},
+	"files": [
+		"init.js",
+		"init/*"
+	]
 }
