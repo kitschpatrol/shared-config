@@ -5,7 +5,7 @@ import console from 'node:console';
 import { once } from 'node:events';
 import process from 'node:process';
 
-const commands = stylePrefixes([
+const lintOrFix = [
 	{
 		command: 'eslint .',
 		fixArgument: '--fix',
@@ -21,7 +21,7 @@ const commands = stylePrefixes([
 	},
 	{
 		command:
-			'prettier --plugin=@prettier/plugin-php --plugin=@prettier/plugin-ruby --plugin=@prettier/plugin-xml --plugin=prettier-plugin-astro --plugin=prettier-plugin-pkg --plugin=prettier-plugin-sh --plugin=prettier-plugin-sql --plugin=prettier-plugin-svelte --plugin=prettier-plugin-tailwindcss --plugin=prettier-plugin-toml .',
+			'prettier --log-level warn --plugin=@prettier/plugin-php --plugin=@prettier/plugin-ruby --plugin=@prettier/plugin-xml --plugin=prettier-plugin-astro --plugin=prettier-plugin-pkg --plugin=prettier-plugin-sh --plugin=prettier-plugin-sql --plugin=prettier-plugin-svelte --plugin=prettier-plugin-tailwindcss --plugin=prettier-plugin-toml .',
 		fixArgument: '--write',
 		lintArgument: '--check',
 		prefix: 'Prettier',
@@ -32,13 +32,16 @@ const commands = stylePrefixes([
 		lintArgument: '',
 		prefix: 'markdownlint',
 	},
+];
+
+const lintOnly = [
 	{
 		command: 'cspell --quiet .',
 		fixArgument: '',
 		lintArgument: '',
 		prefix: 'CSpell',
 	},
-]);
+];
 
 function stylePrefixes(commands) {
 	// ANSI color codes (excluding red and ANSI 256-colors)
@@ -108,6 +111,8 @@ async function runCommand({ command, fixArgument, lintArgument, prefix }, fix = 
 }
 
 export async function runAllCommands(fix = false) {
+	const commands = stylePrefixes(fix ? [...lintOrFix] : [...lintOrFix, ...lintOnly]);
+
 	let errors = [];
 	for (const cmd of commands) {
 		try {
