@@ -8,13 +8,19 @@
     "email": "eric@ericmika.com",
     "url": "https://ericmika.com"
   },
+  "type": "module",
   "bin": {
-    "init-shared-config": "./init.js"
+    "shared-config-init": "./scripts/init.js",
+    "shared-config-fix": "./scripts/fix.js",
+    "shared-config-lint": "./scripts/lint.js"
   },
   "dependencies": {
-    "@kitschpatrol/npm-config": "file:./packages/npm-config",
     "@kitschpatrol/eslint-config": "file:./packages/eslint-config",
+    "@kitschpatrol/npm-config": "file:./packages/npm-config",
     "@kitschpatrol/prettier-config": "file:./packages/prettier-config",
-    "@kitschpatrol/stylelint-config": "file:./packages/stylelint-config"
+    "@kitschpatrol/stylelint-config": "file:./packages/stylelint-config",
+    "@kitschpatrol/markdownlint-config": "file:./packages/markdownlint-config",
+    "@kitschpatrol/cspell-config": "file:./packages/cspell-config",
+    "@kitschpatrol/vscode-config": "file:./packages/vscode-config"
   }
 }

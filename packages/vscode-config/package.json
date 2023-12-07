@@ -1,10 +1,10 @@
 {
-  "name": "@kitschpatrol/npm-config",
+  "name": "@kitschpatrol/vscode-config",
   "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:kitschpatrol/shared-config.git",
-    "directory": "packages/npm-config"
+    "directory": "packages/vscode-config"
   },
   "license": "MIT",
   "author": {
@@ -18,6 +18,6 @@
   ],
   "type": "module",
   "bin": {
-    "npm-config-init": "./init.js"
+    "vscode-config-init": "./init.js"
   }
 }

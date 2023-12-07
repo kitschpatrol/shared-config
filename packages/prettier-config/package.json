@@ -30,6 +30,6 @@
     "prettier": "^3.0.0"
   },
   "bin": {
-    "init-prettier-config": "./init.js"
+    "prettier-config-init": "./init.js"
   }
 }

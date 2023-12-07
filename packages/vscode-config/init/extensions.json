@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"astro-build.astro-vscode",
+		"davidanson.vscode-markdownlint",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"stylelint.vscode-stylelint",
+		"unifiedjs.vscode-mdx",
+		"svelte.svelte-vscode",
+		"streetsidesoftware.code-spell-checker",
+		"pucelle.run-on-save"
+	],
+	"unwantedRecommendations": []
+}

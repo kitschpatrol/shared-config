@@ -1,0 +1,3 @@
+{
+  "extends": "./node_modules/@kitschpatrol/markdownlint-config/main.json"
+}

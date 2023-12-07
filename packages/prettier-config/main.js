@@ -6,7 +6,7 @@ const config = {
   useTabs: true,
   tabWidth: 2,
   trailingComma: "all",
-  printWidth: 100,
+  printWidth: 120,
   overrides: [
     {
       files: "*.astro",
@@ -26,6 +26,13 @@ const config = {
       files: "*.rb",
       options: {
         rubyExecutablePath: `${homedir}/.rbenv/shims/ruby`,
+      },
+    },
+    {
+      files: ["*rc", "*ignore"],
+      options: {
+        plugins: ["prettier-plugin-sh"],
+        parser: "sh",
       },
     },
   ],

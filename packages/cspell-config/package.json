@@ -1,10 +1,10 @@
 {
-  "name": "@kitschpatrol/npm-config",
+  "name": "@kitschpatrol/cspell-config",
   "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:kitschpatrol/shared-config.git",
-    "directory": "packages/npm-config"
+    "directory": "packages/cspell-config"
   },
   "license": "MIT",
   "author": {
@@ -12,12 +12,12 @@
     "email": "eric@ericmika.com",
     "url": "https://ericmika.com"
   },
-  "files": [
-    "init.js",
-    "init/*"
-  ],
   "type": "module",
+  "main": "main.json",
   "bin": {
-    "npm-config-init": "./init.js"
+    "cspell-config-init": "./init.js"
+  },
+  "peerDependencies": {
+    "cspell": "^8.1.3"
   }
 }

@@ -23,6 +23,6 @@
     "stylelint": "^15.11.0"
   },
   "bin": {
-    "init-stylelint-config": "./init.js"
+    "stylelint-config-init": "./init.js"
   }
 }
