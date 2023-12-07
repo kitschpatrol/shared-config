@@ -1,0 +1,35 @@
+{
+  "name": "@kitschpatrol/prettier-config",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kitschpatrol/shared-config.git",
+    "directory": "packages/prettier-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Eric Mika",
+    "email": "eric@ericmika.com",
+    "url": "https://ericmika.com"
+  },
+  "type": "module",
+  "main": "main.js",
+  "dependencies": {
+    "@prettier/plugin-php": "^0.21.0",
+    "@prettier/plugin-ruby": "^4.0.3",
+    "@prettier/plugin-xml": "^3.2.2",
+    "prettier-plugin-astro": "^0.12.2",
+    "prettier-plugin-pkg": "^0.18.0",
+    "prettier-plugin-sh": "^0.13.1",
+    "prettier-plugin-sql": "^0.17.1",
+    "prettier-plugin-svelte": "^3.1.2",
+    "prettier-plugin-tailwindcss": "^0.5.9",
+    "prettier-plugin-toml": "^2.0.1"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "bin": {
+    "init-prettier-config": "./init.js"
+  }
+}

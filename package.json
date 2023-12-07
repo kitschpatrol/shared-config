@@ -1,0 +1,20 @@
+{
+  "name": "@kitschpatrol/shared-config",
+  "version": "1.0.0",
+  "description": "Linting and formatting for web projects.",
+  "license": "MIT",
+  "author": {
+    "name": "Eric Mika",
+    "email": "eric@ericmika.com",
+    "url": "https://ericmika.com"
+  },
+  "bin": {
+    "init-shared-config": "./init.js"
+  },
+  "dependencies": {
+    "@kitschpatrol/npm-config": "file:./packages/npm-config",
+    "@kitschpatrol/eslint-config": "file:./packages/eslint-config",
+    "@kitschpatrol/prettier-config": "file:./packages/prettier-config",
+    "@kitschpatrol/stylelint-config": "file:./packages/stylelint-config"
+  }
+}

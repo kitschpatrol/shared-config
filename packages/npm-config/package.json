@@ -1,0 +1,23 @@
+{
+  "name": "@kitschpatrol/npm-config",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kitschpatrol/shared-config.git",
+    "directory": "packages/npm-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Eric Mika",
+    "email": "eric@ericmika.com",
+    "url": "https://ericmika.com"
+  },
+  "files": [
+    "init.js",
+    "init/*"
+  ],
+  "type": "module",
+  "bin": {
+    "init-npm-config": "./init.js"
+  }
+}
