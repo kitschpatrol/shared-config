@@ -36,6 +36,7 @@ async function main() {
 		for (const capability of capabilitiesWithInit) {
 			console.log(`${capability.name} Running command: ${capability.command} --init`);
 			await $`${capability.command} --init`;
+			console.log('\n');
 		}
 		console.log('Initialization complete.');
 	} else if (args.fix) {
