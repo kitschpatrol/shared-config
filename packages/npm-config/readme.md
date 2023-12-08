@@ -33,5 +33,5 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the `.npmrc`, you can run the bundled script:
 
    ```sh
-   pnpm exec npm-config-init
+   pnpm exec npm-config --init
    ```

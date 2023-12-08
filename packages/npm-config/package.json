@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/npm-config",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "npmrc config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,12 +23,16 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"npm-config-init": "./init.js"
+		"npm-config": "./cli.js"
 	},
 	"files": [
-		"init.js",
+		"cli.js",
 		"init/*"
 	],
+	"dependencies": {
+		"minimist": "^1.2.8",
+		"zx": "^7.2.3"
+	},
 	"publishConfig": {
 		"access": "public"
 	}

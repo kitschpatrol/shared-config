@@ -35,7 +35,7 @@ It's only been tested with `pnpm`.
 3. Add default config files for all the tools to your project root:
 
    ```sh
-   pnpm shared-config-init
+   pnpm shared-config --init
    ```
 
 4. Add helper scripts to your `package.json`:
@@ -45,8 +45,8 @@ It's only been tested with `pnpm`.
    ```json
    ...
    "scripts": {
-     "format": "shared-config-fix",
-     "lint": "shared-config-lint",
+     "format": "shared-config --fix",
+     "lint": "shared-config --lint",
    }
    ...
    ```
@@ -57,7 +57,7 @@ It's only been tested with `pnpm`.
 
 Various VSCode plugins should "just work".
 
-To lint your entire project:
+To lint your entire project, after configuring the `package.json` as shown above:
 
 ```sh
 pnpm run lint

@@ -25,19 +25,21 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec cspell-config-init
+   pnpm exec cspell-config --init
    ```
 
 ## Usage
 
 The CSpell binary should be picked up automatically by VSCode plugins.
 
+You can call it directly, or use the script bundled with the config.
+
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 ...
 "scripts": {
-  "spellcheck": "cspell --quiet ."
+  "spellcheck": "cspell-config --check"
 }
 ...
 ```

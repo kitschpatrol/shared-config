@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/vscode-config",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,12 +23,16 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"vscode-config-init": "./init.js"
+		"vscode-config": "./cli.js"
 	},
 	"files": [
 		"init.js",
 		"init/*"
 	],
+	"dependencies": {
+		"minimist": "^1.2.8",
+		"zx": "^7.2.3"
+	},
 	"publishConfig": {
 		"access": "public"
 	}

@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/eslint-config",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "Eslint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,7 +23,7 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"eslint-config-init": "./init.js"
+		"eslint-config": "./cli.js"
 	},
 	"main": "main.cjs",
 	"peerDependencies": {
@@ -38,7 +38,9 @@
 		"eslint-plugin-jsx-a11y": "^6.8.0",
 		"eslint-plugin-perfectionist": "^2.5.0",
 		"eslint-plugin-svelte": "^2.35.1",
-		"eslint-plugin-unicorn": "^49.0.0"
+		"eslint-plugin-unicorn": "^49.0.0",
+		"minimist": "^1.2.8",
+		"zx": "^7.2.3"
 	},
 	"publishConfig": {
 		"access": "public"

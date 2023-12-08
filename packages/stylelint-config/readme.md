@@ -25,20 +25,22 @@ To use just this Stylelint config in isolation:
 3. Add the starter `.stylelintrc.cjs` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec stylelint-config-init
+   pnpm exec stylelint-config --init
    ```
 
 ## Usage
 
 The Stylelint binary should be picked up automatically by VSCode plugins.
 
+You can call it directly, or use the script bundled with the config.
+
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 ...
 "scripts": {
-  "lint": "stylelint --allow-empty-input '**/*.{css,scss,sass,svelte,html,astro}'"
-  "format": "stylelint --allow-empty-input --fix '**/*.{css,scss,sass,svelte,html,astro}'"
+  "lint": "stylelint-config --check"
+  "format": "stylelint-config --fix"
 }
 ...
 ```

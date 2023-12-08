@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/shared-config",
-	"version": "1.0.2",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "Linting and formatting for web projects.",
 	"repository": {
@@ -22,12 +22,10 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"shared-config-init": "./scripts/init.js",
-		"shared-config-fix": "./scripts/fix.js",
-		"shared-config-lint": "./scripts/lint.js"
+		"shared-config": "./cli.js"
 	},
 	"files": [
-		"scripts"
+		"cli.js"
 	],
 	"dependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
@@ -36,7 +34,9 @@
 		"@kitschpatrol/npm-config": "workspace:*",
 		"@kitschpatrol/prettier-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
-		"@kitschpatrol/vscode-config": "workspace:*"
+		"@kitschpatrol/vscode-config": "workspace:*",
+		"minimist": "^1.2.8",
+		"zx": "^7.2.3"
 	},
 	"publishConfig": {
 		"access": "public"

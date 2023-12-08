@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/cspell-config",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "CSPell config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,11 +23,15 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"cspell-config-init": "./init.js"
+		"cspell-config": "./cli.js"
 	},
 	"main": "main.json",
 	"peerDependencies": {
 		"cspell": "^8.1.3"
+	},
+	"dependencies": {
+		"minimist": "^1.2.8",
+		"zx": "^7.2.3"
 	},
 	"publishConfig": {
 		"access": "public"

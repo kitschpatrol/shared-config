@@ -29,5 +29,5 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the `.vscode`, you can run the bundled script:
 
    ```sh
-   pnpm exec vscode-config-init
+   pnpm exec vscode-config --init
    ```

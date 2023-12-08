@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-undef
+/* @type {import('eslint').Linter.Config} */
 module.exports = {
-	// env: {
-	// 	browser: true,
-	// 	es2017: true,
-	// 	node: true,
-	// },
+	env: {
+		browser: true,
+		node: true,
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
@@ -69,6 +69,8 @@ module.exports = {
 			{
 				allowList: {
 					Props: true,
+					props: true,
+					args: true,
 				},
 			},
 		],

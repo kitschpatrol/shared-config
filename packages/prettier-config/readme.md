@@ -25,25 +25,27 @@ To use just this Prettier config in isolation:
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec prettier-config-init
+   pnpm exec prettier-config --init
    ```
 
 ## Usage
 
 The Prettier binary should be picked up automatically by VSCode plugins.
 
+You can call it directly, or use the script bundled with the config.
+
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 ...
 "scripts": {
-  "lint": "prettier --check ."
-  "format": "prettier --write ."
+  "lint": "prettier-config --check"
+  "format": "prettier-config --fix"
 }
 ...
 ```
 
-You might need to pass certain plugins in explicitly. The `shared-config-fix` and `shared-config-lint` scripts take care of this for you.
+You might need to pass certain plugins in explicitly. The `shared-config --fix` and `shared-config --lint` scripts take care of this for you.
 
 ## Ruby support
 
