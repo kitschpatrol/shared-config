@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable @typescript-eslint/naming-convention */
 /* @type {import('eslint').Linter.Config} */
 module.exports = {
 	env: {
@@ -13,8 +13,11 @@ module.exports = {
 		'plugin:astro/jsx-a11y-recommended',
 		'plugin:svelte/recommended',
 		'plugin:unicorn/recommended',
-		'prettier',
+		'plugin:n/recommended',
+		'xo',
+		'xo-typescript',
 		'plugin:perfectionist/recommended-natural',
+		'prettier',
 	],
 	overrides: [
 		{
@@ -51,10 +54,12 @@ module.exports = {
 		},
 	],
 	rules: {
-		// possible perfectionist conflicts
+		// Possible perfectionist conflicts
 		'@typescript-eslint/adjacent-overload-signatures': 'off',
 		'@typescript-eslint/sort-type-constituents': 'off',
 		'import/order': 'off',
+		'n/no-process-exit': 'off', // Duplicated in unicorn
+		'no-await-in-loop': 'off',
 		'perfectionist/sort-imports': [
 			'error',
 			{
@@ -69,8 +74,9 @@ module.exports = {
 			{
 				allowList: {
 					Props: true,
-					props: true,
+					acc: true,
 					args: true,
+					props: true,
 				},
 			},
 		],

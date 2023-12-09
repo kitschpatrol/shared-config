@@ -30,11 +30,9 @@
 		"stylelint": "^15.11.0"
 	},
 	"dependencies": {
-		"minimist": "^1.2.8",
 		"stylelint-config-clean-order": "^5.2.0",
 		"stylelint-config-html": "^1.1.0",
-		"stylelint-config-standard": "^34.0.0",
-		"zx": "^7.2.3"
+		"stylelint-config-standard": "^34.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

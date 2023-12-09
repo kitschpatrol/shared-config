@@ -29,10 +29,7 @@
 		"init.js",
 		"init/*"
 	],
-	"dependencies": {
-		"minimist": "^1.2.8",
-		"zx": "^7.2.3"
-	},
+	"dependencies": {},
 	"publishConfig": {
 		"access": "public"
 	}

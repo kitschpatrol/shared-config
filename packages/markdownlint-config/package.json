@@ -30,10 +30,7 @@
 		"markdownlint": "^0.32.1",
 		"markdownlint-cli": "^0.37.0"
 	},
-	"dependencies": {
-		"minimist": "^1.2.8",
-		"zx": "^7.2.3"
-	},
+	"dependencies": {},
 	"publishConfig": {
 		"access": "public"
 	}

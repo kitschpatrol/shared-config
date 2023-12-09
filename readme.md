@@ -93,3 +93,5 @@ pnpm run format
 - [sheriff](https://www.eslint-config-sheriff.dev)
 - [xo](https://github.com/xojs/xo)
 - [standard](https://standardjs.com)
+- [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
+- [trunk](https://trunk.io)
