@@ -31,22 +31,22 @@
 		"init"
 	],
 	"scripts": {
-		"build": "mkdir -p ./bin && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build": "../../src/utils/build.ts",
 		"cli": "node ./bin/cli.js"
 	},
 	"peerDependencies": {
 		"eslint": ">=8.52.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^6.13.2",
-		"@typescript-eslint/parser": "^6.13.2",
+		"@typescript-eslint/eslint-plugin": "^6.14.0",
+		"@typescript-eslint/parser": "^6.14.0",
 		"astro-eslint-parser": "^0.16.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-config-xo": "^0.43.1",
 		"eslint-config-xo-typescript": "^1.0.1",
 		"eslint-plugin-astro": "^0.30.0",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
-		"eslint-plugin-n": "^16.3.1",
+		"eslint-plugin-n": "^16.4.0",
 		"eslint-plugin-perfectionist": "^2.5.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"eslint-plugin-unicorn": "^49.0.0",

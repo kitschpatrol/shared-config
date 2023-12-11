@@ -28,10 +28,14 @@
 		"bin"
 	],
 	"scripts": {
+		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
+		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
+		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
 		"build": "pnpm run build:packages && pnpm run build:capabilities && pnpm run build:shared-config",
-		"build:capabilities": "mkdir -p ./build && tsx ./src/utils/capability-generator.ts > ./build/capabilities.ts",
+		"build:capabilities": "mkdir -p ./build && ./src/utils/capability-generator.ts > ./build/capabilities.ts",
 		"build:packages": "pnpm -r run build",
-		"build:shared-config": "mkdir -p ./bin && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build:shared-config": "./src/utils/build.ts",
+		"clean": "pnpm run bin-restore && git clean -fdX",
 		"cli": "node ./bin/cli.js"
 	},
 	"dependencies": {
@@ -49,7 +53,7 @@
 	"devDependencies": {
 		"@types/node": "^20.10.4",
 		"camelcase": "^8.0.0",
-		"esbuild": "^0.19.8",
+		"esbuild": "^0.19.9",
 		"globby": "^14.0.0",
 		"tsx": "^4.6.2",
 		"typescript": "^5.3.3"

@@ -30,7 +30,7 @@
 		"init"
 	],
 	"scripts": {
-		"build": "mkdir -p ./bin && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build": "../../src/utils/build.ts",
 		"cli": "node ./bin/cli.js"
 	},
 	"dependencies": {

@@ -81,6 +81,12 @@ Each package has a simple '/src/cli.ts' file which defines the behavior of its e
 
 The monorepo must be kept intact, as the sub-packages depend on scripts in the parent during build.
 
+## Building
+
+The repo uses placeholders for the bin script for each tool to avoid circular dependency issues during `pnpm install`.
+
+To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
+
 ## Issues
 
 - CSpell, markdownlint, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VSCode plugins.
