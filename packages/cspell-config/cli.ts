@@ -4,7 +4,7 @@ import { buildCommands } from '../../utils/command-builder.js';
 await buildCommands('cspell-config', {
 	check: {
 		command: 'cspell',
-		defaultArguments: ['**'],
+		defaultArguments: ['.'],
 		options: ['--quiet'],
 	},
 	init: {},

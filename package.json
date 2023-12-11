@@ -22,11 +22,15 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"shared-config": "./cli.js"
+		"shared-config": "bin/cli.js"
 	},
 	"files": [
-		"cli.js"
+		"bin"
 	],
+	"scripts": {
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"cli": "node ./bin/cli.js"
+	},
 	"dependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
@@ -34,14 +38,16 @@
 		"@kitschpatrol/npm-config": "workspace:*",
 		"@kitschpatrol/prettier-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
-		"@kitschpatrol/vscode-config": "workspace:*"
+		"@kitschpatrol/vscode-config": "workspace:*",
+		"camelcase": "^8.0.0",
+		"execa": "^8.0.1",
+		"globby": "^14.0.0",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.4",
 		"esbuild": "^0.19.8",
-		"execa": "^8.0.1",
-		"meow": "^12.1.1",
-		"package-up": "^5.0.0",
 		"typescript": "^5.3.3"
 	},
 	"publishConfig": {

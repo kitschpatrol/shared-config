@@ -11,12 +11,13 @@ await buildCommands('npm-config', {
 			const packageFile = await packageUp();
 			if (packageFile === undefined) {
 				console.error('The `--printConfig` flag must be used in a directory with a package.json file');
-				process.exit(1);
+				return 1;
 			}
 
 			const packageDirectory = path.dirname(packageFile);
 			const npmrcFile = path.join(packageDirectory, '.npmrc');
-			return fs.readFile(npmrcFile, 'utf8');
+			console.log(fs.readFile(npmrcFile, 'utf8'));
+			return 1;
 		},
 	},
 });

@@ -1,5 +1,5 @@
-#!/usr/bin/env zx
-/* eslint-disable unicorn/prefer-module */
+#!/usr/bin/env node
+
 import minimist from 'minimist';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -38,6 +38,7 @@ async function main() {
 			await $`${capability.command} --init`;
 			console.log('\n');
 		}
+
 		console.log('Initialization complete.');
 	} else if (args.fix) {
 		runAllCommands(capabilities, 'fix');
@@ -48,9 +49,9 @@ async function main() {
 
 await main();
 
-// helpers
+// Helpers
 async function runCommand(command, prefix) {
-	// console.log(`${prefix} Running command: ${command}`);
+	// Console.log(`${prefix} Running command: ${command}`);
 
 	const subprocess = spawn(command, {
 		env: { ...process.env, FORCE_COLOR: true },
@@ -118,7 +119,7 @@ function stylePrefixes(capabilities) {
 export async function runAllCommands(capabilities, option) {
 	const capabilitiesWithCommand = stylePrefixes(capabilities.filter((commandInfo) => commandInfo[option]));
 
-	let errors = [];
+	const errors = [];
 	for (const cmd of capabilitiesWithCommand) {
 		try {
 			await runCommand(`${cmd.command} --${option}`, cmd.name);
@@ -143,7 +144,7 @@ async function getCapabilities(commands) {
 		commands.map(async (command) => {
 			try {
 				await $`${command}`;
-				// console.log('Command completed successfully.');
+				// Console.log('Command completed successfully.');
 			} catch (error) {
 				return {
 					command,

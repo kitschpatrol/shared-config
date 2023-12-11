@@ -73,7 +73,13 @@ pnpm run format
 
 - [ ] `.tsconfig`?
 - [ ] Interactive override / merge prompt
-- [ ] DRY script invocation / initial config copying?
+- [x] DRY script invocation / initial config copying?
+
+## Package architecture
+
+Subpackages have simple 'cli.ts' files which define the behavior of their binary. The build step turns these into node scripts, providing default implementations where feasible.
+
+Subpackages must be built in the monorepo.
 
 ## Issues
 

@@ -5,5 +5,5 @@
 		"outDir": "./bin",
 		"strictNullChecks": true
 	},
-	"include": ["utils/**/*", "packages/**/*"]
+	"include": ["utils/**/*", "packages/**/*", "cli.ts"]
 }

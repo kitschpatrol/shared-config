@@ -18,14 +18,14 @@ type AnyFlags = Record<string, AnyFlag>;
 
 type OptionCommand = {
 	/** Either a string to run a command, or a function to do something custom. If undefined, a default behavior is used. */
-	command?: ((args: string[], options: string[]) => Promise<string>) | string;
+	command?: ((args: string[], options: string[]) => Promise<number>) | string;
 	/** Arguments to be passed to the command in the absence of user-provided arguments */
 	defaultArguments?: string[];
 	/** Options to be passed to the command. The argument is handled in command-builder.ts */
 	options?: string[];
 };
 
-type OptionCommands = {
+export type OptionCommands = {
 	[key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand;
 };
 
@@ -117,7 +117,7 @@ function generateFlags(options: OptionCommands): AnyFlags {
 	}, {});
 }
 
-async function execute(optionCommand: OptionCommand, input: string[] = []): Promise<number> {
+export async function execute(optionCommand: OptionCommand, input: string[] = []): Promise<number> {
 	if (optionCommand.command !== undefined && typeof optionCommand.command === 'string') {
 		let exitCode: number;
 		try {
@@ -130,7 +130,6 @@ async function execute(optionCommand: OptionCommand, input: string[] = []): Prom
 				stdin: 'inherit', // For input, todo anything weird here?
 				// All: true,
 				stdout: 'inherit',
-				verbose: true, // TODO disable
 			});
 
 			// Using stdout: 'inherit' for now instead...
@@ -138,7 +137,7 @@ async function execute(optionCommand: OptionCommand, input: string[] = []): Prom
 			await subprocess;
 			exitCode = subprocess.exitCode ?? 1;
 		} catch (error) {
-			console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
+			// Console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
 			exitCode = typeof error.exitCode === 'number' ? (error.exitCode as number) : 1;
 		}
 
@@ -180,7 +179,10 @@ export async function buildCommands(command: string, options: OptionCommands) {
 		commandsToRun.check = options.check;
 	}
 
-	// Console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
+	// Debug
+	// console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
+
+	let aggregateExitCode = 0;
 
 	for (const [name, optionCommand] of Object.entries(commandsToRun)) {
 		if (typeof optionCommand.command === 'function') {
@@ -190,13 +192,12 @@ export async function buildCommands(command: string, options: OptionCommands) {
 			const options = optionCommand.options ?? [];
 
 			// Custom function execution is always the same
-			console.log(await optionCommand.command(args, options));
+			aggregateExitCode += await optionCommand.command(args, options);
 		} else if (typeof optionCommand.command === 'string') {
 			// Warn if no default arguments are provided, don't be too clever
 			checkArguments(input, optionCommand);
 
-			const exitCode = await execute(optionCommand, input.length === 0 ? optionCommand.defaultArguments : input);
-			console.log(exitCode);
+			aggregateExitCode += await execute(optionCommand, input.length === 0 ? optionCommand.defaultArguments : input);
 		} else {
 			// Handle default behaviors (e.g. {})
 			switch (name) {
@@ -207,13 +208,15 @@ export async function buildCommands(command: string, options: OptionCommands) {
 					const destinationPackage = await packageUp();
 					if (destinationPackage === undefined) {
 						console.error('The `--init` flag must be used in a directory with a package.json file');
-						process.exit(1);
+						aggregateExitCode += 1;
+						break;
 					}
 
 					const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
 					if (sourcePackage === undefined) {
 						console.error('The script being called was not in a package, weird.');
-						process.exit(1);
+						aggregateExitCode += 1;
+						break;
 					}
 
 					const source = path.join(path.dirname(sourcePackage), 'init/');
@@ -226,33 +229,36 @@ export async function buildCommands(command: string, options: OptionCommands) {
 						options: ['-Ri', `${source}`, `${destination}`],
 					};
 
-					await execute(copyCommand);
+					aggregateExitCode += await execute(copyCommand);
 					break;
 				}
 
 				case 'check': {
 					console.error('No default implementation for check');
-					process.exit(1);
+					aggregateExitCode += 1;
+					break;
 				}
 
-				// eslint-disable-next-line no-fallthrough
 				case 'fix': {
 					console.error('No default implementation for fix');
-					process.exit(1);
+					aggregateExitCode += 1;
+					break;
 				}
 
-				// eslint-disable-next-line no-fallthrough
 				case 'printConfig': {
 					console.error('No default implementation for print-config');
-					process.exit(1);
+					aggregateExitCode += 1;
+					break;
 				}
 
-				// eslint-disable-next-line no-fallthrough
 				default: {
 					console.error(`Unknown command name: ${name}`);
-					process.exit(1);
+					aggregateExitCode += 1;
+					break;
 				}
 			}
 		}
 	}
+
+	process.exit(aggregateExitCode > 0 ? 1 : 0);
 }

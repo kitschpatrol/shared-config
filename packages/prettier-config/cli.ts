@@ -33,9 +33,13 @@ await buildCommands('prettier-config', {
 	printConfig: {
 		async command(args) {
 			const filePath = args?.at(0);
-			return filePath
-				? JSON.stringify(await resolveConfig(filePath, {}), undefined, 2)
-				: 'No or invalid file argument provided...';
+
+			if (filePath) {
+				console.log(JSON.stringify(await resolveConfig(filePath, {}), undefined, 2));
+				return 0;
+			}
+
+			return 1;
 		},
 	},
 });
