@@ -31,7 +31,7 @@
 		"build": "pnpm run build:packages && pnpm run build:capabilities && pnpm run build:shared-config",
 		"build:capabilities": "mkdir -p ./build && tsx ./src/utils/capability-generator.ts > ./build/capabilities.ts",
 		"build:packages": "pnpm -r run build",
-		"build:shared-config": "mkdir -p ./dist && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build:shared-config": "mkdir -p ./bin && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
 		"cli": "node ./bin/cli.js"
 	},
 	"dependencies": {
