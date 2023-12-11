@@ -25,15 +25,13 @@
 	"bin": {
 		"eslint-config": "bin/cli.js"
 	},
-	"exports": {
-		".": "./main.cjs"
-	},
+	"main": "./main.cjs",
 	"files": [
 		"bin",
 		"init"
 	],
 	"scripts": {
-		"build": "esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
 		"cli": "node ./bin/cli.js"
 	},
 	"peerDependencies": {
@@ -51,7 +49,10 @@
 		"eslint-plugin-n": "^16.3.1",
 		"eslint-plugin-perfectionist": "^2.5.0",
 		"eslint-plugin-svelte": "^2.35.1",
-		"eslint-plugin-unicorn": "^49.0.0"
+		"eslint-plugin-unicorn": "^49.0.0",
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

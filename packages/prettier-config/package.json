@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/prettier-config",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"type": "module",
 	"description": "Prettier config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,9 +23,17 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"prettier-config": "./cli.js"
+		"prettier-config": "bin/cli.js"
 	},
 	"main": "main.js",
+	"files": [
+		"bin",
+		"init"
+	],
+	"scripts": {
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"cli": "node ./bin/cli.js"
+	},
 	"peerDependencies": {
 		"prettier": "^3.0.0"
 	},
@@ -33,6 +41,9 @@
 		"@prettier/plugin-php": "^0.21.0",
 		"@prettier/plugin-ruby": "^4.0.3",
 		"@prettier/plugin-xml": "^3.2.2",
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0",
 		"prettier-plugin-astro": "^0.12.2",
 		"prettier-plugin-pkg": "^0.18.0",
 		"prettier-plugin-sh": "^0.13.1",

@@ -18,7 +18,9 @@ type AnyFlags = Record<string, AnyFlag>;
 
 type OptionCommand = {
 	/** Either a string to run a command, or a function to do something custom. If undefined, a default behavior is used. */
-	command?: (() => string) | string;
+	command?: ((args: string[], options: string[]) => Promise<string>) | string;
+	/** Arguments to be passed to the command in the absence of user-provided arguments */
+	defaultArguments?: string[];
 	/** Options to be passed to the command. The argument is handled in command-builder.ts */
 	options?: string[];
 };
@@ -39,22 +41,22 @@ function generateHelpText(command: string, options: OptionCommands): string {
 		for (const name of Object.keys(options)) {
 			switch (name) {
 				case 'init': {
-					helpText += '\n    --init, -i     Initialize the tool by copying starter config files to your project root';
+					helpText += '\n    --init, -i            Initialize by copying starter config files to your project root.';
 					break;
 				}
 
 				case 'check': {
-					helpText += '\n    --check, -c    Check for and report issues';
+					helpText += `\n    --check, -c           Check for and report issues. Same as ${command}.`;
 					break;
 				}
 
 				case 'fix': {
-					helpText += '\n    --fix, -f      Fix all auto-fixable issues, and report the un-fixable';
+					helpText += '\n    --fix, -f             Fix all auto-fixable issues, and report the un-fixable.';
 					break;
 				}
 
 				case 'printConfig': {
-					helpText += '\n    --print-config Print the effective configuration for this tool';
+					helpText += '\n    --print-config <file> Print the effective configuration for a file';
 					break;
 				}
 
@@ -120,15 +122,19 @@ async function execute(optionCommand: OptionCommand, input: string[] = []): Prom
 		let exitCode: number;
 		try {
 			const subprocess = execa(optionCommand.command, [...(optionCommand.options ?? []), ...input], {
-				all: true,
 				env: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
 					FORCE_COLOR: 'true',
 				},
+				stderr: 'inherit',
 				stdin: 'inherit', // For input, todo anything weird here?
+				// All: true,
+				stdout: 'inherit',
+				verbose: true, // TODO disable
 			});
 
-			subprocess.all?.pipe(process.stdout);
+			// Using stdout: 'inherit' for now instead...
+			// subprocess.all?.pipe(process.stdout);
 			await subprocess;
 			exitCode = subprocess.exitCode ?? 1;
 		} catch (error) {
@@ -141,6 +147,14 @@ async function execute(optionCommand: OptionCommand, input: string[] = []): Prom
 
 	console.error(`Invalid optionCommand: ${JSON.stringify(optionCommand, undefined, 2)}`);
 	return 1;
+}
+
+function checkArguments(input: string[], optionCommand: OptionCommand): void {
+	// Warn if no default arguments are provided, don't be too clever
+	if (input.length === 0 && !optionCommand.defaultArguments) {
+		console.error('This command must be used with a file argument');
+		process.exit(1);
+	}
 }
 
 export async function buildCommands(command: string, options: OptionCommands) {
@@ -161,54 +175,84 @@ export async function buildCommands(command: string, options: OptionCommands) {
 		return acc;
 	}, {});
 
-	console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
+	// Make 'check' the default behavior if no flags are specified
+	if (Object.keys(commandsToRun).length === 0) {
+		commandsToRun.check = options.check;
+	}
+
+	// Console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
 
 	for (const [name, optionCommand] of Object.entries(commandsToRun)) {
 		if (typeof optionCommand.command === 'function') {
-			// Custom function execution is always the same
-			optionCommand.command();
-		} else if (typeof optionCommand.command === 'string') {
-			// Print config special case validation
-			if (name === 'printConfig' && (input.length === 0 || input.length > 1)) {
-				console.error('The `--print-config` flag must be used with exactly one filename');
-				process.exit(1);
-			}
+			checkArguments(input, optionCommand);
 
-			// Run on all by default
-			const exitCode = await execute(optionCommand, input.length === 0 ? ['.'] : input);
+			const args = input.length === 0 ? optionCommand.defaultArguments ?? [] : input;
+			const options = optionCommand.options ?? [];
+
+			// Custom function execution is always the same
+			console.log(await optionCommand.command(args, options));
+		} else if (typeof optionCommand.command === 'string') {
+			// Warn if no default arguments are provided, don't be too clever
+			checkArguments(input, optionCommand);
+
+			const exitCode = await execute(optionCommand, input.length === 0 ? optionCommand.defaultArguments : input);
 			console.log(exitCode);
 		} else {
-			// Handle default behaviors
-			if (name === 'init') {
-				// By default, copies files in script package's /init directory to the root of the package it's called from
+			// Handle default behaviors (e.g. {})
+			switch (name) {
+				case 'init': {
+					// By default, copies files in script package's /init directory to the root of the package it's called from
 
-				// Copy files
-				const destinationPackage = await packageUp();
-				if (destinationPackage === undefined) {
-					console.error('The `--init` flag must be used in a directory with a package.json file');
+					// Copy files
+					const destinationPackage = await packageUp();
+					if (destinationPackage === undefined) {
+						console.error('The `--init` flag must be used in a directory with a package.json file');
+						process.exit(1);
+					}
+
+					const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
+					if (sourcePackage === undefined) {
+						console.error('The script being called was not in a package, weird.');
+						process.exit(1);
+					}
+
+					const source = path.join(path.dirname(sourcePackage), 'init/');
+					const destination = path.dirname(destinationPackage);
+
+					console.log(`Copying initial configuration files from:\n"${source}" → "${destination}"`);
+
+					const copyCommand: OptionCommand = {
+						command: 'cp',
+						options: ['-Ri', `${source}`, `${destination}`],
+					};
+
+					await execute(copyCommand);
+					break;
+				}
+
+				case 'check': {
+					console.error('No default implementation for check');
 					process.exit(1);
 				}
 
-				const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
-				if (sourcePackage === undefined) {
-					console.error('The script being called was not in a package, weird.');
+				// eslint-disable-next-line no-fallthrough
+				case 'fix': {
+					console.error('No default implementation for fix');
 					process.exit(1);
 				}
 
-				const source = path.join(path.dirname(sourcePackage), 'init/');
-				const destination = path.dirname(destinationPackage);
+				// eslint-disable-next-line no-fallthrough
+				case 'printConfig': {
+					console.error('No default implementation for print-config');
+					process.exit(1);
+				}
 
-				console.log(`Copying initial configuration files from:\n"${source}" → "${destination}"`);
-
-				const copyCommand: OptionCommand = {
-					command: 'cp',
-					options: ['-Ri', `${source}`, `${destination}`],
-				};
-
-				await execute(copyCommand);
+				// eslint-disable-next-line no-fallthrough
+				default: {
+					console.error(`Unknown command name: ${name}`);
+					process.exit(1);
+				}
 			}
-
-			console.log('todo others');
 		}
 	}
 }

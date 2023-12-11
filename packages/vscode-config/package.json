@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/vscode-config",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"type": "module",
 	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,13 +23,21 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"vscode-config": "./cli.js"
+		"vscode-config": "bin/cli.js"
 	},
 	"files": [
-		"init.js",
-		"init/*"
+		"bin",
+		"init"
 	],
-	"dependencies": {},
+	"scripts": {
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"cli": "node ./bin/cli.js"
+	},
+	"dependencies": {
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0"
+	},
 	"publishConfig": {
 		"access": "public"
 	}

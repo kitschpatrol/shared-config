@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/markdownlint-config",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"type": "module",
 	"description": "markdownlint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,14 +23,26 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"markdownlint-config": "./cli.js"
+		"markdownlint-config": "bin/cli.js"
 	},
 	"main": "main.json",
+	"files": [
+		"bin",
+		"init"
+	],
+	"scripts": {
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"cli": "node ./bin/cli.js"
+	},
 	"peerDependencies": {
 		"markdownlint": "^0.32.1",
 		"markdownlint-cli": "^0.37.0"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0"
+	},
 	"publishConfig": {
 		"access": "public"
 	}

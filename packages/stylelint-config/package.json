@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/stylelint-config",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"type": "module",
 	"description": "Stylelint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -23,13 +23,24 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"stylelint-config": "./cli.js"
+		"stylelint-config": "bin/cli.js"
 	},
 	"main": "main.cjs",
+	"files": [
+		"bin",
+		"init"
+	],
+	"scripts": {
+		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"cli": "node ./bin/cli.js"
+	},
 	"peerDependencies": {
 		"stylelint": "^15.11.0"
 	},
 	"dependencies": {
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0",
 		"stylelint-config-clean-order": "^5.2.0",
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^34.0.0"
