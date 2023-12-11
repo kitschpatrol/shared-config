@@ -18,6 +18,7 @@
 		"beforeunload",
 		"bindability",
 		"buttongrid",
+		"camelcase",
 		"camerakit",
 		"cameraring",
 		"camerawheel",

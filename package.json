@@ -28,7 +28,10 @@
 		"bin"
 	],
 	"scripts": {
-		"build": "mkdir -p ./bin && esbuild cli.ts --bundle --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
+		"build": "pnpm run build:packages && pnpm run build:capabilities && pnpm run build:shared-config",
+		"build:capabilities": "mkdir -p ./build && tsx ./src/utils/capability-generator.ts > ./build/capabilities.ts",
+		"build:packages": "pnpm -r run build",
+		"build:shared-config": "mkdir -p ./dist && esbuild ./src/cli.ts --bundle --minify --packages=external --format=esm --platform=node --target=node18 > ./bin/cli.js",
 		"cli": "node ./bin/cli.js"
 	},
 	"dependencies": {
@@ -39,15 +42,16 @@
 		"@kitschpatrol/prettier-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/vscode-config": "workspace:*",
-		"camelcase": "^8.0.0",
 		"execa": "^8.0.1",
-		"globby": "^14.0.0",
 		"meow": "^12.1.1",
 		"package-up": "^5.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.4",
+		"camelcase": "^8.0.0",
 		"esbuild": "^0.19.8",
+		"globby": "^14.0.0",
+		"tsx": "^4.6.2",
 		"typescript": "^5.3.3"
 	},
 	"publishConfig": {

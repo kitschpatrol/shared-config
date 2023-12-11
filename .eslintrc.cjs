@@ -3,7 +3,7 @@ module.exports = {
 	extends: ['@kitschpatrol/eslint-config'],
 	overrides: [
 		{
-			files: ['cli.ts'],
+			files: ['src/**/*', 'packages/*/src/**/*'],
 			rules: {
 				'n/no-unpublished-import': 'off',
 				'n/shebang': 'off',

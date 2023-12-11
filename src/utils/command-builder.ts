@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-process-exit */
+#!/usr/bin/env node
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 

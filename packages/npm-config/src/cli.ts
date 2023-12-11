@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../utils/command-builder.js';
+import { buildCommands } from '../../../src/utils/command-builder.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { packageUp } from 'package-up';

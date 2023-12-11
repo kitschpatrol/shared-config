@@ -1,4 +1,4 @@
-## shared-config
+# shared-config
 
 ## Overview
 
@@ -77,9 +77,9 @@ pnpm run format
 
 ## Package architecture
 
-Subpackages have simple 'cli.ts' files which define the behavior of their binary. The build step turns these into node scripts, providing default implementations where feasible.
+Each package has a simple '/src/cli.ts' file which defines the behavior of its eponymous binary. The build step turns these into node scripts, providing default implementations where feasible.
 
-Subpackages must be built in the monorepo.
+The monorepo must be kept intact, as the sub-packages depend on scripts in the parent during build.
 
 ## Issues
 

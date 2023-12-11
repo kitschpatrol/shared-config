@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-null, no-undef, @typescript-eslint/no-var-requires */
+/* eslint-disable unicorn/no-null */
 const { propertyGroups } = require('stylelint-config-clean-order');
 
 const propertiesOrder = propertyGroups.map((properties) => ({

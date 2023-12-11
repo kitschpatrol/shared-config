@@ -2,3 +2,5 @@
 node_modules
 package.local.json
 bin/
+build/
+scratch/

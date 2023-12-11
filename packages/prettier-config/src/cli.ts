@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../utils/command-builder.js';
+import { buildCommands } from '../../../src/utils/command-builder.js';
 import { resolveConfig } from 'prettier';
 
 // TODO bad idea?
