@@ -47,7 +47,7 @@ async function executeCommands(
 
 await buildCommands(
 	'shared-config',
-	'Shared Config',
+	undefined, // Too much noise with 'Shared Config'?
 	'yellow',
 	Object.keys(capabilities).reduce<OptionCommands>((acc, capability) => {
 		acc[capability as keyof OptionCommands] = {

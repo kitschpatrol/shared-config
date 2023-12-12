@@ -2,8 +2,7 @@
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
-import chalk from 'chalk';
-import { type foregroundColorNames } from 'chalk';
+import chalk, { type foregroundColorNames } from 'chalk';
 import { execa } from 'execa';
 import meow from 'meow';
 import type { Flag } from 'meow';
