@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js';
 
-await buildCommands('eslint-config', {
+await buildCommands('eslint-config', 'ESLint', {
 	check: {
 		command: 'eslint',
 		defaultArguments: ['.'],

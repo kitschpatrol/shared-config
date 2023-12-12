@@ -4,19 +4,20 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { packageUp } from 'package-up';
 
-await buildCommands('npm-config', {
+await buildCommands('npm-config', 'NPM Config', {
 	init: {},
 	printConfig: {
-		async command() {
+		async command(_, logStream) {
 			const packageFile = await packageUp();
 			if (packageFile === undefined) {
-				console.error('The `--printConfig` flag must be used in a directory with a package.json file');
+				logStream.write('Error: The `--printConfig` flag must be used in a directory with a package.json file\n');
 				return 1;
 			}
 
 			const packageDirectory = path.dirname(packageFile);
 			const npmrcFile = path.join(packageDirectory, '.npmrc');
-			console.log(fs.readFile(npmrcFile, 'utf8'));
+			logStream.write(await fs.readFile(npmrcFile, 'utf8'));
+			logStream.write('\n');
 			return 1;
 		},
 	},

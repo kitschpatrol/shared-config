@@ -23,18 +23,20 @@ async function checkFileExists(file: string): Promise<boolean> {
 	}
 }
 
-await buildCommands('vscode-config', {
+await buildCommands('vscode-config', 'VSCode Config', {
 	init: {
-		async command() {
+		async command(_, logStream) {
 			const destinationPackage = await packageUp();
 			if (destinationPackage === undefined) {
-				console.error('The `--init` flag must be used in a directory with a package.json file somewhere above it');
+				logStream.write(
+					'Error: The `--init` flag must be used in a directory with a package.json file somewhere above it\n',
+				);
 				return 1;
 			}
 
 			const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
 			if (sourcePackage === undefined) {
-				console.error('The script being called was not in a package, weird.');
+				logStream.write('Error: The script being called was not in a package, weird.\n');
 				return 1;
 			}
 
@@ -58,11 +60,11 @@ await buildCommands('vscode-config', {
 					const mergedData = { ...destinationData, ...sourceData };
 
 					await fs.writeFile(destinationPath, JSON.stringify(mergedData, undefined, 2));
-					console.log(`Merged ${file} with the existing file in .vscode folder.`);
+					logStream.write(`Merged ${file} with the existing file in .vscode folder.\n`);
 				} else {
 					// Copy file if it doesn't exist
 					await fs.copyFile(sourcePath, destinationPath);
-					console.log(`Copied ${file} to .vscode folder.`);
+					logStream.write(`Copied ${file} to .vscode folder.\n`);
 				}
 			}
 
@@ -71,16 +73,18 @@ await buildCommands('vscode-config', {
 		defaultArguments: [],
 	},
 	printConfig: {
-		async command() {
+		async command(_, logStream) {
 			const destinationPackage = await packageUp();
 			if (destinationPackage === undefined) {
-				console.error('The `--init` flag must be used in a directory with a package.json file somewhere above it');
+				logStream.write(
+					'Error: The `--init` flag must be used in a directory with a package.json file somewhere above it\n',
+				);
 				return 1;
 			}
 
 			const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
 			if (sourcePackage === undefined) {
-				console.error('The script being called was not in a package, weird.');
+				logStream.write('Error: The script being called was not in a package, weird.\n');
 				return 1;
 			}
 
@@ -97,9 +101,9 @@ await buildCommands('vscode-config', {
 					const fileContent = JSON.parse(await fs.readFile(destinationPath, 'utf8')) as Promise<
 						Record<string, unknown>
 					>;
-					console.log(`Contents of ${file}:\n${JSON.stringify(fileContent, undefined, 2)}`);
+					logStream.write(`Contents of ${file}:\n${JSON.stringify(fileContent, undefined, 2)}\n`);
 				} else {
-					console.log(`Could not find ${file}`);
+					logStream.write(`Could not find ${file}\n`);
 					exitCode = 1;
 				}
 			}

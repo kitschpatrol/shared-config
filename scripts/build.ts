@@ -5,7 +5,7 @@ await esbuild.build({
 	bundle: true,
 	entryPoints: ['src/cli.ts'],
 	format: 'esm',
-	minify: true,
+	// Minify: true,
 	outfile: 'bin/cli.js',
 	packages: 'external',
 	platform: 'node',
