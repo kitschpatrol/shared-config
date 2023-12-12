@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/shared-config",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"type": "module",
 	"description": "Linting and formatting for web projects.",
 	"repository": {

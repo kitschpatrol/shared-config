@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { type OptionCommands, buildCommands, execute } from '../../../src/command-builder.js';
 import { capabilities } from '../build/capabilities.js';
+import chalk from 'chalk';
 
 function kebabCase(text: string): string {
 	return text.replaceAll(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase());
@@ -35,11 +36,11 @@ async function executeCommands(
 	}
 
 	if (successfulCommands.length > 0) {
-		logStream.write(`Successful commands: ${successfulCommands.join(', ')}\n`);
+		logStream.write(`${chalk.green.bold('Successful commands:')} ${successfulCommands.join(', ')}\n`);
 	}
 
 	if (failedCommands.length > 0) {
-		logStream.write(`Failed commands: ${failedCommands.join(', ')}\n`);
+		logStream.write(`${chalk.red.bold('Failed commands:    ')} ${failedCommands.join(', ')}\n`);
 	}
 
 	return failedCommands.length > 0 ? 1 : 0;

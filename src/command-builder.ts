@@ -92,6 +92,7 @@ function generateHelpText(command: string, options: OptionCommands): string {
 				}
 
 				default: {
+					// TS catches this first
 					console.error(`Unknown command name: ${name}`);
 				}
 			}
@@ -139,6 +140,7 @@ function generateFlags(options: OptionCommands): AnyFlags {
 			}
 
 			default: {
+				// TS catches this first
 				console.error(`Unknown command name: ${name}`);
 			}
 		}
@@ -167,9 +169,7 @@ export async function execute(
 
 			// End false is key here, otherwise the stream will close before the subprocess is done
 			subprocess.stdout?.pipe(logStream, { end: false });
-
-			// Necessary?
-			// subprocess.stderr?.pipe(logStream, { end: false });
+			subprocess.stderr?.pipe(logStream, { end: false });
 			await subprocess;
 			exitCode = subprocess.exitCode ?? 1;
 		} catch (error) {
@@ -180,14 +180,14 @@ export async function execute(
 		return exitCode;
 	}
 
-	console.error(`Invalid optionCommand: ${JSON.stringify(optionCommand, undefined, 2)}`);
+	logStream.write(`Error: Invalid optionCommand: ${JSON.stringify(optionCommand, undefined, 2)}`);
 	return 1;
 }
 
-function checkArguments(input: string[], optionCommand: OptionCommand): void {
+function checkArguments(input: string[], optionCommand: OptionCommand, logStream: NodeJS.WritableStream): void {
 	// Warn if no default arguments are provided, don't be too clever
 	if (input.length === 0 && !optionCommand.defaultArguments) {
-		console.error('This command must be used with a file argument');
+		logStream.write('Error: This command must be used with a file argument\n');
 		process.exit(1);
 	}
 }
@@ -231,7 +231,7 @@ export async function buildCommands(
 
 	for (const [name, optionCommand] of Object.entries(commandsToRun)) {
 		if (typeof optionCommand.command === 'function') {
-			checkArguments(input, optionCommand);
+			checkArguments(input, optionCommand, logStream);
 
 			const args = input.length === 0 ? optionCommand.defaultArguments ?? [] : input;
 			const options = optionCommand.options ?? [];
@@ -240,7 +240,7 @@ export async function buildCommands(
 			aggregateExitCode += await optionCommand.command(logStream, args, options);
 		} else if (typeof optionCommand.command === 'string') {
 			// Warn if no default arguments are provided, don't be too clever
-			checkArguments(input, optionCommand);
+			checkArguments(input, optionCommand, logStream);
 
 			aggregateExitCode += await execute(
 				logStream,
@@ -256,14 +256,14 @@ export async function buildCommands(
 					// Copy files
 					const destinationPackage = await packageUp();
 					if (destinationPackage === undefined) {
-						console.error('The `--init` flag must be used in a directory with a package.json file');
+						logStream.write('Error: The `--init` flag must be used in a directory with a package.json file\n');
 						aggregateExitCode += 1;
 						break;
 					}
 
 					const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
 					if (sourcePackage === undefined) {
-						console.error('The script being called was not in a package, weird.');
+						logStream.write('Error: The script being called was not in a package, weird.\n');
 						aggregateExitCode += 1;
 						break;
 					}
@@ -271,7 +271,7 @@ export async function buildCommands(
 					const source = path.join(path.dirname(sourcePackage), 'init/');
 					const destination = path.dirname(destinationPackage);
 
-					console.log(`Copying initial configuration files from:\n"${source}" → "${destination}"`);
+					logStream.write(`Copying initial configuration files from:\n"${source}" → "${destination}"\n`);
 
 					const copyCommand: OptionCommand = {
 						command: 'cp',
