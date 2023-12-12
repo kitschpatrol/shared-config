@@ -42,6 +42,7 @@
 		"@kitschpatrol/prettier-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/vscode-config": "workspace:*",
+		"chalk": "^5.3.0",
 		"execa": "^8.0.1",
 		"meow": "^12.1.1",
 		"package-up": "^5.0.0"

@@ -4,7 +4,7 @@ import { buildCommands } from '../../../src/command-builder.js';
 const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input'];
 const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro}'];
 
-await buildCommands('stylelint-config', 'Stylelint', {
+await buildCommands('stylelint-config', 'Stylelint', 'greenBright', {
 	check: {
 		command: 'stylelint',
 		defaultArguments: sharedDefaultArguments,

@@ -6,9 +6,7 @@ function kebabCase(text: string): string {
 	return text.replaceAll(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase());
 }
 
-// eslint-disable-next-line max-params
 async function executeCommands(
-	logPrefix: string | undefined,
 	logStream: NodeJS.WritableStream,
 	commands: string[],
 	options: string[],
@@ -18,9 +16,10 @@ async function executeCommands(
 	const failedCommands: string[] = [];
 
 	for (const command of commands) {
-		logStream.write(`Running "${command} ${options.join(' ')}"\n`);
+		logStream.write(`Running "${command} ${args.join(' ')} ${options.join(' ')}"\n`);
+
 		const exitCode = await execute(
-			logPrefix,
+			logStream,
 			{
 				command,
 				options,
@@ -49,16 +48,11 @@ async function executeCommands(
 await buildCommands(
 	'shared-config',
 	'Shared Config',
+	'yellow',
 	Object.keys(capabilities).reduce<OptionCommands>((acc, capability) => {
 		acc[capability as keyof OptionCommands] = {
-			async command(logPrefix, logStream, args) {
-				return executeCommands(
-					logPrefix,
-					logStream,
-					capabilities[capability] as string[],
-					[`--${kebabCase(capability)}`],
-					args,
-				);
+			async command(logStream, args) {
+				return executeCommands(logStream, capabilities[capability] as string[], [`--${kebabCase(capability)}`], args);
 			},
 			defaultArguments: [],
 		};

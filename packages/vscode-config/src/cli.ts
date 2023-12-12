@@ -23,9 +23,9 @@ async function checkFileExists(file: string): Promise<boolean> {
 	}
 }
 
-await buildCommands('vscode-config', 'VSCode Config', {
+await buildCommands('vscode-config', 'VSCode Config', 'gray', {
 	init: {
-		async command(_, logStream) {
+		async command(logStream) {
 			const destinationPackage = await packageUp();
 			if (destinationPackage === undefined) {
 				logStream.write(
@@ -73,7 +73,7 @@ await buildCommands('vscode-config', 'VSCode Config', {
 		defaultArguments: [],
 	},
 	printConfig: {
-		async command(_, logStream) {
+		async command(logStream) {
 			const destinationPackage = await packageUp();
 			if (destinationPackage === undefined) {
 				logStream.write(

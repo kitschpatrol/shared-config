@@ -18,7 +18,7 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-toml',
 ];
 
-await buildCommands('prettier-config', 'Prettier', {
+await buildCommands('prettier-config', 'Prettier', 'blue', {
 	check: {
 		command: 'prettier',
 		defaultArguments: ['.'],
@@ -31,7 +31,7 @@ await buildCommands('prettier-config', 'Prettier', {
 	},
 	init: {},
 	printConfig: {
-		async command(logPrefix, logStream, args) {
+		async command(logStream, args) {
 			const filePath = args?.at(0);
 
 			if (filePath) {

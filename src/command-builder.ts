@@ -2,6 +2,8 @@
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
+import chalk from 'chalk';
+import { type foregroundColorNames } from 'chalk';
 import { execa } from 'execa';
 import meow from 'meow';
 import type { Flag } from 'meow';
@@ -17,12 +19,12 @@ type NumberFlag = Flag<'number', number> | Flag<'number', number[], true>;
 type AnyFlag = BooleanFlag | NumberFlag | StringFlag;
 type AnyFlags = Record<string, AnyFlag>;
 
+type ChalkColor = (typeof foregroundColorNames)[number];
+
 type OptionCommand = {
 	/** Either a string to run a command, or a function to do something custom. If undefined, a default behavior is used. */
 	command?:
 		| ((
-				/** Useful if you're calling execute in the function */
-				logPrefix: string | undefined,
 				/** Useful if you're logging in the function, ensures output is prefixed */
 				logStream: NodeJS.WritableStream,
 				args: string[],
@@ -40,16 +42,17 @@ export type OptionCommands = {
 	[key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand;
 };
 
-function createStreamTransform(logPrefix: string): Transform {
+function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
 	return new Transform({
-		transform(chunk, encoding, callback) {
+		transform(chunk: Buffer | string, encoding: BufferEncoding, callback) {
 			// Convert the chunk to a string and prepend the string to each line
 			const lines: string[] = chunk
 				.toString()
 				.split(/\r?\n/)
 				.filter((line) => line.trim().length > 0);
 
-			const transformed = lines.map((line) => '[' + logPrefix + '] ' + line).join('\n') + '\n';
+			const transformed =
+				lines.map((line) => `${logPrefix ? chalk[logColor]('[' + logPrefix + '] ') : ''}${line}`).join('\n') + '\n';
 
 			// Pass the transformed data to the next stage in the stream
 			this.push(transformed);
@@ -147,17 +150,12 @@ function generateFlags(options: OptionCommands): AnyFlags {
 }
 
 export async function execute(
-	logPrefix: string | undefined,
+	logStream: NodeJS.WritableStream,
 	optionCommand: OptionCommand,
 	input: string[] = [],
 ): Promise<number> {
 	if (optionCommand.command !== undefined && typeof optionCommand.command === 'string') {
 		let exitCode: number;
-
-		let prependStream: Transform | undefined;
-		if (logPrefix !== undefined) {
-			prependStream = createStreamTransform(logPrefix);
-		}
 
 		try {
 			const subprocess = execa(optionCommand.command, [...(optionCommand.options ?? []), ...input], {
@@ -166,16 +164,13 @@ export async function execute(
 					FORCE_COLOR: 'true',
 				},
 				stdin: 'inherit', // For input, todo anything weird here?
-				// All: true,
 			});
 
-			if (prependStream === undefined) {
-				subprocess.stdout?.pipe(process.stdout);
-			} else {
-				subprocess.stdout?.pipe(prependStream).pipe(process.stdout);
-			}
+			// End false is key here, otherwise the stream will close before the subprocess is done
+			subprocess.stdout?.pipe(logStream, { end: false });
 
-			// Subprocess.all?.pipe(process.stdout);
+			// Necessary?
+			// subprocess.stderr?.pipe(logStream, { end: false });
 			await subprocess;
 			exitCode = subprocess.exitCode ?? 1;
 		} catch (error) {
@@ -198,7 +193,12 @@ function checkArguments(input: string[], optionCommand: OptionCommand): void {
 	}
 }
 
-export async function buildCommands(command: string, logPrefix: string | undefined, options: OptionCommands) {
+export async function buildCommands(
+	command: string,
+	logPrefix: string | undefined,
+	logColor: ChalkColor,
+	options: OptionCommands,
+) {
 	const cli = meow(generateHelpText(command, options), {
 		allowUnknownFlags: false,
 		booleanDefault: undefined,
@@ -221,6 +221,10 @@ export async function buildCommands(command: string, logPrefix: string | undefin
 		commandsToRun.check = options.check;
 	}
 
+	// Set up log stream
+	const logStream = createStreamTransform(logPrefix, logColor);
+	logStream.pipe(process.stdout);
+
 	// Debug
 	// console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
 
@@ -233,23 +237,14 @@ export async function buildCommands(command: string, logPrefix: string | undefin
 			const args = input.length === 0 ? optionCommand.defaultArguments ?? [] : input;
 			const options = optionCommand.options ?? [];
 
-			let logStream: NodeJS.WritableStream;
-			if (logPrefix === undefined) {
-				logStream = process.stdout;
-			} else {
-				const prependStream = createStreamTransform(logPrefix);
-				prependStream.pipe(process.stdout);
-				logStream = prependStream;
-			}
-
 			// Custom function execution is always the same
-			aggregateExitCode += await optionCommand.command(logPrefix, logStream, args, options);
+			aggregateExitCode += await optionCommand.command(logStream, args, options);
 		} else if (typeof optionCommand.command === 'string') {
 			// Warn if no default arguments are provided, don't be too clever
 			checkArguments(input, optionCommand);
 
 			aggregateExitCode += await execute(
-				logPrefix,
+				logStream,
 				optionCommand,
 				input.length === 0 ? optionCommand.defaultArguments : input,
 			);
@@ -284,7 +279,7 @@ export async function buildCommands(command: string, logPrefix: string | undefin
 						options: ['-Ri', `${source}`, `${destination}`],
 					};
 
-					aggregateExitCode += await execute(logPrefix, copyCommand);
+					aggregateExitCode += await execute(logStream, copyCommand);
 					break;
 				}
 

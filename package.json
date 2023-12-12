@@ -29,6 +29,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/vscode-config": "workspace:*",
 		"@types/node": "^20.10.4",
+		"chalk": "^5.3.0",
 		"esbuild": "^0.19.9",
 		"execa": "^8.0.1",
 		"meow": "^12.1.1",
