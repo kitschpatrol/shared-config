@@ -16,7 +16,8 @@
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
 		"build": "pnpm -r run build",
-		"clean": "pnpm run bin-restore && git clean -fdX"
+		"clean": "pnpm run bin-restore && git clean -fdX",
+		"prepublishOnly": "pnpm run build"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
