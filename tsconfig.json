@@ -4,5 +4,5 @@
 		"module": "nodenext",
 		"strictNullChecks": true
 	},
-	"include": ["src/**/*", "packages/*/src/**/*"]
+	"include": ["scripts/**/*", "src/**/*", "packages/*/src/**/*", "packages/*/scripts/**/*"]
 }

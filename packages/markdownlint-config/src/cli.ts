@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/utils/command-builder.js';
+import { buildCommands } from '../../../src/command-builder.js';
 
 // TODO how best to append {md,mdx} condition to arguments
 // from shared-config script?

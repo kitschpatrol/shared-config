@@ -1,6 +1,6 @@
 #!/usr/bin/env node
+import { type OptionCommands, buildCommands, execute } from '../../../src/command-builder.js';
 import { capabilities } from '../build/capabilities.js';
-import { type OptionCommands, buildCommands, execute } from './utils/command-builder.js';
 
 function kebabCase(text: string): string {
 	return text.replaceAll(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase());

@@ -1,0 +1,55 @@
+{
+	"name": "@kitschpatrol/shared-config",
+	"version": "2.1.0",
+	"type": "module",
+	"description": "Linting and formatting for web projects.",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/shared-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
+	"bin": {
+		"shared-config": "bin/cli.js"
+	},
+	"files": [
+		"bin"
+	],
+	"scripts": {
+		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts",
+		"clean": "pnpm run bin-restore && git clean -fdX",
+		"cli": "node ./bin/cli.js"
+	},
+	"dependencies": {
+		"@kitschpatrol/cspell-config": "workspace:*",
+		"@kitschpatrol/eslint-config": "workspace:*",
+		"@kitschpatrol/markdownlint-config": "workspace:*",
+		"@kitschpatrol/npm-config": "workspace:*",
+		"@kitschpatrol/prettier-config": "workspace:*",
+		"@kitschpatrol/stylelint-config": "workspace:*",
+		"@kitschpatrol/vscode-config": "workspace:*",
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0"
+	},
+	"devDependencies": {
+		"camelcase": "^8.0.0",
+		"globby": "^14.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

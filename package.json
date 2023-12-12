@@ -1,64 +1,38 @@
 {
-	"name": "@kitschpatrol/shared-config",
-	"version": "2.1.0",
+	"name": "root",
+	"version": "0.0.0",
 	"type": "module",
-	"description": "Linting and formatting for web projects.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git"
 	},
-	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
-	},
-	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
-	},
-	"license": "MIT",
+	"private": true,
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=8.0.0"
 	},
-	"bin": {
-		"shared-config": "bin/cli.js"
-	},
-	"files": [
-		"bin"
-	],
 	"scripts": {
 		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
-		"build": "pnpm run build:packages && pnpm run build:capabilities && pnpm run build:shared-config",
-		"build:capabilities": "mkdir -p ./build && ./src/utils/capability-generator.ts > ./build/capabilities.ts",
-		"build:packages": "pnpm -r run build",
-		"build:shared-config": "./src/utils/build.ts",
-		"clean": "pnpm run bin-restore && git clean -fdX",
-		"cli": "node ./bin/cli.js"
+		"build": "pnpm -r run build",
+		"clean": "pnpm run bin-restore && git clean -fdX"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
 		"@kitschpatrol/markdownlint-config": "workspace:*",
 		"@kitschpatrol/npm-config": "workspace:*",
 		"@kitschpatrol/prettier-config": "workspace:*",
+		"@kitschpatrol/shared-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/vscode-config": "workspace:*",
+		"@types/node": "^20.10.4",
+		"esbuild": "^0.19.9",
 		"execa": "^8.0.1",
 		"meow": "^12.1.1",
-		"package-up": "^5.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^20.10.4",
-		"camelcase": "^8.0.0",
-		"esbuild": "^0.19.9",
-		"globby": "^14.0.0",
+		"package-up": "^5.0.0",
 		"tsx": "^4.6.2",
 		"typescript": "^5.3.3"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }

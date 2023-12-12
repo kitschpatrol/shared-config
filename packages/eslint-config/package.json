@@ -31,7 +31,7 @@
 		"init"
 	],
 	"scripts": {
-		"build": "../../src/utils/build.ts",
+		"build": "../../scripts/build.ts",
 		"cli": "node ./bin/cli.js"
 	},
 	"peerDependencies": {
