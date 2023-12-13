@@ -1,15 +1,15 @@
-/* @type {import('eslint').Linter.Config} */
-
 const extendsPrefix = [
 	'eslint:recommended',
 	'plugin:n/recommended',
 	'plugin:unicorn/recommended',
+	'plugin:mdx/recommended', // Run over all files because it can lint comments
 	'xo',
 	'plugin:perfectionist/recommended-natural',
 ];
 
 const extendsSuffix = ['prettier'];
 
+/* @type {import('eslint').Linter.Config} */
 const rulesConfig = {
 	// Possible perfectionist conflicts
 	'@typescript-eslint/adjacent-overload-signatures': 'off',
@@ -47,6 +47,12 @@ module.exports = {
 	},
 	extends: [...extendsPrefix, ...extendsSuffix],
 	overrides: [
+		{
+			extends: [...extendsPrefix, ...extendsSuffix],
+			files: ['*.md', '*.mdx'],
+			parser: 'eslint-mdx',
+			rules: rulesConfig,
+		},
 		{
 			extends: [...extendsPrefix, 'plugin:@typescript-eslint/recommended', 'xo-typescript', ...extendsSuffix],
 			files: ['*.ts', '*.tsx', '*.mts', '*.cts'],
@@ -99,4 +105,7 @@ module.exports = {
 		},
 	],
 	rules: rulesConfig,
+	settings: {
+		'mdx/code-blocks': true,
+	},
 };

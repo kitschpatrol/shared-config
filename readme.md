@@ -1,8 +1,10 @@
-# shared-config
+# @kitschpatrol/shared-config
 
-## Overview
+## Overview This Is
 
 A collection of shared configurations for various linters and tools.
+
+google.com
 
 This package takes a maximalist approach, bundling plugins I need on a regular basis into a single dependency.
 
@@ -71,9 +73,9 @@ pnpm run format
 
 ## Todo
 
-- [ ] `.tsconfig`?
-- [ ] Interactive override / merge prompt
-- [x] DRY script invocation / initial config copying?
+- \[] `.tsconfig`?
+- \[] Interactive override / merge prompt
+- \[] DRY script invocation / initial config copying?
 
 ## Package architecture
 
@@ -93,7 +95,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 - Even basic file-only packages like `vscode-config` and `npm-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
-## Dev Notes
+## Dev notes
 
 - Note that `prettier` and `eslint` packages are [hoisted by default](https://pnpm.io/npmrc#public-hoist-pattern) in `pnpm`
 

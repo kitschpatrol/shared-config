@@ -7,6 +7,7 @@ import fs from 'node:fs/promises';
 async function getBinNames(): Promise<string[]> {
 	const paths = await globby('../*/package.json', { ignore: ['../shared-config/package.json'] });
 
+	// Add the bin names for each package (except shared-)
 	const names: string[] = [];
 	for (const path of paths) {
 		const packageJson = JSON.parse(await fs.readFile(path, 'utf8')) as Record<string, unknown>;

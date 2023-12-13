@@ -2,6 +2,7 @@
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
+// eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk';
 import { execa } from 'execa';
 import meow from 'meow';

@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/eslint-config",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "Eslint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -48,13 +48,15 @@
 		"eslint-config-xo-typescript": "^1.0.1",
 		"eslint-plugin-astro": "^0.30.0",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
+		"eslint-plugin-mdx": "^3.0.0",
 		"eslint-plugin-n": "^16.4.0",
 		"eslint-plugin-perfectionist": "^2.5.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"eslint-plugin-unicorn": "^49.0.0",
 		"execa": "^8.0.1",
 		"meow": "^12.1.1",
-		"package-up": "^5.0.0"
+		"package-up": "^5.0.0",
+		"up": "^1.0.2"
 	},
 	"publishConfig": {
 		"access": "public"

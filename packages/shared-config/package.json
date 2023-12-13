@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/shared-config",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "Linting and formatting for web projects.",
 	"repository": {
@@ -37,15 +37,16 @@
 	"dependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
-		"@kitschpatrol/markdownlint-config": "workspace:*",
 		"@kitschpatrol/npm-config": "workspace:*",
 		"@kitschpatrol/prettier-config": "workspace:*",
+		"@kitschpatrol/remark-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/vscode-config": "workspace:*",
 		"chalk": "^5.3.0",
 		"execa": "^8.0.1",
 		"meow": "^12.1.1",
-		"package-up": "^5.0.0"
+		"package-up": "^5.0.0",
+		"up": "^1.0.2"
 	},
 	"devDependencies": {
 		"camelcase": "^8.0.0",

@@ -1,0 +1,99 @@
+{
+	"name": "@kitschpatrol/remark-config",
+	"version": "2.2.0",
+	"type": "module",
+	"description": "Linting and formatting for web projects.",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/remark-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
+	"bin": {
+		"remark-config": "bin/cli.js"
+	},
+	"main": "main.js",
+	"files": [
+		"bin",
+		"init"
+	],
+	"scripts": {
+		"build": "../../scripts/build.ts",
+		"cli": "node ./bin/cli.js",
+		"prepublishOnly": "pnpm run build"
+	},
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"execa": "^8.0.1",
+		"meow": "^12.1.1",
+		"package-up": "^5.0.0",
+		"remark-capitalize-headings": "^2.0.1",
+		"remark-cli": "^12.0.0",
+		"remark-lint": "^9.1.2",
+		"remark-lint-checkbox-character-style": "^4.1.2",
+		"remark-lint-checkbox-content-indent": "^4.1.2",
+		"remark-lint-code-block-style": "^3.1.2",
+		"remark-lint-emphasis-marker": "^3.1.2",
+		"remark-lint-fenced-code-flag": "^3.1.2",
+		"remark-lint-fenced-code-marker": "^3.1.2",
+		"remark-lint-file-extension": "^2.1.2",
+		"remark-lint-final-definition": "^3.1.2",
+		"remark-lint-first-heading-level": "^3.1.2",
+		"remark-lint-heading-increment": "^3.1.2",
+		"remark-lint-linebreak-style": "^3.1.2",
+		"remark-lint-maximum-heading-length": "^3.1.2",
+		"remark-lint-no-duplicate-defined-urls": "^2.1.2",
+		"remark-lint-no-duplicate-definitions": "^3.1.2",
+		"remark-lint-no-duplicate-headings": "^3.1.2",
+		"remark-lint-no-duplicate-headings-in-section": "^3.1.2",
+		"remark-lint-no-emphasis-as-heading": "^3.1.2",
+		"remark-lint-no-empty-url": "^3.1.2",
+		"remark-lint-no-file-name-articles": "^2.1.2",
+		"remark-lint-no-file-name-consecutive-dashes": "^2.1.2",
+		"remark-lint-no-file-name-irregular-characters": "^2.1.2",
+		"remark-lint-no-file-name-mixed-case": "^2.1.2",
+		"remark-lint-no-file-name-outer-dashes": "^2.1.2",
+		"remark-lint-no-heading-indent": "^4.1.2",
+		"remark-lint-no-heading-like-paragraph": "^3.1.2",
+		"remark-lint-no-heading-punctuation": "^3.1.2",
+		"remark-lint-no-html": "^3.1.2",
+		"remark-lint-no-literal-urls": "^3.1.2",
+		"remark-lint-no-missing-blank-lines": "^3.1.2",
+		"remark-lint-no-multiple-toplevel-headings": "^3.1.2",
+		"remark-lint-no-paragraph-content-indent": "^4.1.2",
+		"remark-lint-no-reference-like-url": "^3.1.2",
+		"remark-lint-no-shell-dollars": "^3.1.2",
+		"remark-lint-no-shortcut-reference-image": "^3.1.2",
+		"remark-lint-no-shortcut-reference-link": "^3.1.2",
+		"remark-lint-no-tabs": "^3.1.2",
+		"remark-lint-no-undefined-references": "^4.2.1",
+		"remark-lint-no-unneeded-full-reference-image": "^3.1.2",
+		"remark-lint-no-unneeded-full-reference-link": "^3.1.2",
+		"remark-lint-no-unused-definitions": "^3.1.2",
+		"remark-lint-ordered-list-marker-style": "^3.1.2",
+		"remark-lint-rule-style": "^3.1.2",
+		"remark-lint-strikethrough-marker": "^2.1.2",
+		"remark-lint-strong-marker": "^3.1.2",
+		"remark-lint-table-cell-padding": "^4.1.3",
+		"remark-lint-unordered-list-marker-style": "^3.1.2",
+		"remark-preset-prettier": "^2.0.1",
+		"remark-validate-links": "^13.0.0",
+		"up": "^1.0.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

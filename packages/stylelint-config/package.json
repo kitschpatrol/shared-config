@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/stylelint-config",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "Stylelint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -45,7 +45,8 @@
 		"package-up": "^5.0.0",
 		"stylelint-config-clean-order": "^5.2.0",
 		"stylelint-config-html": "^1.1.0",
-		"stylelint-config-standard": "^34.0.0"
+		"stylelint-config-standard": "^34.0.0",
+		"up": "^1.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
