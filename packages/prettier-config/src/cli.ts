@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js';
-import { resolveConfig } from 'prettier';
 
 // TODO bad idea?
 // At least test the ruby situation
@@ -30,17 +29,5 @@ await buildCommands('prettier-config', 'Prettier', 'blue', {
 		options: [...sharedOptions, '--write'],
 	},
 	init: {},
-	printConfig: {
-		async command(logStream, args) {
-			const filePath = args?.at(0);
-
-			if (filePath) {
-				logStream.write(JSON.stringify(await resolveConfig(filePath, {}), undefined, 2));
-				logStream.write('\n');
-				return 0;
-			}
-
-			return 1;
-		},
-	},
+	printConfig: {},
 });

@@ -1,4 +1,6 @@
-import remarkCapitalizeHeadings from 'remark-capitalize-headings';
+import remarkDirective from 'remark-directive';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
 import remarkLint from 'remark-lint';
 import remarkLintCheckboxCharacterStyle from 'remark-lint-checkbox-character-style';
 import remarkLintCheckboxContentIndent from 'remark-lint-checkbox-content-indent';
@@ -51,6 +53,9 @@ import remarkValidateLinks from 'remark-validate-links';
 export default {
 	plugins: [
 		remarkLint,
+		remarkFrontmatter,
+		remarkGfm,
+		remarkDirective,
 		[remarkLintCheckboxCharacterStyle, 'x'],
 		remarkLintCheckboxContentIndent,
 		[remarkLintCodeBlockStyle, 'fenced'],
@@ -99,7 +104,6 @@ export default {
 		[remarkLintStrongMarker, '*'],
 		[remarkLintTableCellPadding, 'padded'],
 		[remarkLintUnorderedListMarkerStyle, '-'],
-		remarkCapitalizeHeadings,
 		remarkValidateLinks,
 		remarkPresetPrettier,
 	],

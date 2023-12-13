@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/vscode-config",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"type": "module",
 	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
@@ -35,11 +35,11 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"dependencies": {
-		"chalk": "^5.3.0",
-		"execa": "^8.0.1",
-		"meow": "^12.1.1",
-		"package-up": "^5.0.0",
-		"up": "^1.0.2"
+		"@pinojs/json-colorizer": "^4.0.0",
+		"execa": "^8.0.1"
+	},
+	"devDependencies": {
+		"package-up": "^5.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

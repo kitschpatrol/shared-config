@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js';
+import { stringify } from '../../../src/json-utils.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -101,9 +102,10 @@ await buildCommands('vscode-config', 'VSCode Config', 'gray', {
 					const fileContent = JSON.parse(await fs.readFile(destinationPath, 'utf8')) as Promise<
 						Record<string, unknown>
 					>;
-					logStream.write(`Contents of ${file}:\n${JSON.stringify(fileContent, undefined, 2)}\n`);
+					logStream.write(`Contents of ${file}:\n`);
+					logStream.write(stringify(fileContent));
 				} else {
-					logStream.write(`Could not find ${file}\n`);
+					logStream.write(`Error: Could not find ${file}\n`);
 					exitCode = 1;
 				}
 			}

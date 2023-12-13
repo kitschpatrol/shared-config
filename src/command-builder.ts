@@ -2,13 +2,16 @@
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
+import { stringify } from './json-utils.js';
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk';
+import { cosmiconfig } from 'cosmiconfig';
 import { execa } from 'execa';
 import meow from 'meow';
 import type { Flag } from 'meow';
 import path from 'node:path';
 import { Transform } from 'node:stream';
+import { PassThrough, type Stream } from 'node:stream';
 import { fileURLToPath } from 'node:url';
 import { packageUp } from 'package-up';
 
@@ -67,38 +70,49 @@ function generateHelpText(command: string, options: OptionCommands): string {
     $ ${command} [<file|glob> ...]
   `;
 
-	if (Object.keys(options).length > 0) {
-		helpText += '\n  Options';
+	helpText += '\n  Options';
 
+	if (Object.keys(options).length > 0) {
 		for (const name of Object.keys(options)) {
 			switch (name) {
 				case 'init': {
-					helpText += '\n    --init, -i            Initialize by copying starter config files to your project root.';
+					helpText +=
+						'\n    --init, -i                Initialize by copying starter config files to your project root.';
 					break;
 				}
 
 				case 'check': {
-					helpText += `\n    --check, -c           Check for and report issues. Same as ${command}.`;
+					helpText += `\n    --check, -c               Check for and report issues. Same as ${command}.`;
 					break;
 				}
 
 				case 'fix': {
-					helpText += '\n    --fix, -f             Fix all auto-fixable issues, and report the un-fixable.';
+					helpText += '\n    --fix, -f                 Fix all auto-fixable issues, and report the un-fixable.';
 					break;
 				}
 
 				case 'printConfig': {
-					helpText += '\n    --print-config <file> Print the effective configuration for a file';
+					helpText += '\n    --print-config, -p <path> Print the effective configuration at a certain path.';
+					break;
+				}
+
+				case 'help': {
+					break;
+				}
+
+				case 'version': {
 					break;
 				}
 
 				default: {
-					// TS catches this first
-					console.error(`Unknown command name: ${name}`);
+					console.error(`Unknown command name in generateHelpText: ${name}`);
 				}
 			}
 		}
 	}
+
+	helpText += '\n    --help, -h                Print this help info.';
+	helpText += '\n    --version, -v             Print the package version.\n';
 
 	return helpText;
 }
@@ -135,6 +149,23 @@ function generateFlags(options: OptionCommands): AnyFlags {
 
 			case 'printConfig': {
 				flagOptions = {
+					shortFlag: 'p',
+					type: 'boolean',
+				};
+				break;
+			}
+
+			case 'help': {
+				flagOptions = {
+					shortFlag: 'h',
+					type: 'boolean',
+				};
+				break;
+			}
+
+			case 'version': {
+				flagOptions = {
+					shortFlag: 'v',
 					type: 'boolean',
 				};
 				break;
@@ -142,13 +173,53 @@ function generateFlags(options: OptionCommands): AnyFlags {
 
 			default: {
 				// TS catches this first
-				console.error(`Unknown command name: ${name}`);
+				console.error(`!Unknown command name: ${name}`);
 			}
 		}
 
 		acc[name] = flagOptions;
 		return acc;
 	}, {});
+}
+
+async function streamToString(stream: Stream): Promise<string> {
+	const chunks: Buffer[] = [];
+	return new Promise((resolve, reject) => {
+		stream.on('data', (chunk: Buffer) => chunks.push(Buffer.from(chunk)));
+		stream.on('error', (error) => {
+			reject(error);
+		});
+		stream.on('end', () => {
+			resolve(Buffer.concat(chunks).toString('utf8'));
+		});
+	});
+}
+
+export async function executeJsonOutput(
+	logStream: NodeJS.WritableStream,
+	optionCommand: OptionCommand,
+	input: string[] = [],
+): Promise<number> {
+	// Capture the output of execution, and then format is nicely
+	const pass = new PassThrough();
+	const exitCode = await execute(pass, optionCommand, input);
+	pass.end();
+
+	if (exitCode !== 0) {
+		logStream.write('Error printing config.\n');
+		return exitCode;
+	}
+
+	try {
+		const configString = await streamToString(pass);
+
+		logStream.write(stringify(JSON.parse(configString)));
+		logStream.write('\n');
+		return 0;
+	} catch (error) {
+		logStream.write(`Error: ${error}\n`);
+		return 1;
+	}
 }
 
 export async function execute(
@@ -199,10 +270,11 @@ export async function buildCommands(
 	logColor: ChalkColor,
 	options: OptionCommands,
 ) {
-	const cli = meow(generateHelpText(command, options), {
+	const cli = meow({
 		allowUnknownFlags: false,
 		booleanDefault: undefined,
 		flags: generateFlags(options),
+		help: generateHelpText(command, options),
 		importMeta: import.meta,
 	});
 
@@ -296,13 +368,29 @@ export async function buildCommands(
 				}
 
 				case 'printConfig': {
-					console.error('No default implementation for print-config');
-					aggregateExitCode += 1;
+					const args = input.length === 0 ? optionCommand.defaultArguments ?? ['.'] : input;
+					const filePath = args?.at(0);
+
+					// Brittle
+					const configName = command.split('-').at(0);
+					console.log('looking up config for');
+					console.log(configName);
+					const configSearch = await cosmiconfig(configName).search(filePath);
+
+					if (!configSearch?.isEmpty && configSearch?.config) {
+						logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`);
+						logStream.write(stringify(configSearch.config));
+						logStream.write('\n');
+					} else {
+						logStream.write('Error: Could not find or parse config file.\n');
+						aggregateExitCode += 1;
+					}
+
 					break;
 				}
 
 				default: {
-					console.error(`Unknown command name: ${name}`);
+					console.error(`!!Unknown command name: ${name}`);
 					aggregateExitCode += 1;
 					break;
 				}

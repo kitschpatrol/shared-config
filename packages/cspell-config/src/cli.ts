@@ -9,7 +9,10 @@ await buildCommands('cspell-config', 'CSpell', 'cyan', {
 	},
 	init: {},
 	printConfig: {
+		// Doesn't work with executeJsonOutput
+		// because of json parsing errors (regex related)
 		command: 'cspell',
-		options: ['--debug'],
+		defaultArguments: ['.'],
+		options: ['--debug', '--no-exit-code', '--no-color'],
 	},
 });

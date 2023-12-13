@@ -24,6 +24,13 @@
 		"markdown",
 		"mdx"
 	],
-	"prettier.documentSelectors": ["**/*.astro", "**/*.svelte", "**/.prettierignore", "**/.npmrc", "**/.eslintignore"],
+	"prettier.documentSelectors": [
+		"**/*.astro",
+		"**/*.svelte",
+		"**/.prettierignore",
+		"**/.npmrc",
+		"**/.eslintignore",
+		"**/.gitignore"
+	],
 	"stylelint.validate": ["css", "html", "svelte", "astro"]
 }

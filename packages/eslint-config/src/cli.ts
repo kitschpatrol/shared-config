@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js';
+import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js';
 
 await buildCommands('eslint-config', 'ESLint', 'magenta', {
 	check: {
@@ -13,7 +13,15 @@ await buildCommands('eslint-config', 'ESLint', 'magenta', {
 	},
 	init: {},
 	printConfig: {
-		command: 'eslint',
-		options: ['--print-config'],
+		async command(logStream, args) {
+			return executeJsonOutput(
+				logStream,
+				{
+					command: 'eslint',
+					options: ['--print-config'],
+				},
+				args,
+			);
+		},
 	},
 });

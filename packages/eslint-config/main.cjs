@@ -2,7 +2,6 @@ const extendsPrefix = [
 	'eslint:recommended',
 	'plugin:n/recommended',
 	'plugin:unicorn/recommended',
-	'plugin:mdx/recommended', // Run over all files because it can lint comments
 	'xo',
 	'plugin:perfectionist/recommended-natural',
 ];
@@ -48,7 +47,7 @@ module.exports = {
 	extends: [...extendsPrefix, ...extendsSuffix],
 	overrides: [
 		{
-			extends: [...extendsPrefix, ...extendsSuffix],
+			extends: [...extendsPrefix, 'plugin:mdx/recommended', ...extendsSuffix],
 			files: ['*.md', '*.mdx'],
 			parser: 'eslint-mdx',
 			rules: rulesConfig,
