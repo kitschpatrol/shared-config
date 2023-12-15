@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/vscode-config",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
@@ -26,8 +26,8 @@
 		"vscode-config": "bin/cli.js"
 	},
 	"files": [
-		"bin",
-		"init"
+		"bin/*",
+		"init/*"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts",

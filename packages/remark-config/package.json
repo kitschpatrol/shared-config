@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/remark-config",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "Linting for markdown and MDX files, managed via ESLint.",
 	"repository": {
@@ -27,8 +27,8 @@
 	},
 	"main": "main.js",
 	"files": [
-		"bin",
-		"init"
+		"bin/*",
+		"init/*"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts",

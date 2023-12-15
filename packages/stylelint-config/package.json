@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/stylelint-config",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "Stylelint config for @kitschpatrol/shared-config",
 	"repository": {
@@ -27,8 +27,8 @@
 	},
 	"main": "main.cjs",
 	"files": [
-		"bin",
-		"init"
+		"bin/*",
+		"init/*"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts",
