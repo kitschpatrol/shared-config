@@ -310,13 +310,14 @@ export async function buildCommands(
 	logStream.pipe(process.stdout);
 
 	// Make 'check' the default behavior if no flags are specified
-	if (Object.keys(commandsToRun).length === 0 && options.check) {
-		commandsToRun.check = options.check;
-	} else {
-		logStream.write(
-			`No default check behavior implemented. Run ${command} --help for valid commands.\n`,
-		);
-		process.exit(0);
+	if (Object.keys(commandsToRun).length === 0) {
+		if (options.check === undefined) {
+			logStream.write(
+				`No default check behavior implemented. Run ${command} --help for valid commands.\n`,
+			);
+		} else {
+			commandsToRun.check = options.check;
+		}
 	}
 
 	// Debug

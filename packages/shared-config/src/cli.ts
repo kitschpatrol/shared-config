@@ -21,7 +21,7 @@ async function executeCommands(
 	const failedCommands: string[] = [];
 
 	for (const command of commands) {
-		logStream.write(`Running "${command} ${args.join(' ')} ${options.join(' ')}"\n`);
+		logStream.write(`Running "${command}${args.join(' ')} ${options.join(' ')}"\n`);
 
 		const exitCode = await execute(
 			logStream,
