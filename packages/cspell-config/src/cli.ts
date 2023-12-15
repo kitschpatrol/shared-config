@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js';
 
-await buildCommands('cspell-config', 'CSpell', 'cyan', {
+await buildCommands('cspell-config', '[CSpell]', 'cyan', {
 	check: {
 		command: 'cspell',
 		defaultArguments: ['.'],

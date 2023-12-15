@@ -2,7 +2,8 @@
 	"compilerOptions": {
 		"target": "es2021", // or another version compatible with your Node.js version
 		"module": "nodenext",
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"allowJs": true
 	},
 	"include": ["scripts/**/*", "src/**/*", "packages/*/src/**/*", "packages/*/scripts/**/*"]
 }

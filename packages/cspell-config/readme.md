@@ -13,7 +13,7 @@ To use just this CSpell config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/npm-config
+   pnpm dlx @kitschpatrol/repo-config
    ```
 
 2. Add the package:
@@ -47,3 +47,5 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ## Notes
 
 This config includes a bunch of words I've happened to have needed to use. Your preferences will vary.
+
+CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`).

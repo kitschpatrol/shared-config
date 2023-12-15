@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable complexity */
+
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
@@ -55,7 +57,8 @@ function createStreamTransform(logPrefix: string | undefined, logColor: ChalkCol
 				.filter((line) => line.trim().length > 0);
 
 			const transformed =
-				lines.map((line) => `${logPrefix ? chalk[logColor]('[' + logPrefix + '] ') : ''}${line}`).join('\n') + '\n';
+				lines.map((line) => `${logPrefix ? chalk[logColor](logPrefix) : ''} ${line}`).join('\n') +
+				'\n';
 
 			// Pass the transformed data to the next stage in the stream
 			this.push(transformed);
@@ -87,12 +90,14 @@ function generateHelpText(command: string, options: OptionCommands): string {
 				}
 
 				case 'fix': {
-					helpText += '\n    --fix, -f                 Fix all auto-fixable issues, and report the un-fixable.';
+					helpText +=
+						'\n    --fix, -f                 Fix all auto-fixable issues, and report the un-fixable.';
 					break;
 				}
 
 				case 'printConfig': {
-					helpText += '\n    --print-config, -p <path> Print the effective configuration at a certain path.';
+					helpText +=
+						'\n    --print-config, -p <path> Print the effective configuration at a certain path.';
 					break;
 				}
 
@@ -111,6 +116,7 @@ function generateHelpText(command: string, options: OptionCommands): string {
 		}
 	}
 
+	// Note some spooky behavior around these affecting how options are parsed
 	helpText += '\n    --help, -h                Print this help info.';
 	helpText += '\n    --version, -v             Print the package version.\n';
 
@@ -172,8 +178,7 @@ function generateFlags(options: OptionCommands): AnyFlags {
 			}
 
 			default: {
-				// TS catches this first
-				console.error(`!Unknown command name: ${name}`);
+				console.error(`Unknown command name: ${name}`);
 			}
 		}
 
@@ -231,13 +236,17 @@ export async function execute(
 		let exitCode: number;
 
 		try {
-			const subprocess = execa(optionCommand.command, [...(optionCommand.options ?? []), ...input], {
-				env: {
-					// eslint-disable-next-line @typescript-eslint/naming-convention
-					FORCE_COLOR: 'true',
+			const subprocess = execa(
+				optionCommand.command,
+				[...(optionCommand.options ?? []), ...input],
+				{
+					env: {
+						// eslint-disable-next-line @typescript-eslint/naming-convention
+						FORCE_COLOR: 'true',
+					},
+					stdin: 'inherit', // For input, todo anything weird here?
 				},
-				stdin: 'inherit', // For input, todo anything weird here?
-			});
+			);
 
 			// End false is key here, otherwise the stream will close before the subprocess is done
 			subprocess.stdout?.pipe(logStream, { end: false });
@@ -246,6 +255,7 @@ export async function execute(
 			exitCode = subprocess.exitCode ?? 1;
 		} catch (error) {
 			// Console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			exitCode = typeof error.exitCode === 'number' ? (error.exitCode as number) : 1;
 		}
 
@@ -256,7 +266,11 @@ export async function execute(
 	return 1;
 }
 
-function checkArguments(input: string[], optionCommand: OptionCommand, logStream: NodeJS.WritableStream): void {
+function checkArguments(
+	input: string[],
+	optionCommand: OptionCommand,
+	logStream: NodeJS.WritableStream,
+): void {
 	// Warn if no default arguments are provided, don't be too clever
 	if (input.length === 0 && !optionCommand.defaultArguments) {
 		logStream.write('Error: This command must be used with a file argument\n');
@@ -280,22 +294,30 @@ export async function buildCommands(
 
 	const { flags, input } = cli;
 
-	const commandsToRun = Object.keys(options).reduce<OptionCommands>((acc, command: keyof OptionCommands) => {
-		if (flags[command]) {
-			acc[command] = options[command];
-		}
+	const commandsToRun = Object.keys(options).reduce<OptionCommands>(
+		(acc, command: keyof OptionCommands) => {
+			if (flags[command]) {
+				acc[command] = options[command];
+			}
 
-		return acc;
-	}, {});
-
-	// Make 'check' the default behavior if no flags are specified
-	if (Object.keys(commandsToRun).length === 0) {
-		commandsToRun.check = options.check;
-	}
+			return acc;
+		},
+		{},
+	);
 
 	// Set up log stream
 	const logStream = createStreamTransform(logPrefix, logColor);
 	logStream.pipe(process.stdout);
+
+	// Make 'check' the default behavior if no flags are specified
+	if (Object.keys(commandsToRun).length === 0 && options.check) {
+		commandsToRun.check = options.check;
+	} else {
+		logStream.write(
+			`No default check behavior implemented. Run ${command} --help for valid commands.\n`,
+		);
+		process.exit(0);
+	}
 
 	// Debug
 	// console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
@@ -329,7 +351,9 @@ export async function buildCommands(
 					// Copy files
 					const destinationPackage = await packageUp();
 					if (destinationPackage === undefined) {
-						logStream.write('Error: The `--init` flag must be used in a directory with a package.json file\n');
+						logStream.write(
+							'Error: The `--init` flag must be used in a directory with a package.json file\n',
+						);
 						aggregateExitCode += 1;
 						break;
 					}
@@ -344,7 +368,9 @@ export async function buildCommands(
 					const source = path.join(path.dirname(sourcePackage), 'init/');
 					const destination = path.dirname(destinationPackage);
 
-					logStream.write(`Copying initial configuration files from:\n"${source}" → "${destination}"\n`);
+					logStream.write(
+						`Copying initial configuration files from:\n"${source}" → "${destination}"\n`,
+					);
 
 					const copyCommand: OptionCommand = {
 						command: 'cp',
@@ -371,26 +397,31 @@ export async function buildCommands(
 					const args = input.length === 0 ? optionCommand.defaultArguments ?? ['.'] : input;
 					const filePath = args?.at(0);
 
-					// Brittle
+					// Brittle, could pass config name to commandBuilder() instead
 					const configName = command.split('-').at(0);
-					console.log('looking up config for');
-					console.log(configName);
-					const configSearch = await cosmiconfig(configName).search(filePath);
 
-					if (!configSearch?.isEmpty && configSearch?.config) {
-						logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`);
-						logStream.write(stringify(configSearch.config));
-						logStream.write('\n');
-					} else {
-						logStream.write('Error: Could not find or parse config file.\n');
+					if (configName === undefined) {
+						logStream.write(`Error: Could not find or parse config file for ${command}.\n`);
 						aggregateExitCode += 1;
+						break;
 					}
 
+					const configSearch = await cosmiconfig(configName).search(filePath);
+
+					if (!configSearch?.config) {
+						logStream.write(`Error: Could not find or parse config file for ${configName}.\n`);
+						aggregateExitCode += 1;
+						break;
+					}
+
+					logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`);
+					logStream.write(stringify(configSearch.config));
+					logStream.write('\n');
 					break;
 				}
 
 				default: {
-					console.error(`!!Unknown command name: ${name}`);
+					console.error(`Unknown command name: ${name}`);
 					aggregateExitCode += 1;
 					break;
 				}

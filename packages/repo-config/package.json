@@ -1,12 +1,12 @@
 {
-	"name": "@kitschpatrol/npm-config",
-	"version": "2.2.1",
+	"name": "@kitschpatrol/repo-config",
+	"version": "3.0.0",
 	"type": "module",
-	"description": "npmrc config for @kitschpatrol/shared-config",
+	"description": "Initial repo configuration for @kitschpatrol/shared-config",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
-		"directory": "packages/npm-config"
+		"directory": "packages/repo-config"
 	},
 	"bugs": {
 		"url": "https://github.com/kitschpatrol/shared-config/issues",
@@ -23,7 +23,7 @@
 		"pnpm": ">=8.0.0"
 	},
 	"bin": {
-		"npm-config": "bin/cli.js"
+		"repo-config": "bin/cli.js"
 	},
 	"files": [
 		"bin",

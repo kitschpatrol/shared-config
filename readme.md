@@ -1,22 +1,22 @@
-# @kitschpatrol/shared-config
+# 🔬 @kitschpatrol/shared-config
 
-## Overview This Is
+## Overview
 
 A collection of shared configurations for various linters and tools.
-
-google.com
 
 This package takes a maximalist approach, bundling plugins I need on a regular basis into a single dependency.
 
 It takes care of dependencies and configurations for:
 
-- CSpell
-- ESLint (including Svelte, Astro, and Typescript support)
-- Stylelint
-- markdownlint
-- NPM (`.npmrc` config)
-- Prettier (including a bunch of extra plugins)
-- VSCode (extension recommendations and extension settings)
+- [CSpell](https://cspell.org)
+- [ESLint](https://eslint.org) (including Svelte, Astro, and Typescript support)
+- [Stylelint](https://stylelint.io)
+- [remarklint](https://github.com/remarkjs/remark-lint)
+- [Prettier](https://prettier.io) (including a bunch of extra plugins)
+- [VSCode](https://code.visualstudio.com) (extension recommendations and extension settings)
+- Minimal repo boilerplate (`.npmrc`, `.tsconfig`, etc.)
+
+This collection of pre-configured tools may be added to a project as a single dependency, and run simultaneously over a repo with a single command with options to either check or (where possible) fix.
 
 It's only been tested with `pnpm`.
 
@@ -25,7 +25,7 @@ It's only been tested with `pnpm`.
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/npm-config
+   pnpm dlx @kitschpatrol/repo-config
    ```
 
 2. Install the package:
@@ -71,12 +71,6 @@ To run all of the tools in a _potentially destructive_ "fix" capacity:
 pnpm run format
 ```
 
-## Todo
-
-- \[] `.tsconfig`?
-- \[] Interactive override / merge prompt
-- \[] DRY script invocation / initial config copying?
-
 ## Package architecture
 
 Each package has a simple '/src/cli.ts' file which defines the behavior of its eponymous binary. The build step turns these into node scripts, providing default implementations where feasible.
@@ -93,7 +87,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 - CSpell, markdownlint, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VSCode plugins.
 
-- Even basic file-only packages like `vscode-config` and `npm-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
+- Even basic file-only packages like `vscode-config` and `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
 ## Dev notes
 
@@ -101,11 +95,16 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 - For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
+- [Approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VSCode.
+
 ## Reference projects
 
 - [1stG/configs](https://github.com/1stG/configs)
-- [sheriff](https://www.eslint-config-sheriff.dev)
-- [xo](https://github.com/xojs/xo)
-- [standard](https://standardjs.com)
+- [antfu/eslint-config](https://github.com/antfu/eslint-config)
+- [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
+- [lass](https://lass.js.org) (xo etc.)
 - [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
+- [sheriff](https://www.eslint-config-sheriff.dev)
+- [standard](https://standardjs.com)
 - [trunk](https://trunk.io)
+- [xo](https://github.com/xojs/xo)

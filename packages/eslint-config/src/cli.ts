@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js';
 
-await buildCommands('eslint-config', 'ESLint', 'magenta', {
+await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
 	check: {
 		command: 'eslint',
 		defaultArguments: ['.'],

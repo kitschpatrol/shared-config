@@ -1,8 +1,12 @@
 {
+	"prettier.enable": true,
 	"[astro]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"[ignore]": {
+	"[gitignore]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[shellscript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[svelte]": {
@@ -14,6 +18,7 @@
 	},
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
+	"eslint.enable": true,
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
@@ -29,8 +34,9 @@
 		"**/*.svelte",
 		"**/.prettierignore",
 		"**/.npmrc",
-		"**/.eslintignore",
-		"**/.gitignore"
+		"**/.eslintignore"
 	],
-	"stylelint.validate": ["css", "html", "svelte", "astro"]
+	"stylelint.enable": true,
+	"stylelint.validate": ["css", "html", "svelte", "astro"],
+	"stylelint.configBasedir": "."
 }

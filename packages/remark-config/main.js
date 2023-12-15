@@ -8,7 +8,6 @@ import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
 import remarkLintEmphasisMarker from 'remark-lint-emphasis-marker';
 import remarkLintFencedCodeFlag from 'remark-lint-fenced-code-flag';
 import remarkLintFencedCodeMarker from 'remark-lint-fenced-code-marker';
-import remarkLintFileExtension from 'remark-lint-file-extension';
 import remarkLintFinalDefinition from 'remark-lint-final-definition';
 import remarkLintFirstHeadingLevel from 'remark-lint-first-heading-level';
 import remarkLintHeadingIncrement from 'remark-lint-heading-increment';
@@ -23,7 +22,6 @@ import remarkLintNoEmptyUrl from 'remark-lint-no-empty-url';
 import remarkLintNoFileNameArticles from 'remark-lint-no-file-name-articles';
 import remarkLintNoFileNameConsecutiveDashes from 'remark-lint-no-file-name-consecutive-dashes';
 import remarkLintNoFileNameIrregularCharacters from 'remark-lint-no-file-name-irregular-characters';
-import remarkLintNoFileNameMixedCase from 'remark-lint-no-file-name-mixed-case';
 import remarkLintNoFileNameOuterDashes from 'remark-lint-no-file-name-outer-dashes';
 import remarkLintNoHeadingIndent from 'remark-lint-no-heading-indent';
 import remarkLintNoHeadingLikeParagraph from 'remark-lint-no-heading-like-paragraph';
@@ -50,6 +48,47 @@ import remarkLintUnorderedListMarkerStyle from 'remark-lint-unordered-list-marke
 import remarkPresetPrettier from 'remark-preset-prettier';
 import remarkValidateLinks from 'remark-validate-links';
 
+/**
+ * Overrides specific rules in a set of plugins.
+ *
+ * This function searches through an array of plugins to find and override
+ * multiple plugins by their names, replacing their arguments with new ones.
+ *
+ * See this link for why we need this:
+ * https://github.com/remarkjs/remark-lint/issues/165
+ *
+ * @param {any[]} plugins - An array of plugins, where each plugin is either a function or an array containing a function and its arguments.
+ * @param {Array.<[string, any]>} rules - An array of [ruleName, newArgs] pairs, where `ruleName` is the name of the rule to override and `newArgs` are the new arguments to apply.
+ * @returns {any[]} The modified array of plugins with the overridden rules.
+ */
+export function overrideRules(plugins, rules) {
+	for (let [ruleName, newArguments] of rules) {
+		// Internally, function names are different from the package names
+		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:');
+
+		let ruleFunction;
+		const index = plugins.findIndex((plugin) => {
+			if (Array.isArray(plugin)) {
+				if (plugin[0]?.name === ruleName) {
+					ruleFunction = plugin[0];
+					return true;
+				}
+			} else if (plugin.name === ruleName) {
+				ruleFunction = plugin;
+				return true;
+			}
+
+			return false;
+		});
+
+		if (index !== -1) {
+			plugins.splice(index, 1, [ruleFunction, newArguments]);
+		}
+	}
+
+	return plugins;
+}
+
 export default {
 	plugins: [
 		remarkLint,
@@ -62,7 +101,8 @@ export default {
 		[remarkLintEmphasisMarker, '*'],
 		[remarkLintFencedCodeFlag, { allowEmpty: false }],
 		[remarkLintFencedCodeMarker, '`'],
-		[remarkLintFileExtension, 'md'],
+		// Crashes with "Cannot use 'in' operator to search for 'start' in undefined"
+		// [remarkLintFileExtension, 'md'],
 		remarkLintFinalDefinition,
 		remarkLintFirstHeadingLevel,
 		remarkLintHeadingIncrement,
@@ -79,7 +119,8 @@ export default {
 		remarkLintNoFileNameArticles,
 		remarkLintNoFileNameConsecutiveDashes,
 		remarkLintNoFileNameIrregularCharacters,
-		remarkLintNoFileNameMixedCase,
+		// Crashes with "Cannot use 'in' operator to search for 'start' in undefined"
+		// RemarkLintNoFileNameMixedCase,
 		remarkLintNoFileNameOuterDashes,
 		remarkLintNoHeadingIndent,
 		remarkLintNoHeadingLikeParagraph,

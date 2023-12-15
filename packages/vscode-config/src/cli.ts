@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js';
+import { checkFileExists } from '../../../src/file-utils.js';
 import { stringify } from '../../../src/json-utils.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -9,22 +10,7 @@ import { packageUp } from 'package-up';
 // TODO DRY or simplify this...
 // Or move merge logic into default init implementation?
 
-async function checkFileExists(file: string): Promise<boolean> {
-	try {
-		await fs.stat(file);
-		return true; // File exists
-	} catch (error) {
-		if (error.code === 'ENOENT') {
-			return false; // File does not exist
-		}
-
-		// Re-throw the error if it's not a 'File does not exist' error
-		// eslint-disable-next-line @typescript-eslint/no-throw-literal
-		throw error;
-	}
-}
-
-await buildCommands('vscode-config', 'VSCode Config', 'gray', {
+await buildCommands('vscode-config', '[VSCode Config]', 'gray', {
 	init: {
 		async command(logStream) {
 			const destinationPackage = await packageUp();
@@ -55,7 +41,9 @@ await buildCommands('vscode-config', 'VSCode Config', 'gray', {
 				if (await checkFileExists(destinationPath)) {
 					const [sourceData, destinationData] = await Promise.all([
 						fs.readFile(sourcePath, 'utf8').then(JSON.parse) as Promise<Record<string, unknown>>,
-						fs.readFile(destinationPath, 'utf8').then(JSON.parse) as Promise<Record<string, unknown>>,
+						fs.readFile(destinationPath, 'utf8').then(JSON.parse) as Promise<
+							Record<string, unknown>
+						>,
 					]);
 
 					const mergedData = { ...destinationData, ...sourceData };
@@ -78,7 +66,7 @@ await buildCommands('vscode-config', 'VSCode Config', 'gray', {
 			const destinationPackage = await packageUp();
 			if (destinationPackage === undefined) {
 				logStream.write(
-					'Error: The `--init` flag must be used in a directory with a package.json file somewhere above it\n',
+					'Error: The `--print-config` flag must be used in a directory with a package.json file somewhere above it\n',
 				);
 				return 1;
 			}
@@ -102,8 +90,9 @@ await buildCommands('vscode-config', 'VSCode Config', 'gray', {
 					const fileContent = JSON.parse(await fs.readFile(destinationPath, 'utf8')) as Promise<
 						Record<string, unknown>
 					>;
-					logStream.write(`Contents of ${file}:\n`);
+					logStream.write(`💾 Contents of "${file}":\n`);
 					logStream.write(stringify(fileContent));
+					logStream.write('\n');
 				} else {
 					logStream.write(`Error: Could not find ${file}\n`);
 					exitCode = 1;

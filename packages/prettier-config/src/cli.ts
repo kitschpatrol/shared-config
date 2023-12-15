@@ -17,7 +17,7 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-toml',
 ];
 
-await buildCommands('prettier-config', 'Prettier', 'blue', {
+await buildCommands('prettier-config', '[Prettier]', 'blue', {
 	check: {
 		command: 'prettier',
 		defaultArguments: ['.'],

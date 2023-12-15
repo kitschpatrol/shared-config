@@ -13,7 +13,7 @@ To use just this ESLint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/npm-config
+   pnpm dlx @kitschpatrol/repo-config
    ```
 
 2. Add the package:
@@ -48,3 +48,5 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ## Notes
 
 The whole flat file config thing is pending...
+
+ESLint does not inherit files and paths from `.gitignore`. Ignored paths must be specified in `.eslintignore`.

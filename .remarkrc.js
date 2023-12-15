@@ -1,7 +1,10 @@
 import sharedConfig from '@kitschpatrol/remark-config';
 
-const config = {
-	...sharedConfig,
+const localConfig = {
+	// Overrides
 };
 
-export default config;
+export default {
+	...sharedConfig,
+	...localConfig,
+};

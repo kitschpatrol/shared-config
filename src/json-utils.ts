@@ -7,7 +7,8 @@ export function stringify(object: unknown): string {
 			indent: 2,
 			replacer(key, value) {
 				if (typeof value === 'function') {
-					return value.name as string;
+					// eslint-disable-next-line @typescript-eslint/ban-types
+					return (value as Function).name;
 				}
 
 				return value as unknown;

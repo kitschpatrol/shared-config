@@ -1,1 +1,24 @@
-# TODO
+# ESLint Ignore
+# Does not inherit from .gitignore
+
+# @kitschpatrol/repo-config boilerplate
+!.env.example
+.astro/
+.DS_Store
+.env
+.env.*
+.svelte-kit/
+{tmp,temp}/
+**/*.min.js
+/scratch/
+bower_components/
+build/
+coverage/
+dist/
+node_modules/
+vendor/
+
+# @kitschpatrol/eslint-config boilerplate
+/patches/
+
+# Customizations

@@ -2,6 +2,7 @@ import { homedir } from 'node:os';
 
 /** @type {import("prettier").Config} */
 const config = {
+	bracketSpacing: true,
 	overrides: [
 		{
 			files: '*.astro',
@@ -41,7 +42,7 @@ const config = {
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
 	],
-	printWidth: 120,
+	printWidth: 100,
 	singleQuote: true,
 	tabWidth: 2,
 	trailingComma: 'all',
