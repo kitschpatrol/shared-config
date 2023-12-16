@@ -13,7 +13,7 @@ To use just this CSpell config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config
+   pnpm dlx @kitschpatrol/repo-config --init
    ```
 
 2. Add the package:

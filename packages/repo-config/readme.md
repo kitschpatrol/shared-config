@@ -19,7 +19,7 @@ It's critical that it is applied _before_ any other `@kitschpatrol/shared-config
 If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config
+pnpm dlx @kitschpatrol/repo-config --init
 ```
 
 ### Installation approach

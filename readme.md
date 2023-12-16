@@ -25,7 +25,7 @@ It's only been tested with `pnpm`.
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config
+   pnpm dlx @kitschpatrol/repo-config --init
    ```
 
 2. Install the package:

@@ -57,7 +57,7 @@ await buildCommands('vscode-config', '[VSCode Config]', 'gray', {
 				}
 			}
 
-			return 1;
+			return 0;
 		},
 		defaultArguments: [],
 	},
