@@ -1,11 +1,16 @@
-import sharedConfig from '@kitschpatrol/prettier-config';
+import sharedConfig from '@kitschpatrol/prettier-config'
 
 /** @type {import("prettier").Config} */
 const localConfig = {
-	// Overrides
-};
-
+	// Config overrides
+	// overrides: [
+	// 	...sharedConfig.overrides,
+	// 	{
+	// 		// Per-file overrides overrides
+	// 	},
+	// ],
+}
 export default {
 	...sharedConfig,
 	...localConfig,
-};
+}

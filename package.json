@@ -6,6 +6,16 @@
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git"
 	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
 	"private": true,
 	"engines": {
 		"node": ">=18.0.0",

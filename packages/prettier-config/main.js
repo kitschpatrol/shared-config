@@ -1,9 +1,15 @@
-import { homedir } from 'node:os';
+import { homedir } from 'node:os'
 
 /** @type {import("prettier").Config} */
 const config = {
 	bracketSpacing: true,
 	overrides: [
+		{
+			files: ['*.md', '*.mdx', '*.yml'],
+			options: {
+				useTabs: false,
+			},
+		},
 		{
 			files: '*.astro',
 			options: {
@@ -43,10 +49,11 @@ const config = {
 		'prettier-plugin-toml',
 	],
 	printWidth: 100,
+	semi: false,
 	singleQuote: true,
 	tabWidth: 2,
 	trailingComma: 'all',
 	useTabs: true,
-};
+}
 
-export default config;
+export default config
