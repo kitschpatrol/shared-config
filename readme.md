@@ -87,7 +87,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 - CSpell, markdownlint, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VSCode plugins.
 
-- Even basic file-only packages like `vscode-config` and `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
+- Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
 ## Dev notes
 

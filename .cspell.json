@@ -1,4 +1,4 @@
 {
 	"import": "@kitschpatrol/cspell-config/main.json",
-	"ignorePaths": ["/packages/vscode-config/init/*.json", "/packages/*/bin"]
+	"ignorePaths": ["/packages/*/init/*.json", "/packages/*/bin"]
 }

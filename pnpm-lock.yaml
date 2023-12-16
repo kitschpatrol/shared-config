@@ -29,9 +29,6 @@ importers:
       '@kitschpatrol/stylelint-config':
         specifier: workspace:*
         version: link:packages/stylelint-config
-      '@kitschpatrol/vscode-config':
-        specifier: workspace:*
-        version: link:packages/vscode-config
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
@@ -374,9 +371,6 @@ importers:
       '@kitschpatrol/stylelint-config':
         specifier: workspace:*
         version: link:../stylelint-config
-      '@kitschpatrol/vscode-config':
-        specifier: workspace:*
-        version: link:../vscode-config
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
@@ -420,22 +414,6 @@ importers:
       stylelint-config-standard:
         specifier: ^34.0.0
         version: 34.0.0(stylelint@15.11.0)
-
-  packages/vscode-config:
-    dependencies:
-      '@pinojs/json-colorizer':
-        specifier: ^4.0.0
-        version: 4.0.0
-      cosmiconfig:
-        specifier: ^9.0.0
-        version: 9.0.0(typescript@5.3.3)
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
-    devDependencies:
-      package-up:
-        specifier: ^5.0.0
-        version: 5.0.0
 
 packages:
 

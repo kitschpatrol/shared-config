@@ -25,7 +25,7 @@
 	"bin": {
 		"prettier-config": "bin/cli.js"
 	},
-	"main": "main.js",
+	"main": "prettier.config.js",
 	"files": [
 		"bin/*",
 		"init/*"

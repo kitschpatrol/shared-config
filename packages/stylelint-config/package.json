@@ -25,7 +25,7 @@
 	"bin": {
 		"stylelint-config": "bin/cli.js"
 	},
-	"main": "main.cjs",
+	"main": "stylelint.config.cjs",
 	"files": [
 		"bin/*",
 		"init/*"

@@ -25,7 +25,7 @@
 	"bin": {
 		"cspell-config": "bin/cli.js"
 	},
-	"main": "./main.json",
+	"main": "./cspell.config.json",
 	"files": [
 		"bin/*",
 		"init/*"

@@ -25,7 +25,7 @@
 	"bin": {
 		"remark-config": "bin/cli.js"
 	},
-	"main": "main.js",
+	"main": "remark.config.js",
 	"files": [
 		"bin/*",
 		"init/*"

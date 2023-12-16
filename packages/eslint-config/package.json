@@ -25,7 +25,7 @@
 	"bin": {
 		"eslint-config": "bin/cli.js"
 	},
-	"main": "./main.cjs",
+	"main": "./eslint.config.cjs",
 	"files": [
 		"bin/*",
 		"init/*"
