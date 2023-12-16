@@ -1,6 +1,6 @@
 {
 	"name": "root",
-	"version": "0.0.0",
+	"version": "3.0.3",
 	"type": "module",
 	"repository": {
 		"type": "git",
@@ -20,7 +20,8 @@
 		"build:stand-alone": "pnpm --filter=!shared-config build",
 		"clean": "pnpm run bin-restore && git clean -fdX",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"prepublishOnly": "pnpm run build"
+		"prepublishOnly": "pnpm run build",
+		"release": "pnpm build && pnpm bumpp -r --commit 'Release: %s' --tag '%s' && pnpm -r publish"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
@@ -33,6 +34,7 @@
 		"@kitschpatrol/vscode-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/node": "^20.10.4",
+		"bumpp": "^9.2.1",
 		"chalk": "^5.3.0",
 		"cosmiconfig": "^9.0.0",
 		"esbuild": "^0.19.9",
