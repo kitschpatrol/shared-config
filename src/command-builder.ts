@@ -163,7 +163,6 @@ function generateFlags(options: OptionCommands): AnyFlags {
 
 			case 'help': {
 				flagOptions = {
-					shortFlag: 'h',
 					type: 'boolean',
 				};
 				break;
@@ -171,7 +170,6 @@ function generateFlags(options: OptionCommands): AnyFlags {
 
 			case 'version': {
 				flagOptions = {
-					shortFlag: 'v',
 					type: 'boolean',
 				};
 				break;
@@ -312,9 +310,7 @@ export async function buildCommands(
 	// Make 'check' the default behavior if no flags are specified
 	if (Object.keys(commandsToRun).length === 0) {
 		if (options.check === undefined) {
-			logStream.write(
-				`No default check behavior implemented. Run ${command} --help for valid commands.\n`,
-			);
+			logStream.write(`This command requires options. Run ${command} --help for valid commands.\n`);
 		} else {
 			commandsToRun.check = options.check;
 		}

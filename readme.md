@@ -9,12 +9,12 @@ This package takes a maximalist approach, bundling plugins I need on a regular b
 It takes care of dependencies and configurations for:
 
 - [CSpell](https://cspell.org)
-- [ESLint](https://eslint.org) (including Svelte, Astro, and Typescript support)
+- [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
 - [Stylelint](https://stylelint.io)
 - [remarklint](https://github.com/remarkjs/remark-lint)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
 - [VSCode](https://code.visualstudio.com) (extension recommendations and extension settings)
-- Minimal repo boilerplate (`.npmrc`, `.tsconfig`, etc.)
+- Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 This collection of pre-configured tools may be added to a project as a single dependency, and run simultaneously over a repo with a single command with options to either check or (where possible) fix.
 

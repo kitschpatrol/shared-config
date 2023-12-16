@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/repo-config",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"type": "module",
 	"description": "Initial repo configuration for @kitschpatrol/shared-config",
 	"repository": {
@@ -35,8 +35,9 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"dependencies": {
-		"execa": "^8.0.1",
-		"package-up": "^5.0.0"
+		"@pinojs/json-colorizer": "^4.0.0",
+		"cosmiconfig": "^9.0.0",
+		"execa": "^8.0.1"
 	},
 	"publishConfig": {
 		"access": "public"

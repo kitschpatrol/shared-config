@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/vscode-config",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"type": "module",
 	"description": "VSCode settings for @kitschpatrol/shared-config",
 	"repository": {
@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
+		"cosmiconfig": "^9.0.0",
 		"execa": "^8.0.1"
 	},
 	"devDependencies": {

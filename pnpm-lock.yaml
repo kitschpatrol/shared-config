@@ -68,6 +68,12 @@ importers:
 
   packages/cspell-config:
     dependencies:
+      '@pinojs/json-colorizer':
+        specifier: ^4.0.0
+        version: 4.0.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       cspell:
         specifier: ^8.1.3
         version: 8.1.3
@@ -215,9 +221,6 @@ importers:
       remark-lint-fenced-code-marker:
         specifier: ^3.1.2
         version: 3.1.2
-      remark-lint-file-extension:
-        specifier: ^2.1.2
-        version: 2.1.2
       remark-lint-final-definition:
         specifier: ^3.1.2
         version: 3.1.2
@@ -260,9 +263,6 @@ importers:
       remark-lint-no-file-name-irregular-characters:
         specifier: ^2.1.2
         version: 2.1.2
-      remark-lint-no-file-name-mixed-case:
-        specifier: ^2.1.2
-        version: 2.1.2
       remark-lint-no-file-name-outer-dashes:
         specifier: ^2.1.2
         version: 2.1.2
@@ -270,9 +270,6 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2
       remark-lint-no-heading-like-paragraph:
-        specifier: ^3.1.2
-        version: 3.1.2
-      remark-lint-no-heading-punctuation:
         specifier: ^3.1.2
         version: 3.1.2
       remark-lint-no-html:
@@ -344,12 +341,15 @@ importers:
 
   packages/repo-config:
     dependencies:
+      '@pinojs/json-colorizer':
+        specifier: ^4.0.0
+        version: 4.0.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
-      package-up:
-        specifier: ^5.0.0
-        version: 5.0.0
 
   packages/shared-config:
     dependencies:
@@ -374,6 +374,12 @@ importers:
       '@kitschpatrol/vscode-config':
         specifier: workspace:*
         version: link:../vscode-config
+      '@pinojs/json-colorizer':
+        specifier: ^4.0.0
+        version: 4.0.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -393,6 +399,9 @@ importers:
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -414,6 +423,9 @@ importers:
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -5282,6 +5294,7 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       find-up-simple: 1.0.0
+    dev: true
 
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -5867,14 +5880,6 @@ packages:
       unist-util-visit: 4.1.2
     dev: false
 
-  /remark-lint-file-extension@2.1.2:
-    resolution: {integrity: sha512-Nq54F5R7F1gyj/IMW6SvkAbVNrH+p38WK3//KCoZLDUYFrH0oXgXXFGHi9CT/O0VEopW+bWJfTn8YAJRs0qI5Q==}
-    dependencies:
-      '@types/mdast': 3.0.15
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-    dev: false
-
   /remark-lint-final-definition@3.1.2:
     resolution: {integrity: sha512-3O3JT6xqlrgq+UjhMPxshgMtwXn99w0BEO9JwbDls49N0XCu0n22Pq1n6X3tEVzskPLo3YYyVYfW2Z2C2rneKQ==}
     dependencies:
@@ -6020,14 +6025,6 @@ packages:
       unified-lint-rule: 2.1.2
     dev: false
 
-  /remark-lint-no-file-name-mixed-case@2.1.2:
-    resolution: {integrity: sha512-0mTrjxBB4/0rV7sef+xjV5Aeb6LuW19X4QbNHW2RW7aMy+mtgJU03wdb8Y0LTnWVFHjUbc+iHrsFeCA/Pu1kew==}
-    dependencies:
-      '@types/mdast': 3.0.15
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-    dev: false
-
   /remark-lint-no-file-name-outer-dashes@2.1.2:
     resolution: {integrity: sha512-VrbHg25Oo9k/bNbS7ye1X7F6ER4uZSubO+t5DHJ4WZ6iVbNtBar/JwzVelY1YxUAutv42OvHfuveh4vKlcNgVA==}
     dependencies:
@@ -6052,17 +6049,6 @@ packages:
     resolution: {integrity: sha512-e+o6YG/htbE25dQByIYrgeZGhIu5YU2QdyN2n/J+S7z7ELVp0mfgv0AywbHYW0QrMhSQUimjyAFQ8KRSG858LA==}
     dependencies:
       '@types/mdast': 3.0.15
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-      unist-util-generated: 2.0.1
-      unist-util-visit: 4.1.2
-    dev: false
-
-  /remark-lint-no-heading-punctuation@3.1.2:
-    resolution: {integrity: sha512-KnvHEVB/DcxJOhUvVteiovAy1+32YY5Vm0UBJqYCFrrHnN/y9ETvOJzlxFy47TaB8x2UyncSEg2JuT66UL4ONQ==}
-    dependencies:
-      '@types/mdast': 3.0.15
-      mdast-util-to-string: 3.2.0
       unified: 10.1.2
       unified-lint-rule: 2.1.2
       unist-util-generated: 2.0.1
