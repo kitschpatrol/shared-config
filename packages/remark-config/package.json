@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/remark-config",
-	"version": "3.0.4",
+	"version": "3.1.0",
 	"type": "module",
 	"description": "Linting for markdown and MDX files, managed via ESLint.",
 	"repository": {
