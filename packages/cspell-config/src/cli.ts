@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js';
+import { buildCommands } from '../../../src/command-builder.js'
 
 await buildCommands('cspell-config', '[CSpell]', 'cyan', {
 	check: {
@@ -15,4 +15,4 @@ await buildCommands('cspell-config', '[CSpell]', 'cyan', {
 		defaultArguments: ['.'],
 		options: ['--debug', '--no-exit-code', '--no-color'],
 	},
-});
+})

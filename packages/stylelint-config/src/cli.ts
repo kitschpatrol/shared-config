@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js';
+import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
 
-const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input'];
-const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro}'];
+const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input']
+const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro}']
 
 await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 	check: {
@@ -25,8 +25,8 @@ await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 					options: ['--print-config'],
 				},
 				args,
-			);
+			)
 		},
 		defaultArguments: ['.'],
 	},
-});
+})

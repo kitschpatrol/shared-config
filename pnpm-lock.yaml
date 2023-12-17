@@ -47,6 +47,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.3.3)
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       esbuild:
         specifier: ^0.19.9
         version: 0.19.9
@@ -86,6 +89,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
 
   packages/eslint-config:
     dependencies:
@@ -137,6 +143,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
 
   packages/prettier-config:
     dependencies:
@@ -158,6 +167,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       prettier:
         specifier: ^3.0.0
         version: 3.1.1
@@ -194,6 +206,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       remark-cli:
         specifier: ^12.0.0
         version: 12.0.0
@@ -356,6 +371,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
 
   packages/shared-config:
     dependencies:
@@ -386,6 +404,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
     devDependencies:
       camelcase:
         specifier: ^8.0.0
@@ -408,6 +429,9 @@ importers:
       execa:
         specifier: ^8.0.1
         version: 8.0.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       stylelint:
         specifier: ^15.11.0
         version: 15.11.0(typescript@5.3.3)
@@ -2465,6 +2489,11 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: false
 
+  /deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /default-browser-id@3.0.0:
     resolution: {integrity: sha512-OZ1y3y0SqSICtE8DE4S8YOE9UZOJ8wO16fKWVP5J1Qz42kV9jcnMVFrEE/noXb/ss3Q4pZIH79kxofzyNNtUNA==}
     engines: {node: '>=12'}
@@ -3322,7 +3351,6 @@ packages:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.1
-    dev: true
 
   /fs-minipass@2.1.0:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
@@ -4100,7 +4128,6 @@ packages:
       universalify: 2.0.1
     optionalDependencies:
       graceful-fs: 4.2.11
-    dev: true
 
   /jsox@1.2.118:
     resolution: {integrity: sha512-ubYWn4WOc7HA7icvcQuIni1I7Xx4bI4KbRXbXzlr5e48hvdizeAbflBx97B629ZNH5RZnQ657Z5Z8dFgxFVrSQ==}
@@ -7479,7 +7506,6 @@ packages:
   /universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
-    dev: true
 
   /untildify@4.0.0:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}

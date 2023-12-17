@@ -47,6 +47,7 @@
 		"bumpp": "^9.2.1",
 		"chalk": "^5.3.0",
 		"cosmiconfig": "^9.0.0",
+		"deepmerge": "^4.3.1",
 		"esbuild": "^0.19.9",
 		"execa": "^8.0.1",
 		"fs-extra": "^11.2.0",

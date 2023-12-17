@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/no-null */
-const { propertyGroups } = require('stylelint-config-clean-order');
+const { propertyGroups } = require('stylelint-config-clean-order')
 
 const propertiesOrder = propertyGroups.map((properties) => ({
 	emptyLineBefore: 'never', // Don't add empty lines between order groups.
 	noEmptyLineBetween: true,
 	properties,
-}));
+}))
 
 /** @type {import("stylelint").Config} */
 module.exports = {
@@ -30,4 +30,4 @@ module.exports = {
 			},
 		],
 	},
-};
+}

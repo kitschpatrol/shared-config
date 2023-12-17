@@ -1,5 +1,4 @@
 {
-	"prettier.enable": true,
 	"[astro]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -13,6 +12,7 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"cSpell.enabled": true,
+	"cSpell.workspaceRootPath": ".",
 	"editor.codeActionsOnSave": {
 		"source.fixAll": "explicit"
 	},
@@ -36,7 +36,7 @@
 		"**/.npmrc",
 		"**/.eslintignore"
 	],
+	"prettier.enable": true,
 	"stylelint.enable": true,
-	"stylelint.validate": ["css", "html", "svelte", "astro"],
-	"stylelint.configBasedir": "."
+	"stylelint.validate": ["css", "html", "svelte", "astro"]
 }

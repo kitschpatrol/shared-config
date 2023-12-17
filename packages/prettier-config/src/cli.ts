@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js';
+import { buildCommands } from '../../../src/command-builder.js'
 
 // TODO bad idea?
 // At least test the ruby situation
@@ -15,7 +15,7 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-svelte',
 	'--plugin=prettier-plugin-tailwindcss',
 	'--plugin=prettier-plugin-toml',
-];
+]
 
 await buildCommands('prettier-config', '[Prettier]', 'blue', {
 	check: {
@@ -30,4 +30,4 @@ await buildCommands('prettier-config', '[Prettier]', 'blue', {
 	},
 	init: {},
 	printConfig: {},
-});
+})

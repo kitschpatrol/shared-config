@@ -1,52 +1,52 @@
-import remarkDirective from 'remark-directive';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkGfm from 'remark-gfm';
-import remarkLint from 'remark-lint';
-import remarkLintCheckboxCharacterStyle from 'remark-lint-checkbox-character-style';
-import remarkLintCheckboxContentIndent from 'remark-lint-checkbox-content-indent';
-import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
-import remarkLintEmphasisMarker from 'remark-lint-emphasis-marker';
-import remarkLintFencedCodeFlag from 'remark-lint-fenced-code-flag';
-import remarkLintFencedCodeMarker from 'remark-lint-fenced-code-marker';
-import remarkLintFinalDefinition from 'remark-lint-final-definition';
-import remarkLintFirstHeadingLevel from 'remark-lint-first-heading-level';
-import remarkLintHeadingIncrement from 'remark-lint-heading-increment';
-import remarkLintLinebreakStyle from 'remark-lint-linebreak-style';
-import remarkLintMaximumHeadingLength from 'remark-lint-maximum-heading-length';
-import remarkLintNoDuplicateDefinedUrls from 'remark-lint-no-duplicate-defined-urls';
-import remarkLintNoDuplicateDefinitions from 'remark-lint-no-duplicate-definitions';
-import remarkLintNoDuplicateHeadings from 'remark-lint-no-duplicate-headings';
-import remarkLintNoDuplicateHeadingsInSection from 'remark-lint-no-duplicate-headings-in-section';
-import remarkLintNoEmphasisAsHeading from 'remark-lint-no-emphasis-as-heading';
-import remarkLintNoEmptyUrl from 'remark-lint-no-empty-url';
-import remarkLintNoFileNameArticles from 'remark-lint-no-file-name-articles';
-import remarkLintNoFileNameConsecutiveDashes from 'remark-lint-no-file-name-consecutive-dashes';
-import remarkLintNoFileNameIrregularCharacters from 'remark-lint-no-file-name-irregular-characters';
-import remarkLintNoFileNameOuterDashes from 'remark-lint-no-file-name-outer-dashes';
-import remarkLintNoHeadingIndent from 'remark-lint-no-heading-indent';
-import remarkLintNoHeadingLikeParagraph from 'remark-lint-no-heading-like-paragraph';
-import remarkLintNoHtml from 'remark-lint-no-html';
-import remarkLintNoLiteralUrls from 'remark-lint-no-literal-urls';
-import remarkLintNoMissingBlankLines from 'remark-lint-no-missing-blank-lines';
-import remarkLintNoMultipleToplevelHeadings from 'remark-lint-no-multiple-toplevel-headings';
-import remarkLintNoParagraphContentIndent from 'remark-lint-no-paragraph-content-indent';
-import remarkLintNoReferenceLikeUrl from 'remark-lint-no-reference-like-url';
-import remarkLintNoShellDollars from 'remark-lint-no-shell-dollars';
-import remarkLintNoShortcutReferenceImage from 'remark-lint-no-shortcut-reference-image';
-import remarkLintNoShortcutReferenceLink from 'remark-lint-no-shortcut-reference-link';
-import remarkLintNoTabs from 'remark-lint-no-tabs';
-import remarkLintNoUndefinedReferences from 'remark-lint-no-undefined-references';
-import remarkLintNoUnneededFullReferenceImage from 'remark-lint-no-unneeded-full-reference-image';
-import remarkLintNoUnneededFullReferenceLink from 'remark-lint-no-unneeded-full-reference-link';
-import remarkLintNoUnusedDefinitions from 'remark-lint-no-unused-definitions';
-import remarkLintOrderedListMarkerStyle from 'remark-lint-ordered-list-marker-style';
-import remarkLintRuleStyle from 'remark-lint-rule-style';
-import remarkLintStrikethroughMarker from 'remark-lint-strikethrough-marker';
-import remarkLintStrongMarker from 'remark-lint-strong-marker';
-import remarkLintTableCellPadding from 'remark-lint-table-cell-padding';
-import remarkLintUnorderedListMarkerStyle from 'remark-lint-unordered-list-marker-style';
-import remarkPresetPrettier from 'remark-preset-prettier';
-import remarkValidateLinks from 'remark-validate-links';
+import remarkDirective from 'remark-directive'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
+import remarkLint from 'remark-lint'
+import remarkLintCheckboxCharacterStyle from 'remark-lint-checkbox-character-style'
+import remarkLintCheckboxContentIndent from 'remark-lint-checkbox-content-indent'
+import remarkLintCodeBlockStyle from 'remark-lint-code-block-style'
+import remarkLintEmphasisMarker from 'remark-lint-emphasis-marker'
+import remarkLintFencedCodeFlag from 'remark-lint-fenced-code-flag'
+import remarkLintFencedCodeMarker from 'remark-lint-fenced-code-marker'
+import remarkLintFinalDefinition from 'remark-lint-final-definition'
+import remarkLintFirstHeadingLevel from 'remark-lint-first-heading-level'
+import remarkLintHeadingIncrement from 'remark-lint-heading-increment'
+import remarkLintLinebreakStyle from 'remark-lint-linebreak-style'
+import remarkLintMaximumHeadingLength from 'remark-lint-maximum-heading-length'
+import remarkLintNoDuplicateDefinedUrls from 'remark-lint-no-duplicate-defined-urls'
+import remarkLintNoDuplicateDefinitions from 'remark-lint-no-duplicate-definitions'
+import remarkLintNoDuplicateHeadings from 'remark-lint-no-duplicate-headings'
+import remarkLintNoDuplicateHeadingsInSection from 'remark-lint-no-duplicate-headings-in-section'
+import remarkLintNoEmphasisAsHeading from 'remark-lint-no-emphasis-as-heading'
+import remarkLintNoEmptyUrl from 'remark-lint-no-empty-url'
+import remarkLintNoFileNameArticles from 'remark-lint-no-file-name-articles'
+import remarkLintNoFileNameConsecutiveDashes from 'remark-lint-no-file-name-consecutive-dashes'
+import remarkLintNoFileNameIrregularCharacters from 'remark-lint-no-file-name-irregular-characters'
+import remarkLintNoFileNameOuterDashes from 'remark-lint-no-file-name-outer-dashes'
+import remarkLintNoHeadingIndent from 'remark-lint-no-heading-indent'
+import remarkLintNoHeadingLikeParagraph from 'remark-lint-no-heading-like-paragraph'
+import remarkLintNoHtml from 'remark-lint-no-html'
+import remarkLintNoLiteralUrls from 'remark-lint-no-literal-urls'
+import remarkLintNoMissingBlankLines from 'remark-lint-no-missing-blank-lines'
+import remarkLintNoMultipleToplevelHeadings from 'remark-lint-no-multiple-toplevel-headings'
+import remarkLintNoParagraphContentIndent from 'remark-lint-no-paragraph-content-indent'
+import remarkLintNoReferenceLikeUrl from 'remark-lint-no-reference-like-url'
+import remarkLintNoShellDollars from 'remark-lint-no-shell-dollars'
+import remarkLintNoShortcutReferenceImage from 'remark-lint-no-shortcut-reference-image'
+import remarkLintNoShortcutReferenceLink from 'remark-lint-no-shortcut-reference-link'
+import remarkLintNoTabs from 'remark-lint-no-tabs'
+import remarkLintNoUndefinedReferences from 'remark-lint-no-undefined-references'
+import remarkLintNoUnneededFullReferenceImage from 'remark-lint-no-unneeded-full-reference-image'
+import remarkLintNoUnneededFullReferenceLink from 'remark-lint-no-unneeded-full-reference-link'
+import remarkLintNoUnusedDefinitions from 'remark-lint-no-unused-definitions'
+import remarkLintOrderedListMarkerStyle from 'remark-lint-ordered-list-marker-style'
+import remarkLintRuleStyle from 'remark-lint-rule-style'
+import remarkLintStrikethroughMarker from 'remark-lint-strikethrough-marker'
+import remarkLintStrongMarker from 'remark-lint-strong-marker'
+import remarkLintTableCellPadding from 'remark-lint-table-cell-padding'
+import remarkLintUnorderedListMarkerStyle from 'remark-lint-unordered-list-marker-style'
+import remarkPresetPrettier from 'remark-preset-prettier'
+import remarkValidateLinks from 'remark-validate-links'
 
 /**
  * Overrides specific rules in a set of plugins.
@@ -64,29 +64,29 @@ import remarkValidateLinks from 'remark-validate-links';
 export function overrideRules(plugins, rules) {
 	for (let [ruleName, newArguments] of rules) {
 		// Internally, function names are different from the package names
-		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:');
+		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:')
 
-		let ruleFunction;
+		let ruleFunction
 		const index = plugins.findIndex((plugin) => {
 			if (Array.isArray(plugin)) {
 				if (plugin[0]?.name === ruleName) {
-					ruleFunction = plugin[0];
-					return true;
+					ruleFunction = plugin[0]
+					return true
 				}
 			} else if (plugin.name === ruleName) {
-				ruleFunction = plugin;
-				return true;
+				ruleFunction = plugin
+				return true
 			}
 
-			return false;
-		});
+			return false
+		})
 
 		if (index !== -1) {
-			plugins.splice(index, 1, [ruleFunction, newArguments]);
+			plugins.splice(index, 1, [ruleFunction, newArguments])
 		}
 	}
 
-	return plugins;
+	return plugins
 }
 
 export default {
@@ -158,4 +158,4 @@ export default {
 		// strong: '*',
 		// tightDefinitions: true,
 	},
-};
+}

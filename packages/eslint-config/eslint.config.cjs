@@ -6,9 +6,9 @@ const extendsPrefix = [
 	'xo',
 	'plugin:perfectionist/recommended-natural',
 	'prettier', // Needed here as well for files not caught by overrides
-];
-const extendsTypescript = ['plugin:@typescript-eslint/recommended-type-checked', 'xo-typescript'];
-const extendsSuffix = ['prettier'];
+]
+const extendsTypescript = ['plugin:@typescript-eslint/recommended-type-checked', 'xo-typescript']
+const extendsSuffix = ['prettier']
 
 const globalRulesPrefix = {
 	'max-params': 'off',
@@ -68,7 +68,7 @@ const globalRulesPrefix = {
 	'import/order': 'off',
 	'react/jsx-sort-props': 'off',
 	'sort-imports': 'off',
-};
+}
 
 const globalRulesTypescript = {
 	'@typescript-eslint/no-unused-vars': [
@@ -83,7 +83,7 @@ const globalRulesTypescript = {
 	// https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 	'no-undef': 'off',
 	'no-unused-vars': 'off',
-};
+}
 
 /* @type {import('eslint').Linter.Config} */
 module.exports = {
@@ -236,4 +236,4 @@ module.exports = {
 			},
 		},
 	],
-};
+}
