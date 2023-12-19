@@ -20,10 +20,14 @@ jobs:
         id: validation
         run: |
           TAG=$(git tag --contains HEAD | grep '^v[0-9]' | head -n 1)
-          BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "🏷️ Tag for commit is: $TAG"
-          echo "🕊️ Current branch is: $BRANCH"
-          if [[ -z "$TAG" || "$BRANCH" != "main" ]]; then
+          BRANCH=$(git branch -r --contains tags/${GITHUB_REF_NAME} | grep 'origin/main' | xargs)
+          if [[ -z "$BRANCH" ]]; then
+            echo "🚨 Tag is not on main branch"
+          else
+            echo "🕊️ Current branch is: $BRANCH"
+          fi
+          if [[ -z "$TAG" || -z "$BRANCH" ]]; then
             echo "is_valid_commit=false" >> $GITHUB_ENV
             echo "tag_name=''" >> $GITHUB_ENV
           else

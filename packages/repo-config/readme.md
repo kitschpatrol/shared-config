@@ -4,7 +4,12 @@
 
 It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
 
-This includes [`.npmrc`](https://pnpm.io/npmrc) and `.gitignore` for now.
+This includes the following:
+
+- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config`` tool access
+- `.gitignore` with typical patterns
+- `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
+- `.github` folder with a workflow for turning vX.X.X tags into GitHub releases
 
 It's needed to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages.
 
