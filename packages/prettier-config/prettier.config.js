@@ -31,7 +31,7 @@ const config = {
 			},
 		},
 		{
-			files: ['*rc', '*ignore'],
+			files: ['*rc', '*ignore', '*.sh', '*.zsh', '*.bash', '*.fish'],
 			options: {
 				parser: 'sh',
 				plugins: ['prettier-plugin-sh'],

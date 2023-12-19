@@ -31,7 +31,7 @@
 		"clean": "pnpm run bin-restore && git clean -fdX",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"prepublishOnly": "pnpm run build",
-		"release": "pnpm build && pnpm bumpp -r --commit 'Release: %s' --tag '%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
+		"release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
