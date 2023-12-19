@@ -6,7 +6,7 @@ It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config`` tool access
+- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for \`shared-config\`\` tool access
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
 - `.github` folder with a workflow for turning vX.X.X tags into GitHub releases
@@ -42,3 +42,18 @@ Optionally, you can install the package if you think you'll ever want to regener
    ```sh
    pnpm exec repo-config --init
    ```
+
+### GitHub Configuration
+
+There are two options for authenticating the release workflow action:
+
+#### Github Token
+
+1. Ensure that read / write permissions are set for actions on the repository under Settings → Actions → General → Workflow permissions.
+
+#### Personal Access token
+
+If you want releases to come from your account instead of `github_actions`, then:
+
+1. Create a [fine-grained personal access token](https://github.com/settings/tokens?type=beta) in your GitHub account with the "Contents" repository permission set to "Read and Write".
+2. Add the token as a secret to the repository under the key `PERSONAL_ACCESS_TOKEN`.
