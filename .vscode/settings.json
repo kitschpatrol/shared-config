@@ -5,6 +5,9 @@
 	"[gitignore]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
+	"[ruby]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 	"[shellscript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -30,6 +33,7 @@
 		"mdx"
 	],
 	"prettier.documentSelectors": [
+		"**/*.rb",
 		"**/*.astro",
 		"**/*.svelte",
 		"**/.prettierignore",

@@ -20,6 +20,14 @@ This collection of pre-configured tools may be added to a project as a single de
 
 It's only been tested with `pnpm`.
 
+## Quick setup
+
+Assumes a completely empty folder.
+
+```sh
+pnpm init --module && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config
+```
+
 ## Setup
 
 1. Install the requisite `.npmrc`:

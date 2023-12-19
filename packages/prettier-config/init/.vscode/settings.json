@@ -1,9 +1,11 @@
 {
-	"prettier.enable": true,
 	"[astro]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[gitignore]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[ruby]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[shellscript]": {
@@ -15,10 +17,12 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"prettier.documentSelectors": [
+		"**/*.rb",
 		"**/*.astro",
 		"**/*.svelte",
 		"**/.prettierignore",
 		"**/.npmrc",
 		"**/.eslintignore"
-	]
+	],
+	"prettier.enable": true
 }
