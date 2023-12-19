@@ -54,7 +54,7 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"meow": "^12.1.1",
 		"package-up": "^5.0.0",
-		"tsx": "^4.6.2",
+		"tsx": "^4.7.0",
 		"typescript": "^5.3.3"
 	}
 }
