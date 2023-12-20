@@ -28,6 +28,14 @@ Assumes a completely empty folder.
 pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
 ```
 
+## Quick add
+
+Assumes an existing project, might overwrite certain config file so commit first.
+
+```sh
+pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
+```
+
 ## Setup
 
 1. Install the requisite `.npmrc`:
@@ -116,3 +124,4 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 - [standard](https://standardjs.com)
 - [trunk](https://trunk.io)
 - [xo](https://github.com/xojs/xo)
+- [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)

@@ -42,5 +42,12 @@
 	],
 	"prettier.enable": true,
 	"stylelint.enable": true,
-	"stylelint.validate": ["css", "html", "svelte", "astro"]
+	"stylelint.validate": ["css", "html", "svelte", "astro"],
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		".env": ".env.*",
+		"package.json": ".*.js, .*.json, .*.cjs, .*rc, .*ignore, pnpm-lock.yaml, pnpm-workspace.yaml",
+		"readme.md": "license*, changelog*"
+	}
 }
