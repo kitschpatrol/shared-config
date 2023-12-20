@@ -25,7 +25,7 @@ It's only been tested with `pnpm`.
 Assumes a completely empty folder.
 
 ```sh
-pnpm init --module && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config
+pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
 ```
 
 ## Setup
