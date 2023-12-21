@@ -1,6 +1,7 @@
+/* eslint-disable perfectionist/sort-objects */
 /* @type {import('eslint').Linter.Config} */
 module.exports = {
-	extends: ['@kitschpatrol/eslint-config'],
 	root: true,
+	extends: ['@kitschpatrol/eslint-config'],
 	// Overrides
 }

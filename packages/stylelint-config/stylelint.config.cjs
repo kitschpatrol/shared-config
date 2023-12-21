@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 /* eslint-disable unicorn/no-null */
 const { propertyGroups } = require('stylelint-config-clean-order')
 
@@ -30,4 +31,13 @@ module.exports = {
 			},
 		],
 	},
+	overrides: [
+		{
+			// Not unusual to have empty style tags in an Astro template
+			files: ['*.astro'],
+			rules: {
+				'no-empty-source': null,
+			},
+		},
+	],
 }

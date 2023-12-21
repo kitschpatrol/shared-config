@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 /* eslint-disable perfectionist/sort-objects */
 const extendsPrefix = [
 	'eslint:recommended',
@@ -83,6 +84,30 @@ const globalRulesTypescript = {
 	// https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 	'no-undef': 'off',
 	'no-unused-vars': 'off',
+	'@typescript-eslint/naming-convention': [
+		'error',
+		{
+			selector: 'default',
+			format: ['camelCase', 'StrictPascalCase'],
+		},
+		{
+			selector: 'default',
+			format: null,
+			modifiers: ['requiresQuotes'],
+		},
+		{
+			selector: 'variable',
+			format: ['camelCase', 'StrictPascalCase'],
+		},
+		{
+			selector: 'function',
+			format: ['camelCase'],
+		},
+		{
+			selector: 'typeLike',
+			format: ['StrictPascalCase'],
+		},
+	],
 }
 
 /* @type {import('eslint').Linter.Config} */
@@ -107,7 +132,7 @@ module.exports = {
 	overrides: [
 		// Markdown
 		{
-			extends: ['plugin:mdx/recommended', ...extendsSuffix],
+			extends: ['plugin:mdx/recommended'],
 			files: ['*.md'],
 			parser: 'eslint-mdx',
 			rules: globalRulesPrefix,
@@ -118,6 +143,7 @@ module.exports = {
 			files: ['*.mdx'],
 			parser: 'eslint-mdx',
 			rules: {
+				...globalRulesPrefix,
 				'no-unused-expressions': 'off',
 				'no-unused-vars': 'off',
 
@@ -164,7 +190,10 @@ module.exports = {
 		{
 			extends: [...extendsSuffix],
 			files: ['*.jsx', '*.mjs', '*.cjs', '.js'],
-			rules: globalRulesPrefix,
+			rules: {
+				...globalRulesPrefix,
+				...globalRulesTypescript,
+			},
 		},
 		// Astro
 		{
@@ -187,11 +216,16 @@ module.exports = {
 				...globalRulesTypescript,
 				'@typescript-eslint/no-unsafe-assignment': 'off', // Crashing
 				'@typescript-eslint/no-unsafe-return': 'off', // Happens in templates
-				// Astro components are PascalCase
+				// Astro components are usually PascalCase,
+				// but when used as pages they are kebab-case
 				'unicorn/filename-case': [
 					'error',
 					{
-						case: 'pascalCase',
+						cases: {
+							kebabCase: true,
+							pascalCase: true,
+						},
+						ignore: ['^\\[slug\\]\\.astro$'],
 					},
 				],
 			},
