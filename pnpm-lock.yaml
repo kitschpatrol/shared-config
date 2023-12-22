@@ -95,6 +95,12 @@ importers:
 
   packages/eslint-config:
     dependencies:
+      '@html-eslint/eslint-plugin':
+        specifier: ^0.22.0
+        version: 0.22.0
+      '@html-eslint/parser':
+        specifier: ^0.22.0
+        version: 0.22.0
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
@@ -1063,6 +1069,18 @@ packages:
   /@eslint/js@8.56.0:
     resolution: {integrity: sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: false
+
+  /@html-eslint/eslint-plugin@0.22.0:
+    resolution: {integrity: sha512-6Q3uW5XeVmUGwH2t5lmt0q51x7dNiaV1GuYReuHOPn01tSn9vJ5OKs71t+OsQzhg+hUqpVrmBizkBJZkcpX/sA==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: false
+
+  /@html-eslint/parser@0.22.0:
+    resolution: {integrity: sha512-1XNYNgysZJfpLEYx+ao4I67F5+8gQDQbBt38/Ylcn5L8ij5xHfRDWvOIBvejqEgNQRRzM5s7UOhPSj+02YtMsQ==}
+    engines: {node: '>=8.10.0'}
+    dependencies:
+      es-html-parser: 0.0.9
     dev: false
 
   /@humanwhocodes/config-array@0.11.13:
@@ -2500,6 +2518,10 @@ packages:
       typed-array-length: 1.0.4
       unbox-primitive: 1.0.2
       which-typed-array: 1.1.13
+    dev: false
+
+  /es-html-parser@0.0.9:
+    resolution: {integrity: sha512-oniQMi+466VFsDzcdron9Ry/sqUJpDJg1bbDn0jFJKDdxXhwIOYDr4DgBnO5/yPLGj2xv+n5yy4L1Q0vAC5TYQ==}
     dev: false
 
   /es-iterator-helpers@1.0.15:

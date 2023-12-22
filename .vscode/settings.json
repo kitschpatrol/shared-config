@@ -30,8 +30,16 @@
 		"svelte",
 		"astro",
 		"markdown",
-		"mdx"
+		"mdx",
+		"html"
 	],
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		".env": ".env.*",
+		"package.json": ".*.js, .*.json, .*.cjs, .*rc, .*ignore, pnpm-lock.yaml, pnpm-workspace.yaml",
+		"readme.md": "license*, changelog*"
+	},
 	"prettier.documentSelectors": [
 		"**/*.rb",
 		"**/*.astro",
@@ -42,12 +50,5 @@
 	],
 	"prettier.enable": true,
 	"stylelint.enable": true,
-	"stylelint.validate": ["css", "html", "svelte", "astro"],
-	"explorer.fileNesting.enabled": true,
-	"explorer.fileNesting.expand": false,
-	"explorer.fileNesting.patterns": {
-		".env": ".env.*",
-		"package.json": ".*.js, .*.json, .*.cjs, .*rc, .*ignore, pnpm-lock.yaml, pnpm-workspace.yaml",
-		"readme.md": "license*, changelog*"
-	}
+	"stylelint.validate": ["css", "html", "svelte", "astro"]
 }

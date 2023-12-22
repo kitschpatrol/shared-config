@@ -4,13 +4,14 @@
 	},
 	"eslint.enable": true,
 	"eslint.validate": [
+		"astro",
+		"html",
 		"javascript",
 		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-		"svelte",
-		"astro",
 		"markdown",
-		"mdx"
+		"mdx",
+		"svelte",
+		"typescript",
+		"typescriptreact"
 	]
 }

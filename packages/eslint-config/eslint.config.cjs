@@ -112,6 +112,7 @@ const globalRulesTypescript = {
 
 /* @type {import('eslint').Linter.Config} */
 module.exports = {
+	plugins: ['@html-eslint'],
 	extends: extendsPrefix,
 	env: {
 		browser: true,
@@ -131,6 +132,45 @@ module.exports = {
 	},
 	rules: globalRulesPrefix,
 	overrides: [
+		// HTML (and inline scripts)
+		{
+			files: ['*.html'],
+			parser: '@html-eslint/parser',
+			rules: {
+				// Best Practice
+				'@html-eslint/no-duplicate-attrs': 'error',
+				'@html-eslint/no-duplicate-id': 'error',
+				'@html-eslint/no-inline-styles': 'error',
+				'@html-eslint/no-obsolete-tags': 'error',
+				'@html-eslint/no-restricted-attr-values': 'error',
+				'@html-eslint/no-restricted-attrs': 'error',
+				'@html-eslint/no-script-style-type': 'error',
+				'@html-eslint/no-target-blank': 'error',
+				'@html-eslint/require-attrs': 'error',
+				'@html-eslint/require-button-type': 'error',
+				// '@html-eslint/require-closing-tags': 'error',
+				'@html-eslint/require-doctype': 'error',
+				'@html-eslint/require-li-container': 'error',
+				'@html-eslint/require-meta-charset': 'error',
+				// SEO
+				'@html-eslint/no-multiple-h1': 'error',
+				'@html-eslint/require-lang': 'error',
+				// '@html-eslint/require-meta-description': 'error',
+				// '@html-eslint/require-open-graph-protocol': 'error',
+				'@html-eslint/require-title': 'error',
+				// Accessibility
+				'@html-eslint/no-abstract-roles': 'error',
+				'@html-eslint/no-accesskey-attrs': 'error',
+				'@html-eslint/no-aria-hidden-body': 'error',
+				'@html-eslint/no-non-scalable-viewport': 'error',
+				'@html-eslint/no-positive-tabindex': 'error',
+				'@html-eslint/no-skip-heading-levels': 'error',
+				'@html-eslint/require-frame-title': 'error',
+				'@html-eslint/require-img-alt': 'error',
+				'@html-eslint/require-meta-viewport': 'error',
+			},
+		},
+
 		// Markdown
 		{
 			extends: ['plugin:mdx/recommended'],
