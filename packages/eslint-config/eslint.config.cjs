@@ -112,7 +112,7 @@ const globalRulesTypescript = {
 
 /* @type {import('eslint').Linter.Config} */
 module.exports = {
-	plugins: ['@html-eslint'],
+	plugins: ['@html-eslint', 'html'],
 	extends: extendsPrefix,
 	env: {
 		browser: true,
