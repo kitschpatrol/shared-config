@@ -126,6 +126,7 @@ module.exports = {
 		ecmaVersion: 2022,
 		extraFileExtensions: ['.svelte', '.astro'], // Essential for these file types to make it to the override
 		project: 'tsconfig.eslint.json',
+		tsconfigRootDir: process.cwd(), // Look for tsconfig in the consuming project's root
 		sourceType: 'module',
 	},
 	rules: globalRulesPrefix,
@@ -179,7 +180,7 @@ module.exports = {
 			],
 			parser: '@typescript-eslint/parser',
 			parserOptions: {
-				project: true,
+				project: 'tsconfig.eslint.json', // Not sure why this isn't inherited
 			},
 			rules: {
 				...globalRulesPrefix,
@@ -208,7 +209,7 @@ module.exports = {
 			parserOptions: {
 				extraFileExtensions: ['.astro'],
 				parser: '@typescript-eslint/parser',
-				project: true,
+				project: 'tsconfig.eslint.json', // Not sure why this isn't inherited
 				sourceType: 'module',
 			},
 			rules: {
