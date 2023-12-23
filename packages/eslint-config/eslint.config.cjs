@@ -85,27 +85,57 @@ const globalRulesTypescript = {
 	'no-undef': 'off',
 	'no-unused-vars': 'off',
 	'@typescript-eslint/naming-convention': [
+		// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
 		'error',
+		// Group selectors
 		{
+			// Matches everything
 			selector: 'default',
-			format: ['camelCase', 'StrictPascalCase'],
+			format: ['camelCase'],
 		},
 		{
+			// Forgive quoted things
 			selector: 'default',
 			format: null,
 			modifiers: ['requiresQuotes'],
 		},
 		{
-			selector: 'variable',
+			// Matches the same as class, enum, interface, typeAlias, typeParameter
+			selector: 'typeLike',
+			format: ['StrictPascalCase'],
+		},
+		{
+			// Matches the same as function, parameter and variable
+			selector: 'variableLike',
+			leadingUnderscore: 'allow',
+			trailingUnderscore: 'allow',
+			format: ['camelCase'],
+		},
+		// {
+		// 	// matches the same as accessor, enumMember, method, parameterProperty, property
+		// 	selector: 'memberLike'
+		// 	// format: []
+		// },
+		// {
+		// 	// matches the same as classMethod, objectLiteralMethod, typeMethod
+		// 	selector: 'method'
+		// 	// format: []
+		// },
+		// {
+		// 	// matches the same as classProperty, objectLiteralProperty, typeProperty
+		// 	selector: 'property'
+		// 	// format: []
+		// },
+		// Individual selectors
+		{
+			selector: 'import',
 			format: ['camelCase', 'StrictPascalCase'],
 		},
 		{
-			selector: 'function',
-			format: ['camelCase'],
-		},
-		{
-			selector: 'typeLike',
-			format: ['StrictPascalCase'],
+			// Allow Component import
+			selector: 'variable',
+			modifiers: ['destructured'],
+			format: ['camelCase', 'StrictPascalCase'],
 		},
 	],
 }

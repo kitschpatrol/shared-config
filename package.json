@@ -29,6 +29,8 @@
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
 		"clean": "pnpm run bin-restore && git clean -fdX",
+		"fix": "pnpm shared-config --fix",
+		"lint": "pnpm shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"prepublishOnly": "pnpm run build",
 		"release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
