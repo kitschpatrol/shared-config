@@ -2,11 +2,8 @@
 # Does not inherit from .gitignore
 
 # @kitschpatrol/repo-config boilerplate
-!.env.example
 .astro/
 .DS_Store
-.env
-.env.*
 .svelte-kit/
 {tmp,temp}/
 **/*.min.js
