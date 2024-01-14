@@ -125,3 +125,5 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 - [trunk](https://trunk.io)
 - [xo](https://github.com/xojs/xo)
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
+- [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
+- [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
