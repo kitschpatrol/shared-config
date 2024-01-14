@@ -13,7 +13,7 @@ It takes care of dependencies and configurations for:
 - [Stylelint](https://stylelint.io)
 - [remarklint](https://github.com/remarkjs/remark-lint)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [VSCode](https://code.visualstudio.com) (extension recommendations and extension settings)
+- [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 This collection of pre-configured tools may be added to a project as a single dependency, and run simultaneously over a repo with a single command with options to either check or (where possible) fix.
@@ -73,7 +73,7 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 
 ## Usage
 
-Various VSCode plugins should "just work".
+Various VS Code plugins should "just work".
 
 To lint your entire project, after configuring the `package.json` as shown above:
 
@@ -89,7 +89,7 @@ pnpm run format
 
 ## Package architecture
 
-Each package has a simple '/src/cli.ts' file which defines the behavior of its eponymous binary. The build step turns these into node scripts, providing default implementations where feasible.
+Each package has a simple `/src/cli.ts` file which defines the behavior of its eponymous binary. The build step turns these into node scripts, providing default implementations where feasible.
 
 The monorepo must be kept intact, as the sub-packages depend on scripts in the parent during build.
 
@@ -101,7 +101,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 ## Issues
 
-- CSpell, markdownlint, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VSCode plugins.
+- CSpell, markdownlint, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
@@ -111,7 +111,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 - For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
-- [Approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VSCode.
+- [Approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code.
 
 ## Reference projects
 

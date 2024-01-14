@@ -47,7 +47,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 
 There are two options for authenticating the release workflow action:
 
-#### Github Token
+#### GitHub Token
 
 1. Ensure that read / write permissions are set for actions on the repository under Settings → Actions → General → Workflow permissions.
 

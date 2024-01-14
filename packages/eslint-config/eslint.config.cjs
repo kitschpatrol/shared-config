@@ -234,7 +234,7 @@ module.exports = {
 				'mdx/code-blocks': false,
 			},
 		},
-		// Typescript
+		// TypeScript
 		{
 			extends: [...extendsTypescript, ...extendsSuffix],
 			files: ['*.ts', '*.tsx', '*.mts', '*.cts'],
@@ -257,7 +257,7 @@ module.exports = {
 				...globalRulesTypescript,
 			},
 		},
-		// Javascript
+		// JavaScript
 		{
 			extends: [...extendsSuffix],
 			files: ['*.jsx', '*.mjs', '*.cjs', '.js'],

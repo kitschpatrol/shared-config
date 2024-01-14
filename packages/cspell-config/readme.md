@@ -30,7 +30,7 @@ To use just this CSpell config in isolation:
 
 ## Usage
 
-The CSpell binary should be picked up automatically by VSCode plugins.
+The CSpell binary should be picked up automatically by VS Code plugins.
 
 You can call it directly, or use the script bundled with the config.
 

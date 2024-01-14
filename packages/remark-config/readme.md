@@ -30,7 +30,7 @@ To use just this Remark config in isolation:
 
 ## Usage
 
-The Remark binary should be picked up automatically by VSCode plugins.
+The Remark binary should be picked up automatically by VS Code plugins.
 
 You can call it directly, but it's recommended to use the script bundled with the shared config to invoke the remark lint rules through `eslint`.
 
