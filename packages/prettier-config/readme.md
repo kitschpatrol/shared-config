@@ -37,12 +37,10 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-...
 "scripts": {
   "lint": "prettier-config --check"
   "format": "prettier-config --fix"
 }
-...
 ```
 
 You might need to pass certain plugins in explicitly. The `shared-config --fix` and `shared-config --lint` scripts take care of this for you.

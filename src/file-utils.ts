@@ -10,7 +10,6 @@ export async function checkFileExists(file: string): Promise<boolean> {
 		}
 
 		// Re-throw the error if it's not a 'File does not exist' error
-		// eslint-disable-next-line @typescript-eslint/no-throw-literal
 		throw error
 	}
 }

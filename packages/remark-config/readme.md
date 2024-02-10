@@ -37,9 +37,7 @@ You can call it directly, but it's recommended to use the script bundled with th
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-...
 "scripts": {
   "lint": "p remark . --quiet --frail"
 }
-...
 ```

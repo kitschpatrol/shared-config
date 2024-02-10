@@ -8,7 +8,7 @@ import { merge, stringify } from './json-utils.js'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'
 import { cosmiconfig } from 'cosmiconfig'
-import { execa } from 'execa'
+import { type ExecaError, execa } from 'execa'
 import fse from 'fs-extra'
 import meow from 'meow'
 import type { Flag } from 'meow'
@@ -50,7 +50,7 @@ export type OptionCommands = {
 
 function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
 	return new Transform({
-		transform(chunk: Buffer | string, encoding: BufferEncoding, callback) {
+		transform(chunk: Buffer | string, _: BufferEncoding, callback) {
 			// Convert the chunk to a string and prepend the string to each line
 			const lines: string[] = chunk
 				.toString()
@@ -221,7 +221,7 @@ export async function executeJsonOutput(
 		logStream.write('\n')
 		return 0
 	} catch (error) {
-		logStream.write(`Error: ${error}\n`)
+		logStream.write(`Error: ${String(error)}\n`)
 		return 1
 	}
 }
@@ -232,7 +232,7 @@ export async function execute(
 	input: string[] = [],
 ): Promise<number> {
 	if (optionCommand.command !== undefined && typeof optionCommand.command === 'string') {
-		let exitCode: number
+		let exitCode = 1
 
 		try {
 			const subprocess = execa(
@@ -247,15 +247,16 @@ export async function execute(
 				},
 			)
 
-			// End false is key here, otherwise the stream will close before the subprocess is done
+			// End false is required here, otherwise the stream will close before the subprocess is done
 			subprocess.stdout?.pipe(logStream, { end: false })
 			subprocess.stderr?.pipe(logStream, { end: false })
 			await subprocess
 			exitCode = subprocess.exitCode ?? 1
 		} catch (error) {
 			// Console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			exitCode = typeof error.exitCode === 'number' ? (error.exitCode as number) : 1
+			if (isErrorExecaError(error)) {
+				exitCode = typeof error.exitCode === 'number' ? error.exitCode : 1
+			}
 		}
 
 		return exitCode
@@ -293,16 +294,13 @@ export async function buildCommands(
 
 	const { flags, input } = cli
 
-	const commandsToRun = Object.keys(options).reduce<OptionCommands>(
-		(acc, command: keyof OptionCommands) => {
-			if (flags[command]) {
-				acc[command] = options[command]
-			}
+	const commandsToRun = Object.keys(options).reduce<OptionCommands>((acc, command: string) => {
+		if (flags[command]) {
+			acc[command as keyof OptionCommands] = options[command as keyof OptionCommands]
+		}
 
-			return acc
-		},
-		{},
-	)
+		return acc
+	}, {})
 
 	// Set up log stream
 	const logStream = createStreamTransform(logPrefix, logColor)
@@ -418,13 +416,17 @@ export async function buildCommands(
 				}
 
 				case 'check': {
-					console.error('No default implementation for check')
+					console.error(
+						'There is no default implementation for check. The [tool]-config package must define a command.',
+					)
 					aggregateExitCode += 1
 					break
 				}
 
 				case 'fix': {
-					console.error('No default implementation for fix')
+					console.error(
+						'There is no default implementation for fix. The [tool]-config package must define a command.',
+					)
 					aggregateExitCode += 1
 					break
 				}
@@ -466,4 +468,12 @@ export async function buildCommands(
 	}
 
 	process.exit(aggregateExitCode > 0 ? 1 : 0)
+}
+
+function isErrorExecaError(error: unknown): error is ExecaError {
+	return (
+		error instanceof Error &&
+		'exitCode' in error &&
+		typeof (error as ExecaError).exitCode === 'number'
+	)
 }

@@ -2,7 +2,7 @@
 
 ## Overview
 
-A collection of shared configurations for various linters and tools.
+A collection of shared configurations for various linters and formatting tools.
 
 This package takes a maximalist approach, bundling plugins I need on a regular basis into a single dependency.
 
@@ -10,15 +10,16 @@ It takes care of dependencies and configurations for:
 
 - [CSpell](https://cspell.org)
 - [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
-- [Stylelint](https://stylelint.io)
-- [remarklint](https://github.com/remarkjs/remark-lint)
+- [mdat](https://github.com/kitschpatrol/mdat)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
+- [remarklint](https://github.com/remarkjs/remark-lint)
+- [Stylelint](https://stylelint.io)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 This collection of pre-configured tools may be added to a project as a single dependency, and run simultaneously over a repo with a single command with options to either check or (where possible) fix.
 
-It's only been tested with `pnpm`.
+It has only been tested with `pnpm`.
 
 ## Quick setup
 
@@ -28,9 +29,18 @@ Assumes a completely empty folder.
 pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
 ```
 
+Or a more thorough bootstrap:
+
+Hmm:
+git init && pnpm create vite\@latest . --template vanilla-ts &&
+
+```sh
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init && pnpm i && code .
+```
+
 ## Quick add
 
-Assumes an existing project, might overwrite certain config file so commit first.
+Assumes an existing project, might overwrite certain config files, so commit first.
 
 ```sh
 pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
@@ -61,12 +71,10 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
    These work a bit like [npm-run-all](https://github.com/mysticatea/npm-run-all) to invoke all of the bundled tools.
 
    ```json
-   ...
    "scripts": {
      "format": "shared-config --fix",
      "lint": "shared-config --lint",
    }
-   ...
    ```
 
    Note that Prettier formatting for Ruby requires some extra legwork to configure, see [`@kitschpatrol/prettier-config`](https://github.com/kitschpatrol/prettier-config) for more details.
@@ -89,7 +97,7 @@ pnpm run format
 
 ## Package architecture
 
-Each package has a simple `/src/cli.ts` file which defines the behavior of its eponymous binary. The build step turns these into node scripts, providing default implementations where feasible.
+Each package has a simple `/src/cli.ts` file which defines the behavior of its eponymous binary. The build step turns these into node "binary" scripts, providing default implementations where feasible.
 
 The monorepo must be kept intact, as the sub-packages depend on scripts in the parent during build.
 

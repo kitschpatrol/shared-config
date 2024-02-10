@@ -1,0 +1,52 @@
+{
+	"name": "@kitschpatrol/mdat-config",
+	"version": "4.3.3",
+	"type": "module",
+	"description": "Mdat config for @kitschpatrol/shared-config",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"directory": "packages/mdat-config"
+	},
+	"bugs": {
+		"url": "https://github.com/kitschpatrol/shared-config/issues",
+		"email": "eric@ericmika.com"
+	},
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
+	"bin": {
+		"mdat-config": "bin/cli.js"
+	},
+	"main": "dist/mdat.config.js",
+	"types": "dist/mdat.config.d.ts",
+	"files": [
+		"bin/*",
+		"dist/*",
+		"init/*"
+	],
+	"scripts": {
+		"build": "tsc && ../../scripts/build.ts",
+		"cli": "node ./bin/cli.js",
+		"prepublishOnly": "pnpm run build"
+	},
+	"peerDependencies": {
+		"mdat": "^0.5.2"
+	},
+	"dependencies": {
+		"@pinojs/json-colorizer": "^4.0.0",
+		"cosmiconfig": "^9.0.0",
+		"execa": "^8.0.1",
+		"fs-extra": "^11.2.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

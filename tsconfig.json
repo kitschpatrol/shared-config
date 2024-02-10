@@ -1,9 +1,39 @@
 {
 	"compilerOptions": {
-		"target": "es2021", // or another version compatible with your Node.js version
-		"module": "nodenext",
-		"strictNullChecks": true,
-		"allowJs": true
-	},
-	"include": ["scripts/**/*", "src/**/*", "packages/*/src/**/*", "packages/*/scripts/**/*"]
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"noEmit": true,
+		"noErrorTruncation": true,
+		"allowJs": true,
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true
+	}
 }
+
+// {
+// 	"compilerOptions": {
+// 		"target": "es2022",
+// 		"module": "NodeNext",
+// 		// "esModuleInterop": true,
+// 		"strictNullChecks": true,
+// 		"forceConsistentCasingInFileNames": true,
+// 		"strict": true,
+// 		// "skipLibCheck": true,
+// 		"noEmit": true,
+// 		"allowJs": true
+// 	},
+// 	"include": ["**/*"],
+// }
