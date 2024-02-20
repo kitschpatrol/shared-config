@@ -17,12 +17,13 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"prettier.documentSelectors": [
-		"**/*.rb",
-		"**/*.astro",
-		"**/*.svelte",
-		"**/.prettierignore",
+		"**/.eslintignore",
+		"**/.node-version",
 		"**/.npmrc",
-		"**/.eslintignore"
+		"**/.prettierignore",
+		"**/*.astro",
+		"**/*.rb",
+		"**/*.svelte"
 	],
 	"prettier.enable": true
 }

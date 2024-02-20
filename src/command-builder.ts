@@ -50,7 +50,7 @@ export type OptionCommands = {
 
 function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
 	return new Transform({
-		transform(chunk: Buffer | string, _: BufferEncoding, callback) {
+		transform(chunk: Uint8Array | string, _: BufferEncoding, callback) {
 			// Convert the chunk to a string and prepend the string to each line
 			const lines: string[] = chunk
 				.toString()
@@ -187,11 +187,11 @@ function generateFlags(options: OptionCommands): AnyFlags {
 }
 
 async function streamToString(stream: Stream): Promise<string> {
-	const chunks: Buffer[] = []
+	const chunks: Uint8Array[] = []
 	return new Promise((resolve, reject) => {
-		stream.on('data', (chunk: Buffer) => chunks.push(Buffer.from(chunk)))
+		stream.on('data', (chunk: Uint8Array) => chunks.push(Buffer.from(chunk)))
 		stream.on('error', (error) => {
-			reject(error)
+			reject(error as Error)
 		})
 		stream.on('end', () => {
 			resolve(Buffer.concat(chunks).toString('utf8'))
