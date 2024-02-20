@@ -33,7 +33,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsc && ../../scripts/build.ts",
+		"build": "tsc && ../../scripts/build.ts && mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},

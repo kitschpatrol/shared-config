@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/stylelint-config",
 	"version": "4.3.3",
 	"type": "module",
-	"description": "Stylelint config for @kitschpatrol/shared-config",
+	"description": "Stylelint config for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -31,7 +31,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts",
+		"build": "../../scripts/build.ts && mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},

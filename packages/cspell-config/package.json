@@ -31,7 +31,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts",
+		"build": "../../scripts/build.ts && mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
