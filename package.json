@@ -26,7 +26,7 @@
 		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
-		"build": "cp ./packages/shared-config/readme.md ./readme.md && pnpm run build:stand-alone && pnpm run build:shared",
+		"build": "pnpm run build:stand-alone && pnpm run build:shared && cp ./packages/shared-config/readme.md ./readme.md ",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
 		"clean": "pnpm run bin-restore && git clean -fdX",

@@ -22,18 +22,3 @@
 		"noFallthroughCasesInSwitch": true
 	}
 }
-
-// {
-// 	"compilerOptions": {
-// 		"target": "es2022",
-// 		"module": "NodeNext",
-// 		// "esModuleInterop": true,
-// 		"strictNullChecks": true,
-// 		"forceConsistentCasingInFileNames": true,
-// 		"strict": true,
-// 		// "skipLibCheck": true,
-// 		"noEmit": true,
-// 		"allowJs": true
-// 	},
-// 	"include": ["**/*"],
-// }

@@ -174,8 +174,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       mdat:
-        specifier: ^0.5.2
-        version: 0.5.2(typescript@5.3.3)
+        specifier: ^0.6.0
+        version: 0.6.0(typescript@5.3.3)
 
   packages/prettier-config:
     dependencies:
@@ -1440,13 +1440,13 @@ packages:
       type-detect: 4.0.8
     dev: true
 
-  /@kitschpatrol/tldraw-cli@4.0.0(typescript@5.3.3):
-    resolution: {integrity: sha512-1FCsA7rI++kwrBoXwtzRZaZAxR8Sov0PpJMzqmhqlrJJLMBGAR8PXyNCBZlq2AypMutsZlCw5o+w/Y4lhCMDJA==}
+  /@kitschpatrol/tldraw-cli@4.1.0(typescript@5.3.3):
+    resolution: {integrity: sha512-xljPbxv3YodtkPjsN5BbDOkpmzx001Zqh/nciKpd/ADPjqy0gENFC8xFNp6PN/nutVG6x7XTnWztLMDfHsZXTA==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
       express: 4.18.2
-      puppeteer: 22.1.0(typescript@5.3.3)
+      puppeteer: 22.2.0(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -1546,8 +1546,8 @@ packages:
       prettier: 3.2.5
     dev: false
 
-  /@puppeteer/browsers@2.0.1:
-    resolution: {integrity: sha512-IQj/rJY1MNfZ6Z2ERu+6S0LkIPBSXRGddgmvODqjm1afHy04aJIiWmoohuFtL78SPSlbjpIMuFVfhyqsR5Ng4A==}
+  /@puppeteer/browsers@2.1.0:
+    resolution: {integrity: sha512-xloWvocjvryHdUjDam/ZuGMh7zn4Sn3ZAaV4Ah2e2EwEt90N3XphZlSsU3n0VDc1F7kggCjMuH0UuxfPQ5mD9w==}
     engines: {node: '>=18'}
     hasBin: true
     dependencies:
@@ -1555,6 +1555,7 @@ packages:
       extract-zip: 2.0.1
       progress: 2.0.3
       proxy-agent: 6.4.0
+      semver: 7.6.0
       tar-fs: 3.0.5
       unbzip2-stream: 1.4.3
       yargs: 17.7.2
@@ -2465,12 +2466,12 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chromium-bidi@0.5.9(devtools-protocol@0.0.1232444):
+  /chromium-bidi@0.5.9(devtools-protocol@0.0.1249869):
     resolution: {integrity: sha512-wOTX3m2zuHX0zRX4h7Ol1DAGz0cqHzo2IrAPvOqBxdd4ZR32vxg4FKNjmBihi1oP9b1QGSBBG5VNUUXUCsxDfg==}
     peerDependencies:
       devtools-protocol: '*'
     dependencies:
-      devtools-protocol: 0.0.1232444
+      devtools-protocol: 0.0.1249869
       mitt: 3.0.1
       urlpattern-polyfill: 10.0.0
     dev: false
@@ -2922,8 +2923,8 @@ packages:
       dequal: 2.0.3
     dev: false
 
-  /devtools-protocol@0.0.1232444:
-    resolution: {integrity: sha512-pM27vqEfxSxRkTMnF+XCmxSEb6duO5R+t8A9DEEJgy4Wz2RVanje2mmj99B6A3zv2r/qGfYlOvYznUhuokizmg==}
+  /devtools-protocol@0.0.1249869:
+    resolution: {integrity: sha512-Ctp4hInA0BEavlUoRy9mhGq0i+JSo/AwVyX2EFgZmV1kYB+Zq+EMBAn52QWu6FbRr10hRb6pBl420upbp4++vg==}
     dev: false
 
   /diff@5.2.0:
@@ -5216,13 +5217,13 @@ packages:
       unist-util-visit: 5.0.0
     dev: false
 
-  /mdat@0.5.2(typescript@5.3.3):
-    resolution: {integrity: sha512-ymXcHDLJlHAMzjaiVV3oHhr+lOZD7vcD36FzhYtoSPrGVGbm7WFMZhSR/uMwKnSONgtJfRKZ+Wx3BMLZ/zev9A==}
+  /mdat@0.6.0(typescript@5.3.3):
+    resolution: {integrity: sha512-3WlZMh4/Tqd69+NdLQTEOc8OiSVNemGO24GaCxTDRGp8B2cQbbpIh6awReMKhjALmk7iEJdtn69C/CUF4vUGzw==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
       '@clack/prompts': 0.7.0
-      '@kitschpatrol/tldraw-cli': 4.0.0(typescript@5.3.3)
+      '@kitschpatrol/tldraw-cli': 4.1.0(typescript@5.3.3)
       '@types/mdast': 4.0.3
       '@types/unist': 3.0.2
       chalk: 5.3.0
@@ -5233,7 +5234,7 @@ packages:
       globby: 14.0.1
       is-executable: 2.0.1
       mdast-util-toc: 7.0.0
-      nanoid: 5.0.5
+      nanoid: 5.0.6
       package-up: 5.0.0
       path-type: 5.0.0
       pkg-dir: 8.0.0
@@ -5242,9 +5243,9 @@ packages:
       read-pkg: 9.0.1
       remark: 15.0.1
       remark-gfm: 4.0.0
-      remark-mdat: 0.5.2
+      remark-mdat: 0.6.0
       to-vfile: 8.0.0
-      type-fest: 4.10.2
+      type-fest: 4.10.3
       untildify: 5.0.0
       vfile: 6.0.1
       which: 4.0.0
@@ -5952,8 +5953,8 @@ packages:
     hasBin: true
     dev: false
 
-  /nanoid@5.0.5:
-    resolution: {integrity: sha512-/Veqm+QKsyMY3kqi4faWplnY1u+VuKO3dD2binyPIybP31DRO29bPF+1mszgLnrR2KqSLceFLBNw0zmvDzN1QQ==}
+  /nanoid@5.0.6:
+    resolution: {integrity: sha512-rRq0eMHoGZxlvaFOUdK1Ev83Bd1IgzzR+WJ3IbDJ7QOSdAxYjlurSPqFs9s4lJg29RT6nPwizFtJhQS6V5xgiA==}
     engines: {node: ^18 || >=20}
     hasBin: true
     dev: false
@@ -6287,7 +6288,7 @@ packages:
     dependencies:
       '@babel/code-frame': 7.23.5
       index-to-position: 0.1.2
-      type-fest: 4.10.2
+      type-fest: 4.10.3
     dev: false
 
   /parse-ms@4.0.0:
@@ -6707,15 +6708,15 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /puppeteer-core@22.1.0:
-    resolution: {integrity: sha512-LdsQxslPf0Rpk6gLvkyyrraad2S4PUjGCT2CAKS2EnrRPpzIb6fsrFnoPNZxLlMkU7apU1g4Nf5wYePdSjxLkQ==}
+  /puppeteer-core@22.2.0:
+    resolution: {integrity: sha512-rxLM860FP05CxCPAn6dwY0KnVhbnogsXu4XORb+2hb/va69v7R1VdJWLMGHd7EE5wfpT8oFZ7Q6NN85OhOtV9Q==}
     engines: {node: '>=18'}
     dependencies:
-      '@puppeteer/browsers': 2.0.1
-      chromium-bidi: 0.5.9(devtools-protocol@0.0.1232444)
+      '@puppeteer/browsers': 2.1.0
+      chromium-bidi: 0.5.9(devtools-protocol@0.0.1249869)
       cross-fetch: 4.0.0
       debug: 4.3.4
-      devtools-protocol: 0.0.1232444
+      devtools-protocol: 0.0.1249869
       ws: 8.16.0
     transitivePeerDependencies:
       - bufferutil
@@ -6724,15 +6725,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /puppeteer@22.1.0(typescript@5.3.3):
-    resolution: {integrity: sha512-suatHy6A48YkoykjrJNkJaixWVrvnPtzIgngK17V/P0MvgSyJzuu21PyR+0lWIK0cfZqKqmR8CHZvHzOCd4MIg==}
+  /puppeteer@22.2.0(typescript@5.3.3):
+    resolution: {integrity: sha512-0Ax7zeqqbQL6Zcpo1WAvrqWQAnGsLB4tmQUUwsb5Cfo05XaQ78LWUUjaO4um7qaddKpZfk0vXlGcRVwtedpWfg==}
     engines: {node: '>=18'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@puppeteer/browsers': 2.0.1
+      '@puppeteer/browsers': 2.1.0
       cosmiconfig: 9.0.0(typescript@5.3.3)
-      puppeteer-core: 22.1.0
+      puppeteer-core: 22.2.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -6825,7 +6826,7 @@ packages:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.0
       parse-json: 8.1.0
-      type-fest: 4.10.2
+      type-fest: 4.10.3
       unicorn-magic: 0.1.0
     dev: false
 
@@ -7395,8 +7396,8 @@ packages:
       - supports-color
     dev: false
 
-  /remark-mdat@0.5.2:
-    resolution: {integrity: sha512-M26T4srKZzAPE68ehghr4d4XGroS+xadYpp11We2WR0NDELdpnRHzq0KD2pk2LDerJSvEGx73iNNeVVyvTytqg==}
+  /remark-mdat@0.6.0:
+    resolution: {integrity: sha512-3YtFVkyaLiZBX0kDNscNfFi45D+5coLmbN9e6TK8AZX0/OEN6gloNibdPUzTVsA7soDsw8T/DEIqBfUmuaw04A==}
     engines: {node: '>=16.0.0', pnpm: '>=8.0.0'}
     dependencies:
       '@types/mdast': 4.0.3
@@ -7408,7 +7409,7 @@ packages:
       json5: 2.2.3
       remark: 15.0.1
       remark-gfm: 4.0.0
-      type-fest: 4.10.2
+      type-fest: 4.10.3
       unified: 11.0.4
       unist-util-visit: 5.0.0
       vfile: 6.0.1
@@ -8240,8 +8241,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: false
 
-  /type-fest@4.10.2:
-    resolution: {integrity: sha512-anpAG63wSpdEbLwOqH8L84urkL6PiVIov3EMmgIhhThevh9aiMQov+6Btx0wldNcvm4wV+e2/Rt1QdDwKHFbHw==}
+  /type-fest@4.10.3:
+    resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
     engines: {node: '>=16'}
     dev: false
 
