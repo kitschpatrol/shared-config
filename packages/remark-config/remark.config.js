@@ -17,7 +17,6 @@ import remarkLintNoDuplicateDefinedUrls from 'remark-lint-no-duplicate-defined-u
 import remarkLintNoDuplicateDefinitions from 'remark-lint-no-duplicate-definitions'
 import remarkLintNoDuplicateHeadings from 'remark-lint-no-duplicate-headings'
 import remarkLintNoDuplicateHeadingsInSection from 'remark-lint-no-duplicate-headings-in-section'
-import remarkLintNoEmphasisAsHeading from 'remark-lint-no-emphasis-as-heading'
 import remarkLintNoEmptyUrl from 'remark-lint-no-empty-url'
 import remarkLintNoFileNameArticles from 'remark-lint-no-file-name-articles'
 import remarkLintNoFileNameConsecutiveDashes from 'remark-lint-no-file-name-consecutive-dashes'
@@ -25,9 +24,7 @@ import remarkLintNoFileNameIrregularCharacters from 'remark-lint-no-file-name-ir
 import remarkLintNoFileNameOuterDashes from 'remark-lint-no-file-name-outer-dashes'
 import remarkLintNoHeadingIndent from 'remark-lint-no-heading-indent'
 import remarkLintNoHeadingLikeParagraph from 'remark-lint-no-heading-like-paragraph'
-import remarkLintNoHtml from 'remark-lint-no-html'
 import remarkLintNoLiteralUrls from 'remark-lint-no-literal-urls'
-import remarkLintNoMissingBlankLines from 'remark-lint-no-missing-blank-lines'
 import remarkLintNoMultipleToplevelHeadings from 'remark-lint-no-multiple-toplevel-headings'
 import remarkLintNoParagraphContentIndent from 'remark-lint-no-paragraph-content-indent'
 import remarkLintNoReferenceLikeUrl from 'remark-lint-no-reference-like-url'
@@ -114,7 +111,6 @@ export default {
 		remarkLintNoDuplicateDefinitions,
 		remarkLintNoDuplicateHeadings,
 		remarkLintNoDuplicateHeadingsInSection,
-		remarkLintNoEmphasisAsHeading,
 		remarkLintNoEmptyUrl,
 		remarkLintNoFileNameArticles,
 		remarkLintNoFileNameConsecutiveDashes,
@@ -124,9 +120,7 @@ export default {
 		remarkLintNoFileNameOuterDashes,
 		remarkLintNoHeadingIndent,
 		remarkLintNoHeadingLikeParagraph,
-		remarkLintNoHtml,
 		remarkLintNoLiteralUrls,
-		remarkLintNoMissingBlankLines,
 		remarkLintNoMultipleToplevelHeadings,
 		remarkLintNoParagraphContentIndent,
 		remarkLintNoReferenceLikeUrl,
