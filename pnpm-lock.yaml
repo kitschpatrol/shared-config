@@ -174,8 +174,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       mdat:
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@5.3.3)
+        specifier: ^0.6.3
+        version: 0.6.3(typescript@5.3.3)
 
   packages/prettier-config:
     dependencies:
@@ -299,9 +299,6 @@ importers:
       remark-lint-no-duplicate-headings-in-section:
         specifier: ^3.1.2
         version: 3.1.2
-      remark-lint-no-emphasis-as-heading:
-        specifier: ^3.1.2
-        version: 3.1.2
       remark-lint-no-empty-url:
         specifier: ^3.1.2
         version: 3.1.2
@@ -323,13 +320,7 @@ importers:
       remark-lint-no-heading-like-paragraph:
         specifier: ^3.1.2
         version: 3.1.2
-      remark-lint-no-html:
-        specifier: ^3.1.2
-        version: 3.1.2
       remark-lint-no-literal-urls:
-        specifier: ^3.1.2
-        version: 3.1.2
-      remark-lint-no-missing-blank-lines:
         specifier: ^3.1.2
         version: 3.1.2
       remark-lint-no-multiple-toplevel-headings:
@@ -5217,8 +5208,8 @@ packages:
       unist-util-visit: 5.0.0
     dev: false
 
-  /mdat@0.6.0(typescript@5.3.3):
-    resolution: {integrity: sha512-3WlZMh4/Tqd69+NdLQTEOc8OiSVNemGO24GaCxTDRGp8B2cQbbpIh6awReMKhjALmk7iEJdtn69C/CUF4vUGzw==}
+  /mdat@0.6.3(typescript@5.3.3):
+    resolution: {integrity: sha512-B+Zq2AofkzgouYJrzMB04uFQ1/WnRwx6rwPVFyk4r9yZHEqYDpCHeRfc8v/GGhk9f32D7lhUEX2GyeBGTHJd+w==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
@@ -5243,7 +5234,7 @@ packages:
       read-pkg: 9.0.1
       remark: 15.0.1
       remark-gfm: 4.0.0
-      remark-mdat: 0.6.0
+      remark-mdat: 0.6.3
       to-vfile: 8.0.0
       type-fest: 4.10.3
       untildify: 5.0.0
@@ -7099,16 +7090,6 @@ packages:
       unist-util-visit: 4.1.2
     dev: false
 
-  /remark-lint-no-emphasis-as-heading@3.1.2:
-    resolution: {integrity: sha512-2DDx0VkqSExR6oqBiQtOsmdDwT7f3hpnPwPvBCk7BDeDU53JWY1kBAkRObkEptgH3GfpwxIQymIdHXesBpAQAg==}
-    dependencies:
-      '@types/mdast': 3.0.15
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-      unist-util-generated: 2.0.1
-      unist-util-visit: 4.1.2
-    dev: false
-
   /remark-lint-no-empty-url@3.1.2:
     resolution: {integrity: sha512-uu1ka/jNC5fQlLb1tKp3NLfb/0DpS9vLMmxJ8JU7iC8AurMTpI8yk/rpHr3NHz59pfGWboHjXOCE8n6q55VENw==}
     dependencies:
@@ -7173,32 +7154,11 @@ packages:
       unist-util-visit: 4.1.2
     dev: false
 
-  /remark-lint-no-html@3.1.2:
-    resolution: {integrity: sha512-KYxwGNQRVXmYhrg/gzi9RL/oaQEQMf6S82apsaBvPd+GbLfUu/sZ9ipJL2Lavz66elzZITcs/B80yi0jsFPbSw==}
-    dependencies:
-      '@types/mdast': 3.0.15
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-      unist-util-generated: 2.0.1
-      unist-util-visit: 4.1.2
-    dev: false
-
   /remark-lint-no-literal-urls@3.1.2:
     resolution: {integrity: sha512-4tV9JGLKxAMFSuWDMOqLozkFJ3HyRvhzgrPrxASoziaml23m7UXAozk5dkIrFny1cN2oG988Z8tORxX2FL1Ilw==}
     dependencies:
       '@types/mdast': 3.0.15
       mdast-util-to-string: 3.2.0
-      unified: 10.1.2
-      unified-lint-rule: 2.1.2
-      unist-util-generated: 2.0.1
-      unist-util-position: 4.0.4
-      unist-util-visit: 4.1.2
-    dev: false
-
-  /remark-lint-no-missing-blank-lines@3.1.2:
-    resolution: {integrity: sha512-lgCfePH7MVCW6KAKUag8HFYC2oPbeLwZmNUzbAZLN263lerWcAMjsHkNnf26v8MkH8+IoJsTqwdqpel7I+dxtQ==}
-    dependencies:
-      '@types/mdast': 3.0.15
       unified: 10.1.2
       unified-lint-rule: 2.1.2
       unist-util-generated: 2.0.1
@@ -7396,8 +7356,8 @@ packages:
       - supports-color
     dev: false
 
-  /remark-mdat@0.6.0:
-    resolution: {integrity: sha512-3YtFVkyaLiZBX0kDNscNfFi45D+5coLmbN9e6TK8AZX0/OEN6gloNibdPUzTVsA7soDsw8T/DEIqBfUmuaw04A==}
+  /remark-mdat@0.6.3:
+    resolution: {integrity: sha512-rOX87fj0zq2cTd5i4+vsK40/T++zQdveAaSxith22N0Yex91ERLMpZQh/HgsYtSEHSI/i9Fd9e36kIfJJAY1QQ==}
     engines: {node: '>=16.0.0', pnpm: '>=8.0.0'}
     dependencies:
       '@types/mdast': 4.0.3
@@ -7750,6 +7710,7 @@ packages:
   /socks@2.7.3:
     resolution: {integrity: sha512-vfuYK48HXCTFD03G/1/zkIls3Ebr2YNa4qU9gHDZdblHLiqhJrJGkY3+0Nx0JpN9qBhJbVObc1CNciT1bIZJxw==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
+    deprecated: please use 2.7.4 or 2.8.1 to fix package-lock issue
     dependencies:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
