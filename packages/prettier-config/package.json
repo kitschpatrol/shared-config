@@ -50,7 +50,7 @@
 		"prettier-plugin-pkg": "^0.18.1",
 		"prettier-plugin-sh": "^0.14.0",
 		"prettier-plugin-sql": "^0.18.0",
-		"prettier-plugin-svelte": "^3.2.1",
+		"prettier-plugin-svelte": "^3.2.2",
 		"prettier-plugin-tailwindcss": "^0.5.11",
 		"prettier-plugin-toml": "^2.0.1"
 	},
