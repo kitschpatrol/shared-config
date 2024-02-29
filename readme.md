@@ -165,7 +165,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 Pnpm considers module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
 
-- CSpell, markdownlint, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
