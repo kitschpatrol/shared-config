@@ -20,7 +20,9 @@ This includes the following:
 - [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for \`shared-config\`\` tool access
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
-- `.github` folder with a workflow for turning vX.X.X tags into GitHub releases
+- `.github` folder with workflows:
+  - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases
+  - `sync-metadata.yml` Populates GitHub repo metadata from package.json
 
 It's needed to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages.
 
@@ -66,7 +68,14 @@ There are two options for authenticating the release workflow action:
 
 If you want releases to come from your account instead of `github_actions`, then:
 
-1. Create a [fine-grained personal access token](https://github.com/settings/tokens?type=beta) in your GitHub account with the "Contents" repository permission set to "Read and Write".
+1. Create a [fine-grained personal access token](https://github.com/settings/tokens?type=beta) in your GitHub account with the following permissions:
+
+   | Permission     | Access         |
+   | -------------- | -------------- |
+   | Administration | Read and write |
+   | Contents       | Read and write |
+   | Metadata       | Read-only      |
+
 2. Add the token as a secret to the repository under the key `PERSONAL_ACCESS_TOKEN`.
 
 ## Usage
