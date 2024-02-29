@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/cspell-config](https://img.shields.io/npm/v/@kitschpatrol/cspell-config.svg)](https://npmjs.com/package/@kitschpatrol/cspell-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**CSPell config for @kitschpatrol/shared-config**
+**CSpell configuration for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -59,7 +59,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `cspell-config`
 
-CSPell config for @kitschpatrol/shared-config
+CSpell configuration for @kitschpatrol/shared-config.
 
 Usage:
 

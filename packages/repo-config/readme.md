@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/repo-config](https://img.shields.io/npm/v/@kitschpatrol/repo-config.svg)](https://npmjs.com/package/@kitschpatrol/repo-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Initial repo configuration for @kitschpatrol/shared-config**
+**Repository configuration and GitHub workflows for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -86,7 +86,7 @@ If you want releases to come from your account instead of `github_actions`, then
 
 #### Command: `repo-config`
 
-Initial repo configuration for @kitschpatrol/shared-config
+Repository configuration and GitHub workflows for @kitschpatrol/shared-config.
 
 Usage:
 

@@ -22,6 +22,19 @@
 		"node": ">=18.0.0",
 		"pnpm": ">=8.0.0"
 	},
+	"keywords": [
+		"shared-config",
+		"eslint-config",
+		"stylelint-config",
+		"prettier-config",
+		"remark-config",
+		"remark-lint",
+		"github-actions",
+		"cspell",
+		"mdat",
+		"cli",
+		"npm-package"
+	],
 	"scripts": {
 		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",

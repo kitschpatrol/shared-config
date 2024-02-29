@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/mdat-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "Mdat config for @kitschpatrol/shared-config",
+	"description": "MDAT configuration for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -31,6 +31,14 @@
 		"bin/*",
 		"dist/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"mdat-config",
+		"markdown",
+		"readme",
+		"mdat",
+		"cli"
 	],
 	"scripts": {
 		"build": "tsc && ../../scripts/build.ts && mdat readme",

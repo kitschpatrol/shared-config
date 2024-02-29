@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/remark-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "Linting for markdown and MDX files, managed via ESLint.",
+	"description": "Markdown and MDX linting for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -29,6 +29,13 @@
 	"files": [
 		"bin/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"remark-config",
+		"remark-lint",
+		"remark",
+		"cli"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",

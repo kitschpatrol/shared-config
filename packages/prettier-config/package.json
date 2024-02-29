@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/prettier-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "Prettier config for @kitschpatrol/shared-config",
+	"description": "Prettier configuration for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -29,6 +29,12 @@
 	"files": [
 		"bin/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"prettier-config",
+		"prettier",
+		"cli"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",

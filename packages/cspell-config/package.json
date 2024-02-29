@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/cspell-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "CSPell config for @kitschpatrol/shared-config",
+	"description": "CSpell configuration for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -29,6 +29,12 @@
 	"files": [
 		"bin/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"cspell-config",
+		"cspell",
+		"cli"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",

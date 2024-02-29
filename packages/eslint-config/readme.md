@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/eslint-config](https://img.shields.io/npm/v/@kitschpatrol/eslint-config.svg)](https://npmjs.com/package/@kitschpatrol/eslint-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**ESLint config for @kitschpatrol/shared-config**
+**ESLint configuration for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -60,7 +60,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `eslint-config`
 
-ESLint config for @kitschpatrol/shared-config
+ESLint configuration for @kitschpatrol/shared-config.
 
 Usage:
 

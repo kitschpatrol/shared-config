@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/shared-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "Linting and formatting for web projects.",
+	"description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -27,6 +27,18 @@
 	},
 	"files": [
 		"bin/*"
+	],
+	"keywords": [
+		"shared-config",
+		"eslint-config",
+		"stylelint-config",
+		"prettier-config",
+		"remark-config",
+		"remark-lint",
+		"github-actions",
+		"cspell",
+		"mdat",
+		"cli"
 	],
 	"scripts": {
 		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && mdat readme",

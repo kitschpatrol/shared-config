@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/prettier-config](https://img.shields.io/npm/v/@kitschpatrol/prettier-config.svg)](https://npmjs.com/package/@kitschpatrol/prettier-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Prettier config for @kitschpatrol/shared-config**
+**Prettier configuration for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -62,7 +62,7 @@ You might need to pass certain plugins in explicitly. The `shared-config --fix` 
 
 #### Command: `prettier-config`
 
-Prettier config for @kitschpatrol/shared-config
+Prettier configuration for @kitschpatrol/shared-config.
 
 Usage:
 

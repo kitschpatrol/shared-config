@@ -7,13 +7,13 @@
 [![NPM Package @kitschpatrol/mdat-config](https://img.shields.io/npm/v/@kitschpatrol/mdat-config.svg)](https://npmjs.com/package/@kitschpatrol/mdat-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Mdat config for @kitschpatrol/shared-config**
+**MDAT configuration for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
 ## Overview
 
-It's a shared [mdat](https://github.com/kitschpatrol/mdat) config.
+It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config.
 
 **See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
 
@@ -64,7 +64,7 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 
 #### Command: `mdat-config`
 
-Mdat config for @kitschpatrol/shared-config
+MDAT configuration for @kitschpatrol/shared-config.
 
 Usage:
 

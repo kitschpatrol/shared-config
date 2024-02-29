@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/stylelint-config](https://img.shields.io/npm/v/@kitschpatrol/stylelint-config.svg)](https://npmjs.com/package/@kitschpatrol/stylelint-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Stylelint config for @kitschpatrol/shared-config.**
+**Stylelint configuration for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -60,7 +60,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `stylelint-config`
 
-Stylelint config for @kitschpatrol/shared-config.
+Stylelint configuration for @kitschpatrol/shared-config.
 
 Usage:
 

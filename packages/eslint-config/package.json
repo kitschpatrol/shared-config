@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/eslint-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "ESLint config for @kitschpatrol/shared-config",
+	"description": "ESLint configuration for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -29,6 +29,12 @@
 	"files": [
 		"bin/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"eslint-config",
+		"eslint",
+		"cli"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",

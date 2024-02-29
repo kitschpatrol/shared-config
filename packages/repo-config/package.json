@@ -2,7 +2,7 @@
 	"name": "@kitschpatrol/repo-config",
 	"version": "4.4.3",
 	"type": "module",
-	"description": "Initial repo configuration for @kitschpatrol/shared-config",
+	"description": "Repository configuration and GitHub workflows for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git",
@@ -28,6 +28,11 @@
 	"files": [
 		"bin/*",
 		"init/*"
+	],
+	"keywords": [
+		"shared-config",
+		"github-actions",
+		"cli"
 	],
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",

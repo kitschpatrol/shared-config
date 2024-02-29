@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/remark-config](https://img.shields.io/npm/v/@kitschpatrol/remark-config.svg)](https://npmjs.com/package/@kitschpatrol/remark-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Linting for markdown and MDX files, managed via ESLint.**
+**Markdown and MDX linting for @kitschpatrol/shared-config.**
 
 <!-- /header -->
 
@@ -59,7 +59,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `remark-config`
 
-Linting for markdown and MDX files, managed via ESLint.
+Markdown and MDX linting for @kitschpatrol/shared-config.
 
 Usage:
 

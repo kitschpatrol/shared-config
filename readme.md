@@ -7,7 +7,7 @@
 [![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Linting and formatting for web projects.**
+**A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.**
 
 <!-- /header -->
 
@@ -29,6 +29,8 @@
 
 This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency.
 
+### Tools
+
 It takes care of dependencies and configurations for the following tools:
 
 - [CSpell](https://cspell.org)
@@ -40,13 +42,25 @@ It takes care of dependencies and configurations for the following tools:
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
-All of the above may be added to a project as a single dependency. All may be run simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+### Packages
+
+This readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
+
+- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
+- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
+- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md)
+- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md)
+- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md)
+- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
+- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
+
+Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
 ## Getting started
 
 ### Dependencies
 
-Node 18+ and pnpm are required. It probably works with NPM and yarn, but I haven't tested it.
+Node 18+ and [pnpm](https://pnpm.io) are required. It probably works with NPM and yarn, but I haven't tested it.
 
 ### Installation
 
@@ -122,7 +136,7 @@ pnpm run format
 
 #### Command: `shared-config`
 
-Linting and formatting for web projects.
+A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.
 
 Usage:
 
@@ -141,17 +155,7 @@ shared-config [<file|glob> ...]
 
 <!-- /cli-help -->
 
-The `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo, each of which is documented in its respective readme, linked below:
-
-- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
-- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
-- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md)
-- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md)
-- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md)
-- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
-- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
-
-Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config`.
+Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `shared-config` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
 
@@ -165,7 +169,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 Pnpm considers module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
 
-- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, markdownlint, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
