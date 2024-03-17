@@ -41,7 +41,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"stylelint": "^16.1.0"
+		"stylelint": "^16.2.1"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
