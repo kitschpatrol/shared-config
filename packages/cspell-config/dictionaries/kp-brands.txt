@@ -71,9 +71,11 @@ Glamtech
 Glasslands
 Glorietta
 Goppion
+Harves
 Hirshhorn
 Hisense
 Hoka
+Illesteva
 Kagi
 Keychron
 Kickstarter
@@ -85,12 +87,14 @@ Labdoor
 Lamy
 Levain
 Loreal
+Macys
+Mandai
 Mechanix
 Mekelburg
 Meross
 Metrograph
 Mets
-Moma
+Moccamaster
 Momofuku
 Monero
 Monoprice
@@ -98,6 +102,8 @@ Monoprix
 Muji
 Neatorama
 networkidle
+Northbank
+Northstar
 Novablast
 Oishii
 Optoma
@@ -145,6 +151,7 @@ Tesa
 Thonet
 Timbuk
 Tinyletter
+Totokaelo
 Travelpro
 Turris
 Ubiquiti
