@@ -28,6 +28,7 @@
 	"main": "./cspell.config.json",
 	"files": [
 		"bin/*",
+		"dictionaries/*",
 		"init/*"
 	],
 	"keywords": [
@@ -39,6 +40,7 @@
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",
 		"cli": "node ./bin/cli.js",
+		"list-words": "cat ./dictionaries/*.txt",
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
