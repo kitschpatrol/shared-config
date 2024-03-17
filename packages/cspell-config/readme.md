@@ -77,11 +77,64 @@ cspell-config [<file|glob> ...]
 
 <!-- /cli-help -->
 
+## Configuration
+
+### Disabling bundled dictionaries
+
+In additional to CSpell's default dictionary configuration, this shared configuration enables a number of dictionaries that ship with CSpell for all file types:
+
+- [`lorem-ipsum`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/lorem-ipsum/dict/lorem.txt)
+- [`git`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/git/cspell-ext.json)
+- [`gaming-terms`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/gaming-terms/dict/gaming-terms.txt)
+- [`npm`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/npm/dict/npm.txt)
+- [`data-science`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/data-science/dict/data-science.txt)
+- [`fullstack`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/fullstack/dict/fullstack.txt)
+
+It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
+
+- `kp-acronyms` Contains acronyms
+- `kp-brands` Contains proper nouns like brand names
+- `kp-misc` Contains general and miscellaneous words
+- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
+- `kp-names` Human names and usernames
+
+In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
+
+For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
+
+```json
+{
+  "import": "@kitschpatrol/cspell-config",
+  "dictionaries": [
+    "!kp-acronyms",
+    "!kp-brands"
+    // ...Addtional !-prefixed dicitonary names
+  ]
+}
+```
+
+### Adding project-scoped words
+
+In your project's root `.cspell.json`:
+
+```json
+{
+  "import": "@kitschpatrol/cspell-config",
+  "words": [
+    "mountweazel",
+    "steinlaus",
+    "jungftak",
+    "esquivalience"
+    // ...Additional words
+  ]
+}
+```
+
 ## Notes
 
 This config includes a bunch of words I've happened to have needed to use. Your preferences will vary.
 
-CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`).
+CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
 
 <!-- license -->
 
