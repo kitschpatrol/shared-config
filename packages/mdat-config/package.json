@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/mdat-config",
-	"version": "4.6.0",
+	"version": "4.6.1",
 	"type": "module",
 	"description": "MDAT configuration for @kitschpatrol/shared-config.",
 	"repository": {
