@@ -1,6 +1,6 @@
 {
 	"name": "root",
-	"version": "4.5.0",
+	"version": "4.6.0",
 	"type": "module",
 	"description": "A single dependency and single command to configure and run various code linters and tools.",
 	"repository": {
