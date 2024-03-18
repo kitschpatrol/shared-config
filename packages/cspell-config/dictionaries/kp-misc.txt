@@ -81,10 +81,13 @@ grapher
 Greenpoint
 gyoza
 heli
+holo
 holodeck
+hyperpop
 ideator
 Ikinari
 instrumentalization
+Interactivos
 intergenerational
 jankiness
 jouissance
@@ -113,11 +116,14 @@ nori
 normie
 Nostrand
 packrat
+pappardelle
 pico
 polyphenol
+polyphenols
 polyvinylpyrrolidone
 porntipsguzzardo
 posthumanism
+railcar
 rebranded
 refurb
 repairability
@@ -146,6 +152,7 @@ stackable
 statuario
 steeplecab
 stopfen
+storymaking
 synesthectacles
 technologiae
 technopaganism

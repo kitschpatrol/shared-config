@@ -1,3 +1,4 @@
+A'yen
 Adamson
 Adkisson
 Adrián
@@ -29,6 +30,7 @@ Aseem
 Attia
 Avgeros
 ayamflow
+Ayen
 Babou
 Baichtal
 Balch
@@ -104,6 +106,8 @@ Debord
 Degaulle
 Degenhardt
 Deleuze
+Dell'Antonia
+Dellantonia
 Delphine
 Demeulemeester
 Denson
@@ -179,6 +183,7 @@ Hammerbacher
 Harari
 Haraway
 Harnisch
+Harouna
 Hartke
 Hartun
 Hechinger
@@ -193,6 +198,7 @@ Hoppe
 Hornbeck
 Hotz
 Houde
+Houellebecq
 Houng
 Houx
 Huffington
@@ -284,6 +290,7 @@ Liv
 Lixin
 Loong
 Lovejoy
+Lrai
 Lupton
 Maag
 Mackay
@@ -305,6 +312,7 @@ Matija
 Matteson
 Mattt
 Matuschak
+McCambridge
 McGlone
 McIver
 McKenna
@@ -345,6 +353,8 @@ Nikola
 Nima
 Nitsuj
 Noam
+O'Connor
+Oconnor
 Okamura
 Olaaf
 Oliveri
@@ -361,6 +371,7 @@ Pavel
 Pawel
 Pawlikowski
 Pearlyn
+Pepe
 Pham
 phenomnomnominal
 Philipp
@@ -378,6 +389,7 @@ Protzel
 Quintana
 Rafferty
 Raman
+ramblerman
 Rasmus
 Realmuto
 Reas
