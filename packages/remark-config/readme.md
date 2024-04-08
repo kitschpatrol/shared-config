@@ -76,6 +76,34 @@ remark-config [<file|glob> ...]
 
 <!-- /cli-help -->
 
+## Configuration
+
+### Avoiding errors in non-git projects
+
+The [remark-validate-links](https://github.com/remarkjs/remark-validate-links) looks for a git remote to validate relative link paths.
+
+If your project is not a git repository, you will receive warning from remark via eslint:
+
+```txt
+Command failed: git remote -v
+fatal: not a git repository (or any of the parent directories): .git
+eslint(undefined-undefined)
+```
+
+To fix this, pass the `repository: false` option in your `.remarkrc.js` file:
+
+```js
+// .remarkrc.js
+import sharedConfig, { overrideRules } from '@kitschpatrol/remark-config'
+
+const localConfig = {
+  ...sharedConfig,
+  plugins: overrideRules(sharedConfig.plugins, [['remarkValidateLinks', { repository: false }]]),
+}
+
+export default localConfig
+```
+
 <!-- license -->
 
 ## License
