@@ -33,6 +33,7 @@ browserconfig
 Bugsense
 Bulma
 bumpp
+bunnycdn
 buttongrid
 bzdata
 bzpkg
@@ -90,6 +91,7 @@ exportdb
 faststart
 favicons
 fddk
+ffmetadata
 ffprobe
 fieldset
 figcaption
@@ -106,8 +108,10 @@ Gridsome
 Hackaday
 hackintosh
 haml
+hasha
 hashable
 hashchange
+helpd
 HoloLens
 HoloVista
 hostnames
@@ -328,6 +332,7 @@ USBImager
 vapo
 vectorstore
 vfile
+vidup
 virtualenv
 vmax
 vmin
