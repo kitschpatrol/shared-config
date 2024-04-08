@@ -42,7 +42,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"eslint": ">=8.57.0"
+		"eslint": "^8.57.0"
 	},
 	"dependencies": {
 		"@html-eslint/eslint-plugin": "^0.24.0",
