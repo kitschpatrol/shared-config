@@ -82,6 +82,7 @@ dpkg
 draggability
 duti
 Dyntube
+emaculation
 Emolex
 Excalidraw
 execa
@@ -142,6 +143,7 @@ Lume
 Luminar
 Maaku
 magicmark
+mailarchiver
 markdownit
 maxlength
 Mbps
