@@ -36,6 +36,7 @@ Chakra
 Cheogram
 CLAE
 Cnet
+codemirror
 Cometa
 Conceptarium
 Coolhunting
@@ -79,6 +80,7 @@ Hoka
 Illesteva
 Kagi
 Keychron
+Khronos
 Kickstarter
 Killscreen
 Kingwin
@@ -87,6 +89,7 @@ L'Oréal
 Labdoor
 Lamy
 Levain
+Linebreak
 Loreal
 Macys
 Mandai
@@ -112,13 +115,16 @@ Paxlovid
 Performa
 Perlorian
 Perrotin
+Phidgets
 Piction
 Plastite
 Playmobil
+Pocketmod
 Posay
 Prezi
 Protolabs
 Quantbase
+Retrobatch
 Ribbonfarm
 Rilakkuma
 Rimowa
@@ -134,6 +140,7 @@ Saucony
 Selfridges
 Siig
 Smartwool
+Somaxis
 Sonicare
 Speaklow
 Spyscape
@@ -154,6 +161,7 @@ Timbuk
 Tinyletter
 Totokaelo
 Travelpro
+Truevision
 Turris
 Ubiquiti
 Ultimaker

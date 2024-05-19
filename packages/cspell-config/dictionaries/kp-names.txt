@@ -1,7 +1,9 @@
+3dkng
 A'yen
 Adamson
 Adkisson
 Adrián
+Agarwala
 Ainslie
 Ajay
 Akten
@@ -10,6 +12,7 @@ alexeaton
 Amane
 Amato
 Amelot
+Amet
 Amlen
 Ando
 Andrade
@@ -17,6 +20,7 @@ André
 Andreas
 Andrej
 Andrey
+Andria
 andycb
 Anella
 Ankeny
@@ -39,12 +43,14 @@ Baraff
 Bassick
 Batuman
 Bayles
+beatfeat
 Belson
 Bermudez
 Beuerer
 Bezos
 Bifo
 Bihn
+bildende
 Binay
 Bjørn
 Boesch
@@ -73,6 +79,7 @@ Bubuck
 Buckminster
 Bustos
 Byung
+Canavan
 Capps
 Carmack
 Castiñeira
@@ -92,6 +99,7 @@ Cleese
 Clevenger
 Clisset
 Cohrs
+Cormeau
 Cravey
 Crittercism
 Croghan
@@ -105,6 +113,7 @@ Deamer
 Debord
 Degaulle
 Degenhardt
+Delbyck
 Deleuze
 Dell'Antonia
 Dellantonia
@@ -139,6 +148,7 @@ Erwan
 Exley
 Eyal
 Ezgi
+Falco
 Federov
 Feit
 Felsen
@@ -158,12 +168,14 @@ Franke
 Frede
 Freundlich
 Frumin
+Geffner
 Genny
 Gershenfeld
 Gervais
 Gesiak
 Gethin
 Gillaume
+Glimcher
 Godin
 Goliński
 Grasse
@@ -209,12 +221,14 @@ Insaf
 Isaacson
 Issey
 Itzhak
+Izzy
 Jadens
 Jaein
 Jakob
 Jakub
 Jalufka
 Jamison
+Jang
 Jenn
 Jilann
 Jing
@@ -232,6 +246,7 @@ Kallie
 Karmann
 Karpathy
 Karsten
+Katia
 Katsuhiro
 Kayser
 Keeli
@@ -253,6 +268,7 @@ Kogan
 Kôji
 Kojian
 Kokubun
+Kosberg
 Koustantinich
 Kovarik
 Koźniewski
@@ -269,6 +285,7 @@ Kusama
 Kushner
 Kutnow
 L'Rai
+Laidlaw
 Laika
 Lassy
 Lattner
@@ -298,9 +315,11 @@ Mackay
 Maddy
 Madsen
 Makari
+Makiura
 Marais
 Marbut
 Margiela
+Marijana
 Marika
 Marlena
 Marraco
@@ -323,6 +342,7 @@ Mendes
 Mensah
 Merington
 Mesia
+Mesià
 metehus
 Mika
 Mikaela
@@ -338,12 +358,15 @@ Moatti
 Molanphy
 Monge
 Monstercat
+Moriah
+Mulhollen
 Müller
 Nadya
 Naimark
 Nassima
 Nattinger
 Navalny
+Nemerov
 Nessen
 Ngan
 Nico
@@ -362,6 +385,7 @@ Oliveri
 Onvural
 Oriol
 Orland
+Pachucki
 Paciocco
 Paik
 Palash
@@ -406,6 +430,7 @@ repalash
 Reza
 Rienstra
 Rieper
+Rigamonti
 Ritchie
 Rivière
 Rivington
@@ -424,6 +449,7 @@ Rucyl
 Rutter
 Sabir
 Sackler
+Sadek
 Safrin
 Saldaña
 Salles
@@ -437,6 +463,7 @@ Sauer
 Schachman
 Schaffhauser
 Scharf
+Schmitz
 Schnaars
 Schödler
 Scholes
@@ -473,6 +500,7 @@ Steane
 Stetter
 Steyerl
 Stinson
+Suda
 Sundar
 Sungbin
 Syed
@@ -493,6 +521,7 @@ Tensai
 Terje
 Terzoula
 Thakar
+Thao
 Theo
 Thornburg
 Thurston
@@ -500,6 +529,7 @@ Tibbets
 Timoner
 Tims
 Tiongson
+Tomo
 Tonian
 Torien
 Torrone
@@ -514,6 +544,7 @@ Vankatesh
 Varan
 Varujan
 Veasey
+Vibha
 Vidich
 Vikar
 Voronoi
@@ -534,6 +565,7 @@ Yannick
 Yaran
 Yarvin
 Yaya
+Yeon
 Yermack
 Yohji
 Yonhee
@@ -549,6 +581,7 @@ Zaks
 Zamorano
 Zana
 Zananiri
+Zanzouri
 Zeena
 Ziyun
 Zoephel

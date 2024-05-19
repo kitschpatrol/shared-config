@@ -26,6 +26,7 @@ biodesign
 bleh
 blondies
 bodymetrics
+borked
 boulangerie
 bourguignon
 bresaola
@@ -57,6 +58,7 @@ delaminating
 dicked
 dinero
 discardable
+discoverability
 disruptors
 dolmas
 dosa
@@ -80,12 +82,14 @@ Googlers
 grapher
 Greenpoint
 gyoza
+Haniwa
 heli
 holo
 holodeck
 hyperpop
 ideator
 Ikinari
+immersiveness
 instrumentalization
 Interactivos
 intergenerational
@@ -142,6 +146,7 @@ skeuomorphism
 socio
 Soleil
 Soulscape
+soundsuit
 Soziokultur
 spammy
 spincycle
@@ -159,6 +164,7 @@ technopaganism
 technoprogressivism
 technosentience
 Teddit
+timelapse
 tldr
 trailhead
 transhumanism
