@@ -205,6 +205,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
 - [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
+- [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
 
 <!-- license -->
 
