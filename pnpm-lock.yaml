@@ -174,8 +174,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       mdat:
-        specifier: ^0.6.11
-        version: 0.6.11(@types/node@20.12.12)(typescript@5.4.5)
+        specifier: ^0.6.12
+        version: 0.6.12(@types/node@20.12.12)(typescript@5.4.5)
 
   packages/prettier-config:
     dependencies:
@@ -3004,8 +3004,8 @@ packages:
   mdast-util-toc@7.0.1:
     resolution: {integrity: sha512-mBuhuKtP8F/5vVLNJKeC1fs1W5w2sZqB1uUvKwQK9qftSiBILVkQjKQ8aLVrhIEFPGwbMKCVCB3WAAW+BoVPxg==}
 
-  mdat@0.6.11:
-    resolution: {integrity: sha512-9cdyZjB3bosqa9e7oEuRPKxdktRXTvurHjbNZceWN0gatWmroWtcNN0dWis0KrOhCpYEToUgrFbui/7FdwtKqw==}
+  mdat@0.6.12:
+    resolution: {integrity: sha512-nPjQy//QwKiqHlleu2nhSwxm20jCW3t7lLE3u0/dFPkJCysi+zhxOQRQoi2F5x/tzHZX5K5nl5YQZ2Pmd4GR8A==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
 
@@ -3911,8 +3911,8 @@ packages:
   remark-lint@10.0.0:
     resolution: {integrity: sha512-E8yHHDOJ8b+qI0G49BRu24pe8t0fNNBWv8ENQJpCGNrVeTeyBIGEbaUe1yuF7OG8faA6PVpcN/pqWjzW9fcBWQ==}
 
-  remark-mdat@0.6.11:
-    resolution: {integrity: sha512-b0lIaA/efkX4GQOH6+UNe5PUN4ukj5Xc9sdsGnaVynb91t7T0RsVxaTRB44/qCYkgvuuWzW/OuCnA4mQKwKR2g==}
+  remark-mdat@0.6.12:
+    resolution: {integrity: sha512-zwy34qp3w3MoJp5bFcQSwUJB+D5TVUT0M12KENk7D3yg7liGYwwufQIKhtTcg3RXhed5YEotAVW8RH2t+47HWQ==}
     engines: {node: '>=16.0.0', pnpm: '>=8.0.0'}
 
   remark-mdx@3.0.1:
@@ -7506,7 +7506,7 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit: 5.0.0
 
-  mdat@0.6.11(@types/node@20.12.12)(typescript@5.4.5):
+  mdat@0.6.12(@types/node@20.12.12)(typescript@5.4.5):
     dependencies:
       '@clack/prompts': 0.7.0
       '@kitschpatrol/tldraw-cli': 4.5.3(typescript@5.4.5)
@@ -7530,7 +7530,7 @@ snapshots:
       read-pkg: 9.0.1
       remark: 15.0.1
       remark-gfm: 4.0.0
-      remark-mdat: 0.6.11
+      remark-mdat: 0.6.12
       to-vfile: 8.0.0
       type-fest: 4.18.2
       untildify: 5.0.0
@@ -7952,7 +7952,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.1
       is-core-module: 2.13.1
-      semver: 7.6.0
+      semver: 7.6.2
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -8845,7 +8845,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  remark-mdat@0.6.11:
+  remark-mdat@0.6.12:
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.2
