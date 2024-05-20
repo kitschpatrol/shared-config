@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/repo-config",
-	"version": "4.6.5",
+	"version": "4.6.6",
 	"type": "module",
 	"description": "Repository configuration and GitHub workflows for @kitschpatrol/shared-config.",
 	"repository": {
