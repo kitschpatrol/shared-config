@@ -7,6 +7,7 @@
 		"type": "git",
 		"url": "git@github.com:kitschpatrol/shared-config.git"
 	},
+	"homepage": "https://github.com/kitschpatrol/shared-config",
 	"bugs": {
 		"url": "https://github.com/kitschpatrol/shared-config/issues",
 		"email": "eric@ericmika.com"
