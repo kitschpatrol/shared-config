@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/eslint-config",
-	"version": "4.6.6",
+	"version": "4.6.7",
 	"type": "module",
 	"description": "ESLint configuration for @kitschpatrol/shared-config.",
 	"repository": {
