@@ -44,7 +44,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"cspell": "^8.8.1"
+		"cspell": "^8.8.4"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",

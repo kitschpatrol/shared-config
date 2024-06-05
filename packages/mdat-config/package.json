@@ -46,7 +46,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"mdat": "^0.6.12"
+		"mdat": "^0.6.15"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",

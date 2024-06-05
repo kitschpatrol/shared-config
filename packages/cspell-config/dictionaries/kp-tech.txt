@@ -316,6 +316,7 @@ roletype
 ScanX
 scikit
 scipy
+scpt
 screenreader
 screenshare
 scrollbooster

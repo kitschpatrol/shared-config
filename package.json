@@ -19,7 +19,7 @@
 	},
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.1.1",
+	"packageManager": "pnpm@9.1.4",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=8.0.0"
@@ -62,18 +62,18 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.12.12",
+		"@types/node": "^20.14.1",
 		"bumpp": "^9.4.1",
 		"chalk": "^5.3.0",
 		"cosmiconfig": "^9.0.0",
 		"deepmerge": "^4.3.1",
-		"esbuild": "^0.21.3",
+		"esbuild": "^0.21.4",
 		"execa": "^8.0.1",
 		"fs-extra": "^11.2.0",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"meow": "^13.2.0",
 		"package-up": "^5.0.0",
-		"tsx": "^4.10.5",
+		"tsx": "^4.11.2",
 		"typescript": "~5.4.5"
 	}
 }
