@@ -93,6 +93,8 @@ The whole flat file config thing is pending...
 
 ESLint does not inherit files and paths from `.gitignore`. Ignored paths must be specified in `.eslintignore`.
 
+This shared config will also initialize a `tsconfig.json` and a `tsconfig.eslint.json`. These should probably live in a separate configuration package, but they'll reside here for now.
+
 <!-- license -->
 
 ## License

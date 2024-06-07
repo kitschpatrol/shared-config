@@ -1,15 +1,11 @@
 {
+	"compilerOptions": {
+		"noEmit": true,
+		"allowJs": true
+	},
 	"extends": "./tsconfig.json",
-	"include": [
-		"**/**.js",
-		"**/**.ts",
-		"**/**.svelte",
-		"**/**.astro",
-		"**/**.cjs",
-		"**/**.mjs",
-		"**/**.cts",
-		"**/**.mts",
-		"**/**.jsx",
-		"**/**.tsx"
-	]
+
+	/* Also lint config files. */
+	"include": ["**/*", "**/**.*"],
+	"exclude": ["dist/", "bin/"]
 }

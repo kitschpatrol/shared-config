@@ -8,7 +8,7 @@ module.exports = {
 			files: ['src/**/*', 'scripts/**/*', 'packages/*/src/**/*', 'packages/*/scripts/**/*'],
 			rules: {
 				'n/no-unpublished-import': 'off',
-				'n/shebang': 'off',
+				'n/hashbang': 'off',
 			},
 		},
 	],

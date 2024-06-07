@@ -296,7 +296,7 @@ module.exports = {
 							kebabCase: true,
 							pascalCase: true,
 						},
-						ignore: ['^\\[slug\\]\\.astro$'],
+						ignore: [String.raw`^\[slug\]\.astro$`],
 					},
 				],
 			},
@@ -333,7 +333,7 @@ module.exports = {
 					{
 						case: 'pascalCase',
 						ignore: [
-							'^\\+', // SvelteKit +page.svelte etc.
+							String.raw`^\+`, // SvelteKit +page.svelte etc.
 						],
 					},
 				],
