@@ -25,16 +25,14 @@ It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for \`shared-config\`\` tool access
+- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config` tool access
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
 - `.github` folder with workflows:
-  - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases
+  - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
   - `sync-metadata.yml` Populates GitHub repo metadata from package.json
 
-It's needed to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages.
-
-It's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
+In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
 
 **See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
 
@@ -85,6 +83,16 @@ If you want releases to come from your account instead of `github_actions`, then
    | Metadata       | Read-only      |
 
 2. Add the token as a secret to the repository under the key `PERSONAL_ACCESS_TOKEN`.
+
+### GitHub Actions
+
+Note: Action dependencies have been forked.
+
+| Original                                                                                      | Fork                                                                                                            | Modifications |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
 
 ## Usage
 
