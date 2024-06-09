@@ -63,14 +63,14 @@ async function executeCommands(
 
 await buildCommands(
 	'shared-config',
-	'🔬', // Too much noise with 'Shared Config'?
+	'🔬',
 	'yellow',
 	Object.keys(capabilities).reduce<OptionCommands>((acc, capability) => {
 		acc[capability as keyof OptionCommands] = {
 			async command(logStream, args) {
 				return executeCommands(
 					logStream,
-					capabilities[capability] as string[],
+					capabilities[capability as keyof typeof capabilities],
 					[`--${kebabCase(capability)}`],
 					args,
 				)
