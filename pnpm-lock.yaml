@@ -174,8 +174,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       mdat:
-        specifier: ^0.7.0
-        version: 0.7.0(typescript@5.4.5)
+        specifier: ^0.7.1
+        version: 0.7.2(typescript@5.4.5)
 
   packages/prettier-config:
     dependencies:
@@ -2973,8 +2973,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mdat@0.7.0:
-    resolution: {integrity: sha512-Vt0teUyFIOs8C4NcYsOLshMy2yV6zK2RWePGWyAaHKyhDzBa2N9JRBaQfOKPHSCZxJmCOpn2xNZgZk0eHrVYBg==}
+  mdat@0.7.2:
+    resolution: {integrity: sha512-NHrbHdrc9cDjC9lLlhutNEdq8LPGSZB0SMLiNRXWHcOnGfuJKrkmg1rF3gg8lwV8J0HmWzloOhjwLAqaoTn1OQ==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
 
@@ -7374,7 +7374,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.3
 
-  mdat@0.7.0(typescript@5.4.5):
+  mdat@0.7.2(typescript@5.4.5):
     dependencies:
       '@clack/prompts': 0.7.0
       '@kitschpatrol/tldraw-cli': 4.5.4(typescript@5.4.5)
