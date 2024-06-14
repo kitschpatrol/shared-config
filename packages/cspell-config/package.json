@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/cspell-config",
-	"version": "4.7.1",
+	"version": "4.7.2",
 	"type": "module",
 	"description": "CSpell configuration for @kitschpatrol/shared-config.",
 	"repository": {
