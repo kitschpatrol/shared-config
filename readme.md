@@ -41,12 +41,12 @@ This project attempts to consolidate most of the configuration and tooling share
 
 It takes care of dependencies and configurations for the following tools:
 
-- [CSpell](https://cspell.org)
+- [CSpell](https://cspell.org) (spell checker)
 - [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
-- [mdat](https://github.com/kitschpatrol/mdat)
+- [mdat](https://github.com/kitschpatrol/mdat) (generates `readme.md` boilerplate)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [remarklint](https://github.com/remarkjs/remark-lint)
-- [Stylelint](https://stylelint.io)
+- [remarklint](https://github.com/remarkjs/remark-lint) (markdown linting)
+- [Stylelint](https://stylelint.io) (css linting)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
