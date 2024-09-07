@@ -86,7 +86,7 @@ function generateHelpText(command: string, options: OptionCommands): string {
 				}
 
 				case 'check': {
-					helpText += `\n    --check, -c               Check for and report issues. Same as ${command}.`
+					helpText += `\n    --check, -c               Check for and report issues. Same as \`${command}\`.`
 					break
 				}
 

@@ -41,12 +41,12 @@ This project attempts to consolidate most of the configuration and tooling share
 
 It takes care of dependencies and configurations for the following tools:
 
-- [CSpell](https://cspell.org) (spell checker)
+- [CSpell](https://cspell.org)
 - [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
-- [mdat](https://github.com/kitschpatrol/mdat) (generates `readme.md` boilerplate)
+- [mdat](https://github.com/kitschpatrol/mdat)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [remarklint](https://github.com/remarkjs/remark-lint) (markdown linting)
-- [Stylelint](https://stylelint.io) (css linting)
+- [remarklint](https://github.com/remarkjs/remark-lint)
+- [Stylelint](https://stylelint.io)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
@@ -154,7 +154,7 @@ shared-config [<file|glob> ...]
 
 | Option                   | Argument | Description                                                      |
 | ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as shared-config.              |
+| `--check`<br>`-c`        |          | Check for and report issues. Same as `shared-config`.            |
 | `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
 | `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
 | `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |

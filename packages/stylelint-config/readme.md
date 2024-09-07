@@ -78,7 +78,7 @@ stylelint-config [<file|glob> ...]
 
 | Option                   | Argument | Description                                                      |
 | ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as stylelint-config.           |
+| `--check`<br>`-c`        |          | Check for and report issues. Same as `stylelint-config`.         |
 | `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
 | `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
 | `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
