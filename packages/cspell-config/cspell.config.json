@@ -1,7 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
 	"enabled": true,
-	"enableGlobDot": true,
+	"enableGlobDot": false,
 	"enableFiletypes": ["astro", "md", "mdx", "patch", "svelte"],
 	"dictionaryDefinitions": [
 		{
