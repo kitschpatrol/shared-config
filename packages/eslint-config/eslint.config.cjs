@@ -137,6 +137,12 @@ const globalRulesTypescript = {
 			modifiers: ['destructured'],
 			format: ['camelCase', 'StrictPascalCase'],
 		},
+		{
+			// Allow UPPER_CASE const exports
+			selector: 'variable',
+			modifiers: ['const', 'exported'],
+			format: ['UPPER_CASE'],
+		},
 	],
 }
 
