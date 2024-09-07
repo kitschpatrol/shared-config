@@ -40,8 +40,10 @@
 	"scripts": {
 		"build": "../../scripts/build.ts && mdat readme",
 		"cli": "node ./bin/cli.js",
+		"find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
 		"list-words": "cat ./dictionaries/*.txt",
-		"prepublishOnly": "pnpm run build"
+		"prepublishOnly": "pnpm run build",
+		"sort-dictionaries": "find ./dictionaries -name '*.txt' -execdir sort -f -o {} {} \\;"
 	},
 	"peerDependencies": {
 		"cspell": "^8.8.4"

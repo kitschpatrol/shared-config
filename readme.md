@@ -222,3 +222,4 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 [MIT](license.txt) © Eric Mika
 
 <!-- /license -->
+

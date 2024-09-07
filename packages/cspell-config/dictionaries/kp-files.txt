@@ -1,3 +1,6 @@
+apkg
 btif
 cjpeg
+dfont
 flac
+gif
