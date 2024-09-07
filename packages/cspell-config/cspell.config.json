@@ -44,19 +44,20 @@
 		"fullstack",
 		"kp-acronyms",
 		"kp-brands",
+		"kp-files",
 		"kp-misc",
 		"kp-names",
 		"kp-tech"
 	],
 	"languageSettings": [
 		{
-			"languageId": "markdown,mdx",
+			"languageId": "markdown,mdx,json",
 			"ignoreRegExpList": [
 				// TODO does regex really need to be global?
 				"/^```(?:.|\\s)+?^```/mig", // Code fences
 				"\\$\\$.*?\\$\\$", // Ignore display MathJax $$...$$
 				"\\$[^$\\n]*\\$", // Ignore inline MathJax $...$
-				"[A-Z\\d\\-]{8,}" // Probable IDs or model names, e.g. AK-68ANHUB-S7KA-0004
+				"[A-Z\\d\\-]{8,}" // Probable IDs or model names, e.g. AK-68-S7KA-0004
 			]
 		}
 	],

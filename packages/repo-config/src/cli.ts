@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js'
 import fse from 'fs-extra'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
+import { buildCommands } from '../../../src/command-builder.js'
 
 await buildCommands('repo-config', '[Repo Config]', 'gray', {
 	init: {},

@@ -102,9 +102,10 @@ It also includes a number of _custom_ dictionaries distributed with this package
 
 - `kp-acronyms` Contains acronyms
 - `kp-brands` Contains proper nouns like brand names
+- `kp-files` File extensions and types
 - `kp-misc` Contains general and miscellaneous words
-- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
 - `kp-names` Human names and usernames
+- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
 
 In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
 

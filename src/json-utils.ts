@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import jsonColorizer from '@pinojs/json-colorizer'
 import type { ArrayMergeOptions, Options } from 'deepmerge'
+import jsonColorizer from '@pinojs/json-colorizer'
 import deepmerge from 'deepmerge'
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact'
 
@@ -11,7 +11,7 @@ export function stringify(object: unknown): string {
 	return jsonColorizer(
 		jsonStringifyPrettyCompact(object, {
 			indent: 2,
-			replacer(key, value) {
+			replacer(_, value) {
 				if (typeof value === 'function') {
 					// eslint-disable-next-line @typescript-eslint/ban-types
 					return (value as Function).name

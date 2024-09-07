@@ -112,6 +112,7 @@ Dyntube
 emaculation
 Emolex
 ereader
+errorlens
 estree
 ette
 Excalidraw
@@ -479,6 +480,7 @@ tsup
 Tukul
 tweakpane
 tweens
+unifiedjs
 unist
 universaljs
 unplugin

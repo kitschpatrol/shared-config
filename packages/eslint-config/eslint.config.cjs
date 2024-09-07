@@ -5,7 +5,7 @@ const extendsPrefix = [
 	'plugin:n/recommended',
 	'plugin:unicorn/recommended',
 	'xo',
-	'plugin:perfectionist/recommended-natural',
+	'plugin:perfectionist/recommended-natural-legacy',
 	'prettier', // Needed here as well for files not caught by overrides
 ]
 const extendsTypescript = ['plugin:@typescript-eslint/recommended-type-checked', 'xo-typescript']
@@ -31,7 +31,9 @@ const globalRulesPrefix = {
 	'perfectionist/sort-imports': [
 		'error',
 		{
-			'newlines-between': 'never',
+			// Is this already set in the preset?
+			type: 'natural',
+			newlinesBetween: 'never',
 		},
 	],
 	'unicorn/no-array-reduce': 'off',

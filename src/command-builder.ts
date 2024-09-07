@@ -4,19 +4,19 @@
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
-import { merge, stringify } from './json-utils.js'
+import type { Flag } from 'meow'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'
 import { cosmiconfig } from 'cosmiconfig'
-import { type ExecaError, execa } from 'execa'
+import { execa, type ExecaError } from 'execa'
 import fse from 'fs-extra'
 import meow from 'meow'
-import type { Flag } from 'meow'
 import path from 'node:path'
 import { Transform } from 'node:stream'
 import { PassThrough, type Stream } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
+import { merge, stringify } from './json-utils.js'
 
 // TODO get these from meow?
 type StringFlag = Flag<'string', string> | Flag<'string', string[], true>
@@ -50,7 +50,7 @@ export type OptionCommands = {
 
 function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
 	return new Transform({
-		transform(chunk: Uint8Array | string, _: BufferEncoding, callback) {
+		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
 			// Convert the chunk to a string and prepend the string to each line
 			const lines: string[] = chunk
 				.toString()
@@ -324,7 +324,7 @@ export async function buildCommands(
 		if (typeof optionCommand.command === 'function') {
 			checkArguments(input, optionCommand, logStream)
 
-			const args = input.length === 0 ? optionCommand.defaultArguments ?? [] : input
+			const args = input.length === 0 ? (optionCommand.defaultArguments ?? []) : input
 			const options = optionCommand.options ?? []
 
 			// Custom function execution is always the same
@@ -432,7 +432,7 @@ export async function buildCommands(
 				}
 
 				case 'printConfig': {
-					const args = input.length === 0 ? optionCommand.defaultArguments ?? ['.'] : input
+					const args = input.length === 0 ? (optionCommand.defaultArguments ?? ['.']) : input
 					const filePath = args?.at(0)
 
 					// Brittle, could pass config name to commandBuilder() instead
