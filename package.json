@@ -19,7 +19,7 @@
 	},
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.3.0",
+	"packageManager": "pnpm@9.9.0",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=8.0.0"
@@ -44,7 +44,7 @@
 		"build": "pnpm run build:stand-alone && pnpm run build:shared && cp ./packages/shared-config/readme.md ./readme.md ",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
-		"clean": "pnpm run bin-restore && git clean -fdX",
+		"clean": "pnpm run bin-restore && git clean -fdXq && rm ./pnpm-lock.yaml",
 		"fix": "pnpm shared-config --fix",
 		"lint": "pnpm shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
@@ -62,18 +62,18 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.14.2",
-		"bumpp": "^9.4.1",
+		"@types/node": "^20.16.5",
+		"bumpp": "^9.5.2",
 		"chalk": "^5.3.0",
 		"cosmiconfig": "^9.0.0",
 		"deepmerge": "^4.3.1",
-		"esbuild": "^0.21.5",
+		"esbuild": "^0.23.1",
 		"execa": "^8.0.1",
 		"fs-extra": "^11.2.0",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"meow": "^13.2.0",
 		"package-up": "^5.0.0",
-		"tsx": "^4.15.4",
-		"typescript": "~5.4.5"
+		"tsx": "^4.19.0",
+		"typescript": "~5.5.4"
 	}
 }
