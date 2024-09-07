@@ -1,6 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
 	"enabled": true,
+	"enableGlobDot": true,
 	"enableFiletypes": ["astro", "md", "mdx", "patch", "svelte"],
 	"dictionaryDefinitions": [
 		{
@@ -11,6 +12,11 @@
 		{
 			"name": "kp-brands",
 			"path": "./dictionaries/kp-brands.txt",
+			"addWords": true
+		},
+		{
+			"name": "kp-files",
+			"path": "./dictionaries/kp-files.txt",
 			"addWords": true
 		},
 		{
@@ -45,19 +51,30 @@
 	"languageSettings": [
 		{
 			"languageId": "markdown,mdx",
-			"ignoreRegExpList": ["/^```(?:.|\\s)+?^```/mig"]
+			"ignoreRegExpList": [
+				// TODO does regex really need to be global?
+				"/^```(?:.|\\s)+?^```/mig", // Code fences
+				"\\$\\$.*?\\$\\$", // Ignore display MathJax $$...$$
+				"\\$[^$\\n]*\\$", // Ignore inline MathJax $...$
+				"[A-Z\\d\\-]{8,}" // Probable IDs or model names, e.g. AK-68ANHUB-S7KA-0004
+			]
 		}
 	],
 	"globRoot": "/",
 	"ignorePaths": [
 		"__snapshots__",
+		"*.app",
+		"*.avif",
 		"*.m4a",
+		"*.m4v",
 		"*.mp3",
 		"*.mp4",
-		"*.svg",
-		"*.tldr",
-		"*.app",
+		"*.patch",
 		"*.scpt",
+		"*.svg",
+		"*.tif",
+		"*.tldr",
+		"*.wav",
 		"package.json",
 		"patches/",
 		"pnpm-lock.yaml"
