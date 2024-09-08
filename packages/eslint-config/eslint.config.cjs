@@ -143,7 +143,7 @@ const globalRulesTypescript = {
 			// Allow UPPER_CASE const exports
 			selector: 'variable',
 			modifiers: ['const', 'exported'],
-			format: ['UPPER_CASE'],
+			format: ['UPPER_CASE', 'camelCase'],
 		},
 	],
 }
