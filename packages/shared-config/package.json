@@ -41,7 +41,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && mdat readme",
+		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && pnpm mdat readme",
 		"clean": "pnpm run bin-restore && git clean -fdX",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"

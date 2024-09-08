@@ -37,7 +37,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && mdat readme",
+		"build": "../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},

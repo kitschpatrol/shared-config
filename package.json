@@ -41,10 +41,10 @@
 		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
-		"build": "pnpm run build:stand-alone && pnpm run build:shared && cp ./packages/shared-config/readme.md ./readme.md ",
+		"build": "pnpm run build:stand-alone && pnpm run build:shared && pnpm prettier-config --fix && cp ./packages/shared-config/readme.md ./readme.md",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
-		"clean": "pnpm run bin-restore && git clean -fdXq && rm ./pnpm-lock.yaml",
+		"clean": "rimraf ./pnpm-lock.yaml && pnpm run bin-restore && git clean -fdXq",
 		"fix": "pnpm shared-config --fix",
 		"lint": "pnpm shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
@@ -73,6 +73,7 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"meow": "^13.2.0",
 		"package-up": "^5.0.0",
+		"rimraf": "^6.0.1",
 		"tsx": "^4.19.0",
 		"typescript": "~5.5.4"
 	}

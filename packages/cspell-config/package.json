@@ -38,7 +38,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && mdat readme",
+		"build": "../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
 		"list-words": "cat ./dictionaries/*.txt",
