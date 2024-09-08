@@ -187,6 +187,7 @@ Cleese
 Clevenger
 Clisset
 Cocoön
+cocopon
 Coen
 Cofoco
 Cohrs
@@ -335,6 +336,7 @@ Freking
 Freundlich
 Frick
 Frida
+frontiernerds
 Frumin
 Fung
 Galette
@@ -369,6 +371,7 @@ Grelle
 Gresser
 Grisch
 Grischa
+grischaerbe
 grishe
 Grob
 Grogan
@@ -487,11 +490,13 @@ Jong
 Jonny
 Jony
 jorisjh
+joshuakgoldberg
 Jott
 Juliya
 Junichiro
 Junya
 Kahlo
+Kaikki
 Kaitlyn
 Kalee
 Kalish
@@ -586,6 +591,7 @@ Lévi
 Levitch
 Lewitt
 Leyland
+lezer
 Licklider
 Liesje
 Lijun
@@ -655,11 +661,13 @@ Matheus
 Matias
 Matija
 Matsuda
+mattdesl
 Matteson
 Mattt
 Matuschak
 Maujer
 Maver
+mbostock
 McCambridge
 McGlone
 McIver
@@ -977,6 +985,7 @@ Steane
 Stelton
 Stepan
 Stetter
+steveruizok
 Steyerl
 Stinson
 Stott

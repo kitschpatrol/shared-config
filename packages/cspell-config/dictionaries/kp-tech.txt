@@ -6,7 +6,6 @@ altool
 AMPM
 Anki
 apos
-AppFlowy
 AppleScript
 apufix
 Archivy
@@ -124,6 +123,7 @@ exif
 exiftool
 exiv
 exportdb
+fadecandy
 farbfeld
 faststart
 favicons
@@ -133,6 +133,7 @@ ffmetadata
 ffprobe
 fieldset
 figcaption
+filenamify
 fileprivate
 filesize
 filesys
@@ -222,6 +223,8 @@ lerper
 lerpy
 libpam
 libreddit
+libtheora
+libvorbis
 lilnas
 linebreak
 linkedom
@@ -267,6 +270,7 @@ Mindflex
 minica
 miniconda
 minidom
+minimalcomps
 minmax
 mipmaps
 mixtral
@@ -350,6 +354,7 @@ openmediavault
 openscad
 optionator
 osascript
+oscreplayer
 osxphotos
 outfile
 outro
@@ -477,6 +482,7 @@ tailwindcss
 Talabot
 taskkill
 Tauri
+taze
 tbody
 templating
 testid
@@ -485,6 +491,7 @@ textbox
 thead
 Threlte
 tiktoken
+tinpig
 tinycolor
 tinyllama
 tldraw
