@@ -3,16 +3,7 @@
 		"source.fixAll": "explicit"
 	},
 	"eslint.enable": true,
-	"eslint.validate": [
-		"astro",
-		"html",
-		"javascript",
-		"javascriptreact",
-		"markdown",
-		"mdx",
-		"svelte",
-		"typescript",
-		"typescriptreact"
-	],
+	"eslint.useFlatConfig": true,
+	"eslint.validate": ["html", "javascript", "markdown", "svelte", "typescript", "twig"],
 	"typescript.tsdk": "node_modules/typescript/lib"
 }
