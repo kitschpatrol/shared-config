@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/remark-config",
-	"version": "4.7.5",
+	"version": "1.0.0",
 	"type": "module",
 	"description": "Markdown and MDX linting for @kitschpatrol/shared-config.",
 	"repository": {

@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/prettier-config",
-	"version": "4.7.5",
+	"version": "1.0.0",
 	"type": "module",
 	"description": "Prettier configuration for @kitschpatrol/shared-config.",
 	"repository": {
