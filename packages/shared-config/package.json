@@ -1,21 +1,21 @@
 {
-	"name": "@kitschpatrol/shared-config",
+	"name": "@envsa/shared-config",
 	"version": "1.0.0",
 	"type": "module",
 	"description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"url": "git@github.com:envsa/shared-config.git",
 		"directory": "packages/shared-config"
 	},
 	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
+		"url": "https://github.com/envsa/shared-config/issues",
+		"email": "DEW.ICTWebServices@sa.gov.au"
 	},
 	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
+		"name": "Liam Rella",
+		"email": "DEW.ICTWebServices@sa.gov.au",
+		"url": "https://github.com/rellafella"
 	},
 	"license": "MIT",
 	"engines": {
@@ -47,13 +47,13 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"dependencies": {
-		"@kitschpatrol/cspell-config": "workspace:*",
-		"@kitschpatrol/eslint-config": "workspace:*",
-		"@kitschpatrol/mdat-config": "workspace:*",
-		"@kitschpatrol/prettier-config": "workspace:*",
-		"@kitschpatrol/remark-config": "workspace:*",
-		"@kitschpatrol/repo-config": "workspace:*",
-		"@kitschpatrol/stylelint-config": "workspace:*",
+		"@envsa/cspell-config": "workspace:*",
+		"@envsa/eslint-config": "workspace:*",
+		"@envsa/mdat-config": "workspace:*",
+		"@envsa/prettier-config": "workspace:*",
+		"@envsa/remark-config": "workspace:*",
+		"@envsa/repo-config": "workspace:*",
+		"@envsa/stylelint-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^8.0.1",

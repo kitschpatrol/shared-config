@@ -2,13 +2,13 @@
 
 <!-- title { prefix: "🔬 " } -->
 
-# 🔬 @kitschpatrol/shared-config
+# 🔬 @envsa/shared-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
+[![NPM Package @envsa/shared-config](https://img.shields.io/npm/v/@envsa/shared-config.svg)](https://npmjs.com/package/@envsa/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
@@ -52,17 +52,17 @@ It takes care of dependencies and configurations for the following tools:
 
 ### Packages
 
-This readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
+This readme is for the [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
 
-- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
-- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
-- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md)
-- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md)
-- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md)
-- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
-- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
+- [`@envsa/cspell-config`](/packages/cspell-config/readme.md)
+- [`@envsa/eslint-config`](/packages/eslint-config/readme.md)
+- [`@envsa/mdat-config`](/packages/mdat-config/readme.md)
+- [`@envsa/prettier-config`](/packages/prettier-config/readme.md)
+- [`@envsa/remark-config`](/packages/remark-config/readme.md)
+- [`@envsa/repo-config`](/packages/repo-config/readme.md)
+- [`@envsa/stylelint-config`](/packages/stylelint-config/readme.md)
 
-Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@envsa/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
 ## Getting started
 
@@ -77,7 +77,7 @@ Node 18+ and [pnpm](https://pnpm.io) are required. It probably works with NPM an
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @envsa/repo-config --init && pnpm add -D @envsa/shared-config && pnpm shared-config --init && pnpm i && code .
 ```
 
 #### Quick add to an existing project:
@@ -85,7 +85,7 @@ git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/re
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
+pnpm dlx @envsa/repo-config --init && pnpm i && pnpm add -D @envsa/shared-config && pnpm shared-config --init
 ```
 
 #### Step-by-step:
@@ -93,13 +93,13 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Install the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/shared-config
+   pnpm add -D @envsa/shared-config
    ```
 
 3. Add default config files for all the tools to your project root:
@@ -120,7 +120,7 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
    ```
 
    > \[!NOTE]\
-   > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
+   > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @envsa/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
 ## Usage
 
@@ -155,15 +155,15 @@ shared-config [<file|glob> ...]
 | Option                   | Argument | Description                                                      |
 | ------------------------ | -------- | ---------------------------------------------------------------- |
 | `--check`<br>`-c`        |          | Check for and report issues. Same as `shared-config`.            |
+| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
 | `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
 | `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
 | `--help`<br>`-h`         |          | Print this help info.                                            |
 | `--version`<br>`-v`      |          | Print the package version.                                       |
 
 <!-- /cli-help -->
 
-Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `shared-config` effectively runs the same command against all the tool-specific packages.
+Recall that the `@envsa/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `shared-config` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
 
@@ -219,6 +219,6 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

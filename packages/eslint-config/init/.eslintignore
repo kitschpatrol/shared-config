@@ -1,7 +1,7 @@
 # ESLint Ignore
 # Does not inherit from .gitignore
 
-# @kitschpatrol/repo-config boilerplate
+# @envsa/repo-config boilerplate
 .astro/
 .DS_Store
 .env
@@ -19,7 +19,7 @@ env.d.ts
 node_modules/
 vendor/
 
-# @kitschpatrol/eslint-config boilerplate
+# @envsa/eslint-config boilerplate
 /patches/
 
 # Customizations

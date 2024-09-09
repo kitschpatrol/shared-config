@@ -5,17 +5,17 @@
 	"description": "A single dependency and single command to configure and run various code linters and tools.",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git"
+		"url": "git@github.com:envsa/shared-config.git"
 	},
-	"homepage": "https://github.com/kitschpatrol/shared-config",
+	"homepage": "https://github.com/envsa/shared-config",
 	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
+		"url": "https://github.com/envsa/shared-config/issues",
+		"email": "DEW.ICTWebServices@sa.gov.au"
 	},
 	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
+		"name": "Liam Rella",
+		"email": "DEW.ICTWebServices@sa.gov.au",
+		"url": "https://github.com/rellafella"
 	},
 	"license": "MIT",
 	"private": true,
@@ -52,14 +52,14 @@
 		"release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
 	},
 	"devDependencies": {
-		"@kitschpatrol/cspell-config": "workspace:*",
-		"@kitschpatrol/eslint-config": "workspace:*",
-		"@kitschpatrol/mdat-config": "workspace:*",
-		"@kitschpatrol/prettier-config": "workspace:*",
-		"@kitschpatrol/remark-config": "workspace:*",
-		"@kitschpatrol/repo-config": "workspace:*",
-		"@kitschpatrol/shared-config": "workspace:*",
-		"@kitschpatrol/stylelint-config": "workspace:*",
+		"@envsa/cspell-config": "workspace:*",
+		"@envsa/eslint-config": "workspace:*",
+		"@envsa/mdat-config": "workspace:*",
+		"@envsa/prettier-config": "workspace:*",
+		"@envsa/remark-config": "workspace:*",
+		"@envsa/repo-config": "workspace:*",
+		"@envsa/shared-config": "workspace:*",
+		"@envsa/stylelint-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "^20.16.5",

@@ -1,4 +1,4 @@
-import sharedConfig, { overrideRules } from '@kitschpatrol/remark-config'
+import sharedConfig, { overrideRules } from '@envsa/remark-config'
 
 const localConfig = {
 	...sharedConfig,

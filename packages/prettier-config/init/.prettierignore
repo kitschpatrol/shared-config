@@ -1,7 +1,7 @@
 # Prettier Ignore
 # Does not inherit from .gitignore
 
-# @kitschpatrol/repo-config boilerplate
+# @envsa/repo-config boilerplate
 .astro/
 .DS_Store
 .svelte-kit/
@@ -15,7 +15,7 @@ dist/
 node_modules/
 vendor/
 
-# @kitschpatrol/prettier-config boilerplate
+# @envsa/prettier-config boilerplate
 pnpm-lock.yaml
 package-lock.json
 

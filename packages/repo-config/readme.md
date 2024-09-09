@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/repo-config
+# @envsa/repo-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/repo-config](https://img.shields.io/npm/v/@kitschpatrol/repo-config.svg)](https://npmjs.com/package/@kitschpatrol/repo-config)
+[![NPM Package @envsa/repo-config](https://img.shields.io/npm/v/@envsa/repo-config.svg)](https://npmjs.com/package/@envsa/repo-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**Repository configuration and GitHub workflows for @kitschpatrol/shared-config.**
+**Repository configuration and GitHub workflows for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -32,9 +32,9 @@ This includes the following:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
   - `sync-metadata.yml` Populates GitHub repo metadata from package.json
 
-In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
+In order to work around some hoisting issues related to plugin resolution in the other `@envsa/shared-config` packages, it's critical that it is applied _before_ any other `@envsa/shared-config` packages are installed.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -43,7 +43,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config --init
+pnpm dlx @envsa/repo-config --init
 ```
 
 ### Installation approach
@@ -53,7 +53,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 1. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/repo-config
+   pnpm add -D @envsa/repo-config
    ```
 
 2. If / when you need to regenerate the repo config files, you can run the bundled script:
@@ -102,7 +102,7 @@ Note: Action dependencies have been forked.
 
 #### Command: `repo-config`
 
-Repository configuration and GitHub workflows for @kitschpatrol/shared-config.
+Repository configuration and GitHub workflows for @envsa/shared-config.
 
 Usage:
 
@@ -123,6 +123,6 @@ repo-config [<file|glob> ...]
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

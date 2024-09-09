@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/eslint-config
+# @envsa/eslint-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/eslint-config](https://img.shields.io/npm/v/@kitschpatrol/eslint-config.svg)](https://npmjs.com/package/@kitschpatrol/eslint-config)
+[![NPM Package @envsa/eslint-config](https://img.shields.io/npm/v/@envsa/eslint-config.svg)](https://npmjs.com/package/@envsa/eslint-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**ESLint configuration for @kitschpatrol/shared-config.**
+**ESLint configuration for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [ESLint](https://eslint.org) config.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just this ESLint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/eslint-config
+   pnpm add -D @envsa/eslint-config
    ```
 
 3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:
@@ -68,7 +68,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `eslint-config`
 
-ESLint configuration for @kitschpatrol/shared-config.
+ESLint configuration for @envsa/shared-config.
 
 Usage:
 
@@ -99,6 +99,6 @@ This shared config will also initialize a `tsconfig.json` and a `tsconfig.eslint
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

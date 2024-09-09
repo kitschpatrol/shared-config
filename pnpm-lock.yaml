@@ -8,28 +8,28 @@ importers:
 
   .:
     devDependencies:
-      '@kitschpatrol/cspell-config':
+      '@envsa/cspell-config':
         specifier: workspace:*
         version: link:packages/cspell-config
-      '@kitschpatrol/eslint-config':
+      '@envsa/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
-      '@kitschpatrol/mdat-config':
+      '@envsa/mdat-config':
         specifier: workspace:*
         version: link:packages/mdat-config
-      '@kitschpatrol/prettier-config':
+      '@envsa/prettier-config':
         specifier: workspace:*
         version: link:packages/prettier-config
-      '@kitschpatrol/remark-config':
+      '@envsa/remark-config':
         specifier: workspace:*
         version: link:packages/remark-config
-      '@kitschpatrol/repo-config':
+      '@envsa/repo-config':
         specifier: workspace:*
         version: link:packages/repo-config
-      '@kitschpatrol/shared-config':
+      '@envsa/shared-config':
         specifier: workspace:*
         version: link:packages/shared-config
-      '@kitschpatrol/stylelint-config':
+      '@envsa/stylelint-config':
         specifier: workspace:*
         version: link:packages/stylelint-config
       '@pinojs/json-colorizer':
@@ -398,25 +398,25 @@ importers:
 
   packages/shared-config:
     dependencies:
-      '@kitschpatrol/cspell-config':
+      '@envsa/cspell-config':
         specifier: workspace:*
         version: link:../cspell-config
-      '@kitschpatrol/eslint-config':
+      '@envsa/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@kitschpatrol/mdat-config':
+      '@envsa/mdat-config':
         specifier: workspace:*
         version: link:../mdat-config
-      '@kitschpatrol/prettier-config':
+      '@envsa/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
-      '@kitschpatrol/remark-config':
+      '@envsa/remark-config':
         specifier: workspace:*
         version: link:../remark-config
-      '@kitschpatrol/repo-config':
+      '@envsa/repo-config':
         specifier: workspace:*
         version: link:../repo-config
-      '@kitschpatrol/stylelint-config':
+      '@envsa/stylelint-config':
         specifier: workspace:*
         version: link:../stylelint-config
       '@pinojs/json-colorizer':

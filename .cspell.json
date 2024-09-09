@@ -1,4 +1,4 @@
 {
-	"import": "@kitschpatrol/cspell-config",
+	"import": "@envsa/cspell-config",
 	"ignorePaths": ["/packages/*/init/*.json", "/packages/*/bin"]
 }

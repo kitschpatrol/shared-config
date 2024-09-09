@@ -1,7 +1,7 @@
 # Git Ignore
 # Also used by CSpell and Stylelint
 
-# @kitschpatrol/repo-config boilerplate
+# @envsa/repo-config boilerplate
 .astro/
 .DS_Store
 .env

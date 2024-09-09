@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/mdat-config
+# @envsa/mdat-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/mdat-config](https://img.shields.io/npm/v/@kitschpatrol/mdat-config.svg)](https://npmjs.com/package/@kitschpatrol/mdat-config)
+[![NPM Package @envsa/mdat-config](https://img.shields.io/npm/v/@envsa/mdat-config.svg)](https://npmjs.com/package/@envsa/mdat-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**MDAT configuration for @kitschpatrol/shared-config.**
+**MDAT configuration for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just `mdat-config` in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/mdat-config
+   pnpm add -D @envsa/mdat-config
    ```
 
 3. Add the starter `.mdatrc.ts` file to your project root, and add any customizations you'd like:
@@ -72,7 +72,7 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 
 #### Command: `mdat-config`
 
-MDAT configuration for @kitschpatrol/shared-config.
+MDAT configuration for @envsa/shared-config.
 
 Usage:
 
@@ -95,6 +95,6 @@ mdat-config [<file|glob> ...]
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

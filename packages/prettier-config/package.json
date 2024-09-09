@@ -1,21 +1,21 @@
 {
-	"name": "@kitschpatrol/prettier-config",
+	"name": "@envsa/prettier-config",
 	"version": "1.0.0",
 	"type": "module",
-	"description": "Prettier configuration for @kitschpatrol/shared-config.",
+	"description": "Prettier configuration for @envsa/shared-config.",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"url": "git@github.com:envsa/shared-config.git",
 		"directory": "packages/prettier-config"
 	},
 	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
+		"url": "https://github.com/envsa/shared-config/issues",
+		"email": "DEW.ICTWebServices@sa.gov.au"
 	},
 	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
+		"name": "Liam Rella",
+		"email": "DEW.ICTWebServices@sa.gov.au",
+		"url": "https://github.com/rellafella"
 	},
 	"license": "MIT",
 	"engines": {

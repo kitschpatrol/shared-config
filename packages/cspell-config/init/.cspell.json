@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-	"import": "@kitschpatrol/cspell-config",
+	"import": "@envsa/cspell-config",
 	"ignorePaths": [],
 	"words": []
 }

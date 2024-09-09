@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/remark-config
+# @envsa/remark-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/remark-config](https://img.shields.io/npm/v/@kitschpatrol/remark-config.svg)](https://npmjs.com/package/@kitschpatrol/remark-config)
+[![NPM Package @envsa/remark-config](https://img.shields.io/npm/v/@envsa/remark-config.svg)](https://npmjs.com/package/@envsa/remark-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**Markdown and MDX linting for @kitschpatrol/shared-config.**
+**Markdown and MDX linting for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just this Remark config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/remark-config
+   pnpm add -D @envsa/remark-config
    ```
 
 3. Add the starter `.remarkrc.js` and files to your project root, and add any customizations you'd like:
@@ -67,7 +67,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `remark-config`
 
-Markdown and MDX linting for @kitschpatrol/shared-config.
+Markdown and MDX linting for @envsa/shared-config.
 
 Usage:
 
@@ -102,7 +102,7 @@ To fix this, pass the `repository: false` option in your `.remarkrc.js` file:
 
 ```js
 // .remarkrc.js
-import sharedConfig, { overrideRules } from '@kitschpatrol/remark-config'
+import sharedConfig, { overrideRules } from '@envsa/remark-config'
 
 const localConfig = {
   ...sharedConfig,
@@ -116,6 +116,6 @@ export default localConfig
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

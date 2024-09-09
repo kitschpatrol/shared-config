@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/prettier-config
+# @envsa/prettier-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/prettier-config](https://img.shields.io/npm/v/@kitschpatrol/prettier-config.svg)](https://npmjs.com/package/@kitschpatrol/prettier-config)
+[![NPM Package @envsa/prettier-config](https://img.shields.io/npm/v/@envsa/prettier-config.svg)](https://npmjs.com/package/@envsa/prettier-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**Prettier configuration for @kitschpatrol/shared-config.**
+**Prettier configuration for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [Prettier](https://prettier.io) config.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just this Prettier config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/prettier-config
+   pnpm add -D @envsa/prettier-config
    ```
 
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
@@ -70,7 +70,7 @@ You might need to pass certain plugins in explicitly. The `shared-config --fix` 
 
 #### Command: `prettier-config`
 
-Prettier configuration for @kitschpatrol/shared-config.
+Prettier configuration for @envsa/shared-config.
 
 Usage:
 
@@ -105,6 +105,6 @@ Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->

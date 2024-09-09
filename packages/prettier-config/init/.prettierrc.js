@@ -1,4 +1,4 @@
-import sharedConfig from '@kitschpatrol/prettier-config'
+import sharedConfig from '@envsa/prettier-config'
 
 /** @type {import("prettier").Config} */
 const localConfig = {

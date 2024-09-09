@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/stylelint-config
+# @envsa/stylelint-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/stylelint-config](https://img.shields.io/npm/v/@kitschpatrol/stylelint-config.svg)](https://npmjs.com/package/@kitschpatrol/stylelint-config)
+[![NPM Package @envsa/stylelint-config](https://img.shields.io/npm/v/@envsa/stylelint-config.svg)](https://npmjs.com/package/@envsa/stylelint-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**Stylelint configuration for @kitschpatrol/shared-config.**
+**Stylelint configuration for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [Stylelint](https://stylelint.io) config.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just this Stylelint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/stylelint-config
+   pnpm add -D @envsa/stylelint-config
    ```
 
 3. Add the starter `.stylelintrc.cjs` file to your project root, and add any customizations you'd like:
@@ -68,7 +68,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `stylelint-config`
 
-Stylelint configuration for @kitschpatrol/shared-config.
+Stylelint configuration for @envsa/shared-config.
 
 Usage:
 
@@ -95,6 +95,6 @@ Ignores files in `.gitignore`
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->
