@@ -112,6 +112,10 @@ const localConfig = {
 export default localConfig
 ```
 
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
+
 <!-- license -->
 
 ## License

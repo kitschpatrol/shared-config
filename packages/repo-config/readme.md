@@ -90,9 +90,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
 
 ## Usage
 
@@ -118,6 +118,10 @@ repo-config [<file|glob> ...]
 | `--version`<br>`-v`      |          | Print the package version.                                       |
 
 <!-- /cli-help -->
+
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
 
 <!-- license -->
 

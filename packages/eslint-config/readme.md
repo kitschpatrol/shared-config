@@ -95,6 +95,10 @@ ESLint does not inherit files and paths from `.gitignore`. Ignored paths must be
 
 This shared config will also initialize a `tsconfig.json` and a `tsconfig.eslint.json`. These should probably live in a separate configuration package, but they'll reside here for now.
 
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
+
 <!-- license -->
 
 ## License

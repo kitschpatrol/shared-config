@@ -145,6 +145,10 @@ This config includes a bunch of words I've happened to have needed to use. Your 
 
 CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
 
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
+
 <!-- license -->
 
 ## License

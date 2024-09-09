@@ -101,6 +101,10 @@ Ruby formatting Expects a global Ruby install >=2.7 via `rbenv` at `~/.rbenv/shi
 
 Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it must be global.
 
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
+
 <!-- license -->
 
 ## License

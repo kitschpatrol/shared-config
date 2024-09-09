@@ -28,7 +28,7 @@
 - [Usage](#usage)
 - [Implementation notes](#implementation-notes)
 - [Development notes](#development-notes)
-- [Background](#background)
+- [Credits](#credits)
 - [License](#license)
 
 <!-- /table-of-contents -->
@@ -155,9 +155,9 @@ shared-config [<file|glob> ...]
 | Option                   | Argument | Description                                                      |
 | ------------------------ | -------- | ---------------------------------------------------------------- |
 | `--check`<br>`-c`        |          | Check for and report issues. Same as `shared-config`.            |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
 | `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
 | `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
+| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
 | `--help`<br>`-h`         |          | Print this help info.                                            |
 | `--version`<br>`-v`      |          | Print the package version.                                       |
 
@@ -193,27 +193,9 @@ For local development via `pnpm`, use `file:` dependency protocol instead of `li
 
 Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style to
 
-## Background
+## Credits
 
-### Motivation
-
-[`xo`](https://github.com/xojs/xo) is really, really close to what I'm after here, but I wanted a few extra tools and preferred to use "first party" VS Code plugins where possible.
-
-### Similar projects
-
-- [1stG/configs](https://github.com/1stG/configs)
-- [antfu/eslint-config](https://github.com/antfu/eslint-config)
-- [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
-- [lass](https://lass.js.org) (xo etc.)
-- [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
-- [sheriff](https://www.eslint-config-sheriff.dev)
-- [standard](https://standardjs.com)
-- [trunk](https://trunk.io)
-- [xo](https://github.com/xojs/xo)
-- [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
-- [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
-- [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
-- [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
 
 <!-- license -->
 
