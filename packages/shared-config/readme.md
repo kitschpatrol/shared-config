@@ -45,7 +45,6 @@ It takes care of dependencies and configurations for the following tools:
 - [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
 - [mdat](https://github.com/kitschpatrol/mdat)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [remarklint](https://github.com/remarkjs/remark-lint)
 - [Stylelint](https://stylelint.io)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
@@ -58,7 +57,6 @@ This readme is for the [`@envsa/shared-config`](https://www.npmjs.com/package/@e
 - [`@envsa/eslint-config`](/packages/eslint-config/readme.md)
 - [`@envsa/mdat-config`](/packages/mdat-config/readme.md)
 - [`@envsa/prettier-config`](/packages/prettier-config/readme.md)
-- [`@envsa/remark-config`](/packages/remark-config/readme.md)
 - [`@envsa/repo-config`](/packages/repo-config/readme.md)
 - [`@envsa/stylelint-config`](/packages/stylelint-config/readme.md)
 
@@ -177,7 +175,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 Pnpm considers module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
 
-- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 

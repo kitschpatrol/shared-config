@@ -417,8 +417,6 @@ rcmdnk
 realfavicongenerator
 rects
 rehype
-remarklint
-remarkrc
 resizability
 Roboto
 roletype
