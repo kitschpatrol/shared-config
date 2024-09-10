@@ -1,90 +1,90 @@
 {
-	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-	"enabled": true,
-	"enableGlobDot": false,
-	"dictionaryDefinitions": [
-		{
-			"name": "envsa-acronyms",
-			"path": "./dictionaries/envsa-acronyms.txt",
-			"addWords": true
-		},
-		{
-			"name": "envsa-files",
-			"path": "./dictionaries/envsa-files.txt",
-			"addWords": true
-		},
-		{
-			"name": "envsa-misc",
-			"path": "./dictionaries/envsa-misc.txt",
-			"addWords": true
-		},
-		{
-			"name": "envsa-names",
-			"path": "./dictionaries/envsa-names.txt",
-			"addWords": true
-		},
-		{
-			"name": "envsa-tech",
-			"path": "./dictionaries/envsa-tech.txt",
-			"addWords": true
-		}
-	],
-	"dictionaries": [
-		"lorem-ipsum",
-		"git",
-		"npm",
-		"fullstack",
-		"softwareTerms",
-		"envsa-acronyms",
-		"envsa-brands",
-		"envsa-files",
-		"envsa-misc",
-		"envsa-names",
-		"envsa-tech"
-	],
-	"languageSettings": [
-		{
-			"languageId": "markdown",
-			"ignoreRegExpList": [
-				"/^```(?:.|\\s)+?^```/mig" // Code fences
-			]
-		}
-	],
-	"globRoot": "/",
-	"ignorePaths": [
-		"__snapshots__",
-		"*.app",
-		"*.avif",
-		"*.m4a",
-		"*.m4v",
-		"*.mp3",
-		"*.mp4",
-		"*.patch",
-		"*.scpt",
-		"*.svg",
-		"*.tif",
-		"*.tldr",
-		"*.3gp",
-		"*.aac",
-		"*.avi",
-		"*.flac",
-		"*.flv",
-		"*.mkv",
-		"*.mpeg",
-		"*.oga",
-		"*.ogg",
-		"*.ogv",
-		"*.ogx",
-		"*.opus",
-		"*.spx",
-		"*.swf",
-		"*.wav",
-		"package.json",
-		"patches/",
-		"pnpm-lock.yaml"
-	],
-	"ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
-	"language": "en,en-AU",
-	"useGitignore": true,
-	"version": "0.2"
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "enabled": true,
+  "enableGlobDot": false,
+  "dictionaryDefinitions": [
+    {
+      "name": "envsa-acronyms",
+      "path": "./dictionaries/envsa-acronyms.txt",
+      "addWords": true
+    },
+    {
+      "name": "envsa-files",
+      "path": "./dictionaries/envsa-files.txt",
+      "addWords": true
+    },
+    {
+      "name": "envsa-misc",
+      "path": "./dictionaries/envsa-misc.txt",
+      "addWords": true
+    },
+    {
+      "name": "envsa-names",
+      "path": "./dictionaries/envsa-names.txt",
+      "addWords": true
+    },
+    {
+      "name": "envsa-tech",
+      "path": "./dictionaries/envsa-tech.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "lorem-ipsum",
+    "git",
+    "npm",
+    "fullstack",
+    "softwareTerms",
+    "envsa-acronyms",
+    "envsa-brands",
+    "envsa-files",
+    "envsa-misc",
+    "envsa-names",
+    "envsa-tech"
+  ],
+  "languageSettings": [
+    {
+      "languageId": "markdown",
+      "ignoreRegExpList": [
+        "/^```(?:.|\\s)+?^```/mig" // Code fences
+      ]
+    }
+  ],
+  "globRoot": "/",
+  "ignorePaths": [
+    "__snapshots__",
+    "*.app",
+    "*.avif",
+    "*.m4a",
+    "*.m4v",
+    "*.mp3",
+    "*.mp4",
+    "*.patch",
+    "*.scpt",
+    "*.svg",
+    "*.tif",
+    "*.tldr",
+    "*.3gp",
+    "*.aac",
+    "*.avi",
+    "*.flac",
+    "*.flv",
+    "*.mkv",
+    "*.mpeg",
+    "*.oga",
+    "*.ogg",
+    "*.ogv",
+    "*.ogx",
+    "*.opus",
+    "*.spx",
+    "*.swf",
+    "*.wav",
+    "package.json",
+    "patches/",
+    "pnpm-lock.yaml"
+  ],
+  "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
+  "language": "en,en-AU",
+  "useGitignore": true,
+  "version": "0.2"
 }

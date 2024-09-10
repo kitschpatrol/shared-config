@@ -188,9 +188,6 @@ importers:
       prettier:
         specifier: ^3.3.1
         version: 3.3.3
-      prettier-plugin-organize-imports:
-        specifier: ^4.0.0
-        version: 4.0.0(prettier@3.3.3)(typescript@5.5.4)
       prettier-plugin-pkg:
         specifier: ^0.18.1
         version: 0.18.1(prettier@3.3.3)
@@ -5853,6 +5850,7 @@ snapshots:
     dependencies:
       prettier: 3.3.3
       typescript: 5.5.4
+    optional: true
 
   prettier-plugin-pkg@0.18.1(prettier@3.3.3):
     dependencies:

@@ -1,60 +1,60 @@
 {
-	"name": "@envsa/cspell-config",
-	"version": "1.0.0",
-	"type": "module",
-	"description": "CSpell configuration for @envsa/shared-config.",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:envsa/shared-config.git",
-		"directory": "packages/cspell-config"
-	},
-	"bugs": {
-		"url": "https://github.com/envsa/shared-config/issues",
-		"email": "DEW.ICTWebServices@sa.gov.au"
-	},
-	"author": {
-		"name": "Liam Rella",
-		"email": "DEW.ICTWebServices@sa.gov.au",
-		"url": "https://github.com/rellafella"
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
-	},
-	"bin": {
-		"cspell-config": "bin/cli.js"
-	},
-	"main": "./cspell.config.json",
-	"files": [
-		"bin/*",
-		"dictionaries/*",
-		"init/*"
-	],
-	"keywords": [
-		"shared-config",
-		"cspell-config",
-		"cspell",
-		"cli"
-	],
-	"scripts": {
-		"build": "../../scripts/build.ts && mdat readme",
-		"cli": "node ./bin/cli.js",
-		"find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
-		"list-words": "cat ./dictionaries/*.txt",
-		"prepublishOnly": "pnpm run build",
-		"sort-dictionaries": "find ./dictionaries -name '*.txt' -execdir sort -f -o {} {} \\;"
-	},
-	"peerDependencies": {
-		"cspell": "^8.8.4"
-	},
-	"dependencies": {
-		"@pinojs/json-colorizer": "^4.0.0",
-		"cosmiconfig": "^9.0.0",
-		"execa": "^8.0.1",
-		"fs-extra": "^11.2.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@envsa/cspell-config",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "CSpell configuration for @envsa/shared-config.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:envsa/shared-config.git",
+    "directory": "packages/cspell-config"
+  },
+  "bugs": {
+    "url": "https://github.com/envsa/shared-config/issues",
+    "email": "DEW.ICTWebServices@sa.gov.au"
+  },
+  "author": {
+    "name": "Liam Rella",
+    "email": "DEW.ICTWebServices@sa.gov.au",
+    "url": "https://github.com/rellafella"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "bin": {
+    "cspell-config": "bin/cli.js"
+  },
+  "main": "./cspell.config.json",
+  "files": [
+    "bin/*",
+    "dictionaries/*",
+    "init/*"
+  ],
+  "keywords": [
+    "shared-config",
+    "cspell-config",
+    "cspell",
+    "cli"
+  ],
+  "scripts": {
+    "build": "../../scripts/build.ts && mdat readme",
+    "cli": "node ./bin/cli.js",
+    "find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
+    "list-words": "cat ./dictionaries/*.txt",
+    "prepublishOnly": "pnpm run build",
+    "sort-dictionaries": "find ./dictionaries -name '*.txt' -execdir sort -f -o {} {} \\;"
+  },
+  "peerDependencies": {
+    "cspell": "^8.8.4"
+  },
+  "dependencies": {
+    "@pinojs/json-colorizer": "^4.0.0",
+    "cosmiconfig": "^9.0.0",
+    "execa": "^8.0.1",
+    "fs-extra": "^11.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

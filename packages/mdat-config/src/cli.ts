@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js'
+import { buildCommands } from '$root/src/command-builder.ts';
 
 await buildCommands('mdat-config', '[Mdat Config]', 'green', {
-	check: {
-		command: 'mdat',
-		defaultArguments: ['readme.md'],
-		options: ['readme', 'check'],
-	},
-	fix: {
-		command: 'mdat',
-		defaultArguments: ['readme.md'],
-		options: ['readme', 'expand'],
-	},
-	init: {},
-	printConfig: {},
-})
+  check: {
+    command: 'mdat',
+    defaultArguments: ['readme.md'],
+    options: ['readme', 'check'],
+  },
+  fix: {
+    command: 'mdat',
+    defaultArguments: ['readme.md'],
+    options: ['readme', 'expand'],
+  },
+  init: {},
+  printConfig: {},
+});

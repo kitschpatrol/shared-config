@@ -1,58 +1,58 @@
 {
-	"name": "@envsa/stylelint-config",
-	"version": "1.0.0",
-	"type": "module",
-	"description": "Stylelint configuration for @envsa/shared-config.",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:envsa/shared-config.git",
-		"directory": "packages/stylelint-config"
-	},
-	"bugs": {
-		"url": "https://github.com/envsa/shared-config/issues",
-		"email": "DEW.ICTWebServices@sa.gov.au"
-	},
-	"author": {
-		"name": "Liam Rella",
-		"email": "DEW.ICTWebServices@sa.gov.au",
-		"url": "https://github.com/rellafella"
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
-	},
-	"bin": {
-		"stylelint-config": "bin/cli.js"
-	},
-	"main": "stylelint.config.cjs",
-	"files": [
-		"bin/*",
-		"init/*"
-	],
-	"keywords": [
-		"stylelint-config",
-		"stylelint",
-		"cli"
-	],
-	"scripts": {
-		"build": "../../scripts/build.ts && mdat readme",
-		"cli": "node ./bin/cli.js",
-		"prepublishOnly": "pnpm run build"
-	},
-	"peerDependencies": {
-		"stylelint": "^16.6.1"
-	},
-	"dependencies": {
-		"@pinojs/json-colorizer": "^4.0.0",
-		"cosmiconfig": "^9.0.0",
-		"execa": "^8.0.1",
-		"fs-extra": "^11.2.0",
-		"stylelint-config-clean-order": "^6.1.0",
-		"stylelint-config-html": "^1.1.0",
-		"stylelint-config-standard": "^36.0.1"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@envsa/stylelint-config",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Stylelint configuration for @envsa/shared-config.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:envsa/shared-config.git",
+    "directory": "packages/stylelint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/envsa/shared-config/issues",
+    "email": "DEW.ICTWebServices@sa.gov.au"
+  },
+  "author": {
+    "name": "Liam Rella",
+    "email": "DEW.ICTWebServices@sa.gov.au",
+    "url": "https://github.com/rellafella"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "bin": {
+    "stylelint-config": "bin/cli.js"
+  },
+  "main": "stylelint.config.cjs",
+  "files": [
+    "bin/*",
+    "init/*"
+  ],
+  "keywords": [
+    "stylelint-config",
+    "stylelint",
+    "cli"
+  ],
+  "scripts": {
+    "build": "../../scripts/build.ts && mdat readme",
+    "cli": "node ./bin/cli.js",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "stylelint": "^16.6.1"
+  },
+  "dependencies": {
+    "@pinojs/json-colorizer": "^4.0.0",
+    "cosmiconfig": "^9.0.0",
+    "execa": "^8.0.1",
+    "fs-extra": "^11.2.0",
+    "stylelint-config-clean-order": "^6.1.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-standard": "^36.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

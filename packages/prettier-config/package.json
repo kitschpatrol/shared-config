@@ -51,7 +51,6 @@
     "cosmiconfig": "^9.0.0",
     "execa": "^8.0.1",
     "fs-extra": "^11.2.0",
-    "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
     "prettier-plugin-svelte": "^3.2.4",

@@ -1,76 +1,76 @@
 {
-	"name": "root",
-	"version": "1.0.0",
-	"type": "module",
-	"description": "A single dependency and single command to configure and run various code linters and tools.",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:envsa/shared-config.git"
-	},
-	"homepage": "https://github.com/envsa/shared-config",
-	"bugs": {
-		"url": "https://github.com/envsa/shared-config/issues",
-		"email": "DEW.ICTWebServices@sa.gov.au"
-	},
-	"author": {
-		"name": "Liam Rella",
-		"email": "DEW.ICTWebServices@sa.gov.au",
-		"url": "https://github.com/rellafella"
-	},
-	"license": "MIT",
-	"private": true,
-	"packageManager": "pnpm@9.9.0",
-	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
-	},
-	"keywords": [
-		"shared-config",
-		"eslint-config",
-		"stylelint-config",
-		"prettier-config",
-		"github-actions",
-		"cspell",
-		"mdat",
-		"cli",
-		"npm-package"
-	],
-	"scripts": {
-		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
-		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
-		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
-		"build": "pnpm run build:stand-alone && pnpm run build:shared && cp ./packages/shared-config/readme.md ./readme.md ",
-		"build:shared": "pnpm --filter=shared-config build",
-		"build:stand-alone": "pnpm --filter=!shared-config build",
-		"clean": "pnpm run bin-restore && git clean -fdXq && rm ./pnpm-lock.yaml",
-		"fix": "pnpm shared-config --fix",
-		"lint": "pnpm shared-config --lint",
-		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"prepublishOnly": "pnpm run build",
-		"release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
-	},
-	"devDependencies": {
-		"@envsa/cspell-config": "workspace:*",
-		"@envsa/eslint-config": "workspace:*",
-		"@envsa/mdat-config": "workspace:*",
-		"@envsa/prettier-config": "workspace:*",
-		"@envsa/repo-config": "workspace:*",
-		"@envsa/shared-config": "workspace:*",
-		"@envsa/stylelint-config": "workspace:*",
-		"@pinojs/json-colorizer": "^4.0.0",
-		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.16.5",
-		"bumpp": "^9.5.2",
-		"chalk": "^5.3.0",
-		"cosmiconfig": "^9.0.0",
-		"deepmerge": "^4.3.1",
-		"esbuild": "^0.23.1",
-		"execa": "^8.0.1",
-		"fs-extra": "^11.2.0",
-		"json-stringify-pretty-compact": "^4.0.0",
-		"meow": "^13.2.0",
-		"package-up": "^5.0.0",
-		"tsx": "^4.19.0",
-		"typescript": "~5.5.4"
-	}
+  "name": "root",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A single dependency and single command to configure and run various code linters and tools.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:envsa/shared-config.git"
+  },
+  "homepage": "https://github.com/envsa/shared-config",
+  "bugs": {
+    "url": "https://github.com/envsa/shared-config/issues",
+    "email": "DEW.ICTWebServices@sa.gov.au"
+  },
+  "author": {
+    "name": "Liam Rella",
+    "email": "DEW.ICTWebServices@sa.gov.au",
+    "url": "https://github.com/rellafella"
+  },
+  "license": "MIT",
+  "private": true,
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "keywords": [
+    "shared-config",
+    "eslint-config",
+    "stylelint-config",
+    "prettier-config",
+    "github-actions",
+    "cspell",
+    "mdat",
+    "cli",
+    "npm-package"
+  ],
+  "scripts": {
+    "bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
+    "bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
+    "bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
+    "build": "pnpm run build:stand-alone && pnpm run build:shared && cp ./packages/shared-config/readme.md ./readme.md ",
+    "build:shared": "pnpm --filter=shared-config build",
+    "build:stand-alone": "pnpm --filter=!shared-config build",
+    "clean": "pnpm run bin-restore && git clean -fdXq && rm ./pnpm-lock.yaml",
+    "fix": "pnpm shared-config --fix",
+    "lint": "pnpm shared-config --lint",
+    "merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
+  },
+  "devDependencies": {
+    "@envsa/cspell-config": "workspace:*",
+    "@envsa/eslint-config": "workspace:*",
+    "@envsa/mdat-config": "workspace:*",
+    "@envsa/prettier-config": "workspace:*",
+    "@envsa/repo-config": "workspace:*",
+    "@envsa/shared-config": "workspace:*",
+    "@envsa/stylelint-config": "workspace:*",
+    "@pinojs/json-colorizer": "^4.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.16.5",
+    "bumpp": "^9.5.2",
+    "chalk": "^5.3.0",
+    "cosmiconfig": "^9.0.0",
+    "deepmerge": "^4.3.1",
+    "esbuild": "^0.23.1",
+    "execa": "^8.0.1",
+    "fs-extra": "^11.2.0",
+    "json-stringify-pretty-compact": "^4.0.0",
+    "meow": "^13.2.0",
+    "package-up": "^5.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "~5.5.4"
+  }
 }

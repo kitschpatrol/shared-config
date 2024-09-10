@@ -1,6 +1,6 @@
 {
-	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-	"import": "@envsa/cspell-config",
-	"ignorePaths": ["/packages/*/init/*.json", "/packages/*/bin"],
-	"words": []
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "import": "@envsa/cspell-config",
+  "ignorePaths": ["/packages/*/init/*.json", "/packages/*/bin"],
+  "words": []
 }
