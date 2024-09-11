@@ -117,9 +117,6 @@ pnpm dlx @envsa/repo-config --init && pnpm i && pnpm add -D @envsa/shared-config
    }
    ```
 
-   > \[!NOTE]\
-   > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @envsa/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
-
 ## Usage
 
 Various VS Code plugins should "just work".
