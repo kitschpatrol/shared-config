@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands, executeJsonOutput } from '$root/src/command-builder.js';
+import { buildCommands, executeJsonOutput } from '$root/src/command-builder.ts';
 
 const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input'];
 const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html}'];

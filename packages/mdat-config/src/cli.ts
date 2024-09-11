@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '$root/src/command-builder.ts';
+import { buildCommands } from '$root/src/command-builder.js';
 
 await buildCommands('mdat-config', '[Mdat Config]', 'green', {
   check: {

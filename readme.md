@@ -42,7 +42,7 @@ This project attempts to consolidate most of the configuration and tooling share
 It takes care of dependencies and configurations for the following tools:
 
 - [CSpell](https://cspell.org)
-- [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
+- [ESLint](https://eslint.org) (including Svelte, and TypeScript support)
 - [mdat](https://github.com/kitschpatrol/mdat)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
 - [Stylelint](https://stylelint.io)

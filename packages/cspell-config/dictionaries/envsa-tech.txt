@@ -1,3 +1,4 @@
+bullrich
 ddev
 deepmerge
 dewnrger
@@ -6,13 +7,16 @@ execa
 formie
 glightbox
 grecaptcha
+kbrashears
 lazysizes
 mdat
+mdatrc
 openforms
 pcss
 pinojs
 redactoranchors
 seomatic
+softprops
 solspace
 stylelintrc
 tailwindcss

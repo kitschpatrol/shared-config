@@ -89,18 +89,6 @@ prettier-config [<file|glob> ...]
 
 <!-- /cli-help -->
 
-## Ruby support
-
-Ruby formatting Expects a global Ruby install >=2.7 via `rbenv` at `~/.rbenv/shims/ruby` with the following gems:
-
-- `bundler`
-- `prettier_print`
-- `syntax_tree`
-- `syntax_tree-haml`
-- `syntax_tree-rbs`
-
-Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it must be global.
-
 ## Credits
 
 [Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
