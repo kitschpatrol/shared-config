@@ -2,21 +2,18 @@
 # Does not inherit from .gitignore
 
 # @envsa/repo-config boilerplate
-.astro/
 .DS_Store
+.ddev/
 .env
 .env.*
 !.env.example
-.svelte-kit/
-{tmp,temp}/
-**/*.min.js
-/scratch/
-bower_components/
+node_modules/
+vendor/
 build/
 coverage/
 dist/
-node_modules/
-vendor/
+**/*.min.js
+{tmp,temp,_junk}/
 
 # @envsa/prettier-config boilerplate
 pnpm-lock.yaml

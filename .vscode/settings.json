@@ -1,11 +1,5 @@
 {
-  "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[gitignore]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[ruby]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[shellscript]": {
@@ -23,18 +17,7 @@
   "editor.formatOnSave": true,
   "eslint.enable": true,
   "eslint.workingDirectories": ["./"], // Make sure vscode is getting config from root dir
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "svelte",
-    "astro",
-    "markdown",
-    "mdx",
-    "html",
-    "twig"
-  ],
+  "eslint.validate": ["javascript", "typescript", "svelte", "markdown", "html", "twig"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
@@ -43,8 +26,6 @@
     "readme.md": "authors*, backers*, changelog*, citation*, code_of_conduct*, contributing*, contributors*, copying*, credits*, governance*, history*, license*, maintainers*, release_notes*, security*, sponsors*"
   },
   "prettier.documentSelectors": [
-    "**/*.rb",
-    "**/*.astro",
     "**/*.svelte",
     "**/.prettierignore",
     "**/.npmrc",
@@ -53,7 +34,7 @@
   ],
   "prettier.enable": true,
   "stylelint.enable": true,
-  "stylelint.validate": ["css", "html", "svelte", "astro"],
+  "stylelint.validate": ["css", "html", "svelte"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true
 }
