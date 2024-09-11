@@ -2,10 +2,8 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "svelte.svelte-vscode",
-    "astro-build.astro-vscode",
     "streetsidesoftware.code-spell-checker",
     "esbenp.prettier-vscode",
-    "unifiedjs.vscode-mdx",
     "stylelint.vscode-stylelint",
     "usernamehw.errorlens",
     "antfu.where-am-i",
