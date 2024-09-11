@@ -5,6 +5,8 @@ export default [
   ...configEnvsa,
   {
     ignores: ['**/bin/cli.js'],
+  },
+  {
     settings: {
       'import/resolver': {
         alias: {
