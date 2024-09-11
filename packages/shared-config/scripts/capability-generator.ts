@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 import camelCase from 'camelcase';
 import { execa } from 'execa';
-import fse from 'fs-extra';
+import * as fse from 'fs-extra';
 import { globby } from 'globby';
 
 async function getBinNames(): Promise<string[]> {
