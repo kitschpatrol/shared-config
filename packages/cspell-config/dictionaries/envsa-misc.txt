@@ -3,6 +3,7 @@ adelaidenationalparkcity
 Autophagic
 bgset
 botanicgardens
+camelcase
 carbonneutraladelaide
 clelandwildlifepark
 contentmigrations
