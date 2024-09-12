@@ -13,7 +13,9 @@ build/
 coverage/
 dist/
 **/*.min.js
-{tmp,temp,_junk}/
+tmp/
+temp/
+_junk/
 
 # @envsa/prettier-config boilerplate
 pnpm-lock.yaml

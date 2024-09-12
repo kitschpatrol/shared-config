@@ -46,6 +46,7 @@
     "fix": "pnpm shared-config --fix",
     "lint": "pnpm shared-config --lint",
     "merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
+    "nuke": "rm -rf node_modules packages/*/node_modules pnpm-lock.yaml && pnpm install",
     "prepublishOnly": "pnpm run build",
     "release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
   },
