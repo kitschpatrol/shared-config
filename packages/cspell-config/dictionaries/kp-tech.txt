@@ -6,6 +6,7 @@ altool
 AMPM
 Anki
 apos
+Appium
 AppleScript
 apufix
 Archivy
@@ -47,6 +48,7 @@ Bugsense
 Bulma
 bumpp
 bunnycdn
+busycal
 buttongrid
 bzdata
 bzpkg
@@ -124,6 +126,8 @@ exiftool
 exiv
 exportdb
 fadecandy
+fanin
+fanout
 farbfeld
 faststart
 favicons
@@ -195,6 +199,7 @@ instanceof
 introend
 introstart
 InvisBox
+iosveka
 ipynb
 jetblack
 jpgs
@@ -227,6 +232,7 @@ libtheora
 libvorbis
 lilnas
 linebreak
+Lingon
 linkedom
 linkify
 localizable
@@ -236,6 +242,7 @@ lproj
 Lume
 Luminar
 Maaku
+Machato
 magicmark
 mailarchiver
 mailparser
@@ -487,6 +494,7 @@ tbody
 templating
 testid
 texcoord
+texel
 textbox
 thead
 Threlte

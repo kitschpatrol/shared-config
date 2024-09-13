@@ -9,6 +9,7 @@ AIEQ
 Akasa
 Alamy
 Alibre
+AllWork
 Altice
 Amahi
 Ameritrade
@@ -16,6 +17,7 @@ Anacapa
 Anduril
 Anker
 ænrmòus
+Apress
 Aqara
 Aqueux
 Arc'teryx
@@ -34,11 +36,13 @@ Bagjack
 Baldor
 Baratza
 Bazel
+Beelink
 Behmor
 Belkin
 Bionade
 Biozyme
 Birdly
+Blik
 Blooploop
 Blundstone
 Bodum
@@ -138,6 +142,8 @@ Hotmail
 Hunkemöller
 Illesteva
 iMac
+Incfile
+Intdev
 Isaora
 Izipizi
 Jaden
@@ -215,11 +221,13 @@ Penco
 Performa
 Perlorian
 Perrotin
+Phaidon
 Phidgets
 Piction
 Pirelli
 Plastite
 Playmobil
+Ploopy
 Pocketmod
 Posay
 Prezi
@@ -234,6 +242,7 @@ Rhodia
 Ribbonfarm
 Rilakkuma
 Rimowa
+Riptype
 Rivarossi
 Robinhood
 Rocher
@@ -254,6 +263,7 @@ Schiff
 Selfridges
 Sephora
 Shippo
+Shopt
 Siig
 Smartwool
 Somaxis
@@ -305,12 +315,14 @@ Videlio
 Vitra
 VOCOlinc
 Vyvanse
+Waleda
 Wegman's
 Wegmans
 Wemo
 Westfalia
 Wirecutter
 Xero
+Xlibris
 Yasso
 Yoox
 Zcash

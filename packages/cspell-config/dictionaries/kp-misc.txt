@@ -1,3 +1,4 @@
+abra
 acai
 acmeism
 acmeist
@@ -6,7 +7,6 @@ adject
 affordances
 afterparty
 agentic
-allwork
 amaro
 ampli
 ampliface
@@ -18,6 +18,7 @@ apotheke
 archivers
 arcology
 argh
+artlens
 assed
 autofiction
 autophagic
@@ -43,6 +44,7 @@ broccolini
 brushless
 bulgogi
 Bushwick
+cadabra
 callout
 Canalside
 cantine
@@ -101,6 +103,7 @@ frites
 fuckery
 fugazi
 ganga
+gnocci
 goji
 Googlers
 grapher
@@ -126,6 +129,7 @@ instrumentalization
 Interactivos
 intergenerational
 jankiness
+janky
 jouissance
 Kabelwerk
 kanban
@@ -154,17 +158,22 @@ motorsports
 Musée
 Museo
 Muséum
+naology
 neuro
 Neuromancer
+Ninefox
 nori
 normie
+normies
 Nostrand
 onesie
 orotate
+outler
 packrat
 panini
 pappardelle
 pico
+Pinback
 plexi
 polyphenol
 polyphenols
@@ -185,6 +194,7 @@ Sancerre
 Sandia
 satisfiability
 Schizopolis
+sclavin
 Shinkansen
 shroom
 sidenote
@@ -217,6 +227,7 @@ technosentience
 Teddit
 timelapse
 tldr
+tongkat
 trailhead
 transhumanism
 traunch
@@ -232,6 +243,7 @@ undelightable
 ungoogleable
 unignore
 unshift
+unspeak
 untildify
 Valis
 vaporwave
@@ -241,6 +253,8 @@ whatwork
 wireframe
 womp
 wonkery
+woonerf
+woopsie
 XPLO
 yada
 yakitori
@@ -250,5 +264,6 @@ yeesh
 youmean
 zettelkasten
 ziptie
+Zofran
 zoomer
 zoomers
