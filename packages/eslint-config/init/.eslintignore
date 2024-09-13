@@ -18,6 +18,7 @@ dist/
 env.d.ts
 node_modules/
 vendor/
+.parcel-cache/
 
 # @kitschpatrol/eslint-config boilerplate
 /patches/
