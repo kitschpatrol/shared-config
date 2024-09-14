@@ -1,6 +1,6 @@
 {
 	"name": "shared-config-monorepo",
-	"version": "4.7.7",
+	"version": "4.7.8",
 	"type": "module",
 	"description": "A single dependency and single command to configure and run various code linters and tools.",
 	"repository": "github:kitschpatrol/shared-config",
