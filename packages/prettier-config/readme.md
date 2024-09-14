@@ -101,6 +101,24 @@ Ruby formatting Expects a global Ruby install >=2.7 via `rbenv` at `~/.rbenv/shi
 
 Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it must be global.
 
+## Tabs vs. spaces
+
+Tabs are unambiguously preferred wherever the file format specification does not mandate spaces.
+
+The reluctant exceptions are:
+
+### JSON
+
+Despite widely accepted FUD regarding JSON requiring spaces, the [specification](https://www.json.org/json-en.html) indicates otherwise.
+
+### YAML
+
+Spaces are required by the [specification](https://yaml.org/spec/1.2.2/#61-indentation-spaces).
+
+### Markdown and MDX
+
+Spaces are not technically required, but are specified in alignment with the [Remark project's conclusions](https://github.com/remarkjs/remark-lint/tree/main/packages/remark-lint-no-tabs#recommendation) and to prevent fragility in YAML frontmatter. _(TODO: Need 4 spaces instead of 2?)_
+
 <!-- license -->
 
 ## License
