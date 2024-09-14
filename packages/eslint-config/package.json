@@ -5,13 +5,10 @@
 	"description": "ESLint configuration for @kitschpatrol/shared-config.",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
 		"directory": "packages/eslint-config"
 	},
-	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
-	},
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"author": {
 		"name": "Eric Mika",
 		"email": "eric@ericmika.com",

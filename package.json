@@ -1,17 +1,11 @@
 {
-	"name": "root",
+	"name": "shared-config-monorepo",
 	"version": "4.7.6",
 	"type": "module",
 	"description": "A single dependency and single command to configure and run various code linters and tools.",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git"
-	},
+	"repository": "github:kitschpatrol/shared-config",
 	"homepage": "https://github.com/kitschpatrol/shared-config",
-	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
-	},
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"author": {
 		"name": "Eric Mika",
 		"email": "eric@ericmika.com",
@@ -44,12 +38,12 @@
 		"build": "pnpm run build:stand-alone && pnpm run build:shared && pnpm prettier-config --fix && cp ./packages/shared-config/readme.md ./readme.md",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
-		"clean": "rimraf ./pnpm-lock.yaml && pnpm run bin-restore && git clean -fdXq",
-		"fix": "pnpm shared-config --fix",
-		"lint": "pnpm shared-config --lint",
+		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
+		"fix": "shared-config --fix",
+		"lint": "shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"prepublishOnly": "pnpm run build",
-		"release": "pnpm bumpp -r --commit 'Release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
+		"release": "bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
@@ -73,7 +67,6 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"meow": "^13.2.0",
 		"package-up": "^5.0.0",
-		"rimraf": "^6.0.1",
 		"tsx": "^4.19.1",
 		"typescript": "~5.6.2"
 	}

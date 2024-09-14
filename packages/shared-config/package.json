@@ -5,13 +5,10 @@
 	"description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:kitschpatrol/shared-config.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
 		"directory": "packages/shared-config"
 	},
-	"bugs": {
-		"url": "https://github.com/kitschpatrol/shared-config/issues",
-		"email": "eric@ericmika.com"
-	},
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"author": {
 		"name": "Eric Mika",
 		"email": "eric@ericmika.com",
@@ -42,7 +39,7 @@
 	],
 	"scripts": {
 		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && pnpm mdat readme",
-		"clean": "pnpm run bin-restore && git clean -fdX",
+		"clean": "pnpm run bin-restore ; git clean -fdX",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
