@@ -90,6 +90,7 @@ Cura
 cwebp
 Cyberduck
 Cython
+datahub
 Datalog
 dataview
 datavis
@@ -419,6 +420,7 @@ Proxyman
 psds
 psexec
 pushshift
+pytest
 qalpha
 qcolor
 qscale
