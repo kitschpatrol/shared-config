@@ -35,15 +35,15 @@
 		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
-		"build": "pnpm run build:stand-alone && pnpm run build:shared && pnpm prettier-config --fix && cp ./packages/shared-config/readme.md ./readme.md",
+		"build": "pnpm run build:stand-alone && pnpm run build:shared && pnpm run build:copy-readme",
+		"build:copy-readme": "cp ./packages/shared-config/readme.md ./readme.md && pnpm prettier-config --fix",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
 		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
 		"fix": "shared-config --fix",
 		"lint": "shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"prepublishOnly": "pnpm run build",
-		"release": "bumpp -r --commit 'Release: %s' && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
+		"release": "pnpm run build:copy-readme && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
