@@ -39,7 +39,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"prettier": "^3.3.1"
+		"prettier": "^3.3.3"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
@@ -53,8 +53,8 @@
 		"prettier-plugin-pkg": "^0.18.1",
 		"prettier-plugin-sh": "^0.14.0",
 		"prettier-plugin-sql": "^0.18.1",
-		"prettier-plugin-svelte": "^3.2.6",
-		"prettier-plugin-tailwindcss": "^0.6.6",
+		"prettier-plugin-svelte": "^3.2.7",
+		"prettier-plugin-tailwindcss": "^0.6.8",
 		"prettier-plugin-toml": "^2.0.1"
 	},
 	"publishConfig": {
