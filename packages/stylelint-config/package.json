@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/stylelint-config",
-	"version": "4.7.11",
+	"version": "4.7.12",
 	"type": "module",
 	"description": "Stylelint configuration for @kitschpatrol/shared-config.",
 	"repository": {
