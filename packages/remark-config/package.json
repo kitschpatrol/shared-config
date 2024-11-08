@@ -90,7 +90,7 @@
 		"remark-lint-table-cell-padding": "^5.0.0",
 		"remark-lint-unordered-list-marker-style": "^4.0.0",
 		"remark-preset-prettier": "^2.0.1",
-		"remark-validate-links": "^13.0.1"
+		"remark-validate-links": "^13.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
