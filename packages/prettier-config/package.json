@@ -53,8 +53,8 @@
 		"prettier-plugin-pkg": "^0.18.1",
 		"prettier-plugin-sh": "^0.14.0",
 		"prettier-plugin-sql": "^0.18.1",
-		"prettier-plugin-svelte": "^3.2.7",
-		"prettier-plugin-tailwindcss": "^0.6.8",
+		"prettier-plugin-svelte": "^3.3.2",
+		"prettier-plugin-tailwindcss": "^0.6.9",
 		"prettier-plugin-toml": "^2.0.1"
 	},
 	"publishConfig": {
