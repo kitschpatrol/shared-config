@@ -47,7 +47,7 @@
 		"@prettier/plugin-ruby": "^4.0.4",
 		"@prettier/plugin-xml": "^3.4.1",
 		"cosmiconfig": "^9.0.0",
-		"execa": "^8.0.1",
+		"execa": "^9.5.2",
 		"fs-extra": "^11.2.0",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-pkg": "^0.18.1",

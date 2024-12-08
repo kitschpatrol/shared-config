@@ -79,12 +79,6 @@ function generateHelpText(command: string, options: OptionCommands): string {
 	if (Object.keys(options).length > 0) {
 		for (const name of Object.keys(options)) {
 			switch (name) {
-				case 'init': {
-					helpText +=
-						'\n    --init, -i                Initialize by copying starter config files to your project root.'
-					break
-				}
-
 				case 'check': {
 					helpText += `\n    --check, -c               Check for and report issues. Same as \`${command}\`.`
 					break
@@ -96,13 +90,19 @@ function generateHelpText(command: string, options: OptionCommands): string {
 					break
 				}
 
-				case 'printConfig': {
-					helpText +=
-						'\n    --print-config, -p <path> Print the effective configuration at a certain path.'
+				case 'help': {
 					break
 				}
 
-				case 'help': {
+				case 'init': {
+					helpText +=
+						'\n    --init, -i                Initialize by copying starter config files to your project root.'
+					break
+				}
+
+				case 'printConfig': {
+					helpText +=
+						'\n    --print-config, -p <path> Print the effective configuration at a certain path.'
 					break
 				}
 
@@ -129,14 +129,6 @@ function generateFlags(options: OptionCommands): AnyFlags {
 		let flagOptions: AnyFlag = {}
 
 		switch (name) {
-			case 'init': {
-				flagOptions = {
-					shortFlag: 'i',
-					type: 'boolean',
-				}
-				break
-			}
-
 			case 'check': {
 				flagOptions = {
 					aliases: ['lint', ''],
@@ -154,16 +146,24 @@ function generateFlags(options: OptionCommands): AnyFlags {
 				break
 			}
 
-			case 'printConfig': {
+			case 'help': {
 				flagOptions = {
-					shortFlag: 'p',
 					type: 'boolean',
 				}
 				break
 			}
 
-			case 'help': {
+			case 'init': {
 				flagOptions = {
+					shortFlag: 'i',
+					type: 'boolean',
+				}
+				break
+			}
+
+			case 'printConfig': {
+				flagOptions = {
+					shortFlag: 'p',
 					type: 'boolean',
 				}
 				break
@@ -186,10 +186,10 @@ function generateFlags(options: OptionCommands): AnyFlags {
 	}, {})
 }
 
-async function streamToString(stream: Stream): Promise<string> {
+export async function streamToString(stream: Stream): Promise<string> {
 	const chunks: Uint8Array[] = []
 	return new Promise((resolve, reject) => {
-		stream.on('data', (chunk: Uint8Array) => chunks.push(Buffer.from(chunk)))
+		stream.on('data', (chunk: Uint8Array) => chunks.push(chunk)) // No need for Buffer.from here?
 		stream.on('error', (error) => {
 			reject(error as Error)
 		})
@@ -341,6 +341,22 @@ export async function buildCommands(
 		} else {
 			// Handle default behaviors (e.g. {})
 			switch (name) {
+				case 'check': {
+					console.error(
+						'There is no default implementation for check. The [tool]-config package must define a command.',
+					)
+					aggregateExitCode += 1
+					break
+				}
+
+				case 'fix': {
+					console.error(
+						'There is no default implementation for fix. The [tool]-config package must define a command.',
+					)
+					aggregateExitCode += 1
+					break
+				}
+
 				case 'init': {
 					// By default, copies files in script package's /init directory to the root of the package it's called from
 					// For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
@@ -412,22 +428,6 @@ export async function buildCommands(
 					// TODO
 					aggregateExitCode += 0
 
-					break
-				}
-
-				case 'check': {
-					console.error(
-						'There is no default implementation for check. The [tool]-config package must define a command.',
-					)
-					aggregateExitCode += 1
-					break
-				}
-
-				case 'fix': {
-					console.error(
-						'There is no default implementation for fix. The [tool]-config package must define a command.',
-					)
-					aggregateExitCode += 1
 					break
 				}
 
