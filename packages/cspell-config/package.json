@@ -43,7 +43,7 @@
 		"sort-dictionaries": "find ./dictionaries -name '*.txt' -execdir sort -f -o {} {} \\;"
 	},
 	"peerDependencies": {
-		"cspell": "^8.16.0"
+		"cspell": "^8.16.1"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",

@@ -39,7 +39,7 @@
 		"prepublishOnly": "pnpm run build"
 	},
 	"peerDependencies": {
-		"prettier": "^3.3.3"
+		"prettier": "^3.4.2"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
