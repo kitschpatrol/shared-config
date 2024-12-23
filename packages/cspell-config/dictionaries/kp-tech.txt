@@ -513,6 +513,7 @@ toupper
 truecolor
 tsconfigs
 tsdoc
+tseslint
 tslog
 tsparticles
 tsquery

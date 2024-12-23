@@ -185,6 +185,7 @@ Camos
 Canavan
 Cann
 Cantz
+Čapek
 Capps
 Cardano
 Carley
@@ -337,6 +338,7 @@ Endy
 Engelbart
 Engst
 Enso
+envsa
 Equa
 Erbe
 Erdogan
@@ -690,7 +692,9 @@ Kutnow
 Kuzmin
 Kykuit
 Kyoko
+L’Óreal
 L'Rai
+L’Rai
 Laidlaw
 Laika
 Lalo
@@ -755,8 +759,6 @@ Luiz
 Lupton
 Lutz
 Luzi
-L’Óreal
-L’Rai
 Maag
 Maarten
 Mackay
@@ -949,9 +951,9 @@ Oriol
 Orland
 Osawa
 osnr
+Ôtomo
 Outkast
 Ozge
-Ôtomo
 Pachucki
 Paciocco
 Paik
@@ -1022,6 +1024,7 @@ Reas
 Rebecca
 Refik
 Reimann
+Rella
 Renard
 Renata
 Renaud
@@ -1167,6 +1170,7 @@ Sofreh
 Sofy
 Söhne
 Soleri
+SolidGoldMagikarp
 Soman
 Sorhus
 Sout
@@ -1419,4 +1423,3 @@ Zoltan
 Zucker
 Zurkow
 Zutowski
-Čapek
