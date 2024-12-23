@@ -6,7 +6,7 @@ const localConfig = {
 	// overrides: [
 	// 	...sharedConfig.overrides,
 	// 	{
-	// 		// Per-file overrides overrides
+	// 		// Per-file overrides
 	// 	},
 	// ],
 }
