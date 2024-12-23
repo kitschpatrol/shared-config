@@ -199,21 +199,31 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 [`xo`](https://github.com/xojs/xo) is really, really close to what I'm after here, but I wanted a few extra tools and preferred to use "first party" VS Code plugins where possible.
 
-### Similar projects
+[`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) is also excellent, and probably the best starting point for most people for most new projects. However, it does not take a "single top-level dependency" / "single unified CLI" approach.
+
+### Related projects
 
 - [1stG/configs](https://github.com/1stG/configs)
 - [antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
+- [create-typescript-app](https://github.com/JoshuaKGoldberg/create-typescript-app)
+- [envsa/shared-config](https://github.com/envsa/shared-config) (Liam Rella's fork of `@kitschpatrol/shared-config`)
+- [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
+- [eslint-config-hyperse](https://github.com/hyperse-io/eslint-config-hyperse)
 - [lass](https://lass.js.org) (xo etc.)
+- [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
 - [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
 - [sheriff](https://www.eslint-config-sheriff.dev)
 - [standard](https://standardjs.com)
 - [trunk](https://trunk.io)
-- [xo](https://github.com/xojs/xo)
-- [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
-- [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
+- [ts-reset](https://github.com/mattpocock/ts-reset)
 - [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
-- [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
+- [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
+- [xo](https://github.com/xojs/xo)
+- [sxzz/eslint-config](https://github.com/sxzz/eslint-config)
+
+- [neostandard](https://github.com/neostandard/neostandard)
+- [@voxpelli/eslint-config](https://github.com/voxpelli/eslint-config)
 
 <!-- license -->
 
