@@ -423,6 +423,7 @@ pushshift
 pytest
 qalpha
 qcolor
+qlty
 qscale
 radiogrid
 raytrace

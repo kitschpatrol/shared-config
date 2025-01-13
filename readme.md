@@ -221,7 +221,8 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [xo](https://github.com/xojs/xo)
 - [sxzz/eslint-config](https://github.com/sxzz/eslint-config)
-
+- [qlty](https://github.com/qltysh/qlty) (Multi-language.)
+- [megalinter](https://github.com/oxsecurity/megalinter) (Multi-language.)
 - [neostandard](https://github.com/neostandard/neostandard)
 - [@voxpelli/eslint-config](https://github.com/voxpelli/eslint-config)
 
