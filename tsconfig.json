@@ -7,6 +7,7 @@
 		"skipLibCheck": true,
 		"noEmit": true,
 		"noErrorTruncation": true,
+		"jsx": "react",
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",

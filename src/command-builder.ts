@@ -204,7 +204,7 @@ export async function executeJsonOutput(
 	optionCommand: OptionCommand,
 	input: string[] = [],
 ): Promise<number> {
-	// Capture the output of execution, and then format is nicely
+	// Capture the output of execution, and then format it nicely
 	const pass = new PassThrough()
 	const exitCode = await execute(pass, optionCommand, input)
 	pass.end()
@@ -239,10 +239,13 @@ export async function execute(
 				optionCommand.command,
 				[...(optionCommand.options ?? []), ...input],
 				{
-					env: {
-						// eslint-disable-next-line @typescript-eslint/naming-convention
-						FORCE_COLOR: 'true',
-					},
+					env:
+						process.env.NO_COLOR === undefined
+							? {
+									// eslint-disable-next-line @typescript-eslint/naming-convention
+									FORCE_COLOR: 'true',
+								}
+							: {},
 					stdin: 'inherit', // For input, todo anything weird here?
 				},
 			)

@@ -23,3 +23,5 @@ vendor/
 
 # Customizations
 bin/
+/test/fixtures/input
+/test/fixtures/output-fixable

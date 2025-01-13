@@ -1,0 +1,26 @@
+---
+// how do you spell
+const isJsx: boolean = true
+const content = "hi!";
+
+var f = 0
+---
+
+<article>
+  <div>{content}</div>
+  <img src="https://placekitten.com/200/300" />
+  <div>
+    {isJsx && (
+      <h1>{content}</h1>
+    )}
+  </div>
+</article>
+
+
+<script>
+  var q = 5
+  const {  log: logger } = console
+  document.querySelector('h1')?.addEventListener('click', () => {
+        logger('clicked');
+  });
+</script>

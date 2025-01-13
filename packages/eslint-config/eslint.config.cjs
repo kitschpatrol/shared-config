@@ -258,6 +258,7 @@ module.exports = {
 			],
 			parser: '@typescript-eslint/parser',
 			parserOptions: {
+				jsx: true,
 				project: 'tsconfig.eslint.json', // Not sure why this isn't inherited
 			},
 			rules: {

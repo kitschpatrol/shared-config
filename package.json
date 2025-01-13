@@ -43,7 +43,8 @@
 		"fix": "shared-config --fix",
 		"lint": "shared-config --lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')"
+		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
+		"test": "vitest"
 	},
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
@@ -57,6 +58,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "^22.10.5",
+		"@types/react": "^19.0.6",
 		"bumpp": "^9.10.0",
 		"chalk": "^5.4.1",
 		"cosmiconfig": "^9.0.0",
@@ -68,6 +70,7 @@
 		"meow": "^13.2.0",
 		"package-up": "^5.0.0",
 		"tsx": "^4.19.2",
-		"typescript": "~5.7.3"
+		"typescript": "~5.7.3",
+		"vitest": "^2.1.8"
 	}
 }
