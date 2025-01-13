@@ -128,7 +128,22 @@ export default {
 		remarkLintNoShortcutReferenceImage,
 		remarkLintNoShortcutReferenceLink,
 		remarkLintNoTabs,
-		remarkLintNoUndefinedReferences,
+		[
+			remarkLintNoUndefinedReferences,
+			{
+				allow: [
+					'…',
+					'...',
+					// GitHub Alerts / Admonitions
+					// https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+					'!NOTE',
+					'!TIP',
+					'!IMPORTANT',
+					'!WARNING',
+					'!CAUTION',
+				],
+			},
+		],
 		remarkLintNoUnneededFullReferenceImage,
 		remarkLintNoUnneededFullReferenceLink,
 		remarkLintNoUnusedDefinitions,
