@@ -68,7 +68,7 @@ Any of these may be installed and run on their own via CLI if desired. However, 
 
 ### Dependencies
 
-Node 18+ and [pnpm](https://pnpm.io) are required. It probably works with NPM and yarn, but I haven't tested it.
+Node 22+ and [pnpm](https://pnpm.io) 9+ are required. It probably works with NPM and yarn, but I haven't tested it.
 
 ### Installation
 
@@ -119,7 +119,7 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
    }
    ```
 
-   > \[!NOTE]\
+   > [!NOTE]
    > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
 ## Usage
@@ -191,7 +191,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
-Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style to
+Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to eslint instead of prettier.
 
 ## Background
 
@@ -203,6 +203,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 ### Related projects
 
+- [@voxpelli/eslint-config](https://github.com/voxpelli/eslint-config)
 - [1stG/configs](https://github.com/1stG/configs)
 - [antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
@@ -211,20 +212,19 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
 - [eslint-config-hyperse](https://github.com/hyperse-io/eslint-config-hyperse)
 - [lass](https://lass.js.org) (xo etc.)
+- [megalinter](https://github.com/oxsecurity/megalinter) (Multi-language.)
+- [neostandard](https://github.com/neostandard/neostandard)
 - [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
+- [qlty](https://github.com/qltysh/qlty) (Multi-language.)
 - [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
 - [sheriff](https://www.eslint-config-sheriff.dev)
 - [standard](https://standardjs.com)
+- [sxzz/eslint-config](https://github.com/sxzz/eslint-config)
 - [trunk](https://trunk.io)
 - [ts-reset](https://github.com/mattpocock/ts-reset)
 - [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [xo](https://github.com/xojs/xo)
-- [sxzz/eslint-config](https://github.com/sxzz/eslint-config)
-- [qlty](https://github.com/qltysh/qlty) (Multi-language.)
-- [megalinter](https://github.com/oxsecurity/megalinter) (Multi-language.)
-- [neostandard](https://github.com/neostandard/neostandard)
-- [@voxpelli/eslint-config](https://github.com/voxpelli/eslint-config)
 
 <!-- license -->
 
