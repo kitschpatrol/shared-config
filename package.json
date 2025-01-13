@@ -13,10 +13,10 @@
 	},
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.15.0",
+	"packageManager": "pnpm@9.15.3",
 	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
+		"node": ">=22.0.0",
+		"pnpm": ">=9.0.0"
 	},
 	"keywords": [
 		"shared-config",
@@ -56,7 +56,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "18.0.0",
+		"@types/node": "^22.10.5",
 		"bumpp": "^9.9.0",
 		"chalk": "^5.3.0",
 		"cosmiconfig": "^9.0.0",
