@@ -2,19 +2,20 @@
 
 <!-- title { prefix: "🔬 " } -->
 
-# 🔬 shared-config-monorepo
+# 🔬 @kitschpatrol/shared-config
 
 <!-- /title -->
 
 <!-- badges -->
 
+[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**A single dependency and single command to configure and run various code linters and tools.**
+**A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.**
 
 <!-- /description -->
 

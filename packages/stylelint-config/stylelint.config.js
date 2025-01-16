@@ -1,16 +1,24 @@
-/* eslint-disable perfectionist/sort-objects */
 /* eslint-disable unicorn/no-null */
-const { propertyGroups } = require('stylelint-config-clean-order')
+import { propertyGroups } from 'stylelint-config-clean-order'
 
-const propertiesOrder = propertyGroups.map((properties) => ({
+const propertiesOrder = propertyGroups.map((/** @type {string[]} */ properties) => ({
 	emptyLineBefore: 'never', // Don't add empty lines between order groups.
 	noEmptyLineBetween: true,
 	properties,
 }))
 
 /** @type {import("stylelint").Config} */
-module.exports = {
+export default {
 	extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-config-html'],
+	overrides: [
+		{
+			// Not unusual to have empty style tags in an Astro template
+			files: ['*.astro'],
+			rules: {
+				'no-empty-source': null,
+			},
+		},
+	],
 	rules: {
 		'color-hex-length': null,
 		'comment-empty-line-before': null,
@@ -31,13 +39,4 @@ module.exports = {
 			},
 		],
 	},
-	overrides: [
-		{
-			// Not unusual to have empty style tags in an Astro template
-			files: ['*.astro'],
-			rules: {
-				'no-empty-source': null,
-			},
-		},
-	],
 }

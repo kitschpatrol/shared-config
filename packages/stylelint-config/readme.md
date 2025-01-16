@@ -41,11 +41,19 @@ To use just this Stylelint config in isolation:
    pnpm add -D @kitschpatrol/stylelint-config
    ```
 
-3. Add the starter `.stylelintrc.cjs` file to your project root, and add any customizations you'd like:
+3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
    pnpm exec stylelint-config --init
    ```
+
+## Rules
+
+- [stylelint-config-recommended](https://github.com/stylelint/stylelint-config-recommended) _([Rules](https://github.com/stylelint/stylelint-config-recommended/blob/main/index.js))_
+- [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) _(Extends the above with [additional rules](https://github.com/stylelint/stylelint-config-standard/blob/main/index.js))_
+- [stylelint-config-clean-order](https://github.com/kutsan/stylelint-config-clean-order)
+- [stylelint-config-html](https://www.npmjs.com/package/stylelint-config-html) _(Parses HTML, XML, Vue, Svelte, Astro, and PHP files)_
+- [Additional customizations](./stylelint.config.js)
 
 ## Usage
 
@@ -61,6 +69,40 @@ Integrate with your `package.json` scripts as you see fit, for example:
   "format": "stylelint-config --fix"
 }
 ```
+
+### Configuration
+
+Create a `stylelint.config.js` in your project root:
+
+TK
+
+_Or_
+
+`stylelint` property in `package.json`:
+
+TK
+
+### Ignoring files
+
+Ignores all files in `.gitignore` by default.
+
+Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure#ignorefiles) key.
+
+### Ignoring code
+
+See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code).
+
+Blocks:
+
+`/* stylelint-disable */ ...  /* stylelint-enable */`
+
+Inline:
+
+`/* stylelint-disable-line */`
+
+Next line:
+
+`/* stylelint-disable-next-line`
 
 ### CLI
 
@@ -86,10 +128,6 @@ stylelint-config [<file|glob> ...]
 | `--version`<br>`-v`      |          | Print the package version.                                       |
 
 <!-- /cli-help -->
-
-## Notes
-
-Ignores files in `.gitignore`
 
 <!-- license -->
 

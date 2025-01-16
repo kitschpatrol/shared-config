@@ -2,7 +2,7 @@
 import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
 
 const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input']
-const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro}']
+const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}']
 
 await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 	check: {
