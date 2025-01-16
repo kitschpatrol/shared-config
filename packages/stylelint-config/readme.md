@@ -110,22 +110,84 @@ Next line:
 
 #### Command: `stylelint-config`
 
-Stylelint configuration for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `stylelint-config`.
 
 Usage:
 
 ```txt
-stylelint-config [<file|glob> ...]
+stylelint-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `stylelint-config`.         |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                               |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                              |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
+| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+```txt
+stylelint-config check [files..]
+
+Check for and report issues.
+
+Positionals:
+  files  Files to check  [array] [default: ["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+```txt
+stylelint-config fix [files..]
+
+Fix all auto-fixable issues, and report the un-fixable.
+
+Positionals:
+  files  Files to fix  [array] [default: ["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+#### Subcommand: `stylelint-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+stylelint-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+```txt
+stylelint-config print-config <file>
+
+Print the effective configuration at a certain path.
+
+Positionals:
+  file  TODO  [string] [required] [default: ["."]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
 
 <!-- /cli-help -->
 

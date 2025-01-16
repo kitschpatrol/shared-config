@@ -67,21 +67,70 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `cspell-config`
 
-CSpell configuration for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `cspell-config`.
 
 Usage:
 
 ```txt
-cspell-config [<file|glob> ...]
+cspell-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `cspell-config`.            |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                               |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                              |
+| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+```txt
+cspell-config check [files..]
+
+Check for and report issues.
+
+Positionals:
+  files  Files to check  [array] [default: ["."]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+#### Subcommand: `cspell-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+cspell-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+```txt
+cspell-config print-config <file>
+
+Print the effective configuration at a certain path.
+
+Positionals:
+  file  TODO  [string] [required] [default: ["."]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
 
 <!-- /cli-help -->
 

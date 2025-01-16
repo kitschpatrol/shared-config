@@ -90,9 +90,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
 
 ## Usage
 
@@ -102,20 +102,62 @@ Note: Action dependencies have been forked.
 
 #### Command: `repo-config`
 
-Repository configuration and GitHub workflows for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `repo-config`.
 
 Usage:
 
 ```txt
-repo-config [<file|glob> ...]
+repo-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument | Description                                                                                               |
+| -------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `init`         |          | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>` | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `repo-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+repo-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `repo-config print-config`
+
+Print the effective configuration at a certain path.
+
+Usage:
+
+```txt
+repo-config print-config <file>
+```
+
+| Positional Argument | Description        | Type     |
+| ------------------- | ------------------ | -------- |
+| `file`              | TODO _(Required.)_ | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { buildCommands } from '../../../src/command-builder.js'
 
+// TODO fix? fixed through eslint?
+
 await buildCommands('cspell-config', '[CSpell]', 'cyan', {
 	check: {
 		command: 'cspell',

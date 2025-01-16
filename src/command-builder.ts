@@ -1,210 +1,46 @@
 #!/usr/bin/env node
-/* eslint-disable complexity */
 
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
-import type { Flag } from 'meow'
+import { PassThrough } from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
-import chalk, { type foregroundColorNames } from 'chalk'
+import { type foregroundColorNames } from 'chalk'
 import { cosmiconfig } from 'cosmiconfig'
 import { execa, type ExecaError } from 'execa'
 import fse from 'fs-extra'
-import meow from 'meow'
 import path from 'node:path'
-import { Transform } from 'node:stream'
-import { PassThrough, type Stream } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
+import { version } from '../package.json'
 import { merge, stringify } from './json-utils.js'
-
-// TODO get these from meow?
-type StringFlag = Flag<'string', string> | Flag<'string', string[], true>
-type BooleanFlag = Flag<'boolean', boolean> | Flag<'boolean', boolean[], true>
-type NumberFlag = Flag<'number', number> | Flag<'number', number[], true>
-type AnyFlag = BooleanFlag | NumberFlag | StringFlag
-type AnyFlags = Record<string, AnyFlag>
+import { createStreamTransform, streamToString } from './stream-utils.js'
 
 type ChalkColor = (typeof foregroundColorNames)[number]
 
-type OptionCommand = {
-	/** Either a string to run a command, or a function to do something custom. If undefined, a default behavior is used. */
-	command?:
-		| ((
-				/** Useful if you're logging in the function, ensures output is prefixed */
-				logStream: NodeJS.WritableStream,
-				args: string[],
-				options: string[],
-		  ) => Promise<number>)
-		| string
-	/** Arguments to be passed to the command in the absence of user-provided arguments */
+type SubcommandFunction = (
+	logStream: NodeJS.WritableStream,
+	args: string[],
+	options: string[],
+) => Promise<number>
+
+type Subcommand = {
+	command?: string | SubcommandFunction
 	defaultArguments?: string[]
-	/** Options to be passed to the command. The argument is handled in command-builder.ts */
 	options?: string[]
 }
 
-// Supported options
-export type OptionCommands = {
-	[key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand
-}
-
-function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
-	return new Transform({
-		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
-			// Convert the chunk to a string and prepend the string to each line
-			const lines: string[] = chunk
-				.toString()
-				.split(/\r?\n/)
-				.filter((line) => line.trim().length > 0)
-
-			const transformed =
-				lines.map((line) => `${logPrefix ? chalk[logColor](logPrefix) : ''} ${line}`).join('\n') +
-				'\n'
-
-			// Pass the transformed data to the next stage in the stream
-			this.push(transformed)
-			callback()
-		},
-	})
-}
-
-function generateHelpText(command: string, options: OptionCommands): string {
-	let helpText = `
-  Usage
-    $ ${command} [<file|glob> ...]
-  `
-
-	helpText += '\n  Options'
-
-	if (Object.keys(options).length > 0) {
-		for (const name of Object.keys(options)) {
-			switch (name) {
-				case 'check': {
-					helpText += `\n    --check, -c               Check for and report issues. Same as \`${command}\`.`
-					break
-				}
-
-				case 'fix': {
-					helpText +=
-						'\n    --fix, -f                 Fix all auto-fixable issues, and report the un-fixable.'
-					break
-				}
-
-				case 'help': {
-					break
-				}
-
-				case 'init': {
-					helpText +=
-						'\n    --init, -i                Initialize by copying starter config files to your project root.'
-					break
-				}
-
-				case 'printConfig': {
-					helpText +=
-						'\n    --print-config, -p <path> Print the effective configuration at a certain path.'
-					break
-				}
-
-				case 'version': {
-					break
-				}
-
-				default: {
-					console.error(`Unknown command name in generateHelpText: ${name}`)
-				}
-			}
-		}
-	}
-
-	// Note some spooky behavior around these affecting how options are parsed
-	helpText += '\n    --help, -h                Print this help info.'
-	helpText += '\n    --version, -v             Print the package version.\n'
-
-	return helpText
-}
-
-function generateFlags(options: OptionCommands): AnyFlags {
-	return Object.keys(options).reduce<AnyFlags>((acc, name) => {
-		let flagOptions: AnyFlag = {}
-
-		switch (name) {
-			case 'check': {
-				flagOptions = {
-					aliases: ['lint', ''],
-					shortFlag: 'l',
-					type: 'boolean',
-				}
-				break
-			}
-
-			case 'fix': {
-				flagOptions = {
-					shortFlag: 'f',
-					type: 'boolean',
-				}
-				break
-			}
-
-			case 'help': {
-				flagOptions = {
-					type: 'boolean',
-				}
-				break
-			}
-
-			case 'init': {
-				flagOptions = {
-					shortFlag: 'i',
-					type: 'boolean',
-				}
-				break
-			}
-
-			case 'printConfig': {
-				flagOptions = {
-					shortFlag: 'p',
-					type: 'boolean',
-				}
-				break
-			}
-
-			case 'version': {
-				flagOptions = {
-					type: 'boolean',
-				}
-				break
-			}
-
-			default: {
-				console.error(`Unknown command name: ${name}`)
-			}
-		}
-
-		acc[name] = flagOptions
-		return acc
-	}, {})
-}
-
-export async function streamToString(stream: Stream): Promise<string> {
-	const chunks: Uint8Array[] = []
-	return new Promise((resolve, reject) => {
-		stream.on('data', (chunk: Uint8Array) => chunks.push(chunk)) // No need for Buffer.from here?
-		stream.on('error', (error) => {
-			reject(error as Error)
-		})
-		stream.on('end', () => {
-			resolve(Buffer.concat(chunks).toString('utf8'))
-		})
-	})
+export type Subcommands = {
+	[key in 'check' | 'fix' | 'init' | 'printConfig']?: Subcommand
 }
 
 export async function executeJsonOutput(
 	logStream: NodeJS.WritableStream,
-	optionCommand: OptionCommand,
+	optionCommand: Subcommand,
 	input: string[] = [],
 ): Promise<number> {
-	// Capture the output of execution, and then format it nicely
 	const pass = new PassThrough()
 	const exitCode = await execute(pass, optionCommand, input)
 	pass.end()
@@ -216,7 +52,6 @@ export async function executeJsonOutput(
 
 	try {
 		const configString = await streamToString(pass)
-
 		logStream.write(stringify(JSON.parse(configString)))
 		logStream.write('\n')
 		return 0
@@ -228,27 +63,30 @@ export async function executeJsonOutput(
 
 export async function execute(
 	logStream: NodeJS.WritableStream,
-	optionCommand: OptionCommand,
+	subcommand: Subcommand | undefined,
 	input: string[] = [],
+	defaultImplementation?: SubcommandFunction | undefined,
 ): Promise<number> {
-	if (optionCommand.command !== undefined && typeof optionCommand.command === 'string') {
-		let exitCode = 1
+	let exitCode = 1
 
+	if (subcommand === undefined) {
+		// Should be unreachable...
+		console.error('No subcommand implementation found.')
+		return exitCode
+	}
+
+	if (typeof subcommand.command === 'string') {
 		try {
-			const subprocess = execa(
-				optionCommand.command,
-				[...(optionCommand.options ?? []), ...input],
-				{
-					env:
-						process.env.NO_COLOR === undefined
-							? {
-									// eslint-disable-next-line @typescript-eslint/naming-convention
-									FORCE_COLOR: 'true',
-								}
-							: {},
-					stdin: 'inherit', // For input, todo anything weird here?
-				},
-			)
+			const subprocess = execa(subcommand.command, [...(subcommand.options ?? []), ...input], {
+				env:
+					process.env.NO_COLOR === undefined
+						? {
+								// eslint-disable-next-line @typescript-eslint/naming-convention
+								FORCE_COLOR: 'true',
+							}
+						: {},
+				stdin: 'inherit',
+			})
 
 			// End false is required here, otherwise the stream will close before the subprocess is done
 			subprocess.stdout?.pipe(logStream, { end: false })
@@ -256,7 +94,8 @@ export async function execute(
 			await subprocess
 			exitCode = subprocess.exitCode ?? 1
 		} catch (error) {
-			// Console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
+			// Extra debugging...
+			// console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
 			if (isErrorExecaError(error)) {
 				exitCode = typeof error.exitCode === 'number' ? error.exitCode : 1
 			}
@@ -265,212 +104,250 @@ export async function execute(
 		return exitCode
 	}
 
-	logStream.write(`Error: Invalid optionCommand: ${JSON.stringify(optionCommand, undefined, 2)}`)
+	if (typeof subcommand.command === 'function') {
+		try {
+			exitCode = await subcommand.command(logStream, input, subcommand.options ?? [])
+		} catch (error) {
+			console.error(String(error))
+			return 1
+		}
+
+		return exitCode
+	}
+
+	if (defaultImplementation !== undefined) {
+		try {
+			exitCode = await defaultImplementation(logStream, input, subcommand.options ?? [])
+		} catch (error) {
+			console.error(String(error))
+			return 1
+		}
+
+		return exitCode
+	}
+
+	console.error(
+		`There is no default implementation for this command. The [tool]-config package must define a command.`,
+	)
 	return 1
 }
 
-function checkArguments(
-	input: string[],
-	optionCommand: OptionCommand,
-	logStream: NodeJS.WritableStream,
-): void {
-	// Warn if no default arguments are provided, don't be too clever
-	if (input.length === 0 && !optionCommand.defaultArguments) {
-		logStream.write('Error: This command must be used with a file argument\n')
-		process.exit(1)
-	}
-}
+// Yargs does this...
+// function checkArguments(
+// 	input: string[],
+// 	optionCommand: Subcommand,
+// 	logStream: NodeJS.WritableStream,
+// ): void {
+// 	// Warn if no default arguments are provided, don't be too clever
+// 	if (input.length === 0 && !optionCommand.defaultArguments) {
+// 		logStream.write('Error: This command must be used with a file argument\n')
+// 		process.exit(1)
+// 	}
+// }
 
 export async function buildCommands(
 	command: string,
 	logPrefix: string | undefined,
 	logColor: ChalkColor,
-	options: OptionCommands,
+	subcommands: Subcommands,
 ) {
-	const cli = meow({
-		allowUnknownFlags: false,
-		booleanDefault: undefined,
-		flags: generateFlags(options),
-		help: generateHelpText(command, options),
-		importMeta: import.meta,
-	})
-
-	const { flags, input } = cli
-
-	const commandsToRun = Object.keys(options).reduce<OptionCommands>((acc, command: string) => {
-		if (flags[command]) {
-			acc[command as keyof OptionCommands] = options[command as keyof OptionCommands]
-		}
-
-		return acc
-	}, {})
-
 	// Set up log stream
 	const logStream = createStreamTransform(logPrefix, logColor)
 	logStream.pipe(process.stdout)
 
-	// Make 'check' the default behavior if no flags are specified
-	if (Object.keys(commandsToRun).length === 0) {
-		if (options.check === undefined) {
-			logStream.write(`This command requires options. Run ${command} --help for valid commands.\n`)
-		} else {
-			commandsToRun.check = options.check
-		}
+	const yargsInstance = yargs(hideBin(process.argv))
+		.scriptName(command)
+		.usage('$0 <command>', 'Run a command.')
+		.strict()
+
+	// Add subcommands based on options
+	if (subcommands.check) {
+		yargsInstance.command({
+			builder(yargs) {
+				return yargs.positional('files', {
+					array: true,
+					default: subcommands.check?.defaultArguments,
+					describe: 'Files to check',
+					type: 'string',
+				})
+			},
+			command: 'check [files..]',
+			describe: 'Check for and report issues.',
+			async handler(argv) {
+				const input = argv.files ?? []
+				process.exit(await execute(logStream, subcommands.check, input))
+			},
+		})
 	}
 
-	// Debug
-	// console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
+	if (subcommands.fix) {
+		yargsInstance.command({
+			builder(yargs) {
+				return yargs.positional('files', {
+					array: true,
+					default: subcommands.fix?.defaultArguments,
+					describe: 'Files to fix',
+					type: 'string',
+				})
+			},
+			command: 'fix [files..]',
+			describe: 'Fix all auto-fixable issues, and report the un-fixable.',
+			async handler(argv) {
+				const input = argv.files ?? []
+				process.exit(await execute(logStream, subcommands.fix, input))
+			},
+		})
+	}
 
-	let aggregateExitCode = 0
+	if (subcommands.init) {
+		yargsInstance.command({
+			builder(yargs) {
+				return yargs.option('location', {
+					choices: ['file', 'package'],
+					default: 'file',
+					describe: 'TK',
+					type: 'string',
+				})
+			},
+			command: 'init ',
+			describe:
+				'Initialize by copying starter config files to your project root or config keys to your package.json file.',
+			async handler(argv) {
+				// TODO options..
+				console.log('argv', argv)
+				process.exit(
+					await execute(logStream, subcommands.init, [], async (logStream) => {
+						// By default, copies files in script package's /init directory to the root of the package it's called from
+						// For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
 
-	for (const [name, optionCommand] of Object.entries(commandsToRun)) {
-		if (typeof optionCommand.command === 'function') {
-			checkArguments(input, optionCommand, logStream)
+						// Copy files
+						const destinationPackage = await packageUp()
+						if (destinationPackage === undefined) {
+							logStream.write(
+								'Error: The `--init` flag must be used in a directory with a package.json file\n',
+							)
+							return 1
+						}
 
-			const args = input.length === 0 ? (optionCommand.defaultArguments ?? []) : input
-			const options = optionCommand.options ?? []
+						const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) })
+						if (sourcePackage === undefined) {
+							logStream.write('Error: The script being called was not in a package, weird.\n')
+							return 1
+						}
 
-			// Custom function execution is always the same
-			aggregateExitCode += await optionCommand.command(logStream, args, options)
-		} else if (typeof optionCommand.command === 'string') {
-			// Warn if no default arguments are provided, don't be too clever
-			checkArguments(input, optionCommand, logStream)
+						const source = path.join(path.dirname(sourcePackage), 'init/')
+						const destination = path.dirname(destinationPackage)
 
-			aggregateExitCode += await execute(
-				logStream,
-				optionCommand,
-				input.length === 0 ? optionCommand.defaultArguments : input,
-			)
-		} else {
-			// Handle default behaviors (e.g. {})
-			switch (name) {
-				case 'check': {
-					console.error(
-						'There is no default implementation for check. The [tool]-config package must define a command.',
-					)
-					aggregateExitCode += 1
-					break
-				}
-
-				case 'fix': {
-					console.error(
-						'There is no default implementation for fix. The [tool]-config package must define a command.',
-					)
-					aggregateExitCode += 1
-					break
-				}
-
-				case 'init': {
-					// By default, copies files in script package's /init directory to the root of the package it's called from
-					// For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
-
-					// Copy files
-					const destinationPackage = await packageUp()
-					if (destinationPackage === undefined) {
 						logStream.write(
-							'Error: The `--init` flag must be used in a directory with a package.json file\n',
+							`Adding initial configuration files from:\n"${source}" → "${destination}"\n`,
 						)
-						aggregateExitCode += 1
-						break
-					}
 
-					const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) })
-					if (sourcePackage === undefined) {
-						logStream.write('Error: The script being called was not in a package, weird.\n')
-						aggregateExitCode += 1
-						break
-					}
+						try {
+							await fse.copy(source, destination, {
+								filter(source, destination) {
+									const isFile = fse.statSync(source).isFile()
+									const destinationExists = fse.existsSync(destination)
 
-					const source = path.join(path.dirname(sourcePackage), 'init/')
-					const destination = path.dirname(destinationPackage)
+									if (isFile) {
+										if (
+											destinationExists &&
+											destination.includes('.vscode/') &&
+											path.extname(destination) === '.json'
+										) {
+											// Merge
+											logStream.write(`Merging: \n"${source}" → "${destination}"\n`)
 
-					logStream.write(
-						`Adding initial configuration files from:\n"${source}" → "${destination}"\n`,
-					)
+											const sourceJson = fse.readJSONSync(source) as Record<string, unknown>
+											const destinationJson = fse.readJSONSync(destination) as Record<
+												string,
+												unknown
+											>
+											const mergedJson = merge(destinationJson, sourceJson)
 
-					try {
-						await fse.copy(source, destination, {
-							filter(source, destination) {
-								const isFile = fse.statSync(source).isFile()
-								const destinationExists = fse.existsSync(destination)
+											fse.writeJSONSync(destination, mergedJson, { spaces: 2 })
 
-								if (isFile) {
-									if (
-										destinationExists &&
-										destination.includes('.vscode/') &&
-										path.extname(destination) === '.json'
-									) {
-										// Merge
-										logStream.write(`Merging: \n"${source}" → "${destination}"\n`)
+											return false
+										}
 
-										const sourceJson = fse.readJSONSync(source) as Record<string, unknown>
-										const destinationJson = fse.readJSONSync(destination) as Record<string, unknown>
-										const mergedJson = merge(destinationJson, sourceJson)
+										if (destinationExists) {
+											logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`)
+											return true
+										}
 
-										fse.writeJSONSync(destination, mergedJson, { spaces: 2 })
-
-										return false
-									}
-
-									if (destinationExists) {
-										logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`)
+										logStream.write(`Copying: \n"${source}" → "${destination}"\n`)
 										return true
 									}
 
-									logStream.write(`Copying: \n"${source}" → "${destination}"\n`)
+									// Don't log directory copy
 									return true
-								}
+								},
+								overwrite: true,
+							})
+						} catch (error) {
+							console.error(`${String(error)}`)
+							return 1
+						}
 
-								// Don't log directory copy
-								return true
-							},
-							overwrite: true,
-						})
-					} catch {}
-
-					// TODO
-					aggregateExitCode += 0
-
-					break
-				}
-
-				case 'printConfig': {
-					const args = input.length === 0 ? (optionCommand.defaultArguments ?? ['.']) : input
-					const filePath = args?.at(0)
-
-					// Brittle, could pass config name to commandBuilder() instead
-					const configName = command.split('-').at(0)
-
-					if (configName === undefined) {
-						logStream.write(`Error: Could not find or parse config file for ${command}.\n`)
-						aggregateExitCode += 1
-						break
-					}
-
-					const configSearch = await cosmiconfig(configName).search(filePath)
-
-					if (!configSearch?.config) {
-						logStream.write(`Error: Could not find or parse config file for ${configName}.\n`)
-						aggregateExitCode += 1
-						break
-					}
-
-					logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`)
-					logStream.write(stringify(configSearch.config))
-					logStream.write('\n')
-					break
-				}
-
-				default: {
-					console.error(`Unknown command name: ${name}`)
-					aggregateExitCode += 1
-					break
-				}
-			}
-		}
+						return 0
+					}),
+				)
+			},
+		})
 	}
 
-	process.exit(aggregateExitCode > 0 ? 1 : 0)
+	if (subcommands.printConfig) {
+		yargsInstance.command({
+			builder(yargs) {
+				return yargs.positional('file', {
+					array: true,
+					// TODO allow defaults?
+					default: subcommands.printConfig?.defaultArguments,
+					describe: 'TODO',
+					type: 'string',
+				})
+			},
+			command: 'print-config <file>',
+			describe: 'Print the effective configuration at a certain path.',
+			async handler(argv) {
+				const input = argv.file ?? []
+				process.exit(
+					await execute(logStream, subcommands.printConfig, input, async (logStream, args) => {
+						const filePath = args?.at(0)
+
+						// Brittle, could pass config name to commandBuilder() instead
+						const configName = command.split('-').at(0)
+
+						if (configName === undefined) {
+							logStream.write(`Error: Could not find or parse config file for ${command}.\n`)
+							return 1
+						}
+
+						const configSearch = await cosmiconfig(configName).search(filePath)
+
+						if (!configSearch?.config) {
+							logStream.write(`Error: Could not find or parse config file for ${configName}.\n`)
+							return 1
+						}
+
+						logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`)
+						logStream.write(stringify(configSearch.config))
+						logStream.write('\n')
+						return 0
+					}),
+				)
+			},
+		})
+	}
+
+	// Parse and execute
+
+	yargsInstance.alias('h', 'help')
+	yargsInstance.version(version)
+	yargsInstance.alias('v', 'version')
+	yargsInstance.help()
+	yargsInstance.wrap(process.stdout.isTTY ? Math.min(120, yargsInstance.terminalWidth()) : 0)
+
+	await yargsInstance.parseAsync()
 }
 
 function isErrorExecaError(error: unknown): error is ExecaError {

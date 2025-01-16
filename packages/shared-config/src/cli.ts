@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import chalk from 'chalk'
-import { buildCommands, execute, type OptionCommands } from '../../../src/command-builder.js'
+import { buildCommands, execute, type Subcommands } from '../../../src/command-builder.js'
 import { capabilities } from '../build/capabilities.js'
 
 function kebabCase(text: string): string {
@@ -20,8 +20,11 @@ async function executeCommands(
 	const successfulCommands: string[] = []
 	const failedCommands: string[] = []
 
+	console.log('----------------------------------')
+	console.log('commands:', commands)
+
 	for (const command of commands) {
-		logStream.write(`Running "${command}${args.join(' ')} ${options.join(' ')}"\n`)
+		logStream.write(`Running "${[command, ...args, ...options].join(' ')}"\n`)
 
 		const exitCode = await execute(
 			logStream,
@@ -65,13 +68,13 @@ await buildCommands(
 	'shared-config',
 	'🔬',
 	'yellow',
-	Object.keys(capabilities).reduce<OptionCommands>((acc, capability) => {
-		acc[capability as keyof OptionCommands] = {
+	Object.keys(capabilities).reduce<Subcommands>((acc, capability) => {
+		acc[capability as keyof Subcommands] = {
 			async command(logStream, args) {
 				return executeCommands(
 					logStream,
 					capabilities[capability as keyof typeof capabilities],
-					[`--${kebabCase(capability)}`],
+					[`${kebabCase(capability)}`],
 					args,
 				)
 			},

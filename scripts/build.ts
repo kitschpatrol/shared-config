@@ -6,8 +6,8 @@ await esbuild.build({
 	entryPoints: ['src/cli.ts'],
 	external: ['execa', '@pinojs/json-colorizer', 'cosmiconfig', 'fs-extra'],
 	format: 'esm',
-	minify: true,
+	minify: false,
 	outfile: 'bin/cli.js',
 	platform: 'node',
-	target: 'node18',
+	target: 'node22',
 })

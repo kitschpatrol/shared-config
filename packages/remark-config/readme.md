@@ -67,20 +67,62 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `remark-config`
 
-Markdown and MDX linting for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `remark-config`.
 
 Usage:
 
 ```txt
-remark-config [<file|glob> ...]
+remark-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument | Description                                                                                               |
+| -------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `init`         |          | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>` | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `remark-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+remark-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `remark-config print-config`
+
+Print the effective configuration at a certain path.
+
+Usage:
+
+```txt
+remark-config print-config <file>
+```
+
+| Positional Argument | Description        | Type     |
+| ------------------- | ------------------ | -------- |
+| `file`              | TODO _(Required.)_ | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

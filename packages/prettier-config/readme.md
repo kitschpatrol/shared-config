@@ -70,22 +70,90 @@ You might need to pass certain plugins in explicitly. The `shared-config --fix` 
 
 #### Command: `prettier-config`
 
-Prettier configuration for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `prettier-config`.
 
 Usage:
 
 ```txt
-prettier-config [<file|glob> ...]
+prettier-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `prettier-config`.          |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                               |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                              |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
+| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+```txt
+prettier-config check [files..]
+
+Check for and report issues.
+
+Positionals:
+  files  Files to check  [array] [default: ["."]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+```txt
+prettier-config fix [files..]
+
+Fix all auto-fixable issues, and report the un-fixable.
+
+Positionals:
+  files  Files to fix  [array] [default: ["."]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+#### Subcommand: `prettier-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+prettier-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `prettier-config print-config`
+
+Print the effective configuration at a certain path.
+
+Usage:
+
+```txt
+prettier-config print-config <file>
+```
+
+| Positional Argument | Description        | Type     |
+| ------------------- | ------------------ | -------- |
+| `file`              | TODO _(Required.)_ | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

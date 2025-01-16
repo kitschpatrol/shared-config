@@ -72,22 +72,90 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 
 #### Command: `mdat-config`
 
-MDAT configuration for @kitschpatrol/shared-config.
+Run a command.
+
+This section lists top-level commands for `mdat-config`.
 
 Usage:
 
 ```txt
-mdat-config [<file|glob> ...]
+mdat-config <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `mdat-config`.              |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                               |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                              |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
+| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+```txt
+mdat-config check [files..]
+
+Check for and report issues.
+
+Positionals:
+  files  Files to check  [array] [default: ["readme.md"]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+```txt
+mdat-config fix [files..]
+
+Fix all auto-fixable issues, and report the un-fixable.
+
+Positionals:
+  files  Files to fix  [array] [default: ["readme.md"]]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+```
+
+#### Subcommand: `mdat-config init`
+
+Initialize by copying starter config files to your project root or config keys to your package.json file.
+
+Usage:
+
+```txt
+mdat-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `mdat-config print-config`
+
+Print the effective configuration at a certain path.
+
+Usage:
+
+```txt
+mdat-config print-config <file>
+```
+
+| Positional Argument | Description        | Type     |
+| ------------------- | ------------------ | -------- |
+| `file`              | TODO _(Required.)_ | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

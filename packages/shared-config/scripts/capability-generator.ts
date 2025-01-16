@@ -35,7 +35,14 @@ async function getCapabilities(binName: string): Promise<string[]> {
 	}
 
 	const capabilities: string[] = []
-	for (const match of helpText.stdout.matchAll(/--([a-z-]+)/g)) {
+
+	// Find all flags that start with two spaces and two dashes
+	for (const match of helpText.stdout.matchAll(/ {2}--([a-z-]+)/g)) {
+		capabilities.push(camelCase(match[1]))
+	}
+
+	// Find all subcommands
+	for (const match of helpText.stdout.matchAll(new RegExp(`  ${binName} ([a-z-]+) `, 'g'))) {
 		capabilities.push(camelCase(match[1]))
 	}
 
