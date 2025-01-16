@@ -154,7 +154,7 @@ module.exports = {
 	extends: extendsPrefix,
 	env: {
 		browser: true,
-		es2022: true, // TODO 2024 like xo?
+		es2022: true, // TODO 2025 like xo?
 		node: true,
 	},
 	parser: '@typescript-eslint/parser', // Todo right choice for jsdoc js?
