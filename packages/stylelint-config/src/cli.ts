@@ -22,7 +22,16 @@ await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 		defaultArguments: sharedDefaultArguments,
 		options: [...sharedOptions, '--fix'],
 	},
-	init: {},
+	init: {
+		command: {
+			configFile: 'stylelint.config.js',
+			configPackageJson: {
+				stylelint: {
+					extends: '@kitschpatrol/stylelint-config',
+				},
+			},
+		},
+	},
 	printConfig: {
 		async command(logStream, args) {
 			return executeJsonOutput(

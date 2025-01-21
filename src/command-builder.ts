@@ -27,9 +27,23 @@ type SubcommandFunction = (
 ) => Promise<number>
 
 type Subcommand = {
-	command?: string | SubcommandFunction
+	command?: string | SubcommandFunction | SubcommandInitConfig
 	defaultArguments?: string[]
 	options?: string[]
+}
+
+type SubcommandInitConfig = {
+	configFile?: string
+	configPackageJson?: Record<string, unknown>
+}
+
+function getInitConfigFields(subcommand: Subcommand): SubcommandInitConfig {
+	if (typeof subcommand.command === 'object' && subcommand.command !== null) {
+		const { configFile, configPackageJson } = subcommand.command
+		return { configFile, configPackageJson }
+	}
+
+	return { configFile: undefined, configPackageJson: undefined }
 }
 
 export type Subcommands = {
@@ -200,21 +214,26 @@ export async function buildCommands(
 	}
 
 	if (subcommands.init) {
+		const { configFile, configPackageJson } = getInitConfigFields(subcommands.init)
+		const hasConfigLocationOption = configFile !== undefined && configPackageJson !== undefined
+
 		yargsInstance.command({
 			builder(yargs) {
-				return yargs.option('location', {
-					choices: ['file', 'package'],
-					default: 'file',
-					describe: 'TK',
-					type: 'string',
-				})
+				// Only expose file / package flag if we provided config for it
+				return hasConfigLocationOption
+					? yargs.option('location', {
+							choices: ['file', 'package'],
+							default: 'file',
+							describe: 'TK',
+							type: 'string',
+						})
+					: yargs
 			},
-			command: 'init ',
-			describe:
-				'Initialize by copying starter config files to your project root or config keys to your package.json file.',
+			command: 'init',
+			describe: `Initialize by copying starter config files to your project root${hasConfigLocationOption ? 'or to your package.json file.' : '.'}`,
 			async handler(argv) {
 				// TODO options..
-				console.log('argv', argv)
+
 				process.exit(
 					await execute(logStream, subcommands.init, [], async (logStream) => {
 						// By default, copies files in script package's /init directory to the root of the package it's called from
@@ -243,12 +262,67 @@ export async function buildCommands(
 						)
 
 						try {
+							if (hasConfigLocationOption) {
+								const configKey = Object.keys(configPackageJson)[0]
+
+								if (argv.location === 'package') {
+									const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
+										string,
+										unknown
+									>
+
+									// Merge json into package.json
+									logStream.write(
+										`Merging: \nPackage config key "${configKey}" → "${destination}" (Because --location is set to "package")\n`,
+									)
+									const mergedPackageJson = merge(destinationPackageJson, configPackageJson)
+									fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: 2 })
+								} else {
+									// Removing configuration key from package.json
+									const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
+										string,
+										unknown
+									>
+
+									if (Object.keys(destinationPackageJson).includes(configKey)) {
+										logStream.write(
+											`Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,
+										)
+										// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+										delete destinationPackageJson[configKey]
+										fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: 2 })
+									}
+								}
+							}
+
 							await fse.copy(source, destination, {
 								filter(source, destination) {
 									const isFile = fse.statSync(source).isFile()
 									const destinationExists = fse.existsSync(destination)
 
 									if (isFile) {
+										// Special case to skip copying config files to root if --location is set to package
+										if (
+											hasConfigLocationOption &&
+											argv.location === 'package' &&
+											source.includes(configFile)
+										) {
+											if (destinationExists) {
+												logStream.write(
+													`Deleting: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+												)
+
+												fse.removeSync(destination)
+											} else {
+												logStream.write(
+													`Skipping: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+												)
+											}
+
+											return false
+										}
+
+										// Special case to merge .vscode json files
 										if (
 											destinationExists &&
 											destination.includes('.vscode/') &&
