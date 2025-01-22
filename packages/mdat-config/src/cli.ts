@@ -12,6 +12,13 @@ await buildCommands('mdat-config', '[Mdat Config]', 'green', {
 		defaultArguments: ['readme.md'],
 		options: ['readme', 'expand'],
 	},
-	init: {},
+	init: {
+		command: {
+			configFile: 'mdat.config.ts',
+			configPackageJson: {
+				mdat: '@kitschpatrol/mdat-config',
+			},
+		},
+	},
 	printConfig: {},
 })

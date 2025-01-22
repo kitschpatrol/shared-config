@@ -32,7 +32,7 @@ To use just this Stylelint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just this Stylelint config in isolation:
 3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec stylelint-config --init
+   pnpm exec stylelint-config init
    ```
 
 ## Rules
@@ -65,8 +65,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "stylelint-config --check"
-  "format": "stylelint-config --fix"
+  "lint": "stylelint-config check"
+  "format": "stylelint-config fix"
 }
 ```
 
@@ -120,12 +120,12 @@ Usage:
 stylelint-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                  |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -134,35 +134,47 @@ stylelint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-stylelint-config check [files..]
+#### Subcommand: `stylelint-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: ["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-stylelint-config fix [files..]
+stylelint-config check [files..]
+```
+
+| Positional Argument | Description    | Type    | Default                                                      |
+| ------------------- | -------------- | ------- | ------------------------------------------------------------ |
+| `files`             | Files to check | `array` | `["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `stylelint-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
-Positionals:
-  files  Files to fix  [array] [default: ["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+stylelint-config fix [files..]
 ```
+
+| Positional Argument | Description  | Type    | Default                                                      |
+| ------------------- | ------------ | ------- | ------------------------------------------------------------ |
+| `files`             | Files to fix | `array` | `["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `stylelint-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
@@ -176,18 +188,24 @@ stylelint-config init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-```txt
-stylelint-config print-config <file>
+#### Subcommand: `stylelint-config print-config`
 
 Print the effective configuration at a certain path.
 
-Positionals:
-  file  TODO  [string] [required] [default: ["."]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+stylelint-config print-config <file>
 ```
+
+| Positional Argument | Description        | Type     | Default |
+| ------------------- | ------------------ | -------- | ------- |
+| `file`              | TODO _(Required.)_ | `string` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

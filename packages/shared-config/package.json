@@ -54,7 +54,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
-		"fs-extra": "^11.2.0"
+		"fs-extra": "^11.3.0"
 	},
 	"devDependencies": {
 		"camelcase": "^8.0.0",

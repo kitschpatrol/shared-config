@@ -43,7 +43,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config --init
+pnpm dlx @kitschpatrol/repo-config init
 ```
 
 ### Installation approach
@@ -59,7 +59,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the repo config files, you can run the bundled script:
 
    ```sh
-   pnpm exec repo-config --init
+   pnpm exec repo-config init
    ```
 
 ### GitHub Configuration
@@ -90,9 +90,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
 
 ## Usage
 
@@ -112,10 +112,10 @@ Usage:
 repo-config <command>
 ```
 
-| Command        | Argument | Description                                                                                               |
-| -------------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| `init`         |          | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>` | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument | Description                                                      |
+| -------------- | -------- | ---------------------------------------------------------------- |
+| `init`         |          | Initialize by copying starter config files to your project root. |
+| `print-config` | `<file>` | Print the effective configuration at a certain path.             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -126,7 +126,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `repo-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
@@ -134,11 +134,10 @@ Usage:
 repo-config init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `repo-config print-config`
 

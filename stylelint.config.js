@@ -1,5 +1,5 @@
-/** @type {import('stylelint').Config} */
-export default {
-	extends: '@kitschpatrol/stylelint-config',
+import { stylelintConfig } from '@kitschpatrol/stylelint-config'
+
+export default stylelintConfig({
 	ignoreFiles: ['test/fixtures/input/*.*', 'test/fixtures/output-fixable/*.*'],
-}
+})

@@ -22,9 +22,11 @@
 	"bin": {
 		"stylelint-config": "bin/cli.js"
 	},
-	"main": "stylelint.config.js",
+	"main": "dist/stylelint.config.js",
+	"types": "dist/stylelint.config.d.ts",
 	"files": [
 		"bin/*",
+		"dist/*",
 		"init/*"
 	],
 	"keywords": [
@@ -33,7 +35,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && pnpm mdat readme",
+		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},

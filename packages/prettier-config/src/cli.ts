@@ -28,6 +28,13 @@ await buildCommands('prettier-config', '[Prettier]', 'blue', {
 		defaultArguments: ['.'],
 		options: [...sharedOptions, '--write'],
 	},
-	init: {},
+	init: {
+		command: {
+			configFile: 'prettier.config.js',
+			configPackageJson: {
+				prettier: '@kitschpatrol/prettier-config',
+			},
+		},
+	},
 	printConfig: {},
 })

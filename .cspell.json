@@ -1,9 +1,0 @@
-{
-	"import": "@kitschpatrol/cspell-config",
-	"ignorePaths": [
-		"/packages/*/init/*.json",
-		"/packages/*/bin",
-		"/test/fixtures/input",
-		"/test/fixtures/output-fixable"
-	]
-}

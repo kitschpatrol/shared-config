@@ -22,10 +22,12 @@
 	"bin": {
 		"cspell-config": "bin/cli.js"
 	},
-	"main": "./cspell.config.json",
+	"main": "dist/cspell.config.js",
+	"types": "dist/cspell.config.d.ts",
 	"files": [
 		"bin/*",
 		"dictionaries/*",
+		"dist/*",
 		"init/*"
 	],
 	"keywords": [
@@ -35,7 +37,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && pnpm mdat readme",
+		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
 		"list-words": "cat ./dictionaries/*.txt",
@@ -46,10 +48,11 @@
 		"cspell": "^8.16.1"
 	},
 	"dependencies": {
+		"@cspell/cspell-types": "^8.17.2",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
-		"fs-extra": "^11.2.0"
+		"fs-extra": "^11.3.0"
 	},
 	"publishConfig": {
 		"access": "public"

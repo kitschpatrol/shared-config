@@ -32,7 +32,7 @@ To use just `mdat-config` in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just `mdat-config` in isolation:
 3. Add the starter `.mdatrc.ts` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec mdat-config --init
+   pnpm exec mdat-config init
    ```
 
 ## Usage
@@ -57,8 +57,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "mdat-config --check"
-  "format": "mdat-config --fix"
+  "lint": "mdat-config check"
+  "format": "mdat-config fix"
 }
 ```
 
@@ -82,12 +82,12 @@ Usage:
 mdat-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                  |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -96,35 +96,47 @@ mdat-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-mdat-config check [files..]
+#### Subcommand: `mdat-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: ["readme.md"]]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-mdat-config fix [files..]
+mdat-config check [files..]
+```
+
+| Positional Argument | Description    | Type    | Default         |
+| ------------------- | -------------- | ------- | --------------- |
+| `files`             | Files to check | `array` | `["readme.md"]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `mdat-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
-Positionals:
-  files  Files to fix  [array] [default: ["readme.md"]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+mdat-config fix [files..]
 ```
+
+| Positional Argument | Description  | Type    | Default         |
+| ------------------- | ------------ | ------- | --------------- |
+| `files`             | Files to fix | `array` | `["readme.md"]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `mdat-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 

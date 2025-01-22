@@ -9,7 +9,16 @@ await buildCommands('cspell-config', '[CSpell]', 'cyan', {
 		defaultArguments: ['.'],
 		options: ['--quiet'],
 	},
-	init: {},
+	init: {
+		command: {
+			configFile: 'cspell.config.json',
+			configPackageJson: {
+				cspell: {
+					import: '@kitschpatrol/cspell-config',
+				},
+			},
+		},
+	},
 	printConfig: {
 		// Doesn't work with executeJsonOutput
 		// because of json parsing errors (regex related)

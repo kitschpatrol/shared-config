@@ -1,3 +1,5 @@
+import 'remark-stringify'
+import type { Pluggable, PluggableList, Preset as RemarkConfig } from 'unified'
 import remarkDirective from 'remark-directive'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
@@ -45,48 +47,7 @@ import remarkLintUnorderedListMarkerStyle from 'remark-lint-unordered-list-marke
 import remarkPresetPrettier from 'remark-preset-prettier'
 import remarkValidateLinks from 'remark-validate-links'
 
-/**
- * Overrides specific rules in a set of plugins.
- *
- * This function searches through an array of plugins to find and override
- * multiple plugins by their names, replacing their arguments with new ones.
- *
- * See this link for why we need this:
- * https://github.com/remarkjs/remark-lint/issues/165
- *
- * @param {any[]} plugins - An array of plugins, where each plugin is either a function or an array containing a function and its arguments.
- * @param {Array.<[string, any]>} rules - An array of [ruleName, newArgs] pairs, where `ruleName` is the name of the rule to override and `newArgs` are the new arguments to apply.
- * @returns {any[]} The modified array of plugins with the overridden rules.
- */
-export function overrideRules(plugins, rules) {
-	for (let [ruleName, newArguments] of rules) {
-		// Internally, function names are different from the package names
-		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:')
-
-		let ruleFunction
-		const index = plugins.findIndex((plugin) => {
-			if (Array.isArray(plugin)) {
-				if (plugin[0]?.name === ruleName) {
-					ruleFunction = plugin[0]
-					return true
-				}
-			} else if (plugin.name === ruleName) {
-				ruleFunction = plugin
-				return true
-			}
-
-			return false
-		})
-
-		if (index !== -1) {
-			plugins.splice(index, 1, [ruleFunction, newArguments])
-		}
-	}
-
-	return plugins
-}
-
-export default {
+const remarkSharedConfig: RemarkConfig = {
 	plugins: [
 		remarkLint,
 		remarkFrontmatter,
@@ -155,7 +116,7 @@ export default {
 		[remarkLintTableCellPadding, 'padded'],
 		[remarkLintUnorderedListMarkerStyle, '-'],
 		remarkValidateLinks,
-		remarkPresetPrettier,
+		remarkPresetPrettier as Pluggable, // TODO hmm,
 	],
 	settings: {
 		bullet: '-',
@@ -168,3 +129,85 @@ export default {
 		// tightDefinitions: true,
 	},
 }
+
+/**
+ * Overrides specific rules in a set of plugins.
+ *
+ * This function searches through an array of plugins to find and override
+ * multiple plugins by their names, replacing their arguments with new ones.
+ *
+ * See this link for why we need this:
+ * https://github.com/remarkjs/remark-lint/issues/165
+ *
+ */
+function overrideRules(
+	plugins: PluggableList | undefined,
+	rules: Array<[string, unknown]>,
+): PluggableList {
+	plugins ??= []
+
+	for (let [ruleName, newArguments] of rules) {
+		// Internally, function names are different from the package names
+		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:')
+
+		let ruleFunction: unknown
+		const index = plugins.findIndex((plugin) => {
+			if (Array.isArray(plugin)) {
+				if (plugin[0]?.name === ruleName) {
+					ruleFunction = plugin[0]
+					return true
+				}
+			} else if ('name' in plugin && plugin.name === ruleName) {
+				ruleFunction = plugin
+				return true
+			}
+
+			return false
+		})
+
+		if (index !== -1) {
+			plugins.splice(index, 1, [ruleFunction, newArguments] as Pluggable)
+		}
+	}
+
+	return plugins
+}
+
+/**
+ * **Remark Shared Configuration**
+ *
+ * @see [@kitschpatrol/remark-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config)
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
+ *
+ * @example
+ * ```js
+ * export default remarkConfig({
+ *   rules: [
+ *		['remark-lint-first-heading-level', 2],
+ *		['remarkValidateLinks', { repository: false }],
+ *	],
+ * })
+ * ```
+ */
+export function remarkConfig(options?: {
+	plugins?: PluggableList | undefined
+	rules?: Array<[string, unknown]>
+	settings?: RemarkConfig['settings']
+}): RemarkConfig {
+	const {
+		plugins = [],
+		rules = [],
+		settings,
+	} = options ?? {
+		plugins: undefined,
+		rules: undefined,
+		settings: undefined,
+	}
+	return {
+		...remarkSharedConfig,
+		plugins: overrideRules([...(remarkSharedConfig.plugins ?? []), ...plugins], rules),
+		settings: { ...remarkSharedConfig.settings, ...settings },
+	}
+}
+
+export default remarkSharedConfig

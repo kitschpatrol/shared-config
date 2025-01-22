@@ -32,7 +32,7 @@ To use just this Prettier config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just this Prettier config in isolation:
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec prettier-config --init
+   pnpm exec prettier-config init
    ```
 
 ## Usage
@@ -57,12 +57,12 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "prettier-config --check"
-  "format": "prettier-config --fix"
+  "lint": "prettier-config check"
+  "format": "prettier-config fix"
 }
 ```
 
-You might need to pass certain plugins in explicitly. The `shared-config --fix` and `shared-config --lint` scripts take care of this for you.
+You might need to pass certain plugins in explicitly. The `shared-config fix` and `shared-config lint` scripts take care of this for you.
 
 ### CLI
 
@@ -80,12 +80,12 @@ Usage:
 prettier-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                  |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -94,35 +94,47 @@ prettier-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-prettier-config check [files..]
+#### Subcommand: `prettier-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: ["."]]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-prettier-config fix [files..]
+prettier-config check [files..]
+```
+
+| Positional Argument | Description    | Type    | Default |
+| ------------------- | -------------- | ------- | ------- |
+| `files`             | Files to check | `array` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `prettier-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
-Positionals:
-  files  Files to fix  [array] [default: ["."]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+prettier-config fix [files..]
 ```
+
+| Positional Argument | Description  | Type    | Default |
+| ------------------- | ------------ | ------- | ------- |
+| `files`             | Files to fix | `array` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `prettier-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 

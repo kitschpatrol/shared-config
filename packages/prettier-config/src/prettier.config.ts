@@ -1,7 +1,7 @@
+import type { Config as PrettierConfig } from 'prettier'
 import { homedir } from 'node:os'
 
-/** @type {import("prettier").Config} */
-const config = {
+const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
 	overrides: [
 		{
@@ -27,7 +27,7 @@ const config = {
 		{
 			files: '*.rb',
 			options: {
-				rubyExecutablePath: `${homedir}/.rbenv/shims/ruby`,
+				rubyExecutablePath: `${homedir()}/.rbenv/shims/ruby`,
 			},
 		},
 		{
@@ -56,4 +56,25 @@ const config = {
 	useTabs: true,
 }
 
-export default config
+/**
+ * **\@Kitschpatrol's Shared Prettier Configuration**
+ *
+ * @see [@kitschpatrol/prettier-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/prettier-config)
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
+ *
+ * @example
+ * ```js
+ * export default prettierConfig({
+ *   printWidth: 120,
+ * })
+ * ```
+ */
+export function prettierConfig(config?: PrettierConfig): PrettierConfig {
+	// TODO real merge?
+	return {
+		...sharedPrettierConfig,
+		...config,
+	}
+}
+
+export default sharedPrettierConfig

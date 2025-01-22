@@ -32,7 +32,7 @@ To use just this ESLint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just this ESLint config in isolation:
 3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:
 
    ```sh
-   pnpm exec eslint-config --init
+   pnpm exec eslint-config init
    ```
 
 ## Usage
@@ -57,8 +57,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "eslint-config --check"
-  "fix": "eslint-config --fix"
+  "lint": "eslint-config check"
+  "fix": "eslint-config fix"
 }
 ```
 
@@ -78,12 +78,12 @@ Usage:
 eslint-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                      |
+| -------------- | ----------- | ---------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                     |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
+| `init`         |             | Initialize by copying starter config files to your project root. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -92,35 +92,47 @@ eslint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-eslint-config check [files..]
+#### Subcommand: `eslint-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: ["."]]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-eslint-config fix [files..]
+eslint-config check [files..]
+```
+
+| Positional Argument | Description    | Type    | Default |
+| ------------------- | -------------- | ------- | ------- |
+| `files`             | Files to check | `array` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `eslint-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
-Positionals:
-  files  Files to fix  [array] [default: ["."]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+eslint-config fix [files..]
 ```
+
+| Positional Argument | Description  | Type    | Default |
+| ------------------- | ------------ | ------- | ------- |
+| `files`             | Files to fix | `array` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `eslint-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
@@ -128,11 +140,10 @@ Usage:
 eslint-config init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `eslint-config print-config`
 

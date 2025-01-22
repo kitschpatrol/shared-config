@@ -77,7 +77,7 @@ Node 22+ and [pnpm](https://pnpm.io) 9+ are required. It probably works with NPM
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config init && pnpm i && code .
 ```
 
 #### Quick add to an existing project:
@@ -85,7 +85,7 @@ git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/re
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
+pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config init
 ```
 
 #### Step-by-step:
@@ -93,7 +93,7 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Install the package:
@@ -105,7 +105,7 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 3. Add default config files for all the tools to your project root:
 
    ```sh
-   pnpm shared-config --init
+   pnpm shared-config init
    ```
 
 4. Add helper scripts to your `package.json`:
@@ -114,8 +114,8 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 
    ```json
    "scripts": {
-     "format": "shared-config --fix",
-     "lint": "shared-config --lint",
+     "format": "shared-config fix",
+     "lint": "shared-config lint",
    }
    ```
 
@@ -154,12 +154,12 @@ Usage:
 shared-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                                   |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                      |
+| -------------- | ----------- | ---------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                     |
+| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
+| `init`         |             | Initialize by copying starter config files to your project root. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -168,35 +168,47 @@ shared-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-shared-config check [files..]
+#### Subcommand: `shared-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: []]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-shared-config fix [files..]
+shared-config check [files..]
+```
+
+| Positional Argument | Description    | Type    | Default |
+| ------------------- | -------------- | ------- | ------- |
+| `files`             | Files to check | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `shared-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
-Positionals:
-  files  Files to fix  [array] [default: []]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+shared-config fix [files..]
 ```
+
+| Positional Argument | Description  | Type    | Default |
+| ------------------- | ------------ | ------- | ------- |
+| `files`             | Files to fix | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `shared-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
@@ -204,24 +216,29 @@ Usage:
 shared-config init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
-```txt
-shared-config print-config <file>
+#### Subcommand: `shared-config print-config`
 
 Print the effective configuration at a certain path.
 
-Positionals:
-  file  TODO  [string] [required] [default: []]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+shared-config print-config <file>
 ```
+
+| Positional Argument | Description        | Type     | Default |
+| ------------------- | ------------------ | -------- | ------- |
+| `file`              | TODO _(Required.)_ | `string` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

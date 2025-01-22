@@ -18,5 +18,6 @@ dist/
 node_modules/
 vendor/
 .parcel-cache/
+.tsup/
 
 # Customizations

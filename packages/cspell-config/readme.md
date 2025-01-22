@@ -32,7 +32,7 @@ To use just this CSpell config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec cspell-config --init
+   pnpm exec cspell-config init
    ```
 
 ## Usage
@@ -57,7 +57,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "spellcheck": "cspell-config --check"
+  "spellcheck": "cspell-config check"
 }
 ```
 
@@ -77,11 +77,11 @@ Usage:
 cspell-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                               |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                              |
-| `init`         |             | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `check`        | `[files..]` | Check for and report issues.                                                                  |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -90,22 +90,28 @@ cspell-config <command>
 
 _See the sections below for more information on each subcommand._
 
-```txt
-cspell-config check [files..]
+#### Subcommand: `cspell-config check`
 
 Check for and report issues.
 
-Positionals:
-  files  Files to check  [array] [default: ["."]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+cspell-config check [files..]
 ```
+
+| Positional Argument | Description    | Type    | Default |
+| ------------------- | -------------- | ------- | ------- |
+| `files`             | Files to check | `array` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `cspell-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
@@ -119,18 +125,24 @@ cspell-config init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-```txt
-cspell-config print-config <file>
+#### Subcommand: `cspell-config print-config`
 
 Print the effective configuration at a certain path.
 
-Positionals:
-  file  TODO  [string] [required] [default: ["."]]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+cspell-config print-config <file>
 ```
+
+| Positional Argument | Description        | Type     | Default |
+| ------------------- | ------------------ | -------- | ------- |
+| `file`              | TODO _(Required.)_ | `string` | `["."]` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

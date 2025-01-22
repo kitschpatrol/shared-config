@@ -4,13 +4,6 @@ import { buildCommands, executeJsonOutput } from '../../../src/command-builder.j
 const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input']
 const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}']
 
-// TODO
-// const packageConfig = {
-// 	stylelint: {
-// 		extends: '@kitschpatrol/stylelint-config',
-// 	},
-// }
-
 await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 	check: {
 		command: 'stylelint',

@@ -32,7 +32,7 @@ To use just this Remark config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @kitschpatrol/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +44,7 @@ To use just this Remark config in isolation:
 3. Add the starter `.remarkrc.js` and files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec remark-config --init
+   pnpm exec remark-config init
    ```
 
 ## Usage
@@ -77,10 +77,10 @@ Usage:
 remark-config <command>
 ```
 
-| Command        | Argument | Description                                                                                               |
-| -------------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| `init`         |          | Initialize by copying starter config files to your project root or config keys to your package.json file. |
-| `print-config` | `<file>` | Print the effective configuration at a certain path.                                                      |
+| Command        | Argument | Description                                                                                   |
+| -------------- | -------- | --------------------------------------------------------------------------------------------- |
+| `init`         |          | Initialize by copying starter config files to your project root or to your package.json file. |
+| `print-config` | `<file>` | Print the effective configuration at a certain path.                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -91,7 +91,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `remark-config init`
 
-Initialize by copying starter config files to your project root or config keys to your package.json file.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 

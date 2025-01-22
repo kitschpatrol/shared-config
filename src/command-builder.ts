@@ -32,6 +32,7 @@ type Subcommand = {
 	options?: string[]
 }
 
+// This is a strange shoehorn...
 type SubcommandInitConfig = {
 	configFile?: string
 	configPackageJson?: Record<string, unknown>
@@ -230,7 +231,7 @@ export async function buildCommands(
 					: yargs
 			},
 			command: 'init',
-			describe: `Initialize by copying starter config files to your project root${hasConfigLocationOption ? 'or to your package.json file.' : '.'}`,
+			describe: `Initialize by copying starter config files to your project root${hasConfigLocationOption ? ' or to your package.json file.' : '.'}`,
 			async handler(argv) {
 				// TODO options..
 

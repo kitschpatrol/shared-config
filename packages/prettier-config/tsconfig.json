@@ -6,5 +6,5 @@
 		"allowImportingTsExtensions": false,
 		"outDir": "dist"
 	},
-	"include": ["./src/mdat.config.ts"]
+	"include": ["./src/prettier.config.ts"]
 }

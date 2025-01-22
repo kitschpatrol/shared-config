@@ -22,9 +22,11 @@
 	"bin": {
 		"remark-config": "bin/cli.js"
 	},
-	"main": "remark.config.js",
+	"main": "dist/remark.config.js",
+	"types": "dist/remark.config.d.ts",
 	"files": [
 		"bin/*",
+		"dist/*",
 		"init/*"
 	],
 	"keywords": [
@@ -35,7 +37,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && pnpm mdat readme",
+		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
@@ -43,7 +45,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
-		"fs-extra": "^11.2.0",
+		"fs-extra": "^11.3.0",
 		"remark-cli": "^12.0.1",
 		"remark-directive": "^3.0.0",
 		"remark-frontmatter": "^5.0.0",
@@ -90,7 +92,9 @@
 		"remark-lint-table-cell-padding": "^5.0.0",
 		"remark-lint-unordered-list-marker-style": "^4.0.0",
 		"remark-preset-prettier": "^2.0.1",
-		"remark-validate-links": "^13.0.2"
+		"remark-stringify": "^11.0.0",
+		"remark-validate-links": "^13.0.2",
+		"unified": "^11.0.5"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -22,9 +22,11 @@
 	"bin": {
 		"prettier-config": "bin/cli.js"
 	},
-	"main": "prettier.config.js",
+	"main": "dist/prettier.config.js",
+	"types": "dist/prettier.config.d.ts",
 	"files": [
 		"bin/*",
+		"dist/*",
 		"init/*"
 	],
 	"keywords": [
@@ -34,7 +36,7 @@
 		"cli"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts && pnpm mdat readme",
+		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
@@ -43,18 +45,18 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@prettier/plugin-php": "^0.22.2",
+		"@prettier/plugin-php": "^0.22.4",
 		"@prettier/plugin-ruby": "^4.0.4",
 		"@prettier/plugin-xml": "^3.4.1",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
-		"fs-extra": "^11.2.0",
+		"fs-extra": "^11.3.0",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-pkg": "^0.18.1",
 		"prettier-plugin-sh": "^0.14.0",
 		"prettier-plugin-sql": "^0.18.1",
-		"prettier-plugin-svelte": "^3.3.2",
-		"prettier-plugin-tailwindcss": "^0.6.9",
+		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.10",
 		"prettier-plugin-toml": "^2.0.1"
 	},
 	"publishConfig": {
