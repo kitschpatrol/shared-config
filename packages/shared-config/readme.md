@@ -35,15 +35,21 @@
 
 ## Overview
 
-This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency.
+This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency with a single CLI meta-command to check and fix issues.
+
+By installing `@kitschpatrol/shared-config` and then running `shared-config`, you can run a half-dozen pre-configured code quality and linting tools in one shot. This spares you from clutting your project's `devDependencies` with packages tangential to the task at hand.
+
+If you don't plan to customize tool configurations, `@kitschpatrol/shared-config init` exposes an option to store references to each tool's shared configuration in your `package.json` instead of in files in your project root (at least where permitted by the tool). This can save a bit of file clutter in your project's root directory, at the expense of the immediate discoverability of the tools.
+
+In addition, each tool exports a typed configuration factory function to simplify specifying and extending the default configuration.
 
 ### Tools
 
 It takes care of dependencies and configurations for the following tools:
 
-- [CSpell](https://cspell.org)
-- [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
-- [mdat](https://github.com/kitschpatrol/mdat)
+- [CSpell](https://cspell.org) (bundled with a number of custom dictionaries)
+- [ESLint](https://eslint.org) (including Svelte, Astro, React, and TypeScript support — including type-checked rules)
+- [mdat](https://github.com/kitschpatrol/mdat) (my markdown templating and expansion tool)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
 - [remarklint](https://github.com/remarkjs/remark-lint)
 - [Stylelint](https://stylelint.io)
@@ -52,7 +58,7 @@ It takes care of dependencies and configurations for the following tools:
 
 ### Packages
 
-This readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
+This particular readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in additional detail its respective readme, linked below:
 
 - [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
 - [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
@@ -62,7 +68,7 @@ This readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/pac
 - [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
 - [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
 
-Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
 ## Getting started
 
@@ -115,7 +121,7 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    ```json
    "scripts": {
      "format": "shared-config fix",
-     "lint": "shared-config lint",
+     "check": "shared-config check",
    }
    ```
 
@@ -126,10 +132,10 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
 
 Various VS Code plugins should "just work".
 
-To lint your entire project, after configuring the `package.json` as shown above:
+To check / lint your entire project, after configuring the `package.json` as shown above:
 
 ```sh
-pnpm run lint
+pnpm run check
 ```
 
 To run all of the tools in a _potentially destructive_ "fix" capacity:
@@ -246,6 +252,14 @@ Recall that the `@kitschpatrol/shared-config` package aggregates integration and
 
 ## Implementation notes
 
+### `check` vs `lint`
+
+This project combines a mix of tools that regard their core task variously as "linting" or "checking" code and prose.
+
+Across all the tools, I've chosen to use the term "check" instead of "lint" to refer to the read-only evaluation process.
+
+This is for the sake of consistency, a reflection of the fact that some of the bundled tools (e.g. CSpell) are not quite "linters" in the classic sense, and for avoidance of having a command name that's used more often as a noun than verb in daily life. (I'll also offer that "lint" is a near anagram of the "init" command, which ever so slightly increases the odds of mishap.)
+
 ### Package architecture
 
 Each package has a simple `/src/cli.ts` file which defines the behavior of its eponymous binary. The build step turns these into node "binary" scripts, providing default implementations where feasible.
@@ -279,6 +293,8 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 [`xo`](https://github.com/xojs/xo) is really, really close to what I'm after here, but I wanted a few extra tools and preferred to use "first party" VS Code plugins where possible.
 
 [`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) is also excellent, and probably the best starting point for most people for most new projects. However, it does not take a "single top-level dependency" / "single unified CLI" approach.
+
+[`antfu/eslint-config`](https://github.com/antfu/eslint-config) and [`@sxzz/eslint-config`](https://github.com/sxzz/eslint-config) inspired the approach to ESLint integration.
 
 ### Related projects
 

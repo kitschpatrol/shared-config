@@ -244,7 +244,7 @@ export async function buildCommands(
 						const destinationPackage = await packageUp()
 						if (destinationPackage === undefined) {
 							logStream.write(
-								'Error: The `--init` flag must be used in a directory with a package.json file\n',
+								'Error: The `init` command must be used in a directory with a package.json file\n',
 							)
 							return 1
 						}
