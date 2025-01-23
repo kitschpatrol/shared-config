@@ -24,6 +24,7 @@
 		"noFallthroughCasesInSwitch": true
 	},
 
-	"include": ["**/*"],
+	/* Also lint config files. */
+	"include": ["**/*", "**/**.*"],
 	"exclude": ["dist/", "bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
 }

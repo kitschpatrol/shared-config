@@ -19,3 +19,5 @@ node_modules/
 vendor/
 
 # Customizations
+packages/eslint-config/src/typegen.d.ts
+.eslint-config-inspector

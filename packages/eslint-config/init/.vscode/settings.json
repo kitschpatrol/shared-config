@@ -1,18 +1,26 @@
 {
 	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
+		"source.fixAll": "explicit",
+		"source.organizeImports": "never"
 	},
 	"eslint.enable": true,
+	"eslint.runtime": "node",
 	"eslint.validate": [
 		"astro",
 		"html",
 		"javascript",
 		"javascriptreact",
+		"json",
+		"json5",
+		"jsonc",
 		"markdown",
 		"mdx",
 		"svelte",
+		"toml",
 		"typescript",
-		"typescriptreact"
+		"typescriptreact",
+		"xml",
+		"yaml"
 	],
 	"typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -168,11 +168,9 @@ eslint-config print-config <file>
 
 ## Notes
 
-The whole flat file config thing is pending...
+Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See Eslint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
-ESLint does not inherit files and paths from `.gitignore`. Ignored paths must be specified in `.eslintignore`.
-
-This shared config will also initialize a `tsconfig.json` and a `tsconfig.eslint.json`. These should probably live in a separate configuration package, but they'll reside here for now.
+This shared config will also initialize a `tsconfig.json` and a `tsconfig.build.json`. These should probably live in a separate configuration package, but they'll reside here for now.
 
 <!-- license -->
 

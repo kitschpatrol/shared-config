@@ -17,21 +17,29 @@
 	"cSpell.enabled": true,
 	"cSpell.workspaceRootPath": ".",
 	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
+		"source.fixAll": "explicit",
+		"source.organizeImports": "never"
 	},
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"eslint.enable": true,
+	"eslint.runtime": "node",
 	"eslint.validate": [
+		"astro",
+		"html",
 		"javascript",
 		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-		"svelte",
-		"astro",
+		"json",
+		"json5",
+		"jsonc",
 		"markdown",
 		"mdx",
-		"html"
+		"svelte",
+		"toml",
+		"typescript",
+		"typescriptreact",
+		"xml",
+		"yaml"
 	],
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,

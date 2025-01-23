@@ -1,12 +1,17 @@
 {
 	"compilerOptions": {
-		"target": "ES2020",
+		"target": "ES2023",
 		"useDefineForClassFields": true,
-		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"lib": ["ES2023", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"noEmit": true,
 		"noErrorTruncation": true,
+		"esModuleInterop": true,
+
+		/* JS */
+		"allowJs": true,
+		"checkJs": true,
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
@@ -21,6 +26,8 @@
 		"noFallthroughCasesInSwitch": true
 	},
 
-	"include": ["**/*"],
+	/* Include root dot-prefixed config files */
+	/* Use tsconfig.build.json to exclude these during a build */
+	"include": ["**/*", "**/.*"],
 	"exclude": ["dist/", "bin/"]
 }

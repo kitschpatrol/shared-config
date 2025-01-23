@@ -57,6 +57,7 @@ camerakit
 cameraring
 camerawheel
 certbot
+checkjs
 chezmoi
 chipset
 clippy

@@ -11,7 +11,12 @@ await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
 		defaultArguments: ['.'],
 		options: ['--fix'],
 	},
-	init: {},
+	init: {
+		command: {
+			// ESLint 9 does not support a configPackageJson key
+			configFile: 'eslint.config.ts',
+		},
+	},
 	printConfig: {
 		async command(logStream, args) {
 			return executeJsonOutput(

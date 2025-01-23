@@ -1,10 +1,6 @@
 {
-	"compilerOptions": {
-		"noEmit": true
-	},
 	"extends": "./tsconfig.json",
 
-	/* Also lint config files. */
-	"include": ["**/*", "**/**.*"],
+	"include": ["**/*"],
 	"exclude": ["dist/", "bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
 }

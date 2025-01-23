@@ -1,11 +1,7 @@
 {
-	"compilerOptions": {
-		"noEmit": true,
-		"allowJs": true
-	},
 	"extends": "./tsconfig.json",
 
 	/* Also lint config files. */
-	"include": ["**/*", "**/**.*"],
+	"include": ["**/*"],
 	"exclude": ["dist/", "bin/"]
 }
