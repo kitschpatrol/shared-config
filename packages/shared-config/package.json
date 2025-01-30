@@ -1,30 +1,7 @@
 {
 	"name": "@kitschpatrol/shared-config",
 	"version": "4.7.12",
-	"type": "module",
 	"description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
-		"directory": "packages/shared-config"
-	},
-	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
-	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=22.0.0",
-		"pnpm": ">=9.0.0"
-	},
-	"bin": {
-		"shared-config": "bin/cli.js"
-	},
-	"files": [
-		"bin/*"
-	],
 	"keywords": [
 		"shared-config",
 		"eslint-config",
@@ -36,6 +13,25 @@
 		"cspell",
 		"mdat",
 		"cli"
+	],
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"directory": "packages/shared-config"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"type": "module",
+	"bin": {
+		"shared-config": "bin/cli.js"
+	},
+	"files": [
+		"bin/*"
 	],
 	"scripts": {
 		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && pnpm mdat readme",
@@ -60,6 +56,10 @@
 		"camelcase": "^8.0.0",
 		"chalk": "^5.4.1",
 		"globby": "^14.0.2"
+	},
+	"engines": {
+		"node": ">=22.0.0",
+		"pnpm": ">=9.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

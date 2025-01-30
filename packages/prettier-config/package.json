@@ -1,47 +1,40 @@
 {
 	"name": "@kitschpatrol/prettier-config",
 	"version": "4.7.12",
-	"type": "module",
 	"description": "Prettier configuration for @kitschpatrol/shared-config.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
-		"directory": "packages/prettier-config"
-	},
-	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
-	"author": {
-		"name": "Eric Mika",
-		"email": "eric@ericmika.com",
-		"url": "https://ericmika.com"
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=22.0.0",
-		"pnpm": ">=9.0.0"
-	},
-	"bin": {
-		"prettier-config": "bin/cli.js"
-	},
-	"main": "dist/prettier.config.js",
-	"types": "dist/prettier.config.d.ts",
-	"files": [
-		"bin/*",
-		"dist/*",
-		"init/*"
-	],
 	"keywords": [
 		"shared-config",
 		"prettier-config",
 		"prettier",
 		"cli"
 	],
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"directory": "packages/prettier-config"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"type": "module",
+	"main": "dist/prettier.config.js",
+	"types": "dist/prettier.config.d.ts",
+	"bin": {
+		"prettier-config": "bin/cli.js"
+	},
+	"files": [
+		"bin/*",
+		"dist/*",
+		"init/*"
+	],
 	"scripts": {
 		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
-	},
-	"peerDependencies": {
-		"prettier": "^3.4.2"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
@@ -52,12 +45,19 @@
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
 		"prettier-plugin-astro": "^0.14.1",
-		"prettier-plugin-pkg": "^0.18.1",
+		"prettier-plugin-packagejson": "^2.5.8",
 		"prettier-plugin-sh": "^0.14.0",
 		"prettier-plugin-sql": "^0.18.1",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"prettier-plugin-toml": "^2.0.1"
+	},
+	"peerDependencies": {
+		"prettier": "^3.4.2"
+	},
+	"engines": {
+		"node": ">=22.0.0",
+		"pnpm": ">=9.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

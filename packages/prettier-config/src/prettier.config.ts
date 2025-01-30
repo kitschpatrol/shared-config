@@ -1,4 +1,5 @@
 import type { Config as PrettierConfig } from 'prettier'
+
 import { homedir } from 'node:os'
 
 const sharedPrettierConfig: PrettierConfig = {
@@ -42,7 +43,7 @@ const sharedPrettierConfig: PrettierConfig = {
 		'@prettier/plugin-php',
 		'@prettier/plugin-ruby',
 		'@prettier/plugin-xml',
-		'prettier-plugin-pkg',
+		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
 		'prettier-plugin-sql',
 		'prettier-plugin-tailwindcss',
@@ -58,10 +59,8 @@ const sharedPrettierConfig: PrettierConfig = {
 
 /**
  * **\@Kitschpatrol's Shared Prettier Configuration**
- *
  * @see [@kitschpatrol/prettier-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/prettier-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- *
  * @example
  * ```js
  * export default prettierConfig({
