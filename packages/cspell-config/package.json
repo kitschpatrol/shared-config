@@ -48,7 +48,7 @@
 		"cspell": "^8.16.1"
 	},
 	"dependencies": {
-		"@cspell/cspell-types": "^8.17.2",
+		"@cspell/cspell-types": "^8.17.3",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",

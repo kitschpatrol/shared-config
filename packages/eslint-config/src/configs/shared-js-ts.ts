@@ -445,7 +445,7 @@ const unicornRecommendedRules: Rules = {
 	// End expansion
 }
 
-// Rule fishing shennaigans pending https://github.com/xojs/eslint-config-xo-typescript/issues/87
+// Rule fishing shenanigans pending https://github.com/xojs/eslint-config-xo-typescript/issues/87
 const xoJavascriptRules: Rules = {
 	// Begin expansion 'eslint-config-xo-typescript' '[0].rules'
 	'accessor-pairs': ['error', { enforceForClassMembers: true }],

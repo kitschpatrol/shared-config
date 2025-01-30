@@ -1,3 +1,5 @@
+/* eslint-disable ts/require-await */
+
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
 
 import { getLanguageOptions } from '../factory'

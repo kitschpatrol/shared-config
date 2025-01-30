@@ -119,9 +119,11 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    These work a bit like [npm-run-all](https://github.com/mysticatea/npm-run-all) to invoke all of the bundled tools.
 
    ```json
-   "scripts": {
-     "format": "shared-config fix",
-     "check": "shared-config check",
+   {
+     "scripts": {
+       "format": "shared-config fix",
+       "check": "shared-config check"
+     }
    }
    ```
 
@@ -296,7 +298,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 [`antfu/eslint-config`](https://github.com/antfu/eslint-config) and [`@sxzz/eslint-config`](https://github.com/sxzz/eslint-config) inspired the approach to ESLint integration.
 
-### Related projects
+### Adjacent projects
 
 - [@voxpelli/eslint-config](https://github.com/voxpelli/eslint-config)
 - [1stG/configs](https://github.com/1stG/configs)
@@ -320,6 +322,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [xo](https://github.com/xojs/xo)
+- [TanStack Config](https://tanstack.com/config/latest)
 
 <!-- license -->
 

@@ -153,6 +153,7 @@ Flycut
 fontsource
 fortawesome
 fpsgraph
+freelist
 fsnotes
 fullscreen
 fusuma
@@ -240,6 +241,7 @@ linkify
 localizable
 Loggly
 logseq
+lookarounds
 lproj
 Lume
 Luminar
@@ -326,6 +328,8 @@ Nodebox
 nodenext
 noembed
 nokey
+nonconstructor
+nonoctal
 noopener
 noprint
 noreferrer
@@ -342,6 +346,7 @@ notunes
 npmlog
 nproc
 numpy
+nums
 Nuxt
 nyquist
 Obinslab
@@ -501,6 +506,7 @@ texcoord
 texel
 textbox
 thead
+thenables
 Threlte
 tiktoken
 tinpig
