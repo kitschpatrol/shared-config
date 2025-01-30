@@ -8,6 +8,7 @@ import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
 
 /* eslint-disable ts/naming-convention */
 
+// Note that 'json-package/order-properties' defaults to 'sort-package-json'
 const jsonPackageRecommendedRules: Rules = {
 	// Begin expansion 'eslint-plugin-package-json/configs/recommended' 'rules'
 	'json-package/order-properties': 'error',
@@ -142,6 +143,7 @@ const jsonPrettierRules: Rules = {
 
 /**
  *
+ * @param options
  */
 export async function json(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
@@ -204,11 +206,14 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		// Package json
 		{
-			// TODO parser situation? Fine since it's arleady inheriting parser from above?
+			// TODO parser situation? Fine since it's already inheriting parser from above?
 			files: ['**/package.json'],
 			name: 'kp/json/rules-package',
 			rules: {
 				...jsonPackageRecommendedRules,
+				'json-package/order-properties': 'error',
+				'json-package/no-redundant-files': 'error',
+				'json-package/valid-package-def': 'error',
 			},
 		},
 		// Sort tsconfig
