@@ -6,7 +6,7 @@ import { interopDefault } from '../utils'
 
 /* eslint-disable ts/naming-convention */
 
-const svelteRecommendedrules: Rules = {
+const svelteRecommendedRules: Rules = {
 	// Begin expansion 'eslint-plugin-svelte' 'recommended'
 	'svelte/comment-directive': 'error',
 	'svelte/no-at-debug-tags': 'warn',
@@ -49,6 +49,8 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			},
 		},
 		{
+			// TODO inherit? Or is this just the markup part?
+			// ...sharedScriptConfig,
 			files,
 			languageOptions: {
 				parser: parserSvelte,
@@ -60,7 +62,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			name: 'kp/svelte/rules',
 			processor: pluginSvelte.processors['.svelte'],
 			rules: {
-				...svelteRecommendedrules,
+				...svelteRecommendedRules,
 				// TODO revisit
 
 				...overrides,

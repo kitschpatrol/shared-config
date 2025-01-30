@@ -23,6 +23,7 @@ export async function js(
 
 	return [
 		{
+			// Includes plugins...
 			...sharedScriptConfig,
 			files: [GLOB_JS],
 			languageOptions: getLanguageOptions(typeAware.enabled, false),

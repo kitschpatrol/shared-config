@@ -163,6 +163,8 @@ export async function astro(
 			},
 		},
 		{
+			// Includes plugins...
+			...sharedScriptConfig,
 			files: [GLOB_ASTRO],
 			languageOptions: {
 				globals: {

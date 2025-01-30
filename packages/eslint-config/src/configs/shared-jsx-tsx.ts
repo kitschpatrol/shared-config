@@ -111,6 +111,7 @@ const jsxA11yRecommendedRules: Rules = {
  * Shared JSX/TSX configuration "extends" sharedScriptConfig
  */
 export const sharedJsxTsxConfig: TypedFlatConfigItem = {
+	// TODO inherit from ...sharedScriptConfig?
 	plugins: {
 		...sharedScriptConfig.plugins,
 		'jsx-a11y': pluginJsxA11y,
