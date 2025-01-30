@@ -60,5 +60,6 @@
 	"prettier.enable": true,
 	"stylelint.enable": true,
 	"stylelint.validate": ["css", "html", "svelte", "astro"],
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }
