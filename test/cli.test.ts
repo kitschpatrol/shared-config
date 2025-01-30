@@ -40,7 +40,7 @@ describe('CLI basics', () => {
 
 			Commands:
 			  shared-config <command>            Run a command.  [default]
-			  shared-config check [files..]      Check for and report issues.
+			  shared-config lint [files..]      Check for and report issues.
 			  shared-config fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
 			  shared-config init                 Initialize by copying starter config files to your project root.
 			  shared-config print-config <file>  Print the effective configuration at a certain path.
@@ -65,7 +65,7 @@ describe('CLI basics', () => {
 
 			Commands:
 			  shared-config <command>            Run a command.  [default]
-			  shared-config check [files..]      Check for and report issues.
+			  shared-config lint [files..]      Check for and report issues.
 			  shared-config fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
 			  shared-config init                 Initialize by copying starter config files to your project root.
 			  shared-config print-config <file>  Print the effective configuration at a certain path.

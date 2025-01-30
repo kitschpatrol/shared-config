@@ -4,7 +4,7 @@ import { buildCommands } from '../../../src/command-builder.js'
 // TODO fix? fixed through eslint?
 
 await buildCommands('cspell-config', '[CSpell]', 'cyan', {
-	check: {
+	lint: {
 		command: 'cspell',
 		defaultArguments: ['.'],
 		options: ['--quiet'],

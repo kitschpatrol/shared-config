@@ -57,7 +57,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "eslint-config check"
+  "lint": "eslint-config lint"
   "fix": "eslint-config fix"
 }
 ```
@@ -80,7 +80,7 @@ eslint-config <command>
 
 | Command        | Argument    | Description                                                      |
 | -------------- | ----------- | ---------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                     |
+| `lint`         | `[files..]` | Check for and report issues.                                     |
 | `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
 | `init`         |             | Initialize by copying starter config files to your project root. |
 | `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
@@ -92,14 +92,14 @@ eslint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `eslint-config check`
+#### Subcommand: `eslint-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
-eslint-config check [files..]
+eslint-config lint [files..]
 ```
 
 | Positional Argument | Description    | Type    | Default |

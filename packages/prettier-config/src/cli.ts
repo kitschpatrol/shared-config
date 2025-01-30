@@ -18,7 +18,7 @@ const sharedOptions = [
 ]
 
 await buildCommands('prettier-config', '[Prettier]', 'blue', {
-	check: {
+	lint: {
 		command: 'prettier',
 		defaultArguments: ['.'],
 		options: [...sharedOptions, '--check'],

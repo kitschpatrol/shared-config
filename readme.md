@@ -35,7 +35,7 @@
 
 ## Overview
 
-This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency with a single CLI meta-command to check and fix issues.
+This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency with a single CLI meta-command to lint and fix issues.
 
 By installing `@kitschpatrol/shared-config` and then running `shared-config`, you can run a half-dozen pre-configured code quality and linting tools in one shot. This spares you from clutting your project's `devDependencies` with packages tangential to the task at hand.
 
@@ -122,7 +122,7 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    {
      "scripts": {
        "format": "shared-config fix",
-       "check": "shared-config check"
+       "lint": "shared-config lint"
      }
    }
    ```
@@ -137,7 +137,7 @@ Various VS Code plugins should "just work".
 To check / lint your entire project, after configuring the `package.json` as shown above:
 
 ```sh
-pnpm run check
+pnpm run lint
 ```
 
 To run all of the tools in a _potentially destructive_ "fix" capacity:
@@ -164,7 +164,7 @@ shared-config <command>
 
 | Command        | Argument    | Description                                                      |
 | -------------- | ----------- | ---------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                     |
+| `lint`         | `[files..]` | Check for and report issues.                                     |
 | `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
 | `init`         |             | Initialize by copying starter config files to your project root. |
 | `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
@@ -176,14 +176,14 @@ shared-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `shared-config check`
+#### Subcommand: `shared-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
-shared-config check [files..]
+shared-config lint [files..]
 ```
 
 | Positional Argument | Description    | Type    | Default |
@@ -258,9 +258,7 @@ Recall that the `@kitschpatrol/shared-config` package aggregates integration and
 
 This project combines a mix of tools that regard their core task variously as "linting" or "checking" code and prose.
 
-Across all the tools, I've chosen to use the term "check" instead of "lint" to refer to the read-only evaluation process.
-
-This is for the sake of consistency, a reflection of the fact that some of the bundled tools (e.g. CSpell) are not quite "linters" in the classic sense, and for avoidance of having a command name that's used more often as a noun than verb in daily life. (I'll also offer that "lint" is a near anagram of the "init" command, which ever so slightly increases the odds of mishap.)
+Across all the tools, I've chosen to use the term "lint" instead of "check" to refer to the read-only evaluation process.
 
 ### Package architecture
 

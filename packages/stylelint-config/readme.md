@@ -65,7 +65,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 "scripts": {
-  "lint": "stylelint-config check"
+  "lint": "stylelint-config lint"
   "format": "stylelint-config fix"
 }
 ```
@@ -122,7 +122,7 @@ stylelint-config <command>
 
 | Command        | Argument    | Description                                                                                   |
 | -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `check`        | `[files..]` | Check for and report issues.                                                                  |
+| `lint`         | `[files..]` | Check for and report issues.                                                                  |
 | `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
 | `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
 | `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
@@ -134,14 +134,14 @@ stylelint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `stylelint-config check`
+#### Subcommand: `stylelint-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
-stylelint-config check [files..]
+stylelint-config lint [files..]
 ```
 
 | Positional Argument | Description    | Type    | Default                                                      |

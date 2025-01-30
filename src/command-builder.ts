@@ -48,7 +48,7 @@ function getInitConfigFields(subcommand: Subcommand): SubcommandInitConfig {
 }
 
 export type Subcommands = {
-	[key in 'check' | 'fix' | 'init' | 'printConfig']?: Subcommand
+	[key in 'lint' | 'fix' | 'init' | 'printConfig']?: Subcommand
 }
 
 export async function executeJsonOutput(
@@ -176,21 +176,21 @@ export async function buildCommands(
 		.strict()
 
 	// Add subcommands based on options
-	if (subcommands.check) {
+	if (subcommands.lint) {
 		yargsInstance.command({
 			builder(yargs) {
 				return yargs.positional('files', {
 					array: true,
-					default: subcommands.check?.defaultArguments,
+					default: subcommands.lint?.defaultArguments,
 					describe: 'Files to check',
 					type: 'string',
 				})
 			},
-			command: 'check [files..]',
+			command: 'lint [files..]',
 			describe: 'Check for and report issues.',
 			async handler(argv) {
 				const input = argv.files ?? []
-				process.exit(await execute(logStream, subcommands.check, input))
+				process.exit(await execute(logStream, subcommands.lint, input))
 			},
 		})
 	}

@@ -2,7 +2,7 @@
 import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
 
 await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
-	check: {
+	lint: {
 		command: 'eslint',
 		defaultArguments: ['.'],
 	},
