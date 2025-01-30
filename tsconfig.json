@@ -1,30 +1,33 @@
 {
 	"compilerOptions": {
+		/* Language and Environment */
 		"target": "ES2023",
-		"useDefineForClassFields": true,
-		"lib": ["ES2023", "DOM", "DOM.Iterable"],
-		"module": "ESNext",
-		"skipLibCheck": true,
-		"noEmit": true,
-		"noErrorTruncation": true,
 		"jsx": "react",
+		"lib": ["ES2023", "DOM", "DOM.Iterable"],
+		"useDefineForClassFields": true,
+
+		/* Modules */
+		"module": "ESNext",
+
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"allowImportingTsExtensions": true,
+
+		/* JavaScript Support */
 		"allowJs": true,
 		"checkJs": true,
 
-		/* Bundler mode */
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-
-		/* Linting */
+		/* Type Checking */
 		"strict": true,
+		"noFallthroughCasesInSwitch": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true
+		"noEmit": true,
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"noErrorTruncation": true
 	},
-
 	/* Also lint config files. */
 	"include": ["**/*", "**/**.*"],
-	"exclude": ["dist/", "bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
+	"exclude": ["**/dist/", "**/bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
 }

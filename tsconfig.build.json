@@ -1,6 +1,6 @@
 {
 	"extends": "./tsconfig.json",
 
-	"include": ["**/*"],
-	"exclude": ["dist/", "bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
+	/* Do not include root config files */
+	"include": ["**/*"]
 }

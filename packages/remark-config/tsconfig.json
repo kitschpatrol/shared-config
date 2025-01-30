@@ -1,9 +1,9 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"noEmit": false,
-		"declaration": true,
 		"allowImportingTsExtensions": false,
+		"declaration": true,
+		"noEmit": false,
 		"outDir": "dist"
 	},
 	"include": ["./src/remark.config.ts"]

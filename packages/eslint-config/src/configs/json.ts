@@ -141,10 +141,6 @@ const jsonPrettierRules: Rules = {
 
 /* eslint-enable ts/naming-convention */
 
-/**
- *
- * @param options
- */
 export async function json(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
 
@@ -211,8 +207,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			name: 'kp/json/rules-package',
 			rules: {
 				...jsonPackageRecommendedRules,
-				'json-package/order-properties': 'error',
 				'json-package/no-redundant-files': 'error',
+				'json-package/order-properties': 'error',
 				'json-package/valid-package-def': 'error',
 			},
 		},
@@ -221,7 +217,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			files: ['**/tsconfig.json', '**/tsconfig.*.json'],
 			name: 'kp/json/rules-tsconfig',
 			rules: {
-				'jsonc/sort-keys': [
+				'json/no-comments': 'off',
+				'json/sort-keys': [
 					'error',
 					{
 						order: ['extends', 'compilerOptions', 'references', 'files', 'include', 'exclude'],

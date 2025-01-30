@@ -28,6 +28,7 @@ export async function ts(
 			rules: {
 				...sharedScriptConfig.rules,
 				...(typeAware.enabled ? {} : sharedScriptDisableTypeCheckedRules),
+				'jsdoc/require-param': 'off',
 				'jsdoc/require-returns': 'off',
 				...overrides,
 			},

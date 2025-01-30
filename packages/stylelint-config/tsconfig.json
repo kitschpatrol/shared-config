@@ -1,9 +1,9 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"noEmit": false,
-		"declaration": true,
 		"allowImportingTsExtensions": false,
+		"declaration": true,
+		"noEmit": false,
 		"outDir": "dist"
 	},
 	"include": ["./src/stylelint.config.ts", "./src/stub.d.ts"]
