@@ -27,7 +27,10 @@ async function getBinNames(): Promise<string[]> {
 }
 
 async function getCapabilities(binName: string): Promise<string[]> {
-	const helpText = await execa(binName, ['--help'])
+	const helpText = await execa(binName, ['--help'], {
+		localDir: process.cwd(),
+		preferLocal: true,
+	})
 
 	if (helpText.exitCode !== 0 || helpText.stdout === undefined || helpText.stdout.length === 0) {
 		console.error(`Error getting capabilities for ${binName}`)
