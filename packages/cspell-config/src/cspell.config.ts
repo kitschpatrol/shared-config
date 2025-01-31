@@ -1,6 +1,8 @@
 import type { CSpellUserSettings as CspellConfig } from '@cspell/cspell-types'
 
 const sharedCspellConfig: CspellConfig = {
+	allowCompoundWords: false,
+	caseSensitive: false,
 	dictionaries: [
 		'lorem-ipsum',
 		'git',
@@ -103,10 +105,8 @@ const sharedCspellConfig: CspellConfig = {
 
 /**
  * **\@Kitschpatrol's Shared Cspell Configuration**
- *
  * @see [@kitschpatrol/cspell-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/cspell-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- *
  * @example
  * ```js
  * export default cspellConfig({
