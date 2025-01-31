@@ -48,7 +48,8 @@
 		"fs-extra": "^11.3.0"
 	},
 	"peerDependencies": {
-		"cspell": "^8.16.1"
+		"cspell": "^8.17.3",
+		"cspell-lib": "^8.17.3"
 	},
 	"engines": {
 		"node": ">=22.0.0",
