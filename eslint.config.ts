@@ -17,6 +17,15 @@ export default eslintConfig(
 			],
 		},
 	},
+	{
+		files: ['packages/eslint-config/src/presets/**.*'],
+		rules: {
+			// Don't sort generated preset rules
+			'perfectionist/sort-objects': 'off',
+			'ts/naming-convention': 'off',
+			'unicorn/no-null': 'off',
+		},
+	},
 )
 
 // TODO ignore

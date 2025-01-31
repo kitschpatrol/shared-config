@@ -321,6 +321,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [xo](https://github.com/xojs/xo)
 - [TanStack Config](https://tanstack.com/config/latest)
+- [Complete](https://complete-ts.github.io/)
 
 <!-- license -->
 
