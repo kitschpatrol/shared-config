@@ -46,7 +46,7 @@ export async function md(
 			},
 			// ignores: [GLOB_MARKDOWN_IN_MARKDOWN, GLOB_MARKDOWN_IN_MDX],
 			processor: pluginMdx.createRemarkProcessor({
-				// Lints code in the next passs
+				// Lints code in the next pass
 				lintCodeBlocks: true,
 			}),
 			// These apply to the remark-lint pass only!

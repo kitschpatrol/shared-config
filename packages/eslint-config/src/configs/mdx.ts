@@ -44,7 +44,7 @@ export async function mdx(
 				mdx: pluginMdx,
 			},
 			processor: pluginMdx.createRemarkProcessor({
-				// Lints code in the next passs
+				// Lints code in the next pass
 				lintCodeBlocks: true,
 			}),
 			// These apply to the remark-lint pass only!
