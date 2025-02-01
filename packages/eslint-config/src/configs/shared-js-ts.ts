@@ -1,5 +1,6 @@
 import { default as pluginEslintComments } from '@eslint-community/eslint-plugin-eslint-comments'
 import { default as pluginTs } from '@typescript-eslint/eslint-plugin'
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import * as pluginDepend from 'eslint-plugin-depend'
 import { default as pluginImport } from 'eslint-plugin-import-x'
 import { default as pluginJsdocComments } from 'eslint-plugin-jsdoc'
@@ -225,7 +226,17 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'import-x/parsers': {
 			'@typescript-eslint/parser': ['.ts', '.tsx', '.cts', '.mts'],
 		},
-		'import-x/resolver': { typescript: true },
+		// 'import-x/resolver': { typescript: true },
+		'import-x/resolver-next': [
+			createTypeScriptImportResolver({
+				alwaysTryTypes: true,
+				project: [
+					// Useful for monorepos
+					'packages/*/tsconfig.json',
+					'<root>/tsconfig.json',
+				],
+			}),
+		],
 	},
 }
 
