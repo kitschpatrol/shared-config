@@ -27,9 +27,9 @@ import {
 	yaml,
 } from './configs'
 import { tsParser } from './parsers'
-import { interopDefault, isInEditorEnv } from './utils'
+import { interopDefault, isInEditorEnv as isInEditorEnvironment } from './utils'
 
-const flatConfigProps = [
+const flatConfigProperties = [
 	'name',
 	'languageOptions',
 	'linterOptions',
@@ -50,6 +50,7 @@ export const defaultPluginRenaming = {
 	'@eslint-react/web-api': 'react-web-api',
 	'@eslint-react': 'react',
 	jsonc: 'json',
+	'@html-eslint': 'html',
 	'package-json': 'json-package',
 	'@typescript-eslint': 'ts',
 	'import-x': 'import',
@@ -60,93 +61,6 @@ export const defaultPluginRenaming = {
 /* eslint-enable perfectionist/sort-objects */
 
 export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
-
-/**
- * Get ESLint language options object.
- * @param typeAware - Whether to enable type-aware linting.
- * @param jsx - Whether to enable JSX parsing.
- */
-export function getLanguageOptions(typeAware = true, jsx = false): Linter.LanguageOptions {
-	return {
-		ecmaVersion: 2023,
-		globals: {
-			...globals.browser,
-			...globals.es2023,
-			...globals.nodeBuiltin,
-		},
-		// TODO Always use typescript parser to get type info for JavaScript files when checkjs is true?
-		parser: tsParser,
-		parserOptions: {
-			ecmaFeatures: {
-				impliedStrict: true,
-				jsx,
-			},
-			...(typeAware
-				? {
-						projectService: true,
-						tsconfigRootDir: process.cwd(), // TODO import.meta.dirname preferred?
-					}
-				: {
-						projectService: false,
-					}),
-			ecmaVersion: 2023,
-			sourceType: 'module',
-		},
-	}
-}
-
-/**
- * Get the overrides for a specific key.
- * @param options The options object.
- * @param key The key to get the overrides for.
- */
-export function getOverrides<K extends keyof OptionsConfig>(
-	options: OptionsConfig,
-	key: K,
-): Partial<Linter.RulesRecord & RuleOptions> {
-	const sub = resolveSubOptions(options, key)
-	return {
-		...('overrides' in sub ? sub.overrides : {}),
-	}
-}
-
-/**
- * Get the overrides for embedded scripts for a specific key.
- * @param options The options object.
- * @param key The key to get the overrides for.
- */
-export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
-	options: OptionsConfig,
-	key: K,
-): Partial<Linter.RulesRecord & RuleOptions> {
-	const sub = resolveSubOptions(options, key)
-	return {
-		...('overridesEmbeddedScripts' in sub ? sub.overridesEmbeddedScripts : {}),
-	}
-}
-
-/**
- * Resolve the sub options for a specific key.
- * @param options The options object.
- * @param key The key to resolve the sub options for.
- */
-export function resolveSubOptions<K extends keyof OptionsConfig>(
-	options: OptionsConfig,
-	key: K,
-): ResolvedOptions<OptionsConfig[K]> {
-	// eslint-disable-next-line ts/no-unsafe-return
-	return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {}
-}
-
-/**
- * Construct an array of ESLint flat config items.
- * @param options
- *  The options for generating the ESLint configurations.
- * @param userConfigs
- *  The user configurations to be merged with the generated configurations.
- * @returns
- *  The merged ESLint configurations.
- */
 
 /**
  * Construct an array of ESLint flat config items.
@@ -170,7 +84,7 @@ export async function eslintConfig(
 
 	let { isInEditor } = options
 	if (isInEditor === undefined) {
-		isInEditor = isInEditorEnv()
+		isInEditor = isInEditorEnvironment()
 		if (isInEditor)
 			console.log(
 				'[@kitschpatrol/eslint-config] Detected running in editor, some rules are disabled.',
@@ -309,9 +223,9 @@ export async function eslintConfig(
 	// User can optionally pass a flat config item to the first argument
 	// We pick the known keys as ESLint would do schema validation
 	// eslint-disable-next-line unicorn/no-array-reduce
-	const fusedConfig = flatConfigProps.reduce<TypedFlatConfigItem>((acc, key) => {
-		if (key in options) acc[key] = options[key] as any
-		return acc
+	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
+		if (key in options) accumulator[key] = options[key] as any
+		return accumulator
 	}, {})
 	if (Object.keys(fusedConfig).length > 0) configs.push([fusedConfig])
 
@@ -328,4 +242,91 @@ export async function eslintConfig(
 	// })
 
 	return composer
+}
+
+/**
+ * Get ESLint language options object.
+ * @param typeAware - Whether to enable type-aware linting.
+ * @param jsx - Whether to enable JSX parsing.
+ */
+export function getLanguageOptions(typeAware = true, jsx = false): Linter.LanguageOptions {
+	return {
+		ecmaVersion: 2023,
+		globals: {
+			...globals.browser,
+			...globals.es2023,
+			...globals.nodeBuiltin,
+		},
+		// TODO Always use typescript parser to get type info for JavaScript files when checkjs is true?
+		parser: tsParser,
+		parserOptions: {
+			ecmaFeatures: {
+				impliedStrict: true,
+				jsx,
+			},
+			...(typeAware
+				? {
+						projectService: true,
+						tsconfigRootDir: process.cwd(), // TODO import.meta.dirname preferred?
+					}
+				: {
+						projectService: false,
+					}),
+			ecmaVersion: 2023,
+			sourceType: 'module',
+		},
+	}
+}
+
+/**
+ * Get the overrides for a specific key.
+ * @param options The options object.
+ * @param key The key to get the overrides for.
+ */
+export function getOverrides<K extends keyof OptionsConfig>(
+	options: OptionsConfig,
+	key: K,
+): Partial<Linter.RulesRecord & RuleOptions> {
+	const sub = resolveSubOptions(options, key)
+	return {
+		...('overrides' in sub ? sub.overrides : {}),
+	}
+}
+
+/**
+ * Get the overrides for embedded scripts for a specific key.
+ * @param options The options object.
+ * @param key The key to get the overrides for.
+ */
+export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
+	options: OptionsConfig,
+	key: K,
+): Partial<Linter.RulesRecord & RuleOptions> {
+	const sub = resolveSubOptions(options, key)
+	return {
+		...('overridesEmbeddedScripts' in sub ? sub.overridesEmbeddedScripts : {}),
+	}
+}
+
+/**
+ * Construct an array of ESLint flat config items.
+ * @param options
+ *  The options for generating the ESLint configurations.
+ * @param userConfigs
+ *  The user configurations to be merged with the generated configurations.
+ * @returns
+ *  The merged ESLint configurations.
+ */
+
+/**
+ * Resolve the sub options for a specific key.
+ * @param options The options object.
+ * @param key The key to resolve the sub options for.
+ */
+export function resolveSubOptions<K extends keyof OptionsConfig>(
+	options: OptionsConfig,
+	key: K,
+): ResolvedOptions<OptionsConfig[K]> {
+	// eslint-disable-next-line ts/no-unsafe-return
+	return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {}
 }

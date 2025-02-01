@@ -10,9 +10,6 @@ import { testRecommendedRules } from '../presets'
 // Hold the reference so we don't redeclare the plugin on each call
 let _pluginTest: any
 
-/**
- *
- */
 export async function test(
 	options: OptionsIsInEditor & OptionsOverrides = {},
 ): Promise<TypedFlatConfigItem[]> {

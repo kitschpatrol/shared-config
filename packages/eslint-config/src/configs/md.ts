@@ -10,9 +10,6 @@ import type {
 import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MDX } from '../globs'
 import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
-/**
- *
- */
 export async function md(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -51,9 +48,11 @@ export async function md(
 			}),
 			// These apply to the remark-lint pass only!
 			rules: {
-				// eslint-disable-next-line ts/naming-convention
+				// TODO there's some issue accessing the recommended config:
+				// "Error: Could not find ESLint Linter in require cache"
 				'mdx/remark': 'warn',
 				'react/react-in-jsx-scope': 0,
+				'unicorn/filename-case': 'error', // No shouting
 				...overrides,
 			},
 		},
@@ -67,8 +66,12 @@ export async function md(
 			name: 'kp/markdown/code-blocks',
 			rules: {
 				...sharedScriptDisableTypeCheckedRules,
+				'no-unused-expressions': 'off',
+				'no-unused-vars': 'off',
+				'ts/no-unused-expressions': 'off',
+				'ts/no-unused-vars': 'off',
+				'unicorn/filename-case': 'off', // Don't enforce on internal code block file names
 				// TODO revisit
-				// 'antfu/no-top-level-await': 'off',
 				// 'import/newline-after-import': 'off',
 				// 'no-alert': 'off',
 				// 'no-console': 'off',
@@ -76,9 +79,7 @@ export async function md(
 				// 'no-lone-blocks': 'off',
 				// 'no-restricted-syntax': 'off',
 				// 'no-undef': 'off',
-				// 'no-unused-expressions': 'off',
 				// 'no-unused-labels': 'off',
-				'no-unused-vars': 'off',
 				// 'node/prefer-global/process': 'off',
 				// 'style/comma-dangle': 'off',
 				// 'style/eol-last': 'off',
@@ -88,12 +89,8 @@ export async function md(
 				// 'ts/no-redeclare': 'off',
 				// 'ts/no-require-imports': 'off',
 				// 'ts/no-unused-expressions': 'off',
-				'ts/no-unused-vars': 'off',
 				// 'ts/no-use-before-define': 'off',
 				// 'unicode-bom': 'off',
-				// 'unused-imports/no-unused-imports': 'off',
-				'unicorn/filename-case': 'off',
-				'unused-imports/no-unused-vars': 'off',
 				...overridesEmbeddedScripts,
 			},
 		},

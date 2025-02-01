@@ -1,5 +1,5 @@
 import { default as pluginHtml } from '@html-eslint/eslint-plugin'
-import htmlParser from '@html-eslint/parser'
+import { default as htmlParser } from '@html-eslint/parser'
 import { default as pluginHtmlScript } from 'eslint-plugin-html'
 
 import type {
@@ -11,13 +11,11 @@ import type {
 // Extra src to catch html`` templates in JS and TS files
 // TODO what about scripts in html`` templates?
 import { GLOB_HTML } from '../globs'
+import { htmlRecommendedRules } from '../presets/html'
 
 // eslint-plugin-html lints scripts inside HTML files
 // @html-eslint/parser and @html-eslint/plugin are used to lint HTML files themselves
 
-/**
- *
- */
 export async function html(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -31,6 +29,7 @@ export async function html(
 			files,
 			name: 'kp/html-script',
 			plugins: {
+				// eslint-disable-next-line ts/no-unsafe-assignment
 				'html-script': pluginHtmlScript,
 			},
 			rules: {
@@ -55,15 +54,19 @@ export async function html(
 				html: pluginHtml,
 			},
 			rules: {
-				// Accessibility
+				// Everything is overridden
+				...htmlRecommendedRules,
+
+				'html/attrs-newline': 'off', // Overrides recommended
+				'html/element-newline': 'off', // Overrides recommended
+				'html/indent': 'off', // Overrides recommended
 				'html/no-abstract-roles': 'error',
 				'html/no-accesskey-attrs': 'error',
 				'html/no-aria-hidden-body': 'error',
-				// Best Practice
 				'html/no-duplicate-attrs': 'error',
 				'html/no-duplicate-id': 'error',
+				'html/no-extra-spacing-attrs': 'off', // Overrides recommended
 				'html/no-inline-styles': 'error',
-				// SEO
 				'html/no-multiple-h1': 'error',
 				'html/no-non-scalable-viewport': 'error',
 				'html/no-obsolete-tags': 'error',
@@ -73,9 +76,10 @@ export async function html(
 				'html/no-script-style-type': 'error',
 				'html/no-skip-heading-levels': 'error',
 				'html/no-target-blank': 'error',
+				'html/quotes': 'off', // Overrides recommended
 				'html/require-attrs': 'error',
 				'html/require-button-type': 'error',
-				// 'html/require-closing-tags': 'error',
+				'html/require-closing-tags': 'off', // Overrides recommended
 				'html/require-doctype': 'error',
 				'html/require-frame-title': 'error',
 				'html/require-img-alt': 'error',
@@ -83,8 +87,6 @@ export async function html(
 				'html/require-li-container': 'error',
 				'html/require-meta-charset': 'error',
 				'html/require-meta-viewport': 'error',
-				// 'html/require-meta-description': 'error',
-				// 'html/require-open-graph-protocol': 'error',
 				'html/require-title': 'error',
 				...overrides,
 			},

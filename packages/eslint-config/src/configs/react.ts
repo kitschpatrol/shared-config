@@ -7,9 +7,6 @@ import { interopDefault } from '../utils'
 
 // eslint-react is preferred over eslint-plugin-react?
 
-/**
- *
- */
 export async function react(
 	options: OptionsOverrides & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {

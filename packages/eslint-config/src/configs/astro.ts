@@ -11,13 +11,10 @@ import type {
 
 import { GLOB_ASTRO, GLOB_ASTRO_JS, GLOB_ASTRO_TS } from '../globs'
 import { tsParser } from '../parsers'
+import { astroJsxA11yRecommendedRules, astroRecommendedRules } from '../presets'
 import { interopDefault } from '../utils'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
-import { astroRecommendedRules, astroJsxA11yRecommendedRules } from '../presets'
 
-/**
- *
- */
 export async function astro(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -73,6 +70,21 @@ export async function astro(
 				...sharedScriptConfig.rules,
 				...astroRecommendedRules,
 				...astroJsxA11yRecommendedRules,
+				// TODO right spot?
+				// '@typescript-eslint/no-unsafe-assignment': 'off', // Crashing
+				'@typescript-eslint/no-unsafe-return': 'off', // Happens in templates
+				// Astro components are usually PascalCase,
+				// but when used as pages they are kebab-case
+				'unicorn/filename-case': [
+					'error',
+					{
+						cases: {
+							kebabCase: true,
+							pascalCase: true,
+						},
+						ignore: [String.raw`^\[slug\]\.astro$`],
+					},
+				],
 				...overrides,
 			},
 		},

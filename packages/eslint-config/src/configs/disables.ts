@@ -1,5 +1,3 @@
-/* eslint-disable ts/naming-convention */
-
 import type { Rules, TypedFlatConfigItem } from '../types'
 
 import { prettierRules } from '../presets/prettier'
@@ -43,7 +41,6 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
 				'eslint-comments/no-unlimited-disable': 'off',
 				'import/no-duplicates': 'off',
 				'no-restricted-syntax': 'off',
-				// 'unused-imports/no-unused-vars': 'off',
 			},
 		},
 		{

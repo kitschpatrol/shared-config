@@ -53,36 +53,6 @@ import {
 //   ],
 // }
 
-// TODO revisit these...
-const kpSharedScriptRules: Rules = {
-	'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
-	// 'node/handle-callback-err': ['error', '^(err|error)$'],
-	// 'node/no-new-require': 'error',
-	// 'node/no-path-concat': 'error',
-	// 'node/prefer-global/buffer': ['error', 'never'],
-	// 'node/prefer-global/process': ['error', 'never'],
-	// 'node/process-exit-as-throw': 'error',
-	'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
-	'jsdoc/require-jsdoc': [
-		'error',
-		{
-			publicOnly: true,
-		},
-	],
-	'no-await-in-loop': 'off',
-	'no-warning-comments': 'off',
-	'node/hashbang': 'off',
-	'node/no-extraneous-import': 'off',
-	'node/no-missing-import': 'off',
-	'node/no-process-exit': 'off', // Duplicated in unicorn
-	'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
-	'perfectionist/sort-objects': [
-		'error',
-		{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
-	],
-	'ts/no-non-null-assertion': 'off',
-}
-
 const kpSharedDisableTypeCheckedRules: Rules = {
 	'jsdoc/check-tag-names': ['error', { typed: false }],
 	'jsdoc/no-types': 'off',
@@ -121,7 +91,132 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...eslintCommentsRecommendedRules,
 		...regexpRecommendedRules,
 		...dependRecommendedRules,
-		...kpSharedScriptRules,
+		'@typescript-eslint/naming-convention': [
+			// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+			'error',
+			// Group selectors
+			{
+				format: ['camelCase'],
+				// Matches everything
+				selector: 'default',
+			},
+			{
+				format: null,
+				modifiers: ['requiresQuotes'],
+				// Forgive quoted things
+				selector: 'default',
+			},
+			{
+				format: ['StrictPascalCase'],
+				// Matches the same as class, enum, interface, typeAlias, typeParameter
+				selector: 'typeLike',
+			},
+			{
+				format: ['camelCase'],
+				leadingUnderscore: 'allow',
+				// Matches the same as function, parameter and variable
+				selector: 'variableLike',
+				trailingUnderscore: 'allow',
+			},
+			{
+				format: ['camelCase', 'StrictPascalCase'],
+				selector: 'import',
+			},
+			{
+				format: ['camelCase', 'StrictPascalCase'],
+				modifiers: ['destructured'],
+				// Allow Component import
+				selector: 'variable',
+			},
+			{
+				format: ['UPPER_CASE', 'camelCase'],
+				modifiers: ['const', 'exported'],
+				// Allow UPPER_CASE const exports
+				selector: 'variable',
+			},
+			// {
+			// 	filter: {
+			// 		match: true,
+			// 		regex: '/',
+			// 	},
+			// 	format: null,
+			// 	selector: 'objectLiteralProperty',
+			// },
+		],
+		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
+		'jsdoc/require-jsdoc': [
+			'error',
+			{
+				publicOnly: true,
+			},
+		],
+		'max-params': ['warn', { max: 8 }],
+		'no-await-in-loop': 'off',
+		'no-warning-comments': 'off',
+		'node/hashbang': 'off',
+		'node/no-extraneous-import': 'off',
+		'node/no-missing-import': 'off', // Trouble resolving in ts
+		'node/no-process-exit': 'off', // Duplicated in unicorn
+		'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
+		'perfectionist/sort-imports': [
+			'error',
+			{
+				newlinesBetween: 'never',
+			},
+		],
+		// Too chaotic... but should revisit
+		'perfectionist/sort-modules': 'off',
+		'perfectionist/sort-objects': [
+			'error',
+			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+		],
+		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
+		'ts/no-non-null-assertion': 'off',
+		'ts/no-unused-vars': [
+			'error',
+			{
+				args: 'after-used',
+				argsIgnorePattern: '^_',
+				caughtErrors: 'all',
+				caughtErrorsIgnorePattern: '^_$',
+				destructuredArrayIgnorePattern: '^_',
+				ignoreRestSiblings: true,
+				vars: 'all',
+				varsIgnorePattern: '^_',
+			},
+		],
+		'ts/sort-type-constituents': 'off', // Conflicts with perfectionist/sort-intersection-types
+		'unicorn/prevent-abbreviations': [
+			'error',
+			{
+				replacements: {
+					acc: false,
+					arg: false,
+					args: false,
+					db: false,
+					dev: false,
+					doc: false,
+					docs: false,
+					env: false,
+					fn: false,
+					i: false,
+					j: false,
+					lib: false,
+					param: false,
+					params: false,
+					pkg: false,
+					prop: false,
+					props: false,
+					ref: false,
+					refs: false,
+					src: false,
+					temp: false,
+				},
+			},
+		],
 	},
 	settings: {
 		// Do NOT need to rename these settings

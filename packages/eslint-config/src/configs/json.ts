@@ -14,9 +14,6 @@ import {
 	jsonRecommendedWithJsonRules,
 } from '../presets'
 
-/**
- *
- */
 export async function json(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
 

@@ -9,9 +9,6 @@ import type {
 
 import { GLOB_MARKDOWN, GLOB_MDX, GLOB_MDX_CODE } from '../globs'
 
-/**
- *
- */
 export async function mdx(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -49,7 +46,8 @@ export async function mdx(
 			}),
 			// These apply to the remark-lint pass only!
 			rules: {
-				// eslint-disable-next-line ts/naming-convention
+				// TODO there's some issue accessing the recommended config:
+				// "Error: Could not find ESLint Linter in require cache"
 				'mdx/remark': 'warn',
 				'react/react-in-jsx-scope': 0,
 				// MDX files can be PascalCase OR kebab-case, depending on whether
@@ -70,6 +68,12 @@ export async function mdx(
 			files: [GLOB_MDX_CODE],
 			name: 'kp/mdx/code-blocks',
 			rules: {
+				// Disable type-checked?
+				'no-unused-expressions': 'off',
+				'no-unused-vars': 'off',
+				'ts/no-unused-expressions': 'off',
+				'ts/no-unused-vars': 'off',
+				'unicorn/filename-case': 'off', // Don't enforce on internal code block file names
 				// TODO revisit
 				// 'antfu/no-top-level-await': 'off',
 				// 'import/newline-after-import': 'off',
@@ -97,9 +101,6 @@ export async function mdx(
 				// 'unicorn/filename-case': 'off',
 				// 'ts/no-use-before-define': 'off',
 				// 'unicode-bom': 'off',
-				// 'unused-imports/no-unused-imports': 'off',
-				// 'unused-imports/no-unused-vars': 'off',
-				'unicorn/filename-case': 'off',
 				...overridesEmbeddedScripts,
 			},
 		},

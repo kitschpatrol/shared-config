@@ -26,6 +26,13 @@ export default eslintConfig(
 			'unicorn/no-null': 'off',
 		},
 	},
+	{
+		files: ['packages/eslint-config/src/configs/**.*'],
+		rules: {
+			'jsdoc/require-jsdoc': 'off',
+			'ts/require-await': 'off',
+		},
+	},
 )
 
 // TODO ignore
