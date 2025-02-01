@@ -1,0 +1,54 @@
+{
+	"name": "@kitschpatrol/knip-config",
+	"version": "4.7.12",
+	"description": "Knip configuration for @kitschpatrol/shared-config.",
+	"keywords": [
+		"shared-config",
+		"knip-config",
+		"knip",
+		"cli"
+	],
+	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"directory": "packages/knip-config"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"type": "module",
+	"main": "dist/knip.config.js",
+	"types": "dist/knip.config.d.ts",
+	"bin": {
+		"knip-config": "bin/cli.js"
+	},
+	"files": [
+		"bin/*",
+		"init/*"
+	],
+	"scripts": {
+		"build": "tsc && ../../scripts/build.ts && pnpm mdat readme",
+		"cli": "node ./bin/cli.js",
+		"prepublishOnly": "pnpm run build"
+	},
+	"dependencies": {
+		"@pinojs/json-colorizer": "^4.0.0",
+		"cosmiconfig": "^9.0.0",
+		"execa": "^9.5.2",
+		"fs-extra": "^11.3.0"
+	},
+	"peerDependencies": {
+		"knip": "^5.43.6"
+	},
+	"engines": {
+		"node": ">=22.0.0",
+		"pnpm": ">=10.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

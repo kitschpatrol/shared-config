@@ -47,6 +47,7 @@
 	"devDependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
+		"@kitschpatrol/knip-config": "workspace:*",
 		"@kitschpatrol/mdat-config": "workspace:*",
 		"@kitschpatrol/prettier-config": "workspace:*",
 		"@kitschpatrol/remark-config": "workspace:*",
