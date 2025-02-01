@@ -69,7 +69,4 @@ for (const capability of Object.keys(capabilities)) {
 	}
 }
 
-console.log('----------------------------------')
-console.log(subcommands)
-
 await buildCommands('shared-config', '🔬', 'yellow', subcommands)

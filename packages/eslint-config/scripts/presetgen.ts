@@ -1,11 +1,10 @@
 #!/usr/bin/env tsx
-/* eslint-disable import/no-named-as-default-member */
+
 import { getProperty } from 'dot-prop'
 import { renamePluginsInRules } from 'eslint-flat-config-utils'
 import fs, { glob } from 'node:fs/promises'
 import process from 'node:process'
-import prettier from 'prettier'
-
+import * as prettier from 'prettier'
 import { defaultPluginRenaming } from '../src/factory'
 import { interopDefault } from '../src/utils'
 

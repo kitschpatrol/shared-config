@@ -12,6 +12,7 @@ const sharedCspellConfig: CspellConfig = {
 		'fullstack',
 		'kp-acronyms',
 		'kp-brands',
+		'kp-eslint',
 		'kp-files',
 		'kp-misc',
 		'kp-names',
@@ -27,6 +28,11 @@ const sharedCspellConfig: CspellConfig = {
 			addWords: true,
 			name: 'kp-brands',
 			path: '../dictionaries/kp-brands.txt',
+		},
+		{
+			addWords: true,
+			name: 'kp-eslint',
+			path: '../dictionaries/kp-eslint.txt',
 		},
 		{
 			addWords: true,

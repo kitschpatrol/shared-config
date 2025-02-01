@@ -53,7 +53,7 @@ To use just this Stylelint config in isolation:
 - [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) _(Extends the above with [additional rules](https://github.com/stylelint/stylelint-config-standard/blob/main/index.js))_
 - [stylelint-config-clean-order](https://github.com/kutsan/stylelint-config-clean-order)
 - [stylelint-config-html](https://www.npmjs.com/package/stylelint-config-html) _(Parses HTML, XML, Vue, Svelte, Astro, and PHP files)_
-- [Additional customizations](./stylelint.config.js)
+- [Additional customizations](./src/index.ts)
 
 ## Usage
 
@@ -64,9 +64,11 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "stylelint-config lint"
-  "format": "stylelint-config fix"
+{
+  "scripts": {
+    "lint": "stylelint-config lint",
+    "format": "stylelint-config fix"
+  }
 }
 ```
 

@@ -1,7 +1,10 @@
 #!/usr/bin/env tsx
+/* eslint-disable import/no-named-as-default-member */
 import camelCase from 'camelcase'
 import { execa } from 'execa'
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
+// eslint-disable-next-line depend/ban-dependencies
 import { globby } from 'globby'
 
 async function getBinNames(): Promise<string[]> {
@@ -32,7 +35,7 @@ async function getCapabilities(binName: string): Promise<string[]> {
 		preferLocal: true,
 	})
 
-	if (helpText.exitCode !== 0 || helpText.stdout === undefined || helpText.stdout.length === 0) {
+	if (helpText.exitCode !== 0 || helpText.stdout.length === 0) {
 		console.error(`Error getting capabilities for ${binName}`)
 		process.exit(1)
 	}

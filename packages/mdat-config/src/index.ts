@@ -10,10 +10,8 @@ const sharedMdatConfig: MdatConfig = {
 
 /**
  * **\@Kitschpatrol's Shared Mdat Configuration**
- *
  * @see [@kitschpatrol/mdat-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/mdat-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- *
  * @example
  * ```ts
  *  export default mdatConfig({

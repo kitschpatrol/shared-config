@@ -1,5 +1,4 @@
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
-
 // Wat?
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_MDX, GLOB_SRC } from '../globs'
 import { reactDisableTypeCheckedRules, reactRecommendedTypeCheckedRules } from '../presets'

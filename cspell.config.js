@@ -6,5 +6,7 @@ export default cspellConfig({
 		'/packages/*/bin',
 		'/test/fixtures/input',
 		'/test/fixtures/output-fixable',
+		// TODO reenable this...
+		'/test/fixtures/output-fixed',
 	],
 })

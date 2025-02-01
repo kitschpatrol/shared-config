@@ -8,7 +8,7 @@ import { packageUp } from 'package-up'
 import { buildCommands } from '../../../src/command-builder.js'
 
 await buildCommands('repo-config', '[Repo Config]', 'gray', {
-	init: {} // Use default implementation,
+	init: {}, // Use default implementation,
 	printConfig: {
 		async command(logStream) {
 			const destinationPackage = await packageUp()

@@ -348,6 +348,7 @@ nproc
 numpy
 nums
 Nuxt
+NVIM
 nyquist
 Obinslab
 objc

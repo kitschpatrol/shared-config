@@ -4,10 +4,6 @@ import { getLanguageOptions } from '../factory'
 import { GLOB_TS } from '../globs'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
-/**
- * Typescript configuration
- * @param options
- */
 export async function ts(
 	options: OptionsOverrides & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {

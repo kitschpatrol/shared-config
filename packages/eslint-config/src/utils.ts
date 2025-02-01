@@ -1,5 +1,4 @@
 import process from 'node:process'
-
 import type { Awaitable, TypedFlatConfigItem } from './types'
 
 /**
@@ -21,7 +20,7 @@ export async function interopDefault<T>(
 	m: Awaitable<T>,
 ): Promise<T extends { default: infer U } ? U : T> {
 	const resolved = await m
-	// eslint-disable-next-line ts/no-unsafe-return, ts/no-unsafe-member-access
+	// eslint-disable-next-line ts/no-unsafe-return, ts/no-unsafe-member-access, ts/no-explicit-any
 	return (resolved as any).default || resolved
 }
 
@@ -38,7 +37,7 @@ export function isInEditorEnv(): boolean {
 	if (process.env.CI) return false
 	if (isInGitHooksOrLintStaged()) return false
 
-	const editorEnvVars = [
+	const editorEnvVariables = [
 		process.env.VSCODE_PID,
 		process.env.VSCODE_CWD,
 		process.env.JETBRAINS_IDE,
@@ -46,7 +45,7 @@ export function isInEditorEnv(): boolean {
 		process.env.NVIM,
 	]
 
-	return editorEnvVars.some(Boolean)
+	return editorEnvVariables.some(Boolean)
 }
 
 /**
@@ -59,9 +58,9 @@ export function isInEditorEnv(): boolean {
 export function isInGitHooksOrLintStaged(): boolean {
 	const isLintStaged = process.env.npm_lifecycle_script?.startsWith('lint-staged')
 
-	const gitEnvVars = [process.env.GIT_PARAMS, process.env.VSCODE_GIT_COMMAND, isLintStaged]
+	const gitEnvVariables = [process.env.GIT_PARAMS, process.env.VSCODE_GIT_COMMAND, isLintStaged]
 
-	return gitEnvVars.some(Boolean)
+	return gitEnvVariables.some(Boolean)
 }
 
 /**
@@ -115,9 +114,11 @@ export function renamePluginInConfigs(
  * ```
  */
 export function renameRules(
+	// eslint-disable-next-line ts/no-explicit-any
 	rules: Record<string, any>,
 	map: Record<string, string>,
-): Record<string, any> {
+): // eslint-disable-next-line ts/no-explicit-any
+Record<string, any> {
 	return Object.fromEntries(
 		Object.entries(rules).map(([key, value]) => {
 			for (const [from, to] of Object.entries(map)) {

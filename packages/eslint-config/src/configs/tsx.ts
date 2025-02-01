@@ -4,10 +4,6 @@ import { GLOB_TSX } from '../globs'
 import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 import { sharedJsxTsxConfig } from './shared-jsx-tsx'
 
-/**
- * Typescript configuration
- * @param options
- */
 export async function tsx(
 	options: OptionsOverrides & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {

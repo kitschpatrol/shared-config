@@ -56,8 +56,10 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "spellcheck": "cspell-config lint"
+{
+  "scripts": {
+    "spellcheck": "cspell-config lint"
+  }
 }
 ```
 
@@ -163,6 +165,7 @@ It also includes a number of _custom_ dictionaries distributed with this package
 
 - `kp-acronyms` Contains acronyms
 - `kp-brands` Contains proper nouns like brand names
+- `kp-eslint` Names seen in eslint rules provided by `@kitschpatrol/eslint-config`
 - `kp-files` File extensions and types
 - `kp-misc` Contains general and miscellaneous words
 - `kp-names` Human names and usernames
@@ -172,14 +175,14 @@ In your project's root `.cspell.json`, you can disable any combination of these 
 
 For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
 
-```json
+```jsonc
 {
   "import": "@kitschpatrol/cspell-config",
   "dictionaries": [
     "!kp-acronyms",
-    "!kp-brands"
+    "!kp-brands",
     // ...Addtional !-prefixed dicitonary names
-  ]
+  ],
 }
 ```
 
@@ -187,16 +190,16 @@ For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
 
 In your project's root `.cspell.json`:
 
-```json
+```jsonc
 {
   "import": "@kitschpatrol/cspell-config",
   "words": [
     "mountweazel",
     "steinlaus",
     "jungftak",
-    "esquivalience"
+    "esquivalience",
     // ...Additional words
-  ]
+  ],
 }
 ```
 

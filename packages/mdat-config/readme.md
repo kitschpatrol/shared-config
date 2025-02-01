@@ -56,9 +56,11 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "mdat-config lint"
-  "format": "mdat-config fix"
+{
+  "scripts": {
+    "lint": "mdat-config lint",
+    "format": "mdat-config fix"
+  }
 }
 ```
 

@@ -21,8 +21,8 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
-	"main": "dist/cspell.config.js",
-	"types": "dist/cspell.config.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"cspell-config": "bin/cli.js"
 	},
@@ -44,12 +44,10 @@
 		"@cspell/cspell-types": "^8.17.3",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
+		"cspell": "^8.17.3",
+		"cspell-lib": "^8.17.3",
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0"
-	},
-	"peerDependencies": {
-		"cspell": "^8.17.3",
-		"cspell-lib": "^8.17.3"
 	},
 	"engines": {
 		"node": ">=22.0.0",

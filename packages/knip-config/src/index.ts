@@ -1,9 +1,7 @@
 import type { KnipConfig } from 'knip'
 
 const sharedKnipConfig: KnipConfig = {
-	entry: ['src/index.ts'],
 	ignoreBinaries: ['ksdiff', 'mdat'],
-	project: ['src/**/*.ts'],
 }
 
 /**

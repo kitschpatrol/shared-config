@@ -22,8 +22,8 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
-	"main": "dist/remark.config.js",
-	"types": "dist/remark.config.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"remark-config": "bin/cli.js"
 	},
@@ -42,7 +42,6 @@
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
-		"remark-cli": "^12.0.1",
 		"remark-directive": "^3.0.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-gfm": "^4.0.0",

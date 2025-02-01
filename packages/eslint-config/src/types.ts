@@ -1,6 +1,5 @@
 import type { Linter } from 'eslint'
 import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
-
 import type { ConfigNames, RuleOptions } from './typegen'
 
 export type Awaitable<T> = Promise<T> | T
@@ -151,5 +150,6 @@ export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord & Rules>
 	 * An object containing a name-value mapping of plugin names to plugin objects. When `files` is specified, these plugins are only available to the matching files.
 	 * @see [Using plugins in your configuration](https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new#using-plugins-in-your-configuration)
 	 */
+	// eslint-disable-next-line ts/no-explicit-any
 	plugins?: Record<string, any>
 }

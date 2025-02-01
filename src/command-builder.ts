@@ -88,6 +88,7 @@ export async function execute(
 	input: string[] = [],
 	defaultImplementation?: SubcommandFunction,
 ): Promise<number> {
+	// Assume failure
 	let exitCode = 1
 
 	if (subcommand === undefined) {
@@ -107,6 +108,7 @@ export async function execute(
 							}
 						: {},
 				preferLocal: true,
+				reject: false, // Prevents throwing on non-zero exit code
 				stdin: 'inherit',
 			})
 

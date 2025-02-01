@@ -21,8 +21,8 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
-	"main": "dist/prettier.config.js",
-	"types": "dist/prettier.config.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"prettier-config": "bin/cli.js"
 	},
@@ -44,6 +44,7 @@
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
+		"prettier": "^3.4.2",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-packagejson": "^2.5.8",
 		"prettier-plugin-sh": "^0.14.0",
@@ -51,9 +52,6 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"prettier-plugin-toml": "^2.0.1"
-	},
-	"peerDependencies": {
-		"prettier": "^3.4.2"
 	},
 	"engines": {
 		"node": ">=22.0.0",

@@ -1,5 +1,4 @@
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
-
 import { GLOB_YAML } from '../globs'
 import { yamlRecommendedRules } from '../presets'
 import { interopDefault } from '../utils'

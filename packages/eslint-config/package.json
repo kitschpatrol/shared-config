@@ -21,8 +21,8 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"eslint-config": "bin/cli.js"
 	},
@@ -49,6 +49,7 @@
 		"@typescript-eslint/parser": "^8.22.0",
 		"@vitest/eslint-plugin": "^1.1.25",
 		"astro-eslint-parser": "^1.2.1",
+		"eslint": "^9.18.0",
 		"eslint-config-flat-gitignore": "^2.0.0",
 		"eslint-flat-config-utils": "^2.0.0",
 		"eslint-import-resolver-typescript": "^3.7.0",
@@ -86,11 +87,9 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-config-xo-typescript": "^7.0.0",
 		"eslint-typegen": "^1.0.0",
+		"prettier": "^3.4.2",
 		"svelte": "^5.19.6",
 		"tsup": "^8.3.6"
-	},
-	"peerDependencies": {
-		"eslint": "^9.18.0"
 	},
 	"engines": {
 		"node": ">=22.0.0",

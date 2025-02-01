@@ -1,13 +1,11 @@
 import { default as pluginHtml } from '@html-eslint/eslint-plugin'
 import { default as htmlParser } from '@html-eslint/parser'
 import { default as pluginHtmlScript } from 'eslint-plugin-html'
-
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
 	TypedFlatConfigItem,
 } from '../types'
-
 // Extra src to catch html`` templates in JS and TS files
 // TODO what about scripts in html`` templates?
 import { GLOB_HTML } from '../globs'

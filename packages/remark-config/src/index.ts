@@ -153,7 +153,7 @@ function overrideRules(
 		let ruleFunction: unknown
 		const index = plugins.findIndex((plugin) => {
 			if (Array.isArray(plugin)) {
-				if (plugin[0]?.name === ruleName) {
+				if (plugin[0].name === ruleName) {
 					ruleFunction = plugin[0]
 					return true
 				}
@@ -175,10 +175,8 @@ function overrideRules(
 
 /**
  * **Remark Shared Configuration**
- *
  * @see [@kitschpatrol/remark-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- *
  * @example
  * ```js
  * export default remarkConfig({

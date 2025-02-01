@@ -1,4 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
+/**
+ *
+ * @param root0
+ * @param root0.greeted
+ * @param root0.greeting
+ * @param root0.onMouseOver
+ * @param root0.silent
+ */
 export function HelloWorld({
 	greeted = '"World"',
 	greeting = 'hello',
@@ -12,7 +20,7 @@ export function HelloWorld({
 	// TODO: Don't use random in render
 	const number_ = Math.floor(Math.random() * 1e7)
 		.toString()
-		.replaceAll(/\.\d+/gi, '')
+		.replaceAll(/\.\d+/g, '')
 
 	return (
 		<div

@@ -1,5 +1,4 @@
 import type { Config as PrettierConfig } from 'prettier'
-
 import { homedir } from 'node:os'
 
 const sharedPrettierConfig: PrettierConfig = {

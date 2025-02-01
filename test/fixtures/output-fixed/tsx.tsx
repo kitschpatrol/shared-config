@@ -1,10 +1,18 @@
 import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export function Component1({ children }: { children: React.ReactNode }) {
+/**
+ *
+ * @param root0
+ * @param root0.children
+ */
+export function Component1({ children }: { children: ReactNode }) {
 	return <div>{children}</div>
 }
 
+/**
+ *
+ */
 export function jsx2() {
 	const props = { a: 1, b: 2 }
 	return (

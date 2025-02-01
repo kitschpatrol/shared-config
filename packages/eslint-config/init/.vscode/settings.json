@@ -22,6 +22,7 @@
 		"xml",
 		"yaml"
 	],
+	"eslint.useFlatConfig": true,
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true
 }

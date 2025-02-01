@@ -21,8 +21,8 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
-	"main": "dist/knip.config.js",
-	"types": "dist/knip.config.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"knip-config": "bin/cli.js"
 	},
@@ -39,9 +39,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
-		"fs-extra": "^11.3.0"
-	},
-	"peerDependencies": {
+		"fs-extra": "^11.3.0",
 		"knip": "^5.43.6"
 	},
 	"engines": {

@@ -6,5 +6,5 @@
 		"noEmit": false,
 		"outDir": "dist"
 	},
-	"include": ["./src/stylelint.config.ts", "./src/stub.d.ts"]
+	"include": ["./src/index.ts", "./src/stub.d.ts"]
 }

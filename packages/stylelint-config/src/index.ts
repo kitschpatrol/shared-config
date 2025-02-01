@@ -43,12 +43,12 @@ const sharedStylelintConfig: StylelintConfig = {
 
 /**
  * **\@Kitschpatrol's Shared Stylelint Configuration**
- *
  * @see [@kitschpatrol/stylelint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/stylelint-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- *
  * @example
  * ```js
+ * import { stylelintConfig } from '@kitschpatrol/stylelint-config'
+ *
  * export default stylelintConfig({
  * 	ignoreFiles: ['example.html'],
  * 	rules: {

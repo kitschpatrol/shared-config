@@ -2,12 +2,12 @@
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
 import { builtinRules } from 'eslint/use-at-your-own-risk'
 import fs from 'node:fs/promises'
-
 import {
 	astro,
 	combine,
 	disables,
 	html,
+	ignores,
 	js,
 	json,
 	jsx,
@@ -25,7 +25,6 @@ import {
 const configs = await combine(
 	{
 		plugins: {
-			// eslint-disable-next-line ts/naming-convention
 			'': {
 				rules: Object.fromEntries(builtinRules.entries()),
 			},
@@ -34,6 +33,7 @@ const configs = await combine(
 	astro(),
 	disables(),
 	html(),
+	ignores(),
 	js(),
 	json(),
 	jsx(),

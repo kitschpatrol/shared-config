@@ -1,4 +1,6 @@
+/* eslint-disable import/no-named-as-default-member */
 import { execa } from 'execa'
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import path from 'node:path'
 import process from 'node:process'
@@ -132,7 +134,7 @@ describe('CLI basics', () => {
 				// Disable color output
 				env: {
 					// Disable color output
-					// eslint-disable-next-line @typescript-eslint/naming-convention
+					// eslint-disable-next-line ts/naming-convention
 					NO_COLOR: '1',
 				},
 				localDir: process.cwd(),

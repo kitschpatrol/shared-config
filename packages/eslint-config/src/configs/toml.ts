@@ -1,5 +1,4 @@
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
-
 import { GLOB_TOML } from '../globs'
 import { tomlRecommendedRules } from '../presets'
 import { interopDefault } from '../utils'

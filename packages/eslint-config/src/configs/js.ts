@@ -1,14 +1,10 @@
-/* eslint-disable ts/require-await */
-
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
-
 import { getLanguageOptions } from '../factory'
 import { GLOB_JS } from '../globs'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
 /**
  * Javascript configuration, note use of TypeScript rules
- * @param options
  */
 export async function js(
 	options: OptionsOverrides & OptionsTypeAware = {},

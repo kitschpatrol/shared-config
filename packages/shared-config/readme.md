@@ -150,21 +150,20 @@ pnpm run format
 
 <!-- cli-help cliCommand: 'shared-config' -->
 
-#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config`
+#### Command: `shared-config`
 
 Run a command.
 
-This section lists top-level commands for `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config`.
+This section lists top-level commands for `shared-config`.
 
 Usage:
 
 ```txt
----------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config <command>
+shared-config <command>
 ```
 
 | Command        | Argument    | Description                                                      |
 | -------------- | ----------- | ---------------------------------------------------------------- |
-| `[default]`    | `<command>` | Run a command. _(Default command.)_                              |
 | `lint`         | `[files..]` | Check for and report issues.                                     |
 | `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
 | `init`         |             | Initialize by copying starter config files to your project root. |
@@ -177,14 +176,14 @@ Usage:
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config lint`
+#### Subcommand: `shared-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
----------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config lint [files..]
+shared-config lint [files..]
 ```
 
 | Positional Argument | Description    | Type    | Default |
@@ -196,14 +195,14 @@ Usage:
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config fix`
+#### Subcommand: `shared-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
 Usage:
 
 ```txt
----------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config fix [files..]
+shared-config fix [files..]
 ```
 
 | Positional Argument | Description  | Type    | Default |
@@ -215,14 +214,14 @@ Usage:
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config init`
+#### Subcommand: `shared-config init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
----------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config init
+shared-config init
 ```
 
 | Option              | Description         | Type      |
@@ -230,14 +229,14 @@ Usage:
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config print-config`
+#### Subcommand: `shared-config print-config`
 
 Print the effective configuration at a certain path.
 
 Usage:
 
 ```txt
----------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config print-config <file>
+shared-config print-config <file>
 ```
 
 | Positional Argument | Description        | Type     | Default |

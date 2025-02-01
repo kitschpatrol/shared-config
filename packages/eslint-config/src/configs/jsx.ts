@@ -1,14 +1,9 @@
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
-
 import { getLanguageOptions } from '../factory'
 import { GLOB_JSX } from '../globs'
 import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 import { sharedJsxTsxConfig } from './shared-jsx-tsx'
 
-/**
- * Typescript configuration
- * @param options
- */
 export async function jsx(
 	options: OptionsOverrides & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {

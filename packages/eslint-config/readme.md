@@ -56,9 +56,11 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "eslint-config lint"
-  "fix": "eslint-config fix"
+{
+  "scripts": {
+    "lint": "eslint-config lint",
+    "fix": "eslint-config fix"
+  }
 }
 ```
 

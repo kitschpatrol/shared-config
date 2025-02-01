@@ -2,10 +2,6 @@
 import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
 
 await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
-	lint: {
-		command: 'eslint',
-		defaultArguments: ['.'],
-	},
 	fix: {
 		command: 'eslint',
 		defaultArguments: ['.'],
@@ -16,6 +12,10 @@ await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
 			// ESLint 9 does not support a configPackageJson key
 			configFile: 'eslint.config.ts',
 		},
+	},
+	lint: {
+		command: 'eslint',
+		defaultArguments: ['.'],
 	},
 	printConfig: {
 		async command(logStream, args) {

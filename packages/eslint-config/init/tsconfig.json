@@ -1,29 +1,29 @@
 {
 	"compilerOptions": {
 		"target": "ES2023",
-		"useDefineForClassFields": true,
 		"lib": ["ES2023", "DOM", "DOM.Iterable"],
+		"useDefineForClassFields": true,
 		"module": "ESNext",
-		"skipLibCheck": true,
-		"noEmit": true,
-		"noErrorTruncation": true,
-		"esModuleInterop": true,
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"allowImportingTsExtensions": true,
 
 		/* JS */
 		"allowJs": true,
 		"checkJs": true,
 
-		/* Bundler mode */
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-
 		/* Linting */
 		"strict": true,
+		"noFallthroughCasesInSwitch": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true
+		"noEmit": true,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"noErrorTruncation": true
 	},
 
 	/* Include root dot-prefixed config files */

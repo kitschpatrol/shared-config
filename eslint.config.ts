@@ -3,8 +3,13 @@ import { eslintConfig } from '@kitschpatrol/eslint-config'
 export default eslintConfig(
 	{
 		astro: true,
-		// TODO need globs?
-		ignores: ['bin/', '/test/fixtures/input', '/test/fixtures/output-fixable/*'],
+		ignores: [
+			'bin/',
+			'test/fixtures/input/*',
+			'test/fixtures/output-fixable/*',
+			// TODO don't ignore this
+			'test/fixtures/output-fixed/*',
+		],
 		react: true,
 		svelte: true,
 		ts: {
