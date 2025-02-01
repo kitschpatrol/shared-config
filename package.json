@@ -72,12 +72,16 @@
 		"vitest": "^3.0.4",
 		"yargs": "^17.7.2"
 	},
-	"packageManager": "pnpm@9.15.4",
+	"packageManager": "pnpm@10.1.0",
 	"engines": {
 		"node": ">=22.0.0",
-		"pnpm": ">=9.0.0"
+		"pnpm": ">=10.0.0"
 	},
 	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild",
+			"puppeteer"
+		],
 		"overrides": {
 			"eslint-plugin-markdown": "^5.1.0"
 		}
