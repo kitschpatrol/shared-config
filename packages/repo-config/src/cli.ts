@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-named-as-default-member */
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -6,7 +8,7 @@ import { packageUp } from 'package-up'
 import { buildCommands } from '../../../src/command-builder.js'
 
 await buildCommands('repo-config', '[Repo Config]', 'gray', {
-	init: {},
+	init: {} // Use default implementation,
 	printConfig: {
 		async command(logStream) {
 			const destinationPackage = await packageUp()

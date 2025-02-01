@@ -5,11 +5,6 @@ const sharedOptions = ['--ignore-path', '.gitignore', '--allow-empty-input']
 const sharedDefaultArguments = ['**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}']
 
 await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
-	lint: {
-		command: 'stylelint',
-		defaultArguments: sharedDefaultArguments,
-		options: sharedOptions,
-	},
 	fix: {
 		command: 'stylelint',
 		defaultArguments: sharedDefaultArguments,
@@ -24,6 +19,11 @@ await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 				},
 			},
 		},
+	},
+	lint: {
+		command: 'stylelint',
+		defaultArguments: sharedDefaultArguments,
+		options: sharedOptions,
 	},
 	printConfig: {
 		async command(logStream, args) {

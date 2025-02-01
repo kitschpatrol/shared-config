@@ -13,5 +13,5 @@ await buildCommands('remark-config', '[remarklint]', 'blue', {
 			},
 		},
 	},
-	printConfig: {},
+	printConfig: {}, // Use default implementation,
 })

@@ -18,11 +18,6 @@ const sharedOptions = [
 ]
 
 await buildCommands('prettier-config', '[Prettier]', 'blue', {
-	lint: {
-		command: 'prettier',
-		defaultArguments: ['.'],
-		options: [...sharedOptions, '--check'],
-	},
 	fix: {
 		command: 'prettier',
 		defaultArguments: ['.'],
@@ -36,5 +31,10 @@ await buildCommands('prettier-config', '[Prettier]', 'blue', {
 			},
 		},
 	},
-	printConfig: {},
+	lint: {
+		command: 'prettier',
+		defaultArguments: ['.'],
+		options: [...sharedOptions, '--check'],
+	},
+	printConfig: {}, // Use default implementation,
 })

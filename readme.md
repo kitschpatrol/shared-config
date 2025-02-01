@@ -150,20 +150,21 @@ pnpm run format
 
 <!-- cli-help cliCommand: 'shared-config' -->
 
-#### Command: `shared-config`
+#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config`
 
 Run a command.
 
-This section lists top-level commands for `shared-config`.
+This section lists top-level commands for `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config`.
 
 Usage:
 
 ```txt
-shared-config <command>
+---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config <command>
 ```
 
 | Command        | Argument    | Description                                                      |
 | -------------- | ----------- | ---------------------------------------------------------------- |
+| `[default]`    | `<command>` | Run a command. _(Default command.)_                              |
 | `lint`         | `[files..]` | Check for and report issues.                                     |
 | `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
 | `init`         |             | Initialize by copying starter config files to your project root. |
@@ -176,14 +177,14 @@ shared-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `shared-config lint`
+#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
-shared-config lint [files..]
+---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config lint [files..]
 ```
 
 | Positional Argument | Description    | Type    | Default |
@@ -195,14 +196,14 @@ shared-config lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `shared-config fix`
+#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
 Usage:
 
 ```txt
-shared-config fix [files..]
+---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config fix [files..]
 ```
 
 | Positional Argument | Description  | Type    | Default |
@@ -214,14 +215,14 @@ shared-config fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `shared-config init`
+#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-shared-config init
+---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config init
 ```
 
 | Option              | Description         | Type      |
@@ -229,14 +230,14 @@ shared-config init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `shared-config print-config`
+#### Subcommand: `---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config print-config`
 
 Print the effective configuration at a certain path.
 
 Usage:
 
 ```txt
-shared-config print-config <file>
+---------------------------------- { lint: { command: [AsyncFunction: command], defaultArguments: [] }, init: { command: [AsyncFunction: command], defaultArguments: [] }, printConfig: { command: [AsyncFunction: command], defaultArguments: [] }, fix: { command: [AsyncFunction: command], defaultArguments: [] } } shared-config print-config <file>
 ```
 
 | Positional Argument | Description        | Type     | Default |

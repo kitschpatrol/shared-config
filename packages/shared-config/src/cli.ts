@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 import chalk from 'chalk'
 import { buildCommands, execute, type Subcommands } from '../../../src/command-builder.js'
+import { kebabCase, pluralize } from '../../../src/string-utils.js'
 import { capabilities } from '../build/capabilities.js'
-
-function kebabCase(text: string): string {
-	return text.replaceAll(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase())
-}
-
-function pluralize(text: string, count: number): string {
-	return count === 1 ? text : text + 's'
-}
 
 async function executeCommands(
 	logStream: NodeJS.WritableStream,
@@ -19,9 +12,6 @@ async function executeCommands(
 ): Promise<number> {
 	const successfulCommands: string[] = []
 	const failedCommands: string[] = []
-
-	console.log('----------------------------------')
-	console.log('commands:', commands)
 
 	for (const command of commands) {
 		logStream.write(`Running "${[command, ...args, ...options].join(' ')}"\n`)
@@ -64,22 +54,22 @@ async function executeCommands(
 	return failedCommands.length > 0 ? 1 : 0
 }
 
-await buildCommands(
-	'shared-config',
-	'🔬',
-	'yellow',
-	Object.keys(capabilities).reduce<Subcommands>((acc, capability) => {
-		acc[capability as keyof Subcommands] = {
-			async command(logStream, args) {
-				return executeCommands(
-					logStream,
-					capabilities[capability as keyof typeof capabilities],
-					[`${kebabCase(capability)}`],
-					args,
-				)
-			},
-			defaultArguments: [],
-		}
-		return acc
-	}, {}),
-)
+const subcommands: Subcommands = {}
+for (const capability of Object.keys(capabilities)) {
+	subcommands[capability as keyof Subcommands] = {
+		async command(logStream, args) {
+			return executeCommands(
+				logStream,
+				capabilities[capability as keyof typeof capabilities],
+				[kebabCase(capability)],
+				args,
+			)
+		},
+		defaultArguments: [],
+	}
+}
+
+console.log('----------------------------------')
+console.log(subcommands)
+
+await buildCommands('shared-config', '🔬', 'yellow', subcommands)

@@ -98,20 +98,17 @@ export async function execute(
 
 	if (typeof subcommand.command === 'string') {
 		try {
-			const subprocess = execa(
-				subcommand.command,
-				[...(subcommand.options ?? []), ...(input ?? [])],
-				{
-					env:
-						process.env.NO_COLOR === undefined
-							? {
-									// eslint-disable-next-line ts/naming-convention
-									FORCE_COLOR: 'true',
-								}
-							: {},
-					stdin: 'inherit',
-				},
-			)
+			const subprocess = execa(subcommand.command, [...(subcommand.options ?? []), ...input], {
+				env:
+					process.env.NO_COLOR === undefined
+						? {
+								// eslint-disable-next-line ts/naming-convention
+								FORCE_COLOR: 'true',
+							}
+						: {},
+				preferLocal: true,
+				stdin: 'inherit',
+			})
 
 			// End false is required here, otherwise the stream will close before the subprocess is done
 			subprocess.stdout.pipe(logStream, { end: false })
@@ -120,7 +117,8 @@ export async function execute(
 			exitCode = subprocess.exitCode ?? 1
 		} catch (error) {
 			// Extra debugging...
-			// console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
+			console.error(`${subcommand.command} failed with error:`)
+			console.error(error)
 			if (isErrorExecaError(error)) {
 				exitCode = typeof error.exitCode === 'number' ? error.exitCode : 1
 			}
@@ -189,7 +187,7 @@ export async function buildCommands(
 		.strict()
 
 	// Add subcommands based on options
-	if (subcommands.lint) {
+	if (subcommands.lint !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
 				return subcommands.lint?.defaultArguments === undefined
@@ -204,7 +202,8 @@ export async function buildCommands(
 			command: subcommands.lint.defaultArguments === undefined ? 'lint' : 'lint [files..]',
 			describe: 'Check for and report issues.',
 			async handler(argv) {
-				const input = (argv.files ?? subcommands.lint?.defaultArguments) ? [] : undefined
+				const input =
+					(argv.files as string[] | undefined) ?? subcommands.lint?.defaultArguments ?? []
 				process.exit(await execute(logStream, subcommands.lint, input))
 			},
 		})

@@ -116,6 +116,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      resolve-from:
+        specifier: ^5.0.0
+        version: 5.0.0
 
   packages/eslint-config:
     dependencies:

@@ -16,8 +16,7 @@ await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 	},
 	lint: {
 		command: 'knip',
-		// Consider
-		// options: ['--no-progress', '--no-config-hints']
+		options: ['--no-progress', '--no-config-hints'],
 	},
 	// TODO
 	// printConfig: {

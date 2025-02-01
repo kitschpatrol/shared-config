@@ -3,7 +3,7 @@
 import { lint } from 'cspell'
 import { getDefaultConfigLoader } from 'cspell-lib'
 
-export async function checkForUnusedWords(): Promise<string[]> {
+export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<string[]> {
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
 	if (config === undefined) {
 		throw new Error('No CSpell configuration found.')
@@ -18,7 +18,7 @@ export async function checkForUnusedWords(): Promise<string[]> {
 	settings.words = undefined
 
 	await lint(
-		['.'],
+		fileGlobs,
 		{
 			config: { settings, url },
 			progress: false,
@@ -40,7 +40,3 @@ export async function checkForUnusedWords(): Promise<string[]> {
 
 	return unusedWords
 }
-
-const unusedWords = await checkForUnusedWords()
-// This is Blognortonadf's
-console.log('Unused words:', unusedWords)
