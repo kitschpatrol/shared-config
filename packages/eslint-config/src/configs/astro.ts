@@ -1,14 +1,12 @@
 import globals from 'globals'
 import path from 'node:path'
 import process from 'node:process'
-
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
 	OptionsTypeAware,
 	TypedFlatConfigItem,
 } from '../types'
-
 import { GLOB_ASTRO, GLOB_ASTRO_JS, GLOB_ASTRO_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { astroJsxA11yRecommendedRules, astroRecommendedRules } from '../presets'
@@ -71,8 +69,8 @@ export async function astro(
 				...astroRecommendedRules,
 				...astroJsxA11yRecommendedRules,
 				// TODO right spot?
-				// '@typescript-eslint/no-unsafe-assignment': 'off', // Crashing
-				'@typescript-eslint/no-unsafe-return': 'off', // Happens in templates
+				// 'ts/no-unsafe-assignment': 'off', // Crashing
+				'ts/no-unsafe-return': 'off', // Happens in templates
 				// Astro components are usually PascalCase,
 				// but when used as pages they are kebab-case
 				'unicorn/filename-case': [

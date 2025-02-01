@@ -54,7 +54,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "knip-config lint",
+    "lint": "knip-config lint"
   }
 }
 ```
@@ -63,24 +63,23 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `stylelint-config`
+#### Command: `knip-config`
 
 Run a command.
 
-This section lists top-level commands for `stylelint-config`.
+This section lists top-level commands for `knip-config`.
 
 Usage:
 
 ```txt
-stylelint-config <command>
+knip-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                                                  |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
+| Command | Argument    | Description                                                                                   |
+| ------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `lint`  |             | Check for and report issues.                                                                  |
+| `fix`   | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
+| `init`  |             | Initialize by copying starter config files to your project root or to your package.json file. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -89,33 +88,29 @@ stylelint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `stylelint-config lint`
+#### Subcommand: `knip-config lint`
 
 Check for and report issues.
 
 Usage:
 
 ```txt
-stylelint-config lint [files..]
+knip-config lint
 ```
-
-| Positional Argument | Description    | Type    |
-| ------------------- | -------------- | ------- |
-| `files`             | Files to check | `array` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `stylelint-config fix`
+#### Subcommand: `knip-config fix`
 
 Fix all auto-fixable issues, and report the un-fixable.
 
 Usage:
 
 ```txt
-stylelint-config fix [files..]
+knip-config fix [files..]
 ```
 
 | Positional Argument | Description  | Type    |
@@ -127,14 +122,14 @@ stylelint-config fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `stylelint-config init`
+#### Subcommand: `knip-config init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-stylelint-config init
+knip-config init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -142,25 +137,6 @@ stylelint-config init
 | `--location`        | TK                  | `"file"` `"package"` | `"file"` |
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `stylelint-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-stylelint-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     | Default |
-| ------------------- | ------------------ | -------- | ------- |
-| `file`              | TODO _(Required.)_ | `string` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

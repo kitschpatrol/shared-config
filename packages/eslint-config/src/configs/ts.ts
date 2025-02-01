@@ -1,5 +1,5 @@
+import { xoTypescriptDtsRules } from 'src/presets'
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
-
 import { getLanguageOptions } from '../factory'
 import { GLOB_TS } from '../globs'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
@@ -31,6 +31,13 @@ export async function ts(
 				'jsdoc/require-param': 'off',
 				'jsdoc/require-returns': 'off',
 				...overrides,
+			},
+		},
+		{
+			files: ['**/*.d.?([cm])ts'],
+			name: 'kp/ts/dts',
+			rules: {
+				...xoTypescriptDtsRules,
 			},
 		},
 		typeAware.enabled && typeAware.ignores.length > 0

@@ -1,13 +1,7 @@
 #!/usr/bin/env node
-import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
+import { buildCommands } from '../../../src/command-builder.js'
 
-
-
-await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
-	lint: {
-		command: 'knip',
-		// options: ['--no-progress', '--no-config-hints']
-	},
+await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 	fix: {
 		command: 'knip',
 		options: ['--fix', '--allow-remove-files'],
@@ -20,17 +14,23 @@ await buildCommands('stylelint-config', '[Stylelint]', 'greenBright', {
 			},
 		},
 	},
-	printConfig: {
-		async command(logStream, args) {
-			return executeJsonOutput(
-				logStream,
-				{
-					command: 'stylelint',
-					options: ['--print-config'],
-				},
-				args,
-			)
-		},
-		defaultArguments: ['.'],
+	lint: {
+		command: 'knip',
+		// Consider
+		// options: ['--no-progress', '--no-config-hints']
 	},
+	// TODO
+	// printConfig: {
+	// 	async command(logStream, args) {
+	// 		return executeJsonOutput(
+	// 			logStream,
+	// 			{
+	// 				command: 'stylelint',
+	// 				options: ['--print-config'],
+	// 			},
+	// 			args,
+	// 		)
+	// 	},
+	// 	defaultArguments: ['.'],
+	// },
 })

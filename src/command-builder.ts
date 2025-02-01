@@ -1,15 +1,17 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-named-as-default-member */
 
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
 
-import { PassThrough } from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
 import { type foregroundColorNames } from 'chalk'
 import { cosmiconfig } from 'cosmiconfig'
 import { execa, type ExecaError } from 'execa'
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import path from 'node:path'
+import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
 import yargs from 'yargs'
@@ -39,7 +41,7 @@ type SubcommandInitConfig = {
 }
 
 function getInitConfigFields(subcommand: Subcommand): SubcommandInitConfig {
-	if (typeof subcommand.command === 'object' && subcommand.command !== null) {
+	if (typeof subcommand.command === 'object') {
 		const { configFile, configPackageJson } = subcommand.command
 		return { configFile, configPackageJson }
 	}
@@ -47,10 +49,11 @@ function getInitConfigFields(subcommand: Subcommand): SubcommandInitConfig {
 	return { configFile: undefined, configPackageJson: undefined }
 }
 
-export type Subcommands = {
-	[key in 'lint' | 'fix' | 'init' | 'printConfig']?: Subcommand
-}
+export type Subcommands = Partial<Record<'fix' | 'init' | 'lint' | 'printConfig', Subcommand>>
 
+/**
+ * TK
+ */
 export async function executeJsonOutput(
 	logStream: NodeJS.WritableStream,
 	optionCommand: Subcommand,
@@ -76,11 +79,14 @@ export async function executeJsonOutput(
 	}
 }
 
+/**
+ * TK
+ */
 export async function execute(
 	logStream: NodeJS.WritableStream,
 	subcommand: Subcommand | undefined,
 	input: string[] = [],
-	defaultImplementation?: SubcommandFunction | undefined,
+	defaultImplementation?: SubcommandFunction,
 ): Promise<number> {
 	let exitCode = 1
 
@@ -92,20 +98,24 @@ export async function execute(
 
 	if (typeof subcommand.command === 'string') {
 		try {
-			const subprocess = execa(subcommand.command, [...(subcommand.options ?? []), ...input], {
-				env:
-					process.env.NO_COLOR === undefined
-						? {
-								// eslint-disable-next-line @typescript-eslint/naming-convention
-								FORCE_COLOR: 'true',
-							}
-						: {},
-				stdin: 'inherit',
-			})
+			const subprocess = execa(
+				subcommand.command,
+				[...(subcommand.options ?? []), ...(input ?? [])],
+				{
+					env:
+						process.env.NO_COLOR === undefined
+							? {
+									// eslint-disable-next-line ts/naming-convention
+									FORCE_COLOR: 'true',
+								}
+							: {},
+					stdin: 'inherit',
+				},
+			)
 
 			// End false is required here, otherwise the stream will close before the subprocess is done
-			subprocess.stdout?.pipe(logStream, { end: false })
-			subprocess.stderr?.pipe(logStream, { end: false })
+			subprocess.stdout.pipe(logStream, { end: false })
+			subprocess.stderr.pipe(logStream, { end: false })
 			await subprocess
 			exitCode = subprocess.exitCode ?? 1
 		} catch (error) {
@@ -160,6 +170,9 @@ export async function execute(
 // 	}
 // }
 
+/**
+ * Create a simple command line interface for a package.
+ */
 export async function buildCommands(
 	command: string,
 	logPrefix: string | undefined,
@@ -179,17 +192,19 @@ export async function buildCommands(
 	if (subcommands.lint) {
 		yargsInstance.command({
 			builder(yargs) {
-				return yargs.positional('files', {
-					array: true,
-					default: subcommands.lint?.defaultArguments,
-					describe: 'Files to check',
-					type: 'string',
-				})
+				return subcommands.lint?.defaultArguments === undefined
+					? yargs
+					: yargs.positional('files', {
+							array: true,
+							default: subcommands.lint.defaultArguments,
+							describe: 'Files to check',
+							type: 'string',
+						})
 			},
-			command: 'lint [files..]',
+			command: subcommands.lint.defaultArguments === undefined ? 'lint' : 'lint [files..]',
 			describe: 'Check for and report issues.',
 			async handler(argv) {
-				const input = argv.files ?? []
+				const input = (argv.files ?? subcommands.lint?.defaultArguments) ? [] : undefined
 				process.exit(await execute(logStream, subcommands.lint, input))
 			},
 		})
@@ -289,7 +304,7 @@ export async function buildCommands(
 										logStream.write(
 											`Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,
 										)
-										// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+										// eslint-disable-next-line ts/no-dynamic-delete
 										delete destinationPackageJson[configKey]
 										fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: 2 })
 									}
@@ -359,7 +374,7 @@ export async function buildCommands(
 								overwrite: true,
 							})
 						} catch (error) {
-							console.error(`${String(error)}`)
+							console.error(String(error))
 							return 1
 						}
 
@@ -387,7 +402,7 @@ export async function buildCommands(
 				const input = argv.file ?? []
 				process.exit(
 					await execute(logStream, subcommands.printConfig, input, async (logStream, args) => {
-						const filePath = args?.at(0)
+						const filePath = args.at(0)
 
 						// Brittle, could pass config name to commandBuilder() instead
 						const configName = command.split('-').at(0)
@@ -404,7 +419,7 @@ export async function buildCommands(
 							return 1
 						}
 
-						logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`)
+						logStream.write(`${logPrefix} config path: "${configSearch.filepath}"\n`)
 						logStream.write(stringify(configSearch.config))
 						logStream.write('\n')
 						return 0

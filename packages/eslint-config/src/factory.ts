@@ -1,13 +1,10 @@
 /* eslint-disable ts/no-unnecessary-type-parameters */
 import type { Linter } from 'eslint'
-
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import globals from 'globals'
 import { isPackageExists } from 'local-pkg'
-
 import type { RuleOptions } from './typegen'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
-
 import {
 	astro,
 	disables,
@@ -71,6 +68,7 @@ export async function eslintConfig(
 	options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},
 	...userConfigs: Array<
 		Awaitable<
+			// eslint-disable-next-line ts/no-explicit-any
 			FlatConfigComposer<any, any> | Linter.Config[] | TypedFlatConfigItem | TypedFlatConfigItem[]
 		>
 	>
@@ -224,6 +222,7 @@ export async function eslintConfig(
 	// We pick the known keys as ESLint would do schema validation
 	// eslint-disable-next-line unicorn/no-array-reduce
 	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
+		// eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment
 		if (key in options) accumulator[key] = options[key] as any
 		return accumulator
 	}, {})
@@ -231,14 +230,31 @@ export async function eslintConfig(
 
 	let composer = new FlatConfigComposer<TypedFlatConfigItem, ConfigNames>()
 
-	// eslint-disable-next-line ts/no-unsafe-argument
+	// Console.log('----------------------------------')
+	// Resolve all configs and get all plugins
+
+	// let plugins: Linter.Config['plugins'] = {}
+	// for (const config of await Promise.all(configs)) {
+	// 	for (const configItem of config) {
+	// 		if (configItem.plugins !== undefined && configItem.plugins.length > 0) {
+	// 			console.log(configItem.plugins)
+	// 			plugins = { ...plugins, ...configItem.plugins }
+	// 		}
+	// 	}
+	// }
+
+	// console.log('----------------------------------')
+
+	// console.log(plugins)
+
+	// eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any
 	composer = composer.append(...configs, ...(userConfigs as any))
 
 	composer = composer.renamePlugins(defaultPluginRenaming)
 
 	// Console.log('----------------------------------')
 	// composer.toConfigs().then((configs) => {
-	//   console.log(configs)
+	// 	console.log(configs)
 	// })
 
 	return composer
@@ -327,6 +343,6 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 	options: OptionsConfig,
 	key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
-	// eslint-disable-next-line ts/no-unsafe-return
+	// eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any
 	return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {}
 }

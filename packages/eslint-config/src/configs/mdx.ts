@@ -1,13 +1,12 @@
 import * as parserMdx from 'eslint-mdx'
 import * as pluginMdx from 'eslint-plugin-mdx'
-
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
 	TypedFlatConfigItem,
 } from '../types'
-
 import { GLOB_MARKDOWN, GLOB_MDX, GLOB_MDX_CODE } from '../globs'
+import { sharedScriptConfig } from './shared-js-ts'
 
 export async function mdx(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
@@ -38,6 +37,7 @@ export async function mdx(
 			},
 			name: 'kp/mdx/remark',
 			plugins: {
+				...sharedScriptConfig.plugins,
 				mdx: pluginMdx,
 			},
 			processor: pluginMdx.createRemarkProcessor({

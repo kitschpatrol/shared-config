@@ -1,15 +1,13 @@
 import { default as pluginEslintComments } from '@eslint-community/eslint-plugin-eslint-comments'
 import { default as pluginTs } from '@typescript-eslint/eslint-plugin'
-import { default as pluginDepend } from 'eslint-plugin-depend'
+import * as pluginDepend from 'eslint-plugin-depend'
 import { default as pluginImport } from 'eslint-plugin-import-x'
 import { default as pluginJsdocComments } from 'eslint-plugin-jsdoc'
 import { default as pluginNode } from 'eslint-plugin-n'
 import { default as pluginPerfectionist } from 'eslint-plugin-perfectionist'
 import * as pluginRegexp from 'eslint-plugin-regexp'
 import { default as pluginUnicorn } from 'eslint-plugin-unicorn'
-
 import type { Rules, TypedFlatConfigItem } from '../types'
-
 import {
 	dependRecommendedRules,
 	eslintCommentsRecommendedRules,
@@ -65,6 +63,7 @@ const kpSharedDisableTypeCheckedRules: Rules = {
 export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
 		depend: pluginDepend,
+		// eslint-disable-next-line ts/no-unsafe-assignment
 		'eslint-comments': pluginEslintComments,
 		import: pluginImport,
 		jsdoc: pluginJsdocComments,
@@ -91,7 +90,38 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...eslintCommentsRecommendedRules,
 		...regexpRecommendedRules,
 		...dependRecommendedRules,
-		'@typescript-eslint/naming-convention': [
+		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
+		'jsdoc/require-jsdoc': [
+			'error',
+			{
+				publicOnly: true,
+			},
+		],
+		'max-params': ['warn', { max: 8 }],
+		'no-await-in-loop': 'off',
+		'no-warning-comments': 'off',
+		'node/hashbang': 'off',
+		'node/no-extraneous-import': 'off',
+		'node/no-missing-import': 'off', // Trouble resolving in ts
+		'node/no-process-exit': 'off', // Duplicated in unicorn
+		'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
+		'perfectionist/sort-imports': [
+			'error',
+			{
+				newlinesBetween: 'never',
+			},
+		],
+		// Too chaotic... but should revisit
+		'perfectionist/sort-modules': 'off',
+		'perfectionist/sort-objects': [
+			'error',
+			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+		],
+		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
+		'ts/naming-convention': [
 			// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
 			'error',
 			// Group selectors
@@ -143,37 +173,6 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			// 	selector: 'objectLiteralProperty',
 			// },
 		],
-		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
-		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
-		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
-		'jsdoc/require-jsdoc': [
-			'error',
-			{
-				publicOnly: true,
-			},
-		],
-		'max-params': ['warn', { max: 8 }],
-		'no-await-in-loop': 'off',
-		'no-warning-comments': 'off',
-		'node/hashbang': 'off',
-		'node/no-extraneous-import': 'off',
-		'node/no-missing-import': 'off', // Trouble resolving in ts
-		'node/no-process-exit': 'off', // Duplicated in unicorn
-		'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
-		'perfectionist/sort-imports': [
-			'error',
-			{
-				newlinesBetween: 'never',
-			},
-		],
-		// Too chaotic... but should revisit
-		'perfectionist/sort-modules': 'off',
-		'perfectionist/sort-objects': [
-			'error',
-			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
-		],
-		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
-		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
 		'ts/no-non-null-assertion': 'off',
 		'ts/no-unused-vars': [
 			'error',

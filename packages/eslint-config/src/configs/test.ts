@@ -1,13 +1,12 @@
 import { default as pluginTest } from '@vitest/eslint-plugin'
 import { default as pluginNoOnlyTests } from 'eslint-plugin-no-only-tests'
 import globals from 'globals'
-
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
-
 import { GLOB_TESTS } from '../globs'
-import { testRecommendedRules } from '../presets'
+import { testRecommendedRules, xoTypescriptTestRules } from '../presets'
 
 // Hold the reference so we don't redeclare the plugin on each call
+// eslint-disable-next-line ts/no-explicit-any
 let _pluginTest: any
 
 export async function test(
@@ -17,6 +16,7 @@ export async function test(
 
 	_pluginTest ||= {
 		...pluginTest,
+		// eslint-disable-next-line ts/no-unsafe-assignment
 		rules: {
 			...pluginTest.rules,
 			// Extend `test/no-only-tests` rule
@@ -29,6 +29,7 @@ export async function test(
 		{
 			name: 'kp/test/setup',
 			plugins: {
+				// eslint-disable-next-line ts/no-unsafe-assignment
 				test: _pluginTest,
 			},
 			settings: {
@@ -48,6 +49,7 @@ export async function test(
 			name: 'kp/test/rules',
 			rules: {
 				...testRecommendedRules,
+				...xoTypescriptTestRules,
 				'test/no-only-tests': isInEditor ? 'off' : 'error',
 				...overrides,
 			},

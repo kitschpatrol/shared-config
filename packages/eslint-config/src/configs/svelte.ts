@@ -1,9 +1,9 @@
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
-
 import { GLOB_SVELTE } from '../globs'
 import { tsParser } from '../parsers'
 import { svelteRecommendedRules } from '../presets'
 import { interopDefault } from '../utils'
+import { sharedScriptConfig } from './shared-js-ts'
 
 export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
@@ -24,7 +24,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 		},
 		{
 			// TODO inherit? Or is this just the markup part?
-			// ...sharedScriptConfig,
+			...sharedScriptConfig,
 			files,
 			languageOptions: {
 				parser: parserSvelte,
@@ -37,15 +37,15 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			processor: pluginSvelte.processors['.svelte'],
 			rules: {
 				...svelteRecommendedRules,
-				// TODO revisit, what's template and what's code?
-				// TOdO import shared?
-				'@typescript-eslint/no-confusing-void-expression': 'off', // Reactive statements
-				'@typescript-eslint/no-unused-expressions': 'off', // Needed for reactive statements
 				'import/no-mutable-exports': 'off', // Allow prop export
 				'no-sequences': 'off', // Reactive statements
 				// https://github.com/typescript-eslint/typescript-eslint/blob/1cf9243/docs/getting-started/linting/FAQ.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 				'no-undef-init': 'off', // Initialize props to undefined
 				'prefer-const': 'off', // Needed for let props
+				// TODO revisit, what's template and what's code?
+				// TOdO import shared?
+				'ts/no-confusing-void-expression': 'off', // Reactive statements
+				'ts/no-unused-expressions': 'off', // Needed for reactive statements
 				'unicorn/filename-case': [
 					// Svelte components are PascalCase
 					'error',
@@ -65,7 +65,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			files: ['**/routes/**/+*.ts'],
 			rules: {
 				// Error often imported from from '@sveltejs/kit in SvelteKit files
-				'@typescript-eslint/no-throw-literal': 'off',
+				'ts/no-throw-literal': 'off',
 			},
 		},
 	]

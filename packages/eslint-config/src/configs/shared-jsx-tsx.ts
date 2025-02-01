@@ -1,10 +1,7 @@
 import { default as pluginJsxA11y } from 'eslint-plugin-jsx-a11y'
-
 import type { TypedFlatConfigItem } from '../types'
-
+import { jsxA11yRecommendedRules, xoTsxRules } from '../presets'
 import { sharedScriptConfig } from './shared-js-ts'
-
-import { jsxA11yRecommendedRules } from '../presets'
 
 /**
  * Shared JSX/TSX configuration "extends" sharedScriptConfig
@@ -18,5 +15,6 @@ export const sharedJsxTsxConfig: TypedFlatConfigItem = {
 	rules: {
 		...sharedScriptConfig.rules,
 		...jsxA11yRecommendedRules,
+		...xoTsxRules,
 	},
 }

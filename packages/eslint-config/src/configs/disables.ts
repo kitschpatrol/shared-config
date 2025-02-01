@@ -1,5 +1,4 @@
 import type { Rules, TypedFlatConfigItem } from '../types'
-
 import { prettierRules } from '../presets/prettier'
 
 /**

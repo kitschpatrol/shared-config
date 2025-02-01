@@ -2,6 +2,7 @@ import type { KnipConfig } from 'knip'
 
 const sharedKnipConfig: KnipConfig = {
 	entry: ['src/index.ts'],
+	ignoreBinaries: ['ksdiff', 'mdat'],
 	project: ['src/**/*.ts'],
 }
 
@@ -12,9 +13,9 @@ const sharedKnipConfig: KnipConfig = {
  * @example
  * ```ts
  * import { knipConfig } from '@kitschpatrol/knip-config'
- * 
+ *
  * export default knipConfig({
-*   // Customizations here
+ *   // Customizations here
  * })
  * ```
  */

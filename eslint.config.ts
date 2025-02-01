@@ -3,23 +3,26 @@ import { eslintConfig } from '@kitschpatrol/eslint-config'
 export default eslintConfig(
 	{
 		astro: true,
+		// TODO need globs?
+		ignores: ['bin/', '/test/fixtures/input', '/test/fixtures/output-fixable/*'],
 		react: true,
 		svelte: true,
-		type: 'lib',
-	},
-	{
-		rules: {
-			'depend/ban-dependencies': [
-				'error',
-				{
-					allowed: ['fs-extra', 'execa'],
-				},
-			],
+		ts: {
+			overrides: {
+				'depend/ban-dependencies': [
+					'error',
+					{
+						allowed: ['fs-extra', 'execa'],
+					},
+				],
+			},
 		},
+		type: 'lib',
 	},
 	{
 		files: ['packages/eslint-config/src/presets/**.*'],
 		rules: {
+			'import/export': 'off', // RangeError: Maximum call stack size exceeded
 			// Don't sort generated preset rules
 			'perfectionist/sort-objects': 'off',
 			'ts/naming-convention': 'off',
@@ -31,11 +34,7 @@ export default eslintConfig(
 		rules: {
 			'jsdoc/require-jsdoc': 'off',
 			'ts/require-await': 'off',
+			'unicorn/no-null': 'off',
 		},
 	},
 )
-
-// TODO ignore
-// bin/
-// /test/fixtures/input
-// /test/fixtures/output-fixable

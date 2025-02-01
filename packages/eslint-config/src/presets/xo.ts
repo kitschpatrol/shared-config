@@ -1,6 +1,6 @@
 import type { Rules } from '../types'
 
-// Rule fishing shennaigans pending https://github.com/xojs/eslint-config-xo-typescript/issues/87
+// Rule fishing shenanigans pending https://github.com/xojs/eslint-config-xo-typescript/issues/87
 export const xoJavascriptRules: Rules = {
 	// Begin expansion 'eslint-config-xo-typescript' '[0].rules'
 	// "@stylistic/comma-dangle":["error","always-multiline"],
@@ -163,7 +163,7 @@ export const xoJavascriptRules: Rules = {
 		'error',
 		'always',
 		{
-			ignorePattern: 'pragma|ignore|prettier-ignore|webpack\\w+:|c8|type-coverage:',
+			ignorePattern: String.raw`pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},

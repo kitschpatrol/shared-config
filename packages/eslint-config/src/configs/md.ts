@@ -1,14 +1,12 @@
 import * as parserMdx from 'eslint-mdx'
 import * as pluginMdx from 'eslint-plugin-mdx'
-
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
 	TypedFlatConfigItem,
 } from '../types'
-
 import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MDX } from '../globs'
-import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
+import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
 export async function md(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
@@ -39,6 +37,7 @@ export async function md(
 			},
 			name: 'kp/markdown/remark',
 			plugins: {
+				...sharedScriptConfig.plugins,
 				mdx: pluginMdx,
 			},
 			// ignores: [GLOB_MARKDOWN_IN_MARKDOWN, GLOB_MARKDOWN_IN_MDX],
@@ -57,6 +56,8 @@ export async function md(
 			},
 		},
 		{
+			// Includes plugins...
+			...sharedScriptConfig,
 			files: [GLOB_MARKDOWN_CODE],
 			languageOptions: {
 				parserOptions: {
