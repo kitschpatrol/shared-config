@@ -1,4 +1,5 @@
 import type { Config as PrettierConfig } from 'prettier'
+import { deepmerge } from 'deepmerge-ts'
 import { homedir } from 'node:os'
 
 const sharedPrettierConfig: PrettierConfig = {
@@ -68,11 +69,7 @@ const sharedPrettierConfig: PrettierConfig = {
  * ```
  */
 export function prettierConfig(config?: PrettierConfig): PrettierConfig {
-	// TODO real merge?
-	return {
-		...sharedPrettierConfig,
-		...config,
-	}
+	return deepmerge(sharedPrettierConfig, config)
 }
 
 export default sharedPrettierConfig

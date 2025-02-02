@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js'
+import { buildCommands, execute } from '../../../src/command-builder.js'
+import { createStreamTransform } from '../../../src/stream-utils.js'
 
 await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 	fix: {
@@ -15,8 +16,26 @@ await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 		},
 	},
 	lint: {
-		command: 'knip',
-		options: ['--no-progress', '--no-config-hints'],
+		// Special case runs both regular mode and production mode
+		async command(logStream) {
+			let resultAccumulator = 0
+
+			resultAccumulator += await execute(logStream, {
+				command: 'knip',
+				options: ['--no-progress', '--no-config-hints'],
+			})
+
+			// Prefix the production run
+			const logStreamSubA = createStreamTransform('[Production]', 'cyan')
+			logStreamSubA.pipe(logStream)
+
+			resultAccumulator += await execute(logStreamSubA, {
+				command: 'knip',
+				options: ['--no-progress', '--no-config-hints', '--production'],
+			})
+
+			return resultAccumulator
+		},
 	},
 	// TODO
 	// printConfig: {

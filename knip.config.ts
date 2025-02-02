@@ -1,5 +1,6 @@
 import { knipConfig } from '@kitschpatrol/knip-config'
 
 export default knipConfig({
-	ignore: ['**/init/**'],
+	ignore: ['**/init/**', 'test/fixtures/**'],
+	ignoreBinaries: ['ksdiff'],
 })

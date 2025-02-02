@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
+		"deepmerge-ts": "^7.1.4",
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
 		"knip": "^5.43.6"

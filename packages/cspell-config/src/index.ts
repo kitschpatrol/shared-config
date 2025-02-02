@@ -123,7 +123,6 @@ const sharedCspellConfig: CspellConfig = {
  * ```
  */
 export function cspellConfig(config?: CspellConfig): CspellConfig {
-	// TODO real merge?
 	return {
 		import: '@kitschpatrol/cspell-config',
 		...config,

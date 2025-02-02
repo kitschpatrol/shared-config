@@ -1,7 +1,16 @@
 import type { KnipConfig } from 'knip'
+import { deepmerge } from 'deepmerge-ts'
 
 const sharedKnipConfig: KnipConfig = {
-	ignoreBinaries: ['ksdiff', 'mdat'],
+	entry: [
+		'scripts/**/*.ts',
+		'.remarkrc.js',
+		'cspell.config.js',
+		'eslint.config.ts',
+		'mdat.config.ts',
+		'prettier.config.js',
+		'stylelint.config.js',
+	],
 }
 
 /**
@@ -18,11 +27,7 @@ const sharedKnipConfig: KnipConfig = {
  * ```
  */
 export function knipConfig(config?: KnipConfig): KnipConfig {
-	// TODO real merge?
-	return {
-		...sharedKnipConfig,
-		...config,
-	}
+	return deepmerge(sharedKnipConfig, config)
 }
 
 export default sharedKnipConfig

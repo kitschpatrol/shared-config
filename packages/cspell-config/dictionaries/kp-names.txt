@@ -1193,6 +1193,7 @@ Steves
 Steyerl
 Stinson
 Stott
+Stroustrup
 Strunk
 Stuy
 Styer
