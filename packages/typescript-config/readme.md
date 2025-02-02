@@ -15,7 +15,7 @@
 
 <!-- description -->
 
-**Repository configuration and GitHub workflows for @kitschpatrol/shared-config.**
+**Typescript configuration for @kitschpatrol/shared-config.**
 
 <!-- /description -->
 
@@ -177,6 +177,10 @@ typescript-config print-config <file>
 | `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
+
+## Notes
+
+- <https://github.com/tsconfig/bases>
 
 <!-- license -->
 

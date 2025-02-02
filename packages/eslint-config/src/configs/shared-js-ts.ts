@@ -91,6 +91,16 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...eslintCommentsRecommendedRules,
 		...regexpRecommendedRules,
 		...dependRecommendedRules,
+		'capitalized-comments': [
+			'error',
+			'always',
+			{
+				ignoreConsecutiveComments: true,
+				ignoreInlineComments: true,
+				// Don't enforce on comments that look like common code
+				ignorePattern: String.raw`|await\s|const\s|let\s|var\s|import\s|export\s|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+			},
+		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
 		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
@@ -113,6 +123,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			'error',
 			{
 				newlinesBetween: 'never',
+				partitionByComment: {
+					block: false,
+					line: true,
+				},
 			},
 		],
 		// Too chaotic... but should revisit

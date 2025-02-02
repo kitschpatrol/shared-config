@@ -130,8 +130,6 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    > \[!NOTE]
    > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
-<https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md>
-
 ## Usage
 
 Various VS Code plugins should "just work".

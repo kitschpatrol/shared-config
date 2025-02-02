@@ -1,11 +1,11 @@
 {
 	"name": "@kitschpatrol/typescript-config",
 	"version": "4.7.12",
-	"description": "Repository configuration and GitHub workflows for @kitschpatrol/shared-config.",
+	"description": "Typescript configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
-		"tsconfig",
 		"typescript",
+		"tsconfig",
 		"cli"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
