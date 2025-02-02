@@ -54,6 +54,7 @@
 		"@kitschpatrol/repo-config": "workspace:*",
 		"@kitschpatrol/shared-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
+		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "^22.13.0",

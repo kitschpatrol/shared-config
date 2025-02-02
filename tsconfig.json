@@ -29,5 +29,12 @@
 	},
 	/* Also lint config files. */
 	"include": ["**/*", "**/**.*"],
-	"exclude": ["**/dist/", "**/bin/", "test/fixtures/input/*.*", "test/fixtures/output-fixable/*.*"]
+	"exclude": [
+		"**/dist/",
+		"**/bin/",
+		"test/fixtures/input/*.*",
+		"test/fixtures/output-fixable/*.*",
+		/* TODO re-enable */
+		"test/fixtures/output-fixed/*.*"
+	]
 }

@@ -48,6 +48,7 @@
 		"@kitschpatrol/remark-config": "workspace:*",
 		"@kitschpatrol/repo-config": "workspace:*",
 		"@kitschpatrol/stylelint-config": "workspace:*",
+		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"execa": "^9.5.2",
