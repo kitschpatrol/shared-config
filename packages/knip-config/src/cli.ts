@@ -25,14 +25,14 @@ await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 				options: ['--no-progress', '--no-config-hints'],
 			})
 
-			// Prefix the production run
-			const logStreamSubA = createStreamTransform('[Production]', 'cyan')
-			logStreamSubA.pipe(logStream)
+			// Not sure this is worth it...
+			// const logStreamSubA = createStreamTransform('[Production]', 'cyan')
+			// logStreamSubA.pipe(logStream)
 
-			resultAccumulator += await execute(logStreamSubA, {
-				command: 'knip',
-				options: ['--no-progress', '--no-config-hints', '--production'],
-			})
+			// resultAccumulator += await execute(logStreamSubA, {
+			// 	command: 'knip',
+			// 	options: ['--no-progress', '--no-config-hints', '--production'],
+			// })
 
 			return resultAccumulator
 		},
