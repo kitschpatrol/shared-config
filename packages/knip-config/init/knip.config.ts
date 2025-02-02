@@ -1,1 +1,3 @@
-export { default } from '@kitschpatrol/knip-config'
+import { knipConfig } from '@kitschpatrol/knip-config'
+
+export default knipConfig()

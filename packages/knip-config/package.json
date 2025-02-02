@@ -27,6 +27,7 @@
 		"knip-config": "bin/cli.js"
 	},
 	"files": [
+		"dist/*",
 		"bin/*",
 		"init/*"
 	],
