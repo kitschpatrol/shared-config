@@ -1,5 +1,8 @@
-import 'remark-stringify'
+import type { Parents, Text } from 'mdast'
+import type { Info, State } from 'mdast-util-to-markdown'
 import type { Pluggable, PluggableList, Preset as RemarkConfig } from 'unified'
+import { defaultHandlers as mdastToTextHandlers } from 'mdast-util-to-markdown'
+import 'remark-stringify'
 import remarkDirective from 'remark-directive'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
@@ -97,6 +100,7 @@ const remarkSharedConfig: RemarkConfig = {
 					'...',
 					// GitHub Alerts / Admonitions
 					// https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+					// See also the custom text handler below in settings
 					'!NOTE',
 					'!TIP',
 					'!IMPORTANT',
@@ -120,6 +124,16 @@ const remarkSharedConfig: RemarkConfig = {
 	],
 	settings: {
 		bullet: '-',
+		// Prevent mdast-util-markdown from mangling GFM alerts with an
+		// unneeded escape character "\" which causes problems on GitHub
+		// Via https://github.com/Xunnamius/symbiote/blob/main/src/assets/transformers/_.remarkrc.mjs.ts
+		handlers: {
+			text(node: Text, parent: Parents | undefined, state: State, info: Info) {
+				const markdownString = mdastToTextHandlers.text(node, parent, state, info)
+				// Strip the leading "\" from GFM alerts
+				return markdownString.replace(/^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/, '')
+			},
+		},
 		// 1stg settings
 		// emphasis: '_',
 		// listItemIndent: 'one',

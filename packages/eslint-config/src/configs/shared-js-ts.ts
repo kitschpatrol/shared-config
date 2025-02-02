@@ -102,6 +102,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'max-params': ['warn', { max: 8 }],
 		'no-await-in-loop': 'off',
+		'no-unreachable': 'off', // TODO consider this
 		'no-warning-comments': 'off',
 		'node/hashbang': 'off',
 		'node/no-extraneous-import': 'off',
