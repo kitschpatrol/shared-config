@@ -54,6 +54,9 @@ let dts = await flatConfigsToRulesDTS(configs, {
 	includeAugmentation: false,
 })
 
+dts = dts.replace('/* eslint-disable */\n', '')
+dts = dts.replace('/* prettier-ignore */\n', '')
+
 dts += `
 // Names of all the configs
 export type ConfigNames = ${configNames.map((index) => `'${index}'`).join(' | ')}

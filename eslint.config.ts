@@ -5,6 +5,7 @@ export default eslintConfig(
 		astro: true,
 		ignores: [
 			'bin/',
+			'packages/eslint-config/src/typegen.d.ts',
 			'test/fixtures/input/*',
 			'test/fixtures/output-fixable/*',
 			// TODO don't ignore this
