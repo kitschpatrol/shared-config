@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { buildCommands, execute } from '../../../src/command-builder.js'
-import { createStreamTransform } from '../../../src/stream-utils.js'
 
 await buildCommands('knip-config', '[Knip]', 'cyanBright', {
 	fix: {

@@ -322,6 +322,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [xo](https://github.com/xojs/xo)
 - [TanStack Config](https://tanstack.com/config/latest)
 - [Complete](https://complete-ts.github.io/)
+- [vercel/style-guide](https://github.com/vercel/style-guide)
 
 <!-- license -->
 
