@@ -6,9 +6,20 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
 import { buildCommands } from '../../../src/command-builder.js'
+import { copyrightYearLinter } from './copyright-year-updater.js'
 
 await buildCommands('repo-config', '[Repo Config]', 'gray', {
+	fix: {
+		async command(logStream) {
+			return copyrightYearLinter(logStream, true)
+		},
+	},
 	init: {}, // Use default implementation,
+	lint: {
+		async command(logStream) {
+			return copyrightYearLinter(logStream, false)
+		},
+	},
 	printConfig: {
 		async command(logStream) {
 			const destinationPackage = await packageUp()
