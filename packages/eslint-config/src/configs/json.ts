@@ -80,7 +80,6 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 				...jsonPackageRecommendedRules,
 				'json-package/no-redundant-files': 'error',
 				'json-package/order-properties': 'error',
-				'json-package/valid-package-def': 'error',
 			},
 		},
 		// Sort tsconfig
