@@ -186,6 +186,8 @@ For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
 }
 ```
 
+If you need a massive and permissive dictionary for large writing project, take a look at [@kitschpatrol/dict-en-wiktionary](https://github.com/kitschpatrol/dict-en-wiktionary).
+
 ### Adding project-scoped words
 
 In your project's root `.cspell.json`:
@@ -208,6 +210,8 @@ In your project's root `.cspell.json`:
 This config includes a bunch of words I've happened to have needed to use. Your preferences will vary.
 
 CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
+
+As part of the `lint` command process, `@kitschpatrol/cspell-config` also runs a check to identify any words in your config file's `"words"` array that are _do not_ actually appear anywhere else in your project. This was inspired by [Zamiell's](https://github.com/Zamiell) [cspell-check-unused-words](https://github.com/complete-ts/cspell-check-unused-words) project.
 
 <!-- license -->
 
