@@ -74,7 +74,7 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 
 #### Command: `mdat-config`
 
-Run a command.
+Expand content placeholders in your readme.md and other Markdown files.
 
 This section lists top-level commands for `mdat-config`.
 
@@ -84,12 +84,10 @@ Usage:
 mdat-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                                                  |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
+| Command | Description                                                                                                                                                                                                                                                                       |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lint`  | Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory. |
+| `fix`   | Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.                           |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -100,17 +98,13 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `mdat-config lint`
 
-Check for and report issues.
+Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.
 
 Usage:
 
 ```txt
-mdat-config lint [files..]
+mdat-config lint
 ```
-
-| Positional Argument | Description    | Type    | Default         |
-| ------------------- | -------------- | ------- | --------------- |
-| `files`             | Files to check | `array` | `["readme.md"]` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -119,52 +113,13 @@ mdat-config lint [files..]
 
 #### Subcommand: `mdat-config fix`
 
-Fix all auto-fixable issues, and report the un-fixable.
+Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.
 
 Usage:
 
 ```txt
-mdat-config fix [files..]
+mdat-config fix
 ```
-
-| Positional Argument | Description  | Type    | Default         |
-| ------------------- | ------------ | ------- | --------------- |
-| `files`             | Files to fix | `array` | `["readme.md"]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `mdat-config init`
-
-Initialize by copying starter config files to your project root or to your package.json file.
-
-Usage:
-
-```txt
-mdat-config init
-```
-
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `mdat-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-mdat-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

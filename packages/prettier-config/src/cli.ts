@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { buildCommands } from '../../../src/command-builder.js'
+import { buildCommands } from '../../../src/command-builder-new.js'
+import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
 // TODO bad idea?
 // At least test the ruby situation
@@ -15,26 +16,44 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-svelte',
 	'--plugin=prettier-plugin-tailwindcss',
 	'--plugin=prettier-plugin-toml',
+	// Have to resolve to the project root for ignore to work when calling prettier in subdirectories
+	`--ignore-path=${getFilePathAtProjectRoot('.gitignore') ?? '.gitignore'}`,
+	`--ignore-path=${getFilePathAtProjectRoot('.prettierignore') ?? '.prettierignore'}`,
 ]
 
-await buildCommands('prettier-config', '[Prettier]', 'blue', {
+await buildCommands('prettier-config', 'TK', '[Prettier]', 'blue', {
 	fix: {
-		command: 'prettier',
-		defaultArguments: ['.'],
-		options: [...sharedOptions, '--write'],
+		commands: [
+			{
+				command: 'prettier',
+				optionFlags: [...sharedOptions, '--write'],
+				receivePositionalArguments: true,
+			},
+		],
+		description:
+			'Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.',
+		positionalArgumentDefault: '.',
+		positionalArgumentMode: 'optional',
 	},
 	init: {
-		command: {
-			configFile: 'prettier.config.js',
-			configPackageJson: {
-				prettier: '@kitschpatrol/prettier-config',
-			},
+		configFile: 'prettier.config.js',
+		configPackageJson: {
+			prettier: '@kitschpatrol/prettier-config',
 		},
+		locationOptionFlag: true,
 	},
 	lint: {
-		command: 'prettier',
-		defaultArguments: ['.'],
-		options: [...sharedOptions, '--check'],
+		commands: [
+			{
+				command: 'prettier',
+				optionFlags: [...sharedOptions, '--check'],
+				receivePositionalArguments: true,
+			},
+		],
+		description:
+			'Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default.',
+		positionalArgumentDefault: '.',
+		positionalArgumentMode: 'optional',
 	},
-	printConfig: {}, // Use default implementation,
+	// printConfig: {}, // Use default implementation,
 })

@@ -1,32 +1,46 @@
 #!/usr/bin/env node
-import { buildCommands, executeJsonOutput } from '../../../src/command-builder.js'
+import { buildCommands } from '../../../src/command-builder-new.js'
 
-await buildCommands('eslint-config', `[ESLint]`, 'magenta', {
+await buildCommands('eslint-config', 'Eslint shared configuration tools.', `[ESLint]`, 'magenta', {
 	fix: {
-		command: 'eslint',
-		defaultArguments: ['.'],
-		options: ['--fix'],
+		commands: [
+			{
+				command: 'eslint',
+				optionFlags: ['--fix'],
+				receivePositionalArguments: true,
+			},
+		],
+		description:
+			'Lint your project with ESLint. This file-scoped command searches from the current working directory by default.',
+		positionalArgumentDefault: '.',
+		positionalArgumentMode: 'optional',
 	},
 	init: {
-		command: {
-			// ESLint 9 does not support a configPackageJson key
-			configFile: 'eslint.config.ts',
-		},
+		// ESLint 9 does not support configuration in package.json
+		locationOptionFlag: false,
 	},
 	lint: {
-		command: 'eslint',
-		defaultArguments: ['.'],
+		commands: [
+			{
+				command: 'eslint',
+				receivePositionalArguments: true,
+			},
+		],
+		description:
+			'Lint your project with ESLint. This file-scoped command searches from the current working directory by default.',
+		positionalArgumentDefault: '.',
+		positionalArgumentMode: 'optional',
 	},
-	printConfig: {
-		async command(logStream, args) {
-			return executeJsonOutput(
-				logStream,
-				{
-					command: 'eslint',
-					options: ['--print-config'],
-				},
-				args,
-			)
-		},
-	},
+	// printConfig: {
+	// 	async command(logStream, args) {
+	// 		return executeJsonOutput(
+	// 			logStream,
+	// 			{
+	// 				command: 'eslint',
+	// 				options: ['--print-config'],
+	// 			},
+	// 			args,
+	// 		)
+	// 	},
+	// },
 })

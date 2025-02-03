@@ -9,4 +9,5 @@ export default cspellConfig({
 		// TODO reenable this...
 		'/test/fixtures/output-fixed',
 	],
+	words: ['asdfasdfasdf'],
 })

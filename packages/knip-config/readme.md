@@ -65,7 +65,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `knip-config`
 
-Run a command.
+Clean up unused clutter in your project with Knip.
 
 This section lists top-level commands for `knip-config`.
 
@@ -75,11 +75,11 @@ Usage:
 knip-config <command>
 ```
 
-| Command | Argument    | Description                                                                                   |
-| ------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`  |             | Check for and report issues.                                                                  |
-| `fix`   | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
-| `init`  |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| Command | Description                                                                                                                                                                                               |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lint`  | Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory. |
+| `fix`   | Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.                                                                                   |
+| `init`  | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -90,7 +90,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `knip-config lint`
 
-Check for and report issues.
+Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.
 
 Usage:
 
@@ -105,17 +105,13 @@ knip-config lint
 
 #### Subcommand: `knip-config fix`
 
-Fix all auto-fixable issues, and report the un-fixable.
+Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.
 
 Usage:
 
 ```txt
-knip-config fix [files..]
+knip-config fix
 ```
-
-| Positional Argument | Description  | Type    |
-| ------------------- | ------------ | ------- |
-| `files`             | Files to fix | `array` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

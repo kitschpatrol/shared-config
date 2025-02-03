@@ -2,20 +2,19 @@
 
 <!-- title -->
 
-# @kitschpatrol/cspell-config
+# shared-config-monorepo
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/cspell-config](https://img.shields.io/npm/v/@kitschpatrol/cspell-config.svg)](https://npmjs.com/package/@kitschpatrol/cspell-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**CSpell configuration for @kitschpatrol/shared-config.**
+**A single dependency and single command to configure and run various code linters and tools.**
 
 <!-- /description -->
 
@@ -26,6 +25,8 @@ It's a shared [CSpell](https://cspell.org) config.
 **See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
 
 ## Setup
+
+Splanh
 
 To use just this CSpell config in isolation:
 
@@ -66,87 +67,6 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ### CLI
 
 <!-- cli-help -->
-
-#### Command: `cspell-config`
-
-Run a command.
-
-This section lists top-level commands for `cspell-config`.
-
-Usage:
-
-```txt
-cspell-config <command>
-```
-
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                                                  |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-_See the sections below for more information on each subcommand._
-
-#### Subcommand: `cspell-config lint`
-
-Check for and report issues.
-
-Usage:
-
-```txt
-cspell-config lint [files..]
-```
-
-| Positional Argument | Description    | Type    | Default |
-| ------------------- | -------------- | ------- | ------- |
-| `files`             | Files to check | `array` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `cspell-config init`
-
-Initialize by copying starter config files to your project root or to your package.json file.
-
-Usage:
-
-```txt
-cspell-config init
-```
-
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `cspell-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-cspell-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     | Default |
-| ------------------- | ------------------ | -------- | ------- |
-| `file`              | TODO _(Required.)_ | `string` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-<!-- /cli-help -->
 
 ## Configuration
 

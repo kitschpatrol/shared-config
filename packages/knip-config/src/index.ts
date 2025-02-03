@@ -1,6 +1,9 @@
 import type { KnipConfig } from 'knip'
 import { deepmerge } from 'deepmerge-ts'
 
+/**
+ * Must return a POJO to be merged into package.json
+ */
 const sharedKnipConfig: KnipConfig = {
 	entry: [
 		'scripts/**/*.ts',

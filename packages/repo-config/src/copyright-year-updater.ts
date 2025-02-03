@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import { restoreNodeWarnings, suppressNodeWarnings } from '../../../src/node-utils'
+import { getPackageDirectory } from '../../../src/path-utils'
 import { pluralize } from '../../../src/string-utils'
 
 function updateLicenseContent(content: string, currentYear: number): string {
@@ -53,6 +54,7 @@ export async function copyrightYearLinter(
 
 	suppressNodeWarnings()
 	for await (const filePath of fs.glob(patterns, {
+		cwd: getPackageDirectory(), // Will find monorepo packages
 		withFileTypes: false,
 	})) {
 		licenseFiles.push(filePath)

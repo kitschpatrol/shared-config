@@ -431,7 +431,6 @@ export async function buildCommands(
 	}
 
 	// Parse and execute
-
 	yargsInstance.alias('h', 'help')
 	yargsInstance.version(version)
 	yargsInstance.alias('v', 'version')

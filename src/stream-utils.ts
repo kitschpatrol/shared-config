@@ -10,7 +10,7 @@ type ChalkColor = (typeof foregroundColorNames)[number]
  */
 export function createStreamTransform(
 	logPrefix: string | undefined,
-	logColor: ChalkColor,
+	logColor?: ChalkColor,
 ): Transform {
 	return new Transform({
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
@@ -20,8 +20,12 @@ export function createStreamTransform(
 				.filter((line) => line.trim().length > 0)
 
 			const transformed =
-				lines.map((line) => `${logPrefix ? chalk[logColor](logPrefix) : ''} ${line}`).join('\n') +
-				'\n'
+				lines
+					.map(
+						(line) =>
+							`${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}`,
+					)
+					.join('\n') + '\n'
 
 			this.push(transformed)
 			callback()

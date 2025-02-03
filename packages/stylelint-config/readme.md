@@ -112,7 +112,7 @@ Next line:
 
 #### Command: `stylelint-config`
 
-Run a command.
+Description goes here.
 
 This section lists top-level commands for `stylelint-config`.
 
@@ -122,12 +122,9 @@ Usage:
 stylelint-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                                                  |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
+| Command | Argument    | Description                                                                                                        |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `lint`  | `[files..]` | Lint your project with Stylelint. This file-scoped command searches from the current working directory by default. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -138,7 +135,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `stylelint-config lint`
 
-Check for and report issues.
+Lint your project with Stylelint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
@@ -146,63 +143,9 @@ Usage:
 stylelint-config lint [files..]
 ```
 
-| Positional Argument | Description    | Type    | Default                                                      |
-| ------------------- | -------------- | ------- | ------------------------------------------------------------ |
-| `files`             | Files to check | `array` | `["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `stylelint-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
-
-Usage:
-
-```txt
-stylelint-config fix [files..]
-```
-
-| Positional Argument | Description  | Type    | Default                                                      |
-| ------------------- | ------------ | ------- | ------------------------------------------------------------ |
-| `files`             | Files to fix | `array` | `["**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `stylelint-config init`
-
-Initialize by copying starter config files to your project root or to your package.json file.
-
-Usage:
-
-```txt
-stylelint-config init
-```
-
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `stylelint-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-stylelint-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     | Default |
-| ------------------- | ------------------ | -------- | ------- |
-| `file`              | TODO _(Required.)_ | `string` | `["."]` |
+| Positional Argument | Description                      | Type    | Default                                                    |
+| ------------------- | -------------------------------- | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob patterns to check. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

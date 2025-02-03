@@ -70,7 +70,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `eslint-config`
 
-Run a command.
+Eslint shared configuration tools.
 
 This section lists top-level commands for `eslint-config`.
 
@@ -80,12 +80,9 @@ Usage:
 eslint-config <command>
 ```
 
-| Command        | Argument    | Description                                                      |
-| -------------- | ----------- | ---------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                     |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
-| `init`         |             | Initialize by copying starter config files to your project root. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
+| Command | Argument    | Description                                                                                                     |
+| ------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| `lint`  | `[files..]` | Lint your project with ESLint. This file-scoped command searches from the current working directory by default. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -96,7 +93,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `eslint-config lint`
 
-Check for and report issues.
+Lint your project with ESLint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
@@ -104,62 +101,9 @@ Usage:
 eslint-config lint [files..]
 ```
 
-| Positional Argument | Description    | Type    | Default |
-| ------------------- | -------------- | ------- | ------- |
-| `files`             | Files to check | `array` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `eslint-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
-
-Usage:
-
-```txt
-eslint-config fix [files..]
-```
-
-| Positional Argument | Description  | Type    | Default |
-| ------------------- | ------------ | ------- | ------- |
-| `files`             | Files to fix | `array` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `eslint-config init`
-
-Initialize by copying starter config files to your project root.
-
-Usage:
-
-```txt
-eslint-config init
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `eslint-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-eslint-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

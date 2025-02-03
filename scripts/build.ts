@@ -9,6 +9,7 @@ await build({
 		'@pinojs/json-colorizer',
 		'cosmiconfig',
 		'fs-extra',
+		'find-workspaces',
 		'cspell',
 		'knip',
 		'cspell-lib',

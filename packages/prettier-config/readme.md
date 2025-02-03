@@ -70,24 +70,22 @@ You might need to pass certain plugins in explicitly. The `shared-config fix` an
 
 <!-- cli-help -->
 
-#### Command: `prettier-config`
+#### Subcommand: `/Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config [ '--log-level=warn', '--plugin=@prettier/plugin-php', '--plugin=@prettier/plugin-ruby', '--plugin=@prettier/plugin-xml', '--plugin=prettier-plugin-astro', '--plugin=prettier-plugin-packagejson', '--plugin=prettier-plugin-sh', '--plugin=prettier-plugin-sql', '--plugin=prettier-plugin-svelte', '--plugin=prettier-plugin-tailwindcss', '--plugin=prettier-plugin-toml', '--ignore-path=/Users/mika/Code/shared-config/.gitignore', '--ignore-path=/Users/mika/Code/shared-config/.prettierignore' ] prettier-config`
 
-Run a command.
+TK
 
-This section lists top-level commands for `prettier-config`.
+This section lists top-level commands for `/Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config [ '--log-level=warn', '--plugin=@prettier/plugin-php', '--plugin=@prettier/plugin-ruby', '--plugin=@prettier/plugin-xml', '--plugin=prettier-plugin-astro', '--plugin=prettier-plugin-packagejson', '--plugin=prettier-plugin-sh', '--plugin=prettier-plugin-sql', '--plugin=prettier-plugin-svelte', '--plugin=prettier-plugin-tailwindcss', '--plugin=prettier-plugin-toml', '--ignore-path=/Users/mika/Code/shared-config/.gitignore', '--ignore-path=/Users/mika/Code/shared-config/.prettierignore' ] prettier-config`.
 
 Usage:
 
 ```txt
-prettier-config <command>
+/Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config [ '--log-level=warn', '--plugin=@prettier/plugin-php', '--plugin=@prettier/plugin-ruby', '--plugin=@prettier/plugin-xml', '--plugin=prettier-plugin-astro', '--plugin=prettier-plugin-packagejson', '--plugin=prettier-plugin-sh', '--plugin=prettier-plugin-sql', '--plugin=prettier-plugin-svelte', '--plugin=prettier-plugin-tailwindcss', '--plugin=prettier-plugin-toml', '--ignore-path=/Users/mika/Code/shared-config/.gitignore', '--ignore-path=/Users/mika/Code/shared-config/.prettierignore' ] prettier-config <command>
 ```
 
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                                                  |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.                                       |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.                                          |
+| Command     | Argument    | Description                                                                                                                                                    |
+| ----------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[default]` | `<command>` | TK _(Default command.)_                                                                                                                                        |
+| `lint`      | `[files..]` | Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -96,73 +94,19 @@ prettier-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `prettier-config lint`
+#### Subcommand: `/Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config [ '--log-level=warn', '--plugin=@prettier/plugin-php', '--plugin=@prettier/plugin-ruby', '--plugin=@prettier/plugin-xml', '--plugin=prettier-plugin-astro', '--plugin=prettier-plugin-packagejson', '--plugin=prettier-plugin-sh', '--plugin=prettier-plugin-sql', '--plugin=prettier-plugin-svelte', '--plugin=prettier-plugin-tailwindcss', '--plugin=prettier-plugin-toml', '--ignore-path=/Users/mika/Code/shared-config/.gitignore', '--ignore-path=/Users/mika/Code/shared-config/.prettierignore' ] prettier-config lint`
 
-Check for and report issues.
-
-Usage:
-
-```txt
-prettier-config lint [files..]
-```
-
-| Positional Argument | Description    | Type    | Default |
-| ------------------- | -------------- | ------- | ------- |
-| `files`             | Files to check | `array` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `prettier-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
+Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-prettier-config fix [files..]
+/Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config /Users/mika/Code/shared-config [ '--log-level=warn', '--plugin=@prettier/plugin-php', '--plugin=@prettier/plugin-ruby', '--plugin=@prettier/plugin-xml', '--plugin=prettier-plugin-astro', '--plugin=prettier-plugin-packagejson', '--plugin=prettier-plugin-sh', '--plugin=prettier-plugin-sql', '--plugin=prettier-plugin-svelte', '--plugin=prettier-plugin-tailwindcss', '--plugin=prettier-plugin-toml', '--ignore-path=/Users/mika/Code/shared-config/.gitignore', '--ignore-path=/Users/mika/Code/shared-config/.prettierignore' ] prettier-config lint [files..]
 ```
 
-| Positional Argument | Description  | Type    | Default |
-| ------------------- | ------------ | ------- | ------- |
-| `files`             | Files to fix | `array` | `["."]` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `prettier-config init`
-
-Initialize by copying starter config files to your project root or to your package.json file.
-
-Usage:
-
-```txt
-prettier-config init
-```
-
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `prettier-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-prettier-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
+| Positional Argument | Description                      | Type    | Default |
+| ------------------- | -------------------------------- | ------- | ------- |
+| `files`             | Files or glob patterns to check. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

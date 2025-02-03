@@ -102,7 +102,7 @@ Note: Action dependencies have been forked.
 
 #### Command: `repo-config`
 
-Run a command.
+Repo related.
 
 This section lists top-level commands for `repo-config`.
 
@@ -112,12 +112,9 @@ Usage:
 repo-config <command>
 ```
 
-| Command        | Argument    | Description                                                      |
-| -------------- | ----------- | ---------------------------------------------------------------- |
-| `lint`         |             | Check for and report issues.                                     |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
-| `init`         |             | Initialize by copying starter config files to your project root. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
+| Command | Description                                                                                                                                                  |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `lint`  | Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -128,66 +125,13 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `repo-config lint`
 
-Check for and report issues.
+Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
 
 Usage:
 
 ```txt
 repo-config lint
 ```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `repo-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
-
-Usage:
-
-```txt
-repo-config fix [files..]
-```
-
-| Positional Argument | Description  | Type    |
-| ------------------- | ------------ | ------- |
-| `files`             | Files to fix | `array` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `repo-config init`
-
-Initialize by copying starter config files to your project root.
-
-Usage:
-
-```txt
-repo-config init
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `repo-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-repo-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

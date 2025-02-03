@@ -104,7 +104,7 @@ Next line:
 
 #### Command: `typescript-config`
 
-Run a command.
+TK
 
 This section lists top-level commands for `typescript-config`.
 
@@ -114,11 +114,9 @@ Usage:
 typescript-config <command>
 ```
 
-| Command        | Argument | Description                                                      |
-| -------------- | -------- | ---------------------------------------------------------------- |
-| `lint`         |          | Check for and report issues.                                     |
-| `init`         |          | Initialize by copying starter config files to your project root. |
-| `print-config` | `<file>` | Print the effective configuration at a certain path.             |
+| Command | Description                                                                                                                                                                                                |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lint`  | Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -129,7 +127,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `typescript-config lint`
 
-Check for and report issues.
+Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.
 
 Usage:
 
@@ -142,45 +140,13 @@ typescript-config lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `typescript-config init`
-
-Initialize by copying starter config files to your project root.
-
-Usage:
-
-```txt
-typescript-config init
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `typescript-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-typescript-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
 <!-- /cli-help -->
 
 ## Notes
 
 - <https://github.com/tsconfig/bases>
+
+- `attw --format ascii --no-summary --profile esm-only --pack .`
 
 <!-- license -->
 
