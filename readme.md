@@ -2,19 +2,20 @@
 
 <!-- title { prefix: "🔬 " } -->
 
-# 🔬 shared-config-monorepo
+# 🔬 @kitschpatrol/shared-config
 
 <!-- /title -->
 
 <!-- badges -->
 
+[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**A single dependency and single command to configure and run various code linters and tools.**
+**A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.**
 
 <!-- /description -->
 
@@ -151,96 +152,13 @@ pnpm run format
 
 #### Command: `shared-config`
 
-Run a command.
-
-This section lists top-level commands for `shared-config`.
+Run shared config commands
 
 Usage:
 
 ```txt
 shared-config <command>
 ```
-
-| Command        | Argument    | Description                                                      |
-| -------------- | ----------- | ---------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                     |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
-| `init`         |             | Initialize by copying starter config files to your project root. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-_See the sections below for more information on each subcommand._
-
-#### Subcommand: `shared-config lint`
-
-Check for and report issues.
-
-Usage:
-
-```txt
-shared-config lint [files..]
-```
-
-| Positional Argument | Description    | Type    | Default |
-| ------------------- | -------------- | ------- | ------- |
-| `files`             | Files to check | `array` | `[]`    |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
-
-Usage:
-
-```txt
-shared-config fix [files..]
-```
-
-| Positional Argument | Description  | Type    | Default |
-| ------------------- | ------------ | ------- | ------- |
-| `files`             | Files to fix | `array` | `[]`    |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config init`
-
-Initialize by copying starter config files to your project root.
-
-Usage:
-
-```txt
-shared-config init
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-shared-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     | Default |
-| ------------------- | ------------------ | -------- | ------- |
-| `file`              | TODO _(Required.)_ | `string` | `[]`    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

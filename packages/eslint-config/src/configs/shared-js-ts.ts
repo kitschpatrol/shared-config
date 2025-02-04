@@ -112,7 +112,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'max-params': ['warn', { max: 8 }],
 		'no-await-in-loop': 'off',
-		'no-unreachable': 'off', // TODO consider this
+		'no-unreachable': 'warn', // tsconfig.json must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
 		'no-warning-comments': 'off',
 		'node/hashbang': 'off',
 		'node/no-extraneous-import': 'off',

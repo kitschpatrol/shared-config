@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import type { Config as StylelintConfig } from 'stylelint'
 import { propertyGroups } from 'stylelint-config-clean-order'
+// export { commandDefinition } from './command.js'
 
 const propertiesOrder = propertyGroups.map((properties) => ({
 	emptyLineBefore: 'never', // Don't add empty lines between order groups.

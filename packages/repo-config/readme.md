@@ -115,6 +115,8 @@ repo-config <command>
 | Command | Description                                                                                                                                                  |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `lint`  | Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory. |
+| `fix`   | Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.                |
+| `init`  | Initialize by copying starter config files to your project root.                                                                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -131,6 +133,36 @@ Usage:
 
 ```txt
 repo-config lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `repo-config fix`
+
+Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
+
+Usage:
+
+```txt
+repo-config fix
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `repo-config init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+repo-config init
 ```
 
 | Option              | Description         | Type      |

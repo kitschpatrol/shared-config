@@ -34,7 +34,7 @@
 		"bin/*"
 	],
 	"scripts": {
-		"build": "./scripts/capability-generator.ts && ../../scripts/build.ts && pnpm mdat readme",
+		"build": "../../scripts/build.ts",
 		"clean": "pnpm run bin-restore ; git clean -fdX",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"

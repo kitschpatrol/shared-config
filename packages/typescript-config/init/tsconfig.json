@@ -16,6 +16,7 @@
 
 		/* Linting */
 		"strict": true,
+		"allowUnreachableCode": true, // Use eslint's 'no-unreachable' rule instead.
 		"noFallthroughCasesInSwitch": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,

@@ -1,6 +1,7 @@
 import type { Config as PrettierConfig } from 'prettier'
 import { deepmerge } from 'deepmerge-ts'
 import { homedir } from 'node:os'
+// export { commandDefinition } from './command.js'
 
 const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,

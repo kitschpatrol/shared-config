@@ -152,96 +152,13 @@ pnpm run format
 
 #### Command: `shared-config`
 
-Run a command.
-
-This section lists top-level commands for `shared-config`.
+Run shared config commands
 
 Usage:
 
 ```txt
 shared-config <command>
 ```
-
-| Command        | Argument    | Description                                                      |
-| -------------- | ----------- | ---------------------------------------------------------------- |
-| `lint`         | `[files..]` | Check for and report issues.                                     |
-| `fix`          | `[files..]` | Fix all auto-fixable issues, and report the un-fixable.          |
-| `init`         |             | Initialize by copying starter config files to your project root. |
-| `print-config` | `<file>`    | Print the effective configuration at a certain path.             |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-_See the sections below for more information on each subcommand._
-
-#### Subcommand: `shared-config lint`
-
-Check for and report issues.
-
-Usage:
-
-```txt
-shared-config lint [files..]
-```
-
-| Positional Argument | Description    | Type    | Default |
-| ------------------- | -------------- | ------- | ------- |
-| `files`             | Files to check | `array` | `[]`    |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config fix`
-
-Fix all auto-fixable issues, and report the un-fixable.
-
-Usage:
-
-```txt
-shared-config fix [files..]
-```
-
-| Positional Argument | Description  | Type    | Default |
-| ------------------- | ------------ | ------- | ------- |
-| `files`             | Files to fix | `array` | `[]`    |
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config init`
-
-Initialize by copying starter config files to your project root.
-
-Usage:
-
-```txt
-shared-config init
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `shared-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-shared-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     | Default |
-| ------------------- | ------------------ | -------- | ------- |
-| `file`              | TODO _(Required.)_ | `string` | `[]`    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

@@ -7,6 +7,7 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkLint from 'remark-lint'
 import remarkValidateLinks from 'remark-validate-links'
+// export { commandDefinition } from './command.js'
 
 // Necessary for side-effect type definitions?
 import 'remark-stringify'

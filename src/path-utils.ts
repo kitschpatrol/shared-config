@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default-member */
+
 import { findWorkspaces, findWorkspacesRoot } from 'find-workspaces'
 // eslint-disable-next-line import/default
 import fse from 'fs-extra'
@@ -96,4 +98,28 @@ export function getFilePathAtProjectRoot(fileName: string): string | undefined {
 	}
 
 	return undefined
+}
+
+export type CwdOverrideOptions = 'package-dir' | 'workspace-root' | (string & {})
+/**
+ * Tries to get a specific cwd override, and safely falls back depending on monorepo etc.
+ */
+export function getCwdOverride(option?: CwdOverrideOptions): string {
+	if (option === 'workspace-root') {
+		// Falls back to package if not in a monorepo
+		return getWorkspaceRoot()
+	}
+
+	if (option === 'package-dir') {
+		return getPackageDirectory()
+	}
+
+	if (typeof option === 'string') {
+		if (!fse.pathExistsSync(option)) {
+			throw new Error(`Custom cwd directory does not exist: ${option}`)
+		}
+		return option
+	}
+
+	return process.cwd()
 }

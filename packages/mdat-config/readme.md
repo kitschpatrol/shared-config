@@ -88,6 +88,7 @@ mdat-config <command>
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `lint`  | Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory. |
 | `fix`   | Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.                           |
+| `init`  | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                                                                                                     |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -125,6 +126,22 @@ mdat-config fix
 | ------------------- | ------------------- | --------- |
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `mdat-config init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+mdat-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
 
 <!-- /cli-help -->
 

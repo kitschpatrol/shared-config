@@ -125,6 +125,8 @@ stylelint-config <command>
 | Command | Argument    | Description                                                                                                        |
 | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
 | `lint`  | `[files..]` | Lint your project with Stylelint. This file-scoped command searches from the current working directory by default. |
+| `fix`   | `[files..]` | Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.  |
+| `init`  |             | Initialize by copying starter config files to your project root or to your package.json file.                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -143,14 +145,49 @@ Usage:
 stylelint-config lint [files..]
 ```
 
-| Positional Argument | Description                      | Type    | Default                                                    |
-| ------------------- | -------------------------------- | ------- | ---------------------------------------------------------- |
-| `files`             | Files or glob patterns to check. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+| Positional Argument | Description                    | Type    | Default                                                    |
+| ------------------- | ------------------------------ | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `stylelint-config fix`
+
+Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.
+
+Usage:
+
+```txt
+stylelint-config fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default                                                    |
+| ------------------- | ----------------------------- | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `stylelint-config init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+stylelint-config init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
 
 <!-- /cli-help -->
 

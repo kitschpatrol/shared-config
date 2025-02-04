@@ -69,7 +69,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `remark-config`
 
-Run a command.
+TK. Linting and fixing of issues in Markdown files is managed through ESLint.
 
 This section lists top-level commands for `remark-config`.
 
@@ -79,10 +79,9 @@ Usage:
 remark-config <command>
 ```
 
-| Command        | Argument | Description                                                                                   |
-| -------------- | -------- | --------------------------------------------------------------------------------------------- |
-| `init`         |          | Initialize by copying starter config files to your project root or to your package.json file. |
-| `print-config` | `<file>` | Print the effective configuration at a certain path.                                          |
+| Command | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -93,33 +92,13 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `remark-config init`
 
-Initialize by copying starter config files to your project root or to your package.json file.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
 remark-config init
 ```
-
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
-
-#### Subcommand: `remark-config print-config`
-
-Print the effective configuration at a certain path.
-
-Usage:
-
-```txt
-remark-config print-config <file>
-```
-
-| Positional Argument | Description        | Type     |
-| ------------------- | ------------------ | -------- |
-| `file`              | TODO _(Required.)_ | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

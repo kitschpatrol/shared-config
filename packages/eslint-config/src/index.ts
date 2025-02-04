@@ -1,3 +1,4 @@
+// export { commandDefinition } from './command.js'
 export * from './configs'
 export * from './factory'
 export { eslintConfig as default } from './factory'

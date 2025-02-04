@@ -1,5 +1,6 @@
 import type { KnipConfig } from 'knip'
 import { deepmerge } from 'deepmerge-ts'
+// export { commandDefinition } from './command.js'
 
 /**
  * Must return a POJO to be merged into package.json

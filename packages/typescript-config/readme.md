@@ -104,7 +104,7 @@ Next line:
 
 #### Command: `typescript-config`
 
-TK
+TK. No fix.
 
 This section lists top-level commands for `typescript-config`.
 
@@ -117,6 +117,7 @@ typescript-config <command>
 | Command | Description                                                                                                                                                                                                |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `lint`  | Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory. |
+| `init`  | Initialize by copying starter config files to your project root.                                                                                                                                           |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -133,6 +134,21 @@ Usage:
 
 ```txt
 typescript-config lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `typescript-config init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+typescript-config init
 ```
 
 | Option              | Description         | Type      |

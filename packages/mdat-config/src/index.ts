@@ -1,5 +1,6 @@
 import { type Config as MdatConfig } from 'mdat'
 import { mergeConfigs } from 'mdat'
+// export { commandDefinition } from './command.js'
 
 const sharedMdatConfig: MdatConfig = {
 	rules: {

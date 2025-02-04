@@ -70,7 +70,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `eslint-config`
 
-Eslint shared configuration tools.
+ESLint shared configuration tools.
 
 This section lists top-level commands for `eslint-config`.
 
@@ -83,6 +83,8 @@ eslint-config <command>
 | Command | Argument    | Description                                                                                                     |
 | ------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
 | `lint`  | `[files..]` | Lint your project with ESLint. This file-scoped command searches from the current working directory by default. |
+| `fix`   | `[files..]` | Fix your project with ESLint. This file-scoped command searches from the current working directory by default.  |
+| `init`  |             | Initialize by copying starter config files to your project root.                                                |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -104,6 +106,40 @@ eslint-config lint [files..]
 | Positional Argument | Description                    | Type    | Default |
 | ------------------- | ------------------------------ | ------- | ------- |
 | `files`             | Files or glob pattern to lint. | `array` | `"."`   |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `eslint-config fix`
+
+Fix your project with ESLint. This file-scoped command searches from the current working directory by default.
+
+Usage:
+
+```txt
+eslint-config fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"."`   |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `eslint-config init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+eslint-config init
+```
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

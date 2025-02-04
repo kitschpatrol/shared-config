@@ -1,9 +1,10 @@
 #!/usr/bin/env node
+
 /* eslint-disable import/no-named-as-default-member */
 
 // eslint-disable-next-line unicorn/import-style
 import { type foregroundColorNames } from 'chalk'
-import { execa, type ExecaError } from 'execa'
+import { execa } from 'execa'
 // eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import fs from 'node:fs'
@@ -14,12 +15,10 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { version } from '../package.json'
 import { merge } from './json-utils.js'
-import { getPackageDirectory, getWorkspaceRoot } from './path-utils.js'
+import { type CwdOverrideOptions, getCwdOverride } from './path-utils.js'
 import { createStreamTransform } from './stream-utils.js'
 
 type ChalkColor = (typeof foregroundColorNames)[number]
-
-type CwdOverrideOptions = 'package-dir' | 'workspace-root' | (string & {})
 
 type CommandFunction = (
 	logStream: NodeJS.WritableStream,
@@ -44,6 +43,8 @@ export type CommandCli = {
 	receiveOptionFlags?: boolean
 	/** If true, positional arguments are passed in from the parent command. False if undefined. */
 	receivePositionalArguments?: boolean
+	/** Comes immediately after the command */
+	subcommands?: string[]
 }
 
 type Command = CommandCli | CommandFunction
@@ -81,31 +82,11 @@ type PrintConfigCommand = {
 	positionalArgumentMode: 'none' | 'optional' | 'required'
 }
 
-type Subcommands = {
+export type Subcommands = {
 	fix?: FixCommand
 	init?: InitCommand
 	lint?: LintCommand
 	printConfig?: PrintConfigCommand
-}
-
-function getCwdOverride(option?: CwdOverrideOptions): string {
-	if (option === 'workspace-root') {
-		// Falls back to package if not in a monorepo
-		return getWorkspaceRoot()
-	}
-
-	if (option === 'package-dir') {
-		return getPackageDirectory()
-	}
-
-	if (typeof option === 'string') {
-		if (!fse.pathExistsSync(option)) {
-			throw new Error(`Custom cwd directory does not exist: ${option}`)
-		}
-		return option
-	}
-
-	return process.cwd()
 }
 
 async function executeFunctionCommand(
@@ -131,7 +112,7 @@ async function executeCliCommand(
 	positionalArguments: string[],
 	optionFlags: string[],
 	command: CommandCli,
-	debug = true,
+	debug = false,
 ): Promise<number> {
 	let exitCode = 1 // Assume failure
 
@@ -145,6 +126,8 @@ async function executeCliCommand(
 		subStream.pipe(logStream)
 		targetStream = subStream
 	}
+
+	const resolvedSubcommands = command.subcommands ?? []
 
 	const resolvedPositionalArguments = [
 		...(command.receivePositionalArguments ? positionalArguments : []),
@@ -161,7 +144,7 @@ async function executeCliCommand(
 	try {
 		const subprocess = execa(
 			command.command,
-			[...resolvedOptionFlags, ...resolvedPositionalArguments],
+			[...resolvedSubcommands, ...resolvedOptionFlags, ...resolvedPositionalArguments],
 			{
 				cwd,
 				env:
@@ -204,7 +187,10 @@ async function executeCliCommand(
 	return exitCode
 }
 
-async function executeCommands(
+/**
+ * TK
+ */
+export async function executeCommands(
 	logStream: NodeJS.WritableStream,
 	positionalArguments: string[],
 	optionFlags: string[],
@@ -352,16 +338,21 @@ async function copyAndMergeInitFiles(
 	return 0
 }
 
+// Exported for aggregation later
+export type CommandDefinition = {
+	command: string
+	description: string
+	logColor: ChalkColor
+	logPrefix: string | undefined
+	subcommands: Subcommands
+}
+
 /**
  * Create a simple command line interface for a package.
  */
-export async function buildCommands(
-	command: string,
-	description: string,
-	logPrefix: string | undefined,
-	logColor: ChalkColor,
-	subcommands: Subcommands,
-) {
+export async function buildCommands(commandDefinition: CommandDefinition) {
+	const { command, description, logColor, logPrefix, subcommands } = commandDefinition
+
 	// Set up log stream
 	const logStream = createStreamTransform(logPrefix, logColor)
 	logStream.pipe(process.stdout)
@@ -479,12 +470,4 @@ export async function buildCommands(
 	yargsInstance.wrap(process.stdout.isTTY ? Math.min(120, yargsInstance.terminalWidth()) : 0)
 
 	await yargsInstance.parseAsync()
-}
-
-function isErrorExecaError(error: unknown): error is ExecaError {
-	return (
-		error instanceof Error &&
-		'exitCode' in error &&
-		typeof (error as ExecaError).exitCode === 'number'
-	)
 }
