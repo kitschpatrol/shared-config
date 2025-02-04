@@ -33,13 +33,7 @@ function updateLicenseContent(content: string, currentYear: number): string {
 	return content
 }
 
-/**
- * Update the year in license files to the current year.
- */
-export async function copyrightYearLinter(
-	logStream: NodeJS.WritableStream,
-	fix = false,
-): Promise<number> {
+async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Promise<number> {
 	const currentYear = new Date().getFullYear()
 	const licenseFiles: string[] = []
 
@@ -91,4 +85,18 @@ export async function copyrightYearLinter(
 	}
 
 	return 0
+}
+
+/**
+ * Linter for the year in license files.
+ */
+export async function copyrightYearLinter(logStream: NodeJS.WritableStream) {
+	return copyrightYear(logStream, false)
+}
+
+/**
+ * Fixer for the year in license files.
+ */
+export async function copyrightYearFixer(logStream: NodeJS.WritableStream) {
+	return copyrightYear(logStream, true)
 }

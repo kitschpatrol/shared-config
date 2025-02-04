@@ -1,19 +1,15 @@
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
-	command: 'typescript-config',
-	description: 'TK. No fix.',
-	logColor: 'blueBright',
-	logPrefix: '[TypeScript Config]',
-	subcommands: {
+	commands: {
 		init: {
 			locationOptionFlag: false,
 		},
 		lint: {
 			commands: [
 				{
-					command: 'tsc',
 					cwdOverride: 'package-dir',
+					name: 'tsc',
 					optionFlags: ['--noEmit'],
 				},
 			],
@@ -26,4 +22,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	options: ['--showConfig'],
 		// },
 	},
+	description: 'TK. No fix.',
+	logColor: 'blueBright',
+	logPrefix: '[TypeScript Config]',
+	name: 'typescript-config',
 }

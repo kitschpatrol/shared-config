@@ -1,15 +1,11 @@
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
-	command: 'eslint-config',
-	description: 'ESLint shared configuration tools.',
-	logColor: 'magenta',
-	logPrefix: `[ESLint]`,
-	subcommands: {
+	commands: {
 		fix: {
 			commands: [
 				{
-					command: 'eslint',
+					name: 'eslint',
 					optionFlags: ['--fix'],
 					receivePositionalArguments: true,
 				},
@@ -26,7 +22,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					command: 'eslint',
+					name: 'eslint',
 					receivePositionalArguments: true,
 				},
 			],
@@ -48,4 +44,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	},
 		// },
 	},
+	description: 'ESLint shared configuration tools.',
+	logColor: 'magenta',
+	logPrefix: `[ESLint]`,
+	name: 'eslint-config',
 }

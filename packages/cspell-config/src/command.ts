@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 import { createStreamTransform } from '../../../src/stream-utils.js'
 import { checkForUnusedWords } from './unused-words.js'
 
@@ -28,11 +28,7 @@ async function checkForUnusedWordsCommand(
 }
 
 export const commandDefinition: CommandDefinition = {
-	command: 'cspell-config',
-	description: 'Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)',
-	logColor: 'cyan',
-	logPrefix: '[CSpell]',
-	subcommands: {
+	commands: {
 		init: {
 			configFile: 'cspell.config.json',
 			configPackageJson: {
@@ -45,12 +41,15 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					command: 'cspell',
+					name: 'cspell',
 					// cwdOverride: 'package-dir',
 					optionFlags: ['--quiet'],
 					receivePositionalArguments: true,
 				},
-				checkForUnusedWordsCommand,
+				{
+					execute: checkForUnusedWordsCommand,
+					name: 'unused words',
+				},
 			],
 			description:
 				'Check for spelling mistakes. This file-scoped command searches from the current working directory by default.',
@@ -65,4 +64,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	options: ['--debug', '--no-exit-code', '--no-color'],
 		// },
 	},
+	description: 'Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)',
+	logColor: 'cyan',
+	logPrefix: '[CSpell]',
+	name: 'cspell-config',
 }

@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utils.js'
 import sharedKnipConfig from './index.js'
 
@@ -28,16 +28,12 @@ function getKnipPackageJsonObject(): Record<string, unknown> {
 }
 
 export const commandDefinition: CommandDefinition = {
-	command: 'knip-config',
-	description: 'Clean up unused clutter in your project with Knip.',
-	logColor: 'cyan',
-	logPrefix: '[Knip]',
-	subcommands: {
+	commands: {
 		fix: {
 			commands: [
 				{
-					command: 'knip',
 					cwdOverride: 'workspace-root',
+					name: 'knip',
 					optionFlags: ['--fix', '--allow-remove-files', ...getWorkspaceOptionFlags()],
 				},
 			],
@@ -53,9 +49,9 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					command: 'knip',
 					// Run from root, then pass --workspace IF in a monorepo and called from a subpackage
 					cwdOverride: 'workspace-root',
+					name: 'knip',
 					optionFlags: ['--no-progress', '--no-config-hints', ...getWorkspaceOptionFlags()],
 				},
 				// "Production" pass is not worth it?
@@ -85,4 +81,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	defaultArguments: ['.'],
 		// },
 	},
+	description: 'Clean up unused clutter in your project with Knip.',
+	logColor: 'cyan',
+	logPrefix: '[Knip]',
+	name: 'knip-config',
 }

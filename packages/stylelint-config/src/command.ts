@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
 const sharedOptionFlags = [
@@ -9,15 +9,11 @@ const sharedOptionFlags = [
 const positionalArgumentDefault = '**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}'
 
 export const commandDefinition: CommandDefinition = {
-	command: 'stylelint-config',
-	description: 'Description goes here.',
-	logColor: 'greenBright',
-	logPrefix: '[Stylelint]',
-	subcommands: {
+	commands: {
 		fix: {
 			commands: [
 				{
-					command: 'stylelint',
+					name: 'stylelint',
 					optionFlags: [...sharedOptionFlags, '--fix'],
 					receivePositionalArguments: true,
 				},
@@ -39,7 +35,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					command: 'stylelint',
+					name: 'stylelint',
 					optionFlags: sharedOptionFlags,
 					receivePositionalArguments: true,
 				},
@@ -63,4 +59,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	defaultArguments: ['.'],
 		// },
 	},
+	description: 'Description goes here.',
+	logColor: 'greenBright',
+	logPrefix: '[Stylelint]',
+	name: 'stylelint-config',
 }

@@ -1,4 +1,4 @@
-import { type CommandCli, type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandCli, type CommandDefinition } from '../../../src/command-builder.js'
 import { findWorkspacePackageDirectories } from '../../../src/path-utils.js'
 
 /**
@@ -10,8 +10,8 @@ function generateMdatReadmeCommands(action: 'check' | 'expand'): CommandCli[] {
 	const commands: CommandCli[] = []
 	for (const directory of packageDirectories) {
 		commands.push({
-			command: 'mdat',
 			cwdOverride: directory,
+			name: 'mdat',
 			optionFlags: ['readme', action],
 		})
 	}
@@ -20,11 +20,7 @@ function generateMdatReadmeCommands(action: 'check' | 'expand'): CommandCli[] {
 }
 
 export const commandDefinition: CommandDefinition = {
-	command: 'mdat-config',
-	description: 'Expand content placeholders in your readme.md and other Markdown files.',
-	logColor: 'green',
-	logPrefix: '[Mdat Config]',
-	subcommands: {
+	commands: {
 		fix: {
 			commands: generateMdatReadmeCommands('expand'),
 			description:
@@ -46,4 +42,8 @@ export const commandDefinition: CommandDefinition = {
 		},
 		// printConfig: {}, // Use default implementation,
 	},
+	description: 'Expand content placeholders in your readme.md and other Markdown files.',
+	logColor: 'green',
+	logPrefix: '[Mdat Config]',
+	name: 'mdat-config',
 }

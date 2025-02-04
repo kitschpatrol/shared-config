@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
 // TODO bad idea?
@@ -21,15 +21,11 @@ const sharedOptions = [
 ]
 
 export const commandDefinition: CommandDefinition = {
-	command: 'prettier-config',
-	description: 'TK',
-	logColor: 'blue',
-	logPrefix: '[Prettier]',
-	subcommands: {
+	commands: {
 		fix: {
 			commands: [
 				{
-					command: 'prettier',
+					name: 'prettier',
 					optionFlags: [...sharedOptions, '--write'],
 					receivePositionalArguments: true,
 				},
@@ -49,7 +45,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					command: 'prettier',
+					name: 'prettier',
 					optionFlags: [...sharedOptions, '--check'],
 					receivePositionalArguments: true,
 				},
@@ -61,4 +57,8 @@ export const commandDefinition: CommandDefinition = {
 		},
 		// printConfig: {}, // Use default implementation,
 	},
+	description: 'TK',
+	logColor: 'blue',
+	logPrefix: '[Prettier]',
+	name: 'prettier-config',
 }

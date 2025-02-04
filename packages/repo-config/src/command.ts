@@ -2,17 +2,18 @@
 // import path from 'node:path'
 // import { fileURLToPath } from 'node:url'
 // import { packageUp } from 'package-up'
-import { type CommandDefinition } from '../../../src/command-builder-new.js'
-import { copyrightYearLinter } from './copyright-year-updater.js'
+import { type CommandDefinition } from '../../../src/command-builder.js'
+import { copyrightYearFixer, copyrightYearLinter } from './copyright-year-updater.js'
 
 export const commandDefinition: CommandDefinition = {
-	command: 'repo-config',
-	description: 'Repo related.',
-	logColor: 'gray',
-	logPrefix: '[Repo Config]',
-	subcommands: {
+	commands: {
 		fix: {
-			commands: [async (logStream) => copyrightYearLinter(logStream, true)],
+			commands: [
+				{
+					execute: copyrightYearLinter,
+					name: 'copyright year',
+				},
+			],
 			description:
 				'Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.',
 			positionalArgumentMode: 'none',
@@ -21,7 +22,12 @@ export const commandDefinition: CommandDefinition = {
 			locationOptionFlag: false,
 		},
 		lint: {
-			commands: [async (logStream) => copyrightYearLinter(logStream, false)],
+			commands: [
+				{
+					execute: copyrightYearFixer,
+					name: 'copyright year',
+				},
+			],
 			description:
 				'Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.',
 			positionalArgumentMode: 'none',
@@ -66,4 +72,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	},
 		// },
 	},
+	description: 'Repo related.',
+	logColor: 'gray',
+	logPrefix: '[Repo Config]',
+	name: 'repo-config',
 }

@@ -10,10 +10,8 @@ import { commandDefinition as repoCommand } from '../../repo-config/src/command.
 import { commandDefinition as stylelintCommand } from '../../stylelint-config/src/command.js'
 import { commandDefinition as typescriptCommand } from '../../typescript-config/src/command.js'
 
-
-
 // import chalk from 'chalk'
-import { type CommandCli, type CommandDefinition } from '../../../src/command-builder-new.js'
+import { type CommandCli, type CommandDefinition } from '../../../src/command-builder.js'
 // import { kebabCase, pluralize } from '../../../src/string-utils.js'
 // import { capabilities } from '../build/capabilities.js'
 
@@ -96,11 +94,11 @@ const subcommandDefinitions = [
 function getLintCommands(definitions: CommandDefinition[]): CommandCli[] {
 	const commands: CommandCli[] = []
 	for (const definition of definitions) {
-		const keys = Object.keys(definition.subcommands)
+		const keys = Object.keys(definition.commands)
 		if (keys.includes('lint')) {
 			commands.push({
-				command: definition.command,
-				receivePositionalArguments: definition.subcommands.lint?.positionalArgumentMode !== 'none',
+				name: definition.name,
+				receivePositionalArguments: definition.commands.lint?.positionalArgumentMode !== 'none',
 				subcommands: ['lint'],
 			})
 		}
@@ -109,21 +107,20 @@ function getLintCommands(definitions: CommandDefinition[]): CommandCli[] {
 	return commands
 }
 
-
-console.log(getLintCommands(subcommandDefinitions));
-
 // TODO make summary a flag on this?
 
 export const commandDefinition: CommandDefinition = {
-	command: 'shared-config',
-	description: 'Run shared config commands',
-	logColor: 'yellow',
-	logPrefix: '🔬',
-	subcommands: {
+	commands: {
 		lint: {
 			commands: getLintCommands(subcommandDefinitions),
 			description: 'Lint the project',
 			positionalArgumentMode: 'optional',
 		},
 	},
+	description: 'Run shared config commands',
+	logColor: 'yellow',
+	logPrefix: '🔬',
+	name: 'shared-config',
+	showSummary: true,
+	verbose: true,
 }
