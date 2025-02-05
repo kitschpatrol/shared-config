@@ -44,7 +44,7 @@ To use just this Prettier config in isolation:
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec prettier-config init
+   pnpm exec kpsc-prettier init
    ```
 
 ## Usage
@@ -58,8 +58,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "prettier-config lint",
-    "format": "prettier-config fix"
+    "lint": "kpsc-prettier lint",
+    "format": "kpsc-prettier fix"
   }
 }
 ```
@@ -70,23 +70,24 @@ You might need to pass certain plugins in explicitly. The `shared-config fix` an
 
 <!-- cli-help -->
 
-#### Command: `prettier-config`
+#### Command: `kpsc-prettier`
 
 TK
 
-This section lists top-level commands for `prettier-config`.
+This section lists top-level commands for `kpsc-prettier`.
 
 Usage:
 
 ```txt
-prettier-config <command>
+kpsc-prettier <command>
 ```
 
-| Command | Argument    | Description                                                                                                                                                    |
-| ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lint`  | `[files..]` | Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default. |
-| `fix`   | `[files..]` | Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.                        |
-| `init`  |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                  |
+| Command        | Argument    | Description                                                                                                                                                    |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                  |
+| `lint`         | `[files..]` | Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default. |
+| `fix`          | `[files..]` | Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.                        |
+| `print-config` |             | Print the prettier configuration.                                                                                                                              |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -95,14 +96,30 @@ prettier-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `prettier-config lint`
+#### Subcommand: `kpsc-prettier init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+kpsc-prettier init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc-prettier lint`
 
 Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-prettier-config lint [files..]
+kpsc-prettier lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default |
@@ -114,14 +131,14 @@ prettier-config lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `prettier-config fix`
+#### Subcommand: `kpsc-prettier fix`
 
 Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-prettier-config fix [files..]
+kpsc-prettier fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default |
@@ -133,21 +150,20 @@ prettier-config fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `prettier-config init`
+#### Subcommand: `kpsc-prettier print-config`
 
-Initialize by copying starter config files to your project root or to your package.json file.
+Print the prettier configuration.
 
 Usage:
 
 ```txt
-prettier-config init
+kpsc-prettier print-config
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

@@ -9,7 +9,7 @@ import { version } from '../package.json'
 
 describe('CLI basics', () => {
 	it('should print version', async () => {
-		const { exitCode, stdout } = await execa('shared-config', ['--version'], {
+		const { exitCode, stdout } = await execa('kpsc', ['--version'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
@@ -19,7 +19,7 @@ describe('CLI basics', () => {
 	})
 
 	it('should print version with short flag', async () => {
-		const { exitCode, stdout } = await execa('shared-config', ['-v'], {
+		const { exitCode, stdout } = await execa('kpsc', ['-v'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
@@ -29,23 +29,23 @@ describe('CLI basics', () => {
 	})
 
 	it('should print help', async () => {
-		const { exitCode, stdout } = await execa('shared-config', ['--help'], {
+		const { exitCode, stdout } = await execa('kpsc', ['--help'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
 
 		expect(exitCode).toMatchInlineSnapshot(`0`)
 		expect(stdout).toMatchInlineSnapshot(`
-			"shared-config <command>
+			"kpsc <command>
 
 			Run a command.
 
 			Commands:
-			  shared-config <command>            Run a command.  [default]
-			  shared-config lint [files..]      Check for and report issues.
-			  shared-config fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
-			  shared-config init                 Initialize by copying starter config files to your project root.
-			  shared-config print-config <file>  Print the effective configuration at a certain path.
+			  kpsc <command>            Run a command.  [default]
+			  kpsc lint [files..]      Check for and report issues.
+			  kpsc fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
+			  kpsc init                 Initialize by copying starter config files to your project root.
+			  kpsc print-config <file>  Print the effective configuration at a certain path.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -54,23 +54,23 @@ describe('CLI basics', () => {
 	})
 
 	it('should print help with short flag', async () => {
-		const { exitCode, stdout } = await execa('shared-config', ['-h'], {
+		const { exitCode, stdout } = await execa('kpsc', ['-h'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
 
 		expect(exitCode).toMatchInlineSnapshot(`0`)
 		expect(stdout).toMatchInlineSnapshot(`
-			"shared-config <command>
+			"kpsc <command>
 
 			Run a command.
 
 			Commands:
-			  shared-config <command>            Run a command.  [default]
-			  shared-config lint [files..]      Check for and report issues.
-			  shared-config fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
-			  shared-config init                 Initialize by copying starter config files to your project root.
-			  shared-config print-config <file>  Print the effective configuration at a certain path.
+			  kpsc <command>            Run a command.  [default]
+			  kpsc lint [files..]      Check for and report issues.
+			  kpsc fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
+			  kpsc init                 Initialize by copying starter config files to your project root.
+			  kpsc print-config <file>  Print the effective configuration at a certain path.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -93,7 +93,7 @@ describe('CLI basics', () => {
 			const sourceDirectory = './test/fixtures/input/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			await execa('shared-config', [], {
+			await execa('kpsc', [], {
 				localDir: process.cwd(),
 				preferLocal: true,
 				reject: false,
@@ -111,7 +111,7 @@ describe('CLI basics', () => {
 			const destinationDirectory = './test/fixtures/output-fixable/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			await execa('shared-config', ['--fix'], {
+			await execa('kpsc', ['--fix'], {
 				localDir: process.cwd(),
 				preferLocal: true,
 				reject: false,
@@ -130,7 +130,7 @@ describe('CLI basics', () => {
 			const sourceDirectory = './test/fixtures/input/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			const { exitCode, stdout } = await execa('shared-config', [], {
+			const { exitCode, stdout } = await execa('kpsc', [], {
 				// Disable color output
 				env: {
 					// Disable color output

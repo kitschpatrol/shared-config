@@ -44,7 +44,7 @@ To use just this Stylelint config in isolation:
 3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec stylelint-config init
+   pnpm exec kpsc-stylelint init
    ```
 
 ## Rules
@@ -66,8 +66,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "stylelint-config lint",
-    "format": "stylelint-config fix"
+    "lint": "kpsc-stylelint lint",
+    "format": "kpsc-stylelint fix"
   }
 }
 ```
@@ -110,23 +110,24 @@ Next line:
 
 <!-- cli-help -->
 
-#### Command: `stylelint-config`
+#### Command: `kpsc-stylelint`
 
 Description goes here.
 
-This section lists top-level commands for `stylelint-config`.
+This section lists top-level commands for `kpsc-stylelint`.
 
 Usage:
 
 ```txt
-stylelint-config <command>
+kpsc-stylelint <command>
 ```
 
-| Command | Argument    | Description                                                                                                        |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| `lint`  | `[files..]` | Lint your project with Stylelint. This file-scoped command searches from the current working directory by default. |
-| `fix`   | `[files..]` | Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.  |
-| `init`  |             | Initialize by copying starter config files to your project root or to your package.json file.                      |
+| Command        | Argument    | Description                                                                                                        |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                      |
+| `lint`         | `[files..]` | Lint your project with Stylelint. This file-scoped command searches from the current working directory by default. |
+| `fix`          | `[files..]` | Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.  |
+| `print-config` | `[file]`    | Print the stylelint configuration. TK.                                                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -135,14 +136,30 @@ stylelint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `stylelint-config lint`
+#### Subcommand: `kpsc-stylelint init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+kpsc-stylelint init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc-stylelint lint`
 
 Lint your project with Stylelint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-stylelint-config lint [files..]
+kpsc-stylelint lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default                                                    |
@@ -154,14 +171,14 @@ stylelint-config lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `stylelint-config fix`
+#### Subcommand: `kpsc-stylelint fix`
 
 Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-stylelint-config fix [files..]
+kpsc-stylelint fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default                                                    |
@@ -173,21 +190,24 @@ stylelint-config fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `stylelint-config init`
+#### Subcommand: `kpsc-stylelint print-config`
 
-Initialize by copying starter config files to your project root or to your package.json file.
+Print the stylelint configuration. TK.
 
 Usage:
 
 ```txt
-stylelint-config init
+kpsc-stylelint print-config [file]
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

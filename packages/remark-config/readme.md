@@ -44,7 +44,7 @@ To use just this Remark config in isolation:
 3. Add the starter `.remarkrc.js` and files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec remark-config init
+   pnpm exec kpsc-remark init
    ```
 
 ## Usage
@@ -67,21 +67,22 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `remark-config`
+#### Command: `kpsc-remark`
 
 TK. Linting and fixing of issues in Markdown files is managed through ESLint.
 
-This section lists top-level commands for `remark-config`.
+This section lists top-level commands for `kpsc-remark`.
 
 Usage:
 
 ```txt
-remark-config <command>
+kpsc-remark <command>
 ```
 
-| Command | Description                                                      |
-| ------- | ---------------------------------------------------------------- |
-| `init`  | Initialize by copying starter config files to your project root. |
+| Command        | Description                                                      |
+| -------------- | ---------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root. |
+| `print-config` | Print the Remark configuration.                                  |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -90,14 +91,29 @@ remark-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `remark-config init`
+#### Subcommand: `kpsc-remark init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-remark-config init
+kpsc-remark init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-remark print-config`
+
+Print the Remark configuration.
+
+Usage:
+
+```txt
+kpsc-remark print-config
 ```
 
 | Option              | Description         | Type      |

@@ -44,7 +44,7 @@ To use just this ESLint config in isolation:
 3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:
 
    ```sh
-   pnpm exec eslint-config init
+   pnpm exec eslint-kpsc init
    ```
 
 ## Usage
@@ -68,23 +68,24 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `eslint-config`
+#### Command: `kpsc-eslint`
 
 ESLint shared configuration tools.
 
-This section lists top-level commands for `eslint-config`.
+This section lists top-level commands for `kpsc-eslint`.
 
 Usage:
 
 ```txt
-eslint-config <command>
+kpsc-eslint <command>
 ```
 
-| Command | Argument    | Description                                                                                                     |
-| ------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
-| `lint`  | `[files..]` | Lint your project with ESLint. This file-scoped command searches from the current working directory by default. |
-| `fix`   | `[files..]` | Fix your project with ESLint. This file-scoped command searches from the current working directory by default.  |
-| `init`  |             | Initialize by copying starter config files to your project root.                                                |
+| Command        | Argument    | Description                                                                                                     |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root.                                                |
+| `lint`         | `[files..]` | Lint your project with ESLint. This file-scoped command searches from the current working directory by default. |
+| `fix`          | `[files..]` | Fix your project with ESLint. This file-scoped command searches from the current working directory by default.  |
+| `print-config` | `[file]`    | Print the eslint configuration.                                                                                 |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -93,14 +94,29 @@ eslint-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `eslint-config lint`
+#### Subcommand: `kpsc-eslint init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+kpsc-eslint init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-eslint lint`
 
 Lint your project with ESLint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-eslint-config lint [files..]
+kpsc-eslint lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default |
@@ -112,14 +128,14 @@ eslint-config lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `eslint-config fix`
+#### Subcommand: `kpsc-eslint fix`
 
 Fix your project with ESLint. This file-scoped command searches from the current working directory by default.
 
 Usage:
 
 ```txt
-eslint-config fix [files..]
+kpsc-eslint fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default |
@@ -131,15 +147,19 @@ eslint-config fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `eslint-config init`
+#### Subcommand: `kpsc-eslint print-config`
 
-Initialize by copying starter config files to your project root.
+Print the eslint configuration.
 
 Usage:
 
 ```txt
-eslint-config init
+kpsc-eslint print-config [file]
 ```
+
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

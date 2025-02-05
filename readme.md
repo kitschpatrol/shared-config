@@ -83,7 +83,7 @@ Node 22+ and [pnpm](https://pnpm.io) 9+ are required. It probably works with NPM
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init && pnpm i && code .
 ```
 
 #### Quick add to an existing project:
@@ -91,7 +91,7 @@ git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/re
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config init
+pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init
 ```
 
 #### Step-by-step:
@@ -111,7 +111,7 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
 3. Add default config files for all the tools to your project root:
 
    ```sh
-   pnpm shared-config init
+   pnpm kpsc init
    ```
 
 4. Add helper scripts to your `package.json`:
@@ -121,8 +121,8 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    ```json
    {
      "scripts": {
-       "format": "shared-config fix",
-       "lint": "shared-config lint"
+       "format": "kpsc fix",
+       "lint": "kpsc lint"
      }
    }
    ```
@@ -148,17 +148,101 @@ pnpm run format
 
 ### CLI
 
-<!-- cli-help cliCommand: 'shared-config' -->
+<!-- cli-help cliCommand: 'kpsc' -->
 
-#### Command: `shared-config`
+#### Command: `kpsc`
 
 Run shared config commands
+
+This section lists top-level commands for `kpsc`.
 
 Usage:
 
 ```txt
-shared-config <command>
+kpsc <command>
 ```
+
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `lint`         | `[files..]` | Lint the project                                                                              |
+| `fix`          | `[files..]` | Fix the project                                                                               |
+| `print-config` | `[file]`    | Print the configuration                                                                       |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `kpsc init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+kpsc init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc lint`
+
+Lint the project
+
+Usage:
+
+```txt
+kpsc lint [files..]
+```
+
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc fix`
+
+Fix the project
+
+Usage:
+
+```txt
+kpsc fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc print-config`
+
+Print the configuration
+
+Usage:
+
+```txt
+kpsc print-config [file]
+```
+
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

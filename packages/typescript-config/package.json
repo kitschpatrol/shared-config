@@ -6,7 +6,9 @@
 		"shared-config",
 		"typescript",
 		"tsconfig",
-		"cli"
+		"cli",
+		"kpsc",
+		"kpsc-typescript"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -22,7 +24,7 @@
 	},
 	"type": "module",
 	"bin": {
-		"typescript-config": "bin/cli.js"
+		"kpsc-typescript": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

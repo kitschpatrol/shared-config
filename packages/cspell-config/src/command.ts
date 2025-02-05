@@ -101,5 +101,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)',
 	logColor: 'cyan',
 	logPrefix: '[CSpell]',
-	name: 'cspell-config',
+	name: 'kpsc-cspell',
 }

@@ -21,5 +21,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'TK. Linting and fixing of issues in Markdown files is managed through ESLint.',
 	logColor: 'blue',
 	logPrefix: '[remarklint]',
-	name: 'remark-config',
+	name: 'kpsc-remark',
 }

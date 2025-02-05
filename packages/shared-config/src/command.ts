@@ -81,7 +81,7 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Run shared config commands',
 	logColor: 'yellow',
 	logPrefix: '🔬',
-	name: 'shared-config',
+	name: 'kpsc',
 	showSummary: true,
 	verbose: true,
 }

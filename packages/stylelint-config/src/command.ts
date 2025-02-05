@@ -107,5 +107,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Description goes here.',
 	logColor: 'greenBright',
 	logPrefix: '[Stylelint]',
-	name: 'stylelint-config',
+	name: 'kpsc-stylelint',
 }

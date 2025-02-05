@@ -32,5 +32,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'TK. No fix.',
 	logColor: 'blueBright',
 	logPrefix: '[TypeScript Config]',
-	name: 'typescript-config',
+	name: 'kpsc-typescript',
 }

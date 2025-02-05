@@ -16,6 +16,7 @@
 		"tsconfig",
 		"mdat",
 		"cli",
+		"kpsc",
 		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config",
@@ -36,12 +37,12 @@
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
 		"build": "pnpm run build:stand-alone && pnpm run build:shared && pnpm run build:copy-readme",
-		"build:copy-readme": "cp ./packages/shared-config/readme.md ./readme.md && pnpm prettier-config fix",
+		"build:copy-readme": "cp ./packages/shared-config/readme.md ./readme.md && pnpm kpsc-prettier fix",
 		"build:shared": "pnpm --filter=shared-config build",
 		"build:stand-alone": "pnpm --filter=!shared-config build",
 		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
-		"fix": "shared-config fix",
-		"lint": "shared-config lint",
+		"fix": "kpsc fix",
+		"lint": "kpsc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
 		"test": "vitest"

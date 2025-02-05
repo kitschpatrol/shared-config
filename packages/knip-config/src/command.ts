@@ -75,5 +75,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Clean up unused clutter in your project with Knip.',
 	logColor: 'cyan',
 	logPrefix: '[Knip]',
-	name: 'knip-config',
+	name: 'kpsc-knip',
 }

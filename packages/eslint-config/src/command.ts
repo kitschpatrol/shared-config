@@ -70,5 +70,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'ESLint shared configuration tools.',
 	logColor: 'magenta',
 	logPrefix: `[ESLint]`,
-	name: 'eslint-config',
+	name: 'kpsc-eslint',
 }

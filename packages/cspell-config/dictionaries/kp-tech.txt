@@ -221,6 +221,7 @@ keyof
 Kinect
 kinects
 kiota
+kpsc
 kputil
 ksdiff
 lanczos

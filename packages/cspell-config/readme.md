@@ -2,19 +2,20 @@
 
 <!-- title -->
 
-# shared-config-monorepo
+# @kitschpatrol/cspell-config
 
 <!-- /title -->
 
 <!-- badges -->
 
+[![NPM Package @kitschpatrol/cspell-config](https://img.shields.io/npm/v/@kitschpatrol/cspell-config.svg)](https://npmjs.com/package/@kitschpatrol/cspell-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**A single dependency and single command to configure and run various code linters and tools.**
+**CSpell configuration for @kitschpatrol/shared-config.**
 
 <!-- /description -->
 
@@ -45,7 +46,7 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec cspell-config init
+   pnpm exec kpsc-cspell init
    ```
 
 ## Usage
@@ -59,7 +60,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "spellcheck": "cspell-config lint"
+    "spellcheck": "kpsc-cspell lint"
   }
 }
 ```
@@ -67,6 +68,83 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ### CLI
 
 <!-- cli-help -->
+
+#### Command: `kpsc-cspell`
+
+Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)
+
+This section lists top-level commands for `kpsc-cspell`.
+
+Usage:
+
+```txt
+kpsc-cspell <command>
+```
+
+| Command        | Argument    | Description                                                                                                   |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                 |
+| `lint`         | `[files..]` | Check for spelling mistakes. This file-scoped command searches from the current working directory by default. |
+| `print-config` |             | Print the Mdat configuration.                                                                                 |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `kpsc-cspell init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+kpsc-cspell init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc-cspell lint`
+
+Check for spelling mistakes. This file-scoped command searches from the current working directory by default.
+
+Usage:
+
+```txt
+kpsc-cspell lint [files..]
+```
+
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"."`   |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-cspell print-config`
+
+Print the Mdat configuration.
+
+Usage:
+
+```txt
+kpsc-cspell print-config
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+<!-- /cli-help -->
 
 ## Configuration
 

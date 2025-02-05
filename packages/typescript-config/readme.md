@@ -44,7 +44,7 @@ To use just this TypeScript config in isolation:
 3. Add the starter `tsconfig.json` and `tsconfig.build.json` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec typescript-config init
+   pnpm exec kpsc-typescript init
    ```
 
 ## Usage
@@ -58,8 +58,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "typescript-config lint",
-    "format": "typescript-config fix"
+    "lint": "kpsc-typescript lint",
+    "format": "kpsc-typescript fix"
   }
 }
 ```
@@ -102,22 +102,23 @@ Next line:
 
 <!-- cli-help -->
 
-#### Command: `typescript-config`
+#### Command: `kpsc-typescript`
 
 TK. No fix.
 
-This section lists top-level commands for `typescript-config`.
+This section lists top-level commands for `kpsc-typescript`.
 
 Usage:
 
 ```txt
-typescript-config <command>
+kpsc-typescript <command>
 ```
 
-| Command | Description                                                                                                                                                                                                |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lint`  | Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory. |
-| `init`  | Initialize by copying starter config files to your project root.                                                                                                                                           |
+| Command        | Description                                                                                                                                                                                                |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root.                                                                                                                                           |
+| `lint`         | Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory. |
+| `print-config` | Print the TypeScript configuration for the project. TK monorepo behavior.                                                                                                                                  |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -126,14 +127,14 @@ typescript-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `typescript-config lint`
+#### Subcommand: `kpsc-typescript init`
 
-Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-typescript-config lint
+kpsc-typescript init
 ```
 
 | Option              | Description         | Type      |
@@ -141,14 +142,29 @@ typescript-config lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `typescript-config init`
+#### Subcommand: `kpsc-typescript lint`
 
-Initialize by copying starter config files to your project root.
+Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.
 
 Usage:
 
 ```txt
-typescript-config init
+kpsc-typescript lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-typescript print-config`
+
+Print the TypeScript configuration for the project. TK monorepo behavior.
+
+Usage:
+
+```txt
+kpsc-typescript print-config
 ```
 
 | Option              | Description         | Type      |

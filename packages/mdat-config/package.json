@@ -8,7 +8,9 @@
 		"markdown",
 		"readme",
 		"mdat",
-		"cli"
+		"cli",
+		"kpsc",
+		"kpsc-mdat"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -26,7 +28,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"mdat-config": "bin/cli.js"
+		"kpsc-mdat": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

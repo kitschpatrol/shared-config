@@ -5,7 +5,9 @@
 	"keywords": [
 		"shared-config",
 		"github-actions",
-		"cli"
+		"cli",
+		"kpsc",
+		"kpsc-repo"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -21,7 +23,7 @@
 	},
 	"type": "module",
 	"bin": {
-		"repo-config": "bin/cli.js"
+		"kpsc-repo": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

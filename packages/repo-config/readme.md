@@ -25,9 +25,9 @@ It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config` tool access
+- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `kpsc` tool access
 - `.gitignore` with typical patterns
-- `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
+- `.vscode` extension recommendations (additional settings and recommendations come from other `kpsc` packages)
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
   - `sync-metadata.yml` Populates GitHub repo metadata from package.json
@@ -59,7 +59,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the repo config files, you can run the bundled script:
 
    ```sh
-   pnpm exec repo-config init
+   pnpm exec kpsc-repo init
    ```
 
 ### GitHub Configuration
@@ -100,23 +100,23 @@ Note: Action dependencies have been forked.
 
 <!-- cli-help -->
 
-#### Command: `repo-config`
+#### Command: `kpsc-repo`
 
 Repo related.
 
-This section lists top-level commands for `repo-config`.
+This section lists top-level commands for `kpsc-repo`.
 
 Usage:
 
 ```txt
-repo-config <command>
+kpsc-repo <command>
 ```
 
 | Command | Description                                                                                                                                                  |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `init`  | Initialize by copying starter config files to your project root.                                                                                             |
 | `lint`  | Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory. |
 | `fix`   | Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.                |
-| `init`  | Initialize by copying starter config files to your project root.                                                                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -125,44 +125,44 @@ repo-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `repo-config lint`
-
-Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
-
-Usage:
-
-```txt
-repo-config lint
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `repo-config fix`
-
-Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
-
-Usage:
-
-```txt
-repo-config fix
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `repo-config init`
+#### Subcommand: `kpsc-repo init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-repo-config init
+kpsc-repo init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-repo lint`
+
+Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
+
+Usage:
+
+```txt
+kpsc-repo lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-repo fix`
+
+Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
+
+Usage:
+
+```txt
+kpsc-repo fix
 ```
 
 | Option              | Description         | Type      |

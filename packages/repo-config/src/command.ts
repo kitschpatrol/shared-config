@@ -32,5 +32,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Repo related.',
 	logColor: 'gray',
 	logPrefix: '[Repo Config]',
-	name: 'repo-config',
+	name: 'kpsc-repo',
 }

@@ -44,7 +44,7 @@ To use just this Knip config in isolation:
 3. Add the starter `knip.config.ts` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec knip-config init
+   pnpm exec kpsc-knip init
    ```
 
 ## Usage
@@ -54,7 +54,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "knip-config lint"
+    "lint": "kpsc-knip lint"
   }
 }
 ```
@@ -63,23 +63,24 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `knip-config`
+#### Command: `kpsc-knip`
 
 Clean up unused clutter in your project with Knip.
 
-This section lists top-level commands for `knip-config`.
+This section lists top-level commands for `kpsc-knip`.
 
 Usage:
 
 ```txt
-knip-config <command>
+kpsc-knip <command>
 ```
 
-| Command | Description                                                                                                                                                                                               |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lint`  | Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory. |
-| `fix`   | Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.                                                                                   |
-| `init`  | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                             |
+| Command        | Description                                                                                                                                                                                               |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                             |
+| `lint`         | Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory. |
+| `fix`          | Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.                                                                                   |
+| `print-config` | Print the Knip configuration.                                                                                                                                                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -88,44 +89,14 @@ knip-config <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `knip-config lint`
-
-Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.
-
-Usage:
-
-```txt
-knip-config lint
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `knip-config fix`
-
-Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.
-
-Usage:
-
-```txt
-knip-config fix
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `knip-config init`
+#### Subcommand: `kpsc-knip init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-knip-config init
+kpsc-knip init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -133,6 +104,51 @@ knip-config init
 | `--location`        | TK                  | `"file"` `"package"` | `"file"` |
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc-knip lint`
+
+Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.
+
+Usage:
+
+```txt
+kpsc-knip lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-knip fix`
+
+Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.
+
+Usage:
+
+```txt
+kpsc-knip fix
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc-knip print-config`
+
+Print the Knip configuration.
+
+Usage:
+
+```txt
+kpsc-knip print-config
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

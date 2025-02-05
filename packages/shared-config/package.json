@@ -12,7 +12,8 @@
 		"github-actions",
 		"cspell",
 		"mdat",
-		"cli"
+		"cli",
+		"kpsc"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -28,7 +29,7 @@
 	},
 	"type": "module",
 	"bin": {
-		"shared-config": "bin/cli.js"
+		"kpsc": "bin/cli.js"
 	},
 	"files": [
 		"bin/*"

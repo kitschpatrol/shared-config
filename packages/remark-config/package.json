@@ -7,7 +7,9 @@
 		"remark-config",
 		"remark-lint",
 		"remark",
-		"cli"
+		"cli",
+		"kpsc",
+		"kpsc-remark"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -25,7 +27,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"remark-config": "bin/cli.js"
+		"kpsc-remark": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

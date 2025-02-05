@@ -78,5 +78,5 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Expand content placeholders in your readme.md and other Markdown files.',
 	logColor: 'green',
 	logPrefix: '[Mdat Config]',
-	name: 'mdat-config',
+	name: 'kpsc-mdat',
 }
