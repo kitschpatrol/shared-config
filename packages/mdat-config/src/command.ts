@@ -61,9 +61,10 @@ export const commandDefinition: CommandDefinition = {
 
 						// Then load it through mdat to get the actual resolved object with readme-related defaults
 						const config = await loadConfigReadme()
-						const prettyAndColorfulJson = stringify(config)
-						logStream.write(prettyAndColorfulJson)
-						logStream.write('\n')
+						const prettyAndColorfulJsonLines = stringify(config).split('\n')
+						for (const line of prettyAndColorfulJsonLines) {
+							logStream.write(`${line}\n`)
+						}
 
 						return 0
 					},

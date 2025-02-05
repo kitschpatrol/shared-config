@@ -97,8 +97,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			{
 				ignoreConsecutiveComments: true,
 				ignoreInlineComments: true,
-				// Don't enforce on comments that look like common code
-				ignorePattern: String.raw`|await\s|const\s|let\s|var\s|import\s|export\s|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+				// Forgive some additional common patterns arising from temporarily commenting out lines of code
+				ignorePattern: String.raw`await|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
 			},
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
@@ -112,7 +112,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'max-params': ['warn', { max: 8 }],
 		'no-await-in-loop': 'off',
-		'no-unreachable': 'warn', // tsconfig.json must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
+		'no-unreachable': 'warn', // Tsconfig.json must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
 		'no-warning-comments': 'off',
 		'node/hashbang': 'off',
 		'node/no-extraneous-import': 'off',

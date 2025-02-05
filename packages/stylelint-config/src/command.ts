@@ -91,9 +91,10 @@ export const commandDefinition: CommandDefinition = {
 						}
 
 						const config = await stylelint.resolveConfig(filePath)
-						const prettyAndColorfulJson = stringify(config)
-						logStream.write(prettyAndColorfulJson)
-						logStream.write('\n')
+						const prettyAndColorfulJsonLines = stringify(config).split('\n')
+						for (const line of prettyAndColorfulJsonLines) {
+							logStream.write(`${line}\n`)
+						}
 						return 0
 					},
 					name: 'print stylelint config',

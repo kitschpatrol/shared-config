@@ -16,6 +16,7 @@ import {
 	type CommandDefinition,
 	type Commands,
 } from '../../../src/command-builder.js'
+import { kebabCase } from '../../../src/string-utils.js'
 
 const subcommandDefinitions = [
 	eslintCommand,
@@ -46,7 +47,7 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 							receivePositionalArguments:
 								definition.commands[key]?.positionalArgumentMode !== 'none',
 						}),
-				subcommands: [key],
+				subcommands: [kebabCase(key)],
 			})
 		}
 	}
@@ -69,6 +70,11 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
 			description: 'Lint the project',
+			positionalArgumentMode: 'optional',
+		},
+		printConfig: {
+			commands: getCommands('printConfig', subcommandDefinitions),
+			description: 'Print the configuration',
 			positionalArgumentMode: 'optional',
 		},
 	},

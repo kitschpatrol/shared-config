@@ -16,7 +16,7 @@ async function checkForUnusedWordsCommand(
 		const subStream = createStreamTransform('[Unused Words]', 'cyanBright')
 		subStream.pipe(logStream)
 
-		// subStream.write(
+		// SubStream.write(
 		// 	`Found ${unusedWords.length} unused ${pluralize('word', unusedWords.length)} in CSpell config "words" array:\n`,
 		// )
 		for (const unusedWord of unusedWords) {
@@ -45,7 +45,7 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					name: 'cspell',
-					// cwdOverride: 'package-dir',
+					// CwdOverride: 'package-dir',
 					optionFlags: ['--quiet'],
 					receivePositionalArguments: true,
 				},
@@ -76,9 +76,10 @@ export const commandDefinition: CommandDefinition = {
 						)
 
 						const resolvedConfig = await resolveConfigFileImports(config)
-						const prettyAndColorfulJson = stringify(resolvedConfig)
-						logStream.write(prettyAndColorfulJson)
-						logStream.write('\n')
+						const prettyAndColorfulJsonLines = stringify(resolvedConfig).split('\n')
+						for (const line of prettyAndColorfulJsonLines) {
+							logStream.write(`${line}\n`)
+						}
 
 						return 0
 					},

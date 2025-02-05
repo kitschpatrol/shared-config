@@ -77,7 +77,7 @@ type InitCommand = {
 type LintCommand = {
 	commands: Command[]
 	description: string
-	positionalArgumentDefault?: string // only applies if arguments mode is not 'none'
+	positionalArgumentDefault?: string // Only applies if arguments mode is not 'none'
 	positionalArgumentMode: 'none' | 'optional' | 'required'
 }
 
@@ -86,13 +86,8 @@ type LintCommand = {
 type FixCommand = LintCommand
 
 // Print Config
-// Optionally takes file (singular) positional argument
-type PrintConfigCommand = {
-	commands: Command[]
-	description: string
-	positionalArgumentDefault?: string
-	positionalArgumentMode: 'none' | 'optional' | 'required'
-}
+// Same as lint for now, Optionally takes file (singular) positional argument
+type PrintConfigCommand = LintCommand
 
 export type Commands = {
 	fix?: FixCommand
@@ -215,7 +210,7 @@ async function executeCliCommand(
 
 		await subprocess
 
-		// if (debug) {
+		// If (debug) {
 		// 	console.log(`Executed:   ${subprocess.spawnargs.join(' ')}`)
 		// 	console.log(`Exit Code:  ${subprocess.exitCode}`)
 		// 	console.log(`Actual CWD: ${process.cwd()}`)
@@ -226,10 +221,10 @@ async function executeCliCommand(
 			cliTargetStream.end()
 			// TODO is this a bad cast?
 			const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream)
-			const prettyAndColorfulJson = stringify(JSON.parse(jsonString))
-
-			targetStream.write(prettyAndColorfulJson)
-			targetStream.write('\n')
+			const prettyAndColorfulJsonLines = stringify(JSON.parse(jsonString)).split('\n')
+			for (const line of prettyAndColorfulJsonLines) {
+				targetStream.write(`${line}\n`)
+			}
 		}
 
 		exitCode = subprocess.exitCode ?? 1
@@ -301,7 +296,7 @@ export async function executeCommands(
 	return exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1
 }
 
-// const copyAndMergeInitFilesCommand: CommandFunction = {
+// Const copyAndMergeInitFilesCommand: CommandFunction = {
 // 	name: 'copyAndMergeInitFiles',
 // 	execute: async (logStream, positionalArguments, optionFlags) => {
 // 		const location = positionalArguments[0]
@@ -476,6 +471,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					: yargs
 			},
 			command: 'init',
+			// Command: init.locationOptionFlag ? 'init [--location]' : 'init',
 			describe: `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
 			async handler(argv) {
 				// Copy files
@@ -641,9 +637,10 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
 				return 0
 			}
 
-			const prettyAndColorfulJson = stringify(config)
-			logStream.write(prettyAndColorfulJson)
-			logStream.write('\n')
+			const prettyAndColorfulJsonLines = stringify(config).split('\n')
+			for (const line of prettyAndColorfulJsonLines) {
+				logStream.write(`${line}\n`)
+			}
 			return 0
 		},
 		name: `Cosmiconfig ${configName}`,
