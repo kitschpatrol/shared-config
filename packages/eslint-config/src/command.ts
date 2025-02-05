@@ -1,4 +1,10 @@
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import path from 'node:path'
+import {
+	type Command,
+	type CommandDefinition,
+	executeCommands,
+	getCosmiconfigCommand,
+} from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -31,18 +37,35 @@ export const commandDefinition: CommandDefinition = {
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
-		// printConfig: {
-		// 	async command(logStream, args) {
-		// 		return executeJsonOutput(
-		// 			logStream,
-		// 			{
-		// 				command: 'eslint',
-		// 				options: ['--print-config'],
-		// 			},
-		// 			args,
-		// 		)
-		// 	},
-		// },
+		printConfig: {
+			commands: [
+				{
+					async execute(logStream, positionalArguments) {
+						// Conditionally execute different commands based on presence
+						// of optional positional argument
+						let commandToExecute: Command
+
+						if (positionalArguments.length > 0) {
+							const resolvedFile = path.join(process.cwd(), positionalArguments[0])
+							logStream.write(`Showing configuration for file: ${resolvedFile}\n`)
+
+							commandToExecute = {
+								name: 'eslint',
+								optionFlags: ['--print-config'],
+								receivePositionalArguments: true,
+							}
+						} else {
+							commandToExecute = getCosmiconfigCommand('eslint')
+						}
+
+						return executeCommands(logStream, positionalArguments, [], [commandToExecute])
+					},
+					name: 'print eslint config',
+				},
+			],
+			description: 'Print the eslint configuration.',
+			positionalArgumentMode: 'optional',
+		},
 	},
 	description: 'ESLint shared configuration tools.',
 	logColor: 'magenta',

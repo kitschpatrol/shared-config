@@ -65,6 +65,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -2289,6 +2292,10 @@ packages:
     peerDependenciesMeta:
       supports-color:
         optional: true
+
+  decircular@1.0.0:
+    resolution: {integrity: sha512-YhCtYW0jQs9+gzL2vDLxanRhMHeKa55kw5z2oheI6D+MQA7KafrqtiGKhhpKCLZQurm2a9h0LkP9T5z5gy+A0A==}
+    engines: {node: '>=18'}
 
   decode-named-character-reference@1.0.2:
     resolution: {integrity: sha512-O8x12RzrUF8xyVcY0KJowWsmaJxQbmy0/EtnNtHRpsOcT7dFk5W598coHqBVpmWo1oQQfsCqfCmkZN5DJrZVdg==}
@@ -7223,6 +7230,8 @@ snapshots:
   debug@4.4.0:
     dependencies:
       ms: 2.1.3
+
+  decircular@1.0.0: {}
 
   decode-named-character-reference@1.0.2:
     dependencies:

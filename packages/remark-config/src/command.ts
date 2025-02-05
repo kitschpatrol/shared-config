@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -12,7 +12,11 @@ export const commandDefinition: CommandDefinition = {
 			},
 			locationOptionFlag: false,
 		},
-		// printConfig: {}, // Use default implementation,
+		printConfig: {
+			commands: [getCosmiconfigCommand('remark')],
+			description: 'Print the Remark configuration.',
+			positionalArgumentMode: 'none',
+		},
 	},
 	description: 'TK. Linting and fixing of issues in Markdown files is managed through ESLint.',
 	logColor: 'blue',

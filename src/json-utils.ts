@@ -4,15 +4,16 @@
 
 import type { ArrayMergeOptions, Options } from 'deepmerge'
 import jsonColorizer from '@pinojs/json-colorizer'
+import decircular from 'decircular'
 import deepmerge from 'deepmerge'
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact'
 
 /**
  * TK
  */
-export function stringify(object: unknown): string {
+export function stringify(object: any): string {
 	return jsonColorizer(
-		jsonStringifyPrettyCompact(object, {
+		jsonStringifyPrettyCompact(decircular(object), {
 			indent: 2,
 			replacer(_, value) {
 				if (typeof value === 'function') {

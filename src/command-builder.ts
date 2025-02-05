@@ -5,6 +5,7 @@
 import type internal from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'
+import { cosmiconfig, type CosmiconfigResult } from 'cosmiconfig'
 import { execa } from 'execa'
 // eslint-disable-next-line import/default
 import fse from 'fs-extra'
@@ -33,7 +34,7 @@ type CommandCommon = {
 	name: string
 }
 
-type CommandFunction = CommandCommon & {
+export type CommandFunction = CommandCommon & {
 	execute: (
 		logStream: NodeJS.WritableStream,
 		positionalArguments: string[], // Passed by default, but can be ignored in implementation
@@ -58,7 +59,7 @@ export type CommandCli = CommandCommon & {
 	subcommands?: string[]
 }
 
-type Command = CommandCli | CommandFunction
+export type Command = CommandCli | CommandFunction
 
 // Init
 // Optionally takes --location option flag
@@ -580,7 +581,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 							...(printConfig.positionalArgumentDefault === undefined
 								? {}
 								: { default: printConfig.positionalArgumentDefault }),
-							describe: 'Files or glob pattern to TK.',
+							describe: 'File or glob pattern to TK.',
 							type: 'string',
 						})
 			},
@@ -592,7 +593,9 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'print-config <file>',
 			describe: printConfig.description,
 			async handler(argv) {
-				const positionalArguments = (argv.files as string[] | undefined) ?? []
+				const fileArgument = (argv.file as string | undefined) ?? undefined
+				const positionalArguments = fileArgument === undefined ? [] : [fileArgument]
+
 				const exitCode = await executeCommands(
 					logStream,
 					positionalArguments,
@@ -616,47 +619,64 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	await yargsInstance.parseAsync()
 }
 
-// Original implementation of print-config
-// if (subcommands.printConfig) {
-// 	yargsInstance.command({
-// 		builder(yargs) {
-// 			return yargs.positional('file', {
-// 				array: true,
-// 				// TODO allow defaults?
-// 				default: subcommands.printConfig?.defaultArguments,
-// 				describe: 'TODO',
-// 				type: 'string',
-// 			})
-// 		},
-// 		command: 'print-config <file>',
-// 		describe: 'Print the effective configuration at a certain path.',
-// 		async handler(argv) {
-// 			const input = argv.file ?? []
-// 			process.exit(
-// 				await execute(logStream, subcommands.printConfig, input, async (logStream, args) => {
-// 					const filePath = args.at(0)
+/**
+ * TK
+ */
+export function getCosmiconfigCommand(configName: string): CommandFunction {
+	return {
+		async execute(logStream) {
+			const result = await getCosmiconfigResult(configName)
 
-// 					// Brittle, could pass config name to commandBuilder() instead
-// 					const configName = command.split('-').at(0)
+			if (result === undefined) {
+				return 1
+			}
 
-// 					if (configName === undefined) {
-// 						logStream.write(`Error: Could not find or parse config file for ${command}.\n`)
-// 						return 1
-// 					}
+			// eslint-disable-next-line ts/no-unsafe-assignment
+			const { config, filepath: configFilepath, isEmpty } = result
 
-// 					const configSearch = await cosmiconfig(configName).search(filePath)
+			logStream.write(`Found ${configName} configuration at "${configFilepath}"\n`)
 
-// 					if (!configSearch?.config) {
-// 						logStream.write(`Error: Could not find or parse config file for ${configName}.\n`)
-// 						return 1
-// 					}
+			if (isEmpty) {
+				logStream.write('Configuration is empty.\n')
+				return 0
+			}
 
-// 					logStream.write(`${logPrefix} config path: "${configSearch.filepath}"\n`)
-// 					logStream.write(stringify(configSearch.config))
-// 					logStream.write('\n')
-// 					return 0
-// 				}),
-// 			)
-// 		},
-// 	})
-// }
+			const prettyAndColorfulJson = stringify(config)
+			logStream.write(prettyAndColorfulJson)
+			logStream.write('\n')
+			return 0
+		},
+		name: `Cosmiconfig ${configName}`,
+	}
+}
+
+// eslint-disable-next-line ts/no-restricted-types
+type NullToUndefined<T> = T extends null ? undefined : T
+
+/**
+ * Convenience wrapper to safely fetch a cosmiconfig result.
+ */
+export async function getCosmiconfigResult(
+	configName: string,
+): Promise<NullToUndefined<CosmiconfigResult>> {
+	const explorer = cosmiconfig(configName, {
+		searchStrategy: 'project',
+		// Alt approach?
+		// searchStrategy: 'global',
+		// stopDir: getCwdOverride('workspace-root'),
+	})
+
+	try {
+		const result = await explorer.search()
+
+		if (result === null) {
+			console.error(`No ${configName} configuration found.`)
+			return undefined
+		}
+
+		return result
+	} catch (error) {
+		console.error(`Error while searching for ${configName} configuration:`, error)
+		return undefined
+	}
+}

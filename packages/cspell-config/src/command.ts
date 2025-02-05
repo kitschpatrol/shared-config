@@ -1,4 +1,7 @@
+import { getDefaultConfigLoader, resolveConfigFileImports } from 'cspell-lib'
+import { fileURLToPath } from 'node:url'
 import { type CommandDefinition } from '../../../src/command-builder.js'
+import { stringify } from '../../../src/json-utils.js'
 import { createStreamTransform } from '../../../src/stream-utils.js'
 import { checkForUnusedWords } from './unused-words.js'
 
@@ -56,6 +59,36 @@ export const commandDefinition: CommandDefinition = {
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
+		printConfig: {
+			commands: [
+				{
+					async execute(logStream) {
+						const configName = 'cspell'
+
+						// eslint-disable-next-line unicorn/no-useless-undefined
+						const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
+						if (config === undefined) {
+							throw new Error('No CSpell configuration found.')
+						}
+
+						logStream.write(
+							`Found ${configName} readme configuration at "${fileURLToPath(config.url)}"\n`,
+						)
+
+						const resolvedConfig = await resolveConfigFileImports(config)
+						const prettyAndColorfulJson = stringify(resolvedConfig)
+						logStream.write(prettyAndColorfulJson)
+						logStream.write('\n')
+
+						return 0
+					},
+					name: 'print mdat config',
+				},
+			],
+			description: 'Print the Mdat configuration.',
+			positionalArgumentMode: 'none',
+		},
+		// Old approached prints too much...
 		// printConfig: {
 		// 	// Doesn't work with executeJsonOutput
 		// 	// because of json parsing errors (regex related)

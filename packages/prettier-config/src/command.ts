@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
 // TODO bad idea?
@@ -55,7 +55,12 @@ export const commandDefinition: CommandDefinition = {
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
-		// printConfig: {}, // Use default implementation,
+		printConfig: {
+			// See also --find-config-path and --file-info options for fancier per-file approaches...
+			commands: [getCosmiconfigCommand('prettier')],
+			description: 'Print the prettier configuration.',
+			positionalArgumentMode: 'none',
+		},
 	},
 	description: 'TK',
 	logColor: 'blue',

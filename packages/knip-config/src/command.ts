@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utils.js'
 import sharedKnipConfig from './index.js'
 
@@ -66,20 +66,11 @@ export const commandDefinition: CommandDefinition = {
 				'Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.',
 			positionalArgumentMode: 'none',
 		},
-		// TODO
-		// printConfig: {
-		// 	async command(logStream, args) {
-		// 		return executeJsonOutput(
-		// 			logStream,
-		// 			{
-		// 				command: 'stylelint',
-		// 				options: ['--print-config'],
-		// 			},
-		// 			args,
-		// 		)
-		// 	},
-		// 	defaultArguments: ['.'],
-		// },
+		printConfig: {
+			commands: [getCosmiconfigCommand('knip')],
+			description: 'Print the Knip configuration.',
+			positionalArgumentMode: 'none',
+		},
 	},
 	description: 'Clean up unused clutter in your project with Knip.',
 	logColor: 'cyan',
