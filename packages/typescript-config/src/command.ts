@@ -17,10 +17,17 @@ export const commandDefinition: CommandDefinition = {
 				'Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.',
 			positionalArgumentMode: 'none',
 		},
-		// printConfig: {
-		// 	command: 'tsc',
-		// 	options: ['--showConfig'],
-		// },
+		printConfig: {
+			commands: [
+				{
+					name: 'tsc',
+					optionFlags: ['--showConfig'],
+					prettyJsonOutput: true,
+				},
+			],
+			description: 'Print the TypeScript configuration for the project. TK monorepo behavior.',
+			positionalArgumentMode: 'none',
+		},
 	},
 	description: 'TK. No fix.',
 	logColor: 'blueBright',

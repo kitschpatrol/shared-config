@@ -2,6 +2,7 @@
 
 /* eslint-disable import/no-named-as-default-member */
 
+import type internal from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'
 import { execa } from 'execa'
@@ -9,15 +10,16 @@ import { execa } from 'execa'
 import fse from 'fs-extra'
 import fs from 'node:fs'
 import path from 'node:path'
+import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { version } from '../package.json'
 import { isErrorExecaError } from './execa-utils.js'
-import { merge } from './json-utils.js'
+import { merge, stringify } from './json-utils.js'
 import { type CwdOverrideOptions, getCwdOverride } from './path-utils.js'
-import { createStreamTransform } from './stream-utils.js'
+import { createStreamTransform, streamToString } from './stream-utils.js'
 import { pluralize } from './string-utils.js'
 
 type ChalkColor = (typeof foregroundColorNames)[number]
@@ -46,6 +48,8 @@ export type CommandCli = CommandCommon & {
 	optionFlags?: string[]
 	/** Command-local fixed positional arguments. */
 	positionalArguments?: string[]
+	/** Formats and colorizes output if JSON. False if undefined. */
+	prettyJsonOutput?: boolean
 	/** If true, option flags are passed in from the parent command. False if undefined. */
 	receiveOptionFlags?: boolean
 	/** If true, positional arguments are passed in from the parent command. False if undefined. */
@@ -85,7 +89,7 @@ type FixCommand = LintCommand
 type PrintConfigCommand = {
 	commands: Command[]
 	description: string
-	positionalArgumentDefault?: string | undefined
+	positionalArgumentDefault?: string
 	positionalArgumentMode: 'none' | 'optional' | 'required'
 }
 
@@ -94,6 +98,17 @@ export type Commands = {
 	init?: InitCommand
 	lint?: LintCommand
 	printConfig?: PrintConfigCommand
+}
+
+// Exported for aggregation later
+export type CommandDefinition = {
+	commands: Commands
+	description: string
+	logColor: ChalkColor
+	logPrefix: string | undefined
+	name: string
+	showSummary?: boolean
+	verbose?: boolean
 }
 
 async function executeFunctionCommand(
@@ -174,6 +189,10 @@ async function executeCliCommand(
 		targetStream.write(`Running: "${command.name} ${resolvedArguments.join(' ')}"`)
 	}
 
+	const cliTargetStream: NodeJS.WritableStream = command.prettyJsonOutput
+		? new PassThrough()
+		: targetStream
+
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
 			cwd,
@@ -190,18 +209,27 @@ async function executeCliCommand(
 		})
 
 		// End false is required here, otherwise the stream will close before the subprocess is done
-		subprocess.stdout.pipe(targetStream, { end: false })
-		subprocess.stderr.pipe(targetStream, { end: false })
+		subprocess.stdout.pipe(cliTargetStream, { end: false })
+		subprocess.stderr.pipe(cliTargetStream, { end: false })
 
 		await subprocess
 
 		// if (debug) {
-		// 	// console.log(subprocess)
 		// 	console.log(`Executed:   ${subprocess.spawnargs.join(' ')}`)
 		// 	console.log(`Exit Code:  ${subprocess.exitCode}`)
 		// 	console.log(`Actual CWD: ${process.cwd()}`)
 		// 	console.log(`Active CWD: ${cwd}`)
 		// }
+
+		if (command.prettyJsonOutput) {
+			cliTargetStream.end()
+			// TODO is this a bad cast?
+			const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream)
+			const prettyAndColorfulJson = stringify(JSON.parse(jsonString))
+
+			targetStream.write(prettyAndColorfulJson)
+			targetStream.write('\n')
+		}
 
 		exitCode = subprocess.exitCode ?? 1
 	} catch (error) {
@@ -222,7 +250,7 @@ function isCommandFunction(command: Command): command is CommandFunction {
 }
 
 /**
- * TK
+ * Execute multiple commands (either functions or command line) in serial
  */
 export async function executeCommands(
 	logStream: NodeJS.WritableStream,
@@ -271,6 +299,18 @@ export async function executeCommands(
 	// Return zero if all zero, otherwise return 1
 	return exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1
 }
+
+// const copyAndMergeInitFilesCommand: CommandFunction = {
+// 	name: 'copyAndMergeInitFiles',
+// 	execute: async (logStream, positionalArguments, optionFlags) => {
+// 		const location = positionalArguments[0]
+// 		const configFile = positionalArguments[1]
+// 		const configPackageJson = positionalArguments[2]
+
+// 		const exitCode = await copyAndMergeInitFiles(logStream, location, configFile, configPackageJson)
+// 		return exitCode
+// 	}
+// }
 
 async function copyAndMergeInitFiles(
 	logStream: NodeJS.WritableStream,
@@ -400,23 +440,19 @@ async function copyAndMergeInitFiles(
 	return 0
 }
 
-// Exported for aggregation later
-export type CommandDefinition = {
-	commands: Commands
-	description: string
-	logColor: ChalkColor
-	logPrefix: string | undefined
-	name: string
-	showSummary?: boolean
-	verbose?: boolean
-}
-
 /**
  * Create a simple command line interface for a package.
  */
 export async function buildCommands(commandDefinition: CommandDefinition) {
-	const { commands, description, logColor, logPrefix, name, showSummary, verbose } =
-		commandDefinition
+	const {
+		commands: { fix, init, lint, printConfig },
+		description,
+		logColor,
+		logPrefix,
+		name,
+		showSummary,
+		verbose,
+	} = commandDefinition
 
 	// Set up log stream
 	const logStream = createStreamTransform(logPrefix, logColor)
@@ -426,7 +462,48 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 		.scriptName(name)
 		.usage('$0 <command>', description)
 
-	const { fix, init, lint } = commands
+	if (init !== undefined) {
+		yargsInstance.command({
+			builder(yargs) {
+				return init.locationOptionFlag
+					? yargs.option('location', {
+							choices: ['file', 'package'],
+							default: 'file',
+							describe: 'TK',
+							type: 'string',
+						})
+					: yargs
+			},
+			command: 'init',
+			describe: `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
+			async handler(argv) {
+				// Copy files
+				// Grab context by closure
+				const copyAndMergeInitFilesCommand: CommandFunction = {
+					async execute(logStream) {
+						return copyAndMergeInitFiles(
+							logStream,
+							init.locationOptionFlag ? (argv.location as string | undefined) : undefined,
+							init.configFile,
+							init.configPackageJson,
+						)
+					},
+					name: 'copyAndMergeInitFiles',
+				}
+
+				// Run commands
+				// TODO pass option?
+				const exitCode = await executeCommands(
+					logStream,
+					[],
+					[],
+					[copyAndMergeInitFilesCommand, ...(init.commands ?? [])],
+				)
+
+				process.exit(exitCode)
+			},
+		})
+	}
 
 	if (lint !== undefined) {
 		yargsInstance.command({
@@ -494,42 +571,37 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 		})
 	}
 
-	if (init !== undefined) {
+	if (printConfig !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
-				return init.locationOptionFlag
-					? yargs.option('location', {
-							choices: ['file', 'package'],
-							default: 'file',
-							describe: 'TK',
+				return printConfig.positionalArgumentMode === 'none'
+					? yargs
+					: yargs.positional('file', {
+							...(printConfig.positionalArgumentDefault === undefined
+								? {}
+								: { default: printConfig.positionalArgumentDefault }),
+							describe: 'Files or glob pattern to TK.',
 							type: 'string',
 						})
-					: yargs
 			},
-			command: 'init',
-			describe: `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
+			command:
+				printConfig.positionalArgumentMode === 'none'
+					? 'print-config'
+					: printConfig.positionalArgumentMode === 'optional'
+						? 'print-config [file]'
+						: 'print-config <file>',
+			describe: printConfig.description,
 			async handler(argv) {
-				const location = init.locationOptionFlag ? (argv.location as string | undefined) : undefined
-				const exitCodes: number[] = []
-
-				// Copy files
-				const copyExitCode = await copyAndMergeInitFiles(
+				const positionalArguments = (argv.files as string[] | undefined) ?? []
+				const exitCode = await executeCommands(
 					logStream,
-					location,
-					init.configFile,
-					init.configPackageJson,
+					positionalArguments,
+					[],
+					printConfig.commands,
+					verbose,
+					showSummary,
 				)
-				exitCodes.push(copyExitCode)
-
-				// Run any other commands
-				if (init.commands !== undefined) {
-					const commandExitCode = await executeCommands(logStream, [], [], init.commands)
-					exitCodes.push(commandExitCode)
-				}
-
-				const finalExitCode = exitCodes.every((exitCode) => exitCode === 0) ? 0 : 1
-
-				process.exit(finalExitCode)
+				process.exit(exitCode)
 			},
 		})
 	}

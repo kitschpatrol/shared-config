@@ -11,59 +11,11 @@ import { commandDefinition as stylelintCommand } from '../../stylelint-config/sr
 import { commandDefinition as typescriptCommand } from '../../typescript-config/src/command.js'
 
 // import chalk from 'chalk'
-import { type CommandCli, type CommandDefinition } from '../../../src/command-builder.js'
-// import { kebabCase, pluralize } from '../../../src/string-utils.js'
-// import { capabilities } from '../build/capabilities.js'
-
-// async function executeCommands(
-// 	logStream: NodeJS.WritableStream,
-// 	commands: string[],
-// 	options: string[],
-// 	args: string[],
-// ): Promise<number> {
-// 	const successfulCommands: string[] = []
-// 	const failedCommands: string[] = []
-
-// 	for (const command of commands) {
-// 		logStream.write(`Running "${[command, ...args, ...options].join(' ')}"\n`)
-
-// 		const exitCode = await execute(
-// 			logStream,
-// 			{
-// 				command,
-// 				options,
-// 			},
-// 			args,
-// 		)
-
-// 		if (exitCode === 0) {
-// 			successfulCommands.push(command)
-// 		} else {
-// 			failedCommands.push(command)
-// 		}
-// 	}
-
-// 	if (successfulCommands.length > 0) {
-// 		logStream.write(
-// 			`✅ ${chalk.green.bold(
-// 				`${successfulCommands.length} Successful ${pluralize(
-// 					'command',
-// 					successfulCommands.length,
-// 				)}:`,
-// 			)} ${successfulCommands.join(', ')}\n`,
-// 		)
-// 	}
-
-// 	if (failedCommands.length > 0) {
-// 		logStream.write(
-// 			`❌ ${chalk.green.bold(
-// 				`${failedCommands.length} Failed ${pluralize('command', failedCommands.length)}:`,
-// 			)} ${failedCommands.join(', ')}\n`,
-// 		)
-// 	}
-
-// 	return failedCommands.length > 0 ? 1 : 0
-// }
+import {
+	type CommandCli,
+	type CommandDefinition,
+	type Commands,
+} from '../../../src/command-builder.js'
 
 const subcommandDefinitions = [
 	eslintCommand,
@@ -77,29 +29,24 @@ const subcommandDefinitions = [
 	typescriptCommand,
 ]
 
-// for (const capability of Object.keys(capabilities)) {
-// 	subcommands[capability as keyof Subcommands] = {
-// 		async command(logStream, args) {
-// 			return executeCommands(
-// 				logStream,
-// 				capabilities[capability as keyof typeof capabilities],
-// 				[kebabCase(capability)],
-// 				args,
-// 			)
-// 		},
-// 		defaultArguments: [],
-// 	}
-// }
-
-function getLintCommands(definitions: CommandDefinition[]): CommandCli[] {
+function getCommands(key: keyof Commands, definitions: CommandDefinition[]): CommandCli[] {
 	const commands: CommandCli[] = []
 	for (const definition of definitions) {
 		const keys = Object.keys(definition.commands)
-		if (keys.includes('lint')) {
+		if (keys.includes(key)) {
 			commands.push({
 				name: definition.name,
-				receivePositionalArguments: definition.commands.lint?.positionalArgumentMode !== 'none',
-				subcommands: ['lint'],
+				...(key === 'init'
+					? {
+							// Special case for init location flag
+							receiveOptionFlags: definition.commands[key]?.locationOptionFlag,
+						}
+					: {
+							// Other commands can take positional arguments
+							receivePositionalArguments:
+								definition.commands[key]?.positionalArgumentMode !== 'none',
+						}),
+				subcommands: [key],
 			})
 		}
 	}
@@ -107,12 +54,20 @@ function getLintCommands(definitions: CommandDefinition[]): CommandCli[] {
 	return commands
 }
 
-// TODO make summary a flag on this?
-
 export const commandDefinition: CommandDefinition = {
 	commands: {
+		fix: {
+			commands: getCommands('fix', subcommandDefinitions),
+			description: 'Fix the project',
+			positionalArgumentMode: 'optional',
+		},
+		init: {
+			commands: getCommands('init', subcommandDefinitions),
+			locationOptionFlag: true,
+			// TODO does this try to copy files from shared config?
+		},
 		lint: {
-			commands: getLintCommands(subcommandDefinitions),
+			commands: getCommands('lint', subcommandDefinitions),
 			description: 'Lint the project',
 			positionalArgumentMode: 'optional',
 		},
