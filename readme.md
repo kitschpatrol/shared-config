@@ -58,23 +58,32 @@ It takes care of dependencies and configurations for the following tools:
 
 ### Packages
 
-This particular readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in additional detail its respective readme, linked below:
+This particular readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in additional detail its respective readme:
 
-- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
-- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
-- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md)
-- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md)
-- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md)
-- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
-- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
+#### Primary package
 
-Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+- [`@kitschpatrol/shared-config`](/packages/shared-config/readme.md) (`kpsc` command)
+
+#### Sub-packages
+
+- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md) (`kpsc-cspell` command)
+- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md) (`kpsc-eslint` command)
+- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md) (`kpsc-mdat` command)
+- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md) (`kpsc-prettier` command)
+- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md) (`kpsc-remark` command)
+- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md) (`kpsc-repo` command)
+- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md) (`kpsc-stylelint` command)
+- [`@kitschpatrol/typescript-config`](/packages/typescript-config/readme.md) (`kpsc-typescript` command)
+
+> [!IMPORTANT]
+>
+> Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
 ## Getting started
 
 ### Dependencies
 
-Node 22+ and [pnpm](https://pnpm.io) 9+ are required. It probably works with NPM and yarn, but I haven't tested it.
+Node 22+ and [pnpm](https://pnpm.io) 10+ are required. It might work with NPM and yarn, but I haven't tested it.
 
 ### Installation
 
@@ -83,15 +92,17 @@ Node 22+ and [pnpm](https://pnpm.io) 9+ are required. It probably works with NPM
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init --location package && pnpm i && code .
 ```
+
+The `--location package` flag will put as much configuration in your `package.json` as possible instead of in discrete files in your project root. This saves some clutter but can make it clunkier to extend or customize configurations. At any point, you can call `kpsc init` with or without a `--location package` or `--location file` flag to reinitialize your configuration files in one place ot he other to.
 
 #### Quick add to an existing project:
 
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init
+pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpsc init --location package
 ```
 
 #### Step-by-step:
@@ -114,6 +125,12 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    pnpm kpsc init
    ```
 
+   Or, if you don't plan to customize tool configurations, you might want to put as much config as possible under tool-specific keys in 'package.json':
+
+   ```sh
+   pnpm kpsc init --location package
+   ```
+
 4. Add helper scripts to your `package.json`:
 
    These work a bit like [npm-run-all](https://github.com/mysticatea/npm-run-all) to invoke all of the bundled tools.
@@ -130,9 +147,19 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    > [!NOTE]
    > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
+5. Set up GitHub action credentials (if desired)
+
+   The GitHub actions included in @kitschpatrol/repo-config require permissions to create releases and update your repository metadata. You can add these through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`, or with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
+
+   ```sh
+   gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
+   ```
+
+   See the [@kitschpatrol/repo-config readme](/packages/repo-config/readme.md#github-configuration) for more details.
+
 ## Usage
 
-Various VS Code plugins should "just work".
+Various VS Code plugins for the bundled tools should "just work".
 
 To check / lint your entire project, after configuring the `package.json` as shown above:
 
@@ -143,7 +170,7 @@ pnpm run lint
 To run all of the tools in a _potentially destructive_ "fix" capacity:
 
 ```sh
-pnpm run format
+pnpm run fix
 ```
 
 ### CLI
