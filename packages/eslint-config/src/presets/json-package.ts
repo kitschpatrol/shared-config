@@ -5,6 +5,7 @@ export const jsonPackageRecommendedRules: Rules = {
 	// Begin expansion 'eslint-plugin-package-json/configs/recommended' 'rules'
 	'json-package/no-empty-fields': 'error',
 	'json-package/order-properties': 'error',
+	'json-package/require-version': 'error',
 	'json-package/repository-shorthand': 'error',
 	'json-package/sort-collections': 'error',
 	'json-package/unique-dependencies': 'error',

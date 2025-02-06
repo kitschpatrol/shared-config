@@ -57,7 +57,7 @@ importers:
         specifier: ^17.0.33
         version: 17.0.33
       bumpp:
-        specifier: ^10.0.1
+        specifier: ^10.0.2
         version: 10.0.2
       chalk:
         specifier: ^5.4.1
@@ -110,6 +110,9 @@ importers:
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
+      case-police:
+        specifier: ^0.7.2
+        version: 0.7.2
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
@@ -125,10 +128,6 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
-    devDependencies:
-      case-police:
-        specifier: ^0.7.2
-        version: 0.7.2
 
   packages/eslint-config:
     dependencies:
@@ -205,8 +204,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       eslint-plugin-package-json:
-        specifier: ^0.22.0
-        version: 0.22.0(@types/estree@1.0.6)(eslint@9.19.0(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)
+        specifier: ^0.23.0
+        version: 0.23.0(@types/estree@1.0.6)(eslint@9.19.0(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)
       eslint-plugin-perfectionist:
         specifier: ^4.8.0
         version: 4.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3)
@@ -272,7 +271,7 @@ importers:
         specifier: ^3.4.2
         version: 3.4.2
       svelte:
-        specifier: ^5.19.7
+        specifier: ^5.19.8
         version: 5.19.8
       tsup:
         specifier: ^8.3.6
@@ -560,9 +559,6 @@ importers:
         specifier: ^11.3.0
         version: 11.3.0
     devDependencies:
-      camelcase:
-        specifier: ^8.0.0
-        version: 8.0.0
       chalk:
         specifier: ^5.4.1
         version: 5.4.1
@@ -2006,10 +2002,6 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camelcase@8.0.0:
-    resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
-    engines: {node: '>=16'}
-
   caniuse-lite@1.0.30001697:
     resolution: {integrity: sha512-GwNPlWJin8E+d7Gxq96jxM6w0w+VFeyyXRsjU58emtkYqnbwHqXm5uT2uCmO0RQE9htWknOP4xtBlLmM/gWxvQ==}
 
@@ -2693,8 +2685,8 @@ packages:
     resolution: {integrity: sha512-brcKcxGnISN2CcVhXJ/kEQlNa0MEfGRtwKtWA16SkqXHKitaKIMrfemJKLKX1YqDU5C/5JY3PvZXd5jEW04e0Q==}
     engines: {node: '>=5.0.0'}
 
-  eslint-plugin-package-json@0.22.0:
-    resolution: {integrity: sha512-gCII1NrVrowVd8Ns5jaUsvf8yYWTLHrNt2p6ByLsXkyku+QOE5h4B6hdWmQ6jEvdPPYc9K464pTNU1oxm4NH3A==}
+  eslint-plugin-package-json@0.23.0:
+    resolution: {integrity: sha512-BhwswFI2Fqx3/yFOehwd91trFH3cW9M9G/ouBb09/f3YHfTKURJr18mmyN8xGDezvGiNkEvQf1i6flUJBZQ8aA==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: '>=8.0.0'
@@ -6943,8 +6935,6 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camelcase@8.0.0: {}
-
   caniuse-lite@1.0.30001697: {}
 
   case-police@0.7.2: {}
@@ -7788,7 +7778,7 @@ snapshots:
 
   eslint-plugin-no-only-tests@3.3.0: {}
 
-  eslint-plugin-package-json@0.22.0(@types/estree@1.0.6)(eslint@9.19.0(jiti@2.4.2))(jsonc-eslint-parser@2.4.0):
+  eslint-plugin-package-json@0.23.0(@types/estree@1.0.6)(eslint@9.19.0(jiti@2.4.2))(jsonc-eslint-parser@2.4.0):
     dependencies:
       '@altano/repository-tools': 0.1.1
       detect-indent: 6.1.0
