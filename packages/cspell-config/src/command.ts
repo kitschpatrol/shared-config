@@ -3,10 +3,15 @@ import { constants } from 'node:fs'
 import { access } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { stripVTControlCharacters } from 'node:util'
 import { packageUp } from 'package-up'
-import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
+import {
+	type CommandDefinition,
+	DESCRIPTIONS,
+	executeCommands,
+} from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
-import { createStreamTransform } from '../../../src/stream-utils.js'
+import { createStreamFilter, createStreamTransform } from '../../../src/stream-utils.js'
 import { checkForUnusedWords } from './unused-words.js'
 
 async function checkForUnusedWordsCommand(
@@ -55,6 +60,51 @@ async function getCasePoliceDictionaryPath(): Promise<string> {
 	return source
 }
 
+// We wrap this to filter out unwanted output, since there is no exported API
+// and no options exposed to quiet the noise
+async function casePoliceCommand(
+	logStream: NodeJS.WritableStream,
+	positionalArguments: string[],
+): Promise<number> {
+	const logPrefix = '[Case Police]'
+
+	// Create filter stream
+	const subStream = createStreamFilter((text) => {
+		const plainText = stripVTControlCharacters(text)
+
+		// Sample output:
+		// [Case Police] Case  Police  v0.7.2
+		// [Case Police] 18 files found for checking, 486 words loaded
+		// [Case Police]
+		// [Case Police] GitHub → GitHub   ./src/command.ts:63:27
+		// [Case Police]
+		// [Case Police] 1 files contain case errors
+		// [Case Police] run npx case-police --fix to fix
+		// [Case Police]
+
+		// Only allow word recommendations through
+		const shouldStrip = !(plainText.startsWith(logPrefix) && plainText.includes('→'))
+
+		return shouldStrip
+	})
+	subStream.pipe(logStream)
+
+	return executeCommands(
+		subStream,
+		positionalArguments,
+		[],
+		[
+			{
+				logColor: 'cyanBright',
+				logPrefix,
+				name: 'case-police',
+				optionFlags: ['--dict', await getCasePoliceDictionaryPath()],
+				receivePositionalArguments: true,
+			},
+		],
+	)
+}
+
 async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promise<number> {
 	const configName = 'cspell'
 
@@ -98,11 +148,8 @@ export const commandDefinition: CommandDefinition = {
 					name: checkForUnusedWordsCommand.name,
 				},
 				{
-					logColor: 'cyanBright',
-					logPrefix: '[Case Police]',
-					name: 'case-police',
-					optionFlags: ['--dict', await getCasePoliceDictionaryPath()],
-					receivePositionalArguments: true,
+					execute: casePoliceCommand,
+					name: casePoliceCommand.name,
 				},
 			],
 			description: `Check for spelling mistakes. ${DESCRIPTIONS.fileRun}`,

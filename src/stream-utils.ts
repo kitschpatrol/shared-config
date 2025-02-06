@@ -6,6 +6,23 @@ import { Transform } from 'node:stream'
 type ChalkColor = (typeof foregroundColorNames)[number]
 
 /**
+ * Creates a transform stream that filters out lines that match the given matcher
+ */
+export function createStreamFilter(matcher: (text: string) => boolean): Transform {
+	return new Transform({
+		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
+			const filtered = chunk
+				.toString()
+				.split(/\r?\n/)
+				.filter((line) => line.trim() !== '' && !matcher(line))
+				.join('\n')
+			this.push(filtered + '\n')
+			callback()
+		},
+	})
+}
+
+/**
  * Creates a transform stream that prepends a log prefix to each line
  */
 export function createStreamTransform(
