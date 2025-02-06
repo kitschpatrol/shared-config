@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "ES2023",
+		"jsx": "react",
+		"lib": ["ES2023", "DOM", "DOM.Iterable"],
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"allowImportingTsExtensions": true,
+		"allowJs": true,
+		"checkJs": true,
+		"strict": true,
+		"allowUnreachableCode": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noEmit": true,
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"noErrorTruncation": true
+	}
+}

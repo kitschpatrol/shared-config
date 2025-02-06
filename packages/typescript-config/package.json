@@ -23,10 +23,14 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
+	"exports": {
+		".": "./tsconfigs/base.json"
+	},
 	"bin": {
 		"kpsc-typescript": "bin/cli.js"
 	},
 	"files": [
+		"tsconfigs/*",
 		"bin/*",
 		"init/*"
 	],

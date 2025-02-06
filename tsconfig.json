@@ -1,34 +1,7 @@
 {
-	"compilerOptions": {
-		/* Language and Environment */
-		"target": "ES2023",
-		"jsx": "react",
-		"lib": ["ES2023", "DOM", "DOM.Iterable"],
-		"useDefineForClassFields": true,
+	"extends": "@kitschpatrol/typescript-config",
 
-		/* Modules */
-		"module": "ESNext",
-
-		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
-		"allowImportingTsExtensions": true,
-
-		/* JavaScript Support */
-		"allowJs": true,
-		"checkJs": true,
-
-		/* Type Checking */
-		"strict": true,
-		"allowUnreachableCode": true, // Use eslint's 'no-unreachable' rule instead.
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noEmit": true,
-		"isolatedModules": true,
-		"skipLibCheck": true,
-		"noErrorTruncation": true
-	},
-	/* Also lint config files. */
+	// Includes project dit-files files for typescript-eslint integration
 	"include": ["**/*", "**/**.*"],
 	"exclude": [
 		"**/dist/",

@@ -1,34 +1,7 @@
 {
-	"compilerOptions": {
-		"target": "ES2023",
-		"lib": ["ES2023", "DOM", "DOM.Iterable"],
-		"useDefineForClassFields": true,
-		"module": "ESNext",
+	"extends": "@kitschpatrol/typescript-config",
 
-		/* Bundler mode */
-		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
-		"allowImportingTsExtensions": true,
-
-		/* JS */
-		"allowJs": true,
-		"checkJs": true,
-
-		/* Linting */
-		"strict": true,
-		"allowUnreachableCode": true, // Use eslint's 'no-unreachable' rule instead.
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"skipLibCheck": true,
-		"noErrorTruncation": true
-	},
-
-	/* Include root dot-prefixed config files */
-	/* Use tsconfig.build.json to exclude these during a build */
-	"include": ["**/*", "**/.*"],
-	"exclude": ["dist/", "bin/"]
+	// Includes project dit-files files for typescript-eslint integration
+	"include": ["**/*", "**/**.*"],
+	"exclude": ["**/dist/", "**/bin/"]
 }
