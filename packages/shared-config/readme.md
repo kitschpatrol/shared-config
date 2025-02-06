@@ -37,7 +37,7 @@
 
 This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency with a single CLI meta-command to lint and fix issues.
 
-By installing `@kitschpatrol/shared-config` and then running `kpsc`, you can run a half-dozen pre-configured code quality and linting tools in one shot. This spares you from clutting your project's `devDependencies` with packages tangential to the task at hand.
+By installing `@kitschpatrol/shared-config` and then running `kpsc`, you can run a ten pre-configured code quality and linting tools in one shot. This spares you from cluttering your project's `devDependencies` with packages tangential to the task at hand.
 
 If you don't plan to customize tool configurations, `@kitschpatrol/shared-config init` exposes an option to store references to each tool's shared configuration in your `package.json` instead of in files in your project root (at least where permitted by the tool). This can save a bit of file clutter in your project's root directory, at the expense of the immediate discoverability of the tools.
 
@@ -45,16 +45,19 @@ In addition, each tool exports a typed configuration factory function to simplif
 
 ### Tools
 
-It takes care of dependencies and configurations for the following tools:
+It takes care of dependencies, configuration, invocation, and reporting for the following tools:
 
-- [CSpell](https://cspell.org) (bundled with a number of custom dictionaries)
+- [CSpell](https://cspell.org) (bundled with a number of custom dictionaries, and a custom unused-word detector)
+- [Case Police](https://github.com/antfu/case-police)
 - [ESLint](https://eslint.org) (including Svelte, Astro, React, and TypeScript support — including type-checked rules)
 - [mdat](https://github.com/kitschpatrol/mdat) (my markdown templating and expansion tool)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
 - [remarklint](https://github.com/remarkjs/remark-lint)
 - [Stylelint](https://stylelint.io)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
-- Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
+- [TypeScript](https://www.typescriptlang.org/) (including a shared TSConfig)
+- [Knip](https://knip.dev/)
+- Basic repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 ### Packages
 

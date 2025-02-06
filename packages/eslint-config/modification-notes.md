@@ -31,7 +31,7 @@ These might be out of date.
 - [x] Structure configs by file type instead of plugin for clarity / reuse
 - [x] Upgrade eslint and remove unstable feature flags related to ts config file <https://eslint.org/blog/2025/01/eslint-v9.18.0-released/> (Need to add jiti dependency?)
 
-### @kitschpatrol/eslint-config 4.x reimplementation
+### @kitschpatrol/eslint-config 4.x re-implementation
 
 - [x] eslint-plugin-jsdoc
 - [x] eslint-plugin-mdx

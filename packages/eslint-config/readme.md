@@ -189,7 +189,7 @@ Regrettably the `eslint-config init --location package` option is not supported 
 
 ### Origins
 
-This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation impelementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config). See the [modification notes](./modification-notes.md) for more details on what's changed from Anthony's approach.
+This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation implementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config). See the [modification notes](./modification-notes.md) for more details on what's changed from Anthony's approach.
 
 ### References
 

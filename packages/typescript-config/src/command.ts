@@ -14,7 +14,7 @@ export const commandDefinition: CommandDefinition = {
 				},
 			],
 			description:
-				'Run type checking on your project. This package-scoped command typechecks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.',
+				'Run type checking on your project. This package-scoped command type checks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.',
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
