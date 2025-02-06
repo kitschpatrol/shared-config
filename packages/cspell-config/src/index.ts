@@ -100,7 +100,8 @@ const sharedCspellConfig: CspellConfig = {
 				'/^```(?:.|\\s)+?^```/mig', // Code fences
 				String.raw`\$\$.*?\$\$`, // Ignore display MathJax $$...$$
 				String.raw`\$[^$\n]*\$`, // Ignore inline MathJax $...$
-				String.raw`[A-Z\d\-]{8,}`, // Probable IDs or model names, e.g. AK-68-S7KA-0004
+				// False negatives...
+				// String.raw`[A-Z\d\-]{8,}`, // Probable IDs or model names, e.g. AK-68-S7KA-0004
 			],
 			languageId: 'markdown,mdx,json',
 		},
