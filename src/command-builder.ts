@@ -34,7 +34,7 @@ type CommandCommon = {
 	name: string
 }
 
-export type CommandFunction = CommandCommon & {
+type CommandFunction = CommandCommon & {
 	execute: (
 		logStream: NodeJS.WritableStream,
 		positionalArguments: string[], // Passed by default, but can be ignored in implementation
@@ -296,18 +296,6 @@ export async function executeCommands(
 	return exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1
 }
 
-// Const copyAndMergeInitFilesCommand: CommandFunction = {
-// 	name: 'copyAndMergeInitFiles',
-// 	execute: async (logStream, positionalArguments, optionFlags) => {
-// 		const location = positionalArguments[0]
-// 		const configFile = positionalArguments[1]
-// 		const configPackageJson = positionalArguments[2]
-
-// 		const exitCode = await copyAndMergeInitFiles(logStream, location, configFile, configPackageJson)
-// 		return exitCode
-// 	}
-// }
-
 async function copyAndMergeInitFiles(
 	logStream: NodeJS.WritableStream,
 	location: string | undefined,
@@ -323,6 +311,7 @@ async function copyAndMergeInitFiles(
 		throw new Error('The `init` command must be used in a directory with a package.json file')
 	}
 
+	// TODO do we actually need import.meta.resolve() here?
 	const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) })
 	if (sourcePackage === undefined) {
 		logStream.write('Error: The script being called was not in a package, weird.\n')

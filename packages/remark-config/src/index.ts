@@ -196,8 +196,9 @@ const remarkSharedConfig: RemarkConfig = {
 			// This is necessary in addition to the remark-lint-no-undefined-references rule customization below.
 			text(node: Text, parent: Parents | undefined, state: State, info: Info) {
 				// Call the default text handler, then strip the leading "\" from GFM alerts
+				// Case insensitivity is important!
 				const markdownString = mdastToTextHandlers.text(node, parent, state, info)
-				return markdownString.replace(/^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/, '')
+				return markdownString.replace(/^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/i, '')
 			},
 		},
 		rule: '-',

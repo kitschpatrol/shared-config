@@ -44,7 +44,7 @@
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
-		"presetgen": "tsx scripts/presetgen.ts && pnpm run typegen && shared-config fix",
+		"presetgen": "tsx scripts/presetgen.ts && pnpm run typegen && kpsc fix",
 		"typegen": "tsx scripts/typegen.ts"
 	},
 	"dependencies": {

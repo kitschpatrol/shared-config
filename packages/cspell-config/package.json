@@ -51,6 +51,7 @@
 	"dependencies": {
 		"@cspell/cspell-types": "^8.17.3",
 		"@pinojs/json-colorizer": "^4.0.0",
+		"case-police": "^0.7.2",
 		"cosmiconfig": "^9.0.0",
 		"cspell": "^8.17.3",
 		"cspell-lib": "^8.17.3",

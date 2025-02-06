@@ -19,13 +19,12 @@ export function createStreamTransform(
 				.split(/\r?\n/)
 				.filter((line) => line.trim().length > 0)
 
-			const transformed =
-				lines
-					.map(
-						(line) =>
-							`${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}`,
-					)
-					.join('\n') + '\n'
+			const transformed = lines
+				.map(
+					(line) =>
+						`${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}\n`,
+				)
+				.join('')
 
 			this.push(transformed)
 			callback()

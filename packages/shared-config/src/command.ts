@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+import {
+	type CommandCli,
+	type CommandDefinition,
+	type Commands,
+} from '../../../src/command-builder.js'
+import { kebabCase } from '../../../src/string-utils.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
 import { commandDefinition as eslintCommand } from '../../eslint-config/src/command.js'
 import { commandDefinition as knipCommand } from '../../knip-config/src/command.js'
@@ -9,14 +15,6 @@ import { commandDefinition as remarkCommand } from '../../remark-config/src/comm
 import { commandDefinition as repoCommand } from '../../repo-config/src/command.js'
 import { commandDefinition as stylelintCommand } from '../../stylelint-config/src/command.js'
 import { commandDefinition as typescriptCommand } from '../../typescript-config/src/command.js'
-
-// import chalk from 'chalk'
-import {
-	type CommandCli,
-	type CommandDefinition,
-	type Commands,
-} from '../../../src/command-builder.js'
-import { kebabCase } from '../../../src/string-utils.js'
 
 const subcommandDefinitions = [
 	eslintCommand,

@@ -62,7 +62,7 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 				...jsonPrettierRules,
 			},
 		},
-		// VSCode settings
+		// VS Code settings
 		{
 			files: ['.vscode/**.json'],
 			name: 'kp/json/rules-settings',

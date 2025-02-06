@@ -36,6 +36,14 @@ In order to work around some hoisting issues related to plugin resolution in the
 
 <!-- recommendation -->
 
+> [!Important]
+>
+> **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+
+<!-- /recommendation -->
+
 ## Setup
 
 ### Run-once approach
@@ -89,7 +97,7 @@ If you want releases to come from your account instead of `github_actions`, then
    Alternately, you can do this locally with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
 
    ```sh
-   gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/Github Mika/PERSONAL_ACCESS_TOKEN')
+   gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
    ```
 
 ### GitHub Actions

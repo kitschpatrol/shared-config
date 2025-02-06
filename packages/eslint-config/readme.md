@@ -23,7 +23,15 @@
 
 It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `kpsc-eslint` to perform ESLint-related project initialization, linting, and fixing.
 
-<!-- recommended -->
+<!-- recommendation -->
+
+> [!Important]
+>
+> **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+
+<!-- /recommendation -->
 
 ## Setup
 
@@ -35,20 +43,20 @@ To use just this ESLint config in isolation:
    pnpm dlx @kitschpatrol/repo-config init
    ```
 
-1. Install and initialize the required TypeScript `tsconfig.json` configuration in your project root:
+2. Install and initialize the required TypeScript `tsconfig.json` configuration in your project root:
 
    ```sh
    pnpm add -D @kitschpatrol/typescript-config
    pnpm dlx @kitschpatrol/typescript-config init
    ```
 
-1. Add the package:
+3. Add the package:
 
    ```sh
    pnpm add -D @kitschpatrol/eslint-config
    ```
 
-1. Add the starter `eslint.config.ts` config files to your project root, and add any overrides you'd like:
+4. Add the starter `eslint.config.ts` config files to your project root, and add any overrides you'd like:
 
    ```sh
    pnpm exec eslint-kpsc init
@@ -177,7 +185,7 @@ kpsc-eslint print-config [file]
 
 ## Notes
 
-Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See Eslint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
+Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
 ### Origins
 

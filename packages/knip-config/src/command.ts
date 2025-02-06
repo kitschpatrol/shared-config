@@ -52,14 +52,14 @@ export const commandDefinition: CommandDefinition = {
 					// Run from root, then pass --workspace IF in a monorepo and called from a subpackage
 					cwdOverride: 'workspace-root',
 					name: 'knip',
-					optionFlags: ['--no-progress', '--no-config-hints', ...getWorkspaceOptionFlags()],
+					optionFlags: ['--no-progress', ...getWorkspaceOptionFlags()],
 				},
 				// "Production" pass is not worth it?
 				// {
 				// 	command: 'knip',
 				// 	logColor: 'cyanBright',
 				// 	logPrefix: '[Production]',
-				// 	optionFlags: ['--no-progress', '--no-config-hints', '--production'],
+				// 	optionFlags: ['--no-progress', '--production'],
 				// },
 			],
 			description:

@@ -29,6 +29,7 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					name: 'eslint',
+					optionFlags: ['--max-warnings', '0'],
 					receivePositionalArguments: true,
 				},
 			],

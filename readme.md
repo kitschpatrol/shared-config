@@ -149,6 +149,107 @@ pnpm run format
 
 <!-- cli-help cliCommand: 'kpsc' -->
 
+#### Command: `kpsc`
+
+Run shared config commands
+
+This section lists top-level commands for `kpsc`.
+
+Usage:
+
+```txt
+kpsc <command>
+```
+
+| Command        | Argument    | Description                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
+| `lint`         | `[files..]` | Lint the project                                                                              |
+| `fix`          | `[files..]` | Fix the project                                                                               |
+| `print-config` | `[file]`    | Print the configuration                                                                       |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `kpsc init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+kpsc init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `kpsc lint`
+
+Lint the project
+
+Usage:
+
+```txt
+kpsc lint [files..]
+```
+
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc fix`
+
+Fix the project
+
+Usage:
+
+```txt
+kpsc fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `kpsc print-config`
+
+Print the configuration
+
+Usage:
+
+```txt
+kpsc print-config [file]
+```
+
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+<!-- /cli-help -->
+
 Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `kpsc` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
@@ -167,7 +268,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 ### Hoisting caveats
 
-Pnpm considers module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
+The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
 
 - CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 

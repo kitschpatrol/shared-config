@@ -83,12 +83,12 @@ export type OptionsConfig = {
 	toml?: OptionsOverrides
 
 	/**
-	 * Typescript rules. Can't be disabled.
+	 * TypeScript rules. Can't be disabled.
 	 */
 	ts?: OptionsOverrides & OptionsTypeAware
 
 	/**
-	 * Typescript rules. Can't be disabled.
+	 * TypeScript rules. Can't be disabled.
 	 */
 	tsx?: OptionsOverrides & OptionsTypeAware
 

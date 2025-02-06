@@ -1,5 +1,9 @@
 import { getDefaultConfigLoader, resolveConfigFileImports } from 'cspell-lib'
+import { constants } from 'node:fs'
+import { access } from 'node:fs/promises'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { packageUp } from 'package-up'
 import { type CommandDefinition } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
 import { createStreamTransform } from '../../../src/stream-utils.js'
@@ -30,6 +34,27 @@ async function checkForUnusedWordsCommand(
 	return 0
 }
 
+async function getCasePoliceDictionaryPath(): Promise<string> {
+	// This is the path to the directory containing the default export of the
+	// package, so we still have to look "up" to get the root package directory.
+	const packageDirectory = import.meta.resolve('@kitschpatrol/cspell-config')
+
+	const sourcePackage = await packageUp({ cwd: path.dirname(fileURLToPath(packageDirectory)) })
+	if (sourcePackage === undefined) {
+		throw new Error('Could not find Case Police dictionary parent package.')
+	}
+
+	const source = path.join(path.dirname(sourcePackage), 'dictionaries', 'case-police.json')
+
+	try {
+		await access(source, constants.F_OK)
+	} catch {
+		throw new Error(`Case Police dictionary file "${source}" does not exist.`)
+	}
+
+	return source
+}
+
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		init: {
@@ -45,7 +70,6 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					name: 'cspell',
-					// CwdOverride: 'package-dir',
 					optionFlags: ['--quiet'],
 					receivePositionalArguments: true,
 				},
@@ -53,10 +77,17 @@ export const commandDefinition: CommandDefinition = {
 					execute: checkForUnusedWordsCommand,
 					name: 'unused words',
 				},
+				{
+					logColor: 'cyanBright',
+					logPrefix: '[Case Police]',
+					name: 'case-police',
+					optionFlags: ['--dict', await getCasePoliceDictionaryPath()],
+					receivePositionalArguments: true,
+				},
 			],
 			description:
 				'Check for spelling mistakes. This file-scoped command searches from the current working directory by default.',
-			positionalArgumentDefault: '.',
+			positionalArgumentDefault: '**/*',
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {

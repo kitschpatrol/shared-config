@@ -23,11 +23,17 @@
 
 It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `kpsc-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
-<!-- recommended -->
+<!-- recommendation -->
+
+> [!Important]
+>
+> **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+
+<!-- /recommendation -->
 
 ## Setup
-
-Splanh
 
 To use just this CSpell config in isolation:
 
@@ -85,6 +91,61 @@ pnpm exec kpsc-cspell init --location package
 
 (Note that this will delete the `cspell.config.js` file in your project root!)
 
+#### Disabling bundled dictionaries
+
+In additional to CSpell's default dictionary configuration, this shared configuration enables a number of dictionaries that ship with CSpell for all file types:
+
+- [`lorem-ipsum`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/lorem-ipsum/dict/lorem.txt)
+- [`git`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/git/cspell-ext.json)
+- [`gaming-terms`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/gaming-terms/dict/gaming-terms.txt)
+- [`npm`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/npm/dict/npm.txt)
+- [`data-science`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/data-science/dict/data-science.txt)
+- [`fullstack`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/fullstack/dict/fullstack.txt)
+
+It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
+
+- `kp-acronyms` Contains acronyms
+- `kp-brands` Contains proper nouns like brand names
+- `kp-eslint` Names seen in eslint rules provided by `@kitschpatrol/eslint-config`
+- `kp-files` File extensions and types
+- `kp-misc` Contains general and miscellaneous words
+- `kp-names` Human names and usernames
+- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
+
+In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
+
+For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
+
+```jsonc
+{
+  "import": "@kitschpatrol/cspell-config",
+  "dictionaries": [
+    "!kp-acronyms",
+    "!kp-brands",
+    // ...Addtional !-prefixed dicitonary names
+  ],
+}
+```
+
+If you need a massive and permissive dictionary for large writing project, take a look at [@kitschpatrol/dict-en-wiktionary](https://github.com/kitschpatrol/dict-en-wiktionary).
+
+#### Adding project-scoped words
+
+In your project's root `.cspell.json`:
+
+```jsonc
+{
+  "import": "@kitschpatrol/cspell-config",
+  "words": [
+    "mountweazel",
+    "steinlaus",
+    "jungftak",
+    "esquivalience",
+    // ...Additional words
+  ],
+}
+```
+
 ### CLI
 
 <!-- cli-help -->
@@ -140,9 +201,9 @@ Usage:
 kpsc-cspell lint [files..]
 ```
 
-| Positional Argument | Description                    | Type    | Default |
-| ------------------- | ------------------------------ | ------- | ------- |
-| `files`             | Files or glob pattern to lint. | `array` | `"."`   |
+| Positional Argument | Description                    | Type    | Default  |
+| ------------------- | ------------------------------ | ------- | -------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"**/*"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -165,63 +226,6 @@ kpsc-cspell print-config
 | `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
-
-## Configuration
-
-### Disabling bundled dictionaries
-
-In additional to CSpell's default dictionary configuration, this shared configuration enables a number of dictionaries that ship with CSpell for all file types:
-
-- [`lorem-ipsum`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/lorem-ipsum/dict/lorem.txt)
-- [`git`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/git/cspell-ext.json)
-- [`gaming-terms`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/gaming-terms/dict/gaming-terms.txt)
-- [`npm`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/npm/dict/npm.txt)
-- [`data-science`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/data-science/dict/data-science.txt)
-- [`fullstack`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/fullstack/dict/fullstack.txt)
-
-It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
-
-- `kp-acronyms` Contains acronyms
-- `kp-brands` Contains proper nouns like brand names
-- `kp-eslint` Names seen in eslint rules provided by `@kitschpatrol/eslint-config`
-- `kp-files` File extensions and types
-- `kp-misc` Contains general and miscellaneous words
-- `kp-names` Human names and usernames
-- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
-
-In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
-
-For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
-
-```jsonc
-{
-  "import": "@kitschpatrol/cspell-config",
-  "dictionaries": [
-    "!kp-acronyms",
-    "!kp-brands",
-    // ...Addtional !-prefixed dicitonary names
-  ],
-}
-```
-
-If you need a massive and permissive dictionary for large writing project, take a look at [@kitschpatrol/dict-en-wiktionary](https://github.com/kitschpatrol/dict-en-wiktionary).
-
-### Adding project-scoped words
-
-In your project's root `.cspell.json`:
-
-```jsonc
-{
-  "import": "@kitschpatrol/cspell-config",
-  "words": [
-    "mountweazel",
-    "steinlaus",
-    "jungftak",
-    "esquivalience",
-    // ...Additional words
-  ],
-}
-```
 
 ## Notes
 

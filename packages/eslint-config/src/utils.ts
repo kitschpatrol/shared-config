@@ -29,7 +29,7 @@ export async function interopDefault<T>(
  *
  * This function checks various environment variables to detect if the code
  * is being executed within a code editor or IDE. It accounts for common
- * editors like VSCode, JetBrains IDEs, Vim, and Neovim.
+ * editors like VS Code, JetBrains IDEs, VIM, and Neovim.
  * @returns True if running in an editor environment, false otherwise
  */
 export function isInEditorEnv(): boolean {
@@ -52,7 +52,7 @@ export function isInEditorEnv(): boolean {
  * Checks if the code is running within Git hooks or lint-staged.
  *
  * This function detects if the current execution context is within
- * Git hooks, VSCode Git operations, or lint-staged npm scripts.
+ * Git hooks, VS Code Git operations, or lint-staged npm scripts.
  * @returns True if running in Git hooks or lint-staged, false otherwise
  */
 export function isInGitHooksOrLintStaged(): boolean {

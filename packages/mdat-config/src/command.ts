@@ -7,18 +7,25 @@ import {
 import { stringify } from '../../../src/json-utils.js'
 import { findWorkspacePackageDirectories } from '../../../src/path-utils.js'
 
+async function getMdatConfigFilepath(): Promise<string | undefined> {
+	const result = await getCosmiconfigResult('mdat')
+	return result?.filepath
+}
+
 /**
  * Handles monorepos intelligently...
  */
-function generateMdatReadmeCommands(action: 'check' | 'expand'): CommandCli[] {
+async function generateMdatReadmeCommands(action: 'check' | 'expand'): Promise<CommandCli[]> {
 	const packageDirectories = findWorkspacePackageDirectories()
+	const configPath = await getMdatConfigFilepath()
 
 	const commands: CommandCli[] = []
 	for (const directory of packageDirectories) {
 		commands.push({
 			cwdOverride: directory,
 			name: 'mdat',
-			optionFlags: ['readme', action],
+			optionFlags: configPath ? ['--config', configPath] : [], // Don't love this
+			subcommands: ['readme', action],
 		})
 	}
 
@@ -28,7 +35,7 @@ function generateMdatReadmeCommands(action: 'check' | 'expand'): CommandCli[] {
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
-			commands: generateMdatReadmeCommands('expand'),
+			commands: await generateMdatReadmeCommands('expand'),
 			description:
 				'Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.',
 			positionalArgumentMode: 'none',
@@ -41,7 +48,7 @@ export const commandDefinition: CommandDefinition = {
 			locationOptionFlag: true,
 		},
 		lint: {
-			commands: generateMdatReadmeCommands('check'),
+			commands: await generateMdatReadmeCommands('check'),
 			description:
 				'Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.',
 			positionalArgumentMode: 'none',

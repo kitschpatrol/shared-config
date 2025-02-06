@@ -2,7 +2,7 @@ import { knipConfig } from '@kitschpatrol/knip-config'
 
 export default knipConfig({
 	ignore: ['**/init/**', 'test/fixtures/**'],
-	ignoreBinaries: ['ksdiff', 'mdat'],
+	ignoreBinaries: ['ksdiff'],
 	ignoreDependencies: [
 		'@kitschpatrol/cspell-config',
 		'@kitschpatrol/eslint-config',
@@ -18,8 +18,14 @@ export default knipConfig({
 		'@prettier/plugin-xml',
 		'@types/eslint-config-prettier',
 		'@types/react',
+		'case-police',
+		'chalk',
+		'cspell-lib',
+		'cspell',
 		'eslint-config-prettier',
 		'eslint-config-xo-typescript',
+		'globby',
+		'mdat',
 		'prettier-plugin-astro',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
@@ -29,5 +35,6 @@ export default knipConfig({
 		'prettier-plugin-toml',
 		'stylelint-config-html',
 		'stylelint-config-standard',
+		'stylelint',
 	],
 })

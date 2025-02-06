@@ -4,7 +4,7 @@ import { GLOB_JS } from '../globs'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
 /**
- * Javascript configuration, note use of TypeScript rules
+ * JavaScript configuration, note use of TypeScript rules
  */
 export async function js(
 	options: OptionsOverrides & OptionsTypeAware = {},
