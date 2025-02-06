@@ -136,3 +136,43 @@ Record<string, any> {
 export function toArray<T>(value: T | T[]): T[] {
 	return Array.isArray(value) ? value : [value]
 }
+
+/**
+ * Generates a Perfectionist sort configuration object from an array of strings
+ * @see https://perfectionist.dev/rules/sort-objects#useconfigurationif
+ * @param strings - Array of strings to generate config from
+ * @param options - Configuration options
+ * @param options.matchTrailing - Whether to match end of object parameter name instead of start, useful to sort based on suffixes
+ */
+export function generatePerfectionistSortConfig(
+	strings: string[],
+	options?: {
+		matchTrailing?: boolean
+	},
+): {
+	customGroups: Record<string, string>
+	groups: string[]
+	useConfigurationIf: {
+		allNamesMatchPattern: string
+	}
+} {
+	const customGroups: Record<string, string> = {}
+
+	for (const string of strings) {
+		customGroups[string] = options?.matchTrailing ? `^.*${string}$` : `^${string}$`
+	}
+
+	// TODO case sensitivity?
+	const exactMatch = strings.join('|')
+	const pattern = options?.matchTrailing
+		? `^.+(${strings.map((s) => s).join('|')})$`
+		: `^${exactMatch}$`
+
+	return {
+		customGroups,
+		groups: strings,
+		useConfigurationIf: {
+			allNamesMatchPattern: pattern,
+		},
+	}
+}

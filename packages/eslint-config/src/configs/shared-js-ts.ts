@@ -28,6 +28,7 @@ import {
 	xoJavascriptRules,
 	xoTypescriptRules,
 } from '../presets'
+import { generatePerfectionistSortConfig } from '../utils'
 
 // ---------
 
@@ -133,6 +134,18 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'perfectionist/sort-modules': 'off',
 		'perfectionist/sort-objects': [
 			'error',
+			generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], { matchTrailing: true }),
+			generatePerfectionistSortConfig(['Min', 'Max'], { matchTrailing: true }),
+			generatePerfectionistSortConfig(['Width', 'Height'], { matchTrailing: true }),
+			generatePerfectionistSortConfig(['r', 'g', 'b']),
+			generatePerfectionistSortConfig(['h', 's', 'l']),
+			generatePerfectionistSortConfig(['h', 's', 'l', 'a']),
+			generatePerfectionistSortConfig(['h', 's', 'v']),
+			generatePerfectionistSortConfig(['a', 'b']), // For partial matches...
+			generatePerfectionistSortConfig(['r', 'g', 'b', 'a']),
+			generatePerfectionistSortConfig(['x', 'y', 'z', 'w']),
+			generatePerfectionistSortConfig(['min', 'max']),
+			generatePerfectionistSortConfig(['width', 'height']),
 			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
