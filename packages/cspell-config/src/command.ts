@@ -128,7 +128,7 @@ async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promi
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		init: {
-			configFile: 'cspell.config.json',
+			configFile: 'cspell.config.js',
 			configPackageJson: {
 				cspell: {
 					import: '@kitschpatrol/cspell-config',
