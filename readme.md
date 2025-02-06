@@ -344,6 +344,18 @@ For local development via `pnpm`, use `file:` dependency protocol instead of `li
 
 Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to eslint instead of prettier.
 
+Serial run order:
+
+1. `kpsc-repo`
+2. `kpsc-mdat`
+3. `kpsc-typescript`
+4. `kpsc-eslint`
+5. `kpsc-stylelint`
+6. `kpsc-cspell`
+7. `kpsc-knip`
+8. `kpsc-remark`
+9. `kpsc-prettier`
+
 ## Background
 
 ### Motivation

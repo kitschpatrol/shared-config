@@ -34,4 +34,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'blueBright',
 	logPrefix: '[TypeScript Config]',
 	name: 'kpsc-typescript',
+	order: 3,
 }

@@ -180,4 +180,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'cyan',
 	logPrefix: '[CSpell]',
 	name: 'kpsc-cspell',
+	order: 6,
 }

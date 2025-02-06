@@ -115,4 +115,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'greenBright',
 	logPrefix: '[Stylelint]',
 	name: 'kpsc-stylelint',
+	order: 5,
 }

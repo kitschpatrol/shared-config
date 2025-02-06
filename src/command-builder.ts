@@ -105,6 +105,7 @@ export type CommandDefinition = {
 	logColor: ChalkColor
 	logPrefix: string | undefined
 	name: string
+	order: number
 	showSummary?: boolean
 	verbose?: boolean
 }

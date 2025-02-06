@@ -90,4 +90,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'green',
 	logPrefix: '[Mdat Config]',
 	name: 'kpsc-mdat',
+	order: 2,
 }

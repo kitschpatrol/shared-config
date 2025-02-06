@@ -30,6 +30,9 @@ const subcommandDefinitions = [
 ]
 
 function getCommands(key: keyof Commands, definitions: CommandDefinition[]): CommandCli[] {
+	// Sort definition by order field in place
+	definitions.sort((a, b) => a.order - b.order)
+
 	const commands: CommandCli[] = []
 	for (const definition of definitions) {
 		const keys = Object.keys(definition.commands)
@@ -82,6 +85,7 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'yellow',
 	logPrefix: '🔬',
 	name: 'kpsc',
+	order: 0,
 	showSummary: true,
 	verbose: true,
 }

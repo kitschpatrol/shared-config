@@ -68,4 +68,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'blue',
 	logPrefix: '[Prettier]',
 	name: 'kpsc-prettier',
+	order: 9,
 }

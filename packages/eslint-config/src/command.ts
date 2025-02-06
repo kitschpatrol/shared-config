@@ -76,4 +76,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'magenta',
 	logPrefix: `[ESLint]`,
 	name: 'kpsc-eslint',
+	order: 4,
 }

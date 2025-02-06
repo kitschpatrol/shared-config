@@ -27,4 +27,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'blue',
 	logPrefix: '[remarklint]',
 	name: 'kpsc-remark',
+	order: 8,
 }

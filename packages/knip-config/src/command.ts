@@ -78,4 +78,5 @@ export const commandDefinition: CommandDefinition = {
 	logColor: 'cyan',
 	logPrefix: '[Knip]',
 	name: 'kpsc-knip',
+	order: 7,
 }
