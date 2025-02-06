@@ -7,6 +7,11 @@ import { deepmerge } from 'deepmerge-ts'
  */
 const sharedKnipConfig: KnipConfig = {
 	entry: [
+		// Default entry... not merging in from default Knip config?
+		'{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
+		'src/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
+
+		// Customized entries
 		'scripts/**/*.ts',
 		'.remarkrc.js',
 		'cspell.config.js',
@@ -14,6 +19,17 @@ const sharedKnipConfig: KnipConfig = {
 		'mdat.config.ts',
 		'prettier.config.js',
 		'stylelint.config.js',
+	],
+	ignoreDependencies: [
+		'@kitschpatrol/cspell-config',
+		'@kitschpatrol/eslint-config',
+		'@kitschpatrol/knip-config',
+		'@kitschpatrol/mdat-config',
+		'@kitschpatrol/prettier-config',
+		'@kitschpatrol/remark-config',
+		'@kitschpatrol/repo-config', // Technically not needed?
+		'@kitschpatrol/stylelint-config',
+		'@kitschpatrol/typescript-config', // Technically not needed?
 	],
 }
 
