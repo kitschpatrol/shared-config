@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/knip-config",
-	"version": "4.7.12",
+	"version": "5.0.0",
 	"description": "Knip configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
