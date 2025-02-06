@@ -7,8 +7,6 @@
 		"**/dist/",
 		"**/bin/",
 		"test/fixtures/input/*.*",
-		"test/fixtures/output-fixable/*.*",
-		/* TODO re-enable */
-		"test/fixtures/output-fixed/*.*"
+		"test/fixtures/output-fixed-auto/*.*"
 	]
 }

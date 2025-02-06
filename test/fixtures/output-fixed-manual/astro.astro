@@ -1,6 +1,5 @@
 ---
 // How do you spell
-const isJsx = true
 const content = 'hi!'
 
 const f = 0
@@ -9,17 +8,23 @@ console.log(f)
 
 <article>
 	<div>{content}</div>
-	<img alt="kittens" src="https://placekitten.com/200/300" />
+	<img alt="kitten" src="https://placekitten.com/200/300" />
 	<div>
-		{isJsx && <h1>{content}</h1>}
+		{(<h1>{content}</h1>)}
 	</div>
 </article>
 
 <script>
-	var q = 5
 	const { log: logger } = console
 	document.querySelector('h1')?.addEventListener('click', () => {
 		logger('clicked')
-		logger(q)
 	})
 </script>
+
+<style>
+	/* Stylelint should work here */
+	#theme-toggle {
+		display: none;
+		opacity: 0.5;
+	}
+</style>

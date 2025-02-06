@@ -8,4 +8,4 @@ package-lock.json
 # Customizations
 bin/
 /test/fixtures/input/
-/test/fixtures/output-fixable/
+/test/fixtures/output-fixed-auto/

@@ -65,3 +65,5 @@ let foo
 if (a || b || c || d || (d && b)) {
 	foo()
 }
+
+export {}

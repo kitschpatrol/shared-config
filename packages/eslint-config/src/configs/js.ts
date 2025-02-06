@@ -26,6 +26,8 @@ export async function js(
 			name: 'kp/js/rules',
 			rules: {
 				...sharedScriptConfig.rules,
+				'jsdoc/check-tag-names': 'off',
+				'jsdoc/no-types': 'off',
 				...(typeAware.enabled ? {} : sharedScriptDisableTypeCheckedRules),
 				...overrides,
 			},

@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention
 /**
  *
  * @param root0
@@ -14,7 +13,7 @@ export function HelloWorld({
 	silent = false,
 }) {
 	if (!greeting) {
-		return
+		return null
 	}
 
 	// TODO: Don't use random in render
@@ -29,7 +28,7 @@ export function HelloWorld({
 			title={`You are visitor number ${number_}`}
 		>
 			<strong>{greeting.slice(0, 1).toUpperCase() + greeting.slice(1).toLowerCase()}</strong>
-			{greeting.endsWith(',') ? ' ' : <span style={{ color: 'grey' }}>", "</span>}
+			{greeting.endsWith(',') ? ' ' : <span style={{ color: '\grey' }}>", "</span>}
 			<em>{greeted}</em>
 			{silent ? '.' : '!'}
 		</div>

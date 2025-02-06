@@ -5,9 +5,7 @@ export default cspellConfig({
 		'/packages/*/init/*.json',
 		'/packages/*/bin',
 		'/test/fixtures/input',
-		'/test/fixtures/output-fixable',
-		// TODO reenable this...
-		'/test/fixtures/output-fixed',
+		'/test/fixtures/output-fixed-auto',
 	],
 	words: ['bullrich', 'hyperse', 'kbrashears', 'neostandard', 'softprops', 'Zumer'],
 })

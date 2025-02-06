@@ -7,9 +7,7 @@ export default eslintConfig(
 			'bin/',
 			'packages/eslint-config/src/typegen.d.ts',
 			'test/fixtures/input/*',
-			'test/fixtures/output-fixable/*',
-			// TODO don't ignore this
-			'test/fixtures/output-fixed/*',
+			'test/fixtures/output-fixed-auto/*',
 		],
 		react: true,
 		svelte: true,

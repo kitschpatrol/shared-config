@@ -70,3 +70,6 @@ if (a
         ) {
           foo()
         }
+
+
+export {}

@@ -44,14 +44,9 @@ const car2: Car = {
 type Fruit = 'apple' | 'banana' | 'orange'
 const favoriteFruit: Fruit = 'apple'
 
-// Use a type assertion to tell TypeScript about the type
-const inputValue: unknown = '42'
-const numericValue = inputValue as number
-
 // Define a class with access modifiers
 class Animal {
 	constructor(private readonly name: string) {}
-
 	protected makeSound(sound: string) {
 		log(`${this.name} says ${sound}`)
 	}
@@ -59,10 +54,6 @@ class Animal {
 
 // Extend a class
 class Dog extends Animal {
-	constructor(private readonly alias: string) {
-		super(alias)
-	}
-
 	bark() {
 		this.makeSound('Woof!')
 	}
@@ -73,4 +64,8 @@ dog.bark()
 
 const fn = (): string => 'hello' + 1
 
+const numericValue = 1
+
 log(car1, car2, favoriteFruit, numericValue, fn())
+
+export {}

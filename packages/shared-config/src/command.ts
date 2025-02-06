@@ -69,7 +69,7 @@ export const commandDefinition: CommandDefinition = {
 		},
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
-			description: `Fix your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
+			description: `Lint your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {

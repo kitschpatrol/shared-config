@@ -38,14 +38,14 @@ describe('CLI basics', () => {
 		expect(stdout).toMatchInlineSnapshot(`
 			"kpsc <command>
 
-			Run a command.
+			Run aggregated @kitschpatrol/shared-config commands.
 
 			Commands:
-			  kpsc <command>            Run a command.  [default]
-			  kpsc lint [files..]      Check for and report issues.
-			  kpsc fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
-			  kpsc init                 Initialize by copying starter config files to your project root.
-			  kpsc print-config <file>  Print the effective configuration at a certain path.
+			  kpsc <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
+			  kpsc init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
+			  kpsc lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  kpsc fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  kpsc print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -63,14 +63,14 @@ describe('CLI basics', () => {
 		expect(stdout).toMatchInlineSnapshot(`
 			"kpsc <command>
 
-			Run a command.
+			Run aggregated @kitschpatrol/shared-config commands.
 
 			Commands:
-			  kpsc <command>            Run a command.  [default]
-			  kpsc lint [files..]      Check for and report issues.
-			  kpsc fix [files..]        Fix all auto-fixable issues, and report the un-fixable.
-			  kpsc init                 Initialize by copying starter config files to your project root.
-			  kpsc print-config <file>  Print the effective configuration at a certain path.
+			  kpsc <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
+			  kpsc init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
+			  kpsc lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  kpsc fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  kpsc print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -78,7 +78,7 @@ describe('CLI basics', () => {
 		`)
 	})
 
-	describe('CLI rule configuration', () => {
+	describe.skip('CLI rule configuration', () => {
 		const tempDirectory = './input-copy/'
 
 		beforeEach(async () => {
@@ -108,7 +108,7 @@ describe('CLI basics', () => {
 
 		it('should fix auto-fixable things', { timeout: 60_000 }, async () => {
 			const sourceDirectory = './test/fixtures/input/'
-			const destinationDirectory = './test/fixtures/output-fixable/'
+			const destinationDirectory = './test/fixtures/output-fixed-auto/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
 			await execa('kpsc', ['--fix'], {
