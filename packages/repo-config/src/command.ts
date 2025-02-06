@@ -1,17 +1,16 @@
-import { type CommandDefinition } from '../../../src/command-builder.js'
-import { copyrightYearFixer, copyrightYearLinter } from './copyright-year-updater.js'
+import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
+import { copyrightYearFixerCommand, copyrightYearLinterCommand } from './copyright-year-updater.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: [
 				{
-					execute: copyrightYearLinter,
-					name: 'copyright year',
+					execute: copyrightYearLinterCommand,
+					name: copyrightYearLinterCommand.name,
 				},
 			],
-			description:
-				'Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.',
+			description: `Fix common issues like outdated copyright years in license files. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -20,16 +19,15 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					execute: copyrightYearFixer,
-					name: 'copyright year',
+					execute: copyrightYearFixerCommand,
+					name: copyrightYearFixerCommand.name,
 				},
 			],
-			description:
-				'Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.',
+			description: `Check the repo for common issues. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 	},
-	description: 'Repo related.',
+	description: "Kitschpatrol's repository-related shared configuration tools.",
 	logColor: 'gray',
 	logPrefix: '[Repo Config]',
 	name: 'kpsc-repo',

@@ -4,7 +4,7 @@ import { access } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
 import { createStreamTransform } from '../../../src/stream-utils.js'
 import { checkForUnusedWords } from './unused-words.js'
@@ -55,6 +55,26 @@ async function getCasePoliceDictionaryPath(): Promise<string> {
 	return source
 }
 
+async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promise<number> {
+	const configName = 'cspell'
+
+	// eslint-disable-next-line unicorn/no-useless-undefined
+	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
+	if (config === undefined) {
+		throw new Error('No CSpell configuration found.')
+	}
+
+	logStream.write(`Found ${configName} readme configuration at "${fileURLToPath(config.url)}"\n`)
+
+	const resolvedConfig = await resolveConfigFileImports(config)
+	const prettyAndColorfulJsonLines = stringify(resolvedConfig).split('\n')
+	for (const line of prettyAndColorfulJsonLines) {
+		logStream.write(`${line}\n`)
+	}
+
+	return 0
+}
+
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		init: {
@@ -75,7 +95,7 @@ export const commandDefinition: CommandDefinition = {
 				},
 				{
 					execute: checkForUnusedWordsCommand,
-					name: 'unused words',
+					name: checkForUnusedWordsCommand.name,
 				},
 				{
 					logColor: 'cyanBright',
@@ -85,39 +105,18 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Check for spelling mistakes. This file-scoped command searches from the current working directory by default.',
+			description: `Check for spelling mistakes. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault: '**/*',
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			commands: [
 				{
-					async execute(logStream) {
-						const configName = 'cspell'
-
-						// eslint-disable-next-line unicorn/no-useless-undefined
-						const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
-						if (config === undefined) {
-							throw new Error('No CSpell configuration found.')
-						}
-
-						logStream.write(
-							`Found ${configName} readme configuration at "${fileURLToPath(config.url)}"\n`,
-						)
-
-						const resolvedConfig = await resolveConfigFileImports(config)
-						const prettyAndColorfulJsonLines = stringify(resolvedConfig).split('\n')
-						for (const line of prettyAndColorfulJsonLines) {
-							logStream.write(`${line}\n`)
-						}
-
-						return 0
-					},
-					name: 'print mdat config',
+					execute: printCspellConfigCommand,
+					name: printCspellConfigCommand.name,
 				},
 			],
-			description: 'Print the Mdat configuration.',
+			description: `Print the resolved CSpell configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 		// Old approached prints too much...
@@ -129,7 +128,8 @@ export const commandDefinition: CommandDefinition = {
 		// 	options: ['--debug', '--no-exit-code', '--no-color'],
 		// },
 	},
-	description: 'Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)',
+	description:
+		"Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)",
 	logColor: 'cyan',
 	logPrefix: '[CSpell]',
 	name: 'kpsc-cspell',

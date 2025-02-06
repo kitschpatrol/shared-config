@@ -4,6 +4,7 @@ import {
 	type CommandCli,
 	type CommandDefinition,
 	type Commands,
+	DESCRIPTIONS,
 } from '../../../src/command-builder.js'
 import { kebabCase } from '../../../src/string-utils.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
@@ -57,26 +58,27 @@ export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: getCommands('fix', subcommandDefinitions),
-			description: 'Fix the project',
+			description: `Fix your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
 			commands: getCommands('init', subcommandDefinitions),
+			description: `Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. ${DESCRIPTIONS.multiOptionCaveat}`,
 			locationOptionFlag: true,
 			// TODO does this try to copy files from shared config?
 		},
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
-			description: 'Lint the project',
+			description: `Fix your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			commands: getCommands('printConfig', subcommandDefinitions),
-			description: 'Print the configuration',
+			description: `Print aggregated tool configuration data. ${DESCRIPTIONS.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 	},
-	description: 'Run shared config commands',
+	description: 'Run aggregated @kitschpatrol/shared-config commands.',
 	logColor: 'yellow',
 	logPrefix: '🔬',
 	name: 'kpsc',

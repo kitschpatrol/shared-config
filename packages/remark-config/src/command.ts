@@ -1,4 +1,8 @@
-import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
+import {
+	type CommandDefinition,
+	DESCRIPTIONS,
+	getCosmiconfigCommand,
+} from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -14,11 +18,12 @@ export const commandDefinition: CommandDefinition = {
 		},
 		printConfig: {
 			commands: [getCosmiconfigCommand('remark')],
-			description: 'Print the Remark configuration.',
+			description: `Print the effective Remark configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},
-	description: 'TK. Linting and fixing of issues in Markdown files is managed through ESLint.',
+	description:
+		"Kitschpatrol's Remark and Remark Lint shared configuration tools. (Actual linting and fixing is managed through @kitschpatrol/eslint-config.)",
 	logColor: 'blue',
 	logPrefix: '[remarklint]',
 	name: 'kpsc-remark',

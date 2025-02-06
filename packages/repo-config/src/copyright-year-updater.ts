@@ -90,13 +90,13 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
 /**
  * Linter for the year in license files.
  */
-export async function copyrightYearLinter(logStream: NodeJS.WritableStream) {
+export async function copyrightYearLinterCommand(logStream: NodeJS.WritableStream) {
 	return copyrightYear(logStream, false)
 }
 
 /**
  * Fixer for the year in license files.
  */
-export async function copyrightYearFixer(logStream: NodeJS.WritableStream) {
+export async function copyrightYearFixerCommand(logStream: NodeJS.WritableStream) {
 	return copyrightYear(logStream, true)
 }

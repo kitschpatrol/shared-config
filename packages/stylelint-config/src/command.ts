@@ -1,6 +1,10 @@
 import path from 'node:path'
 import stylelint from 'stylelint'
-import { type CommandDefinition, getCosmiconfigResult } from '../../../src/command-builder.js'
+import {
+	type CommandDefinition,
+	DESCRIPTIONS,
+	getCosmiconfigResult,
+} from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
 import { getCwdOverride, getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
@@ -23,6 +27,44 @@ const positionalArgumentDefaultSuffix = [
 ]
 const positionalArgumentDefault = `**/*.{${positionalArgumentDefaultSuffix.join(',')}}`
 
+async function printStylelintConfigCommand(
+	logStream: NodeJS.WritableStream,
+	positionalArguments: string[],
+): Promise<number> {
+	const configName = 'stylelint'
+
+	// Print location of config:
+	const result = await getCosmiconfigResult(configName)
+	if (result === undefined) {
+		return 1
+	}
+
+	const { filepath: configFilepath, isEmpty } = result
+
+	if (isEmpty) {
+		logStream.write('Configuration is empty.\n')
+		return 0
+	}
+
+	logStream.write(`Found ${configName} configuration at "${configFilepath}"\n`)
+
+	// Use stylelint's built-in method to print the config
+	let filePath
+	if (positionalArguments.length > 0) {
+		filePath = path.join(process.cwd(), positionalArguments[0])
+		logStream.write(`Showing config for file at "${filePath}"\n`)
+	} else {
+		filePath = getCwdOverride('package-dir')
+	}
+
+	const config = await stylelint.resolveConfig(filePath)
+	const prettyAndColorfulJsonLines = stringify(config).split('\n')
+	for (const line of prettyAndColorfulJsonLines) {
+		logStream.write(`${line}\n`)
+	}
+	return 0
+}
+
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
@@ -33,8 +75,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.',
+			description: `Fix your project with Stylelint. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault,
 			positionalArgumentMode: 'optional',
 		},
@@ -55,56 +96,22 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Lint your project with Stylelint. This file-scoped command searches from the current working directory by default.',
+			description: `Lint your project with Stylelint. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			commands: [
 				{
-					async execute(logStream, positionalArguments) {
-						const configName = 'stylelint'
-
-						// Print location of config:
-						const result = await getCosmiconfigResult(configName)
-						if (result === undefined) {
-							return 1
-						}
-
-						const { filepath: configFilepath, isEmpty } = result
-
-						if (isEmpty) {
-							logStream.write('Configuration is empty.\n')
-							return 0
-						}
-
-						logStream.write(`Found ${configName} configuration at "${configFilepath}"\n`)
-
-						// Use stylelint's built-in method to print the config
-						let filePath
-						if (positionalArguments.length > 0) {
-							filePath = path.join(process.cwd(), positionalArguments[0])
-							logStream.write(`Showing config for file at "${filePath}"\n`)
-						} else {
-							filePath = getCwdOverride('package-dir')
-						}
-
-						const config = await stylelint.resolveConfig(filePath)
-						const prettyAndColorfulJsonLines = stringify(config).split('\n')
-						for (const line of prettyAndColorfulJsonLines) {
-							logStream.write(`${line}\n`)
-						}
-						return 0
-					},
-					name: 'print stylelint config',
+					execute: printStylelintConfigCommand,
+					name: printStylelintConfigCommand.name,
 				},
 			],
-			description: 'Print the stylelint configuration. TK.',
+			description: `Print the effective Stylelint configuration. ${DESCRIPTIONS.optionalFileRun}.`,
 			positionalArgumentMode: 'optional',
 		},
 	},
-	description: 'Description goes here.',
+	description: "Kitschpatrol's Stylelint shared configuration tools.",
 	logColor: 'greenBright',
 	logPrefix: '[Stylelint]',
 	name: 'kpsc-stylelint',

@@ -2,9 +2,34 @@ import path from 'node:path'
 import {
 	type Command,
 	type CommandDefinition,
+	DESCRIPTIONS,
 	executeCommands,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
+
+async function printEslintConfigCommand(
+	logStream: NodeJS.WritableStream,
+	positionalArguments: string[],
+): Promise<number> {
+	// Conditionally execute different commands based on presence
+	// of optional positional argument
+	let commandToExecute: Command
+
+	if (positionalArguments.length > 0) {
+		const resolvedFile = path.join(process.cwd(), positionalArguments[0])
+		logStream.write(`Showing configuration for file: ${resolvedFile}\n`)
+
+		commandToExecute = {
+			name: 'eslint',
+			optionFlags: ['--print-config'],
+			receivePositionalArguments: true,
+		}
+	} else {
+		commandToExecute = getCosmiconfigCommand('eslint')
+	}
+
+	return executeCommands(logStream, positionalArguments, [], [commandToExecute])
+}
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -16,8 +41,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Fix your project with ESLint. This file-scoped command searches from the current working directory by default.',
+			description: `Fix your project with ESLint. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
@@ -33,42 +57,22 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Lint your project with ESLint. This file-scoped command searches from the current working directory by default.',
+			description: `Lint your project with ESLint. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			commands: [
 				{
-					async execute(logStream, positionalArguments) {
-						// Conditionally execute different commands based on presence
-						// of optional positional argument
-						let commandToExecute: Command
-
-						if (positionalArguments.length > 0) {
-							const resolvedFile = path.join(process.cwd(), positionalArguments[0])
-							logStream.write(`Showing configuration for file: ${resolvedFile}\n`)
-
-							commandToExecute = {
-								name: 'eslint',
-								optionFlags: ['--print-config'],
-								receivePositionalArguments: true,
-							}
-						} else {
-							commandToExecute = getCosmiconfigCommand('eslint')
-						}
-
-						return executeCommands(logStream, positionalArguments, [], [commandToExecute])
-					},
-					name: 'print eslint config',
+					execute: printEslintConfigCommand,
+					name: printEslintConfigCommand.name,
 				},
 			],
-			description: 'Print the eslint configuration.',
+			description: `Print the effective ESLint configuration. ${DESCRIPTIONS.optionalFileRun} Use \`@eslint/config-inspector\` for a more detailed view.`,
 			positionalArgumentMode: 'optional',
 		},
 	},
-	description: 'ESLint shared configuration tools.',
+	description: "Kitschpatrol's ESLint shared configuration tools.",
 	logColor: 'magenta',
 	logPrefix: `[ESLint]`,
 	name: 'kpsc-eslint',

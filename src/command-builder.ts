@@ -69,6 +69,8 @@ type InitCommand = {
 	/** Specific config file */
 	configFile?: string
 	configPackageJson?: Record<string, unknown>
+	/** Optional, just used for top-level shared-config command */
+	description?: string
 	locationOptionFlag: boolean
 }
 
@@ -461,7 +463,9 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 			},
 			command: 'init',
 			// Command: init.locationOptionFlag ? 'init [--location]' : 'init',
-			describe: `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
+			describe:
+				init.description ??
+				`Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
 			async handler(argv) {
 				// Copy files
 				// Grab context by closure
@@ -665,4 +669,18 @@ export async function getCosmiconfigResult(
 		console.error(`Error while searching for ${configName} configuration:`, error)
 		return undefined
 	}
+}
+
+export const DESCRIPTIONS = {
+	fileRun: 'Matches files below the current working directory by default.',
+	monorepoRun:
+		'In a monorepo, it will also run in all packages below the current working directory.',
+	monorepoSearch: 'Searches up to the root of a monorepo if necessary.',
+	multiArgumentCaveat:
+		'Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.',
+	multiOptionCaveat:
+		'Will use option flags where possible if provided, but some of the invoked tools will ignore them.',
+	optionalFileRun: 'Package-scoped by default, file-scoped if a file argument is provided.',
+	packageRun: 'Package-scoped.',
+	packageSearch: 'Package-scoped.',
 }

@@ -1,4 +1,4 @@
-import { type CommandDefinition } from '../../../src/command-builder.js'
+import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -13,8 +13,8 @@ export const commandDefinition: CommandDefinition = {
 					optionFlags: ['--noEmit'],
 				},
 			],
-			description:
-				'Run type checking on your project. This package-scoped command type checks from the nearest package root directory. In a monorepo, it will also typecheck any packages below the current working directory.',
+			// TODO confirm monorepo behavior
+			description: `Run type checking on your project. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
@@ -25,11 +25,12 @@ export const commandDefinition: CommandDefinition = {
 					prettyJsonOutput: true,
 				},
 			],
-			description: 'Print the TypeScript configuration for the project. TK monorepo behavior.',
+			// TODO confirm monorepo behavior
+			description: `Print the TypeScript configuration for the project. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},
-	description: 'TK. No fix.',
+	description: "Kitschpatrol's TypeScript shared configuration tools.",
 	logColor: 'blueBright',
 	logPrefix: '[TypeScript Config]',
 	name: 'kpsc-typescript',

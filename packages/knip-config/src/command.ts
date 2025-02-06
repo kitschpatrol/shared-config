@@ -1,5 +1,9 @@
 import path from 'node:path'
-import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
+import {
+	type CommandDefinition,
+	DESCRIPTIONS,
+	getCosmiconfigCommand,
+} from '../../../src/command-builder.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utils.js'
 import sharedKnipConfig from './index.js'
 
@@ -37,8 +41,7 @@ export const commandDefinition: CommandDefinition = {
 					optionFlags: ['--fix', '--allow-remove-files', ...getWorkspaceOptionFlags()],
 				},
 			],
-			description:
-				'Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.',
+			description: `Automatically remove unused code and dependencies. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -62,17 +65,16 @@ export const commandDefinition: CommandDefinition = {
 				// 	optionFlags: ['--no-progress', '--production'],
 				// },
 			],
-			description:
-				'Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.',
+			description: `Check for unused code and dependencies. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
 			commands: [getCosmiconfigCommand('knip')],
-			description: 'Print the Knip configuration.',
+			description: `Print the effective Knip configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},
-	description: 'Clean up unused clutter in your project with Knip.',
+	description: "Kitschpatrol's Knip shared configuration tools.",
 	logColor: 'cyan',
 	logPrefix: '[Knip]',
 	name: 'kpsc-knip',

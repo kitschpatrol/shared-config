@@ -1,4 +1,8 @@
-import { type CommandDefinition, getCosmiconfigCommand } from '../../../src/command-builder.js'
+import {
+	type CommandDefinition,
+	DESCRIPTIONS,
+	getCosmiconfigCommand,
+} from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
 
 // TODO bad idea?
@@ -30,8 +34,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.',
+			description: `Format files according to your Prettier configuration. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
@@ -50,19 +53,18 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description:
-				'Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default.',
+			description: `Check that files are formatted according to your Prettier configuration. ${DESCRIPTIONS.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			// See also --find-config-path and --file-info options for fancier per-file approaches...
 			commands: [getCosmiconfigCommand('prettier')],
-			description: 'Print the prettier configuration.',
+			description: `Print the effective Prettier configuration. ${DESCRIPTIONS.packageSearch}. ${DESCRIPTIONS.monorepoSearch}.`,
 			positionalArgumentMode: 'none',
 		},
 	},
-	description: 'TK',
+	description: "Kitschpatrol's Prettier shared configuration tools.",
 	logColor: 'blue',
 	logPrefix: '[Prettier]',
 	name: 'kpsc-prettier',
