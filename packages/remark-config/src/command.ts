@@ -1,6 +1,6 @@
 import {
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
 
@@ -18,7 +18,7 @@ export const commandDefinition: CommandDefinition = {
 		},
 		printConfig: {
 			commands: [getCosmiconfigCommand('remark')],
-			description: `Print the effective Remark configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
+			description: `Print the effective Remark configuration. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},

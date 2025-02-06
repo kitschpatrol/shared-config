@@ -4,7 +4,7 @@ import {
 	type CommandCli,
 	type CommandDefinition,
 	type Commands,
-	DESCRIPTIONS,
+	DESCRIPTION,
 } from '../../../src/command-builder.js'
 import { kebabCase } from '../../../src/string-utils.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
@@ -61,23 +61,23 @@ export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: getCommands('fix', subcommandDefinitions),
-			description: `Fix your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
+			description: `Fix your project with multiple tools in one go. ${DESCRIPTION.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
 			commands: getCommands('init', subcommandDefinitions),
-			description: `Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. ${DESCRIPTIONS.multiOptionCaveat}`,
+			description: `Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. ${DESCRIPTION.multiOptionCaveat}`,
 			locationOptionFlag: true,
 			// TODO does this try to copy files from shared config?
 		},
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
-			description: `Lint your project with multiple tools in one go. ${DESCRIPTIONS.multiArgumentCaveat}`,
+			description: `Lint your project with multiple tools in one go. ${DESCRIPTION.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			commands: getCommands('printConfig', subcommandDefinitions),
-			description: `Print aggregated tool configuration data. ${DESCRIPTIONS.multiArgumentCaveat}`,
+			description: `Print aggregated tool configuration data. ${DESCRIPTION.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 	},

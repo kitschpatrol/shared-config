@@ -1,4 +1,4 @@
-import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
+import { type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -14,7 +14,7 @@ export const commandDefinition: CommandDefinition = {
 				},
 			],
 			// TODO confirm monorepo behavior
-			description: `Run type checking on your project. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Run type checking on your project. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
@@ -26,7 +26,7 @@ export const commandDefinition: CommandDefinition = {
 				},
 			],
 			// TODO confirm monorepo behavior
-			description: `Print the TypeScript configuration for the project. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
+			description: `Print the TypeScript configuration for the project. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},

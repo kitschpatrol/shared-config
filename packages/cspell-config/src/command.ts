@@ -7,7 +7,7 @@ import { stripVTControlCharacters } from 'node:util'
 import { packageUp } from 'package-up'
 import {
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	executeCommands,
 } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
@@ -152,7 +152,7 @@ export const commandDefinition: CommandDefinition = {
 					name: casePoliceCommand.name,
 				},
 			],
-			description: `Check for spelling mistakes. ${DESCRIPTIONS.fileRun}`,
+			description: `Check for spelling mistakes. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault: '**/*',
 			positionalArgumentMode: 'optional',
 		},
@@ -163,7 +163,7 @@ export const commandDefinition: CommandDefinition = {
 					name: printCspellConfigCommand.name,
 				},
 			],
-			description: `Print the resolved CSpell configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
+			description: `Print the resolved CSpell configuration. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 		// Old approached prints too much...

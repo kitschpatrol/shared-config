@@ -1,7 +1,7 @@
 import path from 'node:path'
 import {
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utils.js'
@@ -41,7 +41,7 @@ export const commandDefinition: CommandDefinition = {
 					optionFlags: ['--fix', '--allow-remove-files', ...getWorkspaceOptionFlags()],
 				},
 			],
-			description: `Automatically remove unused code and dependencies. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Automatically remove unused code and dependencies. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -65,12 +65,12 @@ export const commandDefinition: CommandDefinition = {
 				// 	optionFlags: ['--no-progress', '--production'],
 				// },
 			],
-			description: `Check for unused code and dependencies. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Check for unused code and dependencies. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
 			commands: [getCosmiconfigCommand('knip')],
-			description: `Print the effective Knip configuration. ${DESCRIPTIONS.packageSearch} ${DESCRIPTIONS.monorepoSearch}`,
+			description: `Print the effective Knip configuration. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
 	},

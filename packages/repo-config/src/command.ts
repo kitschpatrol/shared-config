@@ -1,4 +1,4 @@
-import { type CommandDefinition, DESCRIPTIONS } from '../../../src/command-builder.js'
+import { type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
 import { copyrightYearFixerCommand, copyrightYearLinterCommand } from './copyright-year-updater.js'
 
 export const commandDefinition: CommandDefinition = {
@@ -10,7 +10,7 @@ export const commandDefinition: CommandDefinition = {
 					name: copyrightYearLinterCommand.name,
 				},
 			],
-			description: `Fix common issues like outdated copyright years in license files. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Fix common issues like outdated copyright years in license files. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -23,7 +23,7 @@ export const commandDefinition: CommandDefinition = {
 					name: copyrightYearFixerCommand.name,
 				},
 			],
-			description: `Check the repo for common issues. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Check the repo for common issues. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 	},

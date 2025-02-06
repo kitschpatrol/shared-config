@@ -672,7 +672,7 @@ export async function getCosmiconfigResult(
 	}
 }
 
-export const DESCRIPTIONS = {
+export const DESCRIPTION = {
 	fileRun: 'Matches files below the current working directory by default.',
 	monorepoRun:
 		'In a monorepo, it will also run in all packages below the current working directory.',

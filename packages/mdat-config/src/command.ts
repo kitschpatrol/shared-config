@@ -2,7 +2,7 @@ import { loadConfig, loadConfigReadme } from 'mdat'
 import {
 	type CommandCli,
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	getCosmiconfigResult,
 } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
@@ -60,7 +60,7 @@ export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: await generateMdatReadmeCommands('expand'),
-			description: `Expand all Mdat content placeholders in your readme.md file(s). ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Expand all Mdat content placeholders in your readme.md file(s). ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -72,7 +72,7 @@ export const commandDefinition: CommandDefinition = {
 		},
 		lint: {
 			commands: await generateMdatReadmeCommands('check'),
-			description: `Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. ${DESCRIPTIONS.packageRun} ${DESCRIPTIONS.monorepoRun}`,
+			description: `Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
@@ -82,7 +82,7 @@ export const commandDefinition: CommandDefinition = {
 					name: printMdatConfigCommand.name,
 				},
 			],
-			description: `Print the effective Mdat configuration. ${DESCRIPTIONS.packageSearch}. ${DESCRIPTIONS.monorepoSearch}. Includes configuration provided by the \`mdat readme\` command.`,
+			description: `Print the effective Mdat configuration. ${DESCRIPTION.packageSearch}. ${DESCRIPTION.monorepoSearch}. Includes configuration provided by the \`mdat readme\` command.`,
 			positionalArgumentMode: 'none',
 		},
 	},

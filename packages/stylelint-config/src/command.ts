@@ -2,7 +2,7 @@ import path from 'node:path'
 import stylelint from 'stylelint'
 import {
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	getCosmiconfigResult,
 } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
@@ -75,7 +75,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description: `Fix your project with Stylelint. ${DESCRIPTIONS.fileRun}`,
+			description: `Fix your project with Stylelint. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault,
 			positionalArgumentMode: 'optional',
 		},
@@ -96,7 +96,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description: `Lint your project with Stylelint. ${DESCRIPTIONS.fileRun}`,
+			description: `Lint your project with Stylelint. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault,
 			positionalArgumentMode: 'optional',
 		},
@@ -107,7 +107,7 @@ export const commandDefinition: CommandDefinition = {
 					name: printStylelintConfigCommand.name,
 				},
 			],
-			description: `Print the effective Stylelint configuration. ${DESCRIPTIONS.optionalFileRun}.`,
+			description: `Print the effective Stylelint configuration. ${DESCRIPTION.optionalFileRun}.`,
 			positionalArgumentMode: 'optional',
 		},
 	},

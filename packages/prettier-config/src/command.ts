@@ -1,6 +1,6 @@
 import {
 	type CommandDefinition,
-	DESCRIPTIONS,
+	DESCRIPTION,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
@@ -34,7 +34,7 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description: `Format files according to your Prettier configuration. ${DESCRIPTIONS.fileRun}`,
+			description: `Format files according to your Prettier configuration. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
@@ -53,14 +53,14 @@ export const commandDefinition: CommandDefinition = {
 					receivePositionalArguments: true,
 				},
 			],
-			description: `Check that files are formatted according to your Prettier configuration. ${DESCRIPTIONS.fileRun}`,
+			description: `Check that files are formatted according to your Prettier configuration. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault: '.',
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
 			// See also --find-config-path and --file-info options for fancier per-file approaches...
 			commands: [getCosmiconfigCommand('prettier')],
-			description: `Print the effective Prettier configuration. ${DESCRIPTIONS.packageSearch}. ${DESCRIPTIONS.monorepoSearch}.`,
+			description: `Print the effective Prettier configuration. ${DESCRIPTION.packageSearch}. ${DESCRIPTION.monorepoSearch}.`,
 			positionalArgumentMode: 'none',
 		},
 	},
