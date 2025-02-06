@@ -135,7 +135,7 @@ importers:
         specifier: ^4.4.1
         version: 4.4.1(eslint@9.19.0(jiti@2.4.2))
       '@eslint-react/eslint-plugin':
-        specifier: ^1.26.1
+        specifier: ^1.26.2
         version: 1.26.2(eslint@9.19.0(jiti@2.4.2))(ts-api-utils@2.0.1(typescript@5.7.3))(typescript@5.7.3)
       '@html-eslint/eslint-plugin':
         specifier: ^0.34.0
@@ -271,7 +271,7 @@ importers:
         specifier: ^3.4.2
         version: 3.4.2
       svelte:
-        specifier: ^5.19.8
+        specifier: ^5.19.9
         version: 5.19.9
       tsup:
         specifier: ^8.3.6
