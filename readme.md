@@ -45,20 +45,23 @@ In addition, each tool exports a typed configuration factory function to simplif
 
 ### Tools
 
-It takes care of dependencies and configurations for the following tools:
+It takes care of dependencies, configuration, invocation, and reporting for the following tools:
 
-- [CSpell](https://cspell.org) (bundled with a number of custom dictionaries)
 - [ESLint](https://eslint.org) (including Svelte, Astro, React, and TypeScript support — including type-checked rules)
-- [mdat](https://github.com/kitschpatrol/mdat) (my markdown templating and expansion tool)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [remarklint](https://github.com/remarkjs/remark-lint)
 - [Stylelint](https://stylelint.io)
+- [TypeScript](https://www.typescriptlang.org/) (including a shared TSConfig)
+- [CSpell](https://cspell.org) (bundled with a number of custom dictionaries, and a custom unused-word detector)
+- [Case Police](https://github.com/antfu/case-police)
+- [Knip](https://knip.dev/)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
-- Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
+- [Mdat](https://github.com/kitschpatrol/mdat) (my markdown templating and expansion tool)
+- [remarklint](https://github.com/remarkjs/remark-lint)
+- Basic repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 ### Packages
 
-This particular readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in additional detail its respective readme:
+This particular readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in additional detail its respective readme.
 
 #### Primary package
 
@@ -68,6 +71,7 @@ This particular readme is for the [`@kitschpatrol/shared-config`](https://www.np
 
 - [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md) (`kpsc-cspell` command)
 - [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md) (`kpsc-eslint` command)
+- [`@kitschpatrol/knip-config`](/packages/knip-config/readme.md) (`kpsc-knip` command)
 - [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md) (`kpsc-mdat` command)
 - [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md) (`kpsc-prettier` command)
 - [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md) (`kpsc-remark` command)
@@ -78,6 +82,32 @@ This particular readme is for the [`@kitschpatrol/shared-config`](https://www.np
 > [!IMPORTANT]
 >
 > Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+
+Running `kpsc <command>` calls the same command across the entire collection of sub-packages.
+
+So assuming you've installed `@kitschpatrol/shared-config`...
+
+Running:
+
+```sh
+kpsc init
+```
+
+Is the same as running:
+
+```sh
+kpsc-cspell init
+kpsc-eslint init
+kpsc-knip init
+kpsc-mdat init
+kpsc-prettier init
+kpsc-remark init
+kpsc-repo init
+kpsc-stylelint init
+kpsc-typescript init
+```
+
+The top-level `kpsc` command also takes care of some nuances in terms of _which_ sub-packages implement _which_ commands, and which subcommands take arguments.
 
 ## Getting started
 
@@ -296,13 +326,13 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 ### Hoisting caveats
 
-The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
+The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary and accommodated via the `.npmrc` file included in `@kitschpatrol/repo-config`:
 
 - CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
-- `prettier` and `eslint` packages are [hoisted by default](https://pnpm.io/npmrc#public-hoist-pattern) in `pnpm`
+- In earlier version of pnpm, `prettier` and `eslint` packages were hoisted by default, but as of pnpm 10 this is [no longer the case](https://github.com/pnpm/pnpm/releases/tag/v10.0.0).
 
 ## Development notes
 
