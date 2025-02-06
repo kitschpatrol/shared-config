@@ -102,7 +102,7 @@ pnpm exec kpsc-mdat init --location package
 
 #### Command: `kpsc-mdat`
 
-Expand content placeholders in your readme.md and other Markdown files.
+Kitschpatrol's Mdat shared configuration tools.
 
 This section lists top-level commands for `kpsc-mdat`.
 
@@ -112,12 +112,12 @@ Usage:
 kpsc-mdat <command>
 ```
 
-| Command        | Description                                                                                                                                                                                                                                                                       |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                                                                                                     |
-| `lint`         | Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory. |
-| `fix`          | Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.                           |
-| `print-config` | Print the Mdat configuration.                                                                                                                                                                                                                                                     |
+| Command        | Description                                                                                                                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                  |
+| `lint`         | Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `fix`          | Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                           |
+| `print-config` | Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.                    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -144,7 +144,7 @@ kpsc-mdat init
 
 #### Subcommand: `kpsc-mdat lint`
 
-Validate that all mdat content placeholders in your readme.md file(s) have been expanded. This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.
+Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
@@ -159,7 +159,7 @@ kpsc-mdat lint
 
 #### Subcommand: `kpsc-mdat fix`
 
-Expand all mdat content placeholders in your readme.md file(s). This package-scoped command searches for the readme.md adjacent the nearest package.json. In a monorepo, it will also find readmes in any packages below the current working directory.
+Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
@@ -174,7 +174,7 @@ kpsc-mdat fix
 
 #### Subcommand: `kpsc-mdat print-config`
 
-Print the Mdat configuration.
+Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
 
 Usage:
 

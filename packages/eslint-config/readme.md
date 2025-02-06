@@ -85,7 +85,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `kpsc-eslint`
 
-ESLint shared configuration tools.
+Kitschpatrol's ESLint shared configuration tools.
 
 This section lists top-level commands for `kpsc-eslint`.
 
@@ -95,12 +95,12 @@ Usage:
 kpsc-eslint <command>
 ```
 
-| Command        | Argument    | Description                                                                                                     |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root.                                                |
-| `lint`         | `[files..]` | Lint your project with ESLint. This file-scoped command searches from the current working directory by default. |
-| `fix`          | `[files..]` | Fix your project with ESLint. This file-scoped command searches from the current working directory by default.  |
-| `print-config` | `[file]`    | Print the eslint configuration.                                                                                 |
+| Command        | Argument    | Description                                                                                                                                                               |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root.                                                                                                          |
+| `lint`         | `[files..]` | Lint your project with ESLint. Matches files below the current working directory by default.                                                                              |
+| `fix`          | `[files..]` | Fix your project with ESLint. Matches files below the current working directory by default.                                                                               |
+| `print-config` | `[file]`    | Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -126,7 +126,7 @@ kpsc-eslint init
 
 #### Subcommand: `kpsc-eslint lint`
 
-Lint your project with ESLint. This file-scoped command searches from the current working directory by default.
+Lint your project with ESLint. Matches files below the current working directory by default.
 
 Usage:
 
@@ -145,7 +145,7 @@ kpsc-eslint lint [files..]
 
 #### Subcommand: `kpsc-eslint fix`
 
-Fix your project with ESLint. This file-scoped command searches from the current working directory by default.
+Fix your project with ESLint. Matches files below the current working directory by default.
 
 Usage:
 
@@ -164,7 +164,7 @@ kpsc-eslint fix [files..]
 
 #### Subcommand: `kpsc-eslint print-config`
 
-Print the eslint configuration.
+Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view.
 
 Usage:
 

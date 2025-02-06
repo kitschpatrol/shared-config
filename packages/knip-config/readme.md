@@ -93,7 +93,7 @@ pnpm exec kpsc-knip init --location package
 
 #### Command: `kpsc-knip`
 
-Clean up unused clutter in your project with Knip.
+Kitschpatrol's Knip shared configuration tools.
 
 This section lists top-level commands for `kpsc-knip`.
 
@@ -103,12 +103,12 @@ Usage:
 kpsc-knip <command>
 ```
 
-| Command        | Description                                                                                                                                                                                               |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                             |
-| `lint`         | Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory. |
-| `fix`          | Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.                                                                                   |
-| `print-config` | Print the Knip configuration.                                                                                                                                                                             |
+| Command        | Description                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                           |
+| `lint`         | Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.            |
+| `fix`          | Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `print-config` | Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -135,7 +135,7 @@ kpsc-knip init
 
 #### Subcommand: `kpsc-knip lint`
 
-Check for unused code and dependencies. This package-scoped command searches from the nearest package root directory. In a monorepo, it will also check all packages below the current working directory.
+Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
@@ -150,7 +150,7 @@ kpsc-knip lint
 
 #### Subcommand: `kpsc-knip fix`
 
-Automatically fix certain linting issues. This package-scoped command searches from the nearest package root directory.
+Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
@@ -165,7 +165,7 @@ kpsc-knip fix
 
 #### Subcommand: `kpsc-knip print-config`
 
-Print the Knip configuration.
+Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

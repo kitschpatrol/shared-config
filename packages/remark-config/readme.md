@@ -77,7 +77,7 @@ If you really want to call it directly, you can integrate a command to the under
 
 #### Command: `kpsc-remark`
 
-TK. Linting and fixing of issues in Markdown files is managed through ESLint.
+Kitschpatrol's Remark and Remark Lint shared configuration tools. (Actual linting and fixing is managed through @kitschpatrol/eslint-config.)
 
 This section lists top-level commands for `kpsc-remark`.
 
@@ -87,10 +87,10 @@ Usage:
 kpsc-remark <command>
 ```
 
-| Command        | Description                                                      |
-| -------------- | ---------------------------------------------------------------- |
-| `init`         | Initialize by copying starter config files to your project root. |
-| `print-config` | Print the Remark configuration.                                  |
+| Command        | Description                                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root.                                              |
+| `print-config` | Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -116,7 +116,7 @@ kpsc-remark init
 
 #### Subcommand: `kpsc-remark print-config`
 
-Print the Remark configuration.
+Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

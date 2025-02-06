@@ -152,7 +152,7 @@ In your project's root `.cspell.json`:
 
 #### Command: `kpsc-cspell`
 
-Spell-check your project with CSpell. (Automated fixes are handled by ESLint.)
+Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)
 
 This section lists top-level commands for `kpsc-cspell`.
 
@@ -162,11 +162,11 @@ Usage:
 kpsc-cspell <command>
 ```
 
-| Command        | Argument    | Description                                                                                                   |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                 |
-| `lint`         | `[files..]` | Check for spelling mistakes. This file-scoped command searches from the current working directory by default. |
-| `print-config` |             | Print the Mdat configuration.                                                                                 |
+| Command        | Argument    | Description                                                                                                  |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------ |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                |
+| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default.                   |
+| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -193,7 +193,7 @@ kpsc-cspell init
 
 #### Subcommand: `kpsc-cspell lint`
 
-Check for spelling mistakes. This file-scoped command searches from the current working directory by default.
+Check for spelling mistakes. Matches files below the current working directory by default.
 
 Usage:
 
@@ -212,7 +212,7 @@ kpsc-cspell lint [files..]
 
 #### Subcommand: `kpsc-cspell print-config`
 
-Print the Mdat configuration.
+Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

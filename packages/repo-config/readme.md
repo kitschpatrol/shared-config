@@ -118,7 +118,7 @@ Note: Action dependencies have been forked.
 
 #### Command: `kpsc-repo`
 
-Repo related.
+Kitschpatrol's repository-related shared configuration tools.
 
 This section lists top-level commands for `kpsc-repo`.
 
@@ -128,11 +128,11 @@ Usage:
 kpsc-repo <command>
 ```
 
-| Command | Description                                                                                                                                                  |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `init`  | Initialize by copying starter config files to your project root.                                                                                             |
-| `lint`  | Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory. |
-| `fix`   | Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.                |
+| Command | Description                                                                                                                                                            |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root.                                                                                                       |
+| `lint`  | Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                                 |
+| `fix`   | Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -158,7 +158,7 @@ kpsc-repo init
 
 #### Subcommand: `kpsc-repo lint`
 
-Check the repo for common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
+Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
@@ -173,7 +173,7 @@ kpsc-repo lint
 
 #### Subcommand: `kpsc-repo fix`
 
-Fix common issues. This is a package-scoped command. In a monorepo, it will also operate on any packages below the current working directory.
+Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 

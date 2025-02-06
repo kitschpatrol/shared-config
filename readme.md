@@ -209,7 +209,7 @@ pnpm run fix
 
 #### Command: `kpsc`
 
-Run shared config commands
+Run aggregated @kitschpatrol/shared-config commands.
 
 This section lists top-level commands for `kpsc`.
 
@@ -219,12 +219,12 @@ Usage:
 kpsc <command>
 ```
 
-| Command        | Argument    | Description                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file. |
-| `lint`         | `[files..]` | Lint the project                                                                              |
-| `fix`          | `[files..]` | Fix the project                                                                               |
-| `print-config` | `[file]`    | Print the configuration                                                                       |
+| Command        | Argument    | Description                                                                                                                                                                                 |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them. |
+| `lint`         | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.                |
+| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.                |
+| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -235,7 +235,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `kpsc init`
 
-Initialize by copying starter config files to your project root or to your package.json file.
+Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
 
 Usage:
 
@@ -251,7 +251,7 @@ kpsc init
 
 #### Subcommand: `kpsc lint`
 
-Lint the project
+Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 
@@ -270,7 +270,7 @@ kpsc lint [files..]
 
 #### Subcommand: `kpsc fix`
 
-Fix the project
+Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 
@@ -289,7 +289,7 @@ kpsc fix [files..]
 
 #### Subcommand: `kpsc print-config`
 
-Print the configuration
+Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 

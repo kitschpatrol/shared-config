@@ -128,7 +128,7 @@ Next line:
 
 #### Command: `kpsc-stylelint`
 
-Description goes here.
+Kitschpatrol's Stylelint shared configuration tools.
 
 This section lists top-level commands for `kpsc-stylelint`.
 
@@ -138,12 +138,12 @@ Usage:
 kpsc-stylelint <command>
 ```
 
-| Command        | Argument    | Description                                                                                                        |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                      |
-| `lint`         | `[files..]` | Lint your project with Stylelint. This file-scoped command searches from the current working directory by default. |
-| `fix`          | `[files..]` | Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.  |
-| `print-config` | `[file]`    | Print the stylelint configuration. TK.                                                                             |
+| Command        | Argument    | Description                                                                                                          |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                        |
+| `lint`         | `[files..]` | Lint your project with Stylelint. Matches files below the current working directory by default.                      |
+| `fix`          | `[files..]` | Fix your project with Stylelint. Matches files below the current working directory by default.                       |
+| `print-config` | `[file]`    | Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided.. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -170,7 +170,7 @@ kpsc-stylelint init
 
 #### Subcommand: `kpsc-stylelint lint`
 
-Lint your project with Stylelint. This file-scoped command searches from the current working directory by default.
+Lint your project with Stylelint. Matches files below the current working directory by default.
 
 Usage:
 
@@ -189,7 +189,7 @@ kpsc-stylelint lint [files..]
 
 #### Subcommand: `kpsc-stylelint fix`
 
-Fix your project with Stylelint. This file-scoped command searches from the current working directory by default.
+Fix your project with Stylelint. Matches files below the current working directory by default.
 
 Usage:
 
@@ -208,7 +208,7 @@ kpsc-stylelint fix [files..]
 
 #### Subcommand: `kpsc-stylelint print-config`
 
-Print the stylelint configuration. TK.
+Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided..
 
 Usage:
 

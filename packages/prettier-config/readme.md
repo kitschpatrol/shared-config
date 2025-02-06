@@ -100,7 +100,7 @@ pnpm exec kpsc-prettier init --location package
 
 #### Command: `kpsc-prettier`
 
-TK
+Kitschpatrol's Prettier shared configuration tools.
 
 This section lists top-level commands for `kpsc-prettier`.
 
@@ -110,12 +110,12 @@ Usage:
 kpsc-prettier <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                                                    |
-| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                  |
-| `lint`         | `[files..]` | Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default. |
-| `fix`          | `[files..]` | Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.                        |
-| `print-config` |             | Print the prettier configuration.                                                                                                                              |
+| Command        | Argument    | Description                                                                                                                            |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                          |
+| `lint`         | `[files..]` | Check that files are formatted according to your Prettier configuration. Matches files below the current working directory by default. |
+| `fix`          | `[files..]` | Format files according to your Prettier configuration. Matches files below the current working directory by default.                   |
+| `print-config` |             | Print the effective Prettier configuration. Package-scoped.. Searches up to the root of a monorepo if necessary..                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -142,7 +142,7 @@ kpsc-prettier init
 
 #### Subcommand: `kpsc-prettier lint`
 
-Check that your files are formatted according to your Prettier configuration. This file-scoped command searches from the current working directory by default.
+Check that files are formatted according to your Prettier configuration. Matches files below the current working directory by default.
 
 Usage:
 
@@ -161,7 +161,7 @@ kpsc-prettier lint [files..]
 
 #### Subcommand: `kpsc-prettier fix`
 
-Format files according to your Prettier configuration. This file-scoped command searches from the current working directory by default.
+Format files according to your Prettier configuration. Matches files below the current working directory by default.
 
 Usage:
 
@@ -180,7 +180,7 @@ kpsc-prettier fix [files..]
 
 #### Subcommand: `kpsc-prettier print-config`
 
-Print the prettier configuration.
+Print the effective Prettier configuration. Package-scoped.. Searches up to the root of a monorepo if necessary..
 
 Usage:
 
