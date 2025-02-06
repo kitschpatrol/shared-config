@@ -40,7 +40,7 @@
 		"build:1-stand-alone": "pnpm --filter=!shared-config build",
 		"build:2-shared": "pnpm --filter=shared-config build",
 		"build:3-readmes": "pnpm kpsc-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm kpsc-prettier fix",
-		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
+		"clean": "git rm -f pnpm-lock.yaml ; git rm -f readme.md; pnpm run bin-restore ; git clean -fdXq",
 		"fix": "kpsc fix",
 		"lint": "kpsc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
