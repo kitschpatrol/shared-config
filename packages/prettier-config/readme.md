@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [Prettier](https://prettier.io) config.
+It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `kpsc-prettier` to perform Prettier-related project initialization, linting, and fixing.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -59,12 +59,32 @@ Integrate with your `package.json` scripts as you see fit, for example:
 {
   "scripts": {
     "lint": "kpsc-prettier lint",
-    "format": "kpsc-prettier fix"
+    "fix": "kpsc-prettier fix"
   }
 }
 ```
 
-You might need to pass certain plugins in explicitly. The `shared-config fix` and `shared-config lint` scripts take care of this for you.
+You might need to pass certain plugins in explicitly if you're calling `prettier` directly. The `kpsc-prettier fix` and `kpsc-prettier lint` scripts take care of this for you.
+
+### Configuration
+
+To create a `prettier.config.js` in your project root:
+
+```sh
+pnpm exec kpsc-prettier init
+```
+
+(Note that this will delete the `prettier` property in your `package.json`!)
+
+_Or_
+
+To create a `prettier` property in `package.json`:
+
+```sh
+pnpm exec kpsc-prettier init --location package
+```
+
+(Note that this will delete the `prettier.config.js` file in your project root!)
 
 ### CLI
 
@@ -183,11 +203,9 @@ Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it
 
 Tabs are unambiguously preferred wherever the file format specification does not mandate spaces.
 
+Note that despite widely-accepted FUD regarding JSON requiring spaces, the [specification](https://www.json.org/json-en.html) indicates otherwise. So we use tabs.
+
 The reluctant exceptions are:
-
-### JSON
-
-Despite widely accepted FUD regarding JSON requiring spaces, the [specification](https://www.json.org/json-en.html) indicates otherwise.
 
 ### YAML
 

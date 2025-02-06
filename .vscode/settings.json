@@ -24,6 +24,7 @@
 	"editor.formatOnSave": true,
 	"eslint.enable": true,
 	"eslint.runtime": "node",
+	"eslint.useFlatConfig": true,
 	"eslint.validate": [
 		"astro",
 		"html",
@@ -58,10 +59,10 @@
 		"**/.npmrc",
 		"**/.eslintignore"
 	],
+
 	"prettier.enable": true,
 	"stylelint.enable": true,
 	"stylelint.validate": ["css", "html", "svelte", "astro"],
 	"typescript.tsdk": "./node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"eslint.useFlatConfig": true
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -21,11 +21,15 @@
 
 ## Overview
 
-It's a shared [TypeScript](https://www.typescriptlang.org/) config.
+It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` config, plus a command-line tool `kpsc-typescript` to perform TypeScript-related validation and linting.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
+
+> [!Note]
+>
+> The package treats `typescript` as a peer dependency — it expects you to have `typescript` installed in your project.
 
 To use just this TypeScript config in isolation:
 
@@ -49,54 +53,39 @@ To use just this TypeScript config in isolation:
 
 ## Usage
 
-The typescript binary should be picked up automatically by VS Code plugins.
-
-You can call it directly, or use the script bundled with the config.
+You can call `kpsc-typescript` directly, or use the script bundled with the config.
 
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 {
   "scripts": {
-    "lint": "kpsc-typescript lint",
-    "format": "kpsc-typescript fix"
+    "lint": "kpsc-typescript lint"
   }
 }
 ```
 
-### Configuration
-
-Create a `typescript.config.js` in your project root:
-
-TK
-
-_Or_
-
-`typescript` property in `package.json`:
-
-TK
-
 ### Ignoring files
 
-Ignores all files in `.gitignore` by default.
+See the `tsconfig.json` [`exclude`](https://www.typescriptlang.org/tsconfig/#exclude) key.
 
-Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://typescript.io/user-guide/configure#ignorefiles) key.
+`.gitignore` files are not ignored.
 
 ### Ignoring code
 
-See [the typescript documentation](https://typescript.io/user-guide/ignore-code).
+See [the TypeScript directive comments documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#improved-checking-for-js-files) for more details.
 
-Blocks:
+Entire files (at top):
 
-`/* typescript-disable */ ...  /* typescript-enable */`
-
-Inline:
-
-`/* typescript-disable-line */`
+`/* @ts-nocheck */`
 
 Next line:
 
-`/* typescript-disable-next-line`
+`/* @ts-ignore */`
+
+or
+
+`/* @ts-expect-error - reason */`
 
 ### CLI
 
@@ -176,9 +165,20 @@ kpsc-typescript print-config
 
 ## Notes
 
-- <https://github.com/tsconfig/bases>
+### General
 
-- `attw --format ascii --no-summary --profile esm-only --pack .`
+- [tsconfig Cheat Sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
+
+### Other shared tsconfig projects
+
+- [tsconfig/bases](https://github.com/tsconfig/bases)
+- [sindresorhus/tsconfig](https://github.com/sindresorhus/tsconfig)
+- [total-typescript/tsconfig](https://github.com/total-typescript/tsconfig)
+
+### Future integrations
+
+- [Are The Types Wrong](https://github.com/arethetypeswrong/arethetypeswrong.github.io),\
+  e.g. `attw --format ascii --no-summary --profile esm-only --pack .`
 
 <!-- license -->
 

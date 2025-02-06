@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config.
+It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config, plus a command-line tool `kpsc-mdat` to perform mdat-related project initialization, linting, and fixing.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -59,7 +59,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 {
   "scripts": {
     "lint": "kpsc-mdat lint",
-    "format": "kpsc-mdat fix"
+    "fix": "kpsc-mdat fix"
   }
 }
 ```
@@ -67,6 +67,26 @@ Integrate with your `package.json` scripts as you see fit, for example:
 "Fix" in this case is a slight misnomer for consistency with the other shared-config tools.
 
 It runs `mdat readme expand` to expand placeholder comments in your readme.md using the bundled [`mdat readme`](https://github.com/kitschpatrol/mdat/blob/main/packages/mdat/readme.md#the-mdat-readme-subcommand) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `.mdatrc.ts` file.
+
+### Configuration
+
+To create a `mdat.config.ts` in your project root:
+
+```sh
+pnpm exec kpsc-mdat init
+```
+
+(Note that this will delete the `mdat` property in your `package.json`!)
+
+_Or_
+
+To create a `mdat` property in `package.json`:
+
+```sh
+pnpm exec kpsc-mdat init --location package
+```
+
+(Note that this will delete the `mdat.config.ts` file in your project root!)
 
 ### CLI
 

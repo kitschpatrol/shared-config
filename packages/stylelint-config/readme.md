@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [Stylelint](https://stylelint.io) config.
+It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool `kpsc-stylelint` to perform Stylelint-related project initialization, linting, and fixing.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -67,30 +67,38 @@ Integrate with your `package.json` scripts as you see fit, for example:
 {
   "scripts": {
     "lint": "kpsc-stylelint lint",
-    "format": "kpsc-stylelint fix"
+    "fix": "kpsc-stylelint fix"
   }
 }
 ```
 
 ### Configuration
 
-Create a `stylelint.config.js` in your project root:
+To create a `stylelint.config.js` in your project root:
 
-TK
+```sh
+pnpm exec kpsc-stylelint init
+```
+
+(Note that this will delete the `stylelint` property in your `package.json`!)
 
 _Or_
 
-`stylelint` property in `package.json`:
+To create a `stylelint` property in `package.json`:
 
-TK
+```sh
+pnpm exec kpsc-stylelint init --location package
+```
 
-### Ignoring files
+(Note that this will delete the `stylelint.config.js` file in your project root!)
+
+#### Ignoring files
 
 Ignores all files in `.gitignore` by default.
 
 Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure#ignorefiles) key.
 
-### Ignoring code
+#### Ignoring code
 
 See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code).
 

@@ -121,7 +121,7 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    ```json
    {
      "scripts": {
-       "format": "kpsc fix",
+       "fix": "kpsc fix",
        "lint": "kpsc lint"
      }
    }

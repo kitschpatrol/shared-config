@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [CSpell](https://cspell.org) config.
+It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `kpsc-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommended -->
 
 ## Setup
 
@@ -64,6 +64,26 @@ Integrate with your `package.json` scripts as you see fit, for example:
   }
 }
 ```
+
+### Configuration
+
+To create a `cspell.config.js` in your project root:
+
+```sh
+pnpm exec kpsc-knip init
+```
+
+(Note that this will delete the `cspell` property in your `package.json`!)
+
+_Or_
+
+To create a `cspell` property in `package.json`:
+
+```sh
+pnpm exec kpsc-cspell init --location package
+```
+
+(Note that this will delete the `cspell.config.js` file in your project root!)
 
 ### CLI
 

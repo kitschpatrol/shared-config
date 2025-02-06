@@ -2,7 +2,6 @@ import { loadConfig, loadConfigReadme } from 'mdat'
 import {
 	type CommandCli,
 	type CommandDefinition,
-	getCosmiconfigCommand,
 	getCosmiconfigResult,
 } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utils.js'
@@ -60,7 +59,11 @@ export const commandDefinition: CommandDefinition = {
 						}
 
 						// Then load it through mdat to get the actual resolved object with readme-related defaults
-						const config = await loadConfigReadme()
+						const additionalConfig = await loadConfig()
+
+						const config = await loadConfigReadme({
+							additionalConfig,
+						})
 						const prettyAndColorfulJsonLines = stringify(config).split('\n')
 						for (const line of prettyAndColorfulJsonLines) {
 							logStream.write(`${line}\n`)

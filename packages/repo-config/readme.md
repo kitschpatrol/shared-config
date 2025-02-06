@@ -21,20 +21,20 @@
 
 ## Overview
 
-It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
+It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting for things like copyright notice dates, all accessible via a bundled command like tool named `kpsc-repo`.
 
 This includes the following:
 
 - [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `kpsc` tool access
 - `.gitignore` with typical patterns
-- `.vscode` extension recommendations (additional settings and recommendations come from other `kpsc` packages)
+- `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
-  - `sync-metadata.yml` Populates GitHub repo metadata from package.json
+  - `set-github-metadata.yml` Populates GitHub repo metadata from package.json
 
 In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -82,7 +82,15 @@ If you want releases to come from your account instead of `github_actions`, then
    | Contents       | Read and write |
    | Metadata       | Read-only      |
 
-2. Add the token as a secret to the repository under the key `PERSONAL_ACCESS_TOKEN`.
+2. Add the token as a secret to your new GitHub repository.
+
+   You can do this through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`.
+
+   Alternately, you can do this locally with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
+
+   ```sh
+   gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/Github Mika/PERSONAL_ACCESS_TOKEN')
+   ```
 
 ### GitHub Actions
 

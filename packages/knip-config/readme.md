@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [Knip](https://knip.dev) config.
+It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpsc-knip` to perform Knip-related project initialization, linting, and fixing.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -58,6 +58,26 @@ Integrate with your `package.json` scripts as you see fit, for example:
   }
 }
 ```
+
+### Configuration
+
+To create a `knip.config.ts` in your project root:
+
+```sh
+pnpm exec kpsc-knip init
+```
+
+(Note that this will delete the `knip` property in your `package.json`!)
+
+_Or_
+
+To create a `knip` property in `package.json`:
+
+```sh
+pnpm exec kpsc-knip init --location package
+```
+
+(Note that this will delete the `knip.config.ts` file in your project root!)
 
 ### CLI
 

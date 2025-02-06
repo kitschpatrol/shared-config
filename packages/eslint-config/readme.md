@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [ESLint](https://eslint.org) config.
+It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `kpsc-eslint` to perform ESLint-related project initialization, linting, and fixing.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommended -->
 
 ## Setup
 
@@ -35,13 +35,20 @@ To use just this ESLint config in isolation:
    pnpm dlx @kitschpatrol/repo-config init
    ```
 
-2. Add the package:
+1. Install and initialize the required TypeScript `tsconfig.json` configuration in your project root:
+
+   ```sh
+   pnpm add -D @kitschpatrol/typescript-config
+   pnpm dlx @kitschpatrol/typescript-config init
+   ```
+
+1. Add the package:
 
    ```sh
    pnpm add -D @kitschpatrol/eslint-config
    ```
 
-3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:
+1. Add the starter `eslint.config.ts` config files to your project root, and add any overrides you'd like:
 
    ```sh
    pnpm exec eslint-kpsc init
@@ -172,7 +179,16 @@ kpsc-eslint print-config [file]
 
 Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See Eslint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
-This shared config will also initialize a `tsconfig.json` and a `tsconfig.build.json`. These should probably live in a separate configuration package, but they'll reside here for now.
+### Origins
+
+This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation impelementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config). See the [modification notes](./modification-notes.md) for more details on what's changed from Anthony's approach.
+
+### References
+
+- [@antfu/eslint-config](https://github.com/antfu/eslint-config)
+- [@sxzz/eslint-config](https://github.com/sxzz/eslint-config)
+- [linting-setup-using-eslint](https://chris.lu/web_development/tutorials/next-js-static-mdx-blog/linting-setup-using-eslint)
+- On [prefer-repository-shorthand](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/223)
 
 <!-- license -->
 

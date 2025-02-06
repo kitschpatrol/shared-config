@@ -84,7 +84,13 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		// Sort tsconfig
 		{
-			files: ['**/tsconfig.json', '**/tsconfig.*.json'],
+			files: [
+				'**/tsconfig.json',
+				'**/tsconfig.*.json',
+				// Special case for boilerplate tsconfigs in
+				// @kitschpatrol/typescript-config
+				'**/tsconfigs/**/*.json',
+			],
 			name: 'kp/json/rules-tsconfig',
 			rules: {
 				'json/no-comments': 'off',

@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting.
+It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting Markdown and MDX files, plus a command-line tool `kpsc-remark` to streamline project initialization. Note that linting and fixing is provided separately through [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -51,9 +51,9 @@ To use just this Remark config in isolation:
 
 The Remark binary should be picked up automatically by VS Code plugins.
 
-You can call it directly, but it's recommended to use the script bundled with the shared config to invoke the remark lint rules through ESLint. The [`eslint-mdx`](https://github.com/mdx-js/eslint-mdx) plugin is used to bridge these rules into ESLint and the VS Code ESLint plugin.
+You can call it directly, but it's recommended to use the `kpsc` script bundled with the [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) instead to invoke the Remark lint rules through ESLint. The [`eslint-mdx`](https://github.com/mdx-js/eslint-mdx) plugin is used to bridge these rules into ESLint and the VS Code ESLint plugin.
 
-Integrate with your `package.json` scripts as you see fit, for example:
+If you really want to call it directly, you can integrate a command to the underlying `remark` CLI tool with your `package.json` scripts as you see fit, for example:
 
 ```json
 {

@@ -4,7 +4,8 @@ import { mergeConfigs } from 'mdat'
 
 const sharedMdatConfig: MdatConfig = {
 	rules: {
-		kph: '## Project configuration\n\nThis project uses [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) to consolidate various linting and formatting tool configurations under a single dependency and the CLI command `kpi`. (ESLint, Prettier, CSpell, etc.)',
+		'shared-config':
+			'## Project configuration\n\nThis project uses [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) to consolidate various linting and formatting tool configurations under a single dependency and the CLI command `kpsc`. (ESLint, Prettier, CSpell, etc.)',
 	},
 }
 

@@ -25,6 +25,12 @@
 		"url": "https://ericmika.com"
 	},
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
@@ -46,7 +52,7 @@
 		"execa": "^9.5.2",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.0",
-		"mdat": "0.10.0"
+		"mdat": "^0.10.0"
 	},
 	"engines": {
 		"node": ">=22.0.0",
