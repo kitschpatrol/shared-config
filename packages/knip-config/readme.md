@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpsc-knip` to perform Knip-related project initialization, linting, and fixing.
+It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpi-knip` to perform Knip-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpsc-kn
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just this Knip config in isolation:
 3. Add the starter `knip.config.ts` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpsc-knip init
+   pnpm exec kpi-knip init
    ```
 
 ## Usage
@@ -62,7 +62,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "kpsc-knip lint"
+    "lint": "kpi-knip lint"
   }
 }
 ```
@@ -72,7 +72,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 To create a `knip.config.ts` in your project root:
 
 ```sh
-pnpm exec kpsc-knip init
+pnpm exec kpi-knip init
 ```
 
 (Note that this will delete the `knip` property in your `package.json`!)
@@ -82,7 +82,7 @@ _Or_
 To create a `knip` property in `package.json`:
 
 ```sh
-pnpm exec kpsc-knip init --location package
+pnpm exec kpi-knip init --location package
 ```
 
 (Note that this will delete the `knip.config.ts` file in your project root!)
@@ -91,16 +91,16 @@ pnpm exec kpsc-knip init --location package
 
 <!-- cli-help -->
 
-#### Command: `kpsc-knip`
+#### Command: `kpi-knip`
 
 Kitschpatrol's Knip shared configuration tools.
 
-This section lists top-level commands for `kpsc-knip`.
+This section lists top-level commands for `kpi-knip`.
 
 Usage:
 
 ```txt
-kpsc-knip <command>
+kpi-knip <command>
 ```
 
 | Command        | Description                                                                                                                                             |
@@ -117,14 +117,14 @@ kpsc-knip <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpsc-knip init`
+#### Subcommand: `kpi-knip init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpsc-knip init
+kpi-knip init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -133,14 +133,14 @@ kpsc-knip init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpsc-knip lint`
+#### Subcommand: `kpi-knip lint`
 
 Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpsc-knip lint
+kpi-knip lint
 ```
 
 | Option              | Description         | Type      |
@@ -148,14 +148,14 @@ kpsc-knip lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-knip fix`
+#### Subcommand: `kpi-knip fix`
 
 Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpsc-knip fix
+kpi-knip fix
 ```
 
 | Option              | Description         | Type      |
@@ -163,14 +163,14 @@ kpsc-knip fix
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-knip print-config`
+#### Subcommand: `kpi-knip print-config`
 
 Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpsc-knip print-config
+kpi-knip print-config
 ```
 
 | Option              | Description         | Type      |

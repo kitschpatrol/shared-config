@@ -21,11 +21,11 @@
 
 ## Overview
 
-It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting for things like copyright notice dates, all accessible via a bundled command like tool named `kpsc-repo`.
+It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting for things like copyright notice dates, all accessible via a bundled command like tool named `kpi-repo`.
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `kpsc` tool access
+- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `kpi` tool access
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
 - `.github` folder with workflows:
@@ -40,7 +40,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
 
 <!-- /recommendation -->
 
@@ -67,7 +67,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the repo config files, you can run the bundled script:
 
    ```sh
-   pnpm exec kpsc-repo init
+   pnpm exec kpi-repo init
    ```
 
 ### GitHub Configuration
@@ -116,16 +116,16 @@ Note: Action dependencies have been forked.
 
 <!-- cli-help -->
 
-#### Command: `kpsc-repo`
+#### Command: `kpi-repo`
 
 Kitschpatrol's repository-related shared configuration tools.
 
-This section lists top-level commands for `kpsc-repo`.
+This section lists top-level commands for `kpi-repo`.
 
 Usage:
 
 ```txt
-kpsc-repo <command>
+kpi-repo <command>
 ```
 
 | Command | Description                                                                                                                                                            |
@@ -141,14 +141,14 @@ kpsc-repo <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpsc-repo init`
+#### Subcommand: `kpi-repo init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-kpsc-repo init
+kpi-repo init
 ```
 
 | Option              | Description         | Type      |
@@ -156,14 +156,14 @@ kpsc-repo init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-repo lint`
+#### Subcommand: `kpi-repo lint`
 
 Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpsc-repo lint
+kpi-repo lint
 ```
 
 | Option              | Description         | Type      |
@@ -171,14 +171,14 @@ kpsc-repo lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-repo fix`
+#### Subcommand: `kpi-repo fix`
 
 Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpsc-repo fix
+kpi-repo fix
 ```
 
 | Option              | Description         | Type      |

@@ -7,8 +7,8 @@
 		"eslint-config",
 		"eslint",
 		"cli",
-		"kpsc",
-		"kpsc-eslint"
+		"kpi",
+		"kpi-eslint"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -32,7 +32,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpsc-eslint": "bin/cli.js"
+		"kpi-eslint": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",
@@ -44,7 +44,7 @@
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
-		"presetgen": "tsx scripts/presetgen.ts && pnpm run typegen && kpsc fix",
+		"presetgen": "tsx scripts/presetgen.ts && pnpm run typegen && kpi fix",
 		"typegen": "tsx scripts/typegen.ts"
 	},
 	"dependencies": {

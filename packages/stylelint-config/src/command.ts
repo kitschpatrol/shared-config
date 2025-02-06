@@ -114,6 +114,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's Stylelint shared configuration tools.",
 	logColor: 'greenBright',
 	logPrefix: '[Stylelint]',
-	name: 'kpsc-stylelint',
+	name: 'kpi-stylelint',
 	order: 5,
 }

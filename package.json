@@ -16,7 +16,7 @@
 		"tsconfig",
 		"mdat",
 		"cli",
-		"kpsc",
+		"kpi",
 		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config",
@@ -39,10 +39,10 @@
 		"build": "pnpm run build:1-stand-alone && pnpm run build:2-shared && pnpm run build:3-readmes",
 		"build:1-stand-alone": "pnpm --filter=!shared-config build",
 		"build:2-shared": "pnpm --filter=shared-config build",
-		"build:3-readmes": "pnpm kpsc-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm kpsc-prettier fix",
-		"clean": "git rm -f pnpm-lock.yaml ; git rm -f readme.md; pnpm run bin-restore ; git clean -fdXq",
-		"fix": "kpsc fix",
-		"lint": "kpsc lint",
+		"build:3-readmes": "pnpm kpi-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm kpi-prettier fix",
+		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
+		"fix": "kpi fix",
+		"lint": "kpi lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
 		"test": "vitest"

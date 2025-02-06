@@ -6,8 +6,8 @@
 		"stylelint-config",
 		"stylelint",
 		"cli",
-		"kpsc",
-		"kpsc-stylelint"
+		"kpi",
+		"kpi-stylelint"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -31,7 +31,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpsc-stylelint": "bin/cli.js"
+		"kpi-stylelint": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

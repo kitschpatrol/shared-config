@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `kpsc-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
+It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `kpi-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `kps
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpsc-cspell init
+   pnpm exec kpi-cspell init
    ```
 
 ## Usage
@@ -66,7 +66,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "spellcheck": "kpsc-cspell lint"
+    "spellcheck": "kpi-cspell lint"
   }
 }
 ```
@@ -76,7 +76,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 To create a `cspell.config.js` in your project root:
 
 ```sh
-pnpm exec kpsc-knip init
+pnpm exec kpi-knip init
 ```
 
 (Note that this will delete the `cspell` property in your `package.json`!)
@@ -86,7 +86,7 @@ _Or_
 To create a `cspell` property in `package.json`:
 
 ```sh
-pnpm exec kpsc-cspell init --location package
+pnpm exec kpi-cspell init --location package
 ```
 
 (Note that this will delete the `cspell.config.js` file in your project root!)
@@ -150,16 +150,16 @@ In your project's root `.cspell.json`:
 
 <!-- cli-help -->
 
-#### Command: `kpsc-cspell`
+#### Command: `kpi-cspell`
 
 Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)
 
-This section lists top-level commands for `kpsc-cspell`.
+This section lists top-level commands for `kpi-cspell`.
 
 Usage:
 
 ```txt
-kpsc-cspell <command>
+kpi-cspell <command>
 ```
 
 | Command        | Argument    | Description                                                                                                  |
@@ -175,14 +175,14 @@ kpsc-cspell <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpsc-cspell init`
+#### Subcommand: `kpi-cspell init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpsc-cspell init
+kpi-cspell init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -191,14 +191,14 @@ kpsc-cspell init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpsc-cspell lint`
+#### Subcommand: `kpi-cspell lint`
 
 Check for spelling mistakes. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpsc-cspell lint [files..]
+kpi-cspell lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default  |
@@ -210,14 +210,14 @@ kpsc-cspell lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-cspell print-config`
+#### Subcommand: `kpi-cspell print-config`
 
 Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpsc-cspell print-config
+kpi-cspell print-config
 ```
 
 | Option              | Description         | Type      |

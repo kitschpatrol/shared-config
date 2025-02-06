@@ -77,6 +77,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's Knip shared configuration tools.",
 	logColor: 'cyan',
 	logPrefix: '[Knip]',
-	name: 'kpsc-knip',
+	name: 'kpi-knip',
 	order: 7,
 }

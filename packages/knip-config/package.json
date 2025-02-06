@@ -7,8 +7,8 @@
 		"knip-config",
 		"knip",
 		"cli",
-		"kpsc",
-		"kpsc-knip"
+		"kpi",
+		"kpi-knip"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -32,7 +32,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpsc-knip": "bin/cli.js"
+		"kpi-knip": "bin/cli.js"
 	},
 	"files": [
 		"dist/*",

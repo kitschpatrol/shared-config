@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool `kpsc-stylelint` to perform Stylelint-related project initialization, linting, and fixing.
+It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool `kpi-stylelint` to perform Stylelint-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just this Stylelint config in isolation:
 3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpsc-stylelint init
+   pnpm exec kpi-stylelint init
    ```
 
 ## Rules
@@ -74,8 +74,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "kpsc-stylelint lint",
-    "fix": "kpsc-stylelint fix"
+    "lint": "kpi-stylelint lint",
+    "fix": "kpi-stylelint fix"
   }
 }
 ```
@@ -85,7 +85,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 To create a `stylelint.config.js` in your project root:
 
 ```sh
-pnpm exec kpsc-stylelint init
+pnpm exec kpi-stylelint init
 ```
 
 (Note that this will delete the `stylelint` property in your `package.json`!)
@@ -95,7 +95,7 @@ _Or_
 To create a `stylelint` property in `package.json`:
 
 ```sh
-pnpm exec kpsc-stylelint init --location package
+pnpm exec kpi-stylelint init --location package
 ```
 
 (Note that this will delete the `stylelint.config.js` file in your project root!)
@@ -126,16 +126,16 @@ Next line:
 
 <!-- cli-help -->
 
-#### Command: `kpsc-stylelint`
+#### Command: `kpi-stylelint`
 
 Kitschpatrol's Stylelint shared configuration tools.
 
-This section lists top-level commands for `kpsc-stylelint`.
+This section lists top-level commands for `kpi-stylelint`.
 
 Usage:
 
 ```txt
-kpsc-stylelint <command>
+kpi-stylelint <command>
 ```
 
 | Command        | Argument    | Description                                                                                                          |
@@ -152,14 +152,14 @@ kpsc-stylelint <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpsc-stylelint init`
+#### Subcommand: `kpi-stylelint init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpsc-stylelint init
+kpi-stylelint init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -168,14 +168,14 @@ kpsc-stylelint init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpsc-stylelint lint`
+#### Subcommand: `kpi-stylelint lint`
 
 Lint your project with Stylelint. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpsc-stylelint lint [files..]
+kpi-stylelint lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default                                                    |
@@ -187,14 +187,14 @@ kpsc-stylelint lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-stylelint fix`
+#### Subcommand: `kpi-stylelint fix`
 
 Fix your project with Stylelint. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpsc-stylelint fix [files..]
+kpi-stylelint fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default                                                    |
@@ -206,14 +206,14 @@ kpsc-stylelint fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-stylelint print-config`
+#### Subcommand: `kpi-stylelint print-config`
 
 Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided..
 
 Usage:
 
 ```txt
-kpsc-stylelint print-config [file]
+kpi-stylelint print-config [file]
 ```
 
 | Positional Argument | Description                 | Type     |

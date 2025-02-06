@@ -75,6 +75,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's ESLint shared configuration tools.",
 	logColor: 'magenta',
 	logPrefix: `[ESLint]`,
-	name: 'kpsc-eslint',
+	name: 'kpi-eslint',
 	order: 4,
 }

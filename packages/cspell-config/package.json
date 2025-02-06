@@ -7,8 +7,8 @@
 		"cspell-config",
 		"cspell",
 		"cli",
-		"kpsc",
-		"kpsc-cspell"
+		"kpi",
+		"kpi-cspell"
 	],
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
@@ -32,7 +32,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpsc-cspell": "bin/cli.js"
+		"kpi-cspell": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

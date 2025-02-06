@@ -33,6 +33,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's TypeScript shared configuration tools.",
 	logColor: 'blueBright',
 	logPrefix: '[TypeScript Config]',
-	name: 'kpsc-typescript',
+	name: 'kpi-typescript',
 	order: 3,
 }

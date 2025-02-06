@@ -7,5 +7,5 @@ export default cspellConfig({
 		'/test/fixtures/input',
 		'/test/fixtures/output-fixed-auto',
 	],
-	words: ['bullrich', 'hyperse', 'kbrashears', 'neostandard', 'softprops', 'Zumer'],
+	words: ['bullrich', 'hyperse', 'kbrashears', 'Kinseyan', 'neostandard', 'softprops', 'Zumer'],
 })

@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` config, plus a command-line tool `kpsc-typescript` to perform TypeScript-related validation and linting.
+It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` config, plus a command-line tool `kpi-typescript` to perform TypeScript-related validation and linting.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpsc` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
 
 <!-- /recommendation -->
 
@@ -56,19 +56,19 @@ To use just this TypeScript config in isolation:
 3. Add the starter `tsconfig.json` and `tsconfig.build.json` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpsc-typescript init
+   pnpm exec kpi-typescript init
    ```
 
 ## Usage
 
-You can call `kpsc-typescript` directly, or use the script bundled with the config.
+You can call `kpi-typescript` directly, or use the script bundled with the config.
 
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 {
   "scripts": {
-    "lint": "kpsc-typescript lint"
+    "lint": "kpi-typescript lint"
   }
 }
 ```
@@ -99,16 +99,16 @@ or
 
 <!-- cli-help -->
 
-#### Command: `kpsc-typescript`
+#### Command: `kpi-typescript`
 
 Kitschpatrol's TypeScript shared configuration tools.
 
-This section lists top-level commands for `kpsc-typescript`.
+This section lists top-level commands for `kpi-typescript`.
 
 Usage:
 
 ```txt
-kpsc-typescript <command>
+kpi-typescript <command>
 ```
 
 | Command        | Description                                                                                                                             |
@@ -124,14 +124,14 @@ kpsc-typescript <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpsc-typescript init`
+#### Subcommand: `kpi-typescript init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-kpsc-typescript init
+kpi-typescript init
 ```
 
 | Option              | Description         | Type      |
@@ -139,14 +139,14 @@ kpsc-typescript init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-typescript lint`
+#### Subcommand: `kpi-typescript lint`
 
 Run type checking on your project. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpsc-typescript lint
+kpi-typescript lint
 ```
 
 | Option              | Description         | Type      |
@@ -154,14 +154,14 @@ kpsc-typescript lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpsc-typescript print-config`
+#### Subcommand: `kpi-typescript print-config`
 
 Print the TypeScript configuration for the project. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpsc-typescript print-config
+kpi-typescript print-config
 ```
 
 | Option              | Description         | Type      |
