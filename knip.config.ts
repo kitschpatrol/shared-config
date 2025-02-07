@@ -4,6 +4,8 @@ export default knipConfig({
 	ignore: ['**/init/**', 'test/fixtures/**'],
 	ignoreBinaries: ['ksdiff'],
 	ignoreDependencies: [
+		'@kitschpatrol/repo-config', // Technically not needed?
+		'@kitschpatrol/typescript-config', // Technically not needed?
 		'@prettier/plugin-php',
 		'@prettier/plugin-ruby',
 		'@prettier/plugin-xml',
