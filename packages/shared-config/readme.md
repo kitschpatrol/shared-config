@@ -98,16 +98,18 @@ kpi init
 Is the same as running:
 
 ```sh
-kpi-cspell init
-kpi-eslint init
-kpi-knip init
-kpi-mdat init
-kpi-prettier init
-kpi-remark init
 kpi-repo init
-kpi-stylelint init
+kpi-mdat init
 kpi-typescript init
+kpi-eslint init
+kpi-stylelint init
+kpi-cspell init
+kpi-knip init
+kpi-remark init
+kpi-prettier init
 ```
+
+_(Sub-commands are always executed in the above order.)_
 
 The top-level `kpi` command also takes care of some nuances in terms of _which_ sub-packages implement _which_ commands, and which subcommands take arguments.
 
@@ -342,18 +344,6 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
 Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to eslint instead of prettier.
-
-Serial run order:
-
-1. `kpi-repo`
-2. `kpi-mdat`
-3. `kpi-typescript`
-4. `kpi-eslint`
-5. `kpi-stylelint`
-6. `kpi-cspell`
-7. `kpi-knip`
-8. `kpi-remark`
-9. `kpi-prettier`
 
 ## Background
 
