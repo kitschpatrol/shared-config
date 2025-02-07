@@ -388,10 +388,10 @@ async function copyAndMergeInitFiles(
 						return false
 					}
 
-					// Special case to merge .vscode json files
+					// Special case to merge package.json and .vscode json settings files
 					if (
 						destinationExists &&
-						destination.includes('.vscode/') &&
+						(destination.includes('.vscode/') || destination.includes('package.json')) &&
 						path.extname(destination) === '.json'
 					) {
 						// Merge

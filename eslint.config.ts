@@ -41,4 +41,12 @@ export default eslintConfig(
 			'unicorn/no-null': 'off',
 		},
 	},
+	{
+		// Ignore template package.json fragment files
+		files: ['packages/*/init/package.json'],
+		rules: {
+			'json-package/require-version': 'off',
+			'json-package/valid-package-definition': 'off',
+		},
+	},
 )
