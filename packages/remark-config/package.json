@@ -52,6 +52,7 @@
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
 		"mdast-util-to-markdown": "^2.1.2",
+		"prettier": "^3.4.2",
 		"remark-directive": "^3.0.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-gfm": "^4.0.0",

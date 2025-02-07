@@ -83,6 +83,7 @@
 		"globals": "^15.14.0",
 		"jsonc-eslint-parser": "^2.4.0",
 		"local-pkg": "^1.0.0",
+		"prettier": "^3.4.2",
 		"sort-package-json": "^2.14.0",
 		"svelte-eslint-parser": "^0.43.0",
 		"toml-eslint-parser": "^0.10.0",
@@ -95,7 +96,6 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-config-xo-typescript": "^7.0.0",
 		"eslint-typegen": "^1.0.0",
-		"prettier": "^3.4.2",
 		"svelte": "^5.19.9",
 		"tsup": "^8.3.6"
 	},

@@ -50,7 +50,8 @@
 		"deepmerge-ts": "^7.1.4",
 		"execa": "^9.5.2",
 		"fs-extra": "^11.3.0",
-		"knip": "^5.43.6"
+		"knip": "^5.43.6",
+		"prettier": "^3.4.2"
 	},
 	"engines": {
 		"node": ">=22.0.0",

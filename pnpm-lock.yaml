@@ -89,6 +89,9 @@ importers:
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -128,6 +131,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
   packages/eslint-config:
     dependencies:
@@ -239,6 +245,9 @@ importers:
       local-pkg:
         specifier: ^1.0.0
         version: 1.0.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       sort-package-json:
         specifier: ^2.14.0
         version: 2.14.0
@@ -270,9 +279,6 @@ importers:
       eslint-typegen:
         specifier: ^1.0.0
         version: 1.0.0(eslint@9.19.0(jiti@2.4.2))
-      prettier:
-        specifier: ^3.4.2
-        version: 3.4.2
       svelte:
         specifier: ^5.19.9
         version: 5.19.9
@@ -300,6 +306,9 @@ importers:
       knip:
         specifier: ^5.43.6
         version: 5.43.6(@types/node@22.13.1)(typescript@5.7.3)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
   packages/mdat-config:
     dependencies:
@@ -321,6 +330,9 @@ importers:
       mdat:
         specifier: ^0.10.0
         version: 0.10.0(typescript@5.7.3)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
   packages/prettier-config:
     dependencies:
@@ -396,6 +408,9 @@ importers:
       mdast-util-to-markdown:
         specifier: ^2.1.2
         version: 2.1.2
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       remark-directive:
         specifier: ^3.0.1
         version: 3.0.1
@@ -522,6 +537,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
   packages/shared-config:
     dependencies:
@@ -564,6 +582,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
     devDependencies:
       chalk:
         specifier: ^5.4.1
@@ -586,6 +607,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       stylelint:
         specifier: ^16.14.1
         version: 16.14.1(typescript@5.7.3)
@@ -613,6 +637,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       typescript:
         specifier: ~5.7.3
         version: 5.7.3
@@ -2008,8 +2035,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001697:
-    resolution: {integrity: sha512-GwNPlWJin8E+d7Gxq96jxM6w0w+VFeyyXRsjU58emtkYqnbwHqXm5uT2uCmO0RQE9htWknOP4xtBlLmM/gWxvQ==}
+  caniuse-lite@1.0.30001698:
+    resolution: {integrity: sha512-xJ3km2oiG/MbNU8G6zIq6XRZ6HtAOVXsbOrP/blGazi52kc5Yy7b6sDA5O+FbROzRrV7BSTllLHuNvmawYUJjw==}
 
   case-police@0.7.2:
     resolution: {integrity: sha512-qxIuluIS2DdugnuveaTXrN+++BcjRZkoNXIc+2yIFDZlAl72YekXhr/M1xzfOGU445nZKi4ruIZbp0qz1YBEFQ==}
@@ -6856,7 +6883,7 @@ snapshots:
 
   browserslist@4.24.4:
     dependencies:
-      caniuse-lite: 1.0.30001697
+      caniuse-lite: 1.0.30001698
       electron-to-chromium: 1.5.95
       node-releases: 2.0.19
       update-browserslist-db: 1.1.2(browserslist@4.24.4)
@@ -6941,7 +6968,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001697: {}
+  caniuse-lite@1.0.30001698: {}
 
   case-police@0.7.2: {}
 
