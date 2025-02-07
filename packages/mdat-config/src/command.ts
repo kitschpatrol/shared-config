@@ -66,7 +66,12 @@ export const commandDefinition: CommandDefinition = {
 		init: {
 			configFile: 'mdat.config.ts',
 			configPackageJson: {
-				mdat: '@kitschpatrol/mdat-config',
+				// Gnarly but it works...
+				// https://github.com/cosmiconfig/cosmiconfig#imports
+				// A plain `@kitschpatrol/mdat-config` unfortunately does not resolve the export
+				mdat: {
+					$import: 'node_modules/@kitschpatrol/mdat-config/dist/index.js',
+				},
 			},
 			locationOptionFlag: true,
 		},
