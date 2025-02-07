@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/shared-config",
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
 	"keywords": [
 		"shared-config",
