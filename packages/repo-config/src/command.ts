@@ -6,7 +6,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
-					execute: copyrightYearLinterCommand,
+					execute: copyrightYearFixerCommand,
 					name: copyrightYearLinterCommand.name,
 				},
 			],
@@ -19,7 +19,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					execute: copyrightYearFixerCommand,
+					execute: copyrightYearLinterCommand,
 					name: copyrightYearFixerCommand.name,
 				},
 			],
