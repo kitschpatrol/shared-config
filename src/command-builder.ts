@@ -330,8 +330,6 @@ async function copyAndMergeInitFiles(
 		configFile !== undefined &&
 		configPackageJson !== undefined
 
-	logStream.write(`Adding initial configuration files from:\n"${source}" → "${destination}"\n`)
-
 	try {
 		if (hasConfigLocationOption) {
 			const configKey = Object.keys(configPackageJson)[0]
@@ -367,6 +365,20 @@ async function copyAndMergeInitFiles(
 				}
 			}
 		}
+
+		// Make sure there's stuff to copy from init before proceeding
+		const sourceExists = await fse.pathExists(source)
+		if (!sourceExists) {
+			return 0
+		}
+
+		const sourceFiles = await fse.readdir(source)
+		if (sourceFiles.length === 0) {
+			logStream.write(`Source directory "${source}" is empty.\n`)
+			return 0
+		}
+
+		logStream.write(`Adding initial configuration files from:\n"${source}" → "${destination}"\n`)
 
 		await fse.copy(source, destination, {
 			async filter(source, destination) {
@@ -475,12 +487,15 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				`Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
 			async handler(argv) {
 				// Copy files
+
+				const location = init.locationOptionFlag ? (argv.location as string | undefined) : undefined
+
 				// Grab context by closure
 				const copyAndMergeInitFilesCommand: CommandFunction = {
-					async execute(logStream) {
+					async execute(logStream, _, optionFlags) {
 						return copyAndMergeInitFiles(
 							logStream,
-							init.locationOptionFlag ? (argv.location as string | undefined) : undefined,
+							optionFlags.at(1),
 							init.configFile,
 							init.configPackageJson,
 						)
@@ -489,11 +504,10 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				}
 
 				// Run commands
-				// TODO pass option?
 				const exitCode = await executeCommands(
 					logStream,
 					[],
-					[],
+					location === undefined ? [] : ['--location', location],
 					[copyAndMergeInitFilesCommand, ...(init.commands ?? [])],
 				)
 
