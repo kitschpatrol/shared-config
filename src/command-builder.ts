@@ -132,7 +132,11 @@ async function executeFunctionCommand(
 	}
 
 	if (verbose) {
-		targetStream.write(chalk.bold(`Running: "${command.name}()"`))
+		targetStream.write(
+			chalk.bold(
+				`Running: "${command.name}() with Positional arguments: ${String(positionalArguments)} and Option flags: ${String(optionFlags)}"`,
+			),
+		)
 	}
 
 	try {
