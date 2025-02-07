@@ -79,6 +79,7 @@
 		"eslint-plugin-unicorn": "^56.0.1",
 		"eslint-plugin-yml": "^1.16.0",
 		"execa": "^9.5.2",
+		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.0",
 		"globals": "^15.14.0",
 		"jsonc-eslint-parser": "^2.4.0",
