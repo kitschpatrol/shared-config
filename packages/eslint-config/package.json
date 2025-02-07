@@ -40,12 +40,11 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "pnpm run typegen && tsup --format esm --clean --dts && ../../scripts/build.ts",
+		"build": "tsup --format esm --clean --dts && ../../scripts/build.ts",
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
-		"presetgen": "tsx scripts/presetgen.ts && pnpm run typegen && kpi fix",
-		"typegen": "tsx scripts/typegen.ts"
+		"update-rules": "tsx scripts/presetgen.ts && tsx scripts/typegen.ts && kpi-eslint fix && kpi-prettier fix"
 	},
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.4.1",
