@@ -38,7 +38,12 @@ export const commandDefinition: CommandDefinition = {
 				{
 					cwdOverride: 'workspace-root',
 					name: 'knip',
-					optionFlags: ['--fix', '--allow-remove-files', ...getWorkspaceOptionFlags()],
+					optionFlags: [
+						'--fix',
+						'--allow-remove-files',
+						'--no-config-hints',
+						...getWorkspaceOptionFlags(),
+					],
 				},
 			],
 			description: `Automatically remove unused code and dependencies. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
@@ -55,7 +60,7 @@ export const commandDefinition: CommandDefinition = {
 					// Run from root, then pass --workspace IF in a monorepo and called from a subpackage
 					cwdOverride: 'workspace-root',
 					name: 'knip',
-					optionFlags: ['--no-progress', ...getWorkspaceOptionFlags()],
+					optionFlags: ['--no-progress', '--no-config-hints', ...getWorkspaceOptionFlags()],
 				},
 				// "Production" pass is not worth it?
 				// {

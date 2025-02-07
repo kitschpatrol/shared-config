@@ -12,6 +12,7 @@ const sharedKnipConfig: KnipConfig = {
 		'src/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
 
 		// Customized entries
+		'src/{bin,lib,cli}/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
 		'scripts/**/*.ts',
 		'.remarkrc.js',
 		'cspell.config.js',
@@ -27,9 +28,7 @@ const sharedKnipConfig: KnipConfig = {
 		'@kitschpatrol/mdat-config',
 		'@kitschpatrol/prettier-config',
 		'@kitschpatrol/remark-config',
-		'@kitschpatrol/repo-config', // Technically not needed?
 		'@kitschpatrol/stylelint-config',
-		'@kitschpatrol/typescript-config', // Technically not needed?
 	],
 }
 
