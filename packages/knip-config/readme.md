@@ -25,7 +25,7 @@ It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpi-kni
 
 <!-- recommendation -->
 
-> [!Important]
+> [!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >

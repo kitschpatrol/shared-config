@@ -10,10 +10,11 @@
 		"kpi",
 		"kpi-cspell"
 	],
+	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/cspell-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config.git",
 		"directory": "packages/cspell-config"
 	},
 	"license": "MIT",

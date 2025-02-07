@@ -67,19 +67,19 @@ This particular readme is for the [`@kitschpatrol/shared-config`](https://www.np
 
 #### Primary package
 
-- [`@kitschpatrol/shared-config`](/packages/shared-config/readme.md) (`kpi` command)
+- [`@kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/readme.md) (`kpi` command)
 
 #### Sub-packages
 
-- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md) (`kpi-cspell` command)
-- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md) (`kpi-eslint` command)
-- [`@kitschpatrol/knip-config`](/packages/knip-config/readme.md) (`kpi-knip` command)
-- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md) (`kpi-mdat` command)
-- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md) (`kpi-prettier` command)
-- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md) (`kpi-remark` command)
-- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md) (`kpi-repo` command)
-- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md) (`kpi-stylelint` command)
-- [`@kitschpatrol/typescript-config`](/packages/typescript-config/readme.md) (`kpi-typescript` command)
+- [`@kitschpatrol/cspell-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/cspell-config/readme.md) (`kpi-cspell` command)
+- [`@kitschpatrol/eslint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/eslint-config/readme.md) (`kpi-eslint` command)
+- [`@kitschpatrol/knip-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/knip-config/readme.md) (`kpi-knip` command)
+- [`@kitschpatrol/mdat-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/mdat-config/readme.md) (`kpi-mdat` command)
+- [`@kitschpatrol/prettier-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) (`kpi-prettier` command)
+- [`@kitschpatrol/remark-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/remark-config/readme.md) (`kpi-remark` command)
+- [`@kitschpatrol/repo-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/repo-config/readme.md) (`kpi-repo` command)
+- [`@kitschpatrol/stylelint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/stylelint-config/readme.md) (`kpi-stylelint` command)
+- [`@kitschpatrol/typescript-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/typescript-config/readme.md) (`kpi-typescript` command)
 
 > [!IMPORTANT]
 >
@@ -175,9 +175,6 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
      }
    }
    ```
-
-   > [!NOTE]
-   > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
 5. Set up GitHub action credentials (if desired)
 

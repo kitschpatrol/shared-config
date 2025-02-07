@@ -2,7 +2,7 @@ import { mdatConfig } from '@kitschpatrol/mdat-config'
 
 export default mdatConfig({
 	rules: {
-		recommendation: `> [!Important]
+		recommendation: `> [!IMPORTANT]
   >
   > **You can use this package on its own, but it's recommended to use [\`@kitschpatrol/shared-config\`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
   >

@@ -23,7 +23,7 @@
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/kitschpatrol/shared-config"
+		"url": "git+https://github.com/kitschpatrol/shared-config.git"
 	},
 	"license": "MIT",
 	"author": {

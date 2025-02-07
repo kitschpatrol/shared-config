@@ -10,10 +10,11 @@
 		"kpi",
 		"kpi-typescript"
 	],
+	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/typescript-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config.git",
 		"directory": "packages/typescript-config"
 	},
 	"license": "MIT",

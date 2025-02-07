@@ -9,10 +9,11 @@
 		"kpi",
 		"kpi-repo"
 	],
+	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/repo-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config.git",
 		"directory": "packages/repo-config"
 	},
 	"license": "MIT",

@@ -12,10 +12,11 @@
 		"kpi",
 		"kpi-mdat"
 	],
+	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/mdat-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config.git",
 		"directory": "packages/mdat-config"
 	},
 	"license": "MIT",

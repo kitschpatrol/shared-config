@@ -25,7 +25,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 
 <!-- recommendation -->
 
-> [!Important]
+> [!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
@@ -35,7 +35,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 
 ## Setup
 
-> [!Note]
+> [!NOTE]
 >
 > The package treats `typescript` as a peer dependency — it expects you to have `typescript` installed in your project.
 

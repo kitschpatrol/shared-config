@@ -10,10 +10,11 @@
 		"kpi",
 		"kpi-knip"
 	],
+	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/knip-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/shared-config/cli.git",
+		"url": "git+https://github.com/kitschpatrol/shared-config.git",
 		"directory": "packages/knip-config"
 	},
 	"license": "MIT",
