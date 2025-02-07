@@ -696,6 +696,9 @@ export async function getCosmiconfigResult(
 	}
 }
 
+/**
+ * Commonly reused CLI help description strings. Some duplication is intentional for future flexibility.
+ */
 export const DESCRIPTION = {
 	fileRun: 'Matches files below the current working directory by default.',
 	monorepoRun:

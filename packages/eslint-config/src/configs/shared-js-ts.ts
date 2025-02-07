@@ -99,7 +99,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				ignoreConsecutiveComments: true,
 				ignoreInlineComments: true,
 				// Forgive some additional common patterns arising from temporarily commenting out lines of code
-				ignorePattern: String.raw`await|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+				ignorePattern: String.raw`if|else|await|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
 			},
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
