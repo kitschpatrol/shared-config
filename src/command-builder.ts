@@ -20,6 +20,7 @@ import { version } from '../package.json'
 import { isErrorExecaError } from './execa-utils.js'
 import { merge, stringify } from './json-utils.js'
 import { type CwdOverrideOptions, getCwdOverride } from './path-utils.js'
+import { formatFileInPlace } from './prettier-utils.js'
 import { createStreamTransform, streamToString } from './stream-utils.js'
 import { pluralize } from './string-utils.js'
 
@@ -347,6 +348,7 @@ async function copyAndMergeInitFiles(
 				)
 				const mergedPackageJson = merge(destinationPackageJson, configPackageJson)
 				fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: '\t' })
+				await formatFileInPlace(destinationPackage)
 			} else {
 				// Removing configuration key from package.json
 				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
@@ -361,12 +363,13 @@ async function copyAndMergeInitFiles(
 					// eslint-disable-next-line ts/no-dynamic-delete
 					delete destinationPackageJson[configKey]
 					fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: '\t' })
+					await formatFileInPlace(destinationPackage)
 				}
 			}
 		}
 
 		await fse.copy(source, destination, {
-			filter(source, destination) {
+			async filter(source, destination) {
 				const isFile = fs.statSync(source).isFile()
 				const destinationExists = fs.existsSync(destination)
 
@@ -402,18 +405,19 @@ async function copyAndMergeInitFiles(
 						const mergedJson = merge(destinationJson, sourceJson)
 
 						fse.writeJSONSync(destination, mergedJson, { spaces: '\t' })
-
-						//
+						await formatFileInPlace(destination)
 
 						return false
 					}
 
 					if (destinationExists) {
 						logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`)
+						await formatFileInPlace(destination)
 						return true
 					}
 
 					logStream.write(`Copying: \n"${source}" → "${destination}"\n`)
+					await formatFileInPlace(destination)
 					return true
 				}
 

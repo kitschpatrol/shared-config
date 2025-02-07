@@ -4,7 +4,7 @@ import { getProperty } from 'dot-prop'
 import { renamePluginsInRules } from 'eslint-flat-config-utils'
 import fs, { glob } from 'node:fs/promises'
 import process from 'node:process'
-import * as prettier from 'prettier'
+import { formatTextAndSaveFile } from '../../../src/prettier-utils'
 import { defaultPluginRenaming } from '../src/factory'
 import { interopDefault } from '../src/utils'
 
@@ -63,26 +63,6 @@ async function addNewExpansions(lines: string[]): Promise<string[]> {
 	}
 
 	return result
-}
-
-/**
- * Formats and saves the file content
- * @param filePath - Path to the file
- * @param content - Content to save
- */
-async function formatAndSaveFile(filePath: string, content: string): Promise<void> {
-	try {
-		const prettierConfig = await prettier.resolveConfig(filePath)
-		const formattedContent = await prettier.format(content, {
-			filepath: filePath,
-			...prettierConfig,
-		})
-
-		await fs.writeFile(filePath, formattedContent, 'utf8')
-	} catch (error) {
-		console.error(`Error formatting/saving file ${filePath}:`, error)
-		throw error // Re-throw to handle in the main function
-	}
 }
 
 /**
@@ -202,7 +182,7 @@ async function processFile(filePath: string): Promise<number | undefined> {
 	ruleCount = expandedLines.length - cleanedLines.length
 
 	// Format and save the file
-	await formatAndSaveFile(filePath, expandedLines.join('\n'))
+	await formatTextAndSaveFile(filePath, expandedLines.join('\n'))
 
 	return ruleCount
 }
