@@ -14,6 +14,32 @@ import { stringify } from '../../../src/json-utils.js'
 import { createStreamFilter, createStreamTransform } from '../../../src/stream-utils.js'
 import { checkForUnusedWords } from './unused-words.js'
 
+async function getCspellIgnorePaths(): Promise<string> {
+	// Resolve cspell ignore paths for Case Police
+
+	// eslint-disable-next-line unicorn/no-useless-undefined
+	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
+	if (config === undefined) {
+		throw new Error('No CSpell configuration found.')
+	}
+
+	const resolvedConfig = await resolveConfigFileImports(config)
+
+	if (resolvedConfig.ignorePaths === undefined) {
+		return ''
+	}
+
+	// Comma-delimited list of paths
+	const globStrings: string[] = []
+
+	// eslint-disable-next-line unicorn/prevent-abbreviations
+	for (const globDefOrString of resolvedConfig.ignorePaths) {
+		globStrings.push(typeof globDefOrString === 'string' ? globDefOrString : globDefOrString.glob)
+	}
+
+	return globStrings.join(',')
+}
+
 async function checkForUnusedWordsCommand(
 	logStream: NodeJS.WritableStream,
 	positionalArguments: string[],
@@ -98,7 +124,12 @@ async function casePoliceCommand(
 				logColor: 'cyanBright',
 				logPrefix,
 				name: 'case-police',
-				optionFlags: ['--dict', await getCasePoliceDictionaryPath()],
+				optionFlags: [
+					'--dict',
+					await getCasePoliceDictionaryPath(),
+					'--ignore',
+					await getCspellIgnorePaths(),
+				],
 				receivePositionalArguments: true,
 			},
 		],
