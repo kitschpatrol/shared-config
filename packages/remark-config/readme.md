@@ -89,7 +89,7 @@ kpi-remark <command>
 
 | Command        | Description                                                                                                   |
 | -------------- | ------------------------------------------------------------------------------------------------------------- |
-| `init`         | Initialize by copying starter config files to your project root.                                              |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                 |
 | `print-config` | Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
 
 | Option              | Description         | Type      |
@@ -101,7 +101,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `kpi-remark init`
 
-Initialize by copying starter config files to your project root.
+Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
@@ -109,10 +109,11 @@ Usage:
 kpi-remark init
 ```
 
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
 
 #### Subcommand: `kpi-remark print-config`
 

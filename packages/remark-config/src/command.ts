@@ -14,7 +14,7 @@ export const commandDefinition: CommandDefinition = {
 					plugins: ['@kitschpatrol/remark-config'],
 				},
 			},
-			locationOptionFlag: false,
+			locationOptionFlag: true,
 		},
 		printConfig: {
 			commands: [getCosmiconfigCommand('remark')],
