@@ -1,6 +1,6 @@
 {
 	"name": "shared-config-monorepo",
-	"version": "5.0.3",
+	"version": "5.0.4",
 	"private": true,
 	"description": "A single dependency and single command to configure and run various code linters and tools.",
 	"keywords": [
