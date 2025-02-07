@@ -1,6 +1,7 @@
 import { default as pluginJson } from 'eslint-plugin-jsonc'
 import pluginJsonPackage from 'eslint-plugin-package-json'
 import { default as parserJson } from 'jsonc-eslint-parser'
+import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
 import {
@@ -79,7 +80,23 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			rules: {
 				...jsonPackageRecommendedRules,
 				'json-package/no-redundant-files': 'error',
-				'json-package/order-properties': 'error',
+				'json-package/order-properties': [
+					'error',
+					{
+						// Put shared-config keys at the end...
+						// otherwise sortPackageJsonSortOrder scatters them in the
+						// middle of package.json.
+						// This must stay in sync with packages/prettier-config/src/index.ts
+						order: customizeSortOrder(sortPackageJsonSortOrder, [
+							'cspell',
+							'knip',
+							'mdat',
+							'prettier',
+							'remarkConfig',
+							'stylelint',
+						]),
+					},
+				],
 			},
 		},
 		// Sort tsconfig
@@ -213,4 +230,16 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			},
 		},
 	]
+}
+
+/**
+ * Merge custom keys into the `sort-package-json` `order` array. Where
+ * duplicated, delete existing and prioritize new keys.
+ */
+function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
+	// If new keys are in keys, remove them
+	const filteredKeys = keys.filter((key) => !newKeys.includes(key))
+
+	// Append new keys to the end
+	return [...filteredKeys, ...newKeys]
 }

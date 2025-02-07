@@ -84,6 +84,7 @@
 		"globals": "^15.14.0",
 		"jsonc-eslint-parser": "^2.4.0",
 		"local-pkg": "^1.0.0",
+		"sort-package-json": "^2.14.0",
 		"svelte-eslint-parser": "^0.43.0",
 		"toml-eslint-parser": "^0.10.0",
 		"yaml-eslint-parser": "^1.2.3"

@@ -1,7 +1,20 @@
 import type { Config as PrettierConfig } from 'prettier'
 import { deepmerge } from 'deepmerge-ts'
 import { homedir } from 'node:os'
+import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 // export { commandDefinition } from './command.js'
+
+/**
+ * Merge custom keys into the `sort-package-json` `order` array. Where
+ * duplicated, delete existing and prioritize new keys.
+ */
+function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
+	// If new keys are in keys, remove them
+	const filteredKeys = keys.filter((key) => !newKeys.includes(key))
+
+	// Append new keys to the end
+	return [...filteredKeys, ...newKeys]
+}
 
 const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
@@ -37,6 +50,22 @@ const sharedPrettierConfig: PrettierConfig = {
 			options: {
 				parser: 'sh',
 				plugins: ['prettier-plugin-sh'],
+			},
+		},
+		// Make this match eslint 'json-package/order-properties'
+		// https://github.com/matzkoh/prettier-plugin-packagejson/issues/188
+		// This must stay in sync with packages/eslint-config/src/configs/json.ts
+		{
+			files: 'package.json',
+			options: {
+				packageSortOrder: customizeSortOrder(sortPackageJsonSortOrder, [
+					'cspell',
+					'knip',
+					'mdat',
+					'prettier',
+					'remarkConfig',
+					'stylelint',
+				]),
 			},
 		},
 	],

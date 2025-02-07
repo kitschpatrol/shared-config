@@ -239,6 +239,9 @@ importers:
       local-pkg:
         specifier: ^1.0.0
         version: 1.0.0
+      sort-package-json:
+        specifier: ^2.14.0
+        version: 2.14.0
       svelte-eslint-parser:
         specifier: ^0.43.0
         version: 0.43.0(svelte@5.19.9)
@@ -369,6 +372,9 @@ importers:
       prettier-plugin-toml:
         specifier: ^2.0.1
         version: 2.0.1(prettier@3.4.2)
+      sort-package-json:
+        specifier: ^2.14.0
+        version: 2.14.0
 
   packages/remark-config:
     dependencies:
