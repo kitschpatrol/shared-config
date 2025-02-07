@@ -346,7 +346,7 @@ async function copyAndMergeInitFiles(
 					`Merging: \nPackage config key "${configKey}" → "${destination}" (Because --location is set to "package")\n`,
 				)
 				const mergedPackageJson = merge(destinationPackageJson, configPackageJson)
-				fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: 2 })
+				fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: '\t' })
 			} else {
 				// Removing configuration key from package.json
 				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
@@ -360,7 +360,7 @@ async function copyAndMergeInitFiles(
 					)
 					// eslint-disable-next-line ts/no-dynamic-delete
 					delete destinationPackageJson[configKey]
-					fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: 2 })
+					fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: '\t' })
 				}
 			}
 		}
@@ -401,7 +401,9 @@ async function copyAndMergeInitFiles(
 						const destinationJson = fse.readJSONSync(destination) as Record<string, unknown>
 						const mergedJson = merge(destinationJson, sourceJson)
 
-						fse.writeJSONSync(destination, mergedJson, { spaces: 2 })
+						fse.writeJSONSync(destination, mergedJson, { spaces: '\t' })
+
+						//
 
 						return false
 					}
