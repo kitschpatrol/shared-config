@@ -97,6 +97,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 						]),
 					},
 				],
+				'json-package/require-author': 'error',
+				'json-package/require-keywords': 'error',
 			},
 		},
 		// Sort tsconfig

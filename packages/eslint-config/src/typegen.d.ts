@@ -1325,6 +1325,14 @@ export interface RuleOptions {
 	 */
 	'json-package/require-author'?: Linter.RuleEntry<[]>
 	/**
+	 * Requires the `keywords` property to be present.
+	 */
+	'json-package/require-keywords'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires the `name` property to be present.
+	 */
+	'json-package/require-name'?: Linter.RuleEntry<[]>
+	/**
 	 * Requires the `version` property to be present.
 	 */
 	'json-package/require-version'?: Linter.RuleEntry<[]>
@@ -4719,6 +4727,11 @@ export interface RuleOptions {
 	 */
 	'test/prefer-spy-on'?: Linter.RuleEntry<[]>
 	/**
+	 * enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-strict-boolean-matchers.md
+	 */
+	'test/prefer-strict-boolean-matchers'?: Linter.RuleEntry<[]>
+	/**
 	 * enforce strict equal over equal
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-strict-equal.md
 	 */
@@ -4773,6 +4786,11 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-local-test-context-for-concurrent-snapshots.md
 	 */
 	'test/require-local-test-context-for-concurrent-snapshots'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce using type parameters with vitest mock functions
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-mock-type-parameters.md
+	 */
+	'test/require-mock-type-parameters'?: Linter.RuleEntry<TestRequireMockTypeParameters>
 	/**
 	 * require toThrow() to be called with an error message
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-to-throw-message.md
@@ -16233,6 +16251,14 @@ type TestRequireHook =
 	| [
 			{
 				allowedFunctionCalls?: string[]
+			},
+	  ]
+// ----- test/require-mock-type-parameters -----
+type TestRequireMockTypeParameters =
+	| []
+	| [
+			{
+				checkImportFunctions?: boolean
 			},
 	  ]
 // ----- test/require-top-level-describe -----

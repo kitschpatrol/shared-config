@@ -45,6 +45,9 @@ export default eslintConfig(
 		// Ignore template package.json fragment files
 		files: ['packages/*/init/package.json'],
 		rules: {
+			'json-package/require-author': 'off',
+			'json-package/require-keywords': 'off',
+			'json-package/require-name': 'off',
 			'json-package/require-version': 'off',
 			'json-package/valid-package-definition': 'off',
 		},

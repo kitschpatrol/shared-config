@@ -200,13 +200,15 @@ async function executeCliCommand(
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
 			cwd,
-			env:
-				process.env.NO_COLOR === undefined
-					? {
-							// eslint-disable-next-line ts/naming-convention
-							FORCE_COLOR: 'true',
-						}
-					: {},
+			env: {
+				// Use colorful output unless NO_COLOR is set
+				// eslint-disable-next-line ts/naming-convention
+				...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
+				// Quiet node for when processing *.config.ts files in Node 22
+				// Suppress experimental type stripping warning with --no-warnings
+				// eslint-disable-next-line ts/naming-convention
+				NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
+			},
 			preferLocal: true,
 			reject: false, // Prevents throwing on non-zero exit code
 			stdin: 'inherit',
