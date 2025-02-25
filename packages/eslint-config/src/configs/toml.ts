@@ -1,7 +1,7 @@
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_TOML } from '../globs'
 import { tomlRecommendedRules } from '../presets'
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utilities'
 
 export async function toml(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options

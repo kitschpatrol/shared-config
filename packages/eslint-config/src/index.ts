@@ -6,4 +6,4 @@ export * from './globs'
 export type * from './types'
 
 // eslint-disable unicorn/prefer-export-from
-export * from './utils'
+export * from './utilities'

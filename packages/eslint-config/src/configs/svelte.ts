@@ -2,7 +2,7 @@ import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_SVELTE } from '../globs'
 import { tsParser } from '../parsers'
 import { svelteRecommendedRules } from '../presets'
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utilities'
 import { sharedScriptConfig } from './shared-js-ts'
 
 export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {

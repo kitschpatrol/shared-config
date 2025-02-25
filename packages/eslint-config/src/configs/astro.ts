@@ -10,7 +10,7 @@ import type {
 import { GLOB_ASTRO, GLOB_ASTRO_JS, GLOB_ASTRO_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { astroJsxA11yRecommendedRules, astroRecommendedRules } from '../presets'
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utilities'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
 export async function astro(

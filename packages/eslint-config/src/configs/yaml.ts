@@ -1,7 +1,7 @@
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_YAML } from '../globs'
 import { yamlRecommendedRules } from '../presets'
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utilities'
 
 export async function yaml(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options

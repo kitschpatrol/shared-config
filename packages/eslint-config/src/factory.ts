@@ -24,7 +24,7 @@ import {
 	yaml,
 } from './configs'
 import { tsParser } from './parsers'
-import { interopDefault, isInEditorEnv as isInEditorEnvironment } from './utils'
+import { interopDefault, isInEditorEnv as isInEditorEnvironment } from './utilities'
 
 const flatConfigProperties = [
 	'name',

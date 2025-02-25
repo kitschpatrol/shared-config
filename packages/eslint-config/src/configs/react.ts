@@ -2,7 +2,7 @@ import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '..
 // Wat?
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_MDX, GLOB_SRC } from '../globs'
 import { reactDisableTypeCheckedRules, reactRecommendedTypeCheckedRules } from '../presets'
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utilities'
 
 // eslint-react is preferred over eslint-plugin-react?
 

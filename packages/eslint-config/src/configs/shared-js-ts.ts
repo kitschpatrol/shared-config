@@ -8,7 +8,6 @@ import { default as pluginNode } from 'eslint-plugin-n'
 import { default as pluginPerfectionist } from 'eslint-plugin-perfectionist'
 import * as pluginRegexp from 'eslint-plugin-regexp'
 import { default as pluginUnicorn } from 'eslint-plugin-unicorn'
-import { sep } from 'node:path'
 import type { Rules, TypedFlatConfigItem } from '../types'
 import {
 	dependRecommendedRules,
@@ -29,7 +28,7 @@ import {
 	xoJavascriptRules,
 	xoTypescriptRules,
 } from '../presets'
-import { generatePerfectionistSortConfig } from '../utils'
+import { generatePerfectionistSortConfig } from '../utilities'
 
 // ---------
 

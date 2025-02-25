@@ -6,7 +6,7 @@ import fs, { glob } from 'node:fs/promises'
 import process from 'node:process'
 import { formatTextAndSaveFile } from '../../../src/prettier-utils'
 import { defaultPluginRenaming } from '../src/factory'
-import { interopDefault } from '../src/utils'
+import { interopDefault } from '../src/utilities'
 
 type ExpansionConfig = {
 	dotPath: string
