@@ -48,12 +48,12 @@
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
-		"deepmerge-ts": "^7.1.4",
+		"deepmerge-ts": "^7.1.5",
 		"execa": "^9.5.2",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.0",
-		"knip": "^5.43.6",
-		"prettier": "^3.5.0"
+		"knip": "^5.44.5",
+		"prettier": "^3.5.2"
 	},
 	"engines": {
 		"node": ">=22.13.1",
