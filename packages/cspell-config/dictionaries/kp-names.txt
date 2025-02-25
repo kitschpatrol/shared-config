@@ -194,6 +194,7 @@ Carmack
 Carnett
 Carrer
 Carsten
+Cascadia
 Castiñeira
 Cathal
 Catie
@@ -235,6 +236,7 @@ Cofoco
 Cohrs
 Coill
 Condon
+Consolas
 Copia
 Corbin
 Corbis
@@ -905,6 +907,7 @@ Nekoro
 Nemerov
 Nerburn
 Nessen
+Neue
 Neumann
 Nevarez
 Newmark

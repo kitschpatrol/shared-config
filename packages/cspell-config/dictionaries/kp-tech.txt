@@ -434,6 +434,7 @@ raytrace
 rclone
 rcmdnk
 realfavicongenerator
+realsense
 rects
 rehype
 remarklint
