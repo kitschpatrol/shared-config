@@ -129,7 +129,7 @@ Bootstrap a new project and open in VS Code:
 git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init --location package && pnpm i && code .
 ```
 
-The `--location package` flag will put as much configuration in your `package.json` as possible instead of in discrete files in your project root. This saves some clutter but can make it clunkier to extend or customize configurations. At any point, you can call `kpi init` with or without a `--location package` or `--location file` flag to reinitialize your configuration files in one place ot he other to.
+The `--location package` flag will put as much configuration in your `package.json` as possible instead of in discrete files in your project root. This saves some clutter but can make it clunkier to extend or customize configurations. At any point, you can call `kpi init` with or without a `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other.
 
 #### Quick add to an existing project:
 

@@ -1,7 +1,7 @@
 {
 	"extends": "@kitschpatrol/typescript-config",
 
-	// Includes project dit-files files for typescript-eslint integration
+	// Includes project dot-files files for typescript-eslint integration
 	"include": ["**/*", "**/**.*"],
 	"exclude": ["**/dist/", "**/bin/"]
 }
