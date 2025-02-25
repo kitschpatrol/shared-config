@@ -21,7 +21,7 @@ export const reactRecommendedTypeCheckedRules: Rules = {
 	'react/no-default-props': 'error',
 	'react/no-direct-mutation-state': 'error',
 	'react/no-duplicate-jsx-props': 'off',
-	'react/no-duplicate-key': 'error',
+	'react/no-duplicate-key': 'warn',
 	'react/no-forward-ref': 'warn',
 	'react/no-implicit-key': 'warn',
 	'react/no-missing-key': 'error',
