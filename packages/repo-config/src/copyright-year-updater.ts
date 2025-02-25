@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
-import { restoreNodeWarnings, suppressNodeWarnings } from '../../../src/node-utils'
-import { getPackageDirectory } from '../../../src/path-utils'
-import { pluralize } from '../../../src/string-utils'
+import { restoreNodeWarnings, suppressNodeWarnings } from '../../../src/node-utilities'
+import { getPackageDirectory } from '../../../src/path-utilities'
+import { pluralize } from '../../../src/string-utilities'
 
 function updateLicenseContent(content: string, currentYear: number): string {
 	// Match a four-digit range with optional spaces around the dash.

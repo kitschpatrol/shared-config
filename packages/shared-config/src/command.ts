@@ -6,7 +6,7 @@ import {
 	type Commands,
 	DESCRIPTION,
 } from '../../../src/command-builder.js'
-import { kebabCase } from '../../../src/string-utils.js'
+import { kebabCase } from '../../../src/string-utilities.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
 import { commandDefinition as eslintCommand } from '../../eslint-config/src/command.js'
 import { commandDefinition as knipCommand } from '../../knip-config/src/command.js'

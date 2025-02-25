@@ -1,6 +1,6 @@
-import { default as pluginHtml } from '@html-eslint/eslint-plugin'
-import { default as htmlParser } from '@html-eslint/parser'
-import { default as pluginHtmlScript } from 'eslint-plugin-html'
+import pluginHtml from '@html-eslint/eslint-plugin'
+import htmlParser from '@html-eslint/parser'
+import pluginHtmlScript from 'eslint-plugin-html'
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,

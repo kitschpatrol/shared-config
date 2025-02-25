@@ -1,6 +1,6 @@
-import { default as pluginJson } from 'eslint-plugin-jsonc'
+import pluginJson from 'eslint-plugin-jsonc'
 import pluginJsonPackage from 'eslint-plugin-package-json'
-import { default as parserJson } from 'jsonc-eslint-parser'
+import parserJson from 'jsonc-eslint-parser'
 import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'

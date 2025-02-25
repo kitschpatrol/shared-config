@@ -5,8 +5,8 @@ import {
 	DESCRIPTION,
 	getCosmiconfigResult,
 } from '../../../src/command-builder.js'
-import { stringify } from '../../../src/json-utils.js'
-import { findWorkspacePackageDirectories } from '../../../src/path-utils.js'
+import { stringify } from '../../../src/json-utilities.js'
+import { findWorkspacePackageDirectories } from '../../../src/path-utilities.js'
 
 async function getMdatConfigFilepath(): Promise<string | undefined> {
 	const result = await getCosmiconfigResult('mdat')

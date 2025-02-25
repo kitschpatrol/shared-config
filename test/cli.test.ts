@@ -1,6 +1,5 @@
 /* eslint-disable import/no-named-as-default-member */
 import { execa } from 'execa'
-// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import path from 'node:path'
 import process from 'node:process'

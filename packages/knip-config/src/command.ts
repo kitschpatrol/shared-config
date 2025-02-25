@@ -4,7 +4,7 @@ import {
 	DESCRIPTION,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
-import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utils.js'
+import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utilities.js'
 import sharedKnipConfig from './index.js'
 
 function getWorkspaceOptionFlags(): string[] {

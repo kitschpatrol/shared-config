@@ -4,7 +4,7 @@ import { getProperty } from 'dot-prop'
 import { renamePluginsInRules } from 'eslint-flat-config-utils'
 import fs, { glob } from 'node:fs/promises'
 import process from 'node:process'
-import { formatTextAndSaveFile } from '../../../src/prettier-utils'
+import { formatTextAndSaveFile } from '../../../src/prettier-utilities'
 import { defaultPluginRenaming } from '../src/factory'
 import { interopDefault } from '../src/utilities'
 

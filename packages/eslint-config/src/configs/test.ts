@@ -1,5 +1,5 @@
-import { default as pluginTest } from '@vitest/eslint-plugin'
-import { default as pluginNoOnlyTests } from 'eslint-plugin-no-only-tests'
+import pluginTest from '@vitest/eslint-plugin'
+import pluginNoOnlyTests from 'eslint-plugin-no-only-tests'
 import globals from 'globals'
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_TESTS } from '../globs'

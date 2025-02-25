@@ -1,4 +1,4 @@
-import { default as pluginJsxA11y } from 'eslint-plugin-jsx-a11y'
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y'
 import type { TypedFlatConfigItem } from '../types'
 import { jsxA11yRecommendedRules, xoTsxRules } from '../presets'
 import { sharedScriptConfig } from './shared-js-ts'

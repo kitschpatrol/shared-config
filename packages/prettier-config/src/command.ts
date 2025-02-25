@@ -3,7 +3,7 @@ import {
 	DESCRIPTION,
 	getCosmiconfigCommand,
 } from '../../../src/command-builder.js'
-import { getFilePathAtProjectRoot } from '../../../src/path-utils.js'
+import { getFilePathAtProjectRoot } from '../../../src/path-utilities.js'
 
 // TODO bad idea?
 // At least test the ruby situation

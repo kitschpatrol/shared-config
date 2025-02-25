@@ -10,8 +10,8 @@ import {
 	DESCRIPTION,
 	executeCommands,
 } from '../../../src/command-builder.js'
-import { stringify } from '../../../src/json-utils.js'
-import { createStreamFilter, createStreamTransform } from '../../../src/stream-utils.js'
+import { stringify } from '../../../src/json-utilities.js'
+import { createStreamFilter, createStreamTransform } from '../../../src/stream-utilities.js'
 import { checkForUnusedWords } from './unused-words.js'
 
 async function getCspellIgnorePaths(): Promise<string> {

@@ -1,13 +1,13 @@
-import { default as pluginEslintComments } from '@eslint-community/eslint-plugin-eslint-comments'
-import { default as pluginTs } from '@typescript-eslint/eslint-plugin'
+import pluginEslintComments from '@eslint-community/eslint-plugin-eslint-comments'
+import pluginTs from '@typescript-eslint/eslint-plugin'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import * as pluginDepend from 'eslint-plugin-depend'
-import { default as pluginImport } from 'eslint-plugin-import-x'
-import { default as pluginJsdocComments } from 'eslint-plugin-jsdoc'
-import { default as pluginNode } from 'eslint-plugin-n'
-import { default as pluginPerfectionist } from 'eslint-plugin-perfectionist'
+import pluginImport from 'eslint-plugin-import-x'
+import pluginJsdocComments from 'eslint-plugin-jsdoc'
+import pluginNode from 'eslint-plugin-n'
+import pluginPerfectionist from 'eslint-plugin-perfectionist'
 import * as pluginRegexp from 'eslint-plugin-regexp'
-import { default as pluginUnicorn } from 'eslint-plugin-unicorn'
+import pluginUnicorn from 'eslint-plugin-unicorn'
 import type { Rules, TypedFlatConfigItem } from '../types'
 import {
 	dependRecommendedRules,
@@ -103,6 +103,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+		// Overlaps with `unicorn/no-named-default`, and gives false positives for imports from CJS modules
+		'import/default': 'off',
 		// Cope with Astro virtual modules
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
 		'import/no-unresolved': ['error', { ignore: ['^astro:'] }],

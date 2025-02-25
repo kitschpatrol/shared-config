@@ -5,8 +5,8 @@ import {
 	DESCRIPTION,
 	getCosmiconfigResult,
 } from '../../../src/command-builder.js'
-import { stringify } from '../../../src/json-utils.js'
-import { getCwdOverride, getFilePathAtProjectRoot } from '../../../src/path-utils.js'
+import { stringify } from '../../../src/json-utilities.js'
+import { getCwdOverride, getFilePathAtProjectRoot } from '../../../src/path-utilities.js'
 
 const sharedOptionFlags = [
 	'--ignore-path',

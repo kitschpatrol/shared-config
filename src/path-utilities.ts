@@ -1,7 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 
 import { findWorkspaces, findWorkspacesRoot } from 'find-workspaces'
-// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import path from 'node:path'
 import { packageUpSync } from 'package-up'
