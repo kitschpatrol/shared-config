@@ -8,6 +8,7 @@ import { default as pluginNode } from 'eslint-plugin-n'
 import { default as pluginPerfectionist } from 'eslint-plugin-perfectionist'
 import * as pluginRegexp from 'eslint-plugin-regexp'
 import { default as pluginUnicorn } from 'eslint-plugin-unicorn'
+import { sep } from 'node:path'
 import type { Rules, TypedFlatConfigItem } from '../types'
 import {
 	dependRecommendedRules,
@@ -240,6 +241,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 					props: false,
 					ref: false,
 					refs: false,
+					sep: false, // Present in node:path library
 					src: false,
 					temp: false,
 				},
