@@ -55,7 +55,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@typescript-eslint/eslint-plugin": "^8.25.0",
 		"@typescript-eslint/parser": "^8.25.0",
-		"@vitest/eslint-plugin": "^1.1.31",
+		"@vitest/eslint-plugin": "^1.1.33",
 		"astro-eslint-parser": "^1.2.1",
 		"eslint": "^9.21.0",
 		"eslint-config-flat-gitignore": "^2.1.0",
@@ -99,7 +99,7 @@
 		"eslint-config-xo-typescript": "^7.0.0",
 		"eslint-typegen": "^2.0.0",
 		"svelte": "^5.20.4",
-		"tsup": "^8.3.6"
+		"tsup": "^8.4.0"
 	},
 	"engines": {
 		"node": ">=22.13.1",

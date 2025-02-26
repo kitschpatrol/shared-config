@@ -343,7 +343,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
-Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to eslint instead of prettier.
+Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to ESLint instead of Prettier.
 
 ## Background
 

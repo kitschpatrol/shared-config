@@ -9,11 +9,11 @@ These might be out of date.
 ### Modifications
 
 - [x] Remove CLI
-- [x] Remove formatters (use prettier separately instead)
+- [x] Remove formatters (use Prettier separately instead)
 - [x] Make Unicorn mandatory
 - [x] Remove @stylistic/eslint-plugin, but retain `stylistic` option flag for plugin rules
 - [x] Remove UnoCSS
-- [x] Remove prettier dependencies
+- [x] Remove Prettier dependencies
 - [x] Remove eslint-plugin-command
 - [x] Bundle packages instead of installing on demand
 - [x] ESM only
