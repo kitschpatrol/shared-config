@@ -15,6 +15,11 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 		interopDefault(import('svelte-eslint-parser')),
 	] as const)
 
+	// TODO what about .svelte.ts files, etc.
+	// See
+	// import svelte from 'eslint-plugin-svelte'
+	// console.log(svelte.configs['flat/recommended'])
+	// For more...
 	return [
 		{
 			name: 'kp/svelte/setup',

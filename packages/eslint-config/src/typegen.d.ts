@@ -4177,6 +4177,11 @@ export interface RuleOptions {
 	 */
 	'svelte/comment-directive'?: Linter.RuleEntry<SvelteCommentDirective>
 	/**
+	 * enforce a consistent style for CSS selectors
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/consistent-selector-style/
+	 */
+	'svelte/consistent-selector-style'?: Linter.RuleEntry<SvelteConsistentSelectorStyle>
+	/**
 	 * derived store should use same variable names between values and callback
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/derived-has-same-inputs-outputs/
 	 */
@@ -4274,6 +4279,7 @@ export interface RuleOptions {
 	/**
 	 * disallow dynamic slot name
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-dynamic-slot-name/
+	 * @deprecated
 	 */
 	'svelte/no-dynamic-slot-name'?: Linter.RuleEntry<[]>
 	/**
@@ -4289,6 +4295,7 @@ export interface RuleOptions {
 	/**
 	 * disallow using goto() without the base path
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-goto-without-base/
+	 * @deprecated
 	 */
 	'svelte/no-goto-without-base'?: Linter.RuleEntry<[]>
 	/**
@@ -4317,6 +4324,11 @@ export interface RuleOptions {
 	 */
 	'svelte/no-inspect'?: Linter.RuleEntry<[]>
 	/**
+	 * disallow using navigation (links, goto, pushState, replaceState) without the base path
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-navigation-without-base/
+	 */
+	'svelte/no-navigation-without-base'?: Linter.RuleEntry<SvelteNoNavigationWithoutBase>
+	/**
 	 * disallow use of not function in event handler
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-not-function-handler/
 	 */
@@ -4326,6 +4338,11 @@ export interface RuleOptions {
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-object-in-text-mustaches/
 	 */
 	'svelte/no-object-in-text-mustaches'?: Linter.RuleEntry<[]>
+	/**
+	 * Checks for invalid raw HTML elements
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-raw-special-elements/
+	 */
+	'svelte/no-raw-special-elements'?: Linter.RuleEntry<[]>
 	/**
 	 * it's not necessary to define functions in reactive statements
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-reactive-functions/
@@ -4392,6 +4409,11 @@ export interface RuleOptions {
 	 */
 	'svelte/no-unused-svelte-ignore'?: Linter.RuleEntry<[]>
 	/**
+	 * disallow explicit children snippet where it's not needed
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-useless-children-snippet/
+	 */
+	'svelte/no-useless-children-snippet'?: Linter.RuleEntry<[]>
+	/**
 	 * disallow unnecessary mustache interpolations
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-useless-mustaches/
 	 */
@@ -4401,6 +4423,11 @@ export interface RuleOptions {
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-class-directive/
 	 */
 	'svelte/prefer-class-directive'?: Linter.RuleEntry<SveltePreferClassDirective>
+	/**
+	 * Require `const` declarations for variables that are never reassigned after declared
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-const/
+	 */
+	'svelte/prefer-const'?: Linter.RuleEntry<SveltePreferConst>
 	/**
 	 * destructure values from object stores for better change tracking & fewer redraws
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-destructured-store-props/
@@ -4481,6 +4508,11 @@ export interface RuleOptions {
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/valid-prop-names-in-kit-pages/
 	 */
 	'svelte/valid-prop-names-in-kit-pages'?: Linter.RuleEntry<[]>
+	/**
+	 * require valid style element parsing
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/valid-style-parse/
+	 */
+	'svelte/valid-style-parse'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce spacing around colons of switch statements
 	 * @see https://eslint.org/docs/latest/rules/switch-colon-spacing
@@ -17377,6 +17409,20 @@ type SvelteCommentDirective =
 				reportUnusedDisableDirectives?: boolean
 			},
 	  ]
+// ----- svelte/consistent-selector-style -----
+type SvelteConsistentSelectorStyle =
+	| []
+	| [
+			{
+				checkGlobal?: boolean
+
+				style?:
+					| []
+					| ['class' | 'id' | 'type']
+					| ['class' | 'id' | 'type', 'class' | 'id' | 'type']
+					| ['class' | 'id' | 'type', 'class' | 'id' | 'type', 'class' | 'id' | 'type']
+			},
+	  ]
 // ----- svelte/first-attribute-linebreak -----
 type SvelteFirstAttributeLinebreak =
 	| []
@@ -17428,7 +17474,8 @@ type SvelteHtmlSelfClosing =
 			| {
 					void?: 'never' | 'always' | 'ignore'
 					normal?: 'never' | 'always' | 'ignore'
-					foreign?: 'never' | 'always' | 'ignore'
+					svg?: 'never' | 'always' | 'ignore'
+					math?: 'never' | 'always' | 'ignore'
 					component?: 'never' | 'always' | 'ignore'
 					svelte?: 'never' | 'always' | 'ignore'
 			  }
@@ -17489,6 +17536,17 @@ type SvelteNoInnerDeclarations =
 			'functions' | 'both',
 			{
 				blockScopedFunctions?: 'allow' | 'disallow'
+			},
+	  ]
+// ----- svelte/no-navigation-without-base -----
+type SvelteNoNavigationWithoutBase =
+	| []
+	| [
+			{
+				ignoreGoto?: boolean
+				ignoreLinks?: boolean
+				ignorePushState?: boolean
+				ignoreReplaceState?: boolean
 			},
 	  ]
 // ----- svelte/no-reactive-reassign -----
@@ -17566,6 +17624,15 @@ type SveltePreferClassDirective =
 	| [
 			{
 				prefer?: 'always' | 'empty'
+			},
+	  ]
+// ----- svelte/prefer-const -----
+type SveltePreferConst =
+	| []
+	| [
+			{
+				destructuring?: 'any' | 'all'
+				ignoreReadBeforeAssign?: boolean
 			},
 	  ]
 // ----- svelte/shorthand-attribute -----
