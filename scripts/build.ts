@@ -22,5 +22,5 @@ await build({
 	minify: false,
 	outfile: 'bin/cli.js',
 	platform: 'node',
-	target: 'node22',
+	target: 'node20',
 })
