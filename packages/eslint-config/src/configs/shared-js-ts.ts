@@ -197,6 +197,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				modifiers: ['const', 'exported'],
 				// Allow UPPER_CASE const exports
 				selector: 'variable',
+				// Not objects...
+				// types: ['boolean', 'string', 'number', 'array'],
 			},
 			// {
 			// 	filter: {
