@@ -55,7 +55,7 @@
 		"fs-extra": "^11.3.0",
 		"mdast-util-to-markdown": "^2.1.2",
 		"prettier": "^3.5.2",
-		"remark-directive": "^3.0.1",
+		"remark-directive": "^4.0.0",
 		"remark-frontmatter": "^5.0.0",
 		"remark-gfm": "^4.0.1",
 		"remark-lint": "^10.0.1",
