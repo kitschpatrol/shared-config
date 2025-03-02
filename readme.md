@@ -126,17 +126,19 @@ The top-level `kpi` command also takes care of some nuances in terms of _which_ 
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init --location package && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init && pnpm i && code .
 ```
 
-The `--location package` flag will put as much configuration in your `package.json` as possible instead of in discrete files in your project root. This saves some clutter but can make it clunkier to extend or customize configurations. At any point, you can call `kpi init` with or without a `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other.
+Note that `kpi init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but can make it clunkier to extend or customize configurations.
+
+At any point, you can call `kpi init` again with the `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other and restore the default configurations.
 
 #### Quick add to an existing project:
 
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init --location package
+pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init
 ```
 
 #### Step-by-step:
