@@ -21,6 +21,18 @@ const sharedKnipConfig: KnipConfig = {
 		'prettier.config.js',
 		'stylelint.config.js',
 	],
+	// Allow calling of individual kpi binaries...
+	ignoreBinaries: [
+		'kpi-repo',
+		'kpi-mdat',
+		'kpi-typescript',
+		'kpi-eslint',
+		'kpi-stylelint',
+		'kpi-cspell',
+		'kpi-knip',
+		'kpi-remark',
+		'kpi-prettier',
+	],
 	ignoreDependencies: [
 		'@kitschpatrol/cspell-config',
 		'@kitschpatrol/eslint-config',
