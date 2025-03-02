@@ -98,6 +98,7 @@
 		"eslint-config-prettier": "^10.0.2",
 		"eslint-config-xo-typescript": "^7.0.0",
 		"eslint-typegen": "^2.0.0",
+		"globby": "^14.1.0",
 		"svelte": "^5.20.5",
 		"tsup": "^8.4.0"
 	},

@@ -3236,6 +3236,11 @@ export interface RuleOptions {
 	 */
 	'react-dom/no-find-dom-node'?: Linter.RuleEntry<[]>
 	/**
+	 * warns against using `flushSync`
+	 * @see https://eslint-react.xyz/docs/rules/dom-no-flush-sync
+	 */
+	'react-dom/no-flush-sync'?: Linter.RuleEntry<[]>
+	/**
 	 * enforce that button component have an explicit 'type' attribute
 	 * @see https://eslint-react.xyz/docs/rules/dom-no-missing-button-type
 	 */
@@ -3335,6 +3340,11 @@ export interface RuleOptions {
 	 * @see https://eslint-react.xyz/docs/rules/naming-convention-component-name
 	 */
 	'react-naming-convention/component-name'?: Linter.RuleEntry<ReactNamingConventionComponentName>
+	/**
+	 * enforce context name to end with `Context`.
+	 * @see https://eslint-react.xyz/docs/rules/naming-convention-context-name
+	 */
+	'react-naming-convention/context-name'?: Linter.RuleEntry<[]>
 	/**
 	 * enforce naming convention for JSX filenames
 	 * @see https://eslint-react.xyz/docs/rules/naming-convention-filename
@@ -11255,7 +11265,23 @@ type NodeNoSync =
 	| [
 			{
 				allowAtRootLevel?: boolean
-				ignores?: string[]
+				ignores?: (
+					| string
+					| {
+							from?: 'file'
+							path?: string
+							name?: string[]
+					  }
+					| {
+							from?: 'lib'
+							name?: string[]
+					  }
+					| {
+							from?: 'package'
+							package?: string
+							name?: string[]
+					  }
+				)[]
 			},
 	  ]
 // ----- node/no-unpublished-bin -----

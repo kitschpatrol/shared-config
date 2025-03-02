@@ -285,6 +285,9 @@ importers:
       eslint-typegen:
         specifier: ^2.0.0
         version: 2.0.0(eslint@9.21.0(jiti@2.4.2))
+      globby:
+        specifier: ^14.1.0
+        version: 14.1.0
       svelte:
         specifier: ^5.20.5
         version: 5.20.5

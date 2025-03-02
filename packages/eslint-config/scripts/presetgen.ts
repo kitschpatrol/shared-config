@@ -2,7 +2,9 @@
 
 import { getProperty } from 'dot-prop'
 import { renamePluginsInRules } from 'eslint-flat-config-utils'
-import fs, { glob } from 'node:fs/promises'
+// eslint-disable-next-line depend/ban-dependencies
+import { globby } from 'globby'
+import fs from 'node:fs/promises'
 import process from 'node:process'
 import { formatTextAndSaveFile } from '../../../src/prettier-utilities'
 import { defaultPluginRenaming } from '../src/factory'
@@ -121,7 +123,8 @@ async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise
  */
 async function main() {
 	try {
-		for await (const file of glob('src/**/*.ts')) {
+		const files = await globby('src/**/*.ts')
+		for (const file of files) {
 			try {
 				const ruleCount = await processFile(file)
 
