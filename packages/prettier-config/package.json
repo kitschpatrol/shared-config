@@ -66,8 +66,7 @@
 		"sort-package-json": "^2.14.0"
 	},
 	"engines": {
-		"node": ">=22.13.1",
-		"pnpm": ">=10.0.0"
+		"node": ">=20.9.0"
 	},
 	"publishConfig": {
 		"access": "public"
