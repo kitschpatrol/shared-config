@@ -1,5 +1,6 @@
+// eslint-disable-next-line depend/ban-dependencies
+import { globby } from 'globby'
 import fs from 'node:fs/promises'
-import { restoreNodeWarnings, suppressNodeWarnings } from '../../../src/node-utilities'
 import { getPackageDirectory } from '../../../src/path-utilities'
 import { pluralize } from '../../../src/string-utilities'
 
@@ -46,14 +47,13 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
 		'!node_modules/**',
 	]
 
-	suppressNodeWarnings()
-	for await (const filePath of fs.glob(patterns, {
-		cwd: getPackageDirectory(), // Will find monorepo packages
-		withFileTypes: false,
-	})) {
+	const files = await globby(patterns, {
+		cwd: getPackageDirectory(),
+		gitignore: true,
+	})
+	for (const filePath of files) {
 		licenseFiles.push(filePath)
 	}
-	restoreNodeWarnings()
 
 	const outdatedLicenseFiles: string[] = []
 

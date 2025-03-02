@@ -561,6 +561,10 @@ importers:
       prettier:
         specifier: ^3.5.2
         version: 3.5.2
+    devDependencies:
+      globby:
+        specifier: ^14.1.0
+        version: 14.1.0
 
   packages/shared-config:
     dependencies:
