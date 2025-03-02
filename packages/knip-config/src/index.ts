@@ -13,13 +13,13 @@ const sharedKnipConfig: KnipConfig = {
 
 		// Customized entries
 		'src/{bin,lib,cli}/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
-		'scripts/**/*.ts',
-		'.remarkrc.js',
-		'cspell.config.js',
-		'eslint.config.ts',
-		'mdat.config.ts',
-		'prettier.config.js',
-		'stylelint.config.js',
+		'scripts/**/*.{js,mjs,cjs,ts,mts,cts}',
+		'.remarkrc.{js,mjs,cjs,ts,mts,cts}',
+		'cspell.config.{js,mjs,cjs,ts,mts,cts}',
+		'eslint.config.{js,mjs,cjs,ts,mts,cts}',
+		'mdat.config.{js,mjs,cjs,ts,mts,cts}',
+		'prettier.config.{js,mjs,cjs,ts,mts,cts}',
+		'stylelint.config.{js,mjs,cjs,ts,mts,cts}',
 	],
 	// Allow calling of individual kpi binaries...
 	ignoreBinaries: [
