@@ -203,10 +203,10 @@ async function executeCliCommand(
 				// Use colorful output unless NO_COLOR is set
 				// eslint-disable-next-line ts/naming-convention
 				...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
-				// Quiet node for when processing *.config.ts files in Node 22
+				// Quiet Node when processing *.config.ts files in Node 22
 				// Suppress experimental type stripping warning with --no-warnings
-				// eslint-disable-next-line ts/naming-convention
-				NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
+				// TODO what's the story here on Node 20?
+				// NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
 			},
 			preferLocal: true,
 			reject: false, // Prevents throwing on non-zero exit code
