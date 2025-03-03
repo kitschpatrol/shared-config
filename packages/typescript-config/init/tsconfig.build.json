@@ -1,7 +1,5 @@
 {
-	"extends": "@kitschpatrol/typescript-config",
-
-	// Skips project files for typescript-eslint integration
+	"extends": "./tsconfig.json",
 	"include": ["**/*"],
 	"exclude": ["**/dist/", "**/bin/"]
 }
