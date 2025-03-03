@@ -107,7 +107,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'import/default': 'off',
 		// Cope with Astro virtual modules
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
-		'import/no-unresolved': ['error', { ignore: ['^astro:'] }],
+		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs'] }],
 		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
 		'jsdoc/require-jsdoc': [
