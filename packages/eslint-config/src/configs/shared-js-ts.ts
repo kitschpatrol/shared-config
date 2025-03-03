@@ -229,6 +229,34 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			// },
 		],
 		'ts/no-non-null-assertion': 'off',
+		'ts/no-restricted-types': [
+			'error',
+			{
+				types: {
+					'[[[[[]]]]]': "Don't use `[[[[[]]]]]`. Use `SomeType[][][][][]` instead.",
+					'[[[[]]]]': "Don't use `[[[[]]]]`. Use `SomeType[][][][]` instead.",
+					'[[[]]]': "Don't use `[[[]]]`. Use `SomeType[][][]` instead.",
+					'[[]]':
+						"Don't use `[[]]`. It only allows an array with a single element which is an empty array. Use `SomeType[][]` instead.",
+					'[]': "Don't use the empty array type `[]`. It only allows empty arrays. Use `SomeType[]` instead.",
+					// eslint-disable-next-line ts/naming-convention
+					Buffer: {
+						message:
+							'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+						suggest: ['Uint8Array'],
+					},
+					null: {
+						message: 'Use `undefined` instead. See: https://github.com/sindresorhus/meta/issues/7',
+						suggest: ['undefined'],
+					},
+					object: {
+						message:
+							'The `object` type is hard to use. Use `Record<string, unknown>` instead. See: https://github.com/typescript-eslint/typescript-eslint/pull/848',
+						suggest: ['Record<string, unknown>'],
+					},
+				},
+			},
+		],
 		'ts/no-unused-vars': [
 			'error',
 			{

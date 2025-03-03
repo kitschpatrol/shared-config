@@ -59,6 +59,8 @@ export const reactRecommendedTypeCheckedRules: Rules = {
 	'react-hooks-extra/no-direct-set-state-in-use-effect': 'warn',
 	'react-hooks-extra/no-useless-custom-hooks': 'warn',
 	'react-hooks-extra/prefer-use-state-lazy-initialization': 'warn',
+	'react-naming-convention/context-name': 'warn',
+	'react-naming-convention/use-state': 'warn',
 	'react-dom/no-unknown-property': 'off',
 	'react/no-leaked-conditional-rendering': 'warn',
 	// End expansion

@@ -285,11 +285,11 @@ export const xoTypescriptRules: Rules = {
 				object: {
 					message:
 						'The `object` type is hard to use. Use `Record<string, unknown>` instead. See: https://github.com/typescript-eslint/typescript-eslint/pull/848',
-					suggest: ['Record<string, unknown>'],
+					fixWith: 'Record<string, unknown>',
 				},
 				null: {
 					message: 'Use `undefined` instead. See: https://github.com/sindresorhus/meta/issues/7',
-					suggest: ['undefined'],
+					fixWith: 'undefined',
 				},
 				Buffer: {
 					message:
