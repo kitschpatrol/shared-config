@@ -142,18 +142,34 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'perfectionist/sort-modules': 'off',
 		'perfectionist/sort-objects': [
 			'error',
-			generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], { matchTrailing: true }),
-			generatePerfectionistSortConfig(['Min', 'Max'], { matchTrailing: true }),
-			generatePerfectionistSortConfig(['Width', 'Height'], { matchTrailing: true }),
+
 			generatePerfectionistSortConfig(['r', 'g', 'b']),
+			generatePerfectionistSortConfig(['R', 'G', 'B'], 'trailing'),
+			generatePerfectionistSortConfig(['red', 'green', 'blue']),
+			generatePerfectionistSortConfig(['Red', 'Green', 'Blue'], 'trailing'),
+
 			generatePerfectionistSortConfig(['h', 's', 'l']),
+			generatePerfectionistSortConfig(['hue', 'saturation', 'lightness']),
 			generatePerfectionistSortConfig(['h', 's', 'l', 'a']),
+			generatePerfectionistSortConfig(['hue', 'saturation', 'lightness', 'alpha']),
 			generatePerfectionistSortConfig(['h', 's', 'v']),
+
 			generatePerfectionistSortConfig(['a', 'b']), // For partial matches...
 			generatePerfectionistSortConfig(['r', 'g', 'b', 'a']),
+			generatePerfectionistSortConfig(['red', 'green', 'blue', 'alpha']),
+			generatePerfectionistSortConfig(['Red', 'Green', 'Blue', 'Alpha'], 'trailing'),
+
 			generatePerfectionistSortConfig(['x', 'y', 'z', 'w']),
+			generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], 'trailing'),
+
 			generatePerfectionistSortConfig(['min', 'max']),
+			generatePerfectionistSortConfig(['min', 'max'], 'leading'),
+			generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
+
 			generatePerfectionistSortConfig(['width', 'height']),
+			generatePerfectionistSortConfig(['width', 'height'], 'leading'),
+			generatePerfectionistSortConfig(['Width', 'Height'], 'trailing'),
+
 			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
