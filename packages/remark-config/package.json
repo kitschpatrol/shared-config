@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/remark-config",
-	"version": "5.0.8",
+	"version": "5.1.0",
 	"description": "Markdown and MDX linting for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
