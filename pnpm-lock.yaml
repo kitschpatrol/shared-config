@@ -65,6 +65,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@20.17.22)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       decircular:
         specifier: ^1.0.0
         version: 1.0.0
@@ -96,7 +99,7 @@ importers:
         specifier: ^4.19.3
         version: 4.19.3
       typescript:
-        specifier: ~5.7.3
+        specifier: ^5.7.3
         version: 5.7.3
       vitest:
         specifier: ^3.0.7
@@ -119,6 +122,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       cspell:
         specifier: ^8.17.5
         version: 8.17.5
@@ -303,6 +309,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -330,6 +339,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -363,6 +375,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -414,6 +429,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -549,6 +567,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -601,6 +622,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -629,6 +653,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -662,6 +689,9 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -675,7 +705,7 @@ importers:
         specifier: ^3.5.2
         version: 3.5.2
       typescript:
-        specifier: ~5.7.3
+        specifier: ^5.7.3
         version: 5.7.3
 
 packages:
@@ -6892,6 +6922,20 @@ snapshots:
   cosmiconfig-typescript-loader@6.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
       '@types/node': 18.19.0
+      cosmiconfig: 9.0.0(typescript@5.7.3)
+      jiti: 2.4.2
+      typescript: 5.7.3
+
+  cosmiconfig-typescript-loader@6.1.0(@types/node@20.17.22)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
+    dependencies:
+      '@types/node': 20.17.22
+      cosmiconfig: 9.0.0(typescript@5.7.3)
+      jiti: 2.4.2
+      typescript: 5.7.3
+
+  cosmiconfig-typescript-loader@6.1.0(@types/node@22.13.8)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
+    dependencies:
+      '@types/node': 22.13.8
       cosmiconfig: 9.0.0(typescript@5.7.3)
       jiti: 2.4.2
       typescript: 5.7.3

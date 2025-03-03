@@ -54,6 +54,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"case-police": "^1.0.0",
 		"cosmiconfig": "^9.0.0",
+		"cosmiconfig-typescript-loader": "^6.1.0",
 		"cspell": "^8.17.5",
 		"cspell-lib": "^8.17.5",
 		"execa": "^9.5.2",

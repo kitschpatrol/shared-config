@@ -6,6 +6,7 @@ import type internal from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'
 import { cosmiconfig, type CosmiconfigResult } from 'cosmiconfig'
+import { TypeScriptLoader as typeScriptLoader } from 'cosmiconfig-typescript-loader'
 import { execa } from 'execa'
 import fse from 'fs-extra'
 import fs from 'node:fs'
@@ -676,6 +677,14 @@ export async function getCosmiconfigResult(
 	configName: string,
 ): Promise<NullToUndefined<CosmiconfigResult>> {
 	const explorer = cosmiconfig(configName, {
+		loaders: {
+			// Using the alternate typescript loader fixes ERR_MODULE_NOT_FOUND errors
+			// in configuration files that import modules via a path
+			// https://github.com/cosmiconfig/cosmiconfig/issues/345
+			// https://github.com/Codex-/cosmiconfig-typescript-loader
+			// Same approach taken in mdat's implementation...
+			'.ts': typeScriptLoader(),
+		},
 		searchStrategy: 'project',
 		// Alt approach?
 		// searchStrategy: 'global',

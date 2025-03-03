@@ -38,6 +38,7 @@ async function printMdatConfigCommand(logStream: NodeJS.WritableStream): Promise
 
 /**
  * Handles monorepos intelligently...
+ * But kind of gross that it executes dynamically
  */
 async function generateMdatReadmeCommands(action: 'check' | 'expand'): Promise<CommandCli[]> {
 	const packageDirectories = findWorkspacePackageDirectories()

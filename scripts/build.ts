@@ -12,6 +12,7 @@ await build({
 		'execa',
 		'@pinojs/json-colorizer',
 		'cosmiconfig',
+		'cosmiconfig-typescript-loader',
 		'fs-extra',
 		'find-workspaces',
 		'cspell',

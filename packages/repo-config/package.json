@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
+		"cosmiconfig-typescript-loader": "^6.1.0",
 		"execa": "^9.5.2",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.0",
