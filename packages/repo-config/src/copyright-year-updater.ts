@@ -39,18 +39,15 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
 	const licenseFiles: string[] = []
 
 	// Use multiple glob patterns to cover different casings for "license.txt"
-	const patterns = [
-		'**/license.txt',
-		'**/LICENSE.txt',
-		'**/License.txt',
-		'**/LICENSE',
-		'!node_modules/**',
-	]
+	const patterns = ['**/license.txt', '**/license', '!node_modules/**']
 
 	const files = await globby(patterns, {
+		caseSensitiveMatch: false,
 		cwd: getPackageDirectory(),
+		followSymbolicLinks: false, // Avoid infinite loops
 		gitignore: true,
 	})
+
 	for (const filePath of files) {
 		licenseFiles.push(filePath)
 	}
