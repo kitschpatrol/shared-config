@@ -73,5 +73,14 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				'ts/no-throw-literal': 'off',
 			},
 		},
+		{
+			// SvelteKit and Vite project templates bootstrap with some deviant HTML
+			files: ['src/app.html'],
+			rules: {
+				'html/no-inline-styles': 'off',
+				'html/no-non-scalable-viewport': 'off',
+				'html/require-title': 'off',
+			},
+		},
 	]
 }
