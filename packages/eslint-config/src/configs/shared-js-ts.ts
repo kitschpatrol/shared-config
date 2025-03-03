@@ -109,6 +109,9 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
 		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs'] }],
 		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		// Knip workaround to ignore unused exported class members:
+		// https://github.com/webpro-nl/knip/issues/158#issuecomment-1632648598
+		'jsdoc/check-tag-names': ['error', { definedTags: ['public'] }],
 		'jsdoc/require-description': ['error', { descriptionStyle: 'body' }],
 		'jsdoc/require-jsdoc': [
 			'error',
