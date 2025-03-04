@@ -297,6 +297,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 					sep: false, // Present in node:path library
 					src: false,
 					temp: false,
+					util: false,
+					utils: false,
 				},
 			},
 		],
