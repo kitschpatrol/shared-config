@@ -162,6 +162,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			generatePerfectionistSortConfig(['x', 'y', 'z', 'w']),
 			generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], 'trailing'),
 
+			generatePerfectionistSortConfig(['start', 'end']),
+			generatePerfectionistSortConfig(['start', 'end'], 'leading'),
+			generatePerfectionistSortConfig(['Start', 'End'], 'trailing'),
+
 			generatePerfectionistSortConfig(['min', 'max']),
 			generatePerfectionistSortConfig(['min', 'max'], 'leading'),
 			generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
