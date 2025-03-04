@@ -173,6 +173,12 @@ kpi-typescript print-config
 
 ## Notes
 
+### Svelte caveat
+
+The `kpi-typescript lint` command will detect whether it's running in a Svelte project, and treat `lint` as a no-op when that's the case.
+
+This is necessary to prevent unactionable warnings because Svelte [doesn't play well](https://github.com/sveltejs/language-tools/issues/2527) with the underlying TypeScript `tsc` command.
+
 ### General
 
 - [tsconfig Cheat Sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)

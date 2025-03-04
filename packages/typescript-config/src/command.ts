@@ -1,4 +1,49 @@
-import { type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
+import fse from 'fs-extra'
+import path from 'node:path'
+import { type Command, type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
+import { getPackageDirectory } from '../../../src/path-utilities.js'
+
+/**
+ * Checks if the current project is a Svelte project by looking for Svelte configuration files
+ *
+ * Won't be 100% accurate since custom Svelte config file names are possible.
+ * @returns Promise that resolves to true if Svelte configuration files are found
+ */
+async function isSvelteProject(): Promise<boolean> {
+	const packageDirectory = getPackageDirectory()
+	const svelteConfigFiles = ['svelte.config.js', 'svelte.config.mjs', 'svelte.config.cjs']
+	const fileChecks = svelteConfigFiles.map(async (configFile) =>
+		fse.exists(path.join(packageDirectory, configFile)),
+	)
+	const results = await Promise.all(fileChecks)
+	return results.some(Boolean)
+}
+
+// eslint-disable-next-line ts/require-await
+async function printSvelteWarningCommand(logStream: NodeJS.WritableStream): Promise<number> {
+	logStream.write(
+		'Skipping `tsc` since this is a Svelte project. Consider running `svelte-check` instead.\n',
+	)
+
+	return 0
+}
+
+async function generateTypeScriptLintCommand(): Promise<Command[]> {
+	return (await isSvelteProject())
+		? [
+				{
+					execute: printSvelteWarningCommand,
+					name: printSvelteWarningCommand.name,
+				},
+			]
+		: [
+				{
+					cwdOverride: 'package-dir',
+					name: 'tsc',
+					optionFlags: ['--noEmit'],
+				},
+			]
+}
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -6,13 +51,9 @@ export const commandDefinition: CommandDefinition = {
 			locationOptionFlag: false,
 		},
 		lint: {
-			commands: [
-				{
-					cwdOverride: 'package-dir',
-					name: 'tsc',
-					optionFlags: ['--noEmit'],
-				},
-			],
+			// Needs some special logic since tsc doesn't really work in Svelte projects
+			// See https://github.com/sveltejs/language-tools/issues/2527
+			commands: await generateTypeScriptLintCommand(),
 			// TODO confirm monorepo behavior
 			description: `Run type checking on your project. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
