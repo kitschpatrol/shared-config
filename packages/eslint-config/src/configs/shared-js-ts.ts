@@ -99,12 +99,14 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				ignoreConsecutiveComments: true,
 				ignoreInlineComments: true,
 				// Forgive some additional common patterns arising from temporarily commenting out lines of code
-				ignorePattern: String.raw`if|else|await|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+				ignorePattern: String.raw`if|else|await|macOS|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
 			},
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
 		// Overlaps with `unicorn/no-named-default`, and gives false positives for imports from CJS modules
 		'import/default': 'off',
+		// IMO using the default can help with code readability / disambiguation of a function's origin
+		'import/no-named-as-default-member': 'off',
 		// Cope with Astro virtual modules
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
 		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs'] }],
@@ -121,12 +123,17 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'max-params': ['warn', { max: 8 }],
 		'no-await-in-loop': 'off',
-		'no-unreachable': 'warn', // TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
+		// TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
+		'no-unreachable': 'warn',
 		'no-warning-comments': 'off',
 		'node/hashbang': 'off',
 		'node/no-extraneous-import': 'off',
-		'node/no-missing-import': 'off', // Trouble resolving in ts
-		'node/no-process-exit': 'off', // Duplicated in unicorn
+		// Trouble resolving in ts
+		'node/no-missing-import': 'off',
+		// Duplicated in unicorn
+		'node/no-process-exit': 'off',
+		// Too many false positives
+		'node/no-unpublished-import': 'off',
 		'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
 		'perfectionist/sort-imports': [
 			'error',
