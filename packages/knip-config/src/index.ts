@@ -32,6 +32,10 @@ const sharedKnipConfig: KnipConfig = {
 		'kpi-knip',
 		'kpi-remark',
 		'kpi-prettier',
+		// 1Password CLI, typically a global install...
+		'op',
+		// GitHub CLI, typically a global install...
+		'gh',
 	],
 	ignoreDependencies: [
 		'@kitschpatrol/cspell-config',
@@ -49,6 +53,8 @@ const sharedKnipConfig: KnipConfig = {
 		'prettier-plugin-sql',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
+		// Undetected due to string import in cspell.config.js
+		'@kitschpatrol/dict-en-wiktionary',
 	],
 }
 
