@@ -187,6 +187,8 @@ kpi-eslint print-config [file]
 
 Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
+[`eslint-plugin-mdx`](https://www.npmjs.com/package/eslint-plugin-mdx) currently depends on an old version of [`eslint-plugin-markdown`](https://www.npmjs.com/package/eslint-plugin-markdown) which does not officially support ESLint 9. This dependency is overridden at the root of the [`@kitschpatrol/shared-config` monorepo](https://github.com/kitschpatrol/shared-config). See the [related issue #477](https://github.com/mdx-js/eslint-mdx/issues/477) in the `eslint-mdx` repo.
+
 ### Origins
 
 This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation implementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config). See the [modification notes](./modification-notes.md) for more details on what's changed from Anthony's approach.
