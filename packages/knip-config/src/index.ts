@@ -41,6 +41,14 @@ const sharedKnipConfig: KnipConfig = {
 		'@kitschpatrol/prettier-config',
 		'@kitschpatrol/remark-config',
 		'@kitschpatrol/stylelint-config',
+		'@prettier/plugin-php',
+		'@prettier/plugin-ruby',
+		'@prettier/plugin-xml',
+		'prettier-plugin-packagejson',
+		'prettier-plugin-sh',
+		'prettier-plugin-sql',
+		'prettier-plugin-tailwindcss',
+		'prettier-plugin-toml',
 	],
 }
 
