@@ -1,5 +1,18 @@
 const testConditionalSort = [
 	{
+		minImageWidth: 1,
+		minImageHeight: 1,
+	},
+	{
+		somethingWidth: 1,
+		somethingHeight: 1,
+	},
+	{
+		width: 1,
+		height: 1,
+	},
+
+	{
 		somethingX: 1,
 		somethingY: 1,
 		somethingZ: 1,
@@ -9,10 +22,7 @@ const testConditionalSort = [
 		somethingMin: 1,
 		somethingMax: 1,
 	},
-	{
-		somethingWidth: 1,
-		somethingHeight: 1,
-	},
+
 	{
 		r: 1,
 		g: 1,
@@ -54,10 +64,7 @@ const testConditionalSort = [
 		minA: 1,
 		maxA: 1,
 	},
-	{
-		width: 1,
-		height: 1,
-	},
+
 	{
 		x1: 1,
 		x2: 1,

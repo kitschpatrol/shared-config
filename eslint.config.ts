@@ -19,6 +19,12 @@ export default eslintConfig(
 						allowed: ['fs-extra', 'execa'],
 					},
 				],
+				// Quick testbed
+				// 'perfectionist/sort-objects': [
+				// 	'error',
+				// 	generatePerfectionistSortConfig(['width', 'height']),
+				// 	{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+				// ],
 			},
 		},
 		type: 'lib',

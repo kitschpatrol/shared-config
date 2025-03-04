@@ -150,6 +150,13 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'perfectionist/sort-objects': [
 			'error',
 
+			// Note precedence sensitivity...
+			// This has to come before the `min` rules to sort
+			// strings like `{ minImageWidth: 1, minImageHeight: 1 }` correctly
+			generatePerfectionistSortConfig(['width', 'height']),
+			generatePerfectionistSortConfig(['width', 'height'], 'leading'),
+			generatePerfectionistSortConfig(['Width', 'Height'], 'trailing'),
+
 			generatePerfectionistSortConfig(['r', 'g', 'b']),
 			generatePerfectionistSortConfig(['R', 'G', 'B'], 'trailing'),
 			generatePerfectionistSortConfig(['red', 'green', 'blue']),
@@ -176,10 +183,6 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			generatePerfectionistSortConfig(['min', 'max']),
 			generatePerfectionistSortConfig(['min', 'max'], 'leading'),
 			generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
-
-			generatePerfectionistSortConfig(['width', 'height']),
-			generatePerfectionistSortConfig(['width', 'height'], 'leading'),
-			generatePerfectionistSortConfig(['Width', 'Height'], 'trailing'),
 
 			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
 		],
