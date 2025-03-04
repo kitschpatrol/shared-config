@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-named-as-default-member */
-
 import type internal from 'node:stream'
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk'

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
 import { execa } from 'execa'
 import fse from 'fs-extra'
 import path from 'node:path'

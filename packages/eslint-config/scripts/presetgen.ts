@@ -32,8 +32,8 @@ type ExpansionConfig = {
 const deprecatedRules: string[] = ['astro/jsx-a11y/label-has-for', '@stylistic/']
 
 const delimiters = {
-	end: '// End expansion',
 	start: '// Begin expansion',
+	end: '// End expansion',
 } as const
 
 /**

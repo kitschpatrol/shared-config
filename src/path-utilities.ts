@@ -1,5 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
-
 import { findWorkspaces, findWorkspacesRoot } from 'find-workspaces'
 import fse from 'fs-extra'
 import path from 'node:path'
