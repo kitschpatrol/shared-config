@@ -33,22 +33,26 @@ function getKnipPackageJsonObject(): Record<string, unknown> {
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
-		fix: {
-			commands: [
-				{
-					cwdOverride: 'workspace-root',
-					name: 'knip',
-					optionFlags: [
-						'--fix',
-						'--allow-remove-files',
-						'--no-config-hints',
-						...getWorkspaceOptionFlags(),
-					],
-				},
-			],
-			description: `Automatically remove unused code and dependencies. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
-			positionalArgumentMode: 'none',
-		},
+		// In practice, Knip's auto-fix behavior is too dangerous for most projects.
+		// Since kpi doesn't currently have per-tool configuration options, we'll
+		// just disable `kpi-knip fix` for now.
+		//
+		// fix: {
+		// 	commands: [
+		// 		{
+		// 			cwdOverride: 'workspace-root',
+		// 			name: 'knip',
+		// 			optionFlags: [
+		// 				'--fix',
+		// 				'--allow-remove-files',
+		// 				'--no-config-hints',
+		// 				...getWorkspaceOptionFlags(),
+		// 			],
+		// 		},
+		// 	],
+		// 	description: `Automatically remove unused code and dependencies. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
+		// 	positionalArgumentMode: 'none',
+		// },
 		init: {
 			configFile: 'knip.config.ts',
 			configPackageJson: getKnipPackageJsonObject(),

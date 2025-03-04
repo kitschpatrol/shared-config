@@ -103,12 +103,11 @@ Usage:
 kpi-knip <command>
 ```
 
-| Command        | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                           |
-| `lint`         | Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.            |
-| `fix`          | Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
-| `print-config` | Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                             |
+| Command        | Description                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                |
+| `lint`         | Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `print-config` | Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                  |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -141,21 +140,6 @@ Usage:
 
 ```txt
 kpi-knip lint
-```
-
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
-
-#### Subcommand: `kpi-knip fix`
-
-Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
-
-Usage:
-
-```txt
-kpi-knip fix
 ```
 
 | Option              | Description         | Type      |
