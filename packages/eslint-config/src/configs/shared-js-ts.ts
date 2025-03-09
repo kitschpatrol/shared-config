@@ -107,9 +107,11 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'import/default': 'off',
 		// IMO using the default can help with code readability / disambiguation of a function's origin
 		'import/no-named-as-default-member': 'off',
-		// Cope with Astro virtual modules
+		// Cope with Astro virtual modules.
+		// Astro uses `astro:...` and `@astrojs/...`.
+		// Starlight uses `virtual:...`.
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
-		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs'] }],
+		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs', '^virtual:'] }],
 		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		// Knip workaround to ignore unused exported class members:
 		// https://github.com/webpro-nl/knip/issues/158#issuecomment-1632648598
