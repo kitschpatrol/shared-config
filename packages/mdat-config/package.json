@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/mdat-config",
-	"version": "5.3.0",
+	"version": "5.3.1",
 	"description": "MDAT configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
