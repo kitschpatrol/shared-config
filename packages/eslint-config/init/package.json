@@ -1,7 +1,0 @@
-{
-	"pnpm": {
-		"overrides": {
-			"eslint-plugin-markdown": "^5.1.0"
-		}
-	}
-}
