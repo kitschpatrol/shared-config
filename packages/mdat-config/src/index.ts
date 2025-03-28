@@ -1,4 +1,4 @@
-import { type Config as MdatConfig } from 'mdat'
+import type { Config as MdatConfig } from 'mdat'
 import { mergeConfigs } from 'mdat'
 // export { commandDefinition } from './command.js'
 

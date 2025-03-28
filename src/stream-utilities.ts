@@ -1,6 +1,6 @@
+import type { foregroundColorNames } from 'chalk'
 import type { Stream } from 'node:stream'
-// eslint-disable-next-line unicorn/import-style
-import chalk, { type foregroundColorNames } from 'chalk'
+import chalk from 'chalk'
 import { Transform } from 'node:stream'
 
 type ChalkColor = (typeof foregroundColorNames)[number]

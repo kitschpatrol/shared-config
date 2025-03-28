@@ -5,11 +5,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { stripVTControlCharacters } from 'node:util'
 import { packageUp } from 'package-up'
-import {
-	type CommandDefinition,
-	DESCRIPTION,
-	executeCommands,
-} from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, executeCommands } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utilities.js'
 import { createStreamFilter, createStreamTransform } from '../../../src/stream-utilities.js'
 import { checkForUnusedWords } from './unused-words.js'

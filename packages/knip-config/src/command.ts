@@ -1,9 +1,6 @@
 import path from 'node:path'
-import {
-	type CommandDefinition,
-	DESCRIPTION,
-	getCosmiconfigCommand,
-} from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, getCosmiconfigCommand } from '../../../src/command-builder.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utilities.js'
 import sharedKnipConfig from './index.js'
 

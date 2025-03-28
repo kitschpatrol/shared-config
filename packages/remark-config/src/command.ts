@@ -1,8 +1,5 @@
-import {
-	type CommandDefinition,
-	DESCRIPTION,
-	getCosmiconfigCommand,
-} from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, getCosmiconfigCommand } from '../../../src/command-builder.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {

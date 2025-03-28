@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 
-import {
-	type CommandCli,
-	type CommandDefinition,
-	type Commands,
-	DESCRIPTION,
-} from '../../../src/command-builder.js'
+import type { CommandCli, CommandDefinition, Commands } from '../../../src/command-builder.js'
+import { DESCRIPTION } from '../../../src/command-builder.js'
 import { kebabCase } from '../../../src/string-utilities.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
 import { commandDefinition as eslintCommand } from '../../eslint-config/src/command.js'

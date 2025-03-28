@@ -1,4 +1,5 @@
-import { type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION } from '../../../src/command-builder.js'
 import { copyrightYearFixerCommand, copyrightYearLinterCommand } from './copyright-year-updater.js'
 
 export const commandDefinition: CommandDefinition = {

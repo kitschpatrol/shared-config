@@ -1,7 +1,6 @@
 import path from 'node:path'
+import type { Command, CommandDefinition } from '../../../src/command-builder.js'
 import {
-	type Command,
-	type CommandDefinition,
 	DESCRIPTION,
 	executeCommands,
 	getCosmiconfigCommand,

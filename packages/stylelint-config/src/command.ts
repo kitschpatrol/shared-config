@@ -1,10 +1,7 @@
 import path from 'node:path'
 import stylelint from 'stylelint'
-import {
-	type CommandDefinition,
-	DESCRIPTION,
-	getCosmiconfigResult,
-} from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, getCosmiconfigResult } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utilities.js'
 import { getCwdOverride, getFilePathAtProjectRoot } from '../../../src/path-utilities.js'
 

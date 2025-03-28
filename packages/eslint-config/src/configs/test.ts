@@ -14,7 +14,7 @@ export async function test(
 ): Promise<TypedFlatConfigItem[]> {
 	const { isInEditor = false, overrides = {} } = options
 
-	_pluginTest ||= {
+	_pluginTest ??= {
 		...pluginTest,
 		// eslint-disable-next-line ts/no-unsafe-assignment
 		rules: {

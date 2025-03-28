@@ -1,4 +1,4 @@
-import { type ExecaError } from 'execa'
+import type { ExecaError } from 'execa'
 
 /**
  * Returns true if the error is an ExecaError.

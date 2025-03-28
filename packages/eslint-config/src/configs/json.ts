@@ -113,7 +113,7 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			name: 'kp/json/rules-tsconfig',
 			rules: {
 				'json/no-comments': 'off',
-				'json/sort-keys': [
+				'jsonc/sort-keys': [
 					'error',
 					{
 						order: ['extends', 'compilerOptions', 'references', 'files', 'include', 'exclude'],
@@ -141,6 +141,7 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 							'useDefineForClassFields',
 							'emitDecoratorMetadata',
 							'experimentalDecorators',
+							'libReplacement',
 							/* Modules */
 							'baseUrl',
 							'rootDir',
@@ -215,6 +216,7 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 							'isolatedModules',
 							'preserveSymlinks',
 							'verbatimModuleSyntax',
+							'erasableSyntaxOnly',
 							/* Completeness */
 							'skipDefaultLibCheck',
 							'skipLibCheck',

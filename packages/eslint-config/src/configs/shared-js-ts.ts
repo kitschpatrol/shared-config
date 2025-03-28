@@ -103,6 +103,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+		'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
 		// Overlaps with `unicorn/no-named-default`, and gives false positives for imports from CJS modules
 		'import/default': 'off',
 		// IMO using the default can help with code readability / disambiguation of a function's origin
@@ -287,6 +288,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'ts/sort-type-constituents': 'off', // Conflicts with perfectionist/sort-intersection-types
+		'unicorn/import-style': 'off', // Conflicts with import/consistent-type-specifier-style prefer-top-level
 		'unicorn/prevent-abbreviations': [
 			'error',
 			{

@@ -2,7 +2,7 @@ import type { Rules } from '../types'
 
 // Note that 'json-package/order-properties' defaults to 'sort-package-json'
 export const jsonPackageRecommendedRules: Rules = {
-	// Begin expansion 'eslint-plugin-package-json/configs/recommended' 'rules'
+	// Begin expansion 'eslint-plugin-package-json' 'configs.recommended.rules'
 	'json-package/no-empty-fields': 'error',
 	'json-package/order-properties': 'error',
 	'json-package/require-name': 'error',

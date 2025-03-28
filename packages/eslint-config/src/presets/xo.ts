@@ -324,7 +324,14 @@ export const xoTypescriptRules: Rules = {
 	],
 	'ts/consistent-type-definitions': ['error', 'type'],
 	'ts/consistent-type-exports': ['error', { fixMixedExportsWithInlineTypeSpecifier: true }],
-	'ts/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+	'ts/consistent-type-imports': [
+		'error',
+		{
+			disallowTypeAnnotations: false,
+			fixStyle: 'separate-type-imports',
+			prefer: 'type-imports',
+		},
+	],
 	'func-call-spacing': 'off',
 	// "@stylistic/func-call-spacing":["error","never"],
 	indent: 'off',

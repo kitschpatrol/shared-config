@@ -1,10 +1,6 @@
 import { loadConfig, loadConfigReadme } from 'mdat'
-import {
-	type CommandCli,
-	type CommandDefinition,
-	DESCRIPTION,
-	getCosmiconfigResult,
-} from '../../../src/command-builder.js'
+import type { CommandCli, CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, getCosmiconfigResult } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utilities.js'
 import { findWorkspacePackageDirectories } from '../../../src/path-utilities.js'
 

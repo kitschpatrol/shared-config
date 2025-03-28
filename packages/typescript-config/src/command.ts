@@ -1,6 +1,7 @@
 import fse from 'fs-extra'
 import path from 'node:path'
-import { type Command, type CommandDefinition, DESCRIPTION } from '../../../src/command-builder.js'
+import type { Command, CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION } from '../../../src/command-builder.js'
 import { getPackageDirectory } from '../../../src/path-utilities.js'
 
 /**

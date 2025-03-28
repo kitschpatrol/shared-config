@@ -1,8 +1,5 @@
-import {
-	type CommandDefinition,
-	DESCRIPTION,
-	getCosmiconfigCommand,
-} from '../../../src/command-builder.js'
+import type { CommandDefinition } from '../../../src/command-builder.js'
+import { DESCRIPTION, getCosmiconfigCommand } from '../../../src/command-builder.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utilities.js'
 
 // TODO bad idea?
