@@ -17,5 +17,6 @@ export const htmlRecommendedRules: Rules = {
 	'html/no-obsolete-tags': 'error',
 	'html/require-closing-tags': 'error',
 	'html/no-duplicate-attrs': 'error',
+	'html/use-baseline': 'error',
 	// End expansion
 }

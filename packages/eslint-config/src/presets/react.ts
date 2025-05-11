@@ -3,7 +3,9 @@ import type { Rules } from '../types'
 // Includes all of recommended-typescript, which includes all recommended rules that aren't better handled by type-unaware typescript
 export const reactRecommendedTypeCheckedRules: Rules = {
 	// Begin expansion '@eslint-react/eslint-plugin' 'recommended-type-checked'
+	'react/jsx-key-before-spread': 'warn',
 	'react/jsx-no-duplicate-props': 'off',
+	'react/jsx-uses-react': 'off',
 	'react/jsx-uses-vars': 'off',
 	'react/no-access-state-in-setstate': 'error',
 	'react/no-array-index-key': 'warn',
@@ -25,7 +27,9 @@ export const reactRecommendedTypeCheckedRules: Rules = {
 	'react/no-forward-ref': 'warn',
 	'react/no-implicit-key': 'warn',
 	'react/no-missing-key': 'error',
+	'react/no-misused-capture-owner-stack': 'error',
 	'react/no-nested-component-definitions': 'error',
+	'react/no-nested-lazy-component-declarations': 'warn',
 	'react/no-prop-types': 'error',
 	'react/no-redundant-should-component-update': 'error',
 	'react/no-set-state-in-component-did-mount': 'warn',
@@ -41,18 +45,17 @@ export const reactRecommendedTypeCheckedRules: Rules = {
 	'react/no-unused-state': 'warn',
 	'react/no-use-context': 'warn',
 	'react/no-useless-forward-ref': 'warn',
-	'react/no-useless-fragment': 'warn',
 	'react-dom/no-dangerously-set-innerhtml': 'warn',
 	'react-dom/no-dangerously-set-innerhtml-with-children': 'error',
 	'react-dom/no-find-dom-node': 'error',
 	'react-dom/no-flush-sync': 'error',
+	'react-dom/no-hydrate': 'error',
 	'react-dom/no-missing-button-type': 'warn',
 	'react-dom/no-missing-iframe-sandbox': 'warn',
 	'react-dom/no-namespace': 'error',
 	'react-dom/no-render': 'error',
 	'react-dom/no-render-return-value': 'error',
 	'react-dom/no-script-url': 'warn',
-	'react-dom/no-unknown-property': 'off',
 	'react-dom/no-unsafe-iframe-sandbox': 'warn',
 	'react-dom/no-unsafe-target-blank': 'warn',
 	'react-dom/no-use-form-state': 'error',
@@ -64,6 +67,8 @@ export const reactRecommendedTypeCheckedRules: Rules = {
 	'react-hooks-extra/no-direct-set-state-in-use-effect': 'warn',
 	'react-hooks-extra/no-unnecessary-use-prefix': 'warn',
 	'react-hooks-extra/prefer-use-state-lazy-initialization': 'warn',
+	'react-naming-convention/context-name': 'warn',
+	'react-dom/no-unknown-property': 'off',
 	'react/no-leaked-conditional-rendering': 'warn',
 	// End expansion
 }

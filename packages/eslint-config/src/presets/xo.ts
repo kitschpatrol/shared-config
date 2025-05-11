@@ -54,6 +54,7 @@ export const xoJavascriptRules: Rules = {
 	'default-case': 'error',
 	'default-case-last': 'error',
 	'dot-notation': 'error',
+	// "@stylistic/curly-newline":["error","always"],
 	// "@stylistic/dot-location":["error","property"],
 	eqeqeq: 'error',
 	'grouped-accessor-pairs': ['error', 'getBeforeSet'],
@@ -163,7 +164,7 @@ export const xoJavascriptRules: Rules = {
 		'error',
 		'always',
 		{
-			ignorePattern: String.raw`pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+			ignorePattern: String.raw`pragma|ignore|prettier-ignore|biome-ignore|webpack\w+:|c8|v8|type-coverage:`,
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},
@@ -268,8 +269,15 @@ export const xoJavascriptRules: Rules = {
 	// End expansion
 }
 
+// As of eslint-config-xo v0.47.0, json rules were added, which
+// we ignore on account of managing these elsewhere
+// https://github.com/xojs/eslint-config-xo/releases/tag/v0.47.0
+// jsonc: 'eslint-config-xo-typescript' '[1].rules'
+// json5: 'eslint-config-xo-typescript' '[2].rules'
+// json:  'eslint-config-xo-typescript' '[3].rules'
+
 export const xoTypescriptRules: Rules = {
-	// Begin expansion 'eslint-config-xo-typescript' '[1].rules'
+	// Begin expansion 'eslint-config-xo-typescript' '[4].rules'
 	'ts/adjacent-overload-signatures': 'error',
 	'ts/array-type': ['error', { default: 'array-simple' }],
 	'ts/await-thenable': 'error',
@@ -324,14 +332,7 @@ export const xoTypescriptRules: Rules = {
 	],
 	'ts/consistent-type-definitions': ['error', 'type'],
 	'ts/consistent-type-exports': ['error', { fixMixedExportsWithInlineTypeSpecifier: true }],
-	'ts/consistent-type-imports': [
-		'error',
-		{
-			disallowTypeAnnotations: false,
-			fixStyle: 'separate-type-imports',
-			prefer: 'type-imports',
-		},
-	],
+	'ts/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
 	'func-call-spacing': 'off',
 	// "@stylistic/func-call-spacing":["error","never"],
 	indent: 'off',
@@ -495,7 +496,9 @@ export const xoTypescriptRules: Rules = {
 	'ts/no-unsafe-declaration-merging': 'error',
 	'ts/no-unsafe-enum-comparison': 'error',
 	'ts/no-unsafe-function-type': 'error',
+	'ts/no-unsafe-member-access': 'error',
 	'ts/no-unsafe-return': 'error',
+	'ts/no-unsafe-type-assertion': 'error',
 	'ts/no-useless-empty-export': 'error',
 	'no-unused-expressions': 'off',
 	'ts/no-unused-expressions': 'error',
@@ -531,6 +534,7 @@ export const xoTypescriptRules: Rules = {
 	'ts/prefer-reduce-type-parameter': 'error',
 	'ts/prefer-string-starts-ends-with': 'error',
 	'ts/promise-function-async': 'error',
+	'ts/related-getter-setter-pairs': 'error',
 	quotes: 'off',
 	// "@stylistic/quotes":["error","single"],
 	'ts/restrict-plus-operands': ['error', { allowAny: false }],
@@ -568,20 +572,20 @@ export const xoTypescriptRules: Rules = {
 }
 
 export const xoTypescriptDtsRules: Rules = {
-	// Begin expansion 'eslint-config-xo-typescript' '[2].rules'
+	// Begin expansion 'eslint-config-xo-typescript' '[5].rules'
 	'ts/no-unused-vars': 'off',
 	// End expansion
 }
 
 export const xoTypescriptTestRules: Rules = {
-	// Begin expansion 'eslint-config-xo-typescript' '[3].rules'
+	// Begin expansion 'eslint-config-xo-typescript' '[6].rules'
 	'ts/no-unsafe-call': 'off',
 	'ts/no-confusing-void-expression': 'off',
 	// End expansion
 }
 
 export const xoTsxRules: Rules = {
-	// Begin expansion 'eslint-config-xo-typescript' '[4].rules'
+	// Begin expansion 'eslint-config-xo-typescript' '[7].rules'
 	'ts/naming-convention': [
 		'error',
 		{

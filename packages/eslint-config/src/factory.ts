@@ -222,7 +222,7 @@ export async function eslintConfig(
 	// We pick the known keys as ESLint would do schema validation
 	// eslint-disable-next-line unicorn/no-array-reduce
 	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
-		// eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment
+		// eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment, ts/no-unsafe-type-assertion
 		if (key in options) accumulator[key] = options[key] as any
 		return accumulator
 	}, {})
@@ -247,7 +247,7 @@ export async function eslintConfig(
 
 	// console.log(plugins)
 
-	// eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any
+	// eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any, ts/no-unsafe-type-assertion
 	composer = composer.append(...configs, ...(userConfigs as any))
 
 	composer = composer.renamePlugins(defaultPluginRenaming)
@@ -343,6 +343,6 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 	options: OptionsConfig,
 	key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
-	// eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any
+	// eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any, ts/no-unsafe-type-assertion
 	return typeof options[key] === 'boolean' ? ({} as any) : options[key] || ({} as any)
 }

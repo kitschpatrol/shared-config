@@ -75,6 +75,7 @@ async function addNewExpansions(lines: string[]): Promise<string[]> {
 async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise<string[]> {
 	const { dotPath, library } = expansionConfig
 
+	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const importedLibrary = (await interopDefault(import(library))) as
 		| Record<string, unknown>
 		| unknown[]
