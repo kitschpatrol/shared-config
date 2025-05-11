@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/prettier-config",
-	"version": "5.4.0",
+	"version": "5.4.1",
 	"description": "Prettier configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
