@@ -534,6 +534,7 @@ unifiedjs
 unist
 universaljs
 unplugin
+unrs
 unsharp
 urlopen
 urlset
