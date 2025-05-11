@@ -1,9 +1,26 @@
-import type { foregroundColorNames } from 'chalk'
 import type { Stream } from 'node:stream'
-import chalk from 'chalk'
 import { Transform } from 'node:stream'
+import picocolors from 'picocolors'
 
-type ChalkColor = (typeof foregroundColorNames)[number]
+// Define color type for picocolors
+export type ForegroundColor =
+	| 'black'
+	| 'blackBright'
+	| 'blue'
+	| 'blueBright'
+	| 'cyan'
+	| 'cyanBright'
+	| 'gray'
+	| 'green'
+	| 'greenBright'
+	| 'magenta'
+	| 'magentaBright'
+	| 'red'
+	| 'redBright'
+	| 'white'
+	| 'whiteBright'
+	| 'yellow'
+	| 'yellowBright'
 
 /**
  * Creates a transform stream that filters out lines that match the given matcher
@@ -27,7 +44,7 @@ export function createStreamFilter(matcher: (text: string) => boolean): Transfor
  */
 export function createStreamTransform(
 	logPrefix: string | undefined,
-	logColor?: ChalkColor,
+	logColor?: ForegroundColor,
 ): Transform {
 	return new Transform({
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
@@ -39,7 +56,7 @@ export function createStreamTransform(
 			const transformed = lines
 				.map(
 					(line) =>
-						`${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}\n`,
+						`${logPrefix ? (logColor === undefined ? logPrefix : picocolors[logColor](logPrefix)) : ''} ${line}\n`,
 				)
 				.join('')
 
@@ -57,6 +74,7 @@ export async function streamToString(stream: Stream): Promise<string> {
 	return new Promise((resolve, reject) => {
 		stream.on('data', (chunk: Uint8Array) => chunks.push(chunk))
 		stream.on('error', (error) => {
+			// eslint-disable-next-line ts/no-unsafe-type-assertion
 			reject(error as Error)
 		})
 		stream.on('end', () => {

@@ -8,10 +8,8 @@ import remarkGfm from 'remark-gfm'
 import remarkLint from 'remark-lint'
 import remarkValidateLinks from 'remark-validate-links'
 // export { commandDefinition } from './command.js'
-
 // Necessary for side-effect type definitions?
 import 'remark-stringify'
-
 // See https://github.com/remarkjs/remark-lint?tab=readme-ov-file#rules
 // Official
 import remarkLintCheckboxContentIndent from 'remark-lint-checkbox-content-indent' // Warn when too much whitespace follows list item checkboxes
@@ -242,6 +240,7 @@ function overrideRules(
 		})
 
 		if (index !== -1) {
+			// eslint-disable-next-line ts/no-unsafe-type-assertion
 			plugins.splice(index, 1, [ruleFunction, newArguments] as Pluggable)
 		}
 	}

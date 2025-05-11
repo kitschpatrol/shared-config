@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-import type { foregroundColorNames } from 'chalk'
 import type { CosmiconfigResult } from 'cosmiconfig'
 import type internal from 'node:stream'
-import chalk from 'chalk'
 import { cosmiconfig } from 'cosmiconfig'
 import { TypeScriptLoader as typeScriptLoader } from 'cosmiconfig-typescript-loader'
 import { execa } from 'execa'
@@ -13,9 +11,11 @@ import path from 'node:path'
 import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
+import picocolors from 'picocolors'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import type { CwdOverrideOptions } from './path-utilities.js'
+import type { ForegroundColor } from './stream-utilities.js'
 import { version } from '../package.json'
 import { isErrorExecaError } from './execa-utilities.js'
 import { merge, stringify } from './json-utilities.js'
@@ -24,11 +24,9 @@ import { formatFileInPlace } from './prettier-utilities.js'
 import { createStreamTransform, streamToString } from './stream-utilities.js'
 import { pluralize } from './string-utilities.js'
 
-type ChalkColor = (typeof foregroundColorNames)[number]
-
 type CommandCommon = {
 	/** Customizes color of log prefix string. Default color used if undefined. */
-	logColor?: ChalkColor
+	logColor?: ForegroundColor
 	/** Enables a string prefix in the log output.  False if undefined. */
 	logPrefix?: string
 	/** CLI command name to execute, or function name to be used in logs */
@@ -103,7 +101,7 @@ export type Commands = {
 export type CommandDefinition = {
 	commands: Commands
 	description: string
-	logColor: ChalkColor
+	logColor: ForegroundColor
 	logPrefix: string | undefined
 	name: string
 	order: number
@@ -133,7 +131,7 @@ async function executeFunctionCommand(
 
 	if (verbose) {
 		targetStream.write(
-			chalk.bold(
+			picocolors.bold(
 				`Running: "${command.name}() with Positional arguments: ${String(positionalArguments)} and Option flags: ${String(optionFlags)}"`,
 			),
 		)
@@ -230,6 +228,7 @@ async function executeCliCommand(
 		if (command.prettyJsonOutput) {
 			cliTargetStream.end()
 			// TODO is this a bad cast?
+			// eslint-disable-next-line ts/no-unsafe-type-assertion
 			const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream)
 			const prettyAndColorfulJsonLines = stringify(JSON.parse(jsonString)).split('\n')
 			for (const line of prettyAndColorfulJsonLines) {
@@ -287,17 +286,21 @@ export async function executeCommands(
 
 		if (successfulCommands.length > 0) {
 			logStream.write(
-				`✅ ${chalk.green.bold(
-					`${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
-				)} ${chalk.green(successfulCommands.join(', '))}\n`,
+				`✅ ${picocolors.green(
+					picocolors.bold(
+						`${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
+					),
+				)} ${picocolors.green(successfulCommands.join(', '))}\n`,
 			)
 		}
 
 		if (failedCommands.length > 0) {
 			logStream.write(
-				`❌ ${chalk.red.bold(
-					`${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
-				)} ${chalk.red(failedCommands.join(', '))}\n`,
+				`❌ ${picocolors.red(
+					picocolors.bold(
+						`${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
+					),
+				)} ${picocolors.red(failedCommands.join(', '))}\n`,
 			)
 		}
 	}
@@ -341,6 +344,7 @@ async function copyAndMergeInitFiles(
 			const configKey = Object.keys(configPackageJson)[0]
 
 			if (location === 'package') {
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
 					string,
 					unknown
@@ -355,6 +359,7 @@ async function copyAndMergeInitFiles(
 				await formatFileInPlace(destinationPackage)
 			} else {
 				// Removing configuration key from package.json
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
 					string,
 					unknown
@@ -418,7 +423,9 @@ async function copyAndMergeInitFiles(
 						// Merge
 						logStream.write(`Merging: \n"${source}" → "${destination}"\n`)
 
+						// eslint-disable-next-line ts/no-unsafe-type-assertion
 						const sourceJson = fse.readJSONSync(source) as Record<string, unknown>
+						// eslint-disable-next-line ts/no-unsafe-type-assertion
 						const destinationJson = fse.readJSONSync(destination) as Record<string, unknown>
 						const mergedJson = merge(destinationJson, sourceJson)
 
@@ -494,6 +501,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 			async handler(argv) {
 				// Copy files
 
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const location = init.locationOptionFlag ? (argv.location as string | undefined) : undefined
 
 				// Grab context by closure
@@ -544,6 +552,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'lint <files..>',
 			describe: lint.description,
 			async handler(argv) {
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
 				const exitCode = await executeCommands(
 					logStream,
@@ -581,6 +590,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'fix <files..>',
 			describe: fix.description,
 			async handler(argv) {
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
 				const exitCode = await executeCommands(logStream, positionalArguments, [], fix.commands)
 				process.exit(exitCode)
@@ -609,6 +619,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'print-config <file>',
 			describe: printConfig.description,
 			async handler(argv) {
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const fileArgument = (argv.file as string | undefined) ?? undefined
 				const positionalArguments = fileArgument === undefined ? [] : [fileArgument]
 

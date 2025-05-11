@@ -56,9 +56,6 @@ importers:
       bumpp:
         specifier: ^10.1.0
         version: 10.1.0
-      chalk:
-        specifier: ^5.4.1
-        version: 5.4.1
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.8.3)
@@ -89,6 +86,9 @@ importers:
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -635,12 +635,12 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
     devDependencies:
-      chalk:
-        specifier: ^5.4.1
-        version: 5.4.1
       globby:
         specifier: ^14.1.0
         version: 14.1.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
 
   packages/stylelint-config:
     dependencies:

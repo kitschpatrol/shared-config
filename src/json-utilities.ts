@@ -17,7 +17,7 @@ export function stringify(object: any): string {
 			indent: 2,
 			replacer(_, value) {
 				if (typeof value === 'function') {
-					// eslint-disable-next-line ts/no-unsafe-function-type
+					// eslint-disable-next-line ts/no-unsafe-function-type, ts/no-unsafe-type-assertion
 					return (value as Function).name
 				}
 
