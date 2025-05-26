@@ -96,9 +96,6 @@ export async function mdx(
 				// 'ts/no-require-imports': 'off',
 				// 'ts/no-unused-expressions': 'off',
 				// 'ts/no-unused-vars': 'off',
-				// MDX files can be PascalCase OR kebab-case, depending on whether
-				// the file's core nature is that of content or component
-				// 'unicorn/filename-case': 'off',
 				// 'ts/no-use-before-define': 'off',
 				// 'unicode-bom': 'off',
 				...overridesEmbeddedScripts,
