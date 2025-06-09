@@ -2,7 +2,7 @@ import { knipConfig } from '@kitschpatrol/knip-config'
 
 export default knipConfig({
 	ignore: ['**/init/**', 'test/fixtures/**'],
-	ignoreBinaries: ['ksdiff'],
+	ignoreBinaries: ['ksdiff', 'pbcopy'],
 	ignoreDependencies: [
 		'@kitschpatrol/repo-config', // Technically not needed?
 		'@kitschpatrol/typescript-config', // Technically not needed?
