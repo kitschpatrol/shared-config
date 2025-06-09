@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/cspell-config",
-	"version": "5.4.3",
+	"version": "5.4.4",
 	"description": "CSpell configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
