@@ -8,5 +8,5 @@ export default cspellConfig({
 		'./test/fixtures/output-fixed-auto',
 		'./packages/eslint-config/src/typegen.d.ts',
 	],
-	words: ['bullrich', 'hyperse',  'softprops'],
+	words: ['bullrich', 'hyperse', 'softprops'],
 })
