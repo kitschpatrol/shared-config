@@ -7,6 +7,7 @@ export const jsonPackageRecommendedRules: Rules = {
 	'json-package/order-properties': 'error',
 	'json-package/require-description': 'error',
 	'json-package/require-name': 'error',
+	'json-package/require-type': 'error',
 	'json-package/require-version': 'error',
 	'json-package/repository-shorthand': 'error',
 	'json-package/sort-collections': 'error',

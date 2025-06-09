@@ -48,11 +48,11 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"cosmiconfig": "^9.0.0",
 		"cosmiconfig-typescript-loader": "^6.1.0",
-		"execa": "^9.5.3",
+		"execa": "^9.6.0",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.0",
 		"prettier": "^3.5.3",
-		"stylelint": "^16.19.1",
+		"stylelint": "^16.20.0",
 		"stylelint-config-clean-order": "^7.0.0",
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^38.0.0"
