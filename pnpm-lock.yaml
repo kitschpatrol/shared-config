@@ -140,6 +140,13 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
+    devDependencies:
+      globby:
+        specifier: ^14.1.0
+        version: 14.1.0
+      untildify:
+        specifier: ^5.0.0
+        version: 5.0.0
 
   packages/eslint-config:
     dependencies:
@@ -5288,6 +5295,10 @@ packages:
 
   unrs-resolver@1.7.2:
     resolution: {integrity: sha512-BBKpaylOW8KbHsu378Zky/dGh4ckT/4NW/0SHRABdqRLcQJ2dAOjDo9g97p04sWflm0kqPqpUatxReNV/dqI5A==}
+
+  untildify@5.0.0:
+    resolution: {integrity: sha512-bOgQLUnd2G5rhzaTvh1VCI9Fo6bC5cLTpH17T5aFfamyXFYDbbdzN6IXdeoc3jBS7T9hNTmJtYUzJCJ2Xlc9gA==}
+    engines: {node: '>=16'}
 
   update-browserslist-db@1.1.3:
     resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
@@ -11187,6 +11198,8 @@ snapshots:
       '@unrs/resolver-binding-win32-arm64-msvc': 1.7.2
       '@unrs/resolver-binding-win32-ia32-msvc': 1.7.2
       '@unrs/resolver-binding-win32-x64-msvc': 1.7.2
+
+  untildify@5.0.0: {}
 
   update-browserslist-db@1.1.3(browserslist@4.24.5):
     dependencies:

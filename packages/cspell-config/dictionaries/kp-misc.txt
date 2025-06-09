@@ -4,6 +4,7 @@ acmeism
 acmeist
 adhocracy
 adject
+aeiou
 affordances
 afterparty
 agentic
@@ -103,12 +104,15 @@ freakin
 frites
 fuckery
 fugazi
+furigana
 ganga
+gantt
 gnocci
 goji
 Googlers
 grapher
 Greenpoint
+greenred
 gummies
 gyoza
 hackier
@@ -148,6 +152,7 @@ mafé
 mahi
 maison
 matryoshka
+mechanomic
 mirrorless
 misconstrual
 misophonia
@@ -227,6 +232,8 @@ technopaganism
 technoprogressivism
 technosentience
 Teddit
+terraforming
+thresholded
 timelapse
 tldr
 tongkat

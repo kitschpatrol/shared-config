@@ -3,4 +3,16 @@ btif
 cjpeg
 dfont
 flac
+gcode
 gif
+gifs
+icns
+importmap
+pyproject
+tfstate
+tfvars
+tmpv
+tzdb
+usdz
+venv
+wgsl
