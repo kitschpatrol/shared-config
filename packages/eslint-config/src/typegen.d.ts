@@ -1436,11 +1436,11 @@ export interface RuleOptions {
 	 * Enforce that package.json has all properties required by the npm spec
 	 * @deprecated
 	 */
-	'json-package/valid-package-def'?: Linter.RuleEntry<[]>
+	'json-package/valid-package-def'?: Linter.RuleEntry<JsonPackageValidPackageDef>
 	/**
 	 * Enforce that package.json has all properties required by the npm spec
 	 */
-	'json-package/valid-package-definition'?: Linter.RuleEntry<[]>
+	'json-package/valid-package-definition'?: Linter.RuleEntry<JsonPackageValidPackageDefinition>
 	/**
 	 * Enforce that if repository directory is specified, it matches the path to the package.json file
 	 */
@@ -8968,6 +8968,22 @@ type JsonPackageRestrictDependencyRanges =
 	  ]
 // ----- json-package/sort-collections -----
 type JsonPackageSortCollections = [] | [string[]]
+// ----- json-package/valid-package-def -----
+type JsonPackageValidPackageDef =
+	| []
+	| [
+			{
+				ignoreProperties?: string[]
+			},
+	  ]
+// ----- json-package/valid-package-definition -----
+type JsonPackageValidPackageDefinition =
+	| []
+	| [
+			{
+				ignoreProperties?: string[]
+			},
+	  ]
 // ----- json/array-bracket-newline -----
 type JsonArrayBracketNewline =
 	| []

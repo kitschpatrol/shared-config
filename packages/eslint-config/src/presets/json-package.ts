@@ -14,7 +14,10 @@ export const jsonPackageRecommendedRules: Rules = {
 	'json-package/unique-dependencies': 'error',
 	'json-package/valid-local-dependency': 'error',
 	'json-package/valid-name': 'error',
-	'json-package/valid-package-definition': 'error',
+	'json-package/valid-package-definition': [
+		'error',
+		{ ignoreProperties: ['local-dependency', 'name', 'repository-directory', 'version'] },
+	],
 	'json-package/valid-repository-directory': 'error',
 	'json-package/valid-version': 'error',
 	// End expansion
