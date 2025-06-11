@@ -1,5 +1,7 @@
+import path from 'node:path'
+import process from 'node:process'
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { GLOB_SVELTE } from '../globs'
+import { GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { svelteRecommendedRules } from '../presets'
 import { interopDefault } from '../utilities'
@@ -8,7 +10,7 @@ import { sharedScriptConfig } from './shared-js-ts'
 export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
 
-	const files = [GLOB_SVELTE]
+	const files = [GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS]
 
 	const [pluginSvelte, parserSvelte] = await Promise.all([
 		interopDefault(import('eslint-plugin-svelte')),
@@ -36,11 +38,14 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				parserOptions: {
 					extraFileExtensions: ['.svelte'],
 					parser: tsParser, // TODO js version?
+					project: path.join(process.cwd(), 'tsconfig.json'), // Not sure why this isn't inherited
+					svelteConfig: path.join(process.cwd(), 'svelte.config.js'),
 				},
 			},
 			name: 'kp/svelte/rules',
 			processor: pluginSvelte.processors['.svelte'],
 			rules: {
+				...sharedScriptConfig.rules,
 				...svelteRecommendedRules,
 				'import/no-mutable-exports': 'off', // Allow prop export
 				'no-sequences': 'off', // Reactive statements

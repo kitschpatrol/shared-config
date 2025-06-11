@@ -21,6 +21,8 @@ export const GLOB_MARKDOWN = '**/*.md'
 export const GLOB_MDX = '**/*.mdx'
 
 export const GLOB_SVELTE = '**/*.svelte'
+export const GLOB_SVELTE_TS = '**/*.svelte.ts'
+export const GLOB_SVELTE_JS = '**/*.svelte.js'
 export const GLOB_YAML = '**/*.y?(a)ml'
 export const GLOB_TOML = '**/*.toml'
 export const GLOB_XML = '**/*.xml'
@@ -53,6 +55,8 @@ export const GLOB_ALL_SRC = [
 	GLOB_MARKDOWN,
 	GLOB_MDX,
 	GLOB_SVELTE,
+	GLOB_SVELTE_JS,
+	GLOB_SVELTE_TS,
 	GLOB_YAML,
 	GLOB_XML,
 	GLOB_HTML,
