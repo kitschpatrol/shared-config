@@ -141,6 +141,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'perfectionist/sort-imports': [
 			'error',
 			{
+				// Also treat $ prefix as internal
+				internalPattern: ['^~/.+', '^@/.+', String.raw`^\$.+`],
 				newlinesBetween: 'never',
 				partitionByComment: {
 					block: false,
