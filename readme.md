@@ -385,6 +385,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [Complete](https://complete-ts.github.io/)
 - [vercel/style-guide](https://github.com/vercel/style-guide)
 - [ZumerBox](https://github.com/zumerlab/zumerbox)
+- [lintroll](https://www.npmjs.com/package/lintroll)
 
 <!-- license -->
 
