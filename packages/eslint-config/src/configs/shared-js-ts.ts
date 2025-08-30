@@ -125,6 +125,14 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'max-params': ['warn', { max: 8 }],
+		'new-cap': [
+			'error',
+			{
+				capIsNew: true,
+				capIsNewExceptionPattern: String.raw`^Intl\..`,
+				newIsCap: true,
+			},
+		],
 		'no-await-in-loop': 'off',
 		// TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
 		'no-unreachable': 'warn',
