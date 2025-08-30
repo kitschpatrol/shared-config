@@ -244,8 +244,11 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 			{
 				format: ['UPPER_CASE', 'camelCase'],
-				modifiers: ['const', 'exported'],
-				// Allow UPPER_CASE const exports
+				modifiers: [
+					'const',
+					// 'exported'
+				],
+				// Allow UPPER_CASE constants, even if not exported
 				selector: 'variable',
 				// Not objects...
 				// types: ['boolean', 'string', 'number', 'array'],
