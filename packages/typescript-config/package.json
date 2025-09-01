@@ -46,14 +46,14 @@
 		"cosmiconfig-typescript-loader": "^6.1.0",
 		"execa": "^9.6.0",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.0",
-		"prettier": "^3.5.3"
+		"fs-extra": "^11.3.1",
+		"prettier": "^3.6.2"
 	},
 	"peerDependencies": {
 		"typescript": "^5.8.3"
 	},
 	"engines": {
-		"node": ">=20.9.0"
+		"node": ">=20.19.0"
 	},
 	"publishConfig": {
 		"access": "public"

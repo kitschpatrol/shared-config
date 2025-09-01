@@ -117,7 +117,7 @@ The top-level `kpi` command also takes care of some nuances in terms of _which_ 
 
 ### Dependencies
 
-[Node](https://nodejs.org) >=20.9.0 is required, and [pnpm](https://pnpm.io) >=10 is recommended. NPM and yarn might work as well, but I haven't tested them.
+[Node](https://nodejs.org) >=20.10.0 is required, and [pnpm](https://pnpm.io) >=10 is recommended. NPM and yarn might work as well, but I haven't tested them.
 
 ### Installation
 
@@ -385,6 +385,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [Complete](https://complete-ts.github.io/)
 - [vercel/style-guide](https://github.com/vercel/style-guide)
 - [ZumerBox](https://github.com/zumerlab/zumerbox)
+- [lintroll](https://www.npmjs.com/package/lintroll)
 
 <!-- license -->
 

@@ -16,7 +16,7 @@ export default eslintConfig(
 				'depend/ban-dependencies': [
 					'error',
 					{
-						allowed: ['fs-extra', 'execa'],
+						allowed: ['fs-extra', 'execa', 'package-up', 'dot-prop'],
 					},
 				],
 				// Quick testbed
