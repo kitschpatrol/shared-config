@@ -16,8 +16,6 @@ type ExpansionConfig = {
 }
 
 /**
- * Unused
- *
  * "Starts with" strings for rules to comment out in the expansion.
  *
  * Fixes type errors for rules from plugins that are not included in this shared
@@ -29,7 +27,13 @@ type ExpansionConfig = {
  *
  * MANY deprecated rules in prettierEslint, so that is handled in-situ.
  */
-const deprecatedRules: string[] = ['astro/jsx-a11y/label-has-for', '@stylistic/']
+const deprecatedRules: string[] = [
+	'astro/jsx-a11y/label-has-for',
+	'@stylistic/',
+	'no-buffer-constructor',
+	'no-return-await',
+	'@typescript-eslint/no-empty-interface',
+]
 
 const delimiters = {
 	start: '// Begin expansion',

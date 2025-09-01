@@ -119,7 +119,7 @@ export const eslintTypescriptStrictTypeCheckedRules: Rules = {
 			allowRegExp: false,
 		},
 	],
-	'no-return-await': 'off',
+	// "no-return-await":"off",
 	'ts/return-await': ['error', 'error-handling-correctness-only'],
 	'ts/triple-slash-reference': 'error',
 	'ts/unbound-method': 'error',
