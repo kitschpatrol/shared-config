@@ -46,7 +46,12 @@ const favoriteFruit: Fruit = 'apple'
 
 // Define a class with access modifiers
 class Animal {
-	constructor(private readonly name: string) {}
+	private readonly name: string | undefined
+
+	constructor(name: string) {
+		this.name = name
+	}
+
 	protected makeSound(sound: string) {
 		log(`${this.name} says ${sound}`)
 	}
