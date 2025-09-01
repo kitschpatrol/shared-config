@@ -36,6 +36,8 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					name: 'eslint',
+					// Consider '--concurrency', 'auto'
+					// Didn't benchmark particularly fast in September 2025
 					optionFlags: ['--fix'],
 					receivePositionalArguments: true,
 				},
@@ -52,6 +54,8 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					name: 'eslint',
+					// Consider // Consider '--concurrency', 'auto'
+					// Didn't benchmark particularly fast in September 2025
 					optionFlags: ['--max-warnings', '0'],
 					receivePositionalArguments: true,
 				},
