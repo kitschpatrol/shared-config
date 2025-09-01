@@ -117,7 +117,7 @@ The top-level `kpi` command also takes care of some nuances in terms of _which_ 
 
 ### Dependencies
 
-[Node](https://nodejs.org) >=20.10.0 is required, and [pnpm](https://pnpm.io) >=10 is recommended. NPM and yarn might work as well, but I haven't tested them.
+[Node](https://nodejs.org) >=20.19.0 is required, and [pnpm](https://pnpm.io) >=10 is recommended. NPM and yarn might work as well, but I haven't tested them.
 
 ### Installation
 
