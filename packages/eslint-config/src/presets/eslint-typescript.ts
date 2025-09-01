@@ -68,6 +68,7 @@ export const eslintTypescriptStrictTypeCheckedRules: Rules = {
 	'ts/no-unnecessary-type-arguments': 'error',
 	'ts/no-unnecessary-type-assertion': 'error',
 	'ts/no-unnecessary-type-constraint': 'error',
+	'ts/no-unnecessary-type-conversion': 'error',
 	'ts/no-unnecessary-type-parameters': 'error',
 	'ts/no-unsafe-argument': 'error',
 	'ts/no-unsafe-assignment': 'error',

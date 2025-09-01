@@ -3,9 +3,9 @@ import type { Rules } from '../types'
 export const nodeRecommendedRules: Rules = {
 	// Begin expansion 'eslint-plugin-n' 'flat/recommended'
 	'node/no-deprecated-api': 'error',
+	'node/no-exports-assign': 'error',
 	'node/no-extraneous-import': 'error',
 	'node/no-extraneous-require': 'error',
-	'node/no-exports-assign': 'error',
 	'node/no-missing-import': 'error',
 	'node/no-missing-require': 'error',
 	'node/no-process-exit': 'error',

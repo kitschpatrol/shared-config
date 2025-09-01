@@ -58,4 +58,11 @@ export default eslintConfig(
 			'json-package/valid-package-definition': 'off',
 		},
 	},
+	{
+		files: ['test/fixtures/output-fixed-manual/*'],
+		rules: {
+			// Using these to force ES Modules...
+			'unicorn/require-module-specifiers': 'off',
+		},
+	},
 )

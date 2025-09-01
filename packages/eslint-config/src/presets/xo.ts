@@ -42,6 +42,7 @@ export const xoJavascriptRules: Rules = {
 	'no-unsafe-finally': 'error',
 	'no-unsafe-negation': ['error', { enforceForOrderingRelations: true }],
 	'no-unsafe-optional-chaining': ['error', { disallowArithmeticOperators: true }],
+	'no-unused-private-class-members': 'error',
 	'no-useless-backreference': 'error',
 	'use-isnan': 'error',
 	'valid-typeof': ['error', { requireStringLiterals: false }],
@@ -117,16 +118,21 @@ export const xoJavascriptRules: Rules = {
 	'no-label-var': 'error',
 	'no-restricted-globals': [
 		'error',
-		'event',
 		{
-			name: 'atob',
-			message:
-				'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-		},
-		{
-			name: 'btoa',
-			message:
-				'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+			globals: [
+				'event',
+				{
+					name: 'atob',
+					message:
+						'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+				},
+				{
+					name: 'btoa',
+					message:
+						'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+				},
+			],
+			checkGlobalObject: true,
 		},
 	],
 	'no-shadow-restricted-names': 'error',
@@ -164,7 +170,7 @@ export const xoJavascriptRules: Rules = {
 		'error',
 		'always',
 		{
-			ignorePattern: String.raw`pragma|ignore|prettier-ignore|biome-ignore|webpack\w+:|c8|v8|type-coverage:`,
+			ignorePattern: String.raw`pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:`,
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},
@@ -241,6 +247,7 @@ export const xoJavascriptRules: Rules = {
 	'no-dupe-class-members': 'error',
 	'no-new-native-nonconstructor': 'error',
 	'no-this-before-super': 'error',
+	'no-unassigned-vars': 'error',
 	'no-useless-computed-key': ['error', { enforceForClassMembers: true }],
 	'no-useless-constructor': 'error',
 	'no-useless-rename': 'error',
@@ -334,7 +341,7 @@ export const xoTypescriptRules: Rules = {
 	'ts/consistent-type-exports': ['error', { fixMixedExportsWithInlineTypeSpecifier: true }],
 	'ts/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
 	'func-call-spacing': 'off',
-	// "@stylistic/func-call-spacing":["error","never"],
+	// "@stylistic/function-call-spacing":["error","never"],
 	indent: 'off',
 	// "@stylistic/indent":["error","tab",{"SwitchCase":1}],
 	'keyword-spacing': 'off',
@@ -485,7 +492,6 @@ export const xoTypescriptRules: Rules = {
 	'ts/only-throw-error': ['error', { allowThrowingUnknown: true, allowThrowingAny: false }],
 	'ts/no-unnecessary-boolean-literal-compare': 'error',
 	'no-constant-condition': 'error',
-	'ts/no-unnecessary-parameter-property-assignment': 'error',
 	'ts/no-unnecessary-qualifier': 'error',
 	'ts/no-unnecessary-type-arguments': 'error',
 	'ts/no-unnecessary-type-assertion': 'error',
@@ -511,7 +517,6 @@ export const xoTypescriptRules: Rules = {
 	// "@stylistic/padding-line-between-statements":["error",{"blankLine":"always","prev":"multiline-block-like","next":"*"}],
 	'ts/no-wrapper-object-types': 'error',
 	'ts/non-nullable-type-assertion-style': 'error',
-	'ts/parameter-properties': ['error', { prefer: 'parameter-property' }],
 	'ts/prefer-as-const': 'error',
 	'ts/prefer-find': 'error',
 	'ts/prefer-for-of': 'error',
