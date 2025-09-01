@@ -17,7 +17,6 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 		interopDefault(import('svelte-eslint-parser')),
 	] as const)
 
-	// TODO what about .svelte.ts files, etc.
 	// See
 	// import svelte from 'eslint-plugin-svelte'
 	// console.log(svelte.configs['flat/recommended'])
@@ -85,6 +84,20 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				'html/no-inline-styles': 'off',
 				'html/no-non-scalable-viewport': 'off',
 				'html/require-title': 'off',
+			},
+		},
+		{
+			// Special case for \.svelte\.[jt]s$ files.
+			files: [GLOB_SVELTE_JS, GLOB_SVELTE_TS],
+			rules: {
+				'unicorn/filename-case': [
+					'error',
+					{
+						cases: {
+							camelCase: true,
+						},
+					},
+				],
 			},
 		},
 	]
