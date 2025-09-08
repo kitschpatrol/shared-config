@@ -350,6 +350,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'import-x/resolver-next': [
 			createTypeScriptImportResolver({
 				alwaysTryTypes: true,
+				noWarnOnMultipleProjects: true,
 				project: [
 					// Useful for monorepos
 					'packages/*/tsconfig.json',
