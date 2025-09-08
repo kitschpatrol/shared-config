@@ -66,6 +66,7 @@ cameraring
 camerawheel
 capsizecss
 certbot
+charuco
 checkjs
 cherrypy
 chezmoi
@@ -80,6 +81,7 @@ codebooga
 codellama
 codesigning
 Codespaces
+codespell
 codsen
 Colibri
 Collab
@@ -228,6 +230,7 @@ introstart
 InvisBox
 iosveka
 ipynb
+itson
 jetblack
 jpgs
 jphc
@@ -245,10 +248,10 @@ keyof
 Kinect
 kinects
 kiota
-ksc
 kputil
 ksc
 ksdiff
+labelot
 lanczos
 langchain
 latlon
@@ -400,6 +403,7 @@ openstreetmap
 optionator
 osascript
 oscreplayer
+osxkeychain
 osxphotos
 outfile
 outro
@@ -443,6 +447,7 @@ playsinline
 pngs
 pointerupoutside
 Polycode
+poptab
 poscene
 positionals
 Preact
@@ -513,6 +518,7 @@ smartmontools
 smupgd
 Snipster
 softphone
+softprops
 speex
 squoosh
 srgb

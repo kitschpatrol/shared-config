@@ -15,9 +15,10 @@ async function getWordListsFromProjects(directory: string): Promise<string[]> {
 		cwd: untildify(directory),
 		deep: 3,
 		ignore: [
-			'**/ericmika.com/**',
 			'**/ambient-novel/**',
+			'**/ericmika.com/**',
 			'**/frontiernerds.com/**',
+			'**/infra/**',
 			'**/scripts/**',
 		],
 	})
@@ -28,7 +29,7 @@ async function getWordListsFromProjects(directory: string): Promise<string[]> {
 		projectWords.push(...(config.words ?? []))
 	}
 
-	return [...new Set(projectWords)].sort()
+	return [...new Set(projectWords)].toSorted()
 }
 
 async function getSharedConfigWords(): Promise<string[]> {
@@ -46,7 +47,7 @@ async function getSharedConfigWords(): Promise<string[]> {
 		sharedConfigWords.push(...lines)
 	}
 
-	return [...new Set(sharedConfigWords)].sort()
+	return [...new Set(sharedConfigWords)].toSorted()
 }
 
 async function getDictionaryCategories(): Promise<string[]> {
@@ -58,7 +59,7 @@ async function getDictionaryCategories(): Promise<string[]> {
 
 	return [
 		...new Set(categories.map((c) => path.basename(c, path.extname(c)).replace(/^kp-/, ''))),
-	].sort()
+	].toSorted()
 }
 
 async function main() {
@@ -84,6 +85,7 @@ INSTRUCTIONS:
 - Prioritize placing words in specific categories over using "Obscure"
 - Consider programming/technical contexts when categorizing
 - Do not make up and additional categories. Only use the ones provided above in TASK.
+- Do not repeat words or duplicate them across categories.
 - Do not make up and additional words. Only use the ones provided below in WORDS TO CATEGORIZE.
 	
 WORDS TO CATEGORIZE:

@@ -58,6 +58,7 @@ checkin
 cheesery
 choco
 clicky
+clozed
 comparables
 confit
 connectome
@@ -139,6 +140,7 @@ jouissance
 Kabelwerk
 kanban
 katsu
+keytar
 kludgey
 kombucha
 kunst

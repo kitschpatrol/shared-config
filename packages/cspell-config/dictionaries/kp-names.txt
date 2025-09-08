@@ -189,6 +189,7 @@ Bubuck
 Buckminster
 Budd
 Buffett
+bullrich
 Burges
 Burgund
 Burndy
@@ -578,6 +579,7 @@ Hultén
 Husain
 Husted
 Hyman
+hyperse
 Iberti
 Ichiran
 Idah
@@ -743,7 +745,9 @@ Kutnow
 Kuzmin
 Kykuit
 Kyoko
+L’Óreal
 L'Rai
+L’Rai
 Laidlaw
 Laika
 Lalo
@@ -803,10 +807,8 @@ Löffler
 Lohman
 Loic
 Loong
-L’Óreal
 Lovejoy
 Lrai
-L’Rai
 Ludion
 Luiz
 Lupton

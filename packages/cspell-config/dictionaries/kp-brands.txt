@@ -76,6 +76,7 @@ Cortina
 Cosm
 côte
 côte&ciel
+Crestron
 Cydwoq
 Daiso
 Danspace
@@ -268,6 +269,7 @@ Sephora
 Shippo
 Shopt
 Siig
+Smartsheet
 Smartwool
 Somaxis
 Sonicare

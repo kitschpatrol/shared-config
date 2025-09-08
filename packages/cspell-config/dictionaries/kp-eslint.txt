@@ -3,6 +3,7 @@ allman
 biblioref
 canonicalurl
 chunkname
+codespell
 curlies
 displaynames
 esmodule
@@ -21,6 +22,7 @@ helpes
 innerhtml
 iswellformed
 jsxdev
+lintroll
 lookarounds
 matchall
 maxsafeinteger
