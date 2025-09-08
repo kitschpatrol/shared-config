@@ -53,7 +53,7 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.1",
 		"prettier": "^3.6.2",
-		"stylelint": "^16.23.1",
+		"stylelint": "^16.24.0",
 		"stylelint-config-clean-order": "^7.0.0",
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^39.0.0"
