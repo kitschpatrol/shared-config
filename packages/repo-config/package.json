@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/repo-config",
-	"version": "5.6.0",
+	"version": "5.7.0",
 	"description": "Repository configuration and GitHub workflows for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
