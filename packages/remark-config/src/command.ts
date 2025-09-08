@@ -23,6 +23,6 @@ export const commandDefinition: CommandDefinition = {
 		"Kitschpatrol's Remark and Remark Lint shared configuration tools. (Actual linting and fixing is managed through @kitschpatrol/eslint-config.)",
 	logColor: 'blue',
 	logPrefix: '[remarklint]',
-	name: 'kpi-remark',
+	name: 'ksc-remark',
 	order: 8,
 }

@@ -80,7 +80,7 @@ export const commandDefinition: CommandDefinition = {
 	description: 'Run aggregated @kitschpatrol/shared-config commands.',
 	logColor: 'yellow',
 	logPrefix: '🔬',
-	name: 'kpi',
+	name: 'ksc',
 	order: 0,
 	showSummary: true,
 	verbose: true,

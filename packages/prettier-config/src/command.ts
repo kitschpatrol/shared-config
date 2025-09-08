@@ -64,6 +64,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's Prettier shared configuration tools.",
 	logColor: 'blue',
 	logPrefix: '[Prettier]',
-	name: 'kpi-prettier',
+	name: 'ksc-prettier',
 	order: 9,
 }

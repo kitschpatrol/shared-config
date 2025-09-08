@@ -2,7 +2,7 @@
 	"name": "shared-config-monorepo",
 	"version": "5.6.0",
 	"private": true,
-	"description": "A single dependency and single command to configure and run various code linters and tools.",
+	"description": "A single dependency and CLI command to configure and run various linters and code quality tools in TypeScript projects.",
 	"keywords": [
 		"shared-config",
 		"eslint-config",
@@ -16,7 +16,7 @@
 		"tsconfig",
 		"mdat",
 		"cli",
-		"kpi",
+		"ksc",
 		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config",
@@ -39,10 +39,10 @@
 		"build": "pnpm run build:1-stand-alone && pnpm run build:2-shared && pnpm run build:3-readmes",
 		"build:1-stand-alone": "pnpm --filter=!shared-config build",
 		"build:2-shared": "pnpm --filter=shared-config build",
-		"build:3-readmes": "pnpm kpi-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm kpi-prettier fix",
+		"build:3-readmes": "pnpm ksc-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm ksc-prettier fix",
 		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
-		"fix": "kpi fix",
-		"lint": "kpi lint",
+		"fix": "ksc fix",
+		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
 		"test": "vitest"

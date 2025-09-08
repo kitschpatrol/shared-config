@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config, plus a command-line tool `kpi-mdat` to perform mdat-related project initialization, linting, and fixing.
+It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config, plus a command-line tool `ksc-mdat` to perform mdat-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpat
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just `mdat-config` in isolation:
 3. Add the starter `.mdatrc.ts` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-mdat init
+   pnpm exec ksc-mdat init
    ```
 
 ## Usage
@@ -66,8 +66,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "kpi-mdat lint",
-    "fix": "kpi-mdat fix"
+    "lint": "ksc-mdat lint",
+    "fix": "ksc-mdat fix"
   }
 }
 ```
@@ -81,7 +81,7 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 To create a `mdat.config.ts` in your project root:
 
 ```sh
-pnpm exec kpi-mdat init
+pnpm exec ksc-mdat init
 ```
 
 (Note that this will delete the `mdat` property in your `package.json`!)
@@ -91,7 +91,7 @@ _Or_
 To create a `mdat` property in `package.json`:
 
 ```sh
-pnpm exec kpi-mdat init --location package
+pnpm exec ksc-mdat init --location package
 ```
 
 (Note that this will delete the `mdat.config.ts` file in your project root!)
@@ -100,16 +100,16 @@ pnpm exec kpi-mdat init --location package
 
 <!-- cli-help -->
 
-#### Command: `kpi-mdat`
+#### Command: `ksc-mdat`
 
 Kitschpatrol's Mdat shared configuration tools.
 
-This section lists top-level commands for `kpi-mdat`.
+This section lists top-level commands for `ksc-mdat`.
 
 Usage:
 
 ```txt
-kpi-mdat <command>
+ksc-mdat <command>
 ```
 
 | Command        | Description                                                                                                                                                                                    |
@@ -126,14 +126,14 @@ kpi-mdat <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-mdat init`
+#### Subcommand: `ksc-mdat init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpi-mdat init
+ksc-mdat init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -142,14 +142,14 @@ kpi-mdat init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpi-mdat lint`
+#### Subcommand: `ksc-mdat lint`
 
 Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpi-mdat lint
+ksc-mdat lint
 ```
 
 | Option              | Description         | Type      |
@@ -157,14 +157,14 @@ kpi-mdat lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-mdat fix`
+#### Subcommand: `ksc-mdat fix`
 
 Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpi-mdat fix
+ksc-mdat fix
 ```
 
 | Option              | Description         | Type      |
@@ -172,14 +172,14 @@ kpi-mdat fix
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-mdat print-config`
+#### Subcommand: `ksc-mdat print-config`
 
 Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
 
 Usage:
 
 ```txt
-kpi-mdat print-config
+ksc-mdat print-config
 ```
 
 | Option              | Description         | Type      |

@@ -31,8 +31,8 @@ function getKnipPackageJsonObject(): Record<string, unknown> {
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		// In practice, Knip's auto-fix behavior is too dangerous for most projects.
-		// Since kpi doesn't currently have per-tool configuration options, we'll
-		// just disable `kpi-knip fix` for now.
+		// Since ksc doesn't currently have per-tool configuration options, we'll
+		// just disable `ksc-knip fix` for now.
 		//
 		// fix: {
 		// 	commands: [
@@ -83,6 +83,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's Knip shared configuration tools.",
 	logColor: 'cyan',
 	logPrefix: '[Knip]',
-	name: 'kpi-knip',
+	name: 'ksc-knip',
 	order: 7,
 }

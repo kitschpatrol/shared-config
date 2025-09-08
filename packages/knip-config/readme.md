@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpi-knip` to perform Knip-related project initialization, linting, and fixing.
+It's a shared [Knip](https://knip.dev) config, plus a command-line tool `ksc-knip` to perform Knip-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [Knip](https://knip.dev) config, plus a command-line tool `kpi-kni
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just this Knip config in isolation:
 3. Add the starter `knip.config.ts` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-knip init
+   pnpm exec ksc-knip init
    ```
 
 ## Usage
@@ -62,7 +62,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "kpi-knip lint"
+    "lint": "ksc-knip lint"
   }
 }
 ```
@@ -72,7 +72,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 To create a `knip.config.ts` in your project root:
 
 ```sh
-pnpm exec kpi-knip init
+pnpm exec ksc-knip init
 ```
 
 (Note that this will delete the `knip` property in your `package.json`!)
@@ -82,7 +82,7 @@ _Or_
 To create a `knip` property in `package.json`:
 
 ```sh
-pnpm exec kpi-knip init --location package
+pnpm exec ksc-knip init --location package
 ```
 
 (Note that this will delete the `knip.config.ts` file in your project root!)
@@ -91,16 +91,16 @@ pnpm exec kpi-knip init --location package
 
 <!-- cli-help -->
 
-#### Command: `kpi-knip`
+#### Command: `ksc-knip`
 
 Kitschpatrol's Knip shared configuration tools.
 
-This section lists top-level commands for `kpi-knip`.
+This section lists top-level commands for `ksc-knip`.
 
 Usage:
 
 ```txt
-kpi-knip <command>
+ksc-knip <command>
 ```
 
 | Command        | Description                                                                                                                                  |
@@ -116,14 +116,14 @@ kpi-knip <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-knip init`
+#### Subcommand: `ksc-knip init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpi-knip init
+ksc-knip init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -132,14 +132,14 @@ kpi-knip init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpi-knip lint`
+#### Subcommand: `ksc-knip lint`
 
 Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpi-knip lint
+ksc-knip lint
 ```
 
 | Option              | Description         | Type      |
@@ -147,14 +147,14 @@ kpi-knip lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-knip print-config`
+#### Subcommand: `ksc-knip print-config`
 
 Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpi-knip print-config
+ksc-knip print-config
 ```
 
 | Option              | Description         | Type      |

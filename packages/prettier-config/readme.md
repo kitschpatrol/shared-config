@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `kpi-prettier` to perform Prettier-related project initialization, linting, and fixing.
+It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `ksc-prettier` to perform Prettier-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -52,7 +52,7 @@ To use just this Prettier config in isolation:
 3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-prettier init
+   pnpm exec ksc-prettier init
    ```
 
 ## Usage
@@ -66,20 +66,20 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "kpi-prettier lint",
-    "fix": "kpi-prettier fix"
+    "lint": "ksc-prettier lint",
+    "fix": "ksc-prettier fix"
   }
 }
 ```
 
-You might need to pass certain plugins in explicitly if you're calling `prettier` directly. The `kpi-prettier fix` and `kpi-prettier lint` scripts take care of this for you.
+You might need to pass certain plugins in explicitly if you're calling `prettier` directly. The `ksc-prettier fix` and `ksc-prettier lint` scripts take care of this for you.
 
 ### Configuration
 
 To create a `prettier.config.js` in your project root:
 
 ```sh
-pnpm exec kpi-prettier init
+pnpm exec ksc-prettier init
 ```
 
 (Note that this will delete the `prettier` property in your `package.json`!)
@@ -89,7 +89,7 @@ _Or_
 To create a `prettier` property in `package.json`:
 
 ```sh
-pnpm exec kpi-prettier init --location package
+pnpm exec ksc-prettier init --location package
 ```
 
 (Note that this will delete the `prettier.config.js` file in your project root!)
@@ -98,16 +98,16 @@ pnpm exec kpi-prettier init --location package
 
 <!-- cli-help -->
 
-#### Command: `kpi-prettier`
+#### Command: `ksc-prettier`
 
 Kitschpatrol's Prettier shared configuration tools.
 
-This section lists top-level commands for `kpi-prettier`.
+This section lists top-level commands for `ksc-prettier`.
 
 Usage:
 
 ```txt
-kpi-prettier <command>
+ksc-prettier <command>
 ```
 
 | Command        | Argument    | Description                                                                                                                            |
@@ -124,14 +124,14 @@ kpi-prettier <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-prettier init`
+#### Subcommand: `ksc-prettier init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpi-prettier init
+ksc-prettier init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -140,14 +140,14 @@ kpi-prettier init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpi-prettier lint`
+#### Subcommand: `ksc-prettier lint`
 
 Check that files are formatted according to your Prettier configuration. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpi-prettier lint [files..]
+ksc-prettier lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default |
@@ -159,14 +159,14 @@ kpi-prettier lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-prettier fix`
+#### Subcommand: `ksc-prettier fix`
 
 Format files according to your Prettier configuration. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpi-prettier fix [files..]
+ksc-prettier fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default |
@@ -178,14 +178,14 @@ kpi-prettier fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-prettier print-config`
+#### Subcommand: `ksc-prettier print-config`
 
 Print the effective Prettier configuration. Package-scoped.. Searches up to the root of a monorepo if necessary..
 
 Usage:
 
 ```txt
-kpi-prettier print-config
+ksc-prettier print-config
 ```
 
 | Option              | Description         | Type      |

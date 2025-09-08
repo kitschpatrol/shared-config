@@ -7,8 +7,8 @@
 		"typescript",
 		"tsconfig",
 		"cli",
-		"kpi",
-		"kpi-typescript"
+		"ksc",
+		"ksc-typescript"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/typescript-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
@@ -28,7 +28,8 @@
 		".": "./tsconfigs/base.json"
 	},
 	"bin": {
-		"kpi-typescript": "bin/cli.js"
+		"kpi-typescript": "bin/cli.js",
+		"ksc-typescript": "bin/cli.js"
 	},
 	"files": [
 		"tsconfigs/*",

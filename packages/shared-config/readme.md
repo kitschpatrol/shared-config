@@ -35,15 +35,15 @@
 
 ## Overview
 
-This project attempts to consolidate most of the configuration and tooling shared by my open-source and internal TypeScript / Node based projects into a single dependency with a single CLI meta-command to lint and fix issues.
+This project consolidates most of the configuration and tooling shared by my open-source and internal TypeScript-based projects into a single dependency with a single CLI meta-command to lint and fix issues.
 
-By installing `@kitschpatrol/shared-config` and then running `kpi`, you can run a half-dozen pre-configured code quality and linting tools in one shot. This spares you from cluttering your project's `devDependencies` with packages tangential to the task at hand.
+By installing `@kitschpatrol/shared-config` and then running `ksc`, you can run a half-dozen pre-configured code quality and linting tools in one shot. This spares you from cluttering your project's `devDependencies` with packages tangential to the task at hand.
 
-If you don't plan to customize tool configurations, `@kitschpatrol/shared-config init` exposes an option to store references to each tool's shared configuration in your `package.json` instead of in files in your project root (at least where permitted by the tool). This can save a bit of file clutter in your project's root directory, at the expense of the immediate discoverability of the tools.
+If you don't plan to customize tool configurations, `ksc init` exposes an option to store references to each tool's shared configuration in your `package.json` instead of in files in your project root (at least where permitted by the tool). This can save a bit of file clutter in your project's root directory, at the expense of the immediate discoverability of the tools.
 
 In addition, each tool exports a typed configuration factory function to simplify specifying and extending the default configuration.
 
-The command name `kpi` might stand for "Kitschpatrol Project Inspector", or the more McKinseyan "Key Performance Indicators".
+The command name `ksc` is just an initialism for "Kitschpatrol Shared Configuration".
 
 ### Tools
 
@@ -67,51 +67,51 @@ This particular readme is for the [`@kitschpatrol/shared-config`](https://www.np
 
 #### Primary package
 
-- [`@kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/readme.md) (`kpi` command)
+- [`@kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/readme.md) (`ksc` command)
 
 #### Sub-packages
 
-- [`@kitschpatrol/cspell-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/cspell-config/readme.md) (`kpi-cspell` command)
-- [`@kitschpatrol/eslint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/eslint-config/readme.md) (`kpi-eslint` command)
-- [`@kitschpatrol/knip-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/knip-config/readme.md) (`kpi-knip` command)
-- [`@kitschpatrol/mdat-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/mdat-config/readme.md) (`kpi-mdat` command)
-- [`@kitschpatrol/prettier-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) (`kpi-prettier` command)
-- [`@kitschpatrol/remark-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/remark-config/readme.md) (`kpi-remark` command)
-- [`@kitschpatrol/repo-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/repo-config/readme.md) (`kpi-repo` command)
-- [`@kitschpatrol/stylelint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/stylelint-config/readme.md) (`kpi-stylelint` command)
-- [`@kitschpatrol/typescript-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/typescript-config/readme.md) (`kpi-typescript` command)
+- [`@kitschpatrol/cspell-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/cspell-config/readme.md) (`ksc-cspell` command)
+- [`@kitschpatrol/eslint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/eslint-config/readme.md) (`ksc-eslint` command)
+- [`@kitschpatrol/knip-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/knip-config/readme.md) (`ksc-knip` command)
+- [`@kitschpatrol/mdat-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/mdat-config/readme.md) (`ksc-mdat` command)
+- [`@kitschpatrol/prettier-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) (`ksc-prettier` command)
+- [`@kitschpatrol/remark-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/remark-config/readme.md) (`ksc-remark` command)
+- [`@kitschpatrol/repo-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/repo-config/readme.md) (`ksc-repo` command)
+- [`@kitschpatrol/stylelint-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/stylelint-config/readme.md) (`ksc-stylelint` command)
+- [`@kitschpatrol/typescript-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/typescript-config/readme.md) (`ksc-typescript` command)
 
 > [!IMPORTANT]
 >
 > Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
-Running `kpi <command>` calls the same command across the entire collection of sub-packages.
+Running `ksc <command>` calls the same command across the entire collection of sub-packages.
 
 So assuming you've installed `@kitschpatrol/shared-config`...
 
 Running:
 
 ```sh
-kpi init
+ksc init
 ```
 
 Is the same as running:
 
 ```sh
-kpi-repo init
-kpi-mdat init
-kpi-typescript init
-kpi-eslint init
-kpi-stylelint init
-kpi-cspell init
-kpi-knip init
-kpi-remark init
-kpi-prettier init
+ksc-repo init
+ksc-mdat init
+ksc-typescript init
+ksc-eslint init
+ksc-stylelint init
+ksc-cspell init
+ksc-knip init
+ksc-remark init
+ksc-prettier init
 ```
 
 _(Sub-commands are always executed in the above order.)_
 
-The top-level `kpi` command also takes care of some nuances in terms of _which_ sub-packages implement _which_ commands, and which subcommands take arguments.
+The top-level `ksc` command also takes care of some nuances in terms of _which_ sub-packages implement _which_ commands, and which subcommands take arguments.
 
 ## Getting started
 
@@ -126,19 +126,19 @@ The top-level `kpi` command also takes care of some nuances in terms of _which_ 
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init && pnpm i && code .
 ```
 
-Note that `kpi init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but can make it clunkier to extend or customize configurations.
+Note that `ksc init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but can make it clunkier to extend or customize configurations.
 
-At any point, you can call `kpi init` again with the `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other and restore the default configurations.
+At any point, you can call `ksc init` again with the `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other and restore the default configurations.
 
 #### Quick add to an existing project:
 
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm kpi init
+pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init
 ```
 
 #### Step-by-step:
@@ -158,13 +158,13 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
 3. Add default config files for all the tools to your project root:
 
    ```sh
-   pnpm kpi init
+   pnpm ksc init
    ```
 
    Or, if you don't plan to customize tool configurations, you might want to put as much config as possible under tool-specific keys in 'package.json':
 
    ```sh
-   pnpm kpi init --location package
+   pnpm ksc init --location package
    ```
 
 4. Add helper scripts to your `package.json`:
@@ -174,8 +174,8 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
    ```json
    {
      "scripts": {
-       "fix": "kpi fix",
-       "lint": "kpi lint"
+       "fix": "ksc fix",
+       "lint": "ksc lint"
      }
    }
    ```
@@ -208,18 +208,18 @@ pnpm run fix
 
 ### CLI
 
-<!-- cli-help cliCommand: 'kpi' -->
+<!-- cli-help cliCommand: 'ksc' -->
 
-#### Command: `kpi`
+#### Command: `ksc`
 
 Run aggregated @kitschpatrol/shared-config commands.
 
-This section lists top-level commands for `kpi`.
+This section lists top-level commands for `ksc`.
 
 Usage:
 
 ```txt
-kpi <command>
+ksc <command>
 ```
 
 | Command        | Argument    | Description                                                                                                                                                                                 |
@@ -236,14 +236,14 @@ kpi <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi init`
+#### Subcommand: `ksc init`
 
 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
 
 Usage:
 
 ```txt
-kpi init
+ksc init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -252,14 +252,14 @@ kpi init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpi lint`
+#### Subcommand: `ksc lint`
 
 Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 
 ```txt
-kpi lint [files..]
+ksc lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default |
@@ -271,14 +271,14 @@ kpi lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi fix`
+#### Subcommand: `ksc fix`
 
 Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 
 ```txt
-kpi fix [files..]
+ksc fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default |
@@ -290,14 +290,14 @@ kpi fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi print-config`
+#### Subcommand: `ksc print-config`
 
 Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 Usage:
 
 ```txt
-kpi print-config [file]
+ksc print-config [file]
 ```
 
 | Positional Argument | Description                 | Type     |
@@ -311,7 +311,7 @@ kpi print-config [file]
 
 <!-- /cli-help -->
 
-Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `kpi` effectively runs the same command against all the tool-specific packages.
+Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `ksc` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
 

@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `kpi-eslint` to perform ESLint-related project initialization, linting, and fixing.
+It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `ksc-eslint` to perform ESLint-related project initialization, linting, and fixing.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `kpi
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -59,7 +59,7 @@ To use just this ESLint config in isolation:
 4. Add the starter `eslint.config.ts` config files to your project root, and add any overrides you'd like:
 
    ```sh
-   pnpm exec eslint-kpi init
+   pnpm exec eslint-ksc init
    ```
 
 ## Usage
@@ -83,16 +83,16 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `kpi-eslint`
+#### Command: `ksc-eslint`
 
 Kitschpatrol's ESLint shared configuration tools.
 
-This section lists top-level commands for `kpi-eslint`.
+This section lists top-level commands for `ksc-eslint`.
 
 Usage:
 
 ```txt
-kpi-eslint <command>
+ksc-eslint <command>
 ```
 
 | Command        | Argument    | Description                                                                                                                                                               |
@@ -109,14 +109,14 @@ kpi-eslint <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-eslint init`
+#### Subcommand: `ksc-eslint init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-kpi-eslint init
+ksc-eslint init
 ```
 
 | Option              | Description         | Type      |
@@ -124,14 +124,14 @@ kpi-eslint init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-eslint lint`
+#### Subcommand: `ksc-eslint lint`
 
 Lint your project with ESLint. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpi-eslint lint [files..]
+ksc-eslint lint [files..]
 ```
 
 | Positional Argument | Description                    | Type    | Default |
@@ -143,14 +143,14 @@ kpi-eslint lint [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-eslint fix`
+#### Subcommand: `ksc-eslint fix`
 
 Fix your project with ESLint. Matches files below the current working directory by default.
 
 Usage:
 
 ```txt
-kpi-eslint fix [files..]
+ksc-eslint fix [files..]
 ```
 
 | Positional Argument | Description                   | Type    | Default |
@@ -162,14 +162,14 @@ kpi-eslint fix [files..]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-eslint print-config`
+#### Subcommand: `ksc-eslint print-config`
 
 Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view.
 
 Usage:
 
 ```txt
-kpi-eslint print-config [file]
+ksc-eslint print-config [file]
 ```
 
 | Positional Argument | Description                 | Type     |

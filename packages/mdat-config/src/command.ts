@@ -91,6 +91,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's Mdat shared configuration tools.",
 	logColor: 'green',
 	logPrefix: '[Mdat Config]',
-	name: 'kpi-mdat',
+	name: 'ksc-mdat',
 	order: 2,
 }

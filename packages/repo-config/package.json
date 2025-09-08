@@ -6,8 +6,8 @@
 		"shared-config",
 		"github-actions",
 		"cli",
-		"kpi",
-		"kpi-repo"
+		"ksc",
+		"ksc-repo"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/repo-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
@@ -24,7 +24,8 @@
 	},
 	"type": "module",
 	"bin": {
-		"kpi-repo": "bin/cli.js"
+		"kpi-repo": "bin/cli.js",
+		"ksc-repo": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting Markdown and MDX files, plus a command-line tool `kpi-remark` to streamline project initialization. Note that linting and fixing is provided separately through [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
+It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting Markdown and MDX files, plus a command-line tool `ksc-remark` to streamline project initialization. Note that linting and fixing is provided separately through [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/rem
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -52,14 +52,14 @@ To use just this Remark config in isolation:
 3. Add the starter `.remarkrc.js` and files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-remark init
+   pnpm exec ksc-remark init
    ```
 
 ## Usage
 
 The Remark binary should be picked up automatically by VS Code plugins.
 
-You can call it directly, but it's recommended to use the `kpi` script bundled with the [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) instead to invoke the Remark lint rules through ESLint. The [`eslint-mdx`](https://github.com/mdx-js/eslint-mdx) plugin is used to bridge these rules into ESLint and the VS Code ESLint plugin.
+You can call it directly, but it's recommended to use the `ksc` script bundled with the [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) instead to invoke the Remark lint rules through ESLint. The [`eslint-mdx`](https://github.com/mdx-js/eslint-mdx) plugin is used to bridge these rules into ESLint and the VS Code ESLint plugin.
 
 If you really want to call it directly, you can integrate a command to the underlying `remark` CLI tool with your `package.json` scripts as you see fit, for example:
 
@@ -75,16 +75,16 @@ If you really want to call it directly, you can integrate a command to the under
 
 <!-- cli-help -->
 
-#### Command: `kpi-remark`
+#### Command: `ksc-remark`
 
 Kitschpatrol's Remark and Remark Lint shared configuration tools. (Actual linting and fixing is managed through @kitschpatrol/eslint-config.)
 
-This section lists top-level commands for `kpi-remark`.
+This section lists top-level commands for `ksc-remark`.
 
 Usage:
 
 ```txt
-kpi-remark <command>
+ksc-remark <command>
 ```
 
 | Command        | Description                                                                                                   |
@@ -99,14 +99,14 @@ kpi-remark <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-remark init`
+#### Subcommand: `ksc-remark init`
 
 Initialize by copying starter config files to your project root or to your package.json file.
 
 Usage:
 
 ```txt
-kpi-remark init
+ksc-remark init
 ```
 
 | Option              | Description         | Type                 | Default  |
@@ -115,14 +115,14 @@ kpi-remark init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-#### Subcommand: `kpi-remark print-config`
+#### Subcommand: `ksc-remark print-config`
 
 Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpi-remark print-config
+ksc-remark print-config
 ```
 
 | Option              | Description         | Type      |

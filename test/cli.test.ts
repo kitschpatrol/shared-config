@@ -7,7 +7,7 @@ import { version } from '../package.json'
 
 describe('CLI basics', () => {
 	it('should print version', async () => {
-		const { exitCode, stdout } = await execa('kpi', ['--version'], {
+		const { exitCode, stdout } = await execa('ksc', ['--version'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
@@ -17,7 +17,7 @@ describe('CLI basics', () => {
 	})
 
 	it('should print version with short flag', async () => {
-		const { exitCode, stdout } = await execa('kpi', ['-v'], {
+		const { exitCode, stdout } = await execa('ksc', ['-v'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
@@ -27,23 +27,23 @@ describe('CLI basics', () => {
 	})
 
 	it('should print help', async () => {
-		const { exitCode, stdout } = await execa('kpi', ['--help'], {
+		const { exitCode, stdout } = await execa('ksc', ['--help'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
 
 		expect(exitCode).toMatchInlineSnapshot(`0`)
 		expect(stdout).toMatchInlineSnapshot(`
-			"kpi <command>
+			"ksc <command>
 
 			Run aggregated @kitschpatrol/shared-config commands.
 
 			Commands:
-			  kpi <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
-			  kpi init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
-			  kpi lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
-			  kpi fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
-			  kpi print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
+			  ksc init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
+			  ksc lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -52,23 +52,23 @@ describe('CLI basics', () => {
 	})
 
 	it('should print help with short flag', async () => {
-		const { exitCode, stdout } = await execa('kpi', ['-h'], {
+		const { exitCode, stdout } = await execa('ksc', ['-h'], {
 			localDir: process.cwd(),
 			preferLocal: true,
 		})
 
 		expect(exitCode).toMatchInlineSnapshot(`0`)
 		expect(stdout).toMatchInlineSnapshot(`
-			"kpi <command>
+			"ksc <command>
 
 			Run aggregated @kitschpatrol/shared-config commands.
 
 			Commands:
-			  kpi <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
-			  kpi init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
-			  kpi lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
-			  kpi fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
-			  kpi print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc <command>            Run aggregated @kitschpatrol/shared-config commands.  [default]
+			  ksc init                 Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
+			  ksc lint [files..]       Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc fix [files..]        Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+			  ksc print-config [file]  Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
 			Options:
 			  -h, --help     Show help  [boolean]
@@ -91,7 +91,7 @@ describe('CLI basics', () => {
 			const sourceDirectory = './test/fixtures/input/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			await execa('kpi', [], {
+			await execa('ksc', [], {
 				localDir: process.cwd(),
 				preferLocal: true,
 				reject: false,
@@ -109,7 +109,7 @@ describe('CLI basics', () => {
 			const destinationDirectory = './test/fixtures/output-fixed-auto/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			await execa('kpi', ['--fix'], {
+			await execa('ksc', ['--fix'], {
 				localDir: process.cwd(),
 				preferLocal: true,
 				reject: false,
@@ -128,7 +128,7 @@ describe('CLI basics', () => {
 			const sourceDirectory = './test/fixtures/input/'
 			await fse.copy(sourceDirectory, tempDirectory)
 
-			const { exitCode, stdout } = await execa('kpi', [], {
+			const { exitCode, stdout } = await execa('ksc', [], {
 				// Disable color output
 				env: {
 					// Disable color output

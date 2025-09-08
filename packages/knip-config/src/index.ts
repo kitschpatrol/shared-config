@@ -21,17 +21,17 @@ const sharedKnipConfig: KnipConfig = {
 		'prettier.config.{js,mjs,cjs,ts,mts,cts}',
 		'stylelint.config.{js,mjs,cjs,ts,mts,cts}',
 	],
-	// Allow calling of individual kpi binaries...
+	// Allow calling of individual ksc binaries...
 	ignoreBinaries: [
-		'kpi-repo',
-		'kpi-mdat',
-		'kpi-typescript',
-		'kpi-eslint',
-		'kpi-stylelint',
-		'kpi-cspell',
-		'kpi-knip',
-		'kpi-remark',
-		'kpi-prettier',
+		'ksc-repo',
+		'ksc-mdat',
+		'ksc-typescript',
+		'ksc-eslint',
+		'ksc-stylelint',
+		'ksc-cspell',
+		'ksc-knip',
+		'ksc-remark',
+		'ksc-prettier',
 		// 1Password CLI, typically a global install...
 		'op',
 		// GitHub CLI, typically a global install...

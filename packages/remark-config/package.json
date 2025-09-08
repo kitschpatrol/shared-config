@@ -8,8 +8,8 @@
 		"remark-lint",
 		"remark",
 		"cli",
-		"kpi",
-		"kpi-remark"
+		"ksc",
+		"ksc-remark"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
@@ -34,7 +34,8 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-remark": "bin/cli.js"
+		"kpi-remark": "bin/cli.js",
+		"ksc-remark": "bin/cli.js"
 	},
 	"files": [
 		"bin/*",

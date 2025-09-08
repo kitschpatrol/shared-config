@@ -31,6 +31,6 @@ export const commandDefinition: CommandDefinition = {
 	description: "Kitschpatrol's repository-related shared configuration tools.",
 	logColor: 'gray',
 	logPrefix: '[Repo Config]',
-	name: 'kpi-repo',
+	name: 'ksc-repo',
 	order: 1,
 }

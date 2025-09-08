@@ -207,6 +207,6 @@ export const commandDefinition: CommandDefinition = {
 		"Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)",
 	logColor: 'cyan',
 	logPrefix: '[CSpell]',
-	name: 'kpi-cspell',
+	name: 'ksc-cspell',
 	order: 6,
 }

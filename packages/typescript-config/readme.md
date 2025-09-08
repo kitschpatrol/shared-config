@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` config, plus a command-line tool `kpi-typescript` to perform TypeScript-related validation and linting.
+It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` config, plus a command-line tool `ksc-typescript` to perform TypeScript-related validation and linting.
 
 <!-- recommendation -->
 
@@ -29,7 +29,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 >
 > **You can use this package on its own, but it's recommended to use [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
-> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `kpi` command
+> This package is included as a dependency in [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config), which also automatically invokes the command line functionality in this package via its `ksc` command
 
 <!-- /recommendation -->
 
@@ -56,19 +56,19 @@ To use just this TypeScript config in isolation:
 3. Add the starter `tsconfig.json` and `tsconfig.build.json` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-typescript init
+   pnpm exec ksc-typescript init
    ```
 
 ## Usage
 
-You can call `kpi-typescript` directly, or use the script bundled with the config.
+You can call `ksc-typescript` directly, or use the script bundled with the config.
 
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
 {
   "scripts": {
-    "lint": "kpi-typescript lint"
+    "lint": "ksc-typescript lint"
   }
 }
 ```
@@ -99,16 +99,16 @@ or
 
 <!-- cli-help -->
 
-#### Command: `kpi-typescript`
+#### Command: `ksc-typescript`
 
 Kitschpatrol's TypeScript shared configuration tools.
 
-This section lists top-level commands for `kpi-typescript`.
+This section lists top-level commands for `ksc-typescript`.
 
 Usage:
 
 ```txt
-kpi-typescript <command>
+ksc-typescript <command>
 ```
 
 | Command        | Description                                                                                                                             |
@@ -124,14 +124,14 @@ kpi-typescript <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `kpi-typescript init`
+#### Subcommand: `ksc-typescript init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-kpi-typescript init
+ksc-typescript init
 ```
 
 | Option              | Description         | Type      |
@@ -139,14 +139,14 @@ kpi-typescript init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-typescript lint`
+#### Subcommand: `ksc-typescript lint`
 
 Run type checking on your project. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-kpi-typescript lint
+ksc-typescript lint
 ```
 
 | Option              | Description         | Type      |
@@ -154,14 +154,14 @@ kpi-typescript lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `kpi-typescript print-config`
+#### Subcommand: `ksc-typescript print-config`
 
 Print the TypeScript configuration for the project. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-kpi-typescript print-config
+ksc-typescript print-config
 ```
 
 | Option              | Description         | Type      |
@@ -175,7 +175,7 @@ kpi-typescript print-config
 
 ### Svelte caveat
 
-The `kpi-typescript lint` command will detect whether it's running in a Svelte project, and treat `lint` as a no-op when that's the case.
+The `ksc-typescript lint` command will detect whether it's running in a Svelte project, and treat `lint` as a no-op when that's the case.
 
 This is necessary to prevent unactionable warnings because Svelte [doesn't play well](https://github.com/sveltejs/language-tools/issues/2527) with the underlying TypeScript `tsc` command.
 
