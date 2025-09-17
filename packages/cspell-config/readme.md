@@ -21,7 +21,11 @@
 
 ## Overview
 
-It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `ksc-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
+It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `ksc-cspell` to perform CSpell-related project initialization and linting.
+
+In addition to basic CSpell functionality, this package bundles a few extra features: It identifies "unused" words in your local CSpell configuration's ignore list that don't actually appear anywhere in your project, and it incorporates [Case Police](https://github.com/antfu/case-police) to enforce case consistency.
+
+Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
 
 <!-- recommendation -->
 
@@ -90,6 +94,40 @@ pnpm exec ksc-cspell init --location package
 ```
 
 (Note that this will delete the `cspell.config.js` file in your project root!)
+
+#### Ignoring files
+
+CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in Markdown and MDX files.
+
+Additional ignore patterns may be added to your project's CSpell config via the `ignorePaths` key.
+
+Ignored files are automatically excluded from Case Police checks as well.
+
+To exclude a specific file from Case Police checks, but to still check it with CSpell, include a comment:
+
+`// @case-police-disable`
+
+#### Ignoring specific words
+
+Many words are included in the bundled dictionaries used by the shared configuration.
+
+Additional words may be added to your project's CSpell config via the `words` key.
+
+Specific words may be ignored on a per-file basis by including a comment:
+
+`/* spell-checker: ignore $WORD, $ANOTHER_WORD, $YET_ANOTHER_WORD*/`
+
+Likewise to ignore certain Case Police words:
+
+`// @case-police-ignore $WORD, $ANOTHER_WORD, $YET_ANOTHER_WORD`
+
+#### Ignoring code
+
+See [the CSpell documentation](https://cspell.org/docs/Configuration/document-settings).
+
+Blocks:
+
+`/* spell-checker:disable */ ...  /* spell-checker:enable */`
 
 #### Disabling bundled dictionaries
 
@@ -230,8 +268,6 @@ ksc-cspell print-config
 ## Notes
 
 This config includes a bunch of words I've happened to have needed to use. Your preferences will vary.
-
-CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
 
 As part of the `lint` command process, `@kitschpatrol/cspell-config` also runs a check to identify any words in your config file's `"words"` array that are _do not_ actually appear anywhere else in your project. This was inspired by [Zamiell's](https://github.com/Zamiell) [cspell-check-unused-words](https://github.com/complete-ts/cspell-check-unused-words) project.
 
