@@ -705,6 +705,11 @@ export interface RuleOptions {
 	 */
 	'html/no-restricted-attrs'?: Linter.RuleEntry<HtmlNoRestrictedAttrs>
 	/**
+	 * Disallow specified tags
+	 * @see https://html-eslint.org/docs/rules/no-restricted-tags
+	 */
+	'html/no-restricted-tags'?: Linter.RuleEntry<HtmlNoRestrictedTags>
+	/**
 	 * Enforce to omit type attributes for style sheets and scripts
 	 * @see https://html-eslint.org/docs/rules/no-script-style-type
 	 */
@@ -1115,7 +1120,7 @@ export interface RuleOptions {
 	 */
 	'jsdoc/check-alignment'?: Linter.RuleEntry<JsdocCheckAlignment>
 	/**
-	 * Ensures that (JavaScript) examples within JSDoc adhere to ESLint rules.
+	 * @deprecated - Use `getJsdocProcessorPlugin` processor; ensures that (JavaScript) samples within `@example` tags adhere to ESLint rules.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/check-examples.md#repos-sticky-header
 	 */
 	'jsdoc/check-examples'?: Linter.RuleEntry<JsdocCheckExamples>
@@ -1130,7 +1135,7 @@ export interface RuleOptions {
 	 */
 	'jsdoc/check-line-alignment'?: Linter.RuleEntry<JsdocCheckLineAlignment>
 	/**
-	 * Ensures that parameter names in JSDoc match those in the function declaration.
+	 * Checks for dupe `@param` names, that nested param names have roots, and that parameter names in function declarations match JSDoc param names.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/check-param-names.md#repos-sticky-header
 	 */
 	'jsdoc/check-param-names'?: Linter.RuleEntry<JsdocCheckParamNames>
@@ -1155,7 +1160,7 @@ export interface RuleOptions {
 	 */
 	'jsdoc/check-template-names'?: Linter.RuleEntry<[]>
 	/**
-	 * Reports invalid types.
+	 * Reports types deemed invalid (customizable and with defaults, for preventing and/or recommending replacements).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/check-types.md#repos-sticky-header
 	 */
 	'jsdoc/check-types'?: Linter.RuleEntry<JsdocCheckTypes>
@@ -1170,12 +1175,12 @@ export interface RuleOptions {
 	 */
 	'jsdoc/convert-to-jsdoc-comments'?: Linter.RuleEntry<JsdocConvertToJsdocComments>
 	/**
-	 * Expects specific tags to be empty of any content.
+	 * Checks tags that are expected to be empty (e.g., `@abstract` or `@async`), reporting if they have content
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/empty-tags.md#repos-sticky-header
 	 */
 	'jsdoc/empty-tags'?: Linter.RuleEntry<JsdocEmptyTags>
 	/**
-	 * Reports an issue with any non-constructor function using `@implements`.
+	 * Prohibits use of `@implements` on non-constructor functions (to enforce the tag only being used on classes/constructors).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/implements-on-classes.md#repos-sticky-header
 	 */
 	'jsdoc/implements-on-classes'?: Linter.RuleEntry<JsdocImplementsOnClasses>
@@ -1205,17 +1210,17 @@ export interface RuleOptions {
 	 */
 	'jsdoc/match-name'?: Linter.RuleEntry<JsdocMatchName>
 	/**
-	 * Controls how and whether jsdoc blocks can be expressed as single or multiple line blocks.
+	 * Controls how and whether JSDoc blocks can be expressed as single or multiple line blocks.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/multiline-blocks.md#repos-sticky-header
 	 */
 	'jsdoc/multiline-blocks'?: Linter.RuleEntry<JsdocMultilineBlocks>
 	/**
-	 * This rule checks for multi-line-style comments which fail to meet the criteria of a jsdoc block.
+	 * This rule checks for multi-line-style comments which fail to meet the criteria of a JSDoc block.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-bad-blocks.md#repos-sticky-header
 	 */
 	'jsdoc/no-bad-blocks'?: Linter.RuleEntry<JsdocNoBadBlocks>
 	/**
-	 * Detects and removes extra lines of a blank block description
+	 * If tags are present, this rule will prevent empty lines in the block description. If no tags are present, this rule will prevent extra empty lines in the block description.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-blank-block-descriptions.md#repos-sticky-header
 	 */
 	'jsdoc/no-blank-block-descriptions'?: Linter.RuleEntry<[]>
@@ -1245,22 +1250,37 @@ export interface RuleOptions {
 	 */
 	'jsdoc/no-restricted-syntax'?: Linter.RuleEntry<JsdocNoRestrictedSyntax>
 	/**
-	 * This rule reports types being used on `@param` or `@returns`.
+	 * This rule reports types being used on `@param` or `@returns` (redundant with TypeScript).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-types.md#repos-sticky-header
 	 */
 	'jsdoc/no-types'?: Linter.RuleEntry<JsdocNoTypes>
 	/**
-	 * Checks that types in jsdoc comments are defined.
+	 * Besides some expected built-in types, prohibits any types not specified as globals or within `@typedef`.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-undefined-types.md#repos-sticky-header
 	 */
 	'jsdoc/no-undefined-types'?: Linter.RuleEntry<JsdocNoUndefinedTypes>
+	/**
+	 * Prefer `@import` tags to inline `import()` statements.
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/prefer-import-tag.md#repos-sticky-header
+	 */
+	'jsdoc/prefer-import-tag'?: Linter.RuleEntry<JsdocPreferImportTag>
+	/**
+	 * Reports use of `any` or `*` type
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/reject-any-type.md#repos-sticky-header
+	 */
+	'jsdoc/reject-any-type'?: Linter.RuleEntry<[]>
+	/**
+	 * Reports use of `Function` type
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/reject-function-type.md#repos-sticky-header
+	 */
+	'jsdoc/reject-function-type'?: Linter.RuleEntry<[]>
 	/**
 	 * Requires that each JSDoc line starts with an `*`.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-asterisk-prefix.md#repos-sticky-header
 	 */
 	'jsdoc/require-asterisk-prefix'?: Linter.RuleEntry<JsdocRequireAsteriskPrefix>
 	/**
-	 * Requires that all functions have a description.
+	 * Requires that all functions (and potentially other contexts) have a description.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-description.md#repos-sticky-header
 	 */
 	'jsdoc/require-description'?: Linter.RuleEntry<JsdocRequireDescription>
@@ -1270,7 +1290,7 @@ export interface RuleOptions {
 	 */
 	'jsdoc/require-description-complete-sentence'?: Linter.RuleEntry<JsdocRequireDescriptionCompleteSentence>
 	/**
-	 * Requires that all functions have examples.
+	 * Requires that all functions (and potentially other contexts) have examples.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-example.md#repos-sticky-header
 	 */
 	'jsdoc/require-example'?: Linter.RuleEntry<JsdocRequireExample>
@@ -1280,17 +1300,27 @@ export interface RuleOptions {
 	 */
 	'jsdoc/require-file-overview'?: Linter.RuleEntry<JsdocRequireFileOverview>
 	/**
-	 * Requires a hyphen before the `@param` description.
+	 * Requires a hyphen before the `@param` description (and optionally before `@property` descriptions).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-hyphen-before-param-description.md#repos-sticky-header
 	 */
 	'jsdoc/require-hyphen-before-param-description'?: Linter.RuleEntry<JsdocRequireHyphenBeforeParamDescription>
 	/**
-	 * Require JSDoc comments
+	 * Checks for presence of JSDoc comments, on functions and potentially other contexts (optionally limited to exports).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-jsdoc.md#repos-sticky-header
 	 */
 	'jsdoc/require-jsdoc'?: Linter.RuleEntry<JsdocRequireJsdoc>
 	/**
-	 * Requires that all function parameters are documented.
+	 * Requires a description for `@next` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-next-description.md#repos-sticky-header
+	 */
+	'jsdoc/require-next-description'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires a type for `@next` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-next-type.md#repos-sticky-header
+	 */
+	'jsdoc/require-next-type'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires that all function parameters are documented with a `@param` tag.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-param.md#repos-sticky-header
 	 */
 	'jsdoc/require-param'?: Linter.RuleEntry<JsdocRequireParam>
@@ -1300,12 +1330,12 @@ export interface RuleOptions {
 	 */
 	'jsdoc/require-param-description'?: Linter.RuleEntry<JsdocRequireParamDescription>
 	/**
-	 * Requires that all function parameters have names.
+	 * Requires that all `@param` tags have names.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-param-name.md#repos-sticky-header
 	 */
 	'jsdoc/require-param-name'?: Linter.RuleEntry<JsdocRequireParamName>
 	/**
-	 * Requires that each `@param` tag has a `type` value.
+	 * Requires that each `@param` tag has a type value (in curly brackets).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-param-type.md#repos-sticky-header
 	 */
 	'jsdoc/require-param-type'?: Linter.RuleEntry<JsdocRequireParamType>
@@ -1320,62 +1350,92 @@ export interface RuleOptions {
 	 */
 	'jsdoc/require-property-description'?: Linter.RuleEntry<[]>
 	/**
-	 * Requires that all function `@property` tags have names.
+	 * Requires that all `@property` tags have names.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-property-name.md#repos-sticky-header
 	 */
 	'jsdoc/require-property-name'?: Linter.RuleEntry<[]>
 	/**
-	 * Requires that each `@property` tag has a `type` value.
+	 * Requires that each `@property` tag has a type value (in curly brackets).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-property-type.md#repos-sticky-header
 	 */
 	'jsdoc/require-property-type'?: Linter.RuleEntry<[]>
 	/**
-	 * Requires that returns are documented.
+	 * Requires that returns are documented with `@returns`.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-returns.md#repos-sticky-header
 	 */
 	'jsdoc/require-returns'?: Linter.RuleEntry<JsdocRequireReturns>
 	/**
-	 * Requires a return statement in function body if a `@returns` tag is specified in jsdoc comment.
+	 * Requires a return statement in function body if a `@returns` tag is specified in JSDoc comment(and reports if multiple `@returns` tags are present).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-returns-check.md#repos-sticky-header
 	 */
 	'jsdoc/require-returns-check'?: Linter.RuleEntry<JsdocRequireReturnsCheck>
 	/**
-	 * Requires that the `@returns` tag has a `description` value.
+	 * Requires that the `@returns` tag has a `description` value (not including `void`/`undefined` type returns).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-returns-description.md#repos-sticky-header
 	 */
 	'jsdoc/require-returns-description'?: Linter.RuleEntry<JsdocRequireReturnsDescription>
 	/**
-	 * Requires that `@returns` tag has `type` value.
+	 * Requires that `@returns` tag has type value (in curly brackets).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-returns-type.md#repos-sticky-header
 	 */
 	'jsdoc/require-returns-type'?: Linter.RuleEntry<JsdocRequireReturnsType>
 	/**
-	 * Requires template tags for each generic type parameter
+	 * Requires tags be present, optionally for specific contexts
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-tags.md#repos-sticky-header
+	 */
+	'jsdoc/require-tags'?: Linter.RuleEntry<JsdocRequireTags>
+	/**
+	 * Requires `@template` tags be present when type parameters are used.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-template.md#repos-sticky-header
 	 */
 	'jsdoc/require-template'?: Linter.RuleEntry<JsdocRequireTemplate>
 	/**
-	 * Requires that throw statements are documented.
+	 * Requires a description for `@template` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-template-description.md#repos-sticky-header
+	 */
+	'jsdoc/require-template-description'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires that throw statements are documented with `@throws` tags.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-throws.md#repos-sticky-header
 	 */
 	'jsdoc/require-throws'?: Linter.RuleEntry<JsdocRequireThrows>
 	/**
-	 * Requires yields are documented.
+	 * Requires a description for `@throws` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-throws-description.md#repos-sticky-header
+	 */
+	'jsdoc/require-throws-description'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires a type for `@throws` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-throws-type.md#repos-sticky-header
+	 */
+	'jsdoc/require-throws-type'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires yields are documented with `@yields` tags.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-yields.md#repos-sticky-header
 	 */
 	'jsdoc/require-yields'?: Linter.RuleEntry<JsdocRequireYields>
 	/**
-	 * Requires a yield statement in function body if a `@yields` tag is specified in jsdoc comment.
+	 * Ensures that if a `@yields` is present that a `yield` (or `yield` with a value) is present in the function body (or that if a `@next` is present that there is a yield with a return value present).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-yields-check.md#repos-sticky-header
 	 */
 	'jsdoc/require-yields-check'?: Linter.RuleEntry<JsdocRequireYieldsCheck>
 	/**
-	 * Sorts tags by a specified sequence according to tag name.
+	 * Requires a description for `@yields` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-yields-description.md#repos-sticky-header
+	 */
+	'jsdoc/require-yields-description'?: Linter.RuleEntry<[]>
+	/**
+	 * Requires a type for `@yields` tags
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-yields-type.md#repos-sticky-header
+	 */
+	'jsdoc/require-yields-type'?: Linter.RuleEntry<[]>
+	/**
+	 * Sorts tags by a specified sequence according to tag name, optionally adding line breaks between tag groups.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/sort-tags.md#repos-sticky-header
 	 */
 	'jsdoc/sort-tags'?: Linter.RuleEntry<JsdocSortTags>
 	/**
-	 * Enforces lines (or no lines) between tags.
+	 * Enforces lines (or no lines) before, after, or between tags.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/tag-lines.md#repos-sticky-header
 	 */
 	'jsdoc/tag-lines'?: Linter.RuleEntry<JsdocTagLines>
@@ -1385,7 +1445,12 @@ export interface RuleOptions {
 	 */
 	'jsdoc/text-escaping'?: Linter.RuleEntry<JsdocTextEscaping>
 	/**
-	 * Requires all types to be valid JSDoc or Closure compiler types without syntax errors.
+	 * Formats JSDoc type values.
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/type-formatting.md#repos-sticky-header
+	 */
+	'jsdoc/type-formatting'?: Linter.RuleEntry<JsdocTypeFormatting>
+	/**
+	 * Requires all types/namepaths to be valid JSDoc, Closure compiler, or TypeScript types (configurable in settings).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/valid-types.md#repos-sticky-header
 	 */
 	'jsdoc/valid-types'?: Linter.RuleEntry<JsdocValidTypes>
@@ -3031,12 +3096,12 @@ export interface RuleOptions {
 	 */
 	'node/no-hide-core-modules'?: Linter.RuleEntry<NodeNoHideCoreModules>
 	/**
-	 * disallow `import` declarations which import non-existence modules
+	 * disallow `import` declarations which import missing modules
 	 * @see https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/no-missing-import.md
 	 */
 	'node/no-missing-import'?: Linter.RuleEntry<NodeNoMissingImport>
 	/**
-	 * disallow `require()` expressions which import non-existence modules
+	 * disallow `require()` expressions which import missing modules
 	 * @see https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/no-missing-require.md
 	 */
 	'node/no-missing-require'?: Linter.RuleEntry<NodeNoMissingRequire>
@@ -3458,16 +3523,6 @@ export interface RuleOptions {
 	 */
 	'react-debug/jsx'?: Linter.RuleEntry<[]>
 	/**
-	 * Reports all React Hooks.
-	 * @see https://eslint-react.xyz/docs/rules/debug-hook
-	 */
-	'react-debug/react-hooks'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow `children` in void DOM elements.
-	 * @see https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children
-	 */
-	'react-dom/no-children-in-void-dom-elements'?: Linter.RuleEntry<[]>
-	/**
 	 * Disallow `dangerouslySetInnerHTML`.
 	 * @see https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml
 	 */
@@ -3523,6 +3578,11 @@ export interface RuleOptions {
 	 */
 	'react-dom/no-script-url'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallows the use of string style prop.
+	 * @see https://eslint-react.xyz/docs/rules/dom-no-string-style-prop
+	 */
+	'react-dom/no-string-style-prop'?: Linter.RuleEntry<[]>
+	/**
 	 * Disallow unknown `DOM` property.
 	 * @see https://eslint-react.xyz/docs/rules/dom-no-unknown-property
 	 */
@@ -3548,60 +3608,10 @@ export interface RuleOptions {
 	 */
 	'react-dom/no-void-elements-with-children'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces that a function with the `use` prefix should use at least one Hook inside of it.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-prefix
-	 */
-	'react-hooks-extra/ensure-custom-hooks-using-other-hooks'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow unnecessary usage of `useCallback`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-callback
-	 */
-	'react-hooks-extra/ensure-use-callback-has-non-empty-deps'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow unnecessary usage of `useMemo`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-memo
-	 */
-	'react-hooks-extra/ensure-use-memo-has-non-empty-deps'?: Linter.RuleEntry<[]>
-	/**
 	 * Disallow direct calls to the `set` function of `useState` in `useEffect`.
 	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect
 	 */
 	'react-hooks-extra/no-direct-set-state-in-use-effect'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-layout-effect
-	 */
-	'react-hooks-extra/no-direct-set-state-in-use-layout-effect'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces that a function with the `use` prefix should use at least one Hook inside of it.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-prefix
-	 */
-	'react-hooks-extra/no-redundant-custom-hook'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow unnecessary usage of `useCallback`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-callback
-	 */
-	'react-hooks-extra/no-unnecessary-use-callback'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow unnecessary usage of `useMemo`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-memo
-	 */
-	'react-hooks-extra/no-unnecessary-use-memo'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces that a function with the `use` prefix should use at least one Hook inside of it.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-prefix
-	 */
-	'react-hooks-extra/no-unnecessary-use-prefix'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces that a function with the `use` prefix should use at least one Hook inside of it.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-unnecessary-use-prefix
-	 */
-	'react-hooks-extra/no-useless-custom-hooks'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces function calls made inside `useState` to be wrapped in an `initializer function`.
-	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-prefer-use-state-lazy-initialization
-	 */
-	'react-hooks-extra/prefer-use-state-lazy-initialization'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforces naming conventions for components.
 	 * @see https://eslint-react.xyz/docs/rules/naming-convention-component-name
@@ -3648,25 +3658,15 @@ export interface RuleOptions {
 	 */
 	'react-web-api/no-leaked-timeout'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces explicit boolean values for boolean attributes.
-	 * @see https://eslint-react.xyz/docs/rules/avoid-shorthand-boolean
-	 */
-	'react/avoid-shorthand-boolean'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.
-	 * @see https://eslint-react.xyz/docs/rules/avoid-shorthand-fragment
-	 */
-	'react/avoid-shorthand-fragment'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow useless `forwardRef` calls on components that don't use `ref`s.
-	 * @see https://eslint-react.xyz/docs/rules/no-useless-forward-ref
-	 */
-	'react/ensure-forward-ref-using-ref'?: Linter.RuleEntry<[]>
-	/**
 	 * Enforces that the 'key' attribute is placed before the spread attribute in JSX elements.
 	 * @see https://eslint-react.xyz/docs/rules/jsx-key-before-spread
 	 */
 	'react/jsx-key-before-spread'?: Linter.RuleEntry<[]>
+	/**
+	 * Prevents comments from being inserted as text nodes.
+	 * @see https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes
+	 */
+	'react/jsx-no-comment-textnodes'?: Linter.RuleEntry<[]>
 	/**
 	 * Disallow duplicate props in JSX elements.
 	 * @see https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props
@@ -3682,6 +3682,16 @@ export interface RuleOptions {
 	 * @see https://eslint-react.xyz/docs/rules/jsx-no-undef
 	 */
 	'react/jsx-no-undef'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforces shorthand syntax for boolean attributes.
+	 * @see https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean
+	 */
+	'react/jsx-shorthand-boolean'?: Linter.RuleEntry<ReactJsxShorthandBoolean>
+	/**
+	 * Enforces shorthand syntax for fragments.
+	 * @see https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment
+	 */
+	'react/jsx-shorthand-fragment'?: Linter.RuleEntry<ReactJsxShorthandFragment>
 	/**
 	 * Marks React variables as used when JSX is used.
 	 * @see https://eslint-react.xyz/docs/rules/jsx-uses-react
@@ -3743,21 +3753,6 @@ export interface RuleOptions {
 	 */
 	'react/no-clone-element'?: Linter.RuleEntry<[]>
 	/**
-	 * Prevents comments from being inserted as text nodes.
-	 * @see https://eslint-react.xyz/docs/rules/no-comment-textnodes
-	 */
-	'react/no-comment-textnodes'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow complex conditional rendering in JSX expressions.
-	 * @see https://eslint-react.xyz/docs/rules/no-complex-conditional-rendering
-	 */
-	'react/no-complex-conditional-rendering'?: Linter.RuleEntry<[]>
-	/**
-	 * Disallow complex conditional rendering in JSX expressions.
-	 * @see https://eslint-react.xyz/docs/rules/no-complex-conditional-rendering
-	 */
-	'react/no-complicated-conditional-rendering'?: Linter.RuleEntry<[]>
-	/**
 	 * Replace usages of `componentWillMount` with `UNSAFE_componentWillMount`.
 	 * @see https://eslint-react.xyz/docs/rules/no-component-will-mount
 	 */
@@ -3793,15 +3788,15 @@ export interface RuleOptions {
 	 */
 	'react/no-direct-mutation-state'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallow duplicate props in JSX elements.
-	 * @see https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props
-	 */
-	'react/no-duplicate-jsx-props'?: Linter.RuleEntry<[]>
-	/**
 	 * Disallow duplicate `key` on elements in the same array or a list of `children`.
 	 * @see https://eslint-react.xyz/docs/rules/no-duplicate-key
 	 */
 	'react/no-duplicate-key'?: Linter.RuleEntry<[]>
+	/**
+	 * Disallow certain props on components.
+	 * @see https://eslint-react.xyz/docs/rules/no-forbidden-props
+	 */
+	'react/no-forbidden-props'?: Linter.RuleEntry<ReactNoForbiddenProps>
 	/**
 	 * Replaces usages of `forwardRef` with passing `ref` as a prop.
 	 * @see https://eslint-react.xyz/docs/rules/no-forward-ref
@@ -3843,11 +3838,6 @@ export interface RuleOptions {
 	 */
 	'react/no-nested-component-definitions'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallow nesting component definitions inside other components.
-	 * @see https://eslint-react.xyz/docs/rules/no-nested-component-definitions
-	 */
-	'react/no-nested-components'?: Linter.RuleEntry<[]>
-	/**
 	 * Disallow nesting lazy component declarations inside other components.
 	 * @see https://eslint-react.xyz/docs/rules/no-nested-lazy-component-declarations
 	 */
@@ -3883,6 +3873,26 @@ export interface RuleOptions {
 	 */
 	'react/no-string-refs'?: Linter.RuleEntry<[]>
 	/**
+	 * Prevents the use of unnecessary `key` props on JSX elements when rendering lists.
+	 * @see https://eslint-react.xyz/docs/rules/no-unnecessary-key
+	 */
+	'react/no-unnecessary-key'?: Linter.RuleEntry<[]>
+	/**
+	 * Disallow unnecessary usage of `useCallback`.
+	 * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback
+	 */
+	'react/no-unnecessary-use-callback'?: Linter.RuleEntry<[]>
+	/**
+	 * Disallow unnecessary usage of `useMemo`.
+	 * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo
+	 */
+	'react/no-unnecessary-use-memo'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforces that a function with the `use` prefix should use at least one Hook inside of it.
+	 * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
+	 */
+	'react/no-unnecessary-use-prefix'?: Linter.RuleEntry<[]>
+	/**
 	 * Warns the usage of `UNSAFE_componentWillMount` in class components.
 	 * @see https://eslint-react.xyz/docs/rules/no-unsafe-component-will-mount
 	 */
@@ -3913,6 +3923,11 @@ export interface RuleOptions {
 	 */
 	'react/no-unused-class-component-members'?: Linter.RuleEntry<[]>
 	/**
+	 * Warns about unused component prop declarations.
+	 * @see https://eslint-react.xyz/docs/rules/no-unused-props
+	 */
+	'react/no-unused-props'?: Linter.RuleEntry<[]>
+	/**
 	 * Warns unused class component state.
 	 * @see https://eslint-react.xyz/docs/rules/no-unused-state
 	 */
@@ -3939,29 +3954,19 @@ export interface RuleOptions {
 	'react/prefer-destructuring-assignment'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforces React is imported via a namespace import.
-	 * @see https://eslint-react.xyz/docs/rules/prefer-react-namespace-import
+	 * @see https://eslint-react.xyz/docs/rules/prefer-namespace-import
 	 */
-	'react/prefer-react-namespace-import'?: Linter.RuleEntry<[]>
+	'react/prefer-namespace-import'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforces read-only props in components.
 	 * @see https://eslint-react.xyz/docs/rules/prefer-read-only-props
 	 */
 	'react/prefer-read-only-props'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces shorthand syntax for boolean attributes.
-	 * @see https://eslint-react.xyz/docs/rules/prefer-shorthand-boolean
+	 * Enforces function calls made inside `useState` to be wrapped in an `initializer function`.
+	 * @see https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization
 	 */
-	'react/prefer-shorthand-boolean'?: Linter.RuleEntry<[]>
-	/**
-	 * Enforces shorthand syntax for fragments.
-	 * @see https://eslint-react.xyz/docs/rules/prefer-shorthand-fragment
-	 */
-	'react/prefer-shorthand-fragment'?: Linter.RuleEntry<[]>
-	/**
-	 * Marks variables used in JSX elements as used.
-	 * @see https://eslint-react.xyz/docs/rules/jsx-uses-vars
-	 */
-	'react/use-jsx-vars'?: Linter.RuleEntry<[]>
+	'react/prefer-use-state-lazy-initialization'?: Linter.RuleEntry<[]>
 	/**
 	 * disallow confusing quantifiers
 	 * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/confusing-quantifier.html
@@ -7864,6 +7869,11 @@ type HtmlNoRestrictedAttrs = {
 	attrPatterns: string[]
 	message?: string
 }[]
+// ----- html/no-restricted-tags -----
+type HtmlNoRestrictedTags = {
+	tagPatterns: string[]
+	message?: string
+}[]
 // ----- html/quotes -----
 type HtmlQuotes =
 	| []
@@ -8508,14 +8518,22 @@ type JsdocCheckLineAlignment =
 			{
 				customSpacings?: {
 					postDelimiter?: number
+
 					postHyphen?: number
+
 					postName?: number
+
 					postTag?: number
+
 					postType?: number
 				}
+
 				disableWrapIndent?: boolean
+
 				preserveMainDescriptionPostDelimiter?: boolean
+
 				tags?: string[]
+
 				wrapIndent?: string
 			},
 	  ]
@@ -8525,12 +8543,19 @@ type JsdocCheckParamNames =
 	| [
 			{
 				allowExtraTrailingParamDocs?: boolean
+
 				checkDestructured?: boolean
+
 				checkRestProperty?: boolean
+
 				checkTypesPattern?: string
+
 				disableExtraPropertyReporting?: boolean
+
 				disableMissingParamChecks?: boolean
+
 				enableFixer?: boolean
+
 				useDefaultObjectProperties?: boolean
 			},
 	  ]
@@ -8548,8 +8573,13 @@ type JsdocCheckTagNames =
 	| [
 			{
 				definedTags?: string[]
+
 				enableFixer?: boolean
+
+				inlineTags?: string[]
+
 				jsxTags?: boolean
+
 				typed?: boolean
 			},
 	  ]
@@ -8560,9 +8590,12 @@ type JsdocCheckTypes =
 			{
 				exemptTagContexts?: {
 					tag?: string
+
 					types?: boolean | string[]
 				}[]
+
 				noDefaults?: boolean
+
 				unifyParentAndChildTypeChecks?: boolean
 			},
 	  ]
@@ -8572,8 +8605,11 @@ type JsdocCheckValues =
 	| [
 			{
 				allowedAuthors?: string[]
+
 				allowedLicenses?: string[] | boolean
+
 				licensePattern?: string
+
 				numericOnlyVariation?: boolean
 			},
 	  ]
@@ -8583,6 +8619,7 @@ type JsdocConvertToJsdocComments =
 	| [
 			{
 				allowedPrefixes?: string[]
+
 				contexts?: (
 					| string
 					| {
@@ -8590,6 +8627,7 @@ type JsdocConvertToJsdocComments =
 							inlineCommentBlock?: boolean
 					  }
 				)[]
+
 				contextsAfter?: (
 					| string
 					| {
@@ -8597,6 +8635,7 @@ type JsdocConvertToJsdocComments =
 							inlineCommentBlock?: boolean
 					  }
 				)[]
+
 				contextsBeforeAndAfter?: (
 					| string
 					| {
@@ -8604,8 +8643,11 @@ type JsdocConvertToJsdocComments =
 							inlineCommentBlock?: boolean
 					  }
 				)[]
+
 				enableFixer?: boolean
+
 				enforceJsdocLineStyle?: 'multi' | 'single'
+
 				lineOrBlockStyle?: 'block' | 'line' | 'both'
 			},
 	  ]
@@ -8639,7 +8681,9 @@ type JsdocInformativeDocs =
 				aliases?: {
 					[k: string]: string[]
 				}
+
 				excludedTags?: string[]
+
 				uselessWords?: string[]
 			},
 	  ]
@@ -8649,9 +8693,13 @@ type JsdocLinesBeforeBlock =
 	| [
 			{
 				checkBlockStarts?: boolean
+
 				excludedTags?: string[]
+
 				ignoreSameLine?: boolean
+
 				ignoreSingleLines?: boolean
+
 				lines?: number
 			},
 	  ]
@@ -8667,6 +8715,7 @@ type JsdocMatchDescription =
 							context?: string
 					  }
 				)[]
+
 				mainDescription?:
 					| string
 					| boolean
@@ -8674,9 +8723,13 @@ type JsdocMatchDescription =
 							match?: string | boolean
 							message?: string
 					  }
+
 				matchDescription?: string
+
 				message?: string
+
 				nonemptyTags?: boolean
+
 				tags?: {
 					[k: string]:
 						| string
@@ -8695,11 +8748,17 @@ type JsdocMatchName =
 			{
 				match: {
 					allowName?: string
+
 					comment?: string
+
 					context?: string
+
 					disallowName?: string
+
 					message?: string
+
 					replacement?: string
+
 					tags?: string[]
 				}[]
 			},
@@ -8710,13 +8769,21 @@ type JsdocMultilineBlocks =
 	| [
 			{
 				allowMultipleTags?: boolean
+
 				minimumLengthForMultiline?: number
+
 				multilineTags?: '*' | string[]
+
 				noFinalLineText?: boolean
+
 				noMultilineBlocks?: boolean
+
 				noSingleLineBlocks?: boolean
+
 				noZeroLineText?: boolean
+
 				requireSingleLineUnderCount?: number
+
 				singleLineTags?: string[]
 			},
 	  ]
@@ -8726,6 +8793,7 @@ type JsdocNoBadBlocks =
 	| [
 			{
 				ignore?: string[]
+
 				preventAllMultiAsteriskBlocks?: boolean
 			},
 	  ]
@@ -8749,6 +8817,7 @@ type JsdocNoDefaults =
 							context?: string
 					  }
 				)[]
+
 				noOptionalParamNames?: boolean
 			},
 	  ]
@@ -8774,7 +8843,9 @@ type JsdocNoMultiAsterisks =
 	| [
 			{
 				allowWhitespace?: boolean
+
 				preventAtEnd?: boolean
+
 				preventAtMiddleLines?: boolean
 			},
 	  ]
@@ -8812,9 +8883,25 @@ type JsdocNoUndefinedTypes =
 	| []
 	| [
 			{
+				checkUsedTypedefs?: boolean
+
 				definedTypes?: string[]
+
 				disableReporting?: boolean
+
 				markVariablesAsUsed?: boolean
+			},
+	  ]
+// ----- jsdoc/prefer-import-tag -----
+type JsdocPreferImportTag =
+	| []
+	| [
+			{
+				enableFixer?: boolean
+
+				exemptTypedefs?: boolean
+
+				outputType?: 'named-import' | 'namespaced-import'
 			},
 	  ]
 // ----- jsdoc/require-asterisk-prefix -----
@@ -8826,7 +8913,9 @@ type JsdocRequireAsteriskPrefix =
 			{
 				tags?: {
 					always?: string[]
+
 					any?: string[]
+
 					never?: string[]
 				}
 			},
@@ -8837,8 +8926,11 @@ type JsdocRequireDescription =
 	| [
 			{
 				checkConstructors?: boolean
+
 				checkGetters?: boolean
+
 				checkSetters?: boolean
+
 				contexts?: (
 					| string
 					| {
@@ -8846,7 +8938,9 @@ type JsdocRequireDescription =
 							context?: string
 					  }
 				)[]
+
 				descriptionStyle?: 'body' | 'tag' | 'any'
+
 				exemptedBy?: string[]
 			},
 	  ]
@@ -8856,7 +8950,9 @@ type JsdocRequireDescriptionCompleteSentence =
 	| [
 			{
 				abbreviations?: string[]
+
 				newlineBeforeCapsAssumesBadSentenceEnd?: boolean
+
 				tags?: string[]
 			},
 	  ]
@@ -8866,8 +8962,11 @@ type JsdocRequireExample =
 	| [
 			{
 				checkConstructors?: boolean
+
 				checkGetters?: boolean
+
 				checkSetters?: boolean
+
 				contexts?: (
 					| string
 					| {
@@ -8875,8 +8974,11 @@ type JsdocRequireExample =
 							context?: string
 					  }
 				)[]
+
 				enableFixer?: boolean
+
 				exemptedBy?: string[]
+
 				exemptNoArguments?: boolean
 			},
 	  ]
@@ -8914,8 +9016,11 @@ type JsdocRequireJsdoc =
 	| [
 			{
 				checkConstructors?: boolean
+
 				checkGetters?: boolean | 'no-setter'
+
 				checkSetters?: boolean | 'no-getter'
+
 				contexts?: (
 					| string
 					| {
@@ -8924,12 +9029,19 @@ type JsdocRequireJsdoc =
 							minLineCount?: number
 					  }
 				)[]
+
 				enableFixer?: boolean
+
 				exemptEmptyConstructors?: boolean
+
 				exemptEmptyFunctions?: boolean
+
 				exemptOverloadedImplementations?: boolean
+
 				fixerMessage?: string
+
 				minLineCount?: number
+
 				publicOnly?:
 					| boolean
 					| {
@@ -8938,14 +9050,21 @@ type JsdocRequireJsdoc =
 							esm?: boolean
 							window?: boolean
 					  }
+
 				require?: {
 					ArrowFunctionExpression?: boolean
+
 					ClassDeclaration?: boolean
+
 					ClassExpression?: boolean
+
 					FunctionDeclaration?: boolean
+
 					FunctionExpression?: boolean
+
 					MethodDefinition?: boolean
 				}
+
 				skipInterveningOverloadedDeclarations?: boolean
 			},
 	  ]
@@ -8955,13 +9074,21 @@ type JsdocRequireParam =
 	| [
 			{
 				autoIncrementBase?: number
+
 				checkConstructors?: boolean
+
 				checkDestructured?: boolean
+
 				checkDestructuredRoots?: boolean
+
 				checkGetters?: boolean
+
 				checkRestProperty?: boolean
+
 				checkSetters?: boolean
+
 				checkTypesPattern?: string
+
 				contexts?: (
 					| string
 					| {
@@ -8969,12 +9096,21 @@ type JsdocRequireParam =
 							context?: string
 					  }
 				)[]
+
 				enableFixer?: boolean
+
 				enableRestElementFixer?: boolean
+
 				enableRootFixer?: boolean
+
 				exemptedBy?: string[]
+
 				ignoreWhenAllParamsMissing?: boolean
+
+				interfaceExemptsParamsCheck?: boolean
+
 				unnamedRootBase?: string[]
+
 				useDefaultObjectProperties?: boolean
 			},
 	  ]
@@ -8990,7 +9126,9 @@ type JsdocRequireParamDescription =
 							context?: string
 					  }
 				)[]
+
 				defaultDestructuredRootDescription?: string
+
 				setDefaultDestructuredRootDescription?: boolean
 			},
 	  ]
@@ -9020,7 +9158,9 @@ type JsdocRequireParamType =
 							context?: string
 					  }
 				)[]
+
 				defaultDestructuredRootType?: string
+
 				setDefaultDestructuredRootType?: boolean
 			},
 	  ]
@@ -9030,7 +9170,9 @@ type JsdocRequireReturns =
 	| [
 			{
 				checkConstructors?: boolean
+
 				checkGetters?: boolean
+
 				contexts?: (
 					| string
 					| {
@@ -9039,10 +9181,15 @@ type JsdocRequireReturns =
 							forceRequireReturn?: boolean
 					  }
 				)[]
+
 				enableFixer?: boolean
+
 				exemptedBy?: string[]
+
 				forceRequireReturn?: boolean
+
 				forceReturnsWithAsync?: boolean
+
 				publicOnly?:
 					| boolean
 					| {
@@ -9059,7 +9206,9 @@ type JsdocRequireReturnsCheck =
 	| [
 			{
 				exemptAsync?: boolean
+
 				exemptGenerators?: boolean
+
 				reportMissingReturnForUndefinedTypes?: boolean
 			},
 	  ]
@@ -9091,12 +9240,28 @@ type JsdocRequireReturnsType =
 				)[]
 			},
 	  ]
+// ----- jsdoc/require-tags -----
+type JsdocRequireTags =
+	| []
+	| [
+			{
+				tags?: (
+					| string
+					| {
+							context?: string
+							tag?: string
+							[k: string]: unknown | undefined
+					  }
+				)[]
+			},
+	  ]
 // ----- jsdoc/require-template -----
 type JsdocRequireTemplate =
 	| []
 	| [
 			{
 				exemptedBy?: string[]
+
 				requireSeparateTemplates?: boolean
 			},
 	  ]
@@ -9112,6 +9277,7 @@ type JsdocRequireThrows =
 							context?: string
 					  }
 				)[]
+
 				exemptedBy?: string[]
 			},
 	  ]
@@ -9127,11 +9293,17 @@ type JsdocRequireYields =
 							context?: string
 					  }
 				)[]
+
 				exemptedBy?: string[]
+
 				forceRequireNext?: boolean
+
 				forceRequireYields?: boolean
+
 				next?: boolean
+
 				nextWithGeneratorTag?: boolean
+
 				withGeneratorTag?: boolean
 			},
 	  ]
@@ -9141,6 +9313,7 @@ type JsdocRequireYieldsCheck =
 	| [
 			{
 				checkGeneratorsOnly?: boolean
+
 				contexts?: (
 					| string
 					| {
@@ -9148,7 +9321,7 @@ type JsdocRequireYieldsCheck =
 							context?: string
 					  }
 				)[]
-				exemptedBy?: string[]
+
 				next?: boolean
 			},
 	  ]
@@ -9158,9 +9331,13 @@ type JsdocSortTags =
 	| [
 			{
 				alphabetizeExtras?: boolean
+
 				linesBetween?: number
+
 				reportIntraTagGroupSpacing?: boolean
+
 				reportTagGroupSpacing?: boolean
+
 				tagSequence?: {
 					tags?: string[]
 				}[]
@@ -9174,9 +9351,15 @@ type JsdocTagLines =
 			'always' | 'any' | 'never',
 			{
 				applyToEndTag?: boolean
+
 				count?: number
+
 				endLines?: number | null
+
+				maxBlockLines?: number | null
+
 				startLines?: number | null
+
 				tags?: {
 					[k: string]: {
 						count?: number
@@ -9191,7 +9374,43 @@ type JsdocTextEscaping =
 	| [
 			{
 				escapeHTML?: boolean
+
 				escapeMarkdown?: boolean
+			},
+	  ]
+// ----- jsdoc/type-formatting -----
+type JsdocTypeFormatting =
+	| []
+	| [
+			{
+				arrayBrackets?: 'angle' | 'square'
+
+				enableFixer?: boolean
+
+				genericDot?: boolean
+
+				objectFieldIndent?: string
+
+				objectFieldQuote?: 'double' | 'single' | null
+
+				objectFieldSeparator?:
+					| 'comma'
+					| 'comma-and-linebreak'
+					| 'linebreak'
+					| 'semicolon'
+					| 'semicolon-and-linebreak'
+
+				objectFieldSeparatorOptionalLinebreak?: boolean
+
+				objectFieldSeparatorTrailingPunctuation?: boolean
+
+				separatorForSingleObjectField?: boolean
+
+				stringQuotes?: 'double' | 'single'
+
+				typeBracketSpacing?: string
+
+				unionSpacing?: string
 			},
 	  ]
 // ----- jsdoc/valid-types -----
@@ -11780,6 +11999,7 @@ type NodeNoDeprecatedApi =
 					| 'repl.REPLServer'
 					| 'repl.Recoverable'
 					| 'repl.REPL_MODE_MAGIC'
+					| 'repl.builtinModules'
 					| 'safe-buffer.Buffer()'
 					| 'new safe-buffer.Buffer()'
 					| 'safe-buffer.SlowBuffer'
@@ -13227,6 +13447,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.env'
 					| 'process.execArgv'
 					| 'process.execPath'
+					| 'process.execve'
 					| 'process.exitCode'
 					| 'process.features.cached_builtins'
 					| 'process.features.debug'
@@ -13249,6 +13470,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.pid'
 					| 'process.platform'
 					| 'process.ppid'
+					| 'process.ref'
 					| 'process.release'
 					| 'process.report'
 					| 'process.report.excludeEnv'
@@ -13279,6 +13501,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.stderr.isTTY'
 					| 'process.stderr.moveCursor'
 					| 'process.stderr.rows'
+					| 'process.threadCpuUsage'
 					| 'process.throwDeprecation'
 					| 'process.title'
 					| 'process.traceDeprecation'
@@ -13318,6 +13541,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.setSourceMapsEnabled'
 					| 'process.setUncaughtExceptionCaptureCallback'
 					| 'process.umask'
+					| 'process.unref'
 					| 'process.uptime'
 					| 'ReadableStream'
 					| 'ReadableStream.from'
@@ -13354,6 +13578,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'MessageChannel'
 					| 'MessagePort'
 					| 'assert'
+					| 'assert.Assert'
 					| 'assert.assert'
 					| 'assert.deepEqual'
 					| 'assert.deepStrictEqual'
@@ -13369,11 +13594,13 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'assert.notEqual'
 					| 'assert.notStrictEqual'
 					| 'assert.ok'
+					| 'assert.partialDeepStrictEqual'
 					| 'assert.rejects'
 					| 'assert.strictEqual'
 					| 'assert.throws'
 					| 'assert.CallTracker'
 					| 'assert.strict'
+					| 'assert.strict.Assert'
 					| 'assert.strict.assert'
 					| 'assert.strict.deepEqual'
 					| 'assert.strict.deepStrictEqual'
@@ -13389,11 +13616,13 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'assert.strict.notEqual'
 					| 'assert.strict.notStrictEqual'
 					| 'assert.strict.ok'
+					| 'assert.strict.partialDeepStrictEqual'
 					| 'assert.strict.rejects'
 					| 'assert.strict.strictEqual'
 					| 'assert.strict.throws'
 					| 'assert.strict.CallTracker'
 					| 'assert/strict'
+					| 'assert/strict.Assert'
 					| 'assert/strict.assert'
 					| 'assert/strict.deepEqual'
 					| 'assert/strict.deepStrictEqual'
@@ -13409,6 +13638,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'assert/strict.notEqual'
 					| 'assert/strict.notStrictEqual'
 					| 'assert/strict.ok'
+					| 'assert/strict.partialDeepStrictEqual'
 					| 'assert/strict.rejects'
 					| 'assert/strict.strictEqual'
 					| 'assert/strict.throws'
@@ -13588,6 +13818,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'dns.resolvePtr'
 					| 'dns.resolveSoa'
 					| 'dns.resolveSrv'
+					| 'dns.resolveTlsa'
 					| 'dns.resolveTxt'
 					| 'dns.reverse'
 					| 'dns.setDefaultResultOrder'
@@ -13611,6 +13842,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'dns.promises.resolvePtr'
 					| 'dns.promises.resolveSoa'
 					| 'dns.promises.resolveSrv'
+					| 'dns.promises.resolveTlsa'
 					| 'dns.promises.resolveTxt'
 					| 'dns.promises.reverse'
 					| 'dns.promises.setDefaultResultOrder'
@@ -13634,6 +13866,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'dns/promises.resolvePtr'
 					| 'dns/promises.resolveSoa'
 					| 'dns/promises.resolveSrv'
+					| 'dns/promises.resolveTlsa'
 					| 'dns/promises.resolveTxt'
 					| 'dns/promises.reverse'
 					| 'dns/promises.setDefaultResultOrder'
@@ -13896,6 +14129,12 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'http.IncomingMessage'
 					| 'http.OutgoingMessage'
 					| 'http.WebSocket'
+					| '_http_agent'
+					| '_http_client'
+					| '_http_common'
+					| '_http_incoming'
+					| '_http_outgoing'
+					| '_http_server'
 					| 'https'
 					| 'https.globalAgent'
 					| 'https.createServer'
@@ -13905,10 +14144,13 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'https.Server'
 					| 'inspector'
 					| 'inspector.Session'
+					| 'inspector.Network.dataReceived'
+					| 'inspector.Network.dataSent'
 					| 'inspector.Network.loadingFailed'
 					| 'inspector.Network.loadingFinished'
 					| 'inspector.Network.requestWillBeSent'
 					| 'inspector.Network.responseReceived'
+					| 'inspector.NetworkResources.put'
 					| 'inspector.console'
 					| 'inspector.close'
 					| 'inspector.open'
@@ -13916,10 +14158,13 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'inspector.waitForDebugger'
 					| 'inspector/promises'
 					| 'inspector/promises.Session'
+					| 'inspector/promises.Network.dataReceived'
+					| 'inspector/promises.Network.dataSent'
 					| 'inspector/promises.Network.loadingFailed'
 					| 'inspector/promises.Network.loadingFinished'
 					| 'inspector/promises.Network.requestWillBeSent'
 					| 'inspector/promises.Network.responseReceived'
+					| 'inspector/promises.NetworkResources.put'
 					| 'inspector/promises.console'
 					| 'inspector/promises.close'
 					| 'inspector/promises.open'
@@ -13933,8 +14178,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'module.findPackageJSON'
 					| 'module.flushCompileCache'
 					| 'module.getCompileCacheDir'
+					| 'module.getSourceMapsSupport'
 					| 'module.isBuiltin'
+					| 'module.registerHooks'
 					| 'module.register'
+					| 'module.setSourceMapsSupport'
 					| 'module.stripTypeScriptTypes'
 					| 'module.syncBuiltinESMExports'
 					| 'module.findSourceMap'
@@ -13946,8 +14194,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'module.Module.findPackageJSON'
 					| 'module.Module.flushCompileCache'
 					| 'module.Module.getCompileCacheDir'
+					| 'module.Module.getSourceMapsSupport'
 					| 'module.Module.isBuiltin'
+					| 'module.Module.registerHooks'
 					| 'module.Module.register'
+					| 'module.Module.setSourceMapsSupport'
 					| 'module.Module.stripTypeScriptTypes'
 					| 'module.Module.syncBuiltinESMExports'
 					| 'module.Module.findSourceMap'
@@ -13964,7 +14215,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'net.isIPv4'
 					| 'net.isIPv6'
 					| 'net.BlockList'
+					| 'net.BlockList.isBlockList'
 					| 'net.SocketAddress'
+					| 'net.SocketAddress.parse'
 					| 'net.Server'
 					| 'net.Socket'
 					| 'os'
@@ -14214,6 +14467,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'string_decoder'
 					| 'string_decoder.StringDecoder'
 					| 'sqlite'
+					| 'sqlite.constants'
+					| 'sqlite.constants.SQLITE_CHANGESET_OMIT'
+					| 'sqlite.constants.SQLITE_CHANGESET_REPLACE'
+					| 'sqlite.constants.SQLITE_CHANGESET_ABORT'
+					| 'sqlite.backup'
 					| 'sqlite.DatabaseSync'
 					| 'sqlite.StatementSync'
 					| 'sqlite.SQLITE_CHANGESET_OMIT'
@@ -14222,6 +14480,8 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'test'
 					| 'test.after'
 					| 'test.afterEach'
+					| 'test.assert'
+					| 'test.assert.register'
 					| 'test.before'
 					| 'test.beforeEach'
 					| 'test.describe'
@@ -14278,21 +14538,23 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'timers/promises.scheduler.wait'
 					| 'timers/promises.scheduler.yield'
 					| 'tls'
-					| 'tls.rootCertificates'
-					| 'tls.DEFAULT_ECDH_CURVE'
-					| 'tls.DEFAULT_MAX_VERSION'
-					| 'tls.DEFAULT_MIN_VERSION'
-					| 'tls.DEFAULT_CIPHERS'
 					| 'tls.checkServerIdentity'
 					| 'tls.connect'
 					| 'tls.createSecureContext'
 					| 'tls.createSecurePair'
 					| 'tls.createServer'
-					| 'tls.getCiphers'
-					| 'tls.SecureContext'
 					| 'tls.CryptoStream'
+					| 'tls.DEFAULT_CIPHERS'
+					| 'tls.DEFAULT_ECDH_CURVE'
+					| 'tls.DEFAULT_MAX_VERSION'
+					| 'tls.DEFAULT_MIN_VERSION'
+					| 'tls.getCACertificates'
+					| 'tls.getCiphers'
+					| 'tls.rootCertificates'
+					| 'tls.SecureContext'
 					| 'tls.SecurePair'
 					| 'tls.Server'
+					| 'tls.setDefaultCACertificates'
 					| 'tls.TLSSocket'
 					| 'trace_events'
 					| 'trace_events.createTracing'
@@ -14312,6 +14574,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'url.URL.canParse'
 					| 'url.URL.createObjectURL'
 					| 'url.URL.revokeObjectURL'
+					| 'url.URLPattern'
 					| 'url.URLSearchParams'
 					| 'url.Url'
 					| 'util.promisify'
@@ -14320,6 +14583,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util.debuglog'
 					| 'util.debug'
 					| 'util.deprecate'
+					| 'util.diff'
 					| 'util.format'
 					| 'util.formatWithOptions'
 					| 'util.getCallSite'
@@ -14335,6 +14599,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util.isDeepStrictEqual'
 					| 'util.parseArgs'
 					| 'util.parseEnv'
+					| 'util.setTraceSigInt'
 					| 'util.stripVTControlCharacters'
 					| 'util.styleText'
 					| 'util.toUSVString'
@@ -14382,6 +14647,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util.types.isInt8Array'
 					| 'util.types.isInt16Array'
 					| 'util.types.isInt32Array'
+					| 'util.types.isFloat16Array'
 					| 'util.types.isFloat32Array'
 					| 'util.types.isFloat64Array'
 					| 'util.types.isBigInt64Array'
@@ -14444,6 +14710,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util/types.isInt8Array'
 					| 'util/types.isInt16Array'
 					| 'util/types.isInt32Array'
+					| 'util/types.isFloat16Array'
 					| 'util/types.isFloat32Array'
 					| 'util/types.isFloat64Array'
 					| 'util/types.isBigInt64Array'
@@ -14474,6 +14741,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'v8.getHeapSnapshot'
 					| 'v8.getHeapSpaceStatistics'
 					| 'v8.getHeapStatistics'
+					| 'v8.isStringOneByteRepresentation'
 					| 'v8.queryObjects'
 					| 'v8.setFlagsFromString'
 					| 'v8.stopCoverage'
@@ -14497,15 +14765,17 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'wasi.WASI'
 					| 'wasi'
 					| 'worker_threads'
-					| 'worker_threads.isMainThread'
 					| 'worker_threads.parentPort'
 					| 'worker_threads.resourceLimits'
 					| 'worker_threads.SHARE_ENV'
 					| 'worker_threads.threadId'
 					| 'worker_threads.workerData'
 					| 'worker_threads.getEnvironmentData'
+					| 'worker_threads.getHeapStatistics'
 					| 'worker_threads.markAsUncloneable'
 					| 'worker_threads.markAsUntransferable'
+					| 'worker_threads.isInternalThread'
+					| 'worker_threads.isMainThread'
 					| 'worker_threads.isMarkedAsUntransferable'
 					| 'worker_threads.moveMessagePortToContext'
 					| 'worker_threads.postMessageToThread'
@@ -14515,7 +14785,72 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'worker_threads.MessageChannel'
 					| 'worker_threads.MessagePort'
 					| 'worker_threads.Worker'
+					| 'zlib.brotliCompress'
+					| 'zlib.brotliCompressSync'
+					| 'zlib.brotliDecompress'
+					| 'zlib.brotliDecompressSync'
 					| 'zlib.constants'
+					| 'zlib.constants.ZSTD_e_continue'
+					| 'zlib.constants.ZSTD_e_flush'
+					| 'zlib.constants.ZSTD_e_end'
+					| 'zlib.constants.ZSTD_fast'
+					| 'zlib.constants.ZSTD_dfast'
+					| 'zlib.constants.ZSTD_greedy'
+					| 'zlib.constants.ZSTD_lazy'
+					| 'zlib.constants.ZSTD_lazy2'
+					| 'zlib.constants.ZSTD_btlazy2'
+					| 'zlib.constants.ZSTD_btopt'
+					| 'zlib.constants.ZSTD_btultra'
+					| 'zlib.constants.ZSTD_btultra2'
+					| 'zlib.constants.ZSTD_c_compressionLevel'
+					| 'zlib.constants.ZSTD_c_windowLog'
+					| 'zlib.constants.ZSTD_c_hashLog'
+					| 'zlib.constants.ZSTD_c_chainLog'
+					| 'zlib.constants.ZSTD_c_searchLog'
+					| 'zlib.constants.ZSTD_c_minMatch'
+					| 'zlib.constants.ZSTD_c_targetLength'
+					| 'zlib.constants.ZSTD_c_strategy'
+					| 'zlib.constants.ZSTD_c_enableLongDistanceMatching'
+					| 'zlib.constants.ZSTD_c_ldmHashLog'
+					| 'zlib.constants.ZSTD_c_ldmMinMatch'
+					| 'zlib.constants.ZSTD_c_ldmBucketSizeLog'
+					| 'zlib.constants.ZSTD_c_ldmHashRateLog'
+					| 'zlib.constants.ZSTD_c_contentSizeFlag'
+					| 'zlib.constants.ZSTD_c_checksumFlag'
+					| 'zlib.constants.ZSTD_c_dictIDFlag'
+					| 'zlib.constants.ZSTD_c_nbWorkers'
+					| 'zlib.constants.ZSTD_c_jobSize'
+					| 'zlib.constants.ZSTD_c_overlapLog'
+					| 'zlib.constants.ZSTD_d_windowLogMax'
+					| 'zlib.constants.ZSTD_CLEVEL_DEFAULT'
+					| 'zlib.constants.ZSTD_error_no_error'
+					| 'zlib.constants.ZSTD_error_GENERIC'
+					| 'zlib.constants.ZSTD_error_prefix_unknown'
+					| 'zlib.constants.ZSTD_error_version_unsupported'
+					| 'zlib.constants.ZSTD_error_frameParameter_unsupported'
+					| 'zlib.constants.ZSTD_error_frameParameter_windowTooLarge'
+					| 'zlib.constants.ZSTD_error_corruption_detected'
+					| 'zlib.constants.ZSTD_error_checksum_wrong'
+					| 'zlib.constants.ZSTD_error_literals_headerWrong'
+					| 'zlib.constants.ZSTD_error_dictionary_corrupted'
+					| 'zlib.constants.ZSTD_error_dictionary_wrong'
+					| 'zlib.constants.ZSTD_error_dictionaryCreation_failed'
+					| 'zlib.constants.ZSTD_error_parameter_unsupported'
+					| 'zlib.constants.ZSTD_error_parameter_combination_unsupported'
+					| 'zlib.constants.ZSTD_error_parameter_outOfBound'
+					| 'zlib.constants.ZSTD_error_tableLog_tooLarge'
+					| 'zlib.constants.ZSTD_error_maxSymbolValue_tooLarge'
+					| 'zlib.constants.ZSTD_error_maxSymbolValue_tooSmall'
+					| 'zlib.constants.ZSTD_error_stabilityCondition_notRespected'
+					| 'zlib.constants.ZSTD_error_stage_wrong'
+					| 'zlib.constants.ZSTD_error_init_missing'
+					| 'zlib.constants.ZSTD_error_memory_allocation'
+					| 'zlib.constants.ZSTD_error_workSpace_tooSmall'
+					| 'zlib.constants.ZSTD_error_dstSize_tooSmall'
+					| 'zlib.constants.ZSTD_error_srcSize_wrong'
+					| 'zlib.constants.ZSTD_error_dstBuffer_null'
+					| 'zlib.constants.ZSTD_error_noForwardProgress_destFull'
+					| 'zlib.constants.ZSTD_error_noForwardProgress_inputEmpty'
 					| 'zlib.crc32'
 					| 'zlib.createBrotliCompress'
 					| 'zlib.createBrotliDecompress'
@@ -14526,24 +14861,26 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'zlib.createInflate'
 					| 'zlib.createInflateRaw'
 					| 'zlib.createUnzip'
-					| 'zlib.brotliCompress'
-					| 'zlib.brotliCompressSync'
-					| 'zlib.brotliDecompress'
-					| 'zlib.brotliDecompressSync'
+					| 'zlib.createZstdCompress'
+					| 'zlib.createZstdDecompress'
 					| 'zlib.deflate'
-					| 'zlib.deflateSync'
 					| 'zlib.deflateRaw'
 					| 'zlib.deflateRawSync'
+					| 'zlib.deflateSync'
 					| 'zlib.gunzip'
 					| 'zlib.gunzipSync'
 					| 'zlib.gzip'
 					| 'zlib.gzipSync'
 					| 'zlib.inflate'
-					| 'zlib.inflateSync'
 					| 'zlib.inflateRaw'
 					| 'zlib.inflateRawSync'
+					| 'zlib.inflateSync'
 					| 'zlib.unzip'
 					| 'zlib.unzipSync'
+					| 'zlib.zstdCompress'
+					| 'zlib.zstdCompressSync'
+					| 'zlib.zstdDecompress'
+					| 'zlib.zstdDecompressSync'
 					| 'zlib.BrotliCompress()'
 					| 'zlib.BrotliCompress'
 					| 'zlib.BrotliDecompress()'
@@ -14562,10 +14899,14 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'zlib.InflateRaw'
 					| 'zlib.Unzip()'
 					| 'zlib.Unzip'
+					| 'zlib.ZstdCompress'
+					| 'zlib.ZstdDecompress'
+					| 'zlib.ZstdOptions'
 					| 'zlib'
 					| 'import.meta.resolve'
 					| 'import.meta.dirname'
 					| 'import.meta.filename'
+					| 'import.meta.main'
 				)[]
 			},
 	  ]
@@ -19009,6 +19350,29 @@ type ReactNamingConventionFilenameExtension =
 					extensions?: string[]
 					ignoreFilesWithoutCode?: boolean
 			  },
+	  ]
+// ----- react/jsx-shorthand-boolean -----
+type ReactJsxShorthandBoolean = [] | [-1 | 1]
+// ----- react/jsx-shorthand-fragment -----
+type ReactJsxShorthandFragment = [] | [-1 | 1]
+// ----- react/no-forbidden-props -----
+type ReactNoForbiddenProps =
+	| []
+	| [
+			{
+				forbid?: (
+					| string
+					| {
+							excludedNodes?: string[]
+							prop: string
+					  }
+					| {
+							includedNodes?: string[]
+							prop: string
+					  }
+				)[]
+				[k: string]: unknown | undefined
+			},
 	  ]
 // ----- react/no-useless-fragment -----
 type ReactNoUselessFragment =

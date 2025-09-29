@@ -8,6 +8,7 @@ import type { Awaitable, TypedFlatConfigItem } from './types'
 export async function combine(
 	...configs: Array<Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>>
 ): Promise<TypedFlatConfigItem[]> {
+	// eslint-disable-next-line ts/await-thenable
 	const resolved = await Promise.all(configs)
 	return resolved.flat()
 }

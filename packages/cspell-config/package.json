@@ -61,12 +61,12 @@
 		"cspell-lib": "^9.2.1",
 		"execa": "^9.6.0",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.1",
+		"fs-extra": "^11.3.2",
 		"prettier": "^3.6.2"
 	},
 	"devDependencies": {
-		"globby": "^14.1.0",
-		"untildify": "^5.0.0"
+		"globby": "^15.0.0",
+		"untildify": "^6.0.0"
 	},
 	"engines": {
 		"node": ">=20.19.0"
