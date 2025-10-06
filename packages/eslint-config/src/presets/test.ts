@@ -10,5 +10,6 @@ export const testRecommendedRules: Rules = {
 	'test/valid-describe-callback': 'error',
 	'test/require-local-test-context-for-concurrent-snapshots': 'error',
 	'test/no-import-node-test': 'error',
+	'test/prefer-called-exactly-once-with': 'error',
 	// End expansion
 }

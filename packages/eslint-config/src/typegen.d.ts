@@ -1180,6 +1180,11 @@ export interface RuleOptions {
 	 */
 	'jsdoc/empty-tags'?: Linter.RuleEntry<JsdocEmptyTags>
 	/**
+	 * Reports use of JSDoc tags in non-tag positions (in the default "typescript" mode).
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/escape-inline-tags.md#repos-sticky-header
+	 */
+	'jsdoc/escape-inline-tags'?: Linter.RuleEntry<JsdocEscapeInlineTags>
+	/**
 	 * Prohibits use of `@implements` on non-constructor functions (to enforce the tag only being used on classes/constructors).
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/implements-on-classes.md#repos-sticky-header
 	 */
@@ -3553,7 +3558,7 @@ export interface RuleOptions {
 	 */
 	'react-dom/no-missing-button-type'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces explicit `sandbox` attribute for `iframe` elements.
+	 * Enforces explicit `sandbox` prop for `iframe` elements.
 	 * @see https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox
 	 */
 	'react-dom/no-missing-iframe-sandbox'?: Linter.RuleEntry<[]>
@@ -3608,6 +3613,11 @@ export interface RuleOptions {
 	 */
 	'react-dom/no-void-elements-with-children'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforces React Dom is imported via a namespace import.
+	 * @see https://eslint-react.xyz/docs/rules/dom-prefer-namespace-import
+	 */
+	'react-dom/prefer-namespace-import'?: Linter.RuleEntry<[]>
+	/**
 	 * Disallow direct calls to the `set` function of `useState` in `useEffect`.
 	 * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect
 	 */
@@ -3658,7 +3668,7 @@ export interface RuleOptions {
 	 */
 	'react-web-api/no-leaked-timeout'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces that the 'key' attribute is placed before the spread attribute in JSX elements.
+	 * Enforces that the 'key' prop is placed before the spread prop in JSX elements.
 	 * @see https://eslint-react.xyz/docs/rules/jsx-key-before-spread
 	 */
 	'react/jsx-key-before-spread'?: Linter.RuleEntry<[]>
@@ -3863,7 +3873,7 @@ export interface RuleOptions {
 	 */
 	'react/no-set-state-in-component-did-update'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
+	 * Disallow calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
 	 * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-will-update
 	 */
 	'react/no-set-state-in-component-will-update'?: Linter.RuleEntry<[]>
@@ -3923,7 +3933,7 @@ export interface RuleOptions {
 	 */
 	'react/no-unused-class-component-members'?: Linter.RuleEntry<[]>
 	/**
-	 * Warns about unused component prop declarations.
+	 * Warns component props that are defined but never used.
 	 * @see https://eslint-react.xyz/docs/rules/no-unused-props
 	 */
 	'react/no-unused-props'?: Linter.RuleEntry<[]>
@@ -5086,6 +5096,11 @@ export interface RuleOptions {
 	 */
 	'test/padding-around-test-blocks'?: Linter.RuleEntry<[]>
 	/**
+	 * Prefer `toHaveBeenCalledExactlyOnceWith` over `toHaveBeenCalledOnce` and `toHaveBeenCalledWith`
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-exactly-once-with.md
+	 */
+	'test/prefer-called-exactly-once-with'?: Linter.RuleEntry<[]>
+	/**
 	 * enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()`
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-once.md
 	 */
@@ -5145,6 +5160,11 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-on-top.md
 	 */
 	'test/prefer-hooks-on-top'?: Linter.RuleEntry<[]>
+	/**
+	 * prefer dynamic import in mock
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-import-in-mock.md
+	 */
+	'test/prefer-import-in-mock'?: Linter.RuleEntry<[]>
 	/**
 	 * enforce importing Vitest globals
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-importing-vitest-globals.md
@@ -5803,7 +5823,7 @@ export interface RuleOptions {
 	 * Disallow member access on a value with type `any`
 	 * @see https://typescript-eslint.io/rules/no-unsafe-member-access
 	 */
-	'ts/no-unsafe-member-access'?: Linter.RuleEntry<[]>
+	'ts/no-unsafe-member-access'?: Linter.RuleEntry<TsNoUnsafeMemberAccess>
 	/**
 	 * Disallow returning a value with type `any` from a function
 	 * @see https://typescript-eslint.io/rules/no-unsafe-return
@@ -8659,6 +8679,18 @@ type JsdocEmptyTags =
 				tags?: string[]
 			},
 	  ]
+// ----- jsdoc/escape-inline-tags -----
+type JsdocEscapeInlineTags =
+	| []
+	| [
+			{
+				allowedInlineTags?: string[]
+
+				enableFixer?: boolean
+
+				fixType?: 'backticks' | 'backslash'
+			},
+	  ]
 // ----- jsdoc/implements-on-classes -----
 type JsdocImplementsOnClasses =
 	| []
@@ -9208,6 +9240,8 @@ type JsdocRequireReturnsCheck =
 				exemptAsync?: boolean
 
 				exemptGenerators?: boolean
+
+				noNativeTypes?: boolean
 
 				reportMissingReturnForUndefinedTypes?: boolean
 			},
@@ -11609,6 +11643,8 @@ type NoRestrictedImports =
 					message?: string
 					importNames?: string[]
 					allowImportNames?: string[]
+
+					allowTypeImports?: boolean
 			  }
 	  )[]
 	| []
@@ -11621,6 +11657,8 @@ type NoRestrictedImports =
 							message?: string
 							importNames?: string[]
 							allowImportNames?: string[]
+
+							allowTypeImports?: boolean
 					  }
 				)[]
 				patterns?:
@@ -20558,24 +20596,28 @@ type TsBanTsComment =
 	| [
 			{
 				minimumDescriptionLength?: number
+
 				'ts-check'?:
 					| boolean
 					| 'allow-with-description'
 					| {
 							descriptionFormat?: string
 					  }
+
 				'ts-expect-error'?:
 					| boolean
 					| 'allow-with-description'
 					| {
 							descriptionFormat?: string
 					  }
+
 				'ts-ignore'?:
 					| boolean
 					| 'allow-with-description'
 					| {
 							descriptionFormat?: string
 					  }
+
 				'ts-nocheck'?:
 					| boolean
 					| 'allow-with-description'
@@ -20698,9 +20740,13 @@ type TsExplicitMemberAccessibility =
 
 				overrides?: {
 					accessors?: 'explicit' | 'no-public' | 'off'
+
 					constructors?: 'explicit' | 'no-public' | 'off'
+
 					methods?: 'explicit' | 'no-public' | 'off'
+
 					parameterProperties?: 'explicit' | 'no-public' | 'off'
+
 					properties?: 'explicit' | 'no-public' | 'off'
 				}
 			},
@@ -21389,6 +21435,7 @@ type TsMemberOrdering =
 								| 'natural'
 								| 'natural-case-insensitive'
 					  }
+
 				classExpressions?:
 					| 'never'
 					| (
@@ -22026,6 +22073,7 @@ type TsMemberOrdering =
 								| 'natural'
 								| 'natural-case-insensitive'
 					  }
+
 				default?:
 					| 'never'
 					| (
@@ -22663,6 +22711,7 @@ type TsMemberOrdering =
 								| 'natural'
 								| 'natural-case-insensitive'
 					  }
+
 				interfaces?:
 					| 'never'
 					| (
@@ -22712,6 +22761,7 @@ type TsMemberOrdering =
 								| 'natural'
 								| 'natural-case-insensitive'
 					  }
+
 				typeLiterals?:
 					| 'never'
 					| (
@@ -23742,6 +23792,14 @@ type TsNoUnnecessaryTypeAssertion =
 				typesToIgnore?: string[]
 			},
 	  ]
+// ----- ts/no-unsafe-member-access -----
+type TsNoUnsafeMemberAccess =
+	| []
+	| [
+			{
+				allowOptionalChaining?: boolean
+			},
+	  ]
 // ----- ts/no-unused-expressions -----
 type TsNoUnusedExpressions =
 	| []
@@ -23773,6 +23831,8 @@ type TsNoUnusedVars =
 					ignoreClassWithStaticInitBlock?: boolean
 
 					ignoreRestSiblings?: boolean
+
+					ignoreUsingDeclarations?: boolean
 
 					reportUsedIgnorePattern?: boolean
 
