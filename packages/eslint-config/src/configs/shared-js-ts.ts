@@ -215,6 +215,15 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				selector: 'default',
 			},
 			{
+				custom: {
+					match: true,
+					regex: '^_+$',
+				},
+				format: null,
+				modifiers: ['unused'],
+				selector: 'parameter',
+			},
+			{
 				format: null,
 				modifiers: ['requiresQuotes'],
 				// Forgive quoted things
