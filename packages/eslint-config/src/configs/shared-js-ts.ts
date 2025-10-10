@@ -59,6 +59,56 @@ const kpSharedDisableTypeCheckedRules: Rules = {
 }
 
 /**
+ * Shared by several perfectionist rules
+ */
+const kpPerfectionistSortConfig = [
+	// Note precedence sensitivity...
+	// This has to come before the `min` rules to sort
+	// strings like `{ minImageWidth: 1, minImageHeight: 1 }` correctly
+	generatePerfectionistSortConfig(['width', 'height']),
+	generatePerfectionistSortConfig(['width', 'height'], 'leading'),
+	generatePerfectionistSortConfig(['Width', 'Height'], 'trailing'),
+
+	generatePerfectionistSortConfig(['r', 'g', 'b']),
+	generatePerfectionistSortConfig(['R', 'G', 'B'], 'trailing'),
+	generatePerfectionistSortConfig(['red', 'green', 'blue']),
+	generatePerfectionistSortConfig(['Red', 'Green', 'Blue'], 'trailing'),
+
+	generatePerfectionistSortConfig(['h', 's', 'l']),
+	generatePerfectionistSortConfig(['hue', 'saturation', 'lightness']),
+	generatePerfectionistSortConfig(['h', 's', 'l', 'a']),
+	generatePerfectionistSortConfig(['hue', 'saturation', 'lightness', 'alpha']),
+	generatePerfectionistSortConfig(['h', 's', 'v']),
+
+	generatePerfectionistSortConfig(['a', 'b']), // For partial matches...
+	generatePerfectionistSortConfig(['r', 'g', 'b', 'a']),
+	generatePerfectionistSortConfig(['red', 'green', 'blue', 'alpha']),
+	generatePerfectionistSortConfig(['Red', 'Green', 'Blue', 'Alpha'], 'trailing'),
+
+	generatePerfectionistSortConfig(['x', 'y', 'z', 'w']),
+	generatePerfectionistSortConfig(['x', 'y', 'z', 'w'], 'leading'),
+	generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], 'trailing'),
+	generatePerfectionistSortConfig(['x1', 'y1', 'x2', 'y2']),
+	generatePerfectionistSortConfig(['x1', 'y1', 'x2', 'y2'], 'leading'),
+	generatePerfectionistSortConfig(['X1', 'Y1', 'X2', 'Y2'], 'trailing'),
+	generatePerfectionistSortConfig(['x1', 'y1', 'x2', 'y2', 'z1', 'z2']),
+	generatePerfectionistSortConfig(['x1', 'y1', 'x2', 'y2', 'z1', 'z2'], 'leading'),
+	generatePerfectionistSortConfig(['X1', 'Y1', 'X2', 'Y2', 'Z1', 'Z2'], 'trailing'),
+
+	generatePerfectionistSortConfig(['open', 'close']),
+	generatePerfectionistSortConfig(['open', 'close'], 'leading'),
+	generatePerfectionistSortConfig(['Open', 'Close'], 'trailing'),
+
+	generatePerfectionistSortConfig(['start', 'end']),
+	generatePerfectionistSortConfig(['start', 'end'], 'leading'),
+	generatePerfectionistSortConfig(['Start', 'End'], 'trailing'),
+
+	generatePerfectionistSortConfig(['min', 'max']),
+	generatePerfectionistSortConfig(['min', 'max'], 'leading'),
+	generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
+]
+
+/**
  * Rules shared by JS and TS scripts
  * Partial rule set requires `files` and `languageOptions` keys to be set appropriately in file-specific configs.
  */
@@ -160,47 +210,14 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		// Too chaotic... but should revisit
 		'perfectionist/sort-modules': 'off',
+		'perfectionist/sort-object-types': [
+			'error',
+			...kpPerfectionistSortConfig,
+			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+		],
 		'perfectionist/sort-objects': [
 			'error',
-
-			// Note precedence sensitivity...
-			// This has to come before the `min` rules to sort
-			// strings like `{ minImageWidth: 1, minImageHeight: 1 }` correctly
-			generatePerfectionistSortConfig(['width', 'height']),
-			generatePerfectionistSortConfig(['width', 'height'], 'leading'),
-			generatePerfectionistSortConfig(['Width', 'Height'], 'trailing'),
-
-			generatePerfectionistSortConfig(['r', 'g', 'b']),
-			generatePerfectionistSortConfig(['R', 'G', 'B'], 'trailing'),
-			generatePerfectionistSortConfig(['red', 'green', 'blue']),
-			generatePerfectionistSortConfig(['Red', 'Green', 'Blue'], 'trailing'),
-
-			generatePerfectionistSortConfig(['h', 's', 'l']),
-			generatePerfectionistSortConfig(['hue', 'saturation', 'lightness']),
-			generatePerfectionistSortConfig(['h', 's', 'l', 'a']),
-			generatePerfectionistSortConfig(['hue', 'saturation', 'lightness', 'alpha']),
-			generatePerfectionistSortConfig(['h', 's', 'v']),
-
-			generatePerfectionistSortConfig(['a', 'b']), // For partial matches...
-			generatePerfectionistSortConfig(['r', 'g', 'b', 'a']),
-			generatePerfectionistSortConfig(['red', 'green', 'blue', 'alpha']),
-			generatePerfectionistSortConfig(['Red', 'Green', 'Blue', 'Alpha'], 'trailing'),
-
-			generatePerfectionistSortConfig(['x', 'y', 'z', 'w']),
-			generatePerfectionistSortConfig(['X', 'Y', 'Z', 'W'], 'trailing'),
-
-			generatePerfectionistSortConfig(['open', 'close']),
-			generatePerfectionistSortConfig(['open', 'close'], 'leading'),
-			generatePerfectionistSortConfig(['Open', 'Close'], 'trailing'),
-
-			generatePerfectionistSortConfig(['start', 'end']),
-			generatePerfectionistSortConfig(['start', 'end'], 'leading'),
-			generatePerfectionistSortConfig(['Start', 'End'], 'trailing'),
-
-			generatePerfectionistSortConfig(['min', 'max']),
-			generatePerfectionistSortConfig(['min', 'max'], 'leading'),
-			generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
-
+			...kpPerfectionistSortConfig,
 			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
