@@ -40,7 +40,7 @@ To use just this Knip config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config init
+   pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
    ```
 
 2. Add the package:

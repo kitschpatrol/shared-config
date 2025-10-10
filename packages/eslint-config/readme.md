@@ -40,14 +40,14 @@ To use just this ESLint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config init
+   pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
    ```
 
 2. Install and initialize the required TypeScript `tsconfig.json` configuration in your project root:
 
    ```sh
    pnpm add -D @kitschpatrol/typescript-config
-   pnpm dlx @kitschpatrol/typescript-config init
+   pnpm --package=@kitschpatrol/typescript-config dlx ksc-typescript init
    ```
 
 3. Add the package:

@@ -51,7 +51,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init
+pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
 ```
 
 ### Installation approach

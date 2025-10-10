@@ -126,7 +126,7 @@ The top-level `ksc` command also takes care of some nuances in terms of _which_ 
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config init && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init && pnpm i && code .
 ```
 
 Note that `ksc init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but can make it clunkier to extend or customize configurations.
@@ -138,7 +138,7 @@ At any point, you can call `ksc init` again with the `--location package` or `--
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init
+pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init
 ```
 
 #### Step-by-step:
@@ -146,7 +146,7 @@ pnpm dlx @kitschpatrol/repo-config init && pnpm i && pnpm add -D @kitschpatrol/s
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config init
+   pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
    ```
 
 2. Install the package:
