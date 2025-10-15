@@ -1,5 +1,7 @@
 import type { Rules } from '../types'
 
+// TODO remove direct to-valid-identifier dependency once fixed in eslint-plugin-jsdoc
+
 export const jsdocCommentsRecommendedTypescriptFlavorRules: Rules = {
 	// Begin expansion 'eslint-plugin-jsdoc' 'flat/recommended-typescript-flavor'
 	'jsdoc/check-access': 'warn',
@@ -70,6 +72,10 @@ export const jsdocCommentsRecommendedTypescriptFlavorRules: Rules = {
 	'jsdoc/sort-tags': 'off',
 	'jsdoc/tag-lines': 'warn',
 	'jsdoc/text-escaping': 'off',
+	'jsdoc/ts-method-signature-style': 'off',
+	'jsdoc/ts-no-empty-object-type': 'warn',
+	'jsdoc/ts-no-unnecessary-template-expression': 'off',
+	'jsdoc/ts-prefer-function-type': 'off',
 	'jsdoc/type-formatting': 'off',
 	'jsdoc/valid-types': 'warn',
 	// End expansion
@@ -145,6 +151,10 @@ export const jsdocCommentsRecommendedTypescriptRules: Rules = {
 	'jsdoc/sort-tags': 'off',
 	'jsdoc/tag-lines': 'warn',
 	'jsdoc/text-escaping': 'off',
+	'jsdoc/ts-method-signature-style': 'off',
+	'jsdoc/ts-no-empty-object-type': 'warn',
+	'jsdoc/ts-no-unnecessary-template-expression': 'off',
+	'jsdoc/ts-prefer-function-type': 'off',
 	'jsdoc/type-formatting': 'off',
 	'jsdoc/valid-types': 'warn',
 	// End expansion

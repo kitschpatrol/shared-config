@@ -19,85 +19,70 @@ export type OptionsConfig = {
 	 * @default true
 	 */
 	gitignore?: boolean | FlatGitignoreOptions
-
 	/**
 	 * Enable linting for HTML and HTML script tags.
 	 * @default true
 	 */
 	html?: OptionsOverrides & OptionsOverridesEmbeddedScripts
-
 	/**
 	 * Control to disable some rules in editors.
 	 * @default auto-detect based on the process.env
 	 */
 	isInEditor?: boolean
-
 	/**
 	 * Core rules. Can't be disabled.
 	 */
 	js?: OptionsOverrides & OptionsTypeAware
-
 	/**
 	 * Enable JSON support.
 	 */
 	json?: OptionsOverrides
-
 	/**
 	 * Core rules. Can't be disabled.
 	 */
 	jsx?: OptionsOverrides & OptionsTypeAware
-
 	/**
 	 * Enable linting for Markdown via Remark, and Markdown code snippets
 	 * @default true
 	 */
 	md?: OptionsOverrides & OptionsOverridesEmbeddedScripts
-
 	/**
 	 * Enable linting for MDX via REmark, and MDX code snippets.
 	 * @default true
 	 */
 	mdx?: OptionsOverrides & OptionsOverridesEmbeddedScripts
-
 	/**
 	 * Enable React support.
 	 * @default auto-detect based on the dependencies
 	 */
 	react?: boolean | (OptionsOverrides & OptionsTypeAware)
-
 	/**
 	 * Enable Svelte support.
 	 * @default auto-detect based on the dependencies
 	 */
 	svelte?: boolean | OptionsOverrides
-
 	/**
 	 * Enable test support.
 	 */
 	test?: OptionsOverrides
-
 	/**
 	 * Enable TOML support.
 	 * @default true
 	 */
 	toml?: OptionsOverrides
-
 	/**
 	 * TypeScript rules. Can't be disabled.
 	 */
 	ts?: OptionsOverrides & OptionsTypeAware
-
 	/**
 	 * TypeScript rules. Can't be disabled.
 	 */
 	tsx?: OptionsOverrides & OptionsTypeAware
-
 	/**
 	 * Type of the project. `lib` will enable more strict rules for libraries.
 	 * @default 'app'
 	 */
 	type?: 'app' | 'lib'
-
 	/**
 	 * Enable YAML support.
 	 */

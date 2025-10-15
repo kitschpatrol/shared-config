@@ -28,6 +28,8 @@ export async function react(
 	const pluginReact = await interopDefault(import('@eslint-react/eslint-plugin'))
 
 	const recommendedTypescriptConfig = pluginReact.configs['recommended-typescript']
+
+	// TODO figure out https://github.com/Rel1cx/eslint-react/releases/tag/v2.2.2
 	const { plugins } = recommendedTypescriptConfig
 
 	return [

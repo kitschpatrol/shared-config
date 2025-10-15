@@ -1450,6 +1450,26 @@ export interface RuleOptions {
 	 */
 	'jsdoc/text-escaping'?: Linter.RuleEntry<JsdocTextEscaping>
 	/**
+	 * Prefers either function properties or method signatures
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/ts-method-signature-style.md#repos-sticky-header
+	 */
+	'jsdoc/ts-method-signature-style'?: Linter.RuleEntry<JsdocTsMethodSignatureStyle>
+	/**
+	 * Warns against use of the empty object type
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/ts-no-empty-object-type.md#repos-sticky-header
+	 */
+	'jsdoc/ts-no-empty-object-type'?: Linter.RuleEntry<[]>
+	/**
+	 * Catches unnecessary template expressions such as string expressions within a template literal.
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/ts-no-unnecessary-template-expression.md#repos-sticky-header
+	 */
+	'jsdoc/ts-no-unnecessary-template-expression'?: Linter.RuleEntry<JsdocTsNoUnnecessaryTemplateExpression>
+	/**
+	 * Prefers function types over call signatures when there are no other properties.
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/ts-prefer-function-type.md#repos-sticky-header
+	 */
+	'jsdoc/ts-prefer-function-type'?: Linter.RuleEntry<JsdocTsPreferFunctionType>
+	/**
 	 * Formats JSDoc type values.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/type-formatting.md#repos-sticky-header
 	 */
@@ -4910,7 +4930,7 @@ export interface RuleOptions {
 	 */
 	'template-tag-spacing'?: Linter.RuleEntry<TemplateTagSpacing>
 	/**
-	 * require .spec test file pattern
+	 * require test file pattern
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-filename.md
 	 */
 	'test/consistent-test-filename'?: Linter.RuleEntry<TestConsistentTestFilename>
@@ -9412,6 +9432,32 @@ type JsdocTextEscaping =
 				escapeMarkdown?: boolean
 			},
 	  ]
+// ----- jsdoc/ts-method-signature-style -----
+type JsdocTsMethodSignatureStyle =
+	| []
+	| ['method' | 'property']
+	| [
+			'method' | 'property',
+			{
+				enableFixer?: boolean
+			},
+	  ]
+// ----- jsdoc/ts-no-unnecessary-template-expression -----
+type JsdocTsNoUnnecessaryTemplateExpression =
+	| []
+	| [
+			{
+				enableFixer?: boolean
+			},
+	  ]
+// ----- jsdoc/ts-prefer-function-type -----
+type JsdocTsPreferFunctionType =
+	| []
+	| [
+			{
+				enableFixer?: boolean
+			},
+	  ]
 // ----- jsdoc/type-formatting -----
 type JsdocTypeFormatting =
 	| []
@@ -9419,9 +9465,35 @@ type JsdocTypeFormatting =
 			{
 				arrayBrackets?: 'angle' | 'square'
 
+				arrowFunctionPostReturnMarkerSpacing?: string
+
+				arrowFunctionPreReturnMarkerSpacing?: string
+
 				enableFixer?: boolean
 
+				functionOrClassParameterSpacing?: string
+
+				functionOrClassPostGenericSpacing?: string
+
+				functionOrClassPostReturnMarkerSpacing?: string
+
+				functionOrClassPreReturnMarkerSpacing?: string
+
+				functionOrClassTypeParameterSpacing?: string
+
+				genericAndTupleElementSpacing?: string
+
 				genericDot?: boolean
+
+				keyValuePostColonSpacing?: string
+
+				keyValuePostKeySpacing?: string
+
+				keyValuePostOptionalSpacing?: string
+
+				keyValuePostVariadicSpacing?: string
+
+				methodQuotes?: 'double' | 'single'
 
 				objectFieldIndent?: string
 
@@ -9437,6 +9509,12 @@ type JsdocTypeFormatting =
 				objectFieldSeparatorOptionalLinebreak?: boolean
 
 				objectFieldSeparatorTrailingPunctuation?: boolean
+
+				parameterDefaultValueSpacing?: string
+
+				postMethodNameSpacing?: string
+
+				postNewSpacing?: string
 
 				separatorForSingleObjectField?: boolean
 
@@ -19409,7 +19487,6 @@ type ReactNoForbiddenProps =
 							prop: string
 					  }
 				)[]
-				[k: string]: unknown | undefined
 			},
 	  ]
 // ----- react/no-useless-fragment -----

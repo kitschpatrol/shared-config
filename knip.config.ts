@@ -29,5 +29,8 @@ export default knipConfig({
 		'stylelint-config-html',
 		'stylelint-config-standard',
 		'stylelint',
+		// TODO revisit and remove dependency...
+		// Missing in eslint-plugin-jsdoc
+		'to-valid-identifier',
 	],
 })
