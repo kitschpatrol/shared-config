@@ -9,6 +9,7 @@ AMPM
 Anki
 Ankiconnect
 ankidown
+aphex
 apos
 Appium
 AppleScript
@@ -18,6 +19,7 @@ argless
 Armbian
 armhf
 Artnet
+assetsignore
 astable
 Astro
 astrojs
@@ -71,6 +73,7 @@ checkjs
 cherrypy
 chezmoi
 chipset
+chronophage
 clippy
 cloze
 clozes
@@ -81,7 +84,6 @@ codebooga
 codellama
 codesigning
 Codespaces
-codespell
 codsen
 Colibri
 Collab
@@ -152,9 +154,12 @@ fadecandy
 fanin
 fanout
 farbfeld
+fassets
 faststart
 favicons
+fbase
 fbtweak
+fcwd
 fddk
 ffmetadata
 ffprobe
@@ -177,6 +182,7 @@ fontsource
 fortawesome
 fpsgraph
 fsnotes
+ftest
 fullscreen
 fusuma
 Futil
@@ -259,6 +265,7 @@ lazygit
 lerp
 lerper
 lerpy
+lfsconfig
 libpam
 libreddit
 libtheora
@@ -269,6 +276,7 @@ Lingon
 linkedom
 linkify
 linkinator
+linkpath
 localizable
 Loggly
 logseq
@@ -354,6 +362,7 @@ Newswire
 nextdns
 nextid
 Niantic
+niimblue
 Nimbot
 Ninite
 Nitter
@@ -405,6 +414,7 @@ osascript
 oscreplayer
 osxkeychain
 osxphotos
+outbase
 outfile
 outro
 outroend
@@ -475,6 +485,7 @@ QuickTime
 radiogrid
 Raycaster
 raytrace
+rcfile
 rclone
 rcmdnk
 realfavicongenerator
@@ -516,6 +527,7 @@ slugifying
 smartctl
 smartmontools
 smupgd
+snipignore
 Snipster
 softphone
 softprops
@@ -532,10 +544,15 @@ stylelintrc
 stylesheet
 subclassable
 subclassing
+subfolders
 subgrid
 subgrids
 subheadline
+substeps
 subviews
+suggestification
+suggestified
+suggestify
 Superslides
 svelteness
 Sveltepress
@@ -601,6 +618,7 @@ vapo
 vectorstore
 Verba
 vfile
+videography
 videojs
 vidup
 virtualenv
@@ -627,7 +645,6 @@ wordnet
 WorkFlowy
 worktree
 xbee
-xbees
 xcrun
 XCTU
 xstate

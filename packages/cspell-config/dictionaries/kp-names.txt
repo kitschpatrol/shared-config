@@ -16,12 +16,14 @@ Adorno
 Adrián
 Aelita
 aemarse
+aesculapa
 Agarwal
 Agarwala
 Aherin
 Ahern
 Ainslie
 Aira
+Aisch
 Aita
 Aiwen
 AJ's
@@ -82,6 +84,7 @@ Atreet
 Attia
 Atticus
 Atyrau
+Avenir
 Avgeros
 Axelrod
 Axos
@@ -117,8 +120,10 @@ Bembe
 Bengio
 Benine
 Beno
+Bentele
 Beny
 Berardi
+berensonletter
 Bermudez
 Besa
 Besos
@@ -193,6 +198,7 @@ bullrich
 Burges
 Burgund
 Burndy
+burzo
 Busingen
 Bustos
 Byung
@@ -294,6 +300,7 @@ Damore
 Damyata
 Danbo
 Danja
+Danmarkshavn
 Darche
 Dass
 Datta
@@ -313,6 +320,7 @@ Delray
 Delson
 Demeulemeester
 Demian
+denden
 Denson
 Depeche
 desousak
@@ -350,8 +358,10 @@ Eames
 Ebenezer
 Ebury
 Edensor
+edgarguo
 Edgcumbe
 Edsger
+Edwardes
 Efate
 Efron
 Eggli
@@ -415,6 +425,7 @@ Fidler
 Fiebrink
 Fifi
 Filip
+fislysandi
 Fleischmann
 Fleisig
 Flexa
@@ -488,6 +499,7 @@ Graeber
 Grasse
 Graw
 Grayson
+gregor
 Grelle
 Gresser
 Grisch
@@ -625,6 +637,7 @@ Jenine
 Jenn
 Jilann
 Jing
+jīng
 Jiro
 Jodry
 joethei
@@ -646,6 +659,7 @@ Jun'ichirō
 Junichiro
 Junya
 Justino
+Kabir
 Kahlo
 Kaikki
 Kaiming
@@ -745,9 +759,7 @@ Kutnow
 Kuzmin
 Kykuit
 Kyoko
-L’Óreal
 L'Rai
-L’Rai
 Laidlaw
 Laika
 Lalo
@@ -806,11 +818,16 @@ Lockes
 Löffler
 Lohman
 Loic
+Loïc
+Longyearbyen
 Loong
+L’Óreal
 Lovejoy
 Lrai
+L’Rai
 Ludion
 Luiz
+Lumpur
 Lupton
 Lutz
 Luzi
@@ -903,6 +920,7 @@ Mika
 Mikaela
 Mikey
 Mikolov
+Milkey
 Millican
 Millner
 Millstein
@@ -949,6 +967,7 @@ Murdo
 Murphys
 Mwangi
 Myriam
+mzietzke
 Nadya
 Nagbe
 Nagle
@@ -1002,6 +1021,7 @@ Noys
 Nurit
 Nuuk
 O'Connor
+Oberai
 Oconnor
 Ojinaga
 Okamura
@@ -1393,6 +1413,7 @@ Udovich
 Ulaanbaatar
 Ullman
 Umar
+unitedstates
 Urbach
 ürich
 Ursus
@@ -1525,10 +1546,12 @@ Zeplin
 Zeven
 Zhang
 Zheng
+zhuzhige
 Zinn
 Ziskina
 Ziyun
 Zlatar
+Zoé
 Zoephel
 Zoltan
 Zucker

@@ -17,6 +17,7 @@ Ameritrade
 Anacapa
 Anduril
 Anker
+ankiweb
 Apress
 Aqara
 Aqueux
@@ -226,6 +227,7 @@ Perlorian
 Perrotin
 Phaidon
 Phidgets
+phusion
 Piction
 Pirelli
 Plastite
@@ -264,6 +266,7 @@ ScalarStudio
 Scarpa
 Scarpia
 Schiff
+Segoe
 Selfridges
 Sephora
 Shippo
@@ -326,6 +329,7 @@ Wegmans
 Wemo
 Westfalia
 Wirecutter
+Xbook
 Xero
 Xlibris
 Yasso
