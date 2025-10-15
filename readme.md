@@ -121,19 +121,31 @@ The top-level `ksc` command also takes care of some nuances in terms of _which_ 
 
 ### Installation
 
-#### Quick start from scratch:
+There are a few different ways to integrate `@kitschpatrol/shared-config` into your project, depending on whether you're starting from scratch or adding it to an existing project.
 
-Bootstrap a new project and open in VS Code:
+#### Create new project from a template:
+
+The easiest way to get started is to create a new project from a starter template:
+
+```sh
+pnpm create @kitschpatrol/project
+```
+
+See the [template repository](https://github.com/kitschpatrol/create-project) for more details.
+
+#### Bootstrap from scratch:
+
+Alternatively, this one-liner will bootstrap a new project and open it in VS Code, but the template approach above is preferred:
 
 ```sh
 git init && pnpm init && pnpm pkg set type="module" && pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm add -D @kitschpatrol/shared-config && pnpm ksc init && pnpm i && code .
 ```
 
-Note that `ksc init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but can make it clunkier to extend or customize configurations.
+Note that `ksc init` takes an optional `--location package` flag will put as much configuration in your `package.json` as possible instead of creating discrete config files in your project root for each tool. Putting config in `package.json` can save some clutter, but it makes configs less discoverable and can make it clunkier to extend or customize configurations since you don't have the benefit of type safety and autocomplete.
 
 At any point, you can call `ksc init` again with the `--location package` or `--location file` flag to reinitialize your configuration files in one place or the other and restore the default configurations.
 
-#### Quick add to an existing project:
+#### Add to an existing project:
 
 This might overwrite certain config files, so commit first:
 
