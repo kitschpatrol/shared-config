@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/shared-config",
-	"version": "5.7.2",
+	"version": "5.7.3",
 	"description": "A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single CLI command.",
 	"keywords": [
 		"shared-config",

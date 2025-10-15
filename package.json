@@ -1,6 +1,6 @@
 {
 	"name": "shared-config-monorepo",
-	"version": "5.7.2",
+	"version": "5.7.3",
 	"private": true,
 	"description": "A single dependency and CLI command to configure and run various linters and code quality tools in TypeScript projects.",
 	"keywords": [
