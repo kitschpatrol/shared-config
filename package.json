@@ -44,7 +44,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && pnpm -r publish --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
+		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm -r publish",
 		"test": "vitest"
 	},
 	"devDependencies": {
