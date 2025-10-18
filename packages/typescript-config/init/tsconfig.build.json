@@ -1,8 +1,5 @@
 {
 	"extends": "./tsconfig.json",
-	"compilerOptions": {
-		"declarationMap": true
-	},
 	"include": ["**/*", "**/**.*"],
 	"exclude": ["**/dist/", "**/bin/"]
 }
