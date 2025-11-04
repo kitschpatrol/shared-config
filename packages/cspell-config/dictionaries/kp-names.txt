@@ -23,7 +23,7 @@ Aherin
 Ahern
 Ainslie
 Aira
-Aisch
+aisch
 Aita
 Aiwen
 AJ's
@@ -353,7 +353,7 @@ Dunwich
 Durland
 Dushko
 Dustyn
-Duveen
+duveen
 Eames
 Ebenezer
 Ebury
@@ -1420,7 +1420,7 @@ Ursus
 Urville
 usernamehw
 Ushuaia
-Uskudar
+uskudar
 Vakili
 Valiz
 Vanhemert

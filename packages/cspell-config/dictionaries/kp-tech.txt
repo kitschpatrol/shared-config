@@ -52,6 +52,7 @@ Blotar
 boids
 Boostnote
 bootable
+bootout
 boto
 browserconfig
 Bugsense
@@ -108,6 +109,7 @@ Cura
 cwebp
 Cyberduck
 Cython
+daemonization
 datahub
 Datalog
 dataview
@@ -121,6 +123,7 @@ datetime
 dateupload
 decircular
 deepmerge
+defu
 deleter
 demux
 dendron
@@ -229,6 +232,7 @@ imager
 imagetools
 imce
 immer
+importx
 InfoComm
 instanceof
 introend
@@ -278,7 +282,10 @@ linkify
 linkinator
 linkpath
 localizable
+loggerless
 Loggly
+loglayer
+lognow
 logseq
 lproj
 Lume
@@ -366,6 +373,7 @@ niimblue
 Nimbot
 Ninite
 Nitter
+njson
 Noctua
 Nodebox
 nodenext
@@ -375,6 +383,7 @@ noopener
 noprint
 noreferrer
 noscript
+nosniff
 notarytool
 Notenik
 Noteplan
@@ -402,6 +411,7 @@ Odroidxu
 oflog
 ofparam
 ohmyzsh
+okhsv
 oklab
 ollama
 onehot
@@ -431,6 +441,8 @@ Panepaint
 pango
 Parachain
 parsimmon
+pathtrace
+pathtracer
 pdfreader
 pdfs
 pendingupload
@@ -450,7 +462,7 @@ Piwick
 piwik
 Pixelmator
 Pixera
-Pixi
+pixi
 pkgroll
 Plask
 playform
@@ -503,6 +515,7 @@ roletype
 rolldown
 rspack
 rsvfx
+sameorigin
 ScanX
 scikit
 scipy
@@ -511,6 +524,7 @@ scpt
 screenfull
 screenreader
 screenshare
+scriptable
 scrollbooster
 sectionhead
 seedrandom
@@ -641,8 +655,10 @@ wght
 whisperx
 WHOIS
 wikilink
+winstaller
 woob
 wordnet
+workerd
 WorkFlowy
 worktree
 xbee

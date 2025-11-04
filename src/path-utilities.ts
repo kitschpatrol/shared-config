@@ -37,8 +37,7 @@ function isDirectoryBelow(directory: string, parent: string): boolean {
 export function findWorkspacePackageDirectories(): string[] {
 	const packageDirectory = getPackageDirectory()
 
-	const directories = new Set<string>()
-	directories.add(packageDirectory)
+	const directories = new Set<string>([packageDirectory])
 
 	// Find all workspaces
 	const workspaces = findWorkspaces()

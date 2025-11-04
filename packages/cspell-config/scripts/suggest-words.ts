@@ -26,7 +26,7 @@ async function getWordListsFromProjects(directory: string): Promise<string[]> {
 	const projectWords: string[] = []
 	for (const configFile of configFiles) {
 		const config = await cspell.loadConfig(configFile)
-		projectWords.push(...(config.words ?? []))
+		projectWords.push(...(config.words ?? []).map((word) => word.toLowerCase()))
 	}
 
 	return [...new Set(projectWords)].toSorted()
@@ -43,7 +43,10 @@ async function getSharedConfigWords(): Promise<string[]> {
 
 	for (const file of dictionaries) {
 		const content = await readFile(file, 'utf8')
-		const lines = content.split('\n').filter((line) => line.trim() !== '')
+		const lines = content
+			.split('\n')
+			.filter((line) => line.trim() !== '')
+			.map((line) => line.toLowerCase())
 		sharedConfigWords.push(...lines)
 	}
 
