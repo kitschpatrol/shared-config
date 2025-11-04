@@ -220,7 +220,7 @@ pnpm run fix
 
 ### CLI
 
-<!-- cli-help cliCommand: 'ksc' -->
+<!-- cli-help { cliCommand: 'ksc' } -->
 
 #### Command: `ksc`
 
