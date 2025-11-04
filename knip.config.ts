@@ -22,7 +22,6 @@ export default knipConfig({
 		'prettier-plugin-astro',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
-		'prettier-plugin-sql',
 		'prettier-plugin-svelte',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',

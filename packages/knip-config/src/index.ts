@@ -50,7 +50,6 @@ const sharedKnipConfig: KnipConfig = {
 		'@prettier/plugin-xml',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
-		'prettier-plugin-sql',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
 		// Undetected due to string import in cspell.config.js

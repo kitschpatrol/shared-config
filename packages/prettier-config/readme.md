@@ -207,6 +207,10 @@ Ruby formatting Expects a global Ruby install >=2.7 via `rbenv` at `~/.rbenv/shi
 
 Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it must be global.
 
+## SQL support
+
+Earlier versions of @kitschpatrol/prettier-config bundled [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) for SQL formatting, but this has been removed due to the remarkable size of its `node-sql-parser` parser dependency.
+
 ## Tabs vs. spaces
 
 Tabs are unambiguously preferred wherever the file format specification does not mandate spaces.

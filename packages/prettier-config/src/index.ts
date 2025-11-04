@@ -75,7 +75,7 @@ const sharedPrettierConfig: PrettierConfig = {
 		'@prettier/plugin-xml',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
-		'prettier-plugin-sql',
+		// 'prettier-plugin-sql',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
 	],
