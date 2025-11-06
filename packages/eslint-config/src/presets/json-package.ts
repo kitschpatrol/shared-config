@@ -14,6 +14,7 @@ export const jsonPackageRecommendedRules: Rules = {
 	'json-package/repository-shorthand': 'error',
 	'json-package/sort-collections': 'error',
 	'json-package/unique-dependencies': 'error',
+	'json-package/valid-bin': 'error',
 	'json-package/valid-bundleDependencies': 'error',
 	'json-package/valid-config': 'error',
 	'json-package/valid-cpu': 'error',
@@ -28,12 +29,12 @@ export const jsonPackageRecommendedRules: Rules = {
 	'json-package/valid-scripts': 'error',
 	'json-package/valid-type': 'error',
 	'json-package/valid-author': 'error',
-	'json-package/valid-bin': 'error',
 	'json-package/valid-name': 'error',
 	'json-package/valid-package-definition': [
 		'error',
 		{
 			ignoreProperties: [
+				'bin',
 				'bundleDependencies',
 				'config',
 				'cpu',
@@ -48,7 +49,6 @@ export const jsonPackageRecommendedRules: Rules = {
 				'scripts',
 				'type',
 				'author',
-				'bin',
 				'name',
 				'repository-directory',
 				'version',

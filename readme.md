@@ -128,7 +128,7 @@ There are a few different ways to integrate `@kitschpatrol/shared-config` into y
 The easiest way to get started is to create a new project from a starter template:
 
 ```sh
-pnpm create @kitschpatrol/project
+pnpm create @kitschpatrol/project@latest
 ```
 
 See the [template repository](https://github.com/kitschpatrol/create-project) for more details.

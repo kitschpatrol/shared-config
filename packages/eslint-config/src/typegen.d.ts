@@ -1485,6 +1485,11 @@ export interface RuleOptions {
 	 */
 	'jsdoc/valid-types'?: Linter.RuleEntry<JsdocValidTypes>
 	/**
+	 * Enforce that names for bin properties are in kebab case.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/bin-name-casing.md
+	 */
+	'json-package/bin-name-casing'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce consistent format for the exports field (implicit or explicit subpaths).
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/exports-subpaths-style.md
 	 */
@@ -1623,7 +1628,7 @@ export interface RuleOptions {
 	 * Enforce that the `bin` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-bin.md
 	 */
-	'json-package/valid-bin'?: Linter.RuleEntry<JsonPackageValidBin>
+	'json-package/valid-bin'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `bundleDependencies` (also: `bundledDependencies`) property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-bundleDependencies.md
@@ -9787,14 +9792,6 @@ type JsonPackageRestrictPrivateProperties =
 	  ]
 // ----- json-package/sort-collections -----
 type JsonPackageSortCollections = [] | [string[]]
-// ----- json-package/valid-bin -----
-type JsonPackageValidBin =
-	| []
-	| [
-			{
-				enforceCase?: boolean
-			},
-	  ]
 // ----- json-package/valid-package-definition -----
 type JsonPackageValidPackageDefinition =
 	| []

@@ -232,13 +232,64 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				selector: 'default',
 			},
 			{
-				custom: {
-					match: true,
-					regex: '^_+$',
-				},
 				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'class',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'enum',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'function',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'interface',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'typeAlias',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
 				modifiers: ['unused'],
 				selector: 'parameter',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'typeLike',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'typeParameter',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'variable',
+			},
+			{
+				format: null,
+				leadingUnderscore: 'require',
+				modifiers: ['unused'],
+				selector: 'variableLike',
 			},
 			{
 				format: null,
