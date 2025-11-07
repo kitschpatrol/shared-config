@@ -35,10 +35,12 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			languageOptions: {
 				parser: parserSvelte,
 				parserOptions: {
-					extraFileExtensions: ['.svelte'],
+					extraFileExtensions: ['.svelte', '.svelte.ts'],
 					parser: tsParser, // TODO js version?
-					project: path.join(process.cwd(), 'tsconfig.json'), // Not sure why this isn't inherited
+					projectService: true,
 					svelteConfig: path.join(process.cwd(), 'svelte.config.js'),
+					svelteFeatures: { experimentalGenerics: true },
+					tsconfigRootDir: process.cwd(),
 				},
 			},
 			name: 'kp/svelte/rules',
