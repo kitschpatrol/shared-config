@@ -51,8 +51,8 @@
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
 		"@eslint-react/eslint-plugin": "2.1.1",
-		"@html-eslint/eslint-plugin": "^0.47.1",
-		"@html-eslint/parser": "^0.47.1",
+		"@html-eslint/eslint-plugin": "^0.48.0",
+		"@html-eslint/parser": "^0.48.0",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@typescript-eslint/eslint-plugin": "^8.46.3",
 		"@typescript-eslint/parser": "^8.46.3",

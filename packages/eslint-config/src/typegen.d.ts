@@ -7916,6 +7916,7 @@ type HtmlIndent =
 				tagChildrenIndent?: {
 					[k: string]: number
 				}
+				ignoreComment?: boolean
 			},
 	  ]
 // ----- html/max-element-depth -----
