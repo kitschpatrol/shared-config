@@ -231,54 +231,57 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				// Matches everything
 				selector: 'default',
 			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'class',
-			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'enum',
-			},
+			// Overkill
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'class',
+			// },
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'enum',
+			// },
 			{
 				format: null,
 				leadingUnderscore: 'require',
 				modifiers: ['unused'],
 				selector: 'function',
 			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'interface',
-			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'typeAlias',
-			},
+			// Overkill
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'interface',
+			// },
 			{
 				format: null,
 				leadingUnderscore: 'require',
 				modifiers: ['unused'],
 				selector: 'parameter',
 			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'typeLike',
-			},
-			{
-				format: null,
-				leadingUnderscore: 'require',
-				modifiers: ['unused'],
-				selector: 'typeParameter',
-			},
+			// Overkill
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'typeAlias',
+			// },
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'typeLike',
+			// },
+			// {
+			// 	format: null,
+			// 	leadingUnderscore: 'require',
+			// 	modifiers: ['unused'],
+			// 	selector: 'typeParameter',
+			// },
 			{
 				format: null,
 				leadingUnderscore: 'require',
