@@ -1,4 +1,5 @@
 export * from './astro'
+export * from './de-morgan'
 export * from './depend'
 export * from './eslint-comments'
 export * from './eslint-javascript'

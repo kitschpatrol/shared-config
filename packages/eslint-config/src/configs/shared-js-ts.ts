@@ -1,6 +1,7 @@
 import pluginEslintComments from '@eslint-community/eslint-plugin-eslint-comments'
 import pluginTs from '@typescript-eslint/eslint-plugin'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
+import pluginDeMorgan from 'eslint-plugin-de-morgan'
 import * as pluginDepend from 'eslint-plugin-depend'
 import pluginImport from 'eslint-plugin-import-x'
 import pluginJsdocComments from 'eslint-plugin-jsdoc'
@@ -10,6 +11,7 @@ import * as pluginRegexp from 'eslint-plugin-regexp'
 import pluginUnicorn from 'eslint-plugin-unicorn'
 import type { Rules, TypedFlatConfigItem } from '../types'
 import {
+	deMorganRecommendedRules,
 	dependRecommendedRules,
 	eslintCommentsRecommendedRules,
 	eslintJavascriptRecommendedRules,
@@ -114,6 +116,7 @@ const kpPerfectionistSortConfig = [
  */
 export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
+		'de-morgan': pluginDeMorgan,
 		depend: pluginDepend,
 		// eslint-disable-next-line ts/no-unsafe-assignment
 		'eslint-comments': pluginEslintComments,
@@ -141,6 +144,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...jsdocCommentsRecommendedTypescriptRules,
 		...eslintCommentsRecommendedRules,
 		...regexpRecommendedRules,
+		...deMorganRecommendedRules,
 		...dependRecommendedRules,
 		'capitalized-comments': [
 			'error',

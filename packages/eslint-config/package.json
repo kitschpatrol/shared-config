@@ -99,6 +99,7 @@
 		"dot-prop": "^10.1.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-config-xo-typescript": "^9.0.0",
+		"eslint-plugin-de-morgan": "^2.0.0",
 		"eslint-typegen": "^2.3.0",
 		"globby": "^15.0.0",
 		"svelte": "^5.43.4",
