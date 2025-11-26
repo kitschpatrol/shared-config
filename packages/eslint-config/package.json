@@ -102,7 +102,7 @@
 		"eslint-plugin-de-morgan": "^2.0.0",
 		"eslint-typegen": "^2.3.0",
 		"globby": "^15.0.0",
-		"svelte": "^5.44.0",
+		"svelte": "^5.44.1",
 		"tsup": "^8.5.1"
 	},
 	"engines": {

@@ -88,7 +88,7 @@ importers:
         version: 4.0.0
       mdat-plugin-cli-help:
         specifier: ^1.0.2
-        version: 1.0.2(mdat@1.3.0(typescript@5.9.3))(remark-mdat@1.2.0)
+        version: 1.0.2(mdat@1.3.1(typescript@5.9.3))(remark-mdat@1.2.0)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -127,7 +127,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       cspell:
         specifier: ^9.3.2
         version: 9.3.2
@@ -239,7 +239,7 @@ importers:
         version: 2.10.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-svelte:
         specifier: ^3.13.0
-        version: 3.13.0(eslint@9.39.1(jiti@2.6.1))(svelte@5.44.0)
+        version: 3.13.0(eslint@9.39.1(jiti@2.6.1))(svelte@5.44.1)
       eslint-plugin-toml:
         specifier: ^0.12.0
         version: 0.12.0(eslint@9.39.1(jiti@2.6.1))
@@ -275,7 +275,7 @@ importers:
         version: 3.4.0
       svelte-eslint-parser:
         specifier: ^1.4.0
-        version: 1.4.0(svelte@5.44.0)
+        version: 1.4.0(svelte@5.44.1)
       to-valid-identifier:
         specifier: ^1.0.0
         version: 1.0.0
@@ -311,8 +311,8 @@ importers:
         specifier: ^15.0.0
         version: 15.0.0
       svelte:
-        specifier: ^5.44.0
-        version: 5.44.0
+        specifier: ^5.44.1
+        version: 5.44.1
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
@@ -327,7 +327,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -342,7 +342,7 @@ importers:
         version: 11.3.2
       knip:
         specifier: ^5.70.2
-        version: 5.70.2(@types/node@22.19.1)(typescript@5.9.3)
+        version: 5.70.2(@types/node@20.19.25)(typescript@5.9.3)
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -357,7 +357,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -368,8 +368,8 @@ importers:
         specifier: ^11.3.2
         version: 11.3.2
       mdat:
-        specifier: ^1.3.0
-        version: 1.3.0(typescript@5.9.3)
+        specifier: ^1.3.1
+        version: 1.3.1(typescript@5.9.3)
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -393,7 +393,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -420,10 +420,10 @@ importers:
         version: 0.18.0(prettier@3.6.2)
       prettier-plugin-svelte:
         specifier: ^3.4.0
-        version: 3.4.0(prettier@3.6.2)(svelte@5.44.0)
+        version: 3.4.0(prettier@3.6.2)(svelte@5.44.1)
       prettier-plugin-tailwindcss:
         specifier: ^0.7.1
-        version: 0.7.1(prettier-plugin-astro@0.14.1)(prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.0))(prettier@3.6.2)
+        version: 0.7.1(prettier-plugin-astro@0.14.1)(prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.1))(prettier@3.6.2)
       prettier-plugin-toml:
         specifier: ^2.0.6
         version: 2.0.6(prettier@3.6.2)
@@ -444,7 +444,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -582,7 +582,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -637,7 +637,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -668,7 +668,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -704,7 +704,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -3821,8 +3821,8 @@ packages:
       mdat: ^1.1.0
       remark-mdat: ^1.1.0
 
-  mdat@1.3.0:
-    resolution: {integrity: sha512-bId4imcX3249QSW4sL8VHYv4dmFyM2x12UyU+VINqUxxaWcBTts/BRe2P/NWexfeZNZwLTED9X8G8qTsHs93RQ==}
+  mdat@1.3.1:
+    resolution: {integrity: sha512-P+poKug99vuVX3wny0iqZxewKK0JQ+Fhv+kDLtbk+jZWTNDsS7P4fB+9Uy0Hhe6v5tRcJ3olqlf9BAcH6MjKxQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -4908,8 +4908,8 @@ packages:
       svelte:
         optional: true
 
-  svelte@5.44.0:
-    resolution: {integrity: sha512-R7387No2zEGw4CtYtI2rgsui6BqjFARzoZFGLiLN5OPla0Pq4Ra2WwcP/zBomP3MYalhSNvF1fzDMuU0P0zPJw==}
+  svelte@5.44.1:
+    resolution: {integrity: sha512-8VnkRXpa6tJ9IqiwKvzZBNnBy9tZg0N63duDz0EJqiozsmBEAZfHiZzWWWAneIN+cAWkK1JkafW1xIbC4YrdBA==}
     engines: {node: '>=18'}
 
   svg-tags@1.0.0:
@@ -7809,7 +7809,7 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-svelte@3.13.0(eslint@9.39.1(jiti@2.6.1))(svelte@5.44.0):
+  eslint-plugin-svelte@3.13.0(eslint@9.39.1(jiti@2.6.1))(svelte@5.44.1):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.39.1(jiti@2.6.1))
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -7821,9 +7821,9 @@ snapshots:
       postcss-load-config: 3.1.4(postcss@8.5.6)
       postcss-safe-parser: 7.0.1(postcss@8.5.6)
       semver: 7.7.3
-      svelte-eslint-parser: 1.4.0(svelte@5.44.0)
+      svelte-eslint-parser: 1.4.0(svelte@5.44.1)
     optionalDependencies:
-      svelte: 5.44.0
+      svelte: 5.44.1
     transitivePeerDependencies:
       - ts-node
 
@@ -8568,10 +8568,10 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  knip@5.70.2(@types/node@22.19.1)(typescript@5.9.3):
+  knip@5.70.2(@types/node@20.19.25)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
-      '@types/node': 22.19.1
+      '@types/node': 20.19.25
       fast-glob: 3.3.3
       formatly: 0.3.0
       jiti: 2.6.1
@@ -8848,17 +8848,17 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdat-plugin-cli-help@1.0.2(mdat@1.3.0(typescript@5.9.3))(remark-mdat@1.2.0):
+  mdat-plugin-cli-help@1.0.2(mdat@1.3.1(typescript@5.9.3))(remark-mdat@1.2.0):
     dependencies:
       '@types/which': 3.0.4
       execa: 9.6.0
-      mdat: 1.3.0(typescript@5.9.3)
+      mdat: 1.3.1(typescript@5.9.3)
       read-pkg: 9.0.1
       remark-mdat: 1.2.0
       type-fest: 5.2.0
       which: 5.0.0
 
-  mdat@1.3.0(typescript@5.9.3):
+  mdat@1.3.1(typescript@5.9.3):
     dependencies:
       '@clack/prompts': 0.11.0
       '@types/mdast': 4.0.4
@@ -9526,17 +9526,17 @@ snapshots:
       prettier: 3.6.2
       sh-syntax: 0.5.8
 
-  prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.0):
+  prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.1):
     dependencies:
       prettier: 3.6.2
-      svelte: 5.44.0
+      svelte: 5.44.1
 
-  prettier-plugin-tailwindcss@0.7.1(prettier-plugin-astro@0.14.1)(prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.0))(prettier@3.6.2):
+  prettier-plugin-tailwindcss@0.7.1(prettier-plugin-astro@0.14.1)(prettier-plugin-svelte@3.4.0(prettier@3.6.2)(svelte@5.44.1))(prettier@3.6.2):
     dependencies:
       prettier: 3.6.2
     optionalDependencies:
       prettier-plugin-astro: 0.14.1
-      prettier-plugin-svelte: 3.4.0(prettier@3.6.2)(svelte@5.44.0)
+      prettier-plugin-svelte: 3.4.0(prettier@3.6.2)(svelte@5.44.1)
 
   prettier-plugin-toml@2.0.6(prettier@3.6.2):
     dependencies:
@@ -10385,7 +10385,7 @@ snapshots:
       has-flag: 4.0.0
       supports-color: 7.2.0
 
-  svelte-eslint-parser@1.4.0(svelte@5.44.0):
+  svelte-eslint-parser@1.4.0(svelte@5.44.1):
     dependencies:
       eslint-scope: 8.4.0
       eslint-visitor-keys: 4.2.1
@@ -10394,9 +10394,9 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.5.6)
       postcss-selector-parser: 7.1.0
     optionalDependencies:
-      svelte: 5.44.0
+      svelte: 5.44.1
 
-  svelte@5.44.0:
+  svelte@5.44.1:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
