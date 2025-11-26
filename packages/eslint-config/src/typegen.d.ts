@@ -1380,6 +1380,11 @@ export interface RuleOptions {
 	 */
 	'jsdoc/require-property-type'?: Linter.RuleEntry<[]>
 	/**
+	 * Requires that Promise rejections are documented with `@rejects` tags.
+	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-rejects.md#repos-sticky-header
+	 */
+	'jsdoc/require-rejects'?: Linter.RuleEntry<JsdocRequireRejects>
+	/**
 	 * Requires that returns are documented with `@returns`.
 	 * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-returns.md#repos-sticky-header
 	 */
@@ -1515,6 +1520,11 @@ export interface RuleOptions {
 	 */
 	'json-package/no-redundant-files'?: Linter.RuleEntry<[]>
 	/**
+	 * Warns when publishConfig.access is used in unscoped packages.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/no-redundant-publishConfig.md
+	 */
+	'json-package/no-redundant-publishConfig'?: Linter.RuleEntry<[]>
+	/**
 	 * Package properties must be declared in standard order
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/order-properties.md
 	 */
@@ -1524,6 +1534,11 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/repository-shorthand.md
 	 */
 	'json-package/repository-shorthand'?: Linter.RuleEntry<JsonPackageRepositoryShorthand>
+	/**
+	 * Ensures that proper attribution is included, requiring that either `author` or `contributors` is defined, and that if `contributors` is present, it should include at least one contributor.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-attribution.md
+	 */
+	'json-package/require-attribution'?: Linter.RuleEntry<JsonPackageRequireAttribution>
 	/**
 	 * Requires the `author` property to be present.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-author.md
@@ -1560,6 +1575,11 @@ export interface RuleOptions {
 	 */
 	'json-package/require-engines'?: Linter.RuleEntry<JsonPackageRequireEngines>
 	/**
+	 * Requires the `exports` property to be present.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-exports.md
+	 */
+	'json-package/require-exports'?: Linter.RuleEntry<JsonPackageRequireExports>
+	/**
 	 * Requires the `files` property to be present.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-files.md
 	 */
@@ -1589,6 +1609,11 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-peerDependencies.md
 	 */
 	'json-package/require-peerDependencies'?: Linter.RuleEntry<JsonPackageRequirePeerDependencies>
+	/**
+	 * Requires the `sideEffects` property to be present.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-sideEffects.md
+	 */
+	'json-package/require-sideEffects'?: Linter.RuleEntry<JsonPackageRequireSideEffects>
 	/**
 	 * Requires the `type` property to be present.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-type.md
@@ -1625,6 +1650,11 @@ export interface RuleOptions {
 	 */
 	'json-package/sort-collections'?: Linter.RuleEntry<JsonPackageSortCollections>
 	/**
+	 * Requires that all peer dependencies are also declared as dev dependencies
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/specify-peers-locally.md
+	 */
+	'json-package/specify-peers-locally'?: Linter.RuleEntry<[]>
+	/**
 	 * Checks a dependency isn't specified more than once (i.e. in `dependencies` and `devDependencies`)
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/unique-dependencies.md
 	 */
@@ -1649,6 +1679,11 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-config.md
 	 */
 	'json-package/valid-config'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `contributors` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-contributors.md
+	 */
+	'json-package/valid-contributors'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `cpu` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-cpu.md
@@ -1675,10 +1710,30 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-directories'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `engines` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-engines.md
+	 */
+	'json-package/valid-engines'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `exports` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-exports.md
 	 */
 	'json-package/valid-exports'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `files` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-files.md
+	 */
+	'json-package/valid-files'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `homepage` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-homepage.md
+	 */
+	'json-package/valid-homepage'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `keywords` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-keywords.md
+	 */
+	'json-package/valid-keywords'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `license` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-license.md
@@ -1691,6 +1746,16 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-local-dependency'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `main` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-main.md
+	 */
+	'json-package/valid-main'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `man` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-man.md
+	 */
+	'json-package/valid-man'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that package names are valid npm package names
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-name.md
 	 */
@@ -1701,8 +1766,14 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-optionalDependencies'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `os` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-os.md
+	 */
+	'json-package/valid-os'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that package.json has all properties required by the npm spec
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-package-definition.md
+	 * @deprecated
 	 */
 	'json-package/valid-package-definition'?: Linter.RuleEntry<JsonPackageValidPackageDefinition>
 	/**
@@ -1710,6 +1781,21 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-peerDependencies.md
 	 */
 	'json-package/valid-peerDependencies'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `private` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-private.md
+	 */
+	'json-package/valid-private'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `publishConfig` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-publishConfig.md
+	 */
+	'json-package/valid-publishConfig'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `repository` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-repository.md
+	 */
+	'json-package/valid-repository'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that if repository directory is specified, it matches the path to the package.json file
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-repository-directory.md
@@ -1721,6 +1807,11 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-scripts'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `sideEffects` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-sideEffects.md
+	 */
+	'json-package/valid-sideEffects'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `type` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-type.md
 	 */
@@ -1730,6 +1821,11 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-version.md
 	 */
 	'json-package/valid-version'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `workspaces` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-workspaces.md
+	 */
+	'json-package/valid-workspaces'?: Linter.RuleEntry<[]>
 	/**
 	 * enforce line breaks after opening and before closing array brackets
 	 * @see https://ota-meshi.github.io/eslint-plugin-jsonc/rules/array-bracket-newline.html
@@ -4970,6 +5066,11 @@ export interface RuleOptions {
 	 */
 	'template-tag-spacing'?: Linter.RuleEntry<TemplateTagSpacing>
 	/**
+	 * enforce using `.each` or `.for` consistently
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-each-for.md
+	 */
+	'test/consistent-each-for'?: Linter.RuleEntry<TestConsistentEachFor>
+	/**
 	 * require test file pattern
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-filename.md
 	 */
@@ -5191,7 +5292,7 @@ export interface RuleOptions {
 	 */
 	'test/prefer-each'?: Linter.RuleEntry<[]>
 	/**
-	 * enforce using the built-in quality matchers
+	 * enforce using the built-in equality matchers
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-equality-matcher.md
 	 */
 	'test/prefer-equality-matcher'?: Linter.RuleEntry<[]>
@@ -5301,10 +5402,20 @@ export interface RuleOptions {
 	 */
 	'test/prefer-vi-mocked'?: Linter.RuleEntry<[]>
 	/**
+	 * ensure that every `expect.poll` call is awaited
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-awaited-expect-poll.md
+	 */
+	'test/require-awaited-expect-poll'?: Linter.RuleEntry<[]>
+	/**
 	 * require setup and teardown to be within a hook
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-hook.md
 	 */
 	'test/require-hook'?: Linter.RuleEntry<TestRequireHook>
+	/**
+	 * require usage of import in vi.mock()
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-import-vi-mock.md
+	 */
+	'test/require-import-vi-mock'?: Linter.RuleEntry<[]>
 	/**
 	 * require local Test Context for concurrent snapshot tests
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-local-test-context-for-concurrent-snapshots.md
@@ -5904,6 +6015,11 @@ export interface RuleOptions {
 	 * @see https://typescript-eslint.io/rules/no-unused-expressions
 	 */
 	'ts/no-unused-expressions'?: Linter.RuleEntry<TsNoUnusedExpressions>
+	/**
+	 * Disallow unused private class members
+	 * @see https://typescript-eslint.io/rules/no-unused-private-class-members
+	 */
+	'ts/no-unused-private-class-members'?: Linter.RuleEntry<[]>
 	/**
 	 * Disallow unused variables
 	 * @see https://typescript-eslint.io/rules/no-unused-vars
@@ -8613,6 +8729,8 @@ type JsdocCheckIndentation =
 	| []
 	| [
 			{
+				allowIndentedSections?: boolean
+
 				excludeTags?: string[]
 			},
 	  ]
@@ -9283,6 +9401,22 @@ type JsdocRequireParamType =
 				setDefaultDestructuredRootType?: boolean
 			},
 	  ]
+// ----- jsdoc/require-rejects -----
+type JsdocRequireRejects =
+	| []
+	| [
+			{
+				contexts?: (
+					| string
+					| {
+							comment?: string
+							context?: string
+					  }
+				)[]
+
+				exemptedBy?: string[]
+			},
+	  ]
 // ----- jsdoc/require-returns -----
 type JsdocRequireReturns =
 	| []
@@ -9459,6 +9593,10 @@ type JsdocSortTags =
 
 				reportTagGroupSpacing?: boolean
 
+				tagExceptions?: {
+					[k: string]: number
+				}
+
 				tagSequence?: {
 					tags?: string[]
 				}[]
@@ -9632,6 +9770,14 @@ type JsonPackageRepositoryShorthand =
 				form?: 'object' | 'shorthand'
 			},
 	  ]
+// ----- json-package/require-attribution -----
+type JsonPackageRequireAttribution =
+	| []
+	| [
+			{
+				preferContributorsOnly?: boolean
+			},
+	  ]
 // ----- json-package/require-author -----
 type JsonPackageRequireAuthor =
 	| []
@@ -9688,6 +9834,14 @@ type JsonPackageRequireEngines =
 				ignorePrivate?: boolean
 			},
 	  ]
+// ----- json-package/require-exports -----
+type JsonPackageRequireExports =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/require-files -----
 type JsonPackageRequireFiles =
 	| []
@@ -9730,6 +9884,14 @@ type JsonPackageRequireOptionalDependencies =
 	  ]
 // ----- json-package/require-peerDependencies -----
 type JsonPackageRequirePeerDependencies =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-sideEffects -----
+type JsonPackageRequireSideEffects =
 	| []
 	| [
 			{
@@ -20355,6 +20517,17 @@ type SwitchColonSpacing =
 type TemplateCurlySpacing = [] | ['always' | 'never']
 // ----- template-tag-spacing -----
 type TemplateTagSpacing = [] | ['always' | 'never']
+// ----- test/consistent-each-for -----
+type TestConsistentEachFor =
+	| []
+	| [
+			{
+				test?: 'each' | 'for'
+				it?: 'each' | 'for'
+				describe?: 'each' | 'for'
+				suite?: 'each' | 'for'
+			},
+	  ]
 // ----- test/consistent-test-filename -----
 type TestConsistentTestFilename =
 	| []
@@ -20419,7 +20592,7 @@ type TestNoHooks =
 	| []
 	| [
 			{
-				allow?: unknown[]
+				allow?: ('beforeAll' | 'beforeEach' | 'afterAll' | 'afterEach')[]
 			},
 	  ]
 // ----- test/no-large-snapshots -----
