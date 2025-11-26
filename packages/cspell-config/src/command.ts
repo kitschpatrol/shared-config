@@ -106,7 +106,7 @@ async function casePoliceCommand(
 		// [Case Police]
 
 		// Only allow word recommendations through
-		const shouldStrip = !(plainText.startsWith(logPrefix) && plainText.includes('→'))
+		const shouldStrip = !plainText.startsWith(logPrefix) || !plainText.includes('→')
 
 		return shouldStrip
 	})
