@@ -108,6 +108,10 @@ const kpPerfectionistSortConfig = [
 	generatePerfectionistSortConfig(['min', 'max']),
 	generatePerfectionistSortConfig(['min', 'max'], 'leading'),
 	generatePerfectionistSortConfig(['Min', 'Max'], 'trailing'),
+
+	generatePerfectionistSortConfig(['pre', 'post']),
+	generatePerfectionistSortConfig(['pre', 'post'], 'leading'),
+	generatePerfectionistSortConfig(['Pre', 'post'], 'trailing'),
 ]
 
 /**
@@ -166,7 +170,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		// Astro uses `astro:...` and `@astrojs/...`.
 		// Starlight uses `virtual:...`.
 		// https://github.com/hannoeru/vite-plugin-pages/issues/41#issuecomment-1371880072
-		'import/no-unresolved': ['error', { ignore: ['^astro:', '^@astrojs', '^virtual:'] }],
+		'import/no-unresolved': [
+			'error',
+			{ ignore: ['^astro:', '^@astrojs', '^virtual:', '^~aphex/', '^~photos/'] },
+		],
 		'import/order': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		// Knip workaround to ignore unused exported class members:
 		// https://github.com/webpro-nl/knip/issues/158#issuecomment-1632648598
