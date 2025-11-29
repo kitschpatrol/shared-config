@@ -8043,6 +8043,7 @@ type HtmlIndent =
 					[k: string]: number
 				}
 				ignoreComment?: boolean
+				templateIndentBase?: 'first' | 'templateTag'
 			},
 	  ]
 // ----- html/max-element-depth -----

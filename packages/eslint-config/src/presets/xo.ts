@@ -170,7 +170,8 @@ export const xoJavascriptRules: Rules = {
 		'error',
 		'always',
 		{
-			ignorePattern: String.raw`pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:`,
+			ignorePattern:
+				'pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\\w+:|c8|v8|type-coverage:',
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},

@@ -376,7 +376,7 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
 - [create-typescript-app](https://github.com/JoshuaKGoldberg/create-typescript-app)
-- [envsa/shared-config](https://github.com/envsa/shared-config) (Liam Rella's fork of `@kitschpatrol/shared-config`)
+- [envsa/shared-config](https://www.npmjs.com/package/@envsa/shared-config) (Liam Rella's fork of `@kitschpatrol/shared-config`)
 - [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
 - [eslint-config-hyperse](https://github.com/hyperse-io/eslint-config-hyperse)
 - [lass](https://lass.js.org) (xo etc.)

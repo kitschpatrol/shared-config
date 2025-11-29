@@ -219,6 +219,7 @@ helpd
 hexfet
 HoloLens
 HoloVista
+hookmark
 hostnames
 hotreload
 htmlmixed
@@ -571,6 +572,7 @@ suggestification
 suggestified
 suggestify
 Superslides
+superwhisper
 svelteness
 Sveltepress
 svgs
