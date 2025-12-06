@@ -58,7 +58,8 @@ const sharedCspellConfig: CspellConfig = {
 	enabled: true,
 	enableFiletypes: ['astro', 'md', 'mdx', 'patch', 'svelte'],
 	enableGlobDot: false,
-	globRoot: '/',
+	// eslint-disable-next-line no-template-curly-in-string
+	globRoot: '${cwd}',
 	ignorePaths: [
 		'__snapshots__',
 		'*.app',
@@ -88,6 +89,7 @@ const sharedCspellConfig: CspellConfig = {
 		'*.swf',
 		'*.wav',
 		'package.json',
+		'*/*package.json',
 		'patches/',
 		'pnpm-lock.yaml',
 	],
