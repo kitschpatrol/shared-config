@@ -18,6 +18,7 @@ function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 
 const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
+	endOfLine: 'lf',
 	overrides: [
 		{
 			files: ['*.md', '*.mdx', '*.yml'],

@@ -327,6 +327,22 @@ Recall that the `@kitschpatrol/shared-config` package aggregates integration and
 
 ## Implementation notes
 
+### Line endings
+
+This project standardizes on LF (`\n`) line endings across all platforms. This is enforced via Prettier's `endOfLine: 'lf'` setting in [`@kitschpatrol/prettier-config`](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md).
+
+It is expected that your git configuration is set to avoid automatic line ending conversion. You can ensure this by adding the following to your global git config:
+
+```sh
+git config --global core.autocrlf false
+```
+
+Future versions of `@kitschpatrol/shared-config` might enforce this via a `.gitattributes` file.
+
+### Windows compatibility
+
+This project works on Windows, but it's recommend to run commands in a [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) environment or a Bash-compatible terminal like [Git Bash](https://git-scm.com/download/win) to avoid potential issues with package scripts.
+
 ### `check` vs `lint`
 
 This project combines a mix of tools that regard their core task variously as "linting" or "checking" code and prose.
