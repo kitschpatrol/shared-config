@@ -43,7 +43,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsc && ../../scripts/build.ts",
+		"build": "tsc && tsx ../../scripts/build.ts",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},

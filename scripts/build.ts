@@ -1,4 +1,3 @@
-#!/usr/bin/env tsx
 import { build } from 'esbuild'
 
 await build({

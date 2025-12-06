@@ -37,7 +37,7 @@
 		"bin/*"
 	],
 	"scripts": {
-		"build": "../../scripts/build.ts",
+		"build": "tsx ../../scripts/build.ts",
 		"clean": "pnpm run bin-restore ; git clean -fdX",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
