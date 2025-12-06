@@ -37,7 +37,7 @@ It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpat
 
 To use just `mdat-config` in isolation:
 
-1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
+1. Install the basic repository configuration files in your project root. This is required for correct PNPM behavior:
 
    ```sh
    pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init

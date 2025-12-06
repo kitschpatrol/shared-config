@@ -127,7 +127,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       cspell:
         specifier: ^9.4.0
         version: 9.4.0
@@ -327,7 +327,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -342,7 +342,7 @@ importers:
         version: 11.3.2
       knip:
         specifier: ^5.71.0
-        version: 5.71.0(@types/node@22.19.1)(typescript@5.9.3)
+        version: 5.71.0(@types/node@20.19.25)(typescript@5.9.3)
       prettier:
         specifier: ^3.7.4
         version: 3.7.4
@@ -357,7 +357,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -393,7 +393,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -444,7 +444,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -582,7 +582,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -637,7 +637,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -668,7 +668,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -704,7 +704,7 @@ importers:
         version: 9.0.0(typescript@5.9.3)
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
-        version: 6.2.0(@types/node@22.19.1)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+        version: 6.2.0(@types/node@20.19.25)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -8580,10 +8580,10 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  knip@5.71.0(@types/node@22.19.1)(typescript@5.9.3):
+  knip@5.71.0(@types/node@20.19.25)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
-      '@types/node': 22.19.1
+      '@types/node': 20.19.25
       fast-glob: 3.3.3
       formatly: 0.3.0
       jiti: 2.6.1

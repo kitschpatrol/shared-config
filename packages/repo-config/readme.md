@@ -25,7 +25,8 @@ It's a `pnpm`-flavored shared config with some essential files for a fresh repo,
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `ksc` tool access
+- [`.npmrc`](https://pnpm.io/npmrc) with publish branch guards and support for an NPM authentication environment variable for local publishing to NPM
+- [`pnpm-workspace.yaml`](https://pnpm.io/pnpm-workspace_yaml) with hoisting patterns for `ksc` tool access and trusted dependency installation scripts.
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
 - `.github` folder with workflows:
@@ -48,7 +49,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 
 ### Run-once approach
 
-If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
+If you just need to set up your basic repository configuration files in anticipation of installing another `@kitschpatrol` shared configuration dependency, you can run the script via `dlx` to copy them to your project's root:
 
 ```sh
 pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init

@@ -41,7 +41,7 @@ Note that automated fixes are handled via an ESLint integration provided in [@ki
 
 To use just this CSpell config in isolation:
 
-1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
+1. Install the basic repository configuration files in your project root. This is required for correct PNPM behavior:
 
    ```sh
    pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init

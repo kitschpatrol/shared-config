@@ -155,7 +155,7 @@ pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add
 
 #### Step-by-step:
 
-1. Install the requisite `.npmrc`:
+1. Install the requisite basic repository configuration files:
 
    ```sh
    pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
@@ -341,9 +341,9 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 ### Hoisting caveats
 
-The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary and accommodated via the `.npmrc` file included in `@kitschpatrol/repo-config`:
+The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary and accommodated via the `pnpm-workspace.yaml` file included in `@kitschpatrol/repo-config`:
 
-- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via the `publicHoistPattern` array in `pnpm-workspace.yaml` in order to resolve correctly in `pnpm exec` scripts, VS Code plugins, and elsewhere.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 

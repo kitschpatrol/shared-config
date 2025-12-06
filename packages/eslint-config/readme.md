@@ -37,7 +37,7 @@ It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `ksc
 
 To use just this ESLint config in isolation:
 
-1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
+1. Install the basic repository configuration files in your project root. This is required for correct PNPM behavior:
 
    ```sh
    pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init
