@@ -745,6 +745,11 @@ export interface RuleOptions {
 	 */
 	'html/no-trailing-spaces'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallow tags with only whitespace children.
+	 * @see https://html-eslint.org/docs/rules/no-whitespace-only-children
+	 */
+	'html/no-whitespace-only-children'?: Linter.RuleEntry<HtmlNoWhitespaceOnlyChildren>
+	/**
 	 * Prefer to use HTTPS for embedded resources
 	 * @see https://html-eslint.org/docs/rules/prefer-https
 	 */
@@ -6036,6 +6041,11 @@ export interface RuleOptions {
 	 */
 	'ts/no-useless-constructor'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallow default values that will never be used
+	 * @see https://typescript-eslint.io/rules/no-useless-default-assignment
+	 */
+	'ts/no-useless-default-assignment'?: Linter.RuleEntry<[]>
+	/**
 	 * Disallow empty exports that don't change anything in a module file
 	 * @see https://typescript-eslint.io/rules/no-useless-empty-export
 	 */
@@ -8098,6 +8108,14 @@ type HtmlNoRestrictedTags = {
 	tagPatterns: string[]
 	message?: string
 }[]
+// ----- html/no-whitespace-only-children -----
+type HtmlNoWhitespaceOnlyChildren =
+	| []
+	| [
+			{
+				tagPatterns?: string[]
+			},
+	  ]
 // ----- html/quotes -----
 type HtmlQuotes =
 	| []

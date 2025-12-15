@@ -52,7 +52,7 @@
 		"suggest-words": "tsx ./scripts/suggest-words.ts"
 	},
 	"dependencies": {
-		"@cspell/cspell-types": "^9.4.0",
+		"@cspell/cspell-types": "^9.5.0",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"case-police": "^2.1.1",
 		"cosmiconfig": "^9.0.0",
