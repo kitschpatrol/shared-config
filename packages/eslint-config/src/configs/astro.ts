@@ -5,6 +5,7 @@ import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
 	OptionsTypeAware,
+	Rules,
 	TypedFlatConfigItem,
 } from '../types'
 import { GLOB_ASTRO, GLOB_ASTRO_JS, GLOB_ASTRO_TS } from '../globs'
@@ -31,6 +32,10 @@ export async function astro(
 		interopDefault(import('eslint-plugin-astro')),
 		interopDefault(import('astro-eslint-parser')),
 	] as const)
+
+	const astroCustomEmbeddedScriptsRules: Rules = {
+		'unicorn/filename-case': 'off',
+	}
 
 	return [
 		{
@@ -118,6 +123,7 @@ export async function astro(
 			name: 'kp/astro/script-js',
 			rules: {
 				...sharedScriptDisableTypeCheckedRules,
+				...astroCustomEmbeddedScriptsRules,
 				...overridesEmbeddedScripts,
 			},
 		},
@@ -140,6 +146,7 @@ export async function astro(
 			name: 'kp/astro/script-ts',
 			rules: {
 				...sharedScriptDisableTypeCheckedRules,
+				...astroCustomEmbeddedScriptsRules,
 				...overridesEmbeddedScripts,
 			},
 		},
