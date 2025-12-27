@@ -12,6 +12,7 @@ export const testRecommendedRules: Rules = {
 	'test/no-interpolation-in-snapshots': 'error',
 	'test/no-mocks-import': 'error',
 	'test/no-standalone-expect': 'error',
+	'test/no-unneeded-async-expect-function': 'error',
 	'test/prefer-called-exactly-once-with': 'error',
 	'test/require-local-test-context-for-concurrent-snapshots': 'error',
 	'test/valid-describe-callback': 'error',

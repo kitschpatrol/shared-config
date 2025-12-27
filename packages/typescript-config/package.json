@@ -47,7 +47,7 @@
 		"cosmiconfig-typescript-loader": "^6.2.0",
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.2",
+		"fs-extra": "^11.3.3",
 		"prettier": "^3.7.4"
 	},
 	"devDependencies": {

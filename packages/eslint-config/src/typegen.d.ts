@@ -577,6 +577,11 @@ export interface RuleOptions {
 	 */
 	'html/attrs-newline'?: Linter.RuleEntry<HtmlAttrsNewline>
 	/**
+	 * Disallow extra spacing in class attribute values
+	 * @see https://html-eslint.org/docs/rules/class-spacing
+	 */
+	'html/class-spacing'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce newline between elements.
 	 * @see https://html-eslint.org/docs/rules/element-newline
 	 */
@@ -699,6 +704,11 @@ export interface RuleOptions {
 	 * @see https://html-eslint.org/docs/rules/no-non-scalable-viewport
 	 */
 	'html/no-non-scalable-viewport'?: Linter.RuleEntry<[]>
+	/**
+	 * Disallow use of obsolete attributes in HTML5
+	 * @see https://html-eslint.org/docs/rules/no-obsolete-attrs
+	 */
+	'html/no-obsolete-attrs'?: Linter.RuleEntry<[]>
 	/**
 	 * Disallow use of obsolete elements in HTML5
 	 * @see https://html-eslint.org/docs/rules/no-obsolete-tags
@@ -5232,6 +5242,11 @@ export interface RuleOptions {
 	 */
 	'test/no-test-return-statement'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallow unnecessary async function wrapper for expected promises
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-unneeded-async-expect-function.md
+	 */
+	'test/no-unneeded-async-expect-function'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce padding around `afterAll` blocks
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/padding-around-after-all-blocks.md
 	 */
@@ -5340,7 +5355,7 @@ export interface RuleOptions {
 	 * prefer dynamic import in mock
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-import-in-mock.md
 	 */
-	'test/prefer-import-in-mock'?: Linter.RuleEntry<[]>
+	'test/prefer-import-in-mock'?: Linter.RuleEntry<TestPreferImportInMock>
 	/**
 	 * enforce importing Vitest globals
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-importing-vitest-globals.md
@@ -5356,6 +5371,11 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-mock-promise-shorthand.md
 	 */
 	'test/prefer-mock-promise-shorthand'?: Linter.RuleEntry<[]>
+	/**
+	 * Prefer mock return shorthands
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-mock-return-shorthand.md
+	 */
+	'test/prefer-mock-return-shorthand'?: Linter.RuleEntry<[]>
 	/**
 	 * enforce including a hint with external snapshots
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-snapshot-hint.md
@@ -5402,6 +5422,11 @@ export interface RuleOptions {
 	 */
 	'test/prefer-to-contain'?: Linter.RuleEntry<[]>
 	/**
+	 * Suggest using `toHaveBeenCalledTimes()`
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-to-have-been-called-times.md
+	 */
+	'test/prefer-to-have-been-called-times'?: Linter.RuleEntry<[]>
+	/**
 	 * enforce using toHaveLength()
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-to-have-length.md
 	 */
@@ -5426,11 +5451,6 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-hook.md
 	 */
 	'test/require-hook'?: Linter.RuleEntry<TestRequireHook>
-	/**
-	 * require usage of import in vi.mock()
-	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-import-vi-mock.md
-	 */
-	'test/require-import-vi-mock'?: Linter.RuleEntry<[]>
 	/**
 	 * require local Test Context for concurrent snapshot tests
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-local-test-context-for-concurrent-snapshots.md
@@ -21336,6 +21356,14 @@ type TestPreferExpectAssertions =
 				onlyFunctionsWithAsyncKeyword?: boolean
 				onlyFunctionsWithExpectInLoop?: boolean
 				onlyFunctionsWithExpectInCallback?: boolean
+			},
+	  ]
+// ----- test/prefer-import-in-mock -----
+type TestPreferImportInMock =
+	| []
+	| [
+			{
+				fixable?: boolean
 			},
 	  ]
 // ----- test/prefer-lowercase-title -----

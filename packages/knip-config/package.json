@@ -53,8 +53,8 @@
 		"deepmerge-ts": "^7.1.5",
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.2",
-		"knip": "^5.75.1",
+		"fs-extra": "^11.3.3",
+		"knip": "^5.78.0",
 		"prettier": "^3.7.4"
 	},
 	"engines": {
