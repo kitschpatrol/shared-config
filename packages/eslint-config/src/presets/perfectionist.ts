@@ -4,6 +4,8 @@ export const perfectionistRecommendedNaturalRules: Rules = {
 	// Begin expansion 'eslint-plugin-perfectionist' 'recommended-natural'
 	'perfectionist/sort-variable-declarations': ['error', { type: 'natural', order: 'asc' }],
 	'perfectionist/sort-intersection-types': ['error', { type: 'natural', order: 'asc' }],
+	'perfectionist/sort-import-attributes': ['error', { type: 'natural', order: 'asc' }],
+	'perfectionist/sort-export-attributes': ['error', { type: 'natural', order: 'asc' }],
 	'perfectionist/sort-heritage-clauses': ['error', { type: 'natural', order: 'asc' }],
 	'perfectionist/sort-array-includes': ['error', { type: 'natural', order: 'asc' }],
 	'perfectionist/sort-named-imports': ['error', { type: 'natural', order: 'asc' }],

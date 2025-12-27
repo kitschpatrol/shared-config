@@ -212,7 +212,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			{
 				// Also treat $ prefix as internal
 				internalPattern: ['^~/.+', '^@/.+', String.raw`^\$.+`],
-				newlinesBetween: 'never',
+				newlinesBetween: 0,
 				partitionByComment: {
 					block: false,
 					line: true,
@@ -224,12 +224,12 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'perfectionist/sort-object-types': [
 			'error',
 			...kpPerfectionistSortConfig,
-			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+			{ newlinesBetween: 0, order: 'asc', type: 'natural' },
 		],
 		'perfectionist/sort-objects': [
 			'error',
 			...kpPerfectionistSortConfig,
-			{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+			{ newlinesBetween: 0, order: 'asc', type: 'natural' },
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces

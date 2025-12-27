@@ -139,7 +139,8 @@ export function toArray<T>(value: T | T[]): T[] {
 }
 
 /**
- * Generates a Perfectionist sort configuration object from an array of strings
+ * Generates a Perfectionist sort configuration object from an array of strings.
+ * Uses the v5.0 array-based customGroups format.
  * @see https://perfectionist.dev/rules/sort-objects#useconfigurationif
  * @param strings - Array of strings to generate config from
  * @param matchType - How to match the strings:
@@ -151,30 +152,31 @@ export function generatePerfectionistSortConfig(
 	strings: string[],
 	matchType: 'exact' | 'leading' | 'trailing' = 'exact',
 ): {
-	customGroups: Record<string, string>
+	customGroups: Array<{ elementNamePattern: string; groupName: string }>
 	groups: string[]
 	useConfigurationIf: {
 		allNamesMatchPattern: string
 	}
 } {
-	const customGroups: Record<string, string> = {}
+	const customGroups: Array<{ elementNamePattern: string; groupName: string }> = []
 
 	for (const string of strings) {
+		let elementNamePattern: string
 		switch (matchType) {
 			case 'exact': {
-				customGroups[string] = `^${string}$`
+				elementNamePattern = `^${string}$`
 				break
 			}
 			case 'leading': {
-				customGroups[string] = `^${string}.*$`
+				elementNamePattern = `^${string}.*$`
 				break
 			}
-
 			case 'trailing': {
-				customGroups[string] = `^.*${string}$`
+				elementNamePattern = `^.*${string}$`
 				break
 			}
 		}
+		customGroups.push({ elementNamePattern, groupName: string })
 	}
 
 	// Generate pattern for useConfigurationIf
