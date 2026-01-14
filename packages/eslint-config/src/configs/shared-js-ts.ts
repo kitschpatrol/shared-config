@@ -122,7 +122,6 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
 		'de-morgan': pluginDeMorgan,
 		depend: pluginDepend,
-		// eslint-disable-next-line ts/no-unsafe-assignment
 		'eslint-comments': pluginEslintComments,
 		import: pluginImport,
 		jsdoc: pluginJsdocComments,
