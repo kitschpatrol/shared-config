@@ -1540,7 +1540,7 @@ export interface RuleOptions {
 	 */
 	'json-package/no-redundant-publishConfig'?: Linter.RuleEntry<[]>
 	/**
-	 * Package properties must be declared in standard order
+	 * Package properties should be declared in standard order
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/order-properties.md
 	 */
 	'json-package/order-properties'?: Linter.RuleEntry<JsonPackageOrderProperties>
@@ -1600,6 +1600,11 @@ export interface RuleOptions {
 	 */
 	'json-package/require-files'?: Linter.RuleEntry<JsonPackageRequireFiles>
 	/**
+	 * Requires the `homepage` property to be present.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-homepage.md
+	 */
+	'json-package/require-homepage'?: Linter.RuleEntry<JsonPackageRequireHomepage>
+	/**
 	 * Requires the `keywords` property to be present.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-keywords.md
 	 */
@@ -1624,6 +1629,16 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-peerDependencies.md
 	 */
 	'json-package/require-peerDependencies'?: Linter.RuleEntry<JsonPackageRequirePeerDependencies>
+	/**
+	 * Requires the `repository` property to be present.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-repository.md
+	 */
+	'json-package/require-repository'?: Linter.RuleEntry<JsonPackageRequireRepository>
+	/**
+	 * Requires the `scripts` property to be present.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-scripts.md
+	 */
+	'json-package/require-scripts'?: Linter.RuleEntry<JsonPackageRequireScripts>
 	/**
 	 * Requires the `sideEffects` property to be present.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/require-sideEffects.md
@@ -1755,12 +1770,6 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-license'?: Linter.RuleEntry<[]>
 	/**
-	 * Checks existence of local dependencies in the package.json
-	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-local-dependency.md
-	 * @deprecated
-	 */
-	'json-package/valid-local-dependency'?: Linter.RuleEntry<[]>
-	/**
 	 * Enforce that the `main` property is valid.
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-main.md
 	 */
@@ -1770,6 +1779,11 @@ export interface RuleOptions {
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-man.md
 	 */
 	'json-package/valid-man'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `module` property is valid.
+	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-module.md
+	 */
+	'json-package/valid-module'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that package names are valid npm package names
 	 * @see https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-name.md
@@ -5144,7 +5158,7 @@ export interface RuleOptions {
 	 * disallow conditional expects
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-expect.md
 	 */
-	'test/no-conditional-expect'?: Linter.RuleEntry<[]>
+	'test/no-conditional-expect'?: Linter.RuleEntry<TestNoConditionalExpect>
 	/**
 	 * disallow conditional tests
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-in-test.md
@@ -5461,6 +5475,11 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-mock-type-parameters.md
 	 */
 	'test/require-mock-type-parameters'?: Linter.RuleEntry<TestRequireMockTypeParameters>
+	/**
+	 * require tests to declare a timeout
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-test-timeout.md
+	 */
+	'test/require-test-timeout'?: Linter.RuleEntry<[]>
 	/**
 	 * require toThrow() to be called with an error message
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-to-throw-message.md
@@ -6248,6 +6267,11 @@ export interface RuleOptions {
 	 * @see https://typescript-eslint.io/rules/strict-boolean-expressions
 	 */
 	'ts/strict-boolean-expressions'?: Linter.RuleEntry<TsStrictBooleanExpressions>
+	/**
+	 * Disallow passing a value-returning function in a position accepting a void function
+	 * @see https://typescript-eslint.io/rules/strict-void-return
+	 */
+	'ts/strict-void-return'?: Linter.RuleEntry<TsStrictVoidReturn>
 	/**
 	 * Require switch-case statements to be exhaustive
 	 * @see https://typescript-eslint.io/rules/switch-exhaustiveness-check
@@ -9301,6 +9325,8 @@ type JsdocRequireJsdoc =
 	| []
 	| [
 			{
+				checkAllFunctionExpressions?: boolean
+
 				checkConstructors?: boolean
 
 				checkGetters?: boolean | 'no-setter'
@@ -9899,6 +9925,14 @@ type JsonPackageRequireFiles =
 				ignorePrivate?: boolean
 			},
 	  ]
+// ----- json-package/require-homepage -----
+type JsonPackageRequireHomepage =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/require-keywords -----
 type JsonPackageRequireKeywords =
 	| []
@@ -9933,6 +9967,22 @@ type JsonPackageRequireOptionalDependencies =
 	  ]
 // ----- json-package/require-peerDependencies -----
 type JsonPackageRequirePeerDependencies =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-repository -----
+type JsonPackageRequireRepository =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-scripts -----
+type JsonPackageRequireScripts =
 	| []
 	| [
 			{
@@ -15665,12 +15715,12 @@ type PaddingLineBetweenStatements = {
 // ----- perfectionist/sort-array-includes -----
 type PerfectionistSortArrayIncludes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -15685,47 +15735,83 @@ type PerfectionistSortArrayIncludes = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					selector?: 'literal' | 'spread'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'literal' | 'spread'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'literal' | 'spread'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -15764,9 +15850,21 @@ type PerfectionistSortArrayIncludes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -15866,12 +15964,18 @@ type PerfectionistSortClasses =
 	| [
 			{
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -15886,106 +15990,213 @@ type PerfectionistSortClasses =
 				customGroups?: (
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
-							anyOf: {
-								elementNamePattern?:
-									| (
-											| {
-													pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+							anyOf: [
+								{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
 
-								modifiers?: (
-									| 'async'
-									| 'protected'
-									| 'private'
-									| 'public'
-									| 'static'
-									| 'abstract'
-									| 'override'
-									| 'readonly'
-									| 'decorated'
-									| 'declare'
-									| 'optional'
-								)[]
+														flags?: string
+												  }
+												| string
+										  )
 
-								selector?:
-									| 'accessor-property'
-									| 'index-signature'
-									| 'constructor'
-									| 'static-block'
-									| 'get-method'
-									| 'set-method'
-									| 'function-property'
-									| 'property'
-									| 'method'
+									modifiers?: (
+										| 'async'
+										| 'protected'
+										| 'private'
+										| 'public'
+										| 'static'
+										| 'abstract'
+										| 'override'
+										| 'readonly'
+										| 'decorated'
+										| 'declare'
+										| 'optional'
+									)[]
 
-								decoratorNamePattern?:
-									| (
-											| {
-													pattern: string
+									selector?:
+										| 'accessor-property'
+										| 'index-signature'
+										| 'constructor'
+										| 'static-block'
+										| 'get-method'
+										| 'set-method'
+										| 'function-property'
+										| 'property'
+										| 'method'
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+									decoratorNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
 
-								elementValuePattern?:
-									| (
-											| {
-													pattern: string
+														flags?: string
+												  }
+												| string
+										  )
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+									elementValuePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
-							}[]
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								},
+								...{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+
+									modifiers?: (
+										| 'async'
+										| 'protected'
+										| 'private'
+										| 'public'
+										| 'static'
+										| 'abstract'
+										| 'override'
+										| 'readonly'
+										| 'decorated'
+										| 'declare'
+										| 'optional'
+									)[]
+
+									selector?:
+										| 'accessor-property'
+										| 'index-signature'
+										| 'constructor'
+										| 'static-block'
+										| 'get-method'
+										| 'set-method'
+										| 'function-property'
+										| 'property'
+										| 'method'
+
+									decoratorNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+
+									elementValuePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								}[],
+							]
 					  }
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
@@ -16083,9 +16294,27 @@ type PerfectionistSortClasses =
 					| {
 							group: string | [string, ...string[]]
 
+							fallbackSort?: {
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+
+								order?: 'asc' | 'desc'
+							}
+
 							commentAbove?: string
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
@@ -16181,12 +16410,12 @@ type PerfectionistSortClasses =
 // ----- perfectionist/sort-decorators -----
 type PerfectionistSortDecorators = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -16201,45 +16430,79 @@ type PerfectionistSortDecorators = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -16276,9 +16539,21 @@ type PerfectionistSortDecorators = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -16368,12 +16643,18 @@ type PerfectionistSortEnums =
 	| [
 			{
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -16388,63 +16669,127 @@ type PerfectionistSortEnums =
 				customGroups?: (
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
-							anyOf: {
-								elementNamePattern?:
-									| (
-											| {
-													pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+							anyOf: [
+								{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
 
-								elementValuePattern?:
-									| (
-											| {
-													pattern: string
+														flags?: string
+												  }
+												| string
+										  )
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+									elementValuePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
-							}[]
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								},
+								...{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+
+									elementValuePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								}[],
+							]
 					  }
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
@@ -16499,9 +16844,27 @@ type PerfectionistSortEnums =
 					| {
 							group: string | [string, ...string[]]
 
+							fallbackSort?: {
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+
+								order?: 'asc' | 'desc'
+							}
+
 							commentAbove?: string
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
@@ -16581,12 +16944,12 @@ type PerfectionistSortEnums =
 // ----- perfectionist/sort-export-attributes -----
 type PerfectionistSortExportAttributes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -16601,45 +16964,79 @@ type PerfectionistSortExportAttributes = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -16676,9 +17073,21 @@ type PerfectionistSortExportAttributes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -16755,12 +17164,12 @@ type PerfectionistSortExportAttributes = {
 // ----- perfectionist/sort-exports -----
 type PerfectionistSortExports = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -16775,49 +17184,87 @@ type PerfectionistSortExports = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('value' | 'type' | 'named' | 'wildcard' | 'multiline' | 'singleline')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'export'
-				}[]
+						modifiers?: ('value' | 'type' | 'named' | 'wildcard' | 'multiline' | 'singleline')[]
+
+						selector?: 'export'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('value' | 'type' | 'named' | 'wildcard' | 'multiline' | 'singleline')[]
+
+						selector?: 'export'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -16858,9 +17305,21 @@ type PerfectionistSortExports = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -16937,12 +17396,12 @@ type PerfectionistSortExports = {
 // ----- perfectionist/sort-heritage-clauses -----
 type PerfectionistSortHeritageClauses = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -16957,45 +17416,79 @@ type PerfectionistSortHeritageClauses = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -17032,9 +17525,21 @@ type PerfectionistSortHeritageClauses = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -17111,12 +17616,12 @@ type PerfectionistSortHeritageClauses = {
 // ----- perfectionist/sort-import-attributes -----
 type PerfectionistSortImportAttributes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -17131,45 +17636,79 @@ type PerfectionistSortImportAttributes = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -17206,9 +17745,21 @@ type PerfectionistSortImportAttributes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -17285,12 +17836,27 @@ type PerfectionistSortImportAttributes = {
 // ----- perfectionist/sort-imports -----
 type PerfectionistSortImports = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'type-import-first'
+		type:
+			| 'alphabetical'
+			| 'natural'
+			| 'line-length'
+			| 'custom'
+			| 'unsorted'
+			| 'subgroup-order'
+			| 'type-import-first'
 
 		order?: 'asc' | 'desc'
+		sortBy?: 'specifier' | 'path'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'type-import-first'
+	type?:
+		| 'alphabetical'
+		| 'natural'
+		| 'line-length'
+		| 'custom'
+		| 'unsorted'
+		| 'subgroup-order'
+		| 'type-import-first'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -17301,6 +17867,7 @@ type PerfectionistSortImports = {
 	locales?: string | string[]
 
 	order?: 'asc' | 'desc'
+	sortBy?: 'specifier' | 'path'
 
 	customGroups?: (
 		| {
@@ -17311,9 +17878,11 @@ type PerfectionistSortImports = {
 						| 'line-length'
 						| 'custom'
 						| 'unsorted'
+						| 'subgroup-order'
 						| 'type-import-first'
 
 					order?: 'asc' | 'desc'
+					sortBy?: 'specifier' | 'path'
 				}
 
 				type?:
@@ -17322,59 +17891,111 @@ type PerfectionistSortImports = {
 					| 'line-length'
 					| 'custom'
 					| 'unsorted'
+					| 'subgroup-order'
 					| 'type-import-first'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
+				sortBy?: 'specifier' | 'path'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: (
-						| 'default'
-						| 'multiline'
-						| 'named'
-						| 'require'
-						| 'side-effect'
-						| 'singleline'
-						| 'ts-equals'
-						| 'type'
-						| 'value'
-						| 'wildcard'
-					)[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?:
-						| 'side-effect-style'
-						| 'tsconfig-path'
-						| 'side-effect'
-						| 'external'
-						| 'internal'
-						| 'builtin'
-						| 'sibling'
-						| 'subpath'
-						| 'import'
-						| 'parent'
-						| 'index'
-						| 'style'
-						| 'type'
-				}[]
+						modifiers?: (
+							| 'default'
+							| 'multiline'
+							| 'named'
+							| 'require'
+							| 'side-effect'
+							| 'singleline'
+							| 'ts-equals'
+							| 'type'
+							| 'value'
+							| 'wildcard'
+						)[]
+
+						selector?:
+							| 'side-effect-style'
+							| 'tsconfig-path'
+							| 'side-effect'
+							| 'external'
+							| 'internal'
+							| 'builtin'
+							| 'sibling'
+							| 'subpath'
+							| 'import'
+							| 'parent'
+							| 'index'
+							| 'style'
+							| 'type'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: (
+							| 'default'
+							| 'multiline'
+							| 'named'
+							| 'require'
+							| 'side-effect'
+							| 'singleline'
+							| 'ts-equals'
+							| 'type'
+							| 'value'
+							| 'wildcard'
+						)[]
+
+						selector?:
+							| 'side-effect-style'
+							| 'tsconfig-path'
+							| 'side-effect'
+							| 'external'
+							| 'internal'
+							| 'builtin'
+							| 'sibling'
+							| 'subpath'
+							| 'import'
+							| 'parent'
+							| 'index'
+							| 'style'
+							| 'type'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
@@ -17384,9 +18005,11 @@ type PerfectionistSortImports = {
 						| 'line-length'
 						| 'custom'
 						| 'unsorted'
+						| 'subgroup-order'
 						| 'type-import-first'
 
 					order?: 'asc' | 'desc'
+					sortBy?: 'specifier' | 'path'
 				}
 
 				type?:
@@ -17395,12 +18018,14 @@ type PerfectionistSortImports = {
 					| 'line-length'
 					| 'custom'
 					| 'unsorted'
+					| 'subgroup-order'
 					| 'type-import-first'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'specifier' | 'path'
 
 				elementNamePattern?:
 					| (
@@ -17460,6 +18085,20 @@ type PerfectionistSortImports = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+						| 'type-import-first'
+
+					order?: 'asc' | 'desc'
+					sortBy?: 'specifier' | 'path'
+				}
+
 				commentAbove?: string
 
 				type?:
@@ -17468,10 +18107,12 @@ type PerfectionistSortImports = {
 					| 'line-length'
 					| 'custom'
 					| 'unsorted'
+					| 'subgroup-order'
 					| 'type-import-first'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'specifier' | 'path'
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
@@ -17574,13 +18215,13 @@ type PerfectionistSortImports = {
 // ----- perfectionist/sort-interfaces -----
 type PerfectionistSortInterfaces = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 		sortBy?: 'name' | 'value'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -17591,79 +18232,137 @@ type PerfectionistSortInterfaces = {
 	locales?: string | string[]
 
 	order?: 'asc' | 'desc'
+	sortBy?: 'name' | 'value'
 
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
+				sortBy?: 'name' | 'value'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('optional' | 'required' | 'multiline')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'index-signature' | 'member' | 'method' | 'property'
+						modifiers?: ('optional' | 'required' | 'multiline')[]
 
-					elementValuePattern?:
-						| (
-								| {
-										pattern: string
+						selector?: 'index-signature' | 'member' | 'method' | 'property'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-					sortBy?: 'name' | 'value'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('optional' | 'required' | 'multiline')[]
+
+						selector?: 'index-signature' | 'member' | 'method' | 'property'
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 
 				elementNamePattern?:
 					| (
@@ -17704,7 +18403,6 @@ type PerfectionistSortInterfaces = {
 							  }
 							| string
 					  )
-				sortBy?: 'name' | 'value'
 		  }
 	)[]
 	newlinesInside?: ('ignore' | number) | 'newlinesBetween'
@@ -17718,12 +18416,26 @@ type PerfectionistSortInterfaces = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+					sortBy?: 'name' | 'value'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
@@ -17859,17 +18571,16 @@ type PerfectionistSortInterfaces = {
 		  }
 
 	partitionByNewLine?: boolean
-	sortBy?: 'name' | 'value'
 }[]
 // ----- perfectionist/sort-intersection-types -----
 type PerfectionistSortIntersectionTypes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -17884,59 +18595,107 @@ type PerfectionistSortIntersectionTypes = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					selector?:
-						| 'intersection'
-						| 'conditional'
-						| 'function'
-						| 'operator'
-						| 'keyword'
-						| 'literal'
-						| 'nullish'
-						| 'import'
-						| 'object'
-						| 'named'
-						| 'tuple'
-						| 'union'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?:
+							| 'intersection'
+							| 'conditional'
+							| 'function'
+							| 'operator'
+							| 'keyword'
+							| 'literal'
+							| 'nullish'
+							| 'import'
+							| 'object'
+							| 'named'
+							| 'tuple'
+							| 'union'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?:
+							| 'intersection'
+							| 'conditional'
+							| 'function'
+							| 'operator'
+							| 'keyword'
+							| 'literal'
+							| 'nullish'
+							| 'import'
+							| 'object'
+							| 'named'
+							| 'tuple'
+							| 'union'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -17987,9 +18746,21 @@ type PerfectionistSortIntersectionTypes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -18066,12 +18837,12 @@ type PerfectionistSortIntersectionTypes = {
 // ----- perfectionist/sort-jsx-props -----
 type PerfectionistSortJsxProps = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -18086,67 +18857,123 @@ type PerfectionistSortJsxProps = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('shorthand' | 'multiline')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'prop'
+						modifiers?: ('shorthand' | 'multiline')[]
 
-					elementValuePattern?:
-						| (
-								| {
-										pattern: string
+						selector?: 'prop'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('shorthand' | 'multiline')[]
+
+						selector?: 'prop'
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -18205,9 +19032,21 @@ type PerfectionistSortJsxProps = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -18258,12 +19097,12 @@ type PerfectionistSortJsxProps = {
 // ----- perfectionist/sort-maps -----
 type PerfectionistSortMaps = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -18278,45 +19117,79 @@ type PerfectionistSortMaps = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -18353,9 +19226,21 @@ type PerfectionistSortMaps = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -18455,12 +19340,26 @@ type PerfectionistSortModules =
 	| [
 			{
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+						| 'usage'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?:
+					| 'alphabetical'
+					| 'natural'
+					| 'line-length'
+					| 'custom'
+					| 'unsorted'
+					| 'subgroup-order'
+					| 'usage'
 
 				specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -18475,67 +19374,139 @@ type PerfectionistSortModules =
 				customGroups?: (
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+									| 'usage'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
+								| 'usage'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
-							anyOf: {
-								elementNamePattern?:
-									| (
-											| {
-													pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+							anyOf: [
+								{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
 
-								modifiers?: ('async' | 'declare' | 'decorated' | 'default' | 'export')[]
+														flags?: string
+												  }
+												| string
+										  )
 
-								selector?: 'enum' | 'function' | 'interface' | 'type' | 'class'
+									modifiers?: ('async' | 'declare' | 'decorated' | 'default' | 'export')[]
 
-								decoratorNamePattern?:
-									| (
-											| {
-													pattern: string
+									selector?: 'enum' | 'function' | 'interface' | 'type' | 'class'
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+									decoratorNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
-							}[]
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								},
+								...{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+
+									modifiers?: ('async' | 'declare' | 'decorated' | 'default' | 'export')[]
+
+									selector?: 'enum' | 'function' | 'interface' | 'type' | 'class'
+
+									decoratorNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+								}[],
+							]
 					  }
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+									| 'usage'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
+								| 'usage'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
@@ -18594,9 +19565,29 @@ type PerfectionistSortModules =
 					| {
 							group: string | [string, ...string[]]
 
+							fallbackSort?: {
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+									| 'usage'
+
+								order?: 'asc' | 'desc'
+							}
+
 							commentAbove?: string
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
+								| 'usage'
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
@@ -18674,12 +19665,12 @@ type PerfectionistSortModules =
 // ----- perfectionist/sort-named-exports -----
 type PerfectionistSortNamedExports = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -18694,49 +19685,87 @@ type PerfectionistSortNamedExports = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('value' | 'type')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'export'
-				}[]
+						modifiers?: ('value' | 'type')[]
+
+						selector?: 'export'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('value' | 'type')[]
+
+						selector?: 'export'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -18777,9 +19806,21 @@ type PerfectionistSortNamedExports = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -18858,12 +19899,12 @@ type PerfectionistSortNamedExports = {
 // ----- perfectionist/sort-named-imports -----
 type PerfectionistSortNamedImports = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -18878,49 +19919,87 @@ type PerfectionistSortNamedImports = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('value' | 'type')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'import'
-				}[]
+						modifiers?: ('value' | 'type')[]
+
+						selector?: 'import'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('value' | 'type')[]
+
+						selector?: 'import'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -18961,9 +20040,21 @@ type PerfectionistSortNamedImports = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -19042,13 +20133,13 @@ type PerfectionistSortNamedImports = {
 // ----- perfectionist/sort-object-types -----
 type PerfectionistSortObjectTypes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 		sortBy?: 'name' | 'value'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -19059,79 +20150,137 @@ type PerfectionistSortObjectTypes = {
 	locales?: string | string[]
 
 	order?: 'asc' | 'desc'
+	sortBy?: 'name' | 'value'
 
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
+				sortBy?: 'name' | 'value'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('optional' | 'required' | 'multiline')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'index-signature' | 'member' | 'method' | 'property'
+						modifiers?: ('optional' | 'required' | 'multiline')[]
 
-					elementValuePattern?:
-						| (
-								| {
-										pattern: string
+						selector?: 'index-signature' | 'member' | 'method' | 'property'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-					sortBy?: 'name' | 'value'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: ('optional' | 'required' | 'multiline')[]
+
+						selector?: 'index-signature' | 'member' | 'method' | 'property'
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 
 				elementNamePattern?:
 					| (
@@ -19172,7 +20321,6 @@ type PerfectionistSortObjectTypes = {
 							  }
 							| string
 					  )
-				sortBy?: 'name' | 'value'
 		  }
 	)[]
 	newlinesInside?: ('ignore' | number) | 'newlinesBetween'
@@ -19186,12 +20334,26 @@ type PerfectionistSortObjectTypes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+					sortBy?: 'name' | 'value'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
@@ -19327,17 +20489,16 @@ type PerfectionistSortObjectTypes = {
 		  }
 
 	partitionByNewLine?: boolean
-	sortBy?: 'name' | 'value'
 }[]
 // ----- perfectionist/sort-objects -----
 type PerfectionistSortObjects = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -19352,67 +20513,123 @@ type PerfectionistSortObjects = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					modifiers?: ('optional' | 'required' | 'multiline')[]
+											flags?: string
+									  }
+									| string
+							  )
 
-					selector?: 'member' | 'method' | 'property'
+						modifiers?: 'multiline'[]
 
-					elementValuePattern?:
-						| (
-								| {
-										pattern: string
+						selector?: 'member' | 'method' | 'property'
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
-				}[]
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						modifiers?: 'multiline'[]
+
+						selector?: 'member' | 'method' | 'property'
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -19437,7 +20654,7 @@ type PerfectionistSortObjects = {
 							| string
 					  )
 
-				modifiers?: ('optional' | 'required' | 'multiline')[]
+				modifiers?: 'multiline'[]
 
 				selector?: 'member' | 'method' | 'property'
 
@@ -19471,9 +20688,21 @@ type PerfectionistSortObjects = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -19642,12 +20871,12 @@ type PerfectionistSortObjects = {
 // ----- perfectionist/sort-sets -----
 type PerfectionistSortSets = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -19662,47 +20891,83 @@ type PerfectionistSortSets = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					selector?: 'literal' | 'spread'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'literal' | 'spread'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'literal' | 'spread'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -19741,9 +21006,21 @@ type PerfectionistSortSets = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -19843,12 +21120,18 @@ type PerfectionistSortSwitchCase =
 	| [
 			{
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -19864,12 +21147,12 @@ type PerfectionistSortSwitchCase =
 // ----- perfectionist/sort-union-types -----
 type PerfectionistSortUnionTypes = {
 	fallbackSort?: {
-		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
 	}
 
-	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 	specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -19884,59 +21167,107 @@ type PerfectionistSortUnionTypes = {
 	customGroups?: (
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
-				anyOf: {
-					elementNamePattern?:
-						| (
-								| {
-										pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )[]
-						| (
-								| {
-										pattern: string
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-										flags?: string
-								  }
-								| string
-						  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-					selector?:
-						| 'intersection'
-						| 'conditional'
-						| 'function'
-						| 'operator'
-						| 'keyword'
-						| 'literal'
-						| 'nullish'
-						| 'import'
-						| 'object'
-						| 'named'
-						| 'tuple'
-						| 'union'
-				}[]
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?:
+							| 'intersection'
+							| 'conditional'
+							| 'function'
+							| 'operator'
+							| 'keyword'
+							| 'literal'
+							| 'nullish'
+							| 'import'
+							| 'object'
+							| 'named'
+							| 'tuple'
+							| 'union'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?:
+							| 'intersection'
+							| 'conditional'
+							| 'function'
+							| 'operator'
+							| 'keyword'
+							| 'literal'
+							| 'nullish'
+							| 'import'
+							| 'object'
+							| 'named'
+							| 'tuple'
+							| 'union'
+					}[],
+				]
 		  }
 		| {
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				groupName: string
 				newlinesInside?: 'ignore' | number
@@ -19987,9 +21318,21 @@ type PerfectionistSortUnionTypes = {
 		| {
 				group: string | [string, ...string[]]
 
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
 				commentAbove?: string
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
@@ -20069,12 +21412,18 @@ type PerfectionistSortVariableDeclarations =
 	| [
 			{
 				fallbackSort?: {
-					type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
 
-				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 				specialCharacters?: 'remove' | 'trim' | 'keep'
 
@@ -20089,47 +21438,95 @@ type PerfectionistSortVariableDeclarations =
 				customGroups?: (
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
-							anyOf: {
-								elementNamePattern?:
-									| (
-											| {
-													pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )[]
-									| (
-											| {
-													pattern: string
+							anyOf: [
+								{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
 
-													flags?: string
-											  }
-											| string
-									  )
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
 
-								selector?: 'initialized' | 'uninitialized'
-							}[]
+														flags?: string
+												  }
+												| string
+										  )
+
+									selector?: 'initialized' | 'uninitialized'
+								},
+								...{
+									elementNamePattern?:
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )[]
+										| (
+												| {
+														pattern: string
+
+														flags?: string
+												  }
+												| string
+										  )
+
+									selector?: 'initialized' | 'uninitialized'
+								}[],
+							]
 					  }
 					| {
 							fallbackSort?: {
-								type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
 
 								order?: 'asc' | 'desc'
 							}
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 
 							groupName: string
 							newlinesInside?: 'ignore' | number
@@ -20168,9 +21565,27 @@ type PerfectionistSortVariableDeclarations =
 					| {
 							group: string | [string, ...string[]]
 
+							fallbackSort?: {
+								type:
+									| 'alphabetical'
+									| 'natural'
+									| 'line-length'
+									| 'custom'
+									| 'unsorted'
+									| 'subgroup-order'
+
+								order?: 'asc' | 'desc'
+							}
+
 							commentAbove?: string
 
-							type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted'
+							type?:
+								| 'alphabetical'
+								| 'natural'
+								| 'line-length'
+								| 'custom'
+								| 'unsorted'
+								| 'subgroup-order'
 							newlinesInside?: 'ignore' | number
 
 							order?: 'asc' | 'desc'
@@ -21283,6 +22698,14 @@ type TestMaxNestedDescribe =
 	| [
 			{
 				max?: number
+			},
+	  ]
+// ----- test/no-conditional-expect -----
+type TestNoConditionalExpect =
+	| []
+	| [
+			{
+				expectAssertions?: boolean
 			},
 	  ]
 // ----- test/no-focused-tests -----
@@ -24875,6 +26298,10 @@ type TsNoUnusedVars =
 
 					destructuredArrayIgnorePattern?: string
 
+					enableAutofixRemoval?: {
+						imports?: boolean
+					}
+
 					ignoreClassWithStaticInitBlock?: boolean
 
 					ignoreRestSiblings?: boolean
@@ -25260,6 +26687,14 @@ type TsStrictBooleanExpressions =
 				allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing?: boolean
 
 				allowString?: boolean
+			},
+	  ]
+// ----- ts/strict-void-return -----
+type TsStrictVoidReturn =
+	| []
+	| [
+			{
+				allowReturnAny?: boolean
 			},
 	  ]
 // ----- ts/switch-exhaustiveness-check -----

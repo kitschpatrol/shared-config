@@ -1,4 +1,3 @@
-
 aacbrew
 Acrobits
 adjustmentsinfo
@@ -230,6 +229,8 @@ iama
 ibeacon
 iframes
 imager
+conv
+crossentropy
 imagetools
 imce
 immer
@@ -627,6 +628,7 @@ unist
 universaljs
 unplugin
 unrs
+unsetenv
 unsharp
 urlopen
 urlset

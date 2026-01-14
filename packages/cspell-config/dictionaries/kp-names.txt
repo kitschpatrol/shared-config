@@ -71,6 +71,7 @@ Aqtau
 Aqtobe
 Araguaina
 Aran
+Arbi
 Ariely
 Arjo
 Armen
@@ -111,6 +112,7 @@ Baret
 Barokka
 Barriga
 Barthelemy
+Bartholl
 Bassick
 Batuman
 Bayles
@@ -243,6 +245,7 @@ Chika
 Chiriac
 Chisai
 Chiu
+Chococat
 Choi
 Choibalsan
 Chong
@@ -462,6 +465,7 @@ Galo
 Garey
 Garnik
 Gaudí
+Gaztelugatxe
 Geffner
 Gehry
 Genny
@@ -813,6 +817,7 @@ Littlewood
 Littrell
 Liv
 Lixin
+Llaveshi
 Locanda
 Lockes
 Löffler
@@ -878,6 +883,7 @@ Massimo
 Masucci
 matan's
 Mateo
+Matevž
 Matheus
 Matias
 Matija
@@ -950,6 +956,7 @@ Monge
 Monroy
 Monstercat
 Montauk
+Morato
 Moresby
 Mori
 Moriah
@@ -1033,6 +1040,7 @@ Oleksandr
 Oliva
 Oliveri
 Olly
+Olshan
 Ondi
 Onika
 Onvural
@@ -1047,6 +1055,7 @@ Outkast
 Ozge
 Pachucki
 Paciocco
+Paglen
 Pago
 Paik
 Palash
@@ -1063,6 +1072,7 @@ Pawlikowski
 Pearlyn
 Pegg
 Pell
+Pendse
 Penrose
 Pepe
 Perla
@@ -1275,6 +1285,7 @@ Smale
 Smullin
 Smyth
 Snibbe
+Sočan
 Soerensen
 Sofreh
 Sofy
@@ -1480,6 +1491,7 @@ Wilmans
 Winamac
 Wohrl
 Wolcott
+Wolosky
 Wolther
 wooorm
 Woorm
@@ -1532,7 +1544,12 @@ Zack
 Zaks
 Zaman
 Zamiell
+Stultiens
+Wolosky
 Zamorano
+Timnit
+Hiroo
+Isono
 Zana
 Zananiri
 Zannah

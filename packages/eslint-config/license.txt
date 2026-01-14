@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023-2025 Eric Mika
+Copyright (c) 2023-2026 Eric Mika
 
 Portions of this configuration are based on the MIT-licensed
 "@antfu/eslint-config" project by Anthony Fu.

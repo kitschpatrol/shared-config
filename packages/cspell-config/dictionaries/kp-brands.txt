@@ -14,6 +14,9 @@ AllWork
 Altice
 Amahi
 Ameritrade
+Karabiner
+Mikimoto
+Partiful
 Anacapa
 Anduril
 Anker
@@ -114,6 +117,7 @@ Flickr
 Focalin
 Fogia
 Foznt
+Frizzlife
 FTDI
 Fugu
 Fumito

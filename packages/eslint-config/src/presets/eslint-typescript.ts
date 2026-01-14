@@ -216,6 +216,7 @@ export const eslintTypescriptDisableTypeCheckedRules: Rules = {
 	'ts/restrict-template-expressions': 'off',
 	'ts/return-await': 'off',
 	'ts/strict-boolean-expressions': 'off',
+	'ts/strict-void-return': 'off',
 	'ts/switch-exhaustiveness-check': 'off',
 	'ts/unbound-method': 'off',
 	'ts/use-unknown-in-catch-callback-variable': 'off',
