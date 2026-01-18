@@ -8,7 +8,9 @@ gif
 gifs
 icns
 importmap
+localappdata
 pyproject
+refspec
 tfstate
 tfvars
 tmpv
@@ -16,3 +18,4 @@ tzdb
 usdz
 venv
 wgsl
+xcodeproj

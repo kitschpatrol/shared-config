@@ -1,3 +1,4 @@
+abandonware
 abra
 acai
 acmeism
@@ -28,6 +29,7 @@ badass
 Barcade
 barramundi
 bastirma
+bastler
 benshi
 bento
 bien
@@ -59,6 +61,7 @@ cheesery
 choco
 clicky
 clozed
+clozing
 comparables
 confit
 connectome
@@ -73,6 +76,7 @@ cronut
 customizer
 cutz
 cyberia
+cyberstates
 Danby
 delaminating
 dicked
@@ -92,6 +96,7 @@ earnout
 electrooptical
 electrotechnical
 embodiedness
+encloze
 enshittification
 esque
 experimentations
@@ -131,6 +136,7 @@ ibond
 ideator
 Ikinari
 immersiveness
+inpainting
 instrumentalization
 Interactivos
 intergenerational
@@ -140,12 +146,14 @@ jouissance
 Kabelwerk
 kanban
 katsu
+keypoint
 keytar
 kludgey
 kombucha
 kunst
 kunstmuseum
 Ladenburg
+lemmatization
 Lockerbie
 Lockport
 longshed
@@ -170,15 +178,18 @@ naology
 neuro
 Neuromancer
 Ninefox
+nomin
 nori
 normie
 normies
 Nostrand
+obrigado
 onesie
 opsomaniac
 orotate
 outler
 outlers
+overkissed
 packrat
 panini
 pappardelle
@@ -199,6 +210,7 @@ recents
 refurb
 repairability
 repost
+Rêve
 Roebling
 royale
 Sancerre
@@ -257,7 +269,6 @@ ungoogleable
 unignore
 unshift
 unspeak
-bastler
 untildify
 Valis
 vaporwave
@@ -271,7 +282,6 @@ woonerf
 woopsie
 XPLO
 yada
-Rêve
 yakitori
 yall
 Yankī

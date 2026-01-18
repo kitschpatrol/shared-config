@@ -72,6 +72,7 @@ Aqtobe
 Araguaina
 Aran
 Arbi
+arcangel
 Ariely
 Arjo
 Armen
@@ -99,6 +100,7 @@ Badr
 Bahbak
 Baichtal
 Balch
+baldessari
 Baltz
 Banderas
 Banksy
@@ -230,6 +232,7 @@ Catie
 Catmull
 ccorcos
 Celko
+ceperley
 César
 Chadd
 Chaikin
@@ -239,6 +242,7 @@ Chapelle
 Chapin
 Charnov
 Chas
+checkowski
 Chicagi
 Chien
 Chika
@@ -390,6 +394,7 @@ Erbe
 Erdogan
 Erez
 ericmika
+ericwbailey
 Erlend
 Ernaux
 Erwan
@@ -462,12 +467,14 @@ Frumin
 Fung
 Galette
 Galo
+gameoverhack
 Garey
 Garnik
 Gaudí
 Gaztelugatxe
 Geffner
 Gehry
+genachowski
 Genny
 Georgi
 Geppert
@@ -523,6 +530,7 @@ Guillin
 Guíxols
 Gwern
 Hacia
+hackeling
 Hackett
 Haemel
 Haenyeo
@@ -564,6 +572,7 @@ Higa
 Higgs
 Hillman
 Hiroki
+Hiroo
 Hirsch
 Hirschmiller
 Hiscox
@@ -598,6 +607,7 @@ Hyman
 hyperse
 Iberti
 Ichiran
+icospheres
 Idah
 Idenity
 idfdz
@@ -616,6 +626,7 @@ Ippudo
 Irina
 Irisch
 Isaacson
+Isono
 Issey
 Italo
 Itzhak
@@ -636,6 +647,7 @@ Jasmin
 Jasons
 Javits
 Jaynes
+jeffreyszhou
 Jelani
 Jenine
 Jenn
@@ -680,6 +692,7 @@ Karmann
 Karpathy
 Karsan
 Karsten
+kasbergen
 Katia
 Katsuhiro
 Katz
@@ -752,6 +765,7 @@ Ku
 Kuala
 Kuang
 Kugler
+kühn
 Kuma
 Kumar
 Kundera
@@ -838,6 +852,7 @@ Lutz
 Luzi
 Maag
 Maarten
+maciunas
 Mackay
 mackuba
 Maddie
@@ -904,12 +919,14 @@ Meds
 Meel
 Meer
 Meeus
+meiselas
 Mekala
 Mekas
 Melcher
 Melrose
 Meltzer
 Mendenhall
+menderson
 Mendes
 Mensah
 Menya
@@ -991,6 +1008,7 @@ Nausicaä
 Nava
 Navalny
 Nduja
+negroponte
 Nekoro
 Nemerov
 Nera
@@ -1014,6 +1032,7 @@ Nilay
 Niloo
 Nima
 Niro
+nisenholtz
 Nisma
 Nitsuj
 Noam
@@ -1136,6 +1155,7 @@ Reas
 Rebecca
 Refik
 Reimann
+reinhard
 Rella
 Renard
 Renata
@@ -1210,6 +1230,7 @@ Santarem
 Santo
 Santosh
 Saoudi
+saraswathi
 Saskia
 Sasser
 Sasson
@@ -1222,6 +1243,7 @@ Schafer
 Schaffhauser
 Scharf
 Scherz
+schewick
 Schmitz
 Schnaars
 Schödler
@@ -1278,6 +1300,7 @@ Sinead
 Singla
 Sital
 Skiba
+slaff
 Slava
 Slavin
 Slover
@@ -1305,6 +1328,7 @@ Srednekolymsk
 srmla
 Srnicek
 Stapledon
+stawbey
 Steane
 Stelton
 Stepan
@@ -1317,14 +1341,17 @@ stkb
 Stott
 Stroustrup
 Strunk
+Stultiens
 Stuy
 Styer
+subbaraman
 Suda
 Sujata
 Sundar
 Sundström
 Sungbin
 Sungita
+supranowitz
 Sveta
 Svorka
 Swann
@@ -1336,6 +1363,7 @@ Synbio
 Syowa
 Tadao
 Tadasuke
+taeki
 Taeyoon
 Takahashi
 Takaoka
@@ -1382,6 +1410,7 @@ Thurston
 Tianwei
 Tibbets
 Tillie
+Timnit
 Timoner
 Timpson
 Tims
@@ -1544,12 +1573,7 @@ Zack
 Zaks
 Zaman
 Zamiell
-Stultiens
-Wolosky
 Zamorano
-Timnit
-Hiroo
-Isono
 Zana
 Zananiri
 Zannah

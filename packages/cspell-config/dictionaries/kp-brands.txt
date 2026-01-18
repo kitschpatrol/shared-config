@@ -14,9 +14,6 @@ AllWork
 Altice
 Amahi
 Ameritrade
-Karabiner
-Mikimoto
-Partiful
 Anacapa
 Anduril
 Anker
@@ -26,6 +23,8 @@ Aqara
 Aqueux
 Arc'teryx
 Archimedia
+arduiniana
+arduinos
 Asahi
 Asana
 Asics
@@ -65,6 +64,7 @@ Celeron
 Cera
 CFCL
 Chakra
+chemtronics
 Cheogram
 Ciel
 Citi
@@ -157,6 +157,7 @@ Juul
 Kagi
 Kaiyo
 Kalita
+Karabiner
 Kato
 Kaweco
 Keppra
@@ -191,9 +192,11 @@ Mechano
 Mekelburg
 Melitta
 Meross
+metaimage
 Metra
 Metrograph
 Mets
+Mikimoto
 Moccamaster
 Momofuku
 Monero
@@ -222,6 +225,7 @@ Otta
 Pachube
 Palit
 Panera
+Partiful
 Paxlovid
 Payboo
 Peakto
@@ -278,10 +282,13 @@ Shopt
 Siig
 Smartsheet
 Smartwool
+solidworks
 Somaxis
 Sonicare
 Sotheby
+sparkfun
 Speaklow
+spyder
 Spyscape
 Squarespace
 Squidex
@@ -290,12 +297,14 @@ Staron
 STAX
 Steelcase
 Storify
+streetview
 Strix
 Sugru
 Sunon
 Superbright
 Sutro
 Swappa
+syntheyes
 Tanita
 Tapo
 Targus
@@ -323,6 +332,7 @@ Venmo
 VENTUS
 Verio
 Viberg
+vicon
 Videlio
 Vitra
 VOCOlinc
