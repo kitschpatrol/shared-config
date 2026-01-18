@@ -582,6 +582,10 @@ export interface RuleOptions {
 	 */
 	'html/class-spacing'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallows empty CSS blocks in `<style>` tags.
+	 */
+	'html/css-no-empty-blocks'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce newline between elements.
 	 * @see https://html-eslint.org/docs/rules/element-newline
 	 */
