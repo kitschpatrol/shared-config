@@ -2,6 +2,6 @@
 	"stylelint.enable": true,
 	"stylelint.validate": ["css", "html", "svelte", "astro"],
 	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
+		"source.fixAll.stylelint": "explicit"
 	}
 }

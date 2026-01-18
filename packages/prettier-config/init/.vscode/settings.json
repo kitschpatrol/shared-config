@@ -25,6 +25,5 @@
 		"**/*.rb",
 		"**/*.svelte"
 	],
-
 	"prettier.enable": true
 }
