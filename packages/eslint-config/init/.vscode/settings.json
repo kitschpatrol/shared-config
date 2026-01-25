@@ -5,6 +5,7 @@
 	},
 	"eslint.enable": true,
 	"eslint.runtime": "node",
+	"eslint.useFlatConfig": true,
 	"eslint.validate": [
 		"astro",
 		"html",
@@ -22,7 +23,6 @@
 		"xml",
 		"yaml"
 	],
-	"eslint.useFlatConfig": true,
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
