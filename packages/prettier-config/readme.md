@@ -76,7 +76,7 @@ You might need to pass certain plugins in explicitly if you're calling `prettier
 
 ### Configuration
 
-To create a `prettier.config.js` in your project root:
+To create a `prettier.config.ts` in your project root:
 
 ```sh
 pnpm exec ksc-prettier init
@@ -92,7 +92,7 @@ To create a `prettier` property in `package.json`:
 pnpm exec ksc-prettier init --location package
 ```
 
-(Note that this will delete the `prettier.config.js` file in your project root!)
+(Note that this will delete the `prettier.config.ts` file in your project root!)
 
 ### CLI
 

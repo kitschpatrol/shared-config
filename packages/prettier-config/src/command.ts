@@ -36,7 +36,7 @@ export const commandDefinition: CommandDefinition = {
 			positionalArgumentMode: 'optional',
 		},
 		init: {
-			configFile: 'prettier.config.js',
+			configFile: 'prettier.config.ts',
 			configPackageJson: {
 				prettier: '@kitschpatrol/prettier-config',
 			},
