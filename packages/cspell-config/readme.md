@@ -77,7 +77,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ### Configuration
 
-To create a `cspell.config.js` in your project root:
+To create a `cspell.config.ts` in your project root:
 
 ```sh
 pnpm exec ksc-knip init
@@ -93,7 +93,7 @@ To create a `cspell` property in `package.json`:
 pnpm exec ksc-cspell init --location package
 ```
 
-(Note that this will delete the `cspell.config.js` file in your project root!)
+(Note that this will delete the `cspell.config.ts` file in your project root!)
 
 #### Ignoring files
 

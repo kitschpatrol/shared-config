@@ -10,18 +10,21 @@ import path from 'node:path'
 import untildify from 'untildify'
 
 async function getWordListsFromProjects(directory: string): Promise<string[]> {
-	const configFiles = await globby(['**/.cspell.json', '**/cspell.config.js', '**/.cspell.js'], {
-		absolute: true,
-		cwd: untildify(directory),
-		deep: 3,
-		ignore: [
-			'**/ambient-novel/**',
-			'**/ericmika.com/**',
-			'**/frontiernerds.com/**',
-			'**/infra/**',
-			'**/scripts/**',
-		],
-	})
+	const configFiles = await globby(
+		['**/.cspell.json', '**/cspell.config.js', '**/cspell.config.ts', '**/.cspell.js'],
+		{
+			absolute: true,
+			cwd: untildify(directory),
+			deep: 3,
+			ignore: [
+				'**/ambient-novel/**',
+				'**/ericmika.com/**',
+				'**/frontiernerds.com/**',
+				'**/infra/**',
+				'**/scripts/**',
+			],
+		},
+	)
 
 	const projectWords: string[] = []
 	for (const configFile of configFiles) {

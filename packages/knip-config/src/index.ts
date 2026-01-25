@@ -52,7 +52,7 @@ const sharedKnipConfig: KnipConfig = {
 		'prettier-plugin-sh',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
-		// Undetected due to string import in cspell.config.js
+		// Undetected due to string import in cspell.config.ts
 		'@kitschpatrol/dict-en-wiktionary',
 	],
 }
