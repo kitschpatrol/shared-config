@@ -37,7 +37,7 @@
 		"bin-restore": "pnpm run bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm run bin-ignore",
 		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
 		"build": "pnpm run build:1-stand-alone && pnpm run build:2-shared && pnpm run build:3-readmes",
-		"build:1-stand-alone": "pnpm --filter=!shared-config build",
+		"build:1-stand-alone": "pnpm --filter=!shared-config --filter=!shared-config-monorepo build",
 		"build:2-shared": "pnpm --filter=shared-config build",
 		"build:3-readmes": "pnpm ksc-mdat fix && cp ./packages/shared-config/readme.md ./readme.md && pnpm ksc-prettier fix",
 		"clean": "git rm -f pnpm-lock.yaml ; pnpm run bin-restore ; git clean -fdXq",
@@ -61,7 +61,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "^20.19.30",
-		"@types/react": "^19.2.8",
+		"@types/react": "^19.2.9",
 		"@types/yargs": "^17.0.35",
 		"bumpp": "^10.4.0",
 		"cosmiconfig": "^9.0.0",
@@ -73,16 +73,16 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.3",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat-plugin-cli-help": "^1.0.4",
+		"mdat-plugin-cli-help": "^1.0.5",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.0",
+		"prettier": "^3.8.1",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
-		"vitest": "^4.0.17",
+		"vitest": "^4.0.18",
 		"yargs": "^17.7.2"
 	},
-	"packageManager": "pnpm@10.28.0",
+	"packageManager": "pnpm@10.28.1",
 	"engines": {
 		"node": ">=20.19.0"
 	}

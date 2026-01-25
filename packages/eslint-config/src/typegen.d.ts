@@ -9794,6 +9794,8 @@ type JsdocTypeFormatting =
 
 				objectFieldSeparatorTrailingPunctuation?: boolean
 
+				objectTypeBracketSpacing?: string
+
 				parameterDefaultValueSpacing?: string
 
 				postMethodNameSpacing?: string
@@ -9803,6 +9805,8 @@ type JsdocTypeFormatting =
 				separatorForSingleObjectField?: boolean
 
 				stringQuotes?: 'double' | 'single'
+
+				trailingPunctuationMultilineOnly?: boolean
 
 				typeBracketSpacing?: string
 
@@ -16878,6 +16882,8 @@ type PerfectionistSortEnums =
 
 				sortByValue?: 'always' | 'ifNumericEnum' | 'never'
 
+				useExperimentalDependencyDetection?: boolean
+
 				partitionByComment?:
 					| boolean
 					| (
@@ -18131,6 +18137,8 @@ type PerfectionistSortImports = {
 	sortSideEffects?: boolean
 
 	environment?: 'node' | 'bun'
+
+	useExperimentalDependencyDetection?: boolean
 
 	partitionByComment?:
 		| boolean
@@ -19599,6 +19607,8 @@ type PerfectionistSortModules =
 				)[]
 				newlinesBetween?: 'ignore' | number
 
+				useExperimentalDependencyDetection?: boolean
+
 				partitionByComment?:
 					| boolean
 					| (
@@ -20500,6 +20510,7 @@ type PerfectionistSortObjects = {
 		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 		order?: 'asc' | 'desc'
+		sortBy?: 'name' | 'value'
 	}
 
 	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
@@ -20513,6 +20524,7 @@ type PerfectionistSortObjects = {
 	locales?: string | string[]
 
 	order?: 'asc' | 'desc'
+	sortBy?: 'name' | 'value'
 
 	customGroups?: (
 		| {
@@ -20526,6 +20538,7 @@ type PerfectionistSortObjects = {
 						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
+					sortBy?: 'name' | 'value'
 				}
 
 				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
@@ -20534,6 +20547,7 @@ type PerfectionistSortObjects = {
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 
 				anyOf: [
 					{
@@ -20631,6 +20645,7 @@ type PerfectionistSortObjects = {
 						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
+					sortBy?: 'name' | 'value'
 				}
 
 				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
@@ -20639,6 +20654,7 @@ type PerfectionistSortObjects = {
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 
 				elementNamePattern?:
 					| (
@@ -20702,6 +20718,7 @@ type PerfectionistSortObjects = {
 						| 'subgroup-order'
 
 					order?: 'asc' | 'desc'
+					sortBy?: 'name' | 'value'
 				}
 
 				commentAbove?: string
@@ -20710,6 +20727,7 @@ type PerfectionistSortObjects = {
 				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
+				sortBy?: 'name' | 'value'
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
@@ -20805,6 +20823,8 @@ type PerfectionistSortObjects = {
 	}
 
 	styledComponents?: boolean
+
+	useExperimentalDependencyDetection?: boolean
 
 	partitionByComment?:
 		| boolean
@@ -21596,6 +21616,8 @@ type PerfectionistSortVariableDeclarations =
 					  }
 				)[]
 				newlinesBetween?: 'ignore' | number
+
+				useExperimentalDependencyDetection?: boolean
 
 				partitionByComment?:
 					| boolean
