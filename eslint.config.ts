@@ -23,7 +23,7 @@ export default eslintConfig(
 				// 'perfectionist/sort-objects': [
 				// 	'error',
 				// 	generatePerfectionistSortConfig(['width', 'height']),
-				// 	{ newlinesBetween: 'never', order: 'asc', type: 'natural' },
+				// 	{ newlinesBetween: 0, order: 'asc', type: 'natural' },
 				// ],
 			},
 		},
