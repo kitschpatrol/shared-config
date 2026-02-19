@@ -1,12 +1,12 @@
 /* eslint-disable complexity */
 /* eslint-disable max-depth */
-import { execa } from 'execa'
 import fse from 'fs-extra'
 import path from 'node:path'
 import semver from 'semver'
 import { getPackageDirectory } from '../../../src/path-utilities'
 import { formatFileInPlace } from '../../../src/prettier-utilities'
 import { pluralize } from '../../../src/string-utilities'
+import { getMinimumNodeVersions } from './pnpm-engines'
 
 type DevEngineRuntime = {
 	name: string
@@ -16,59 +16,6 @@ type DevEngineRuntime = {
 
 type DevEngines = {
 	runtime?: DevEngineRuntime | DevEngineRuntime[]
-}
-
-/**
- * Parse ls-engines table output to extract the dependency graph's engines.node range.
- * The output has two columns: "package engines" (left) and "dependency graph engines" (right).
- * We look for the "node" value in the right column.
- */
-function parseLsEnginesOutput(output: string): string | undefined {
-	// Look for lines containing "node" in the two-column table.
-	// Each row has cells separated by │. The right column is the dependency graph engines.
-	for (const line of output.split('\n')) {
-		// Only process lines that are table rows with "node" content
-		if (!line.includes('"node"')) continue
-
-		// Split by │ delimiter — cells are: [empty, left-content, right-content, empty]
-		const cells = line.split('│')
-		if (cells.length < 4) continue
-
-		// The right column (dependency graph engines) is the third cell (index 2)
-		const rightCell = cells[2]
-		const match = /"node":\s*"([^"]+)"/.exec(rightCell)
-		if (match) {
-			return match[1]
-		}
-	}
-
-	return undefined
-}
-
-/**
- * Run ls-engines and return the dependency graph's engines.node range.
- */
-async function getLsEnginesRange(
-	packageDirectory: string,
-	includeDev: boolean,
-): Promise<string | undefined> {
-	try {
-		const args = ['--no-current', '--mode', 'actual']
-		if (includeDev) {
-			args.push('--dev')
-		}
-
-		const result = await execa('ls-engines', args, {
-			cwd: packageDirectory,
-			preferLocal: true,
-			reject: false,
-		})
-
-		const output = result.stdout + '\n' + result.stderr
-		return parseLsEnginesOutput(output)
-	} catch {
-		return undefined
-	}
 }
 
 /**
@@ -147,6 +94,11 @@ function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void
 	}
 }
 
+function formatCauses(causes: string[]): string {
+	if (causes.length === 0) return ''
+	return ` (from ${causes.join(', ')})`
+}
+
 async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean): Promise<number> {
 	const packageDirectory = getPackageDirectory()
 	const packageJsonPath = path.join(packageDirectory, 'package.json')
@@ -163,19 +115,22 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 	const enginesNode = (packageJson.engines as Record<string, string> | undefined)?.node
 	const devEnginesNodeVersion = getDevEnginesNodeVersion(packageJson)
 
-	// Compute wanted versions via ls-engines
-	const productionRange = await getLsEnginesRange(packageDirectory, false)
-	const allRange = await getLsEnginesRange(packageDirectory, true)
+	// Compute wanted versions from the pnpm lockfile
+	const nodeVersions = await getMinimumNodeVersions(packageDirectory)
 
-	const minNodeVersionWanted = productionRange ? rangeToMinVersion(productionRange) : undefined
-	const minNodeDevVersionWanted = allRange ? rangeToMinVersion(allRange) : undefined
+	const minNodeVersionWanted = nodeVersions.dependencies?.version
+	const minNodeDevVersionWanted = nodeVersions.version
+	const productionCauses = nodeVersions.dependencies?.topLevelCauses ?? []
+	const devCauses = nodeVersions.devDependencies?.topLevelCauses ?? []
 
 	const issues: string[] = []
 
 	// --- engines.node check ---
 	if (minNodeVersionWanted !== undefined) {
 		if (enginesNode === undefined) {
-			issues.push(`Missing engines.node — suggest setting to "${minNodeVersionWanted}"`)
+			issues.push(
+				`Missing engines.node — suggest setting to "${minNodeVersionWanted}"${formatCauses(productionCauses)}`,
+			)
 			if (fix) {
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const engines = (packageJson.engines as Record<string, string> | undefined) ?? {}
@@ -186,7 +141,7 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 			const currentMinVersion = rangeToMinVersion(enginesNode)
 			if (currentMinVersion !== minNodeVersionWanted) {
 				issues.push(
-					`engines.node is "${enginesNode}" but dependencies require "${minNodeVersionWanted}"`,
+					`engines.node is "${enginesNode}" but dependencies require "${minNodeVersionWanted}"${formatCauses(productionCauses)}`,
 				)
 				if (fix) {
 					// eslint-disable-next-line ts/no-unsafe-type-assertion
@@ -202,7 +157,7 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 			// Production and dev deps have different minimum node versions
 			if (devEnginesNodeVersion === undefined) {
 				issues.push(
-					`devDependencies require a different Node.js minimum (${minNodeDevVersionWanted}) than production (${minNodeVersionWanted}) — suggest adding devEngines.runtime for node with version "${minNodeDevVersionWanted}"`,
+					`devDependencies require a different Node.js minimum (${minNodeDevVersionWanted}) than production (${minNodeVersionWanted}) — suggest adding devEngines.runtime for node with version "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
 				)
 				if (fix) {
 					setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)
@@ -211,7 +166,7 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 				const currentDevMinVersion = rangeToMinVersion(devEnginesNodeVersion)
 				if (currentDevMinVersion !== minNodeDevVersionWanted) {
 					issues.push(
-						`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require "${minNodeDevVersionWanted}"`,
+						`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
 					)
 					if (fix) {
 						setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)

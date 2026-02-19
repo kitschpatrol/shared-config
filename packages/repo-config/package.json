@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
+		"@pnpm/lockfile.fs": "^1001.1.30",
 		"cosmiconfig": "^9.0.0",
 		"cosmiconfig-typescript-loader": "^6.2.0",
 		"decircular": "^1.0.0",
@@ -47,7 +48,6 @@
 		"fs-extra": "^11.3.3",
 		"globby": "^16.1.1",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"ls-engines": "^0.10.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
