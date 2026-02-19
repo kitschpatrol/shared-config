@@ -21,7 +21,12 @@
 
 ## Overview
 
-It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting for things like copyright notice dates, all accessible via a bundled command like tool named `ksc-repo`.
+It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting and fixing via a bundled CLI tool named `ksc-repo`.
+
+The `lint` and `fix` commands check and correct:
+
+- **License year**: Ensures the copyright year in `license.txt` matches the current year.
+- **Node.js version**: Ensures `engines.node` and `devEngines.runtime` in `package.json` reflect the minimum Node.js versions actually required by your dependency tree (derived from the pnpm lockfile). If dev dependencies require a higher Node.js version than production dependencies, a separate `devEngines.runtime` entry is managed automatically.
 
 This includes the following:
 
