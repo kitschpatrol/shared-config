@@ -41,7 +41,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsc && tsx ../../scripts/build.ts",
+		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
@@ -63,6 +63,11 @@
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^40.0.0",
 		"yargs": "^17.7.2"
+	},
+	"devDependencies": {
+		"@arethetypeswrong/core": "^0.18.2",
+		"publint": "^0.3.17",
+		"tsdown": "^0.20.3"
 	},
 	"engines": {
 		"node": ">=20.19.0"

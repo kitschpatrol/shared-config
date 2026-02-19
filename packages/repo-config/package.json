@@ -32,7 +32,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsx ../../scripts/build.ts",
+		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm run build"
 	},
@@ -53,6 +53,10 @@
 		"prettier": "^3.8.1",
 		"semver": "^7.7.4",
 		"yargs": "^17.7.2"
+	},
+	"devDependencies": {
+		"publint": "^0.3.17",
+		"tsdown": "^0.20.3"
 	},
 	"engines": {
 		"node": ">=20.19.0"

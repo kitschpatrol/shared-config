@@ -43,7 +43,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsc && tsx ../../scripts/build.ts",
+		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
 		"list-words": "cat ./dictionaries/*.txt",
@@ -71,7 +71,10 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
+		"@arethetypeswrong/core": "^0.18.2",
 		"globby": "^16.1.1",
+		"publint": "^0.3.17",
+		"tsdown": "^0.20.3",
 		"untildify": "^6.0.0"
 	},
 	"engines": {

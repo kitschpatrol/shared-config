@@ -54,7 +54,7 @@ importers:
         specifier: ^19.2.14
         version: 19.2.14
       '@types/semver':
-        specifier: ^7.7.0
+        specifier: ^7.7.1
         version: 7.7.1
       '@types/yargs':
         specifier: ^17.0.35
@@ -74,9 +74,6 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
-      esbuild:
-        specifier: ^0.27.3
-        version: 0.27.3
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -168,9 +165,18 @@ importers:
         specifier: ^17.7.2
         version: 17.7.2
     devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
       globby:
         specifier: ^16.1.1
         version: 16.1.1
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
       untildify:
         specifier: ^6.0.0
         version: 6.0.0
@@ -412,6 +418,16 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/mdat-config:
     dependencies:
@@ -457,6 +473,16 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/prettier-config:
     dependencies:
@@ -532,6 +558,16 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/remark-config:
     dependencies:
@@ -691,6 +727,16 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/repo-config:
     dependencies:
@@ -742,6 +788,13 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/shared-config:
     dependencies:
@@ -832,6 +885,13 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/stylelint-config:
     dependencies:
@@ -886,6 +946,16 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/typescript-config:
     dependencies:
@@ -929,6 +999,12 @@ importers:
         specifier: ^17.7.2
         version: 17.7.2
     devDependencies:
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
+      tsdown:
+        specifier: ^0.20.3
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
       typescript:
         specifier: ~5.9.3
         version: 5.9.3
@@ -1682,8 +1758,8 @@ packages:
     resolution: {integrity: sha512-kAQTcEN9E8ERLVg5AsGwLNoFb+oEG6engbqAU2P43gD4JEIkNGMHdVQ096FsOAAYpZPB0RSt0zgInKIAS1l5QA==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@npmcli/arborist@9.3.0':
-    resolution: {integrity: sha512-+iH0S4YZBsSgItmFWJsxbxtuFmaldGG8h9hQfCHeYHQxFZuIKD8NZB960c22OeFtQnI0FcuGLRA+sWQ3/4EEHQ==}
+  '@npmcli/arborist@9.3.1':
+    resolution: {integrity: sha512-s8+F1CEpEVV4pejQTDXeZDsE1XcIK/RepTTRPdnerKnt+Ii/4o7H5QfMEIAZ6UJRukSfBHHcFwxgmCOxkCDVqA==}
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
@@ -6917,7 +6993,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@npmcli/arborist@9.3.0':
+  '@npmcli/arborist@9.3.1':
     dependencies:
       '@isaacs/string-locale-compare': 1.1.0
       '@npmcli/fs': 5.0.0
@@ -9179,7 +9255,7 @@ snapshots:
 
   get-dep-tree@3.0.0:
     dependencies:
-      '@npmcli/arborist': 9.3.0
+      '@npmcli/arborist': 9.3.1
       array.prototype.flat: 1.3.3
       lockfile-info: 1.1.0
       pacote: 21.3.1
