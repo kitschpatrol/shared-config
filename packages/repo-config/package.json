@@ -43,7 +43,9 @@
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.3",
-		"prettier": "^3.8.1"
+		"ls-engines": "^0.10.0",
+		"prettier": "^3.8.1",
+		"semver": "^7.7.4"
 	},
 	"devDependencies": {
 		"globby": "^16.1.1"
