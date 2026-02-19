@@ -99,7 +99,7 @@
 		"svelte-eslint-parser": "^1.4.1",
 		"toml-eslint-parser": "^1.0.3",
 		"yaml-eslint-parser": "^2.0.0",
-		"yargs": "^17.7.2"
+		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
 		"@types/eslint-config-prettier": "^6.11.3",

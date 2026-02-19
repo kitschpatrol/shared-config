@@ -99,7 +99,7 @@
 		"remark-stringify": "^11.0.0",
 		"remark-validate-links": "^13.1.0",
 		"unified": "^11.0.5",
-		"yargs": "^17.7.2"
+		"yargs": "^18.0.0"
 	},
 	"engines": {
 		"node": ">=20.19.0"
