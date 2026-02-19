@@ -42,7 +42,7 @@
 		"init/*"
 	],
 	"scripts": {
-		"build": "tsup --format esm --clean --dts && tsx ../../scripts/build.ts",
+		"build": "tsdown --no-fixed-extension --clean --dts && tsx ../../scripts/build.ts",
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
@@ -54,16 +54,21 @@
 		"@html-eslint/eslint-plugin": "^0.55.0",
 		"@html-eslint/parser": "^0.55.0",
 		"@pinojs/json-colorizer": "^4.0.0",
+		"@types/eslint-config-prettier": "^6.11.3",
+		"@types/eslint-plugin-jsx-a11y": "^6.10.1",
 		"@typescript-eslint/eslint-plugin": "^8.56.0",
 		"@typescript-eslint/parser": "^8.56.0",
 		"@vitest/eslint-plugin": "^1.6.9",
 		"astro-eslint-parser": "^1.3.0",
 		"eslint": "^9.39.2",
 		"eslint-config-flat-gitignore": "^2.2.1",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-config-xo-typescript": "^9.0.0",
 		"eslint-flat-config-utils": "^3.0.1",
 		"eslint-import-resolver-typescript": "^4.4.4",
 		"eslint-mdx": "^3.6.2",
 		"eslint-plugin-astro": "^1.6.0",
+		"eslint-plugin-de-morgan": "^2.0.0",
 		"eslint-plugin-depend": "^1.4.0",
 		"eslint-plugin-html": "^8.1.4",
 		"eslint-plugin-import-x": "^4.16.1",
@@ -94,16 +99,11 @@
 		"yaml-eslint-parser": "^2.0.0"
 	},
 	"devDependencies": {
-		"@types/eslint-config-prettier": "^6.11.3",
-		"@types/eslint-plugin-jsx-a11y": "^6.10.1",
 		"dot-prop": "^10.1.0",
-		"eslint-config-prettier": "^10.1.8",
-		"eslint-config-xo-typescript": "^9.0.0",
-		"eslint-plugin-de-morgan": "^2.0.0",
 		"eslint-typegen": "^2.3.1",
 		"globby": "^16.1.1",
 		"svelte": "^5.53.0",
-		"tsup": "^8.5.1"
+		"tsdown": "^0.20.3"
 	},
 	"engines": {
 		"node": ">=20.19.0"
