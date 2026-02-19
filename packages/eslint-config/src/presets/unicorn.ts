@@ -20,6 +20,7 @@ export const unicornRecommendedRules: Rules = {
 	'unicorn/explicit-length-check': 'error',
 	'unicorn/filename-case': 'error',
 	'unicorn/import-style': 'error',
+	'unicorn/isolated-functions': 'error',
 	'unicorn/new-for-builtins': 'error',
 	'unicorn/no-abusive-eslint-disable': 'error',
 	'unicorn/no-accessor-recursion': 'error',

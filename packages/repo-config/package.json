@@ -46,7 +46,7 @@
 		"prettier": "^3.8.1"
 	},
 	"devDependencies": {
-		"globby": "^15.0.0"
+		"globby": "^16.1.1"
 	},
 	"engines": {
 		"node": ">=20.19.0"
