@@ -1,18 +1,4 @@
 {
 	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"target": "ES2023",
-		"lib": ["ES2023"],
-		"baseUrl": ".",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"allowJs": true,
-		"checkJs": true,
-		"strict": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true
-	},
-	"include": ["**/*", "**/.*"],
-	"exclude": ["dist", "bin"]
+	"include": ["src"]
 }

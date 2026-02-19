@@ -137,6 +137,12 @@ importers:
       cspell-lib:
         specifier: ^9.6.4
         version: 9.6.4
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -146,9 +152,21 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
     devDependencies:
       globby:
         specifier: ^16.1.1
@@ -186,6 +204,18 @@ importers:
       astro-eslint-parser:
         specifier: ^1.3.0
         version: 1.3.0
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.9.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^6.2.0
+        version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
@@ -204,6 +234,9 @@ importers:
       eslint-plugin-astro:
         specifier: ^1.6.0
         version: 1.6.0(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-de-morgan:
+        specifier: ^2.0.0
+        version: 2.0.0(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-depend:
         specifier: ^1.4.0
         version: 1.4.0
@@ -264,12 +297,21 @@ importers:
       globals:
         specifier: ^17.3.0
         version: 17.3.0
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
       jsonc-eslint-parser:
         specifier: ^3.0.0
         version: 3.0.0
       local-pkg:
         specifier: ^1.1.2
         version: 1.1.2
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -279,16 +321,19 @@ importers:
       svelte-eslint-parser:
         specifier: ^1.4.1
         version: 1.4.1(svelte@5.53.0)
-      to-valid-identifier:
-        specifier: ^1.0.0
-        version: 1.0.0
       toml-eslint-parser:
         specifier: ^1.0.3
         version: 1.0.3
       yaml-eslint-parser:
         specifier: ^2.0.0
         version: 2.0.0
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
     devDependencies:
+      '@arethetypeswrong/core':
+        specifier: ^0.18.2
+        version: 0.18.2
       '@types/eslint-config-prettier':
         specifier: ^6.11.3
         version: 6.11.3
@@ -304,21 +349,21 @@ importers:
       eslint-config-xo-typescript:
         specifier: ^9.0.0
         version: 9.0.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      eslint-plugin-de-morgan:
-        specifier: ^2.0.0
-        version: 2.0.0(eslint@9.39.2(jiti@2.6.1))
       eslint-typegen:
         specifier: ^2.3.1
         version: 2.3.1(eslint@9.39.2(jiti@2.6.1))
       globby:
         specifier: ^16.1.1
         version: 16.1.1
+      publint:
+        specifier: ^0.3.17
+        version: 0.3.17
       svelte:
         specifier: ^5.53.0
         version: 5.53.0
       tsdown:
         specifier: ^0.20.3
-        version: 0.20.3(oxc-resolver@11.17.1)(synckit@0.11.12)(typescript@5.9.3)
+        version: 0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3)
 
   packages/knip-config:
     dependencies:
@@ -331,6 +376,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -343,12 +394,24 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
       knip:
         specifier: ^5.84.1
         version: 5.84.1(@types/node@22.19.11)(typescript@5.9.3)
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/mdat-config:
     dependencies:
@@ -361,6 +424,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -370,12 +439,24 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
       mdat:
         specifier: ^1.3.4
         version: 1.3.4(typescript@5.9.3)
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/prettier-config:
     dependencies:
@@ -397,6 +478,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       deepmerge-ts:
         specifier: ^7.1.5
         version: 7.1.5
@@ -409,6 +496,15 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -433,6 +529,9 @@ importers:
       sort-package-json:
         specifier: ^3.6.1
         version: 3.6.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/remark-config:
     dependencies:
@@ -448,6 +547,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -457,9 +562,18 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
       mdast-util-to-markdown:
         specifier: ^2.1.2
         version: 2.1.2
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -574,6 +688,9 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/repo-config:
     dependencies:
@@ -586,6 +703,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -595,19 +718,30 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      globby:
+        specifier: ^16.1.1
+        version: 16.1.1
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
       ls-engines:
         specifier: ^0.10.0
         version: 0.10.0
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
       semver:
         specifier: ^7.7.4
         version: 7.7.4
-    devDependencies:
-      globby:
-        specifier: ^16.1.1
-        version: 16.1.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/shared-config:
     dependencies:
@@ -647,6 +781,21 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      cspell:
+        specifier: ^9.6.4
+        version: 9.6.4
+      cspell-lib:
+        specifier: ^9.6.4
+        version: 9.6.4
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      deepmerge-ts:
+        specifier: ^7.1.5
+        version: 7.1.5
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -656,19 +805,33 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      globby:
+        specifier: ^16.1.1
+        version: 16.1.1
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
+      mdat:
+        specifier: ^1.3.4
+        version: 1.3.4(typescript@5.9.3)
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
       semver:
         specifier: ^7.7.4
         version: 7.7.4
-    devDependencies:
-      globby:
-        specifier: ^16.1.1
-        version: 16.1.1
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
+      stylelint:
+        specifier: ^17.3.0
+        version: 17.3.0(typescript@5.9.3)
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/stylelint-config:
     dependencies:
@@ -681,6 +844,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -690,6 +859,15 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -705,6 +883,9 @@ importers:
       stylelint-config-standard:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.3.0(typescript@5.9.3))
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   packages/typescript-config:
     dependencies:
@@ -717,6 +898,12 @@ importers:
       cosmiconfig-typescript-loader:
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      decircular:
+        specifier: ^1.0.0
+        version: 1.0.0
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       execa:
         specifier: ^9.6.1
         version: 9.6.1
@@ -726,9 +913,21 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      json-stringify-pretty-compact:
+        specifier: ^4.0.0
+        version: 4.0.0
+      package-up:
+        specifier: ^5.0.0
+        version: 5.0.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
     devDependencies:
       typescript:
         specifier: ~5.9.3
@@ -739,11 +938,18 @@ packages:
   '@altano/repository-tools@2.0.1':
     resolution: {integrity: sha512-YE/52CkFtb+YtHPgbWPai7oo5N9AKnMuP5LM+i2AG7G1H2jdYBCO1iDnkDE3dZ3C1MIgckaF+d5PNRulgt0bdw==}
 
+  '@andrewbranch/untar.js@1.0.3':
+    resolution: {integrity: sha512-Jh15/qVmrLGhkKJBdXlK1+9tY4lZruYjsgkDFj08ZmDiWVBLJcqkok7Z0/R0In+i1rScBpJlSvrTS2Lm41Pbnw==}
+
   '@apidevtools/json-schema-ref-parser@14.2.1':
     resolution: {integrity: sha512-HmdFw9CDYqM6B25pqGBpNeLCKvGPlIx1EbLrVL0zPvj50CJQUHyBNBw45Muk0kEIkogo1VZvOKHajdMuAzSxRg==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@types/json-schema': ^7.0.15
+
+  '@arethetypeswrong/core@0.18.2':
+    resolution: {integrity: sha512-GiwTmBFOU1/+UVNqqCGzFJYfBXEytUkiI+iRZ6Qx7KmUVtLm00sYySkfe203C9QtPG11yOz1ZaMek8dT/xnlgg==}
+    engines: {node: '>=20'}
 
   '@astrojs/compiler@2.13.1':
     resolution: {integrity: sha512-f3FN83d2G/v32ipNClRKgYv30onQlMZX1vCeZMjPsMMPl1mDpmbl0+N5BYo4S/ofzqJyS5hvwacEo0CCVDn/Qg==}
@@ -776,6 +982,9 @@ packages:
   '@babel/types@8.0.0-rc.1':
     resolution: {integrity: sha512-ubmJ6TShyaD69VE9DQrlXcdkvJbmwWPB8qYj0H2kaJi29O7vJT9ajSdBd2W8CG34pwL9pYA74fi7RHC1qbLoVQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@braidai/lang@1.1.2':
+    resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
 
   '@cacheable/memory@2.0.7':
     resolution: {integrity: sha512-RbxnxAMf89Tp1dLhXMS7ceft/PGsDl1Ip7T20z5nZ+pwIAsQ1p2izPjVG69oCLv/jfQ7HDPHTWK0c9rcAWXN3A==}
@@ -1448,6 +1657,9 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
+  '@loaderkit/resolve@1.0.4':
+    resolution: {integrity: sha512-rJzYKVcV4dxJv+vW6jlvagF8zvGxHJ2+HTr1e2qOejfmGhAApgJHl8Aog4mMszxceTRiKTTbnpgmTO1bEZHV/A==}
+
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
@@ -1691,6 +1903,10 @@ packages:
     resolution: {integrity: sha512-/UyNlHfkuLXG6Ed85KB0WBF283xn2yavR+UtRibBRUcvEJId2DSLdGXwJ/cDa1X++SWDPzq3+GSFniHjkNy7yg==}
     peerDependencies:
       prettier: ^3.0.0
+
+  '@publint/pack@0.1.4':
+    resolution: {integrity: sha512-HDVTWq3H0uTXiU0eeSQntcVUTPP3GamzeXI41+x7uU9J65JgWQh3qWZHblR1i0npXfFtF+mxBiU2nJH8znxWnQ==}
+    engines: {node: '>=18'}
 
   '@quansync/fs@1.0.0':
     resolution: {integrity: sha512-4TJ3DFtlf1L5LDMaM6CanJ/0lckGNtJcMjQ1NAV6zDmA0tEHKZtxNKin8EgPaVX1YzljbxckyT2tJrpQKAtngQ==}
@@ -2580,6 +2796,9 @@ packages:
   citty@0.2.1:
     resolution: {integrity: sha512-kEV95lFBhQgtogAPlQfJJ0WGVSokvLr/UEoFPiKKOXF7pl98HfUVUD0ejsuTCld/9xH9vogSywZ5KqHzXrZpqg==}
 
+  cjs-module-lexer@1.4.3:
+    resolution: {integrity: sha512-9z8TZaGM1pfswYeXrUpzPrkx8UnWYdhJclsiYMm6x/w5+nN+8Tf/LnAgfLGQCm59qAOxU8WwHEq2vNwF6i4j+Q==}
+
   clean-regexp@1.0.0:
     resolution: {integrity: sha512-GfisEZEJvzKrmGWkvfhgzcz/BllN1USeqD2V6tg14OAOgaCD2Z/PUEuxnAZ/nPvmaHRG7a8y77p1T/IRQ4D1Hw==}
     engines: {node: '>=4'}
@@ -3371,6 +3590,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
 
   figures@6.1.0:
     resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
@@ -4824,6 +5046,11 @@ packages:
   propose@0.0.5:
     resolution: {integrity: sha512-Jary1vb+ap2DIwOGfyiadcK4x1Iu3pzpkDBy8tljFPmQvnc9ES3m1PMZOMiWOG50cfoAyYNtGeBzrp+Rlh4G9A==}
 
+  publint@0.3.17:
+    resolution: {integrity: sha512-Q3NLegA9XM6usW+dYQRG1g9uEHiYUzcCVBJDJ7yMcWRqVU9LYZUWdqbwMZfmTCFC5PZLQpLAmhvRcQRl3exqkw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -5540,6 +5767,11 @@ packages:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: '>=4.8.4 <6.0.0'
 
+  typescript@5.6.1-rc:
+    resolution: {integrity: sha512-E3b2+1zEFu84jB0YQi9BORDjz9+jGbwwy1Zi3G0LUNw7a7cePUrHMRNy8aPh53nXpkFGVHSxIZo5vKTfYaFiBQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
@@ -5895,10 +6127,23 @@ snapshots:
 
   '@altano/repository-tools@2.0.1': {}
 
+  '@andrewbranch/untar.js@1.0.3': {}
+
   '@apidevtools/json-schema-ref-parser@14.2.1(@types/json-schema@7.0.15)':
     dependencies:
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.1
+
+  '@arethetypeswrong/core@0.18.2':
+    dependencies:
+      '@andrewbranch/untar.js': 1.0.3
+      '@loaderkit/resolve': 1.0.4
+      cjs-module-lexer: 1.4.3
+      fflate: 0.8.2
+      lru-cache: 11.2.6
+      semver: 7.7.4
+      typescript: 5.6.1-rc
+      validate-npm-package-name: 5.0.1
 
   '@astrojs/compiler@2.13.1': {}
 
@@ -5931,6 +6176,8 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 8.0.0-rc.2
       '@babel/helper-validator-identifier': 8.0.0-rc.1
+
+  '@braidai/lang@1.1.2': {}
 
   '@cacheable/memory@2.0.7':
     dependencies:
@@ -6630,6 +6877,10 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
+  '@loaderkit/resolve@1.0.4':
+    dependencies:
+      '@braidai/lang': 1.1.2
+
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
       '@emnapi/core': 1.8.1
@@ -6920,6 +7171,8 @@ snapshots:
     dependencies:
       '@xml-tools/parser': 1.0.11
       prettier: 3.8.1
+
+  '@publint/pack@0.1.4': {}
 
   '@quansync/fs@1.0.0':
     dependencies:
@@ -7730,6 +7983,8 @@ snapshots:
       consola: 3.4.2
 
   citty@0.2.1: {}
+
+  cjs-module-lexer@1.4.3: {}
 
   clean-regexp@1.0.0:
     dependencies:
@@ -8830,6 +9085,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.3):
     optionalDependencies:
       picomatch: 4.0.3
+
+  fflate@0.8.2: {}
 
   figures@6.1.0:
     dependencies:
@@ -10602,6 +10859,13 @@ snapshots:
     dependencies:
       levenshtein-edit-distance: 1.0.0
 
+  publint@0.3.17:
+    dependencies:
+      '@publint/pack': 0.1.4
+      package-manager-detector: 1.6.0
+      picocolors: 1.1.1
+      sade: 1.8.1
+
   punycode@2.3.1: {}
 
   qified@0.6.0:
@@ -11594,7 +11858,7 @@ snapshots:
 
   ts-pattern@5.9.0: {}
 
-  tsdown@0.20.3(oxc-resolver@11.17.1)(synckit@0.11.12)(typescript@5.9.3):
+  tsdown@0.20.3(@arethetypeswrong/core@0.18.2)(oxc-resolver@11.17.1)(publint@0.3.17)(synckit@0.11.12)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -11613,6 +11877,8 @@ snapshots:
       unconfig-core: 7.5.0
       unrun: 0.2.27(synckit@0.11.12)
     optionalDependencies:
+      '@arethetypeswrong/core': 0.18.2
+      publint: 0.3.17
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -11695,6 +11961,8 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
+
+  typescript@5.6.1-rc: {}
 
   typescript@5.9.3: {}
 
