@@ -54,12 +54,8 @@
 		"semver": "^7.7.4",
 		"yargs": "^17.7.2"
 	},
-	"devDependencies": {
-		"publint": "^0.3.17",
-		"tsdown": "^0.20.3"
-	},
 	"engines": {
-		"node": ">=20.19.0"
+		"node": ">=22.21.0"
 	},
 	"publishConfig": {
 		"access": "public"

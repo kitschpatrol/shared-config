@@ -57,8 +57,6 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
-		"publint": "^0.3.17",
-		"tsdown": "^0.20.3",
 		"typescript": "~5.9.3"
 	},
 	"peerDependencies": {

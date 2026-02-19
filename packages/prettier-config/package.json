@@ -72,11 +72,6 @@
 		"sort-package-json": "^3.6.1",
 		"yargs": "^17.7.2"
 	},
-	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.2",
-		"publint": "^0.3.17",
-		"tsdown": "^0.20.3"
-	},
 	"engines": {
 		"node": ">=20.19.0"
 	},
