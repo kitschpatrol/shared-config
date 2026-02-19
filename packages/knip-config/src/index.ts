@@ -39,12 +39,15 @@ const sharedKnipConfig: KnipConfig = {
 	],
 	ignoreDependencies: [
 		'@kitschpatrol/cspell-config',
+		'@kitschpatrol/dict-en-wiktionary', // Undetected due to string import in cspell.config.ts
 		'@kitschpatrol/eslint-config',
 		'@kitschpatrol/knip-config',
 		'@kitschpatrol/mdat-config',
 		'@kitschpatrol/prettier-config',
 		'@kitschpatrol/remark-config',
+		'@kitschpatrol/repo-config',
 		'@kitschpatrol/stylelint-config',
+		'@kitschpatrol/typescript-config',
 		'@prettier/plugin-php',
 		'@prettier/plugin-ruby',
 		'@prettier/plugin-xml',
@@ -52,8 +55,6 @@ const sharedKnipConfig: KnipConfig = {
 		'prettier-plugin-sh',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
-		// Undetected due to string import in cspell.config.ts
-		'@kitschpatrol/dict-en-wiktionary',
 	],
 }
 
