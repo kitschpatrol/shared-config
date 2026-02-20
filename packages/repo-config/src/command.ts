@@ -5,7 +5,7 @@ import {
 	nodeVersionFixerCommand,
 	nodeVersionLinterCommand,
 	printNodeVersionCommand,
-} from './node-version-checker.js'
+} from './node-version-updater.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -26,16 +26,6 @@ export const commandDefinition: CommandDefinition = {
 		init: {
 			locationOptionFlag: false,
 		},
-		printConfig: {
-			commands: [
-				{
-					execute: printNodeVersionCommand,
-					name: printNodeVersionCommand.name,
-				},
-			],
-			description: 'Print minimum Node.js version constraints from the pnpm lockfile.',
-			positionalArgumentMode: 'none',
-		},
 		lint: {
 			commands: [
 				{
@@ -48,6 +38,16 @@ export const commandDefinition: CommandDefinition = {
 				},
 			],
 			description: `Check the repo for common issues. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
+			positionalArgumentMode: 'none',
+		},
+		printConfig: {
+			commands: [
+				{
+					execute: printNodeVersionCommand,
+					name: printNodeVersionCommand.name,
+				},
+			],
+			description: 'Print minimum Node.js version constraints from the pnpm lockfile.',
 			positionalArgumentMode: 'none',
 		},
 	},

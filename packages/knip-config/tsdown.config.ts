@@ -18,5 +18,6 @@ export default defineConfig([
 		fixedExtension: false,
 		minify: true,
 		publint: true,
+		tsconfig: 'tsconfig.build.json',
 	},
 ])

@@ -7,7 +7,7 @@ import { stringify } from '../../../src/json-utilities'
 import { getPackageDirectory } from '../../../src/path-utilities'
 import { formatFileInPlace } from '../../../src/prettier-utilities'
 import { pluralize } from '../../../src/string-utilities'
-import { getMinimumNodeVersions } from './pnpm-engines'
+import { getMinimumNodeVersions } from './node-version-finder'
 
 type DevEngineRuntime = {
 	name: string

@@ -3,7 +3,12 @@
 /* eslint-disable ts/no-unsafe-assignment */
 import type { PackageSnapshots } from '@pnpm/lockfile.types'
 import { readWantedLockfile } from '@pnpm/lockfile.fs'
+import fse from 'fs-extra'
+import path from 'node:path'
 import { gt, minVersion } from 'semver'
+import { getWorkspaceRoot } from '../../../src/path-utilities'
+
+const LOCKFILE_NAME = 'pnpm-lock.yaml'
 
 type ConstraintInfo =
 	| undefined
@@ -19,8 +24,34 @@ type MinimumNodeVersions = {
 	dependencies: ConstraintInfo
 	/** Minimum Node.js version constraint from dev dependencies. */
 	devDependencies: ConstraintInfo
+	/** Absolute path to the pnpm lockfile used. */
+	lockfile: string
 	/** Overall minimum compatible Node.js version as a `>=` semver range. The greater of `dependencies` and `devDependencies`. */
 	version: string | undefined
+}
+
+/**
+ * Find the directory containing pnpm-lock.yaml by walking up from `startDirectory`,
+ * bounded by the workspace root (or closest package directory if not in a monorepo).
+ */
+function findLockfileDirectory(startDirectory: string): string | undefined {
+	const root = getWorkspaceRoot()
+	let current = path.resolve(startDirectory)
+
+	// eslint-disable-next-line ts/no-unnecessary-condition
+	while (true) {
+		if (fse.existsSync(path.join(current, LOCKFILE_NAME))) {
+			return current
+		}
+
+		if (current === root) break
+
+		const parent = path.dirname(current)
+		if (parent === current) break
+		current = parent
+	}
+
+	return undefined
 }
 
 /**
@@ -48,12 +79,19 @@ function resolvePackageKey(
  * across the entire transitive dependency tree.
  */
 export async function getMinimumNodeVersions(projectPath: string): Promise<MinimumNodeVersions> {
-	const lockfile = await readWantedLockfile(projectPath, {
+	const lockfileDirectory = findLockfileDirectory(projectPath)
+	if (!lockfileDirectory) {
+		throw new Error(`${LOCKFILE_NAME} not found at or above "${projectPath}".`)
+	}
+
+	const lockfilePath = path.join(lockfileDirectory, LOCKFILE_NAME)
+
+	const lockfile = await readWantedLockfile(lockfileDirectory, {
 		ignoreIncompatible: false,
 	})
 
 	if (!lockfile?.importers) {
-		throw new Error('Lockfile not found, unreadable, or missing importers.')
+		throw new Error(`Lockfile at "${lockfilePath}" is unreadable or missing importers.`)
 	}
 
 	// In this version of @pnpm/lockfile.fs, snapshots are merged into packages
@@ -152,6 +190,7 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 					version: `>=${overallDevMax}`,
 				}
 			: undefined,
+		lockfile: lockfilePath,
 		version,
 	}
 }
