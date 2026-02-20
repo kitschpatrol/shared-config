@@ -3,6 +3,7 @@
 import fse from 'fs-extra'
 import path from 'node:path'
 import semver from 'semver'
+import { stringify } from '../../../src/json-utilities'
 import { getPackageDirectory } from '../../../src/path-utilities'
 import { formatFileInPlace } from '../../../src/prettier-utilities'
 import { pluralize } from '../../../src/string-utilities'
@@ -199,6 +200,19 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 		}
 
 		return 1
+	}
+
+	return 0
+}
+
+/**
+ * Print minimum Node.js version constraints from the pnpm lockfile.
+ */
+export async function printNodeVersionCommand(logStream: NodeJS.WritableStream) {
+	const result = await getMinimumNodeVersions(getPackageDirectory())
+	const prettyAndColorfulJsonLines = stringify(result).split('\n')
+	for (const line of prettyAndColorfulJsonLines) {
+		logStream.write(`${line}\n`)
 	}
 
 	return 0

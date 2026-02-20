@@ -134,11 +134,12 @@ Usage:
 ksc-repo <command>
 ```
 
-| Command | Description                                                                                                                                                            |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`  | Initialize by copying starter config files to your project root.                                                                                                       |
-| `lint`  | Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                                 |
-| `fix`   | Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| Command        | Description                                                                                                                                                            |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root.                                                                                                       |
+| `lint`         | Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                                 |
+| `fix`          | Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `print-config` | Print minimum Node.js version constraints from the pnpm lockfile.                                                                                                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -185,6 +186,21 @@ Usage:
 
 ```txt
 ksc-repo fix
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `ksc-repo print-config`
+
+Print minimum Node.js version constraints from the pnpm lockfile.
+
+Usage:
+
+```txt
+ksc-repo print-config
 ```
 
 | Option              | Description         | Type      |

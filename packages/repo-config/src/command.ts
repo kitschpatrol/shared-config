@@ -1,7 +1,11 @@
 import type { CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
 import { copyrightYearFixerCommand, copyrightYearLinterCommand } from './copyright-year-updater.js'
-import { nodeVersionFixerCommand, nodeVersionLinterCommand } from './node-version-checker.js'
+import {
+	nodeVersionFixerCommand,
+	nodeVersionLinterCommand,
+	printNodeVersionCommand,
+} from './node-version-checker.js'
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
@@ -21,6 +25,16 @@ export const commandDefinition: CommandDefinition = {
 		},
 		init: {
 			locationOptionFlag: false,
+		},
+		printConfig: {
+			commands: [
+				{
+					execute: printNodeVersionCommand,
+					name: printNodeVersionCommand.name,
+				},
+			],
+			description: 'Print minimum Node.js version constraints from the pnpm lockfile.',
+			positionalArgumentMode: 'none',
 		},
 		lint: {
 			commands: [
