@@ -9,6 +9,7 @@ export default defineConfig([
 		minify: true,
 		outDir: 'bin',
 		publint: true,
+		tsconfig: false,
 	},
 	// No shared config library
 	// for typescript-config

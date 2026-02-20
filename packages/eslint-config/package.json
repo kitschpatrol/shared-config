@@ -45,7 +45,7 @@
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
-		"update-rules": "tsx scripts/presetgen.ts && tsx scripts/typegen.ts && ksc-eslint fix && ksc-prettier fix"
+		"update-rules": "tsx scripts/presetgen.ts && tsx scripts/typegen.ts && cd ../../ && ksc-eslint fix $PWD && ksc-prettier fix $PWD"
 	},
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.6.0",
