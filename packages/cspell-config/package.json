@@ -75,7 +75,7 @@
 		"untildify": "^6.0.0"
 	},
 	"engines": {
-		"node": ">=20.19.0"
+		"node": ">=22.21.0"
 	},
 	"publishConfig": {
 		"access": "public"

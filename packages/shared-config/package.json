@@ -53,6 +53,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
+		"@pnpm/lockfile.fs": "^1001.1.30",
 		"cosmiconfig": "^9.0.0",
 		"cosmiconfig-typescript-loader": "^6.2.0",
 		"cspell": "^9.6.4",
@@ -74,7 +75,7 @@
 		"yargs": "^18.0.0"
 	},
 	"engines": {
-		"node": ">=20.19.0"
+		"node": ">=22.21.0"
 	},
 	"publishConfig": {
 		"access": "public"
