@@ -33,7 +33,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-knip": "bin/cli.js",
 		"ksc-knip": "bin/cli.js"
 	},
 	"files": [

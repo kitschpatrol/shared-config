@@ -33,7 +33,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-cspell": "bin/cli.js",
 		"ksc-cspell": "bin/cli.js"
 	},
 	"files": [

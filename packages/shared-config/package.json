@@ -30,7 +30,6 @@
 	},
 	"type": "module",
 	"bin": {
-		"kpi": "bin/cli.js",
 		"ksc": "bin/cli.js"
 	},
 	"files": [

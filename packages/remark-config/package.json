@@ -34,7 +34,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-remark": "bin/cli.js",
 		"ksc-remark": "bin/cli.js"
 	},
 	"files": [

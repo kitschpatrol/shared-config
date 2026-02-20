@@ -32,7 +32,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-stylelint": "bin/cli.js",
 		"ksc-stylelint": "bin/cli.js"
 	},
 	"files": [

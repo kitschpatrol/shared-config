@@ -33,7 +33,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-prettier": "bin/cli.js",
 		"ksc-prettier": "bin/cli.js"
 	},
 	"files": [

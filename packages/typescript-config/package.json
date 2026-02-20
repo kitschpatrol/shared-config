@@ -28,7 +28,6 @@
 		".": "./tsconfigs/base.json"
 	},
 	"bin": {
-		"kpi-typescript": "bin/cli.js",
 		"ksc-typescript": "bin/cli.js"
 	},
 	"files": [

@@ -33,7 +33,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-eslint": "bin/cli.js",
 		"ksc-eslint": "bin/cli.js"
 	},
 	"files": [

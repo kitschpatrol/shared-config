@@ -24,7 +24,6 @@
 	},
 	"type": "module",
 	"bin": {
-		"kpi-repo": "bin/cli.js",
 		"ksc-repo": "bin/cli.js"
 	},
 	"files": [

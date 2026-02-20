@@ -35,7 +35,6 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
-		"kpi-mdat": "bin/cli.js",
 		"ksc-mdat": "bin/cli.js"
 	},
 	"files": [
