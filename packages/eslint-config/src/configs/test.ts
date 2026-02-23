@@ -51,6 +51,7 @@ export async function test(
 				...testRecommendedRules,
 				...xoTypescriptTestRules,
 				'test/no-only-tests': isInEditor ? 'off' : 'error',
+				'unicorn/consistent-function-scoping': 'off',
 				...overrides,
 			},
 		},
