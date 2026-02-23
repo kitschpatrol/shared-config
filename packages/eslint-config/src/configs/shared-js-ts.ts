@@ -232,6 +232,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
 		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
+		'ts/member-ordering': 'off', // Conflicts with perfectionist
 		'ts/naming-convention': [
 			// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
 			'error',
