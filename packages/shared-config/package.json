@@ -28,6 +28,7 @@
 		"email": "eric@ericmika.com",
 		"url": "https://ericmika.com"
 	},
+	"sideEffects": false,
 	"type": "module",
 	"bin": {
 		"ksc": "bin/cli.js"
@@ -52,11 +53,11 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1001.1.30",
+		"@pnpm/lockfile.fs": "^1001.1.31",
 		"cosmiconfig": "^9.0.0",
 		"cosmiconfig-typescript-loader": "^6.2.0",
-		"cspell": "^9.6.4",
-		"cspell-lib": "^9.6.4",
+		"cspell": "^9.7.0",
+		"cspell-lib": "^9.7.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"deepmerge-ts": "^7.1.5",
@@ -65,12 +66,12 @@
 		"fs-extra": "^11.3.3",
 		"globby": "^16.1.1",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^1.3.4",
+		"mdat": "^1.3.5",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
 		"semver": "^7.7.4",
-		"stylelint": "^17.3.0",
+		"stylelint": "^17.4.0",
 		"yargs": "^18.0.0"
 	},
 	"engines": {

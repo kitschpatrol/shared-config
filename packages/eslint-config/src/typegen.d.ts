@@ -591,6 +591,11 @@ export interface RuleOptions {
 	 */
 	'html/element-newline'?: Linter.RuleEntry<HtmlElementNewline>
 	/**
+	 * Enforce optimal ordering of elements in `<head>`
+	 * @see https://html-eslint.org/docs/rules/head-order
+	 */
+	'html/head-order'?: Linter.RuleEntry<HtmlHeadOrder>
+	/**
 	 * Enforce consistent naming of id attributes
 	 * @see https://html-eslint.org/docs/rules/id-naming-convention
 	 */
@@ -671,6 +676,7 @@ export interface RuleOptions {
 	'html/no-heading-inside-button'?: Linter.RuleEntry<[]>
 	/**
 	 * Disallow HTML attributes that have no effect in their context
+	 * @see https://html-eslint.org/docs/rules/no-ineffective-attrs
 	 */
 	'html/no-ineffective-attrs'?: Linter.RuleEntry<[]>
 	/**
@@ -5565,10 +5571,20 @@ export interface RuleOptions {
 	 */
 	'toml/indent'?: Linter.RuleEntry<TomlIndent>
 	/**
+	 * enforce linebreaks after opening and before closing braces
+	 * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/inline-table-curly-newline.html
+	 */
+	'toml/inline-table-curly-newline'?: Linter.RuleEntry<TomlInlineTableCurlyNewline>
+	/**
 	 * enforce consistent spacing inside braces
 	 * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/inline-table-curly-spacing.html
 	 */
 	'toml/inline-table-curly-spacing'?: Linter.RuleEntry<TomlInlineTableCurlySpacing>
+	/**
+	 * enforce placing inline table key-value pairs on separate lines
+	 * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/inline-table-key-value-newline.html
+	 */
+	'toml/inline-table-key-value-newline'?: Linter.RuleEntry<TomlInlineTableKeyValueNewline>
 	/**
 	 * enforce consistent spacing between keys and values in key/value pairs
 	 * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/key-spacing.html
@@ -8113,6 +8129,18 @@ type HtmlElementNewline =
 				skip?: string[]
 			},
 	  ]
+// ----- html/head-order -----
+type HtmlHeadOrder =
+	| []
+	| [
+			{
+				ignores?: {
+					tagPattern?: string
+					attrKeyPattern?: string
+					attrValuePattern?: string
+				}[]
+			},
+	  ]
 // ----- html/id-naming-convention -----
 type HtmlIdNamingConvention =
 	| []
@@ -10373,6 +10401,7 @@ type JsonObjectCurlySpacing =
 			{
 				arraysInObjects?: boolean
 				objectsInObjects?: boolean
+				emptyObjects?: 'ignore' | 'always' | 'never'
 			},
 	  ]
 // ----- json/object-property-newline -----
@@ -22989,6 +23018,17 @@ type TomlIndent =
 				keyValuePairs?: number
 			},
 	  ]
+// ----- toml/inline-table-curly-newline -----
+type TomlInlineTableCurlyNewline =
+	| []
+	| [
+			| ('always' | 'never')
+			| {
+					multiline?: boolean
+					minProperties?: number
+					consistent?: boolean
+			  },
+	  ]
 // ----- toml/inline-table-curly-spacing -----
 type TomlInlineTableCurlySpacing =
 	| []
@@ -22998,6 +23038,15 @@ type TomlInlineTableCurlySpacing =
 			{
 				arraysInObjects?: boolean
 				objectsInObjects?: boolean
+				emptyObjects?: 'ignore' | 'always' | 'never'
+			},
+	  ]
+// ----- toml/inline-table-key-value-newline -----
+type TomlInlineTableKeyValueNewline =
+	| []
+	| [
+			{
+				allowAllPropertiesOnSameLine?: boolean
 			},
 	  ]
 // ----- toml/key-spacing -----
@@ -27311,6 +27360,7 @@ type YamlFlowMappingCurlySpacing =
 			{
 				arraysInObjects?: boolean
 				objectsInObjects?: boolean
+				emptyObjects?: 'ignore' | 'always' | 'never'
 			},
 	  ]
 // ----- yaml/flow-sequence-bracket-newline -----

@@ -22,6 +22,7 @@
 		"email": "eric@ericmika.com",
 		"url": "https://ericmika.com"
 	},
+	"sideEffects": false,
 	"type": "module",
 	"bin": {
 		"ksc-repo": "bin/cli.js"
@@ -37,7 +38,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1001.1.30",
+		"@pnpm/lockfile.fs": "^1001.1.31",
 		"cosmiconfig": "^9.0.0",
 		"cosmiconfig-typescript-loader": "^6.2.0",
 		"decircular": "^1.0.0",

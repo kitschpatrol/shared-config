@@ -22,6 +22,7 @@
 		"email": "eric@ericmika.com",
 		"url": "https://ericmika.com"
 	},
+	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		".": {
@@ -57,7 +58,7 @@
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
-		"stylelint": "^17.3.0",
+		"stylelint": "^17.4.0",
 		"stylelint-config-clean-order": "^8.0.1",
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^40.0.0",
