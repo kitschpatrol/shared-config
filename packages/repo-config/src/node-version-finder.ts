@@ -161,7 +161,12 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		}
 	}
 
-	for (const importer of Object.values(lockfile.importers)) {
+	// Only process the importer matching the requested project path, so that
+	// each workspace package gets its own per-package engine constraints.
+	const importerKey = path.relative(lockfileDirectory, projectPath) || '.'
+	// @ts-expect-error - String key
+	const importer = lockfile.importers[importerKey]
+	if (importer) {
 		if (importer.dependencies) processDependencies(importer.dependencies, false)
 		if (importer.devDependencies) processDependencies(importer.devDependencies, true)
 	}

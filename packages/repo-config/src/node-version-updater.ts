@@ -4,7 +4,7 @@ import fse from 'fs-extra'
 import path from 'node:path'
 import semver from 'semver'
 import { stringify } from '../../../src/json-utilities'
-import { getPackageDirectory } from '../../../src/path-utilities'
+import { findWorkspacePackageDirectories, getPackageDirectory } from '../../../src/path-utilities'
 import { formatFileInPlace } from '../../../src/prettier-utilities'
 import { pluralize } from '../../../src/string-utilities'
 import { getMinimumNodeVersions } from './node-version-finder'
@@ -100,8 +100,11 @@ function formatCauses(causes: string[]): string {
 	return ` (from ${causes.join(', ')})`
 }
 
-async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean): Promise<number> {
-	const packageDirectory = getPackageDirectory()
+async function nodeVersionCheckSingle(
+	logStream: NodeJS.WritableStream,
+	fix: boolean,
+	packageDirectory: string,
+): Promise<number> {
 	const packageJsonPath = path.join(packageDirectory, 'package.json')
 
 	if (!fse.existsSync(packageJsonPath)) {
@@ -193,7 +196,7 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 
 	if (issues.length > 0) {
 		logStream.write(
-			`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)}:\n`,
+			`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)} in ${packageJsonPath}:\n`,
 		)
 		for (const issue of issues) {
 			logStream.write(`  - ${issue}\n`)
@@ -209,6 +212,18 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 	}
 
 	return 0
+}
+
+async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean): Promise<number> {
+	const packageDirectories = findWorkspacePackageDirectories()
+	let exitCode = 0
+
+	for (const packageDirectory of packageDirectories) {
+		const result = await nodeVersionCheckSingle(logStream, fix, packageDirectory)
+		if (result !== 0) exitCode = 1
+	}
+
+	return exitCode
 }
 
 /**
