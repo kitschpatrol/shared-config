@@ -20,15 +20,6 @@ type DevEngines = {
 }
 
 /**
- * Compute the minimum version from a semver range and format as >=X.Y.Z.
- */
-function rangeToMinVersion(range: string): string | undefined {
-	const minVersion = semver.minVersion(range)
-	if (!minVersion) return undefined
-	return `>=${minVersion.version}`
-}
-
-/**
  * Get the devEngines.runtime entry for node from a package.json object.
  */
 function getDevEnginesNodeVersion(packageJson: Record<string, unknown>): string | undefined {
@@ -148,10 +139,11 @@ async function nodeVersionCheckSingle(
 				packageJson.engines = engines
 			}
 		} else {
-			const currentMinVersion = rangeToMinVersion(enginesNode)
-			if (currentMinVersion !== enginesNodeVersionWanted) {
+			const currentMin = semver.minVersion(enginesNode)
+			const wantedMin = semver.minVersion(enginesNodeVersionWanted)
+			if (currentMin && wantedMin && semver.lt(currentMin, wantedMin)) {
 				issues.push(
-					`engines.node is "${enginesNode}" but dependencies require "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
+					`engines.node is "${enginesNode}" but dependencies require at least "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 				)
 				if (fix) {
 					// eslint-disable-next-line ts/no-unsafe-type-assertion
@@ -173,10 +165,11 @@ async function nodeVersionCheckSingle(
 					setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)
 				}
 			} else {
-				const currentDevMinVersion = rangeToMinVersion(devEnginesNodeVersion)
-				if (currentDevMinVersion !== minNodeDevVersionWanted) {
+				const currentDevMin = semver.minVersion(devEnginesNodeVersion)
+				const devWantedMin = semver.minVersion(minNodeDevVersionWanted)
+				if (currentDevMin && devWantedMin && semver.lt(currentDevMin, devWantedMin)) {
 					issues.push(
-						`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
+						`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require at least "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
 					)
 					if (fix) {
 						setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)

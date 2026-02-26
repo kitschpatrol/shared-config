@@ -205,7 +205,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'node/no-process-exit': 'off',
 		// Too many false positives
 		'node/no-unpublished-import': 'off',
-		'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
+		'node/no-unsupported-features/node-builtins': 'error',
 		'perfectionist/sort-imports': [
 			'error',
 			{
