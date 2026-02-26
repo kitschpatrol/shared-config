@@ -124,41 +124,47 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 	const productionCauses = nodeVersions.dependencies?.topLevelCauses ?? []
 	const devCauses = nodeVersions.devDependencies?.topLevelCauses ?? []
 
+	// When there are no production dependencies with engine constraints,
+	// fall back to the overall version (from devDependencies) for engines.node,
+	// since the project still needs that Node.js version to function.
+	const enginesNodeVersionWanted = minNodeVersionWanted ?? minNodeDevVersionWanted
+	const enginesNodeCauses = minNodeVersionWanted ? productionCauses : devCauses
+
 	const issues: string[] = []
 
 	// --- engines.node check ---
-	if (minNodeVersionWanted !== undefined) {
+	if (enginesNodeVersionWanted !== undefined) {
 		if (enginesNode === undefined) {
 			issues.push(
-				`Missing engines.node — suggest setting to "${minNodeVersionWanted}"${formatCauses(productionCauses)}`,
+				`Missing engines.node — suggest setting to "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 			)
 			if (fix) {
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const engines = (packageJson.engines as Record<string, string> | undefined) ?? {}
-				engines.node = minNodeVersionWanted
+				engines.node = enginesNodeVersionWanted
 				packageJson.engines = engines
 			}
 		} else {
 			const currentMinVersion = rangeToMinVersion(enginesNode)
-			if (currentMinVersion !== minNodeVersionWanted) {
+			if (currentMinVersion !== enginesNodeVersionWanted) {
 				issues.push(
-					`engines.node is "${enginesNode}" but dependencies require "${minNodeVersionWanted}"${formatCauses(productionCauses)}`,
+					`engines.node is "${enginesNode}" but dependencies require "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 				)
 				if (fix) {
 					// eslint-disable-next-line ts/no-unsafe-type-assertion
-					;(packageJson.engines as Record<string, string>).node = minNodeVersionWanted
+					;(packageJson.engines as Record<string, string>).node = enginesNodeVersionWanted
 				}
 			}
 		}
 	}
 
 	// --- devEngines.runtime check ---
-	if (minNodeVersionWanted !== undefined && minNodeDevVersionWanted !== undefined) {
-		if (minNodeVersionWanted !== minNodeDevVersionWanted) {
-			// Production and dev deps have different minimum node versions
+	if (enginesNodeVersionWanted !== undefined && minNodeDevVersionWanted !== undefined) {
+		if (enginesNodeVersionWanted !== minNodeDevVersionWanted) {
+			// Dev deps require a higher Node.js minimum than what engines.node declares
 			if (devEnginesNodeVersion === undefined) {
 				issues.push(
-					`devDependencies require a different Node.js minimum (${minNodeDevVersionWanted}) than production (${minNodeVersionWanted}) — suggest adding devEngines.runtime for node with version "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
+					`devDependencies require a different Node.js minimum (${minNodeDevVersionWanted}) than production (${enginesNodeVersionWanted}) — suggest adding devEngines.runtime for node with version "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
 				)
 				if (fix) {
 					setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)
@@ -175,7 +181,7 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 				}
 			}
 		} else if (devEnginesNodeVersion !== undefined) {
-			// Same minimum for prod and dev, but devEngines.runtime is set — redundant
+			// Same minimum for prod and dev (or dev-only), but devEngines.runtime is set — redundant
 			issues.push(
 				`devEngines.runtime.version for node is redundant (same minimum as engines.node) — suggest removing`,
 			)
