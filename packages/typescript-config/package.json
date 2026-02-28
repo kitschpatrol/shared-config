@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/typescript-config",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"description": "TypeScript configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
