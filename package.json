@@ -62,7 +62,7 @@
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@pnpm/lockfile.types": "^1002.0.9",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.19.35",
+		"@types/node": "~20.19.35",
 		"@types/react": "^19.2.14",
 		"@types/semver": "^7.7.1",
 		"@types/yargs": "^17.0.35",
