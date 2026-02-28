@@ -42,10 +42,12 @@ beforeunload
 bézier
 bgsound
 Bibliogram
+bibliothecary
 bignum
 bigram
 bigrams
 bindability
+bioinformatics
 bitvise
 Blotar
 boids
@@ -140,6 +142,7 @@ deno
 devel
 dicom
 disablepictureinpicture
+distutils
 divs
 dnsperf
 docsify
@@ -177,6 +180,7 @@ ffmetadata
 ffprobe
 fieldset
 figcaption
+Figshare
 filenamify
 fileprivate
 filesize
@@ -196,6 +200,7 @@ fpsgraph
 fsnotes
 ftest
 fullscreen
+funder
 fusuma
 Futil
 gchat
@@ -211,7 +216,9 @@ gittower
 glart
 glew
 glkview
+godebug
 gogs
+goreleaser
 Grav
 Gridsome
 GSAP
@@ -235,6 +242,7 @@ hostnames
 hotreload
 hrefs
 htmlmixed
+Huggingface
 hypedl
 hypem
 hyperlegible
@@ -277,9 +285,11 @@ ksdiff
 labelot
 lanczos
 langchain
+laravel
 latexsvg
 latlon
 lazygit
+Leiningen
 lerp
 lerper
 lerpy
@@ -378,6 +388,7 @@ multiport
 multipose
 Multitaction
 multiview
+mypy
 nannou
 navas
 Navizon
@@ -515,6 +526,9 @@ Proxyman
 psds
 psexec
 pushshift
+pylib
+pylint
+pypi
 pytest
 qalpha
 qcolor
@@ -561,6 +575,7 @@ scrollbooster
 sectionhead
 seedrandom
 setext
+setuptools
 shadcn
 shikijs
 shorturl
@@ -687,6 +702,7 @@ webc
 Webflow
 webmail
 webmin
+webservise
 webui
 Wekinator
 wetlab
@@ -694,6 +710,7 @@ wght
 whisperx
 WHOIS
 wikilink
+winget
 winstaller
 wireshark
 woob
