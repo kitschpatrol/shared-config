@@ -1,5 +1,4 @@
 /* eslint-disable complexity */
-/* eslint-disable max-depth */
 import fse from 'fs-extra'
 import path from 'node:path'
 import semver from 'semver'
@@ -113,16 +112,10 @@ async function nodeVersionCheckSingle(
 	// Compute wanted versions from the pnpm lockfile
 	const nodeVersions = await getMinimumNodeVersions(packageDirectory)
 
-	const minNodeVersionWanted = nodeVersions.dependencies?.version
-	const minNodeDevVersionWanted = nodeVersions.version
-	const productionCauses = nodeVersions.dependencies?.topLevelCauses ?? []
+	const enginesNodeVersionWanted = nodeVersions.dependencies?.version
+	const enginesNodeCauses = nodeVersions.dependencies?.topLevelCauses ?? []
+	const devEnginesVersionWanted = nodeVersions.version
 	const devCauses = nodeVersions.devDependencies?.topLevelCauses ?? []
-
-	// When there are no production dependencies with engine constraints,
-	// fall back to the overall version (from devDependencies) for engines.node,
-	// since the project still needs that Node.js version to function.
-	const enginesNodeVersionWanted = minNodeVersionWanted ?? minNodeDevVersionWanted
-	const enginesNodeCauses = minNodeVersionWanted ? productionCauses : devCauses
 
 	const issues: string[] = []
 
@@ -143,7 +136,7 @@ async function nodeVersionCheckSingle(
 			const wantedMin = semver.minVersion(enginesNodeVersionWanted)
 			if (currentMin && wantedMin && semver.lt(currentMin, wantedMin)) {
 				issues.push(
-					`engines.node is "${enginesNode}" but dependencies require at least "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
+					`engines.node is "${enginesNode}" but production dependencies require at least "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 				)
 				if (fix) {
 					// eslint-disable-next-line ts/no-unsafe-type-assertion
@@ -154,36 +147,45 @@ async function nodeVersionCheckSingle(
 	}
 
 	// --- devEngines.runtime check ---
-	if (enginesNodeVersionWanted !== undefined && minNodeDevVersionWanted !== undefined) {
-		if (enginesNodeVersionWanted !== minNodeDevVersionWanted) {
-			// Dev deps require a higher Node.js minimum than what engines.node declares
-			if (devEnginesNodeVersion === undefined) {
-				issues.push(
-					`devDependencies require a different Node.js minimum (${minNodeDevVersionWanted}) than production (${enginesNodeVersionWanted}) — suggest adding devEngines.runtime for node with version "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
-				)
-				if (fix) {
-					setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)
-				}
-			} else {
-				const currentDevMin = semver.minVersion(devEnginesNodeVersion)
-				const devWantedMin = semver.minVersion(minNodeDevVersionWanted)
-				if (currentDevMin && devWantedMin && semver.lt(currentDevMin, devWantedMin)) {
-					issues.push(
-						`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require at least "${minNodeDevVersionWanted}"${formatCauses(devCauses)}`,
-					)
-					if (fix) {
-						setDevEnginesNodeVersion(packageJson, minNodeDevVersionWanted)
-					}
-				}
-			}
-		} else if (devEnginesNodeVersion !== undefined) {
-			// Same minimum for prod and dev (or dev-only), but devEngines.runtime is set — redundant
+	// Compare against the effective engines.node (what prod deps require, or the existing value)
+	const effectiveEnginesNode = enginesNodeVersionWanted ?? enginesNode
+	const effectiveEnginesNodeMin = effectiveEnginesNode
+		? semver.minVersion(effectiveEnginesNode)
+		: undefined
+	const devWantedMin = devEnginesVersionWanted
+		? semver.minVersion(devEnginesVersionWanted)
+		: undefined
+
+	const devEnginesNeeded =
+		devWantedMin && (!effectiveEnginesNodeMin || semver.gt(devWantedMin, effectiveEnginesNodeMin))
+
+	if (devEnginesVersionWanted !== undefined && devEnginesNeeded) {
+		// Dev deps require a higher Node.js minimum than engines.node
+		if (devEnginesNodeVersion === undefined) {
 			issues.push(
-				`devEngines.runtime.version for node is redundant (same minimum as engines.node) — suggest removing`,
+				`devDependencies require a higher Node.js minimum (${devEnginesVersionWanted}) than engines.node (${effectiveEnginesNode ?? 'none'}) — suggest adding devEngines.runtime for node with version "${devEnginesVersionWanted}"${formatCauses(devCauses)}`,
 			)
 			if (fix) {
-				removeDevEnginesNodeVersion(packageJson)
+				setDevEnginesNodeVersion(packageJson, devEnginesVersionWanted)
 			}
+		} else {
+			const currentDevMin = semver.minVersion(devEnginesNodeVersion)
+			if (currentDevMin && semver.lt(currentDevMin, devWantedMin)) {
+				issues.push(
+					`devEngines.runtime.version for node is "${devEnginesNodeVersion}" but all dependencies require at least "${devEnginesVersionWanted}"${formatCauses(devCauses)}`,
+				)
+				if (fix) {
+					setDevEnginesNodeVersion(packageJson, devEnginesVersionWanted)
+				}
+			}
+		}
+	} else if (devEnginesNodeVersion !== undefined) {
+		// DevEngines.runtime is set but redundant (engines.node already covers it)
+		issues.push(
+			`devEngines.runtime.version for node is redundant (engines.node already covers the requirement) — suggest removing`,
+		)
+		if (fix) {
+			removeDevEnginesNodeVersion(packageJson)
 		}
 	}
 
