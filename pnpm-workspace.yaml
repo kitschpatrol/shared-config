@@ -4,14 +4,12 @@ packages:
 ignoredBuiltDependencies:
   - rollup
 
-# Required by @kitschpatrol/shared-config
 onlyBuiltDependencies:
   - esbuild
   - oxc-resolver
   - puppeteer
   - unrs-resolver
 
-# Required by @kitschpatrol/shared-config
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'

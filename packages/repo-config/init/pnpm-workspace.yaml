@@ -1,5 +1,3 @@
-# Required by @kitschpatrol/shared-config
-
 onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
