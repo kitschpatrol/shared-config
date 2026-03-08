@@ -181,11 +181,18 @@ async function nodeVersionCheckSingle(
 		}
 	} else if (devEnginesNodeVersion !== undefined) {
 		// DevEngines.runtime is set but redundant (engines.node already covers it)
-		issues.push(
-			`devEngines.runtime.version for node is redundant (engines.node already covers the requirement) — suggest removing`,
-		)
-		if (fix) {
-			removeDevEnginesNodeVersion(packageJson)
+		const currentDevMin = semver.minVersion(devEnginesNodeVersion)
+		if (
+			currentDevMin &&
+			effectiveEnginesNodeMin &&
+			semver.lte(currentDevMin, effectiveEnginesNodeMin)
+		) {
+			issues.push(
+				`devEngines.runtime.version for node is redundant (engines.node already covers the requirement) — suggest removing`,
+			)
+			if (fix) {
+				removeDevEnginesNodeVersion(packageJson)
+			}
 		}
 	}
 
