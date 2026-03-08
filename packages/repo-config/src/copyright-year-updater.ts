@@ -55,6 +55,12 @@ const licenseBoilerplateDatePatterns: RegExp[] = [
 ]
 
 /**
+ * Files to ignore when searching for license files.
+ * .gitignore style patterns.
+ */
+const IGNORE_PATTERNS = ['node_modules/**', 'test/**']
+
+/**
  * Mask digits in known license boilerplate date strings with 'X', preserving
  * string length so character indices remain stable for replacement.
  */
@@ -108,7 +114,7 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
 	const licenseFiles: string[] = []
 
 	// Use multiple glob patterns to cover different casings for "license.txt"
-	const patterns = ['**/license.txt', '**/license', '!node_modules/**']
+	const patterns = ['**/license.txt', '**/license', ...IGNORE_PATTERNS.map((p) => `!${p}`)]
 
 	const files = await globby(patterns, {
 		caseSensitiveMatch: false,
