@@ -39,13 +39,13 @@
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@pnpm/lockfile.fs": "^1001.1.31",
-		"cosmiconfig": "^9.0.0",
+		"cosmiconfig": "^9.0.1",
 		"cosmiconfig-typescript-loader": "^6.2.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.3",
+		"fs-extra": "^11.3.4",
 		"globby": "^16.1.1",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"package-up": "^5.0.0",
@@ -56,6 +56,12 @@
 	},
 	"engines": {
 		"node": ">=20.19.0"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": ">=22.18.0"
+		}
 	},
 	"publishConfig": {
 		"access": "public"
