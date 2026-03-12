@@ -3,7 +3,7 @@ import fse from 'fs-extra'
 import path from 'node:path'
 import process from 'node:process'
 import { afterAll, beforeEach, describe, expect, it } from 'vitest'
-import { version } from '../package.json'
+import { version } from '../package.json' with { type: 'json' }
 
 describe('CLI basics', () => {
 	it('should print version', async () => {

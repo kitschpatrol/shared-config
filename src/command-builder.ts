@@ -16,7 +16,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import type { CwdOverrideOptions } from './path-utilities.js'
 import type { ForegroundColor } from './stream-utilities.js'
-import { version } from '../package.json'
+import { version } from '../package.json' with { type: 'json' }
 import { isErrorExecaError } from './execa-utilities.js'
 import { merge, stringify } from './json-utilities.js'
 import { getCwdOverride } from './path-utilities.js'
