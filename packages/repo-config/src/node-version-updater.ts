@@ -147,8 +147,19 @@ async function nodeVersionCheckSingle(
 	}
 
 	// --- devEngines.runtime check ---
-	// Compare against the effective engines.node (what prod deps require, or the existing value)
-	const effectiveEnginesNode = enginesNodeVersionWanted ?? enginesNode
+	// Compare against the effective engines.node: the higher of what prod deps require
+	// and what's already set (the engines.node check only upgrades, never downgrades).
+	const effectiveEnginesNode = (() => {
+		if (enginesNodeVersionWanted && enginesNode) {
+			const wantedMin = semver.minVersion(enginesNodeVersionWanted)
+			const currentMin = semver.minVersion(enginesNode)
+			if (wantedMin && currentMin) {
+				return semver.gt(wantedMin, currentMin) ? enginesNodeVersionWanted : enginesNode
+			}
+		}
+
+		return enginesNodeVersionWanted ?? enginesNode
+	})()
 	const effectiveEnginesNodeMin = effectiveEnginesNode
 		? semver.minVersion(effectiveEnginesNode)
 		: undefined
