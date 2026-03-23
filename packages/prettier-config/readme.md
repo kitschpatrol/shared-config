@@ -227,6 +227,10 @@ Spaces are required by the [specification](https://yaml.org/spec/1.2.2/#61-inden
 
 Spaces are not technically required, but are specified in alignment with the [Remark project's conclusions](https://github.com/remarkjs/remark-lint/tree/main/packages/remark-lint-no-tabs#recommendation) and to prevent fragility in YAML frontmatter. _(TODO: Need 4 spaces instead of 2?)_
 
+## Shared plugins
+
+See discussion in [this prettier issue](https://github.com/prettier/prettier/issues/15667). We set the `plugins` array in the shared config, and make sure that the plugin dependencies are hoisted by PNPM as specified in the `pnpm-workspace.yaml` file.
+
 <!-- license -->
 
 ## License
