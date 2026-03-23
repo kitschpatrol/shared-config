@@ -30,6 +30,7 @@ export const jsonPackageRecommendedRules: Rules = {
 	'json-package/valid-description': 'error',
 	'json-package/valid-dependencies': 'error',
 	'json-package/valid-devDependencies': 'error',
+	'json-package/valid-devEngines': 'error',
 	'json-package/valid-directories': 'error',
 	'json-package/valid-engines': 'error',
 	'json-package/valid-exports': 'error',

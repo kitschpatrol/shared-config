@@ -1606,6 +1606,11 @@ export interface RuleOptions {
 	 */
 	'json-package/require-contributors'?: Linter.RuleEntry<JsonPackageRequireContributors>
 	/**
+	 * Requires the `cpu` property to be present.
+	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-cpu.md
+	 */
+	'json-package/require-cpu'?: Linter.RuleEntry<JsonPackageRequireCpu>
+	/**
 	 * Requires the `dependencies` property to be present.
 	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-dependencies.md
 	 */
@@ -1675,6 +1680,11 @@ export interface RuleOptions {
 	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-man.md
 	 */
 	'json-package/require-man'?: Linter.RuleEntry<JsonPackageRequireMan>
+	/**
+	 * Requires the `module` property to be present.
+	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-module.md
+	 */
+	'json-package/require-module'?: Linter.RuleEntry<JsonPackageRequireModule>
 	/**
 	 * Requires the `name` property to be present.
 	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-name.md
@@ -1820,6 +1830,11 @@ export interface RuleOptions {
 	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-devDependencies.md
 	 */
 	'json-package/valid-devDependencies'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforce that the `devEngines` property is valid.
+	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-devEngines.md
+	 */
+	'json-package/valid-devEngines'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `directories` property is valid.
 	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-directories.md
@@ -4870,6 +4885,11 @@ export interface RuleOptions {
 	 */
 	'svelte/max-attributes-per-line'?: Linter.RuleEntry<SvelteMaxAttributesPerLine>
 	/**
+	 * enforce maximum number of lines in svelte component blocks
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/max-lines-per-block/
+	 */
+	'svelte/max-lines-per-block'?: Linter.RuleEntry<SvelteMaxLinesPerBlock>
+	/**
 	 * enforce unified spacing in mustache
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/mustache-spacing/
 	 */
@@ -4968,7 +4988,7 @@ export interface RuleOptions {
 	 */
 	'svelte/no-navigation-without-base'?: Linter.RuleEntry<SvelteNoNavigationWithoutBase>
 	/**
-	 * disallow using navigation (links, goto, pushState, replaceState) without a resolve()
+	 * disallow internal navigation (links, `goto()`, `pushState()`, `replaceState()`) without a `resolve()`
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-navigation-without-resolve/
 	 */
 	'svelte/no-navigation-without-resolve'?: Linter.RuleEntry<SvelteNoNavigationWithoutResolve>
@@ -5596,6 +5616,11 @@ export interface RuleOptions {
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-top-level-describe.md
 	 */
 	'test/require-top-level-describe'?: Linter.RuleEntry<TestRequireTopLevelDescribe>
+	/**
+	 * enforce unbound methods are called with their expected scope
+	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/unbound-method.md
+	 */
+	'test/unbound-method'?: Linter.RuleEntry<TestUnboundMethod>
 	/**
 	 * enforce valid describe callback
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-describe-callback.md
@@ -10048,6 +10073,14 @@ type JsonPackageRequireContributors =
 				ignorePrivate?: boolean
 			},
 	  ]
+// ----- json-package/require-cpu -----
+type JsonPackageRequireCpu =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/require-dependencies -----
 type JsonPackageRequireDependencies =
 	| []
@@ -10154,6 +10187,14 @@ type JsonPackageRequireMain =
 	  ]
 // ----- json-package/require-man -----
 type JsonPackageRequireMan =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-module -----
+type JsonPackageRequireModule =
 	| []
 	| [
 			{
@@ -16130,6 +16171,8 @@ type PerfectionistSortArrayIncludes = {
 					  }
 					| string
 			  )
+
+		matchesAstSelector?: string
 	}
 
 	partitionByComment?:
@@ -16199,10 +16242,27 @@ type PerfectionistSortArrayIncludes = {
 	partitionByNewLine?: boolean
 }[]
 // ----- perfectionist/sort-classes -----
-type PerfectionistSortClasses =
-	| []
-	| [
-			{
+type PerfectionistSortClasses = {
+	fallbackSort?: {
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+		order?: 'asc' | 'desc'
+	}
+
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+	specialCharacters?: 'remove' | 'trim' | 'keep'
+
+	ignoreCase?: boolean
+
+	alphabet?: string
+
+	locales?: string | string[]
+
+	order?: 'asc' | 'desc'
+
+	customGroups?: (
+		| {
 				fallbackSort?: {
 					type:
 						| 'alphabetical'
@@ -16217,354 +16277,195 @@ type PerfectionistSortClasses =
 
 				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
-				specialCharacters?: 'remove' | 'trim' | 'keep'
-
-				ignoreCase?: boolean
-
-				alphabet?: string
-
-				locales?: string | string[]
+				groupName: string
+				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
 
-				customGroups?: (
-					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-								order?: 'asc' | 'desc'
-							}
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
+											flags?: string
+									  }
+									| string
+							  )
 
-							groupName: string
-							newlinesInside?: 'ignore' | number
+						modifiers?: (
+							| 'async'
+							| 'protected'
+							| 'private'
+							| 'public'
+							| 'static'
+							| 'abstract'
+							| 'override'
+							| 'readonly'
+							| 'decorated'
+							| 'declare'
+							| 'optional'
+						)[]
 
-							order?: 'asc' | 'desc'
+						selector?:
+							| 'accessor-property'
+							| 'index-signature'
+							| 'constructor'
+							| 'static-block'
+							| 'get-method'
+							| 'set-method'
+							| 'function-property'
+							| 'property'
+							| 'method'
 
-							anyOf: [
-								{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
+						decoratorNamePattern?:
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
+											flags?: string
+									  }
+									| string
+							  )
 
-									modifiers?: (
-										| 'async'
-										| 'protected'
-										| 'private'
-										| 'public'
-										| 'static'
-										| 'abstract'
-										| 'override'
-										| 'readonly'
-										| 'decorated'
-										| 'declare'
-										| 'optional'
-									)[]
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-									selector?:
-										| 'accessor-property'
-										| 'index-signature'
-										| 'constructor'
-										| 'static-block'
-										| 'get-method'
-										| 'set-method'
-										| 'function-property'
-										| 'property'
-										| 'method'
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-									decoratorNamePattern?:
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
+											flags?: string
+									  }
+									| string
+							  )
 
-									elementValuePattern?:
-										| (
-												| {
-														pattern: string
+						modifiers?: (
+							| 'async'
+							| 'protected'
+							| 'private'
+							| 'public'
+							| 'static'
+							| 'abstract'
+							| 'override'
+							| 'readonly'
+							| 'decorated'
+							| 'declare'
+							| 'optional'
+						)[]
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+						selector?:
+							| 'accessor-property'
+							| 'index-signature'
+							| 'constructor'
+							| 'static-block'
+							| 'get-method'
+							| 'set-method'
+							| 'function-property'
+							| 'property'
+							| 'method'
 
-														flags?: string
-												  }
-												| string
-										  )
-								},
-								...{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
+						decoratorNamePattern?:
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
+											flags?: string
+									  }
+									| string
+							  )
 
-									modifiers?: (
-										| 'async'
-										| 'protected'
-										| 'private'
-										| 'public'
-										| 'static'
-										| 'abstract'
-										| 'override'
-										| 'readonly'
-										| 'decorated'
-										| 'declare'
-										| 'optional'
-									)[]
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
 
-									selector?:
-										| 'accessor-property'
-										| 'index-signature'
-										| 'constructor'
-										| 'static-block'
-										| 'get-method'
-										| 'set-method'
-										| 'function-property'
-										| 'property'
-										| 'method'
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-									decoratorNamePattern?:
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
+		  }
+		| {
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+					order?: 'asc' | 'desc'
+				}
 
-														flags?: string
-												  }
-												| string
-										  )
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
-									elementValuePattern?:
-										| (
-												| {
-														pattern: string
+				groupName: string
+				newlinesInside?: 'ignore' | number
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+				order?: 'asc' | 'desc'
 
-														flags?: string
-												  }
-												| string
-										  )
-								}[],
-							]
-					  }
-					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
-
-								order?: 'asc' | 'desc'
-							}
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-
-							groupName: string
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-
-							elementNamePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-
-							modifiers?: (
-								| 'async'
-								| 'protected'
-								| 'private'
-								| 'public'
-								| 'static'
-								| 'abstract'
-								| 'override'
-								| 'readonly'
-								| 'decorated'
-								| 'declare'
-								| 'optional'
-							)[]
-
-							selector?:
-								| 'accessor-property'
-								| 'index-signature'
-								| 'constructor'
-								| 'static-block'
-								| 'get-method'
-								| 'set-method'
-								| 'function-property'
-								| 'property'
-								| 'method'
-
-							decoratorNamePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-
-							elementValuePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-					  }
-				)[]
-				newlinesInside?: ('ignore' | number) | 'newlinesBetween'
-
-				groups?: (
-					| string
-					| [string, ...string[]]
-					| {
-							newlinesBetween: 'ignore' | number
-					  }
-					| {
-							group: string | [string, ...string[]]
-
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
-
-								order?: 'asc' | 'desc'
-							}
-
-							commentAbove?: string
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-					  }
-				)[]
-				newlinesBetween?: 'ignore' | number
-
-				useExperimentalDependencyDetection?: boolean
-
-				ignoreCallbackDependenciesPatterns?:
+				elementNamePattern?:
 					| (
 							| {
 									pattern: string
@@ -16582,7 +16483,165 @@ type PerfectionistSortClasses =
 							| string
 					  )
 
-				partitionByComment?:
+				modifiers?: (
+					| 'async'
+					| 'protected'
+					| 'private'
+					| 'public'
+					| 'static'
+					| 'abstract'
+					| 'override'
+					| 'readonly'
+					| 'decorated'
+					| 'declare'
+					| 'optional'
+				)[]
+
+				selector?:
+					| 'accessor-property'
+					| 'index-signature'
+					| 'constructor'
+					| 'static-block'
+					| 'get-method'
+					| 'set-method'
+					| 'function-property'
+					| 'property'
+					| 'method'
+
+				decoratorNamePattern?:
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+
+				elementValuePattern?:
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+		  }
+	)[]
+	newlinesInside?: ('ignore' | number) | 'newlinesBetween'
+
+	groups?: (
+		| string
+		| [string, ...string[]]
+		| {
+				newlinesBetween: 'ignore' | number
+		  }
+		| {
+				group: string | [string, ...string[]]
+
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
+				commentAbove?: string
+
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+				newlinesInside?: 'ignore' | number
+
+				order?: 'asc' | 'desc'
+		  }
+	)[]
+	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
+
+	useExperimentalDependencyDetection?: boolean
+
+	ignoreCallbackDependenciesPatterns?:
+		| (
+				| {
+						pattern: string
+
+						flags?: string
+				  }
+				| string
+		  )[]
+		| (
+				| {
+						pattern: string
+
+						flags?: string
+				  }
+				| string
+		  )
+
+	partitionByComment?:
+		| boolean
+		| (
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )[]
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )
+		  )
+		| {
+				block?:
 					| boolean
 					| (
 							| (
@@ -16602,53 +16661,31 @@ type PerfectionistSortClasses =
 									| string
 							  )
 					  )
-					| {
-							block?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+				line?:
+					| boolean
+					| (
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
-								  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-							line?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )
+					  )
+		  }
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-								  )
-					  }
-
-				partitionByNewLine?: boolean
-			},
-	  ]
+	partitionByNewLine?: boolean
+}[]
 // ----- perfectionist/sort-decorators -----
 type PerfectionistSortDecorators = {
 	fallbackSort?: {
@@ -16880,10 +16917,27 @@ type PerfectionistSortDecorators = {
 	partitionByNewLine?: boolean
 }[]
 // ----- perfectionist/sort-enums -----
-type PerfectionistSortEnums =
-	| []
-	| [
-			{
+type PerfectionistSortEnums = {
+	fallbackSort?: {
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+		order?: 'asc' | 'desc'
+	}
+
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+	specialCharacters?: 'remove' | 'trim' | 'keep'
+
+	ignoreCase?: boolean
+
+	alphabet?: string
+
+	locales?: string | string[]
+
+	order?: 'asc' | 'desc'
+
+	customGroups?: (
+		| {
 				fallbackSort?: {
 					type:
 						| 'alphabetical'
@@ -16898,227 +16952,226 @@ type PerfectionistSortEnums =
 
 				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
-				specialCharacters?: 'remove' | 'trim' | 'keep'
-
-				ignoreCase?: boolean
-
-				alphabet?: string
-
-				locales?: string | string[]
+				groupName: string
+				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
 
-				customGroups?: (
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						elementValuePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+					}[],
+				]
+		  }
+		| {
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+				groupName: string
+				newlinesInside?: 'ignore' | number
+
+				order?: 'asc' | 'desc'
+
+				elementNamePattern?:
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+
+				elementValuePattern?:
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+		  }
+	)[]
+	newlinesInside?: ('ignore' | number) | 'newlinesBetween'
+
+	groups?: (
+		| string
+		| [string, ...string[]]
+		| {
+				newlinesBetween: 'ignore' | number
+		  }
+		| {
+				group: string | [string, ...string[]]
+
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
+				commentAbove?: string
+
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+				newlinesInside?: 'ignore' | number
+
+				order?: 'asc' | 'desc'
+		  }
+	)[]
+	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
 					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
+							pattern: string
 
-								order?: 'asc' | 'desc'
-							}
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-
-							groupName: string
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-
-							anyOf: [
-								{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-
-									elementValuePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-								},
-								...{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-
-									elementValuePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-								}[],
-							]
+							flags?: string
 					  }
-					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
-
-								order?: 'asc' | 'desc'
-							}
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-
-							groupName: string
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-
-							elementNamePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-
-							elementValuePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-					  }
-				)[]
-				newlinesInside?: ('ignore' | number) | 'newlinesBetween'
-
-				groups?: (
 					| string
-					| [string, ...string[]]
+			  )[]
+			| (
 					| {
-							newlinesBetween: 'ignore' | number
+							pattern: string
+
+							flags?: string
 					  }
-					| {
-							group: string | [string, ...string[]]
+					| string
+			  )
 
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
+		matchesAstSelector?: string
+	}
 
-								order?: 'asc' | 'desc'
-							}
+	sortByValue?: 'always' | 'ifNumericEnum' | 'never'
 
-							commentAbove?: string
+	useExperimentalDependencyDetection?: boolean
 
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-							newlinesInside?: 'ignore' | number
+	partitionByComment?:
+		| boolean
+		| (
+				| (
+						| {
+								pattern: string
 
-							order?: 'asc' | 'desc'
-					  }
-				)[]
-				newlinesBetween?: 'ignore' | number
+								flags?: string
+						  }
+						| string
+				  )[]
+				| (
+						| {
+								pattern: string
 
-				sortByValue?: 'always' | 'ifNumericEnum' | 'never'
-
-				useExperimentalDependencyDetection?: boolean
-
-				partitionByComment?:
+								flags?: string
+						  }
+						| string
+				  )
+		  )
+		| {
+				block?:
 					| boolean
 					| (
 							| (
@@ -17138,53 +17191,31 @@ type PerfectionistSortEnums =
 									| string
 							  )
 					  )
-					| {
-							block?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+				line?:
+					| boolean
+					| (
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
-								  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-							line?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )
+					  )
+		  }
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-								  )
-					  }
-
-				partitionByNewLine?: boolean
-			},
-	  ]
+	partitionByNewLine?: boolean
+}[]
 // ----- perfectionist/sort-export-attributes -----
 type PerfectionistSortExportAttributes = {
 	fallbackSort?: {
@@ -17338,6 +17369,28 @@ type PerfectionistSortExportAttributes = {
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
 
 	partitionByComment?:
 		| boolean
@@ -17791,6 +17844,28 @@ type PerfectionistSortHeritageClauses = {
 	)[]
 	newlinesBetween?: 'ignore' | number
 
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
+
 	partitionByNewLine?: boolean
 
 	partitionByComment?:
@@ -18010,6 +18085,28 @@ type PerfectionistSortImportAttributes = {
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
 
 	partitionByComment?:
 		| boolean
@@ -18729,6 +18826,8 @@ type PerfectionistSortInterfaces = {
 					| string
 			  )
 
+		matchesAstSelector?: string
+
 		declarationMatchesPattern?:
 			| (
 					| {
@@ -19013,6 +19112,28 @@ type PerfectionistSortIntersectionTypes = {
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
 
 	partitionByComment?:
 		| boolean
@@ -19319,6 +19440,8 @@ type PerfectionistSortJsxProps = {
 					| string
 			  )
 
+		matchesAstSelector?: string
+
 		tagMatchesPattern?:
 			| (
 					| {
@@ -19512,6 +19635,8 @@ type PerfectionistSortMaps = {
 					  }
 					| string
 			  )
+
+		matchesAstSelector?: string
 	}
 
 	partitionByComment?:
@@ -20076,6 +20201,28 @@ type PerfectionistSortNamedExports = {
 	)[]
 	newlinesBetween?: 'ignore' | number
 
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
+
 	ignoreAlias?: boolean
 
 	partitionByComment?:
@@ -20309,6 +20456,28 @@ type PerfectionistSortNamedImports = {
 		  }
 	)[]
 	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
 
 	ignoreAlias?: boolean
 
@@ -20648,6 +20817,8 @@ type PerfectionistSortObjectTypes = {
 					  }
 					| string
 			  )
+
+		matchesAstSelector?: string
 
 		declarationMatchesPattern?:
 			| (
@@ -21033,6 +21204,8 @@ type PerfectionistSortObjects = {
 					| string
 			  )
 
+		matchesAstSelector?: string
+
 		declarationMatchesPattern?:
 			| (
 					| {
@@ -21055,6 +21228,8 @@ type PerfectionistSortObjects = {
 					| string
 			  )
 	}
+
+	partitionByComputedKey?: boolean
 
 	styledComponents?: boolean
 
@@ -21304,6 +21479,8 @@ type PerfectionistSortSets = {
 					  }
 					| string
 			  )
+
+		matchesAstSelector?: string
 	}
 
 	partitionByComment?:
@@ -21598,6 +21775,28 @@ type PerfectionistSortUnionTypes = {
 	)[]
 	newlinesBetween?: 'ignore' | number
 
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )[]
+			| (
+					| {
+							pattern: string
+
+							flags?: string
+					  }
+					| string
+			  )
+
+		matchesAstSelector?: string
+	}
+
 	partitionByComment?:
 		| boolean
 		| (
@@ -21665,10 +21864,27 @@ type PerfectionistSortUnionTypes = {
 	partitionByNewLine?: boolean
 }[]
 // ----- perfectionist/sort-variable-declarations -----
-type PerfectionistSortVariableDeclarations =
-	| []
-	| [
-			{
+type PerfectionistSortVariableDeclarations = {
+	fallbackSort?: {
+		type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+		order?: 'asc' | 'desc'
+	}
+
+	type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+	specialCharacters?: 'remove' | 'trim' | 'keep'
+
+	ignoreCase?: boolean
+
+	alphabet?: string
+
+	locales?: string | string[]
+
+	order?: 'asc' | 'desc'
+
+	customGroups?: (
+		| {
 				fallbackSort?: {
 					type:
 						| 'alphabetical'
@@ -21683,177 +21899,176 @@ type PerfectionistSortVariableDeclarations =
 
 				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
-				specialCharacters?: 'remove' | 'trim' | 'keep'
-
-				ignoreCase?: boolean
-
-				alphabet?: string
-
-				locales?: string | string[]
+				groupName: string
+				newlinesInside?: 'ignore' | number
 
 				order?: 'asc' | 'desc'
 
-				customGroups?: (
+				anyOf: [
+					{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'initialized' | 'uninitialized'
+					},
+					...{
+						elementNamePattern?:
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
+
+											flags?: string
+									  }
+									| string
+							  )
+
+						selector?: 'initialized' | 'uninitialized'
+					}[],
+				]
+		  }
+		| {
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+				groupName: string
+				newlinesInside?: 'ignore' | number
+
+				order?: 'asc' | 'desc'
+
+				elementNamePattern?:
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+
+				selector?: 'initialized' | 'uninitialized'
+		  }
+	)[]
+	newlinesInside?: ('ignore' | number) | 'newlinesBetween'
+
+	groups?: (
+		| string
+		| [string, ...string[]]
+		| {
+				newlinesBetween: 'ignore' | number
+		  }
+		| {
+				group: string | [string, ...string[]]
+
+				fallbackSort?: {
+					type:
+						| 'alphabetical'
+						| 'natural'
+						| 'line-length'
+						| 'custom'
+						| 'unsorted'
+						| 'subgroup-order'
+
+					order?: 'asc' | 'desc'
+				}
+
+				commentAbove?: string
+
+				type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+				newlinesInside?: 'ignore' | number
+
+				order?: 'asc' | 'desc'
+		  }
+	)[]
+	newlinesBetween?: 'ignore' | number
+
+	useConfigurationIf?: {
+		allNamesMatchPattern?:
+			| (
 					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
+							pattern: string
 
-								order?: 'asc' | 'desc'
-							}
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-
-							groupName: string
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-
-							anyOf: [
-								{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-
-									selector?: 'initialized' | 'uninitialized'
-								},
-								...{
-									elementNamePattern?:
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-
-									selector?: 'initialized' | 'uninitialized'
-								}[],
-							]
+							flags?: string
 					  }
-					| {
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
-
-								order?: 'asc' | 'desc'
-							}
-
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-
-							groupName: string
-							newlinesInside?: 'ignore' | number
-
-							order?: 'asc' | 'desc'
-
-							elementNamePattern?:
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )[]
-								| (
-										| {
-												pattern: string
-
-												flags?: string
-										  }
-										| string
-								  )
-
-							selector?: 'initialized' | 'uninitialized'
-					  }
-				)[]
-				newlinesInside?: ('ignore' | number) | 'newlinesBetween'
-
-				groups?: (
 					| string
-					| [string, ...string[]]
+			  )[]
+			| (
 					| {
-							newlinesBetween: 'ignore' | number
+							pattern: string
+
+							flags?: string
 					  }
-					| {
-							group: string | [string, ...string[]]
+					| string
+			  )
 
-							fallbackSort?: {
-								type:
-									| 'alphabetical'
-									| 'natural'
-									| 'line-length'
-									| 'custom'
-									| 'unsorted'
-									| 'subgroup-order'
+		matchesAstSelector?: string
+	}
 
-								order?: 'asc' | 'desc'
-							}
+	useExperimentalDependencyDetection?: boolean
 
-							commentAbove?: string
+	partitionByComment?:
+		| boolean
+		| (
+				| (
+						| {
+								pattern: string
 
-							type?:
-								| 'alphabetical'
-								| 'natural'
-								| 'line-length'
-								| 'custom'
-								| 'unsorted'
-								| 'subgroup-order'
-							newlinesInside?: 'ignore' | number
+								flags?: string
+						  }
+						| string
+				  )[]
+				| (
+						| {
+								pattern: string
 
-							order?: 'asc' | 'desc'
-					  }
-				)[]
-				newlinesBetween?: 'ignore' | number
-
-				useExperimentalDependencyDetection?: boolean
-
-				partitionByComment?:
+								flags?: string
+						  }
+						| string
+				  )
+		  )
+		| {
+				block?:
 					| boolean
 					| (
 							| (
@@ -21873,53 +22088,31 @@ type PerfectionistSortVariableDeclarations =
 									| string
 							  )
 					  )
-					| {
-							block?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
+				line?:
+					| boolean
+					| (
+							| (
+									| {
+											pattern: string
 
-														flags?: string
-												  }
-												| string
-										  )
-								  )
+											flags?: string
+									  }
+									| string
+							  )[]
+							| (
+									| {
+											pattern: string
 
-							line?:
-								| boolean
-								| (
-										| (
-												| {
-														pattern: string
+											flags?: string
+									  }
+									| string
+							  )
+					  )
+		  }
 
-														flags?: string
-												  }
-												| string
-										  )[]
-										| (
-												| {
-														pattern: string
-
-														flags?: string
-												  }
-												| string
-										  )
-								  )
-					  }
-
-				partitionByNewLine?: boolean
-			},
-	  ]
+	partitionByNewLine?: boolean
+}[]
 // ----- prefer-arrow-callback -----
 type PreferArrowCallback =
 	| []
@@ -22673,6 +22866,18 @@ type SvelteMaxAttributesPerLine =
 				singleline?: number
 			},
 	  ]
+// ----- svelte/max-lines-per-block -----
+type SvelteMaxLinesPerBlock =
+	| []
+	| [
+			{
+				script?: number
+				template?: number
+				style?: number
+				skipBlankLines?: boolean
+				skipComments?: boolean
+			},
+	  ]
 // ----- svelte/mustache-spacing -----
 type SvelteMustacheSpacing =
 	| []
@@ -23097,6 +23302,14 @@ type TestRequireTopLevelDescribe =
 	| [
 			{
 				maxNumberOfTopLevelDescribes?: number
+			},
+	  ]
+// ----- test/unbound-method -----
+type TestUnboundMethod =
+	| []
+	| [
+			{
+				ignoreStatic?: boolean
 			},
 	  ]
 // ----- test/valid-expect -----
