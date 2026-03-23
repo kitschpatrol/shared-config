@@ -347,6 +347,7 @@ Meslo
 metafile
 metaio
 metalness
+metascope
 microcontroller
 MikroTik
 millis
