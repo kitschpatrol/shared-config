@@ -60,7 +60,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.types": "^1002.0.9",
+		"@pnpm/lockfile.types": "^1002.1.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "~20.19.37",
 		"@types/react": "^19.2.14",
@@ -86,7 +86,7 @@
 		"vitest": "^4.1.1",
 		"yargs": "^18.0.0"
 	},
-	"packageManager": "pnpm@10.32.1",
+	"packageManager": "pnpm@10.33.0",
 	"engines": {
 		"node": ">=20.19.0"
 	}
