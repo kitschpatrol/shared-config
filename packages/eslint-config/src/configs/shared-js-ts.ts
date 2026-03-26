@@ -163,6 +163,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
 		// Overlaps with `unicorn/no-named-default`, and gives false positives for imports from CJS modules
 		'import/default': 'off',
+		// Helpful for e.g. 'test-sketch.tldr' + 'test-sketch.tldr?dark=true&tldr'
+		'import/no-duplicates': ['error', { considerQueryString: true }],
 		// IMO using the default can help with code readability / disambiguation of a function's origin
 		'import/no-named-as-default-member': 'off',
 		// Cope with Astro virtual modules.
