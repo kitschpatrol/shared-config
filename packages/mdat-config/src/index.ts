@@ -1,12 +1,10 @@
 import type { Config as MdatConfig } from 'mdat'
-import { mergeConfigs } from 'mdat'
+import { mergeConfig } from 'mdat'
 // export { commandDefinition } from './command.js'
 
 const sharedMdatConfig: MdatConfig = {
-	rules: {
-		'shared-config':
-			'## Project configuration\n\nThis project uses [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) to consolidate various linting and formatting tool configurations under a single dependency and the CLI command `ksc`. (ESLint, Prettier, CSpell, etc.)',
-	},
+	'shared-config':
+		'## Project configuration\n\nThis project uses [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) to consolidate various linting and formatting tool configurations under a single dependency and the CLI command `ksc`. (ESLint, Prettier, CSpell, etc.)',
 }
 
 /**
@@ -15,15 +13,13 @@ const sharedMdatConfig: MdatConfig = {
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  * @example
  * ```ts
- *  export default mdatConfig({
- * 	rules: {
- * 		test: '**This is a test rule.**',
- * 	},
+ * export default mdatConfig({
+ *    test: '**This is a test rule.**',
  * })
  * ```
  */
 export function mdatConfig(config?: MdatConfig): MdatConfig {
-	return mergeConfigs(sharedMdatConfig, config ?? {})
+	return mergeConfig(sharedMdatConfig, config ?? {})
 }
 
 export default sharedMdatConfig

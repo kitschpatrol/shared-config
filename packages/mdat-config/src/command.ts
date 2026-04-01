@@ -1,4 +1,4 @@
-import { loadConfig, loadConfigReadme } from 'mdat'
+import { loadConfig } from 'mdat'
 import type { CommandCli, CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION, getCosmiconfigResult } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utilities.js'
@@ -21,7 +21,8 @@ async function printMdatConfigCommand(logStream: NodeJS.WritableStream): Promise
 	// Then load it through mdat to get the actual resolved object with readme-related defaults
 	const additionalConfig = await loadConfig()
 
-	const config = await loadConfigReadme({
+	// TODO still need this?
+	const config = await loadConfig({
 		additionalConfig,
 	})
 	const prettyAndColorfulJsonLines = stringify(config).split('\n')
@@ -45,8 +46,8 @@ async function generateMdatReadmeCommands(action: 'check' | 'expand'): Promise<C
 		commands.push({
 			cwdOverride: directory,
 			name: 'mdat',
-			optionFlags: configPath ? ['--config', configPath] : [], // Don't love this
-			subcommands: ['readme', action],
+			optionFlags: configPath ? ['--config', configPath, '--format'] : ['--format'], // Don't love this
+			subcommands: [action],
 		})
 	}
 
@@ -74,7 +75,7 @@ export const commandDefinition: CommandDefinition = {
 		},
 		lint: {
 			commands: await generateMdatReadmeCommands('check'),
-			description: `Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
+			description: `Validate that all Mdat content placeholders in your readme.md file(s) have been expanded and are up to date. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {
@@ -84,7 +85,7 @@ export const commandDefinition: CommandDefinition = {
 					name: printMdatConfigCommand.name,
 				},
 			],
-			description: `Print the effective Mdat configuration. ${DESCRIPTION.packageSearch}. ${DESCRIPTION.monorepoSearch}. Includes configuration provided by the \`mdat readme\` command.`,
+			description: `Print the effective Mdat configuration. ${DESCRIPTION.packageSearch}. ${DESCRIPTION.monorepoSearch}.`,
 			positionalArgumentMode: 'none',
 		},
 	},
