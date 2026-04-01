@@ -170,9 +170,9 @@ Usage:
 ksc-eslint print-config [file]
 ```
 
-| Positional Argument | Description                 | Type     |
-| ------------------- | --------------------------- | -------- |
-| `file`              | File or glob pattern to TK. | `string` |
+| Positional Argument | Description                                      | Type     |
+| ------------------- | ------------------------------------------------ | -------- |
+| `file`              | File or glob pattern to print configuration for. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

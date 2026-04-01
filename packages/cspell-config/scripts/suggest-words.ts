@@ -38,7 +38,6 @@ async function getWordListsFromProjects(directory: string): Promise<string[]> {
 async function getSharedConfigWords(): Promise<string[]> {
 	const dictionaries = await globby('../dictionaries/*.txt', {
 		absolute: true,
-		// eslint-disable-next-line node/no-unsupported-features/node-builtins
 		cwd: import.meta.dirname,
 	})
 
@@ -59,7 +58,6 @@ async function getSharedConfigWords(): Promise<string[]> {
 async function getDictionaryCategories(): Promise<string[]> {
 	const categories = await globby('../dictionaries/*.txt', {
 		absolute: true,
-		// eslint-disable-next-line node/no-unsupported-features/node-builtins
 		cwd: import.meta.dirname,
 	})
 
