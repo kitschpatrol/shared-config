@@ -107,11 +107,11 @@ Usage:
 ksc-remark init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description                       | Type                 | Default  |
+| ------------------- | --------------------------------- | -------------------- | -------- |
+| `--location`        | Where to store the configuration. | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help                         | `boolean`            |          |
+| `--version`<br>`-v` | Show version number               | `boolean`            |          |
 
 #### Subcommand: `ksc-remark print-config`
 

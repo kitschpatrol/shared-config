@@ -8,9 +8,7 @@ import decircular from 'decircular'
 import deepmerge from 'deepmerge'
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact'
 
-/**
- * TK
- */
+/** Serialize an object to a colorized, compact JSON string for terminal output. */
 export function stringify(object: any): string {
 	return jsonColorizer(
 		jsonStringifyPrettyCompact(decircular(object), {
@@ -50,9 +48,7 @@ const combineMerge = (target: any[], source: any[], options: ArrayMergeOptions):
 	return destination
 }
 
-/**
- * TK
- */
+/** Deep-merge two objects, combining arrays by appending unique elements. */
 export function merge(
 	destination: any,
 	source: any,

@@ -488,7 +488,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					? yargs.option('location', {
 							choices: ['file', 'package'],
 							default: 'file',
-							describe: 'TK',
+							describe: 'Where to store the configuration.',
 							type: 'string',
 						})
 					: yargs
@@ -607,7 +607,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 							...(printConfig.positionalArgumentDefault === undefined
 								? {}
 								: { default: printConfig.positionalArgumentDefault }),
-							describe: 'File or glob pattern to TK.',
+							describe: 'File or glob pattern to print configuration for.',
 							type: 'string',
 						})
 			},
@@ -646,9 +646,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	await yargsInstance.parseAsync()
 }
 
-/**
- * TK
- */
+/** Create a command that loads and prints a tool's cosmiconfig-based configuration. */
 export function getCosmiconfigCommand(configName: string): CommandFunction {
 	return {
 		async execute(logStream) {

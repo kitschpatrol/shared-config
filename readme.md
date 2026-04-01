@@ -4,10 +4,18 @@
 
 <!-- /title -->
 
-<!-- badges -->
+<!-- badges({ custom: {
+    "CI": {
+      image: "https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg",
+      link: "https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml",
+    },
+  }
+})
+-->
 
 [![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
 <!-- /badges -->
 
@@ -256,11 +264,11 @@ Usage:
 ksc init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description                       | Type                 | Default  |
+| ------------------- | --------------------------------- | -------------------- | -------- |
+| `--location`        | Where to store the configuration. | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help                         | `boolean`            |          |
+| `--version`<br>`-v` | Show version number               | `boolean`            |          |
 
 #### Subcommand: `ksc lint`
 
@@ -310,9 +318,9 @@ Usage:
 ksc print-config [file]
 ```
 
-| Positional Argument | Description                 | Type     |
-| ------------------- | --------------------------- | -------- |
-| `file`              | File or glob pattern to TK. | `string` |
+| Positional Argument | Description                                      | Type     |
+| ------------------- | ------------------------------------------------ | -------- |
+| `file`              | File or glob pattern to print configuration for. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
