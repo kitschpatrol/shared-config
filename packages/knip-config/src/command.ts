@@ -7,16 +7,15 @@ import sharedKnipConfig from './index.js'
 function getWorkspaceOptionFlags(): string[] {
 	if (isMonorepo()) {
 		// Are we in a subpackage of the monorepo?
-		// Use path.resolve to normalize drive letter casing on Windows,
-		// where package-up and find-workspaces can return different cases
-		const packageDirectory = path.resolve(getPackageDirectory())
-		const workspaceRoot = path.resolve(getWorkspaceRoot())
+		const packageDirectory = getPackageDirectory()
+		const workspaceRoot = getWorkspaceRoot()
 		if (packageDirectory !== workspaceRoot) {
 			// Yes, we are in a subpackage
 			const packagePath = path.relative(workspaceRoot, packageDirectory)
-			// Guard against empty string from any remaining normalization discrepancy
 			if (packagePath) {
-				return ['--workspace', packagePath]
+				// Knip uses POSIX paths internally for workspace names,
+				// so convert Windows backslashes to forward slashes
+				return ['--workspace', packagePath.split(path.sep).join('/')]
 			}
 		}
 	}

@@ -43,8 +43,10 @@ export function findWorkspacePackageDirectories(): string[] {
 	const workspaces = findWorkspaces()
 	if (workspaces !== null) {
 		for (const workspace of workspaces) {
-			if (isDirectoryBelow(workspace.location, packageDirectory)) {
-				directories.add(workspace.location)
+			// Find-workspaces returns POSIX paths on Windows, normalize to native format
+			const location = path.resolve(workspace.location)
+			if (isDirectoryBelow(location, packageDirectory)) {
+				directories.add(location)
 			}
 		}
 	}
@@ -77,7 +79,9 @@ export function isMonorepo(): boolean {
 export function getWorkspaceRoot(): string {
 	const workspaceRoot = findWorkspacesRoot()
 	if (workspaceRoot !== null) {
-		return workspaceRoot.location
+		// Find-workspaces returns POSIX paths on Windows (e.g. C:/Users/project),
+		// normalize to native format for consistent path operations
+		return path.resolve(workspaceRoot.location)
 	}
 
 	return getPackageDirectory()
