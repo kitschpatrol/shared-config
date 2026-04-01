@@ -168,7 +168,7 @@ async function nodeVersionCheckSingle(
 		: undefined
 
 	const devEnginesNeeded =
-		devWantedMin && (!effectiveEnginesNodeMin || semver.gt(devWantedMin, effectiveEnginesNodeMin))
+		devWantedMin && effectiveEnginesNodeMin && semver.gt(devWantedMin, effectiveEnginesNodeMin)
 
 	if (devEnginesVersionWanted !== undefined && devEnginesNeeded) {
 		// Dev deps require a higher Node.js minimum than engines.node
