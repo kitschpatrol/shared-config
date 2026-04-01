@@ -36,6 +36,7 @@ This includes the following:
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
   - `set-github-metadata.yml` Populates GitHub repo metadata from package.json
+  - `ci.yml` Basic cross-platform CI action
 
 In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
 

@@ -59,7 +59,7 @@ It takes care of dependencies, configuration, invocation, and reporting for the 
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - [Mdat](https://github.com/kitschpatrol/mdat) (my markdown templating and expansion tool)
 - [remarklint](https://github.com/remarkjs/remark-lint)
-- Basic repo boilerplate (`.npmrc`, `.gitignore`, etc.)
+- Basic repo boilerplate (`.gitignore`, GitHub actions, etc.)
 
 ### Packages
 
