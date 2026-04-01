@@ -169,6 +169,7 @@ fadecandy
 fanin
 fanout
 farbfeld
+farmfe
 fassets
 faststart
 favicons

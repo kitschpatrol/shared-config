@@ -45,7 +45,7 @@
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
 		"release": "pnpm run build && bumpp -r --commit 'Release: %s' && pnpm run build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm -r publish",
-		"test": "vitest"
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.2",
@@ -75,15 +75,15 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.4",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat-plugin-cli-help": "^1.0.7",
+		"mdat-plugin-cli-help": "^1.0.8",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
 		"publint": "^0.3.18",
-		"tsdown": "^0.21.4",
+		"tsdown": "^0.21.7",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
-		"vitest": "^4.1.1",
+		"vitest": "^4.1.2",
 		"yargs": "^18.0.0"
 	},
 	"packageManager": "pnpm@10.33.0",

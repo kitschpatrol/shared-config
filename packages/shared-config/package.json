@@ -64,14 +64,14 @@
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.4",
-		"globby": "^16.1.1",
+		"globby": "^16.2.0",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^1.4.1",
+		"mdat": "^1.4.2",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
 		"semver": "^7.7.4",
-		"stylelint": "^17.5.0",
+		"stylelint": "^17.6.0",
 		"yargs": "^18.0.0"
 	},
 	"engines": {
