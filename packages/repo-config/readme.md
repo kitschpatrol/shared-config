@@ -30,7 +30,6 @@ The `lint` and `fix` commands check and correct:
 
 This includes the following:
 
-- [`.npmrc`](https://pnpm.io/npmrc) with publish branch guards and support for an NPM authentication environment variable for local publishing to NPM
 - [`pnpm-workspace.yaml`](https://pnpm.io/pnpm-workspace_yaml) with hoisting patterns for `ksc` tool access and trusted dependency installation scripts.
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
