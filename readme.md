@@ -15,7 +15,6 @@
 
 [![NPM Package shared-config-monorepo](https://img.shields.io/npm/v/shared-config-monorepo.svg)](https://npmjs.com/package/shared-config-monorepo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/kitschpatrol/shared-config-monorepo/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config-monorepo/actions/workflows/ci.yml)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
 <!-- /badges -->
