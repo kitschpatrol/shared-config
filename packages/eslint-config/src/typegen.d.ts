@@ -2438,6 +2438,146 @@ export interface RuleOptions {
 	 */
 	'logical-assignment-operators'?: Linter.RuleEntry<LogicalAssignmentOperators>
 	/**
+	 * enforce the conversion to absolute values to be the method you prefer
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/abs.html
+	 */
+	'math/abs'?: Linter.RuleEntry<MathAbs>
+	/**
+	 * disallow static calculations that result in infinity
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/no-static-infinity-calculations.html
+	 */
+	'math/no-static-infinity-calculations'?: Linter.RuleEntry<[]>
+	/**
+	 * disallow static calculations that result in NaN
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/no-static-nan-calculations.html
+	 */
+	'math/no-static-nan-calculations'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of exponentiation (`**`) operator instead of other calculations
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-exponentiation-operator.html
+	 */
+	'math/prefer-exponentiation-operator'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.cbrt() instead of other cube root calculations
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-cbrt.html
+	 */
+	'math/prefer-math-cbrt'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.E instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-e.html
+	 */
+	'math/prefer-math-e'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.hypot() instead of other hypotenuse calculations
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-hypot.html
+	 */
+	'math/prefer-math-hypot'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.LN10 instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-ln10.html
+	 */
+	'math/prefer-math-ln10'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.LN2 instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-ln2.html
+	 */
+	'math/prefer-math-ln2'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.log10() instead of other calculation methods.
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-log10.html
+	 */
+	'math/prefer-math-log10'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.LOG10E instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-log10e.html
+	 */
+	'math/prefer-math-log10e'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.log2() instead of other calculation methods.
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-log2.html
+	 */
+	'math/prefer-math-log2'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.LOG2E instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-log2e.html
+	 */
+	'math/prefer-math-log2e'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.PI instead of literal number
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-pi.html
+	 */
+	'math/prefer-math-pi'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.sqrt() instead of other square root calculations
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-sqrt.html
+	 */
+	'math/prefer-math-sqrt'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.SQRT1_2 instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-sqrt1-2.html
+	 */
+	'math/prefer-math-sqrt1-2'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.SQRT2 instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-sqrt2.html
+	 */
+	'math/prefer-math-sqrt2'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Math.sumPrecise() instead of other summation methods
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-sum-precise.html
+	 */
+	'math/prefer-math-sum-precise'?: Linter.RuleEntry<MathPreferMathSumPrecise>
+	/**
+	 * enforce the use of Math.trunc() instead of other truncations
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-math-trunc.html
+	 */
+	'math/prefer-math-trunc'?: Linter.RuleEntry<MathPreferMathTrunc>
+	/**
+	 * enforce the use of Number.EPSILON instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-epsilon.html
+	 */
+	'math/prefer-number-epsilon'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.isFinite() instead of other checking ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-is-finite.html
+	 */
+	'math/prefer-number-is-finite'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.isInteger() instead of other checking ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-is-integer.html
+	 */
+	'math/prefer-number-is-integer'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.isNaN() instead of other checking ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-is-nan.html
+	 */
+	'math/prefer-number-is-nan'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.isSafeInteger() instead of other checking ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-is-safe-integer.html
+	 */
+	'math/prefer-number-is-safe-integer'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.MAX_SAFE_INTEGER instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-max-safe-integer.html
+	 */
+	'math/prefer-number-max-safe-integer'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.MAX_VALUE instead of literal number
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-max-value.html
+	 */
+	'math/prefer-number-max-value'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.MIN_SAFE_INTEGER instead of other ways
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-min-safe-integer.html
+	 */
+	'math/prefer-number-min-safe-integer'?: Linter.RuleEntry<[]>
+	/**
+	 * enforce the use of Number.MIN_VALUE instead of literal number
+	 * @see https://ota-meshi.github.io/eslint-plugin-math/rules/prefer-number-min-value.html
+	 */
+	'math/prefer-number-min-value'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce a maximum number of classes per file
 	 * @see https://eslint.org/docs/latest/rules/max-classes-per-file
 	 */
@@ -11626,6 +11766,31 @@ type LogicalAssignmentOperators = (
 	| ['never']
 ) &
 	unknown[]
+// ----- math/abs -----
+type MathAbs =
+	| []
+	| [
+			{
+				prefer?: 'Math.abs' | 'expression'
+				aggressive?: boolean
+			},
+	  ]
+// ----- math/prefer-math-sum-precise -----
+type MathPreferMathSumPrecise =
+	| []
+	| [
+			{
+				aggressive?: boolean
+			},
+	  ]
+// ----- math/prefer-math-trunc -----
+type MathPreferMathTrunc =
+	| []
+	| [
+			{
+				reportBitwise?: boolean
+			},
+	  ]
 // ----- max-classes-per-file -----
 type MaxClassesPerFile =
 	| []

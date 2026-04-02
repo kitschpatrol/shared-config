@@ -5,6 +5,7 @@ import pluginDeMorgan from 'eslint-plugin-de-morgan'
 import * as pluginDepend from 'eslint-plugin-depend'
 import pluginImport from 'eslint-plugin-import-x'
 import pluginJsdocComments from 'eslint-plugin-jsdoc'
+import * as pluginMath from 'eslint-plugin-math'
 import pluginNode from 'eslint-plugin-n'
 import pluginPerfectionist from 'eslint-plugin-perfectionist'
 import * as pluginRegexp from 'eslint-plugin-regexp'
@@ -23,6 +24,7 @@ import {
 	importTypescriptRules,
 	jsdocCommentsRecommendedTypescriptFlavorRules,
 	jsdocCommentsRecommendedTypescriptRules,
+	mathRecommendedRules,
 	nodeRecommendedRules,
 	perfectionistRecommendedNaturalRules,
 	regexpRecommendedRules,
@@ -125,6 +127,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'eslint-comments': pluginEslintComments,
 		import: pluginImport,
 		jsdoc: pluginJsdocComments,
+		math: pluginMath,
 		node: pluginNode,
 		perfectionist: pluginPerfectionist,
 		regexp: pluginRegexp,
@@ -149,6 +152,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...regexpRecommendedRules,
 		...deMorganRecommendedRules,
 		...dependRecommendedRules,
+		...mathRecommendedRules,
 		'capitalized-comments': [
 			'error',
 			'always',
@@ -399,6 +403,9 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'ts/sort-type-constituents': 'off', // Conflicts with perfectionist/sort-intersection-types
 		'unicorn/import-style': 'off', // Conflicts with import/consistent-type-specifier-style prefer-top-level
+		'unicorn/prefer-math-trunc': 'off', // Superseded by math/prefer-math-trunc
+		'unicorn/prefer-modern-math-apis': 'off', // Superseded by eslint-plugin-math
+		'unicorn/prefer-number-properties': 'off', // Superseded by eslint-plugin-math
 		'unicorn/prevent-abbreviations': [
 			'error',
 			{
