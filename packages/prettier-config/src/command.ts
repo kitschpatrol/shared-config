@@ -12,10 +12,13 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-astro',
 	'--plugin=prettier-plugin-packagejson',
 	'--plugin=prettier-plugin-sh',
+	// Disabled because it is huge
 	// '--plugin=prettier-plugin-sql',
 	'--plugin=prettier-plugin-svelte',
-	'--plugin=prettier-plugin-tailwindcss',
+	// TODO Disabled in favor of jsdoc pending https://github.com/hosseinmd/prettier-plugin-jsdoc/pull/255
+	// '--plugin=prettier-plugin-tailwindcss',
 	'--plugin=prettier-plugin-toml',
+	'--plugin=prettier-plugin-jsdoc',
 	// Have to resolve to the project root for ignore to work when calling prettier in subdirectories
 	`--ignore-path=${getFilePathAtProjectRoot('.gitignore') ?? '.gitignore'}`,
 	`--ignore-path=${getFilePathAtProjectRoot('.prettierignore') ?? '.prettierignore'}`,

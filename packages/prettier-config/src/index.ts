@@ -1,12 +1,14 @@
-import type { Config as PrettierConfig } from 'prettier'
+import type { Config as BasePrettierConfig } from 'prettier'
+import type { Options as PrettierPluginJsdocOptions } from 'prettier-plugin-jsdoc'
 import { deepmerge } from 'deepmerge-ts'
 import { homedir } from 'node:os'
 import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 // export { commandDefinition } from './command.js'
 
+type PrettierConfig = BasePrettierConfig & PrettierPluginJsdocOptions
 /**
- * Merge custom keys into the `sort-package-json` `order` array. Where
- * duplicated, delete existing and prioritize new keys.
+ * Merge custom keys into the `sort-package-json` `order` array. Where duplicated, delete existing
+ * and prioritize new keys.
  */
 function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 	// If new keys are in keys, remove them
@@ -19,6 +21,10 @@ function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
 	endOfLine: 'lf',
+	jsdocCommentLineStrategy: 'keep',
+	jsdocPreferCodeFences: true,
+	jsdocPrintWidth: 80,
+	jsdocSeparateReturnsFromParam: true,
 	overrides: [
 		{
 			files: ['*.md', '*.mdx', '*.yml'],
@@ -76,9 +82,12 @@ const sharedPrettierConfig: PrettierConfig = {
 		'@prettier/plugin-xml',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
-		// 'prettier-plugin-sql',
-		'prettier-plugin-tailwindcss',
+		// TODO Disabled in favor of jsdoc pending https://github.com/hosseinmd/prettier-plugin-jsdoc/pull/255
+		// 'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
+		// Disabled because it is huge
+		// 'prettier-plugin-sql',
+		'prettier-plugin-jsdoc',
 	],
 	printWidth: 100,
 	semi: false,
@@ -89,15 +98,15 @@ const sharedPrettierConfig: PrettierConfig = {
 }
 
 /**
- * **\@Kitschpatrol's Shared Prettier Configuration**
+ * **@Kitschpatrol's Shared Prettier Configuration**
+ * @example
+ * 	;```js
+ * 	export default prettierConfig({
+ * 	  printWidth: 120,
+ * 	})
+ * 	```
  * @see [@kitschpatrol/prettier-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/prettier-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- * @example
- * ```js
- * export default prettierConfig({
- *   printWidth: 120,
- * })
- * ```
  */
 export function prettierConfig(config?: PrettierConfig): PrettierConfig {
 	return deepmerge(sharedPrettierConfig, config)
