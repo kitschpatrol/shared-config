@@ -21,7 +21,7 @@ import { isErrorExecaError } from './execa-utilities.js'
 import { merge, stringify } from './json-utilities.js'
 import { getCwdOverride } from './path-utilities.js'
 import { formatFileInPlace } from './prettier-utilities.js'
-import { createStreamTransform, streamToString } from './stream-utilities.js'
+import { createStreamFilter, createStreamTransform, streamToString } from './stream-utilities.js'
 import { pluralize } from './string-utilities.js'
 
 type CommandCommon = {
@@ -49,6 +49,8 @@ export type CommandCli = CommandCommon & {
 	cwdOverride?: CwdOverrideOptions
 	/** Command-local fixed option flags. */
 	optionFlags?: string[]
+	/** Optional filter to suppress matching lines from stdout/stderr. */
+	outputFilter?: (line: string) => boolean
 	/** Command-local fixed positional arguments. */
 	positionalArguments?: string[]
 	/** Formats and colorizes output if JSON. False if undefined. */
@@ -222,8 +224,15 @@ async function executeCliCommand(
 		})
 
 		// End false is required here, otherwise the stream will close before the subprocess is done
-		subprocess.stdout.pipe(cliTargetStream, { end: false })
-		subprocess.stderr.pipe(cliTargetStream, { end: false })
+		if (command.outputFilter) {
+			const stdoutFilter = createStreamFilter(command.outputFilter)
+			const stderrFilter = createStreamFilter(command.outputFilter)
+			subprocess.stdout.pipe(stdoutFilter).pipe(cliTargetStream, { end: false })
+			subprocess.stderr.pipe(stderrFilter).pipe(cliTargetStream, { end: false })
+		} else {
+			subprocess.stdout.pipe(cliTargetStream, { end: false })
+			subprocess.stderr.pipe(cliTargetStream, { end: false })
+		}
 
 		await subprocess
 

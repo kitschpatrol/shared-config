@@ -22,6 +22,10 @@ function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
 	endOfLine: 'lf',
+	// Additional prettier-plugin-jsdoc options
+	// Note: these trigger "Ignored unknown option" warnings from prettier CLI
+	// because the plugin registers its options after config validation.
+	// Warnings are filtered out in command.ts via outputFilter.
 	jsdocCommentLineStrategy: 'keep',
 	jsdocPreferCodeFences: true,
 	jsdocPrintWidth: 80,

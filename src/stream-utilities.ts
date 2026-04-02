@@ -1,5 +1,6 @@
 import type { Stream } from 'node:stream'
 import { Transform } from 'node:stream'
+import { stripVTControlCharacters } from 'node:util'
 import picocolors from 'picocolors'
 
 // Define color type for picocolors
@@ -23,10 +24,9 @@ export type ForegroundColor =
 	| 'yellowBright'
 
 const LINE_SPLIT_REGEX = /\r?\n/
-
 /**
  * Creates a transform stream that filters out lines that match the given
- * matcher
+ * matcher. VT control characters are stripped before matching.
  */
 export function createStreamFilter(matcher: (text: string) => boolean): Transform {
 	return new Transform({
@@ -34,7 +34,7 @@ export function createStreamFilter(matcher: (text: string) => boolean): Transfor
 			const filtered = chunk
 				.toString()
 				.split(LINE_SPLIT_REGEX)
-				.filter((line) => line.trim() !== '' && !matcher(line))
+				.filter((line) => line.trim() !== '' && !matcher(stripVTControlCharacters(line)))
 				.join('\n')
 			this.push(filtered + '\n')
 			callback()
