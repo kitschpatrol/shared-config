@@ -13,7 +13,10 @@ const LOCKFILE_NAME = 'pnpm-lock.yaml'
 type ConstraintInfo =
 	| undefined
 	| {
-			/** Direct dependencies responsible for the highest minimum Node.js version. */
+			/**
+			 * Direct dependencies responsible for the highest minimum Node.js
+			 * version.
+			 */
 			topLevelCauses: string[]
 			/** Minimum compatible Node.js version as a `>=` semver range. */
 			version: string
@@ -26,13 +29,17 @@ type MinimumNodeVersions = {
 	devDependencies: ConstraintInfo
 	/** Absolute path to the pnpm lockfile used. */
 	lockfile: string
-	/** Overall minimum compatible Node.js version as a `>=` semver range. The greater of `dependencies` and `devDependencies`. */
+	/**
+	 * Overall minimum compatible Node.js version as a `>=` semver range. The
+	 * greater of `dependencies` and `devDependencies`.
+	 */
 	version: string | undefined
 }
 
 /**
- * Find the directory containing pnpm-lock.yaml by walking up from `startDirectory`,
- * bounded by the workspace root (or closest package directory if not in a monorepo).
+ * Find the directory containing pnpm-lock.yaml by walking up from
+ * `startDirectory`, bounded by the workspace root (or closest package directory
+ * if not in a monorepo).
  */
 function findLockfileDirectory(startDirectory: string): string | undefined {
 	const root = getWorkspaceRoot()
@@ -55,8 +62,8 @@ function findLockfileDirectory(startDirectory: string): string | undefined {
 }
 
 /**
- * Resolve a dependency name + version ref to a key in the packages map.
- * Handles peer-dependency suffixes, e.g. "1001.1.30(@pnpm/logger@1001.0.1)".
+ * Resolve a dependency name + version ref to a key in the packages map. Handles
+ * peer-dependency suffixes, e.g. "1001.1.30(@pnpm/logger@1001.0.1)".
  */
 function resolvePackageKey(
 	depName: string,

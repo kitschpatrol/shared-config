@@ -61,8 +61,10 @@ export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
 
 /**
  * Construct an array of ESLint flat config items.
+ *
  * @param options The options for generating the ESLint configurations.
- * @param userConfigs The user configurations to be merged with the generated configurations.
+ * @param userConfigs The user configurations to be merged with the generated
+ *   configurations.
  */
 export async function eslintConfig(
 	options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},
@@ -262,6 +264,7 @@ export async function eslintConfig(
 
 /**
  * Get ESLint language options object.
+ *
  * @param typeAware - Whether to enable type-aware linting.
  * @param jsx - Whether to enable JSX parsing.
  */
@@ -296,6 +299,7 @@ export function getLanguageOptions(typeAware = true, jsx = false): Linter.Langua
 
 /**
  * Get the overrides for a specific key.
+ *
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
@@ -311,6 +315,7 @@ export function getOverrides<K extends keyof OptionsConfig>(
 
 /**
  * Get the overrides for embedded scripts for a specific key.
+ *
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
@@ -326,16 +331,17 @@ export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
 
 /**
  * Construct an array of ESLint flat config items.
- * @param options
- *  The options for generating the ESLint configurations.
- * @param userConfigs
- *  The user configurations to be merged with the generated configurations.
- * @returns
- *  The merged ESLint configurations.
+ *
+ * @param options The options for generating the ESLint configurations.
+ * @param userConfigs The user configurations to be merged with the generated
+ *   configurations.
+ *
+ * @returns The merged ESLint configurations.
  */
 
 /**
  * Resolve the sub options for a specific key.
+ *
  * @param options The options object.
  * @param key The key to resolve the sub options for.
  */

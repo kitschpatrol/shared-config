@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 
 /**
  * Formats and saves the file content.
+ *
  * @param filePath - Path to the file.
  * @param content - Content to format and save.
  */
@@ -22,7 +23,9 @@ export async function formatTextAndSaveFile(filePath: string, content: string): 
 }
 
 /**
- * Reads a file, formats its content using Prettier, and writes it back in place.
+ * Reads a file, formats its content using Prettier, and writes it back in
+ * place.
+ *
  * @param filePath - Path to the file.
  */
 export async function formatFileInPlace(filePath: string): Promise<void> {

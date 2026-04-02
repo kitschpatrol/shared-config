@@ -27,7 +27,7 @@ import { pluralize } from './string-utilities.js'
 type CommandCommon = {
 	/** Customizes color of log prefix string. Default color used if undefined. */
 	logColor?: ForegroundColor
-	/** Enables a string prefix in the log output.  False if undefined. */
+	/** Enables a string prefix in the log output. False if undefined. */
 	logPrefix?: string
 	/** CLI command name to execute, or function name to be used in logs */
 	name: string
@@ -42,7 +42,10 @@ type CommandFunction = CommandCommon & {
 }
 
 export type CommandCli = CommandCommon & {
-	/** Optionally change the context where the command is executed. Defaults to `process.cwd()` if undefined. */
+	/**
+	 * Optionally change the context where the command is executed. Defaults to
+	 * `process.cwd()` if undefined.
+	 */
 	cwdOverride?: CwdOverrideOptions
 	/** Command-local fixed option flags. */
 	optionFlags?: string[]
@@ -50,9 +53,15 @@ export type CommandCli = CommandCommon & {
 	positionalArguments?: string[]
 	/** Formats and colorizes output if JSON. False if undefined. */
 	prettyJsonOutput?: boolean
-	/** If true, option flags are passed in from the parent command. False if undefined. */
+	/**
+	 * If true, option flags are passed in from the parent command. False if
+	 * undefined.
+	 */
 	receiveOptionFlags?: boolean
-	/** If true, positional arguments are passed in from the parent command. False if undefined. */
+	/**
+	 * If true, positional arguments are passed in from the parent command. False
+	 * if undefined.
+	 */
 	receivePositionalArguments?: boolean
 	/** Comes immediately after the command */
 	subcommands?: string[]
@@ -646,7 +655,10 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	await yargsInstance.parseAsync()
 }
 
-/** Create a command that loads and prints a tool's cosmiconfig-based configuration. */
+/**
+ * Create a command that loads and prints a tool's cosmiconfig-based
+ * configuration.
+ */
 export function getCosmiconfigCommand(configName: string): CommandFunction {
 	return {
 		async execute(logStream) {
@@ -716,7 +728,8 @@ export async function getCosmiconfigResult(
 }
 
 /**
- * Commonly reused CLI help description strings. Some duplication is intentional for future flexibility.
+ * Commonly reused CLI help description strings. Some duplication is intentional
+ * for future flexibility.
  */
 export const DESCRIPTION = {
 	fileRun: 'Matches files below the current working directory by default.',

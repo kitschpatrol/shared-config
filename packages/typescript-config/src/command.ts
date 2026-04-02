@@ -5,10 +5,13 @@ import { DESCRIPTION } from '../../../src/command-builder.js'
 import { getPackageDirectory } from '../../../src/path-utilities.js'
 
 /**
- * Checks if the current project is a Svelte project by looking for Svelte configuration files
+ * Checks if the current project is a Svelte project by looking for Svelte
+ * configuration files
  *
  * Won't be 100% accurate since custom Svelte config file names are possible.
- * @returns Promise that resolves to true if Svelte configuration files are found
+ *
+ * @returns Promise that resolves to true if Svelte configuration files are
+ *   found
  */
 async function isSvelteProject(): Promise<boolean> {
 	const packageDirectory = getPackageDirectory()

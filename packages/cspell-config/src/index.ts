@@ -118,17 +118,16 @@ const sharedCspellConfig: CspellConfig = {
 }
 
 /**
- * **\@Kitschpatrol's Shared Cspell Configuration**
- * @see [@kitschpatrol/cspell-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/cspell-config)
- * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
+ * **@Kitschpatrol's Shared Cspell Configuration**
+ *
  * @example
- * ```js
- * export default cspellConfig({
- * 	ignorePaths: [
- * 		'/test/fixtures/input',
- * 	],
- * })
- * ```
+ * 	export default cspellConfig({
+ * 		ignorePaths: ['/test/fixtures/input'],
+ * 	})
+ *
+ * @see [@kitschpatrol/cspell-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/cspell-config)
+ *
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */
 export function cspellConfig(config?: CspellConfig): CspellConfig {
 	return {

@@ -42,13 +42,14 @@ const delimiters = {
 
 /**
  * Adds new rule expansions where indicated by delimiter comments:
+ *
  * @example
- * ```ts
- * // Begin expansion 'eslint-plugin-jsdoc' 'flat/recommended-typescript-flavor'
- * // Rules will be expanded here...
- * // End expansion
- * ```
+ * 	// Begin expansion 'eslint-plugin-jsdoc' 'flat/recommended-typescript-flavor'
+ * 	// Rules will be expanded here...
+ * 	// End expansion
+ *
  * @param lines - Array of file lines
+ *
  * @returns Array of lines with expansions added
  */
 async function addNewExpansions(lines: string[]): Promise<string[]> {
@@ -73,7 +74,9 @@ async function addNewExpansions(lines: string[]): Promise<string[]> {
 
 /**
  * Generates the expanded rule lines for a given configuration
+ *
  * @param expansionConfig Library name and config rules path
+ *
  * @returns Array of expanded rule lines
  */
 async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise<string[]> {
@@ -148,7 +151,9 @@ async function main() {
 
 /**
  * Extracts library and config information from a comment line
+ *
  * @param line - The line containing the expansion comment
+ *
  * @returns Configuration object with library and config names
  * @throws {Error} If the line doesn't contain proper quote-wrapped strings
  */
@@ -168,7 +173,9 @@ function parseExpansionConfig(line: string): ExpansionConfig {
 
 /**
  * Processes a single file to expand ESLint rules
+ *
  * @param filePath - Path to the file to process
+ *
  * @returns Number of rules processed, or undefined if no processing was needed
  */
 async function processFile(filePath: string): Promise<number | undefined> {
@@ -197,7 +204,9 @@ async function processFile(filePath: string): Promise<number | undefined> {
 
 /**
  * Removes existing expansion content between delimiters
+ *
  * @param lines - Array of file lines
+ *
  * @returns Cleaned array of lines
  */
 function removeExistingExpansions(lines: string[]): string[] {

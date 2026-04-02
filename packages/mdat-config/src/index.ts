@@ -8,15 +8,15 @@ const sharedMdatConfig: MdatConfig = {
 }
 
 /**
- * **\@Kitschpatrol's Shared Mdat Configuration**
+ * **@Kitschpatrol's Shared Mdat Configuration**
+ *
+ * @example
+ * 	export default mdatConfig({
+ * 		test: '**This is a test rule.**',
+ * 	})
+ *
  * @see [@kitschpatrol/mdat-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/mdat-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
- * @example
- * ```ts
- * export default mdatConfig({
- *    test: '**This is a test rule.**',
- * })
- * ```
  */
 export function mdatConfig(config?: MdatConfig): MdatConfig {
 	return mergeConfig(sharedMdatConfig, config ?? {})

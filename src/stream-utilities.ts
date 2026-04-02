@@ -25,7 +25,8 @@ export type ForegroundColor =
 const LINE_SPLIT_REGEX = /\r?\n/
 
 /**
- * Creates a transform stream that filters out lines that match the given matcher
+ * Creates a transform stream that filters out lines that match the given
+ * matcher
  */
 export function createStreamFilter(matcher: (text: string) => boolean): Transform {
 	return new Transform({

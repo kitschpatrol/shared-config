@@ -6,6 +6,7 @@ const { log } = console
 class Person {
 	/**
 	 * Creates an instance of Person.
+	 *
 	 * @param {string} name Name
 	 * @param {number} age Age
 	 */

@@ -8,31 +8,28 @@ function isDirectoryBelow(directory: string, parent: string): boolean {
 }
 
 /**
- * Returns list of package directories at or below the current working directory. Useful for monorepos. If not in a monorepo, returns the closest package directory.
- * @example
- * Calling from `/Users/mika/Code/shared-config` will yield:
- * ```ts
- * [
- *  '/Users/mika/Code/shared-config',
- *  '/Users/mika/Code/shared-config/packages/cspell-config',
- *  '/Users/mika/Code/shared-config/packages/eslint-config',
- *  '/Users/mika/Code/shared-config/packages/knip-config',
- *  '/Users/mika/Code/shared-config/packages/mdat-config',
- *  '/Users/mika/Code/shared-config/packages/prettier-config',
- *  '/Users/mika/Code/shared-config/packages/remark-config',
- *  '/Users/mika/Code/shared-config/packages/repo-config',
- *  '/Users/mika/Code/shared-config/packages/shared-config',
- *  '/Users/mika/Code/shared-config/packages/stylelint-config',
- *  '/Users/mika/Code/shared-config/packages/typescript-config',
- * ]
- * ```
+ * Returns list of package directories at or below the current working
+ * directory. Useful for monorepos. If not in a monorepo, returns the closest
+ * package directory.
  *
- * While calling from `/Users/mika/Code/shared-config/packages/mdat-config` will yield:
- * ```ts
- * [
- * '/Users/mika/Code/shared-config/packages/mdat-config',
- * ]
- * ```
+ * @example
+ * 	const resultFromMonorepoRoot = [
+ * 		'/Users/mika/Code/shared-config',
+ * 		'/Users/mika/Code/shared-config/packages/cspell-config',
+ * 		'/Users/mika/Code/shared-config/packages/eslint-config',
+ * 		'/Users/mika/Code/shared-config/packages/knip-config',
+ * 		'/Users/mika/Code/shared-config/packages/mdat-config',
+ * 		'/Users/mika/Code/shared-config/packages/prettier-config',
+ * 		'/Users/mika/Code/shared-config/packages/remark-config',
+ * 		'/Users/mika/Code/shared-config/packages/repo-config',
+ * 		'/Users/mika/Code/shared-config/packages/shared-config',
+ * 		'/Users/mika/Code/shared-config/packages/stylelint-config',
+ * 		'/Users/mika/Code/shared-config/packages/typescript-config',
+ * 	]
+ *
+ * 	const resultFromMonorepoSubpackage = [
+ * 		'/Users/mika/Code/shared-config/packages/mdat-config',
+ * 	]
  */
 export function findWorkspacePackageDirectories(): string[] {
 	const packageDirectory = getPackageDirectory()
@@ -55,7 +52,8 @@ export function findWorkspacePackageDirectories(): string[] {
 }
 
 /**
- * Returns the closest package directory to the current working directory. Throws an error if no package.json is found.
+ * Returns the closest package directory to the current working directory.
+ * Throws an error if no package.json is found.
  */
 export function getPackageDirectory(): string {
 	const closestPackage = packageUpSync()
@@ -74,7 +72,8 @@ export function isMonorepo(): boolean {
 }
 
 /**
- * Returns the root of the monorepo if you're in one, or the closest package directory if not in a monorepo.
+ * Returns the root of the monorepo if you're in one, or the closest package
+ * directory if not in a monorepo.
  */
 export function getWorkspaceRoot(): string {
 	const workspaceRoot = findWorkspacesRoot()
@@ -102,7 +101,8 @@ export function getFilePathAtProjectRoot(fileName: string): string | undefined {
 
 export type CwdOverrideOptions = 'package-dir' | 'workspace-root' | (string & {})
 /**
- * Tries to get a specific cwd override, and safely falls back depending on monorepo etc.
+ * Tries to get a specific cwd override, and safely falls back depending on
+ * monorepo etc.
  */
 export function getCwdOverride(option?: CwdOverrideOptions): string {
 	if (option === 'workspace-root') {

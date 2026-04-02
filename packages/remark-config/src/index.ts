@@ -216,7 +216,6 @@ const REMARK_LINT_REGEX = /^remark-lint-/
  *
  * See this link for why we need this:
  * https://github.com/remarkjs/remark-lint/issues/165
- *
  */
 function overrideRules(
 	plugins: PluggableList | undefined,
@@ -254,17 +253,18 @@ function overrideRules(
 
 /**
  * **Remark Shared Configuration**
- * @see [@kitschpatrol/remark-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config)
- * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
+ *
  * @example
- * ```js
- * export default remarkConfig({
- *   rules: [
- *		['remark-lint-first-heading-level', 2],
- *		['remarkValidateLinks', { repository: false }],
- *	],
- * })
- * ```
+ * 	export default remarkConfig({
+ * 		rules: [
+ * 			['remark-lint-first-heading-level', 2],
+ * 			['remarkValidateLinks', { repository: false }],
+ * 		],
+ * 	})
+ *
+ * @see [@kitschpatrol/remark-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config)
+ *
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */
 export function remarkConfig(options?: {
 	plugins?: PluggableList | undefined

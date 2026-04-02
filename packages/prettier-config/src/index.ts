@@ -6,9 +6,10 @@ import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 // export { commandDefinition } from './command.js'
 
 type PrettierConfig = BasePrettierConfig & PrettierPluginJsdocOptions
+
 /**
- * Merge custom keys into the `sort-package-json` `order` array. Where duplicated, delete existing
- * and prioritize new keys.
+ * Merge custom keys into the `sort-package-json` `order` array. Where
+ * duplicated, delete existing and prioritize new keys.
  */
 function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 	// If new keys are in keys, remove them
@@ -99,12 +100,12 @@ const sharedPrettierConfig: PrettierConfig = {
 
 /**
  * **@Kitschpatrol's Shared Prettier Configuration**
+ *
  * @example
- * 	;```js
  * 	export default prettierConfig({
- * 	  printWidth: 120,
+ * 		printWidth: 120,
  * 	})
- * 	```
+ *
  * @see [@kitschpatrol/prettier-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/prettier-config)
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */

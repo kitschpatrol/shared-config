@@ -38,9 +38,10 @@ import { generatePerfectionistSortConfig } from '../utilities'
 // ---------
 
 /**
- * Recommended rules from the readme, but no preset config is exported from the plugin. Using
- * built-in approach instead pending
- * https://github.com/sweepline/eslint-plugin-unused-imports/issues/50 TODO What about react?
+ * Recommended rules from the readme, but no preset config is exported from the
+ * plugin. Using built-in approach instead pending
+ * https://github.com/sweepline/eslint-plugin-unused-imports/issues/50 TODO What
+ * about react?
  *
  * @see https://github.com/sweepline/eslint-plugin-unused-imports
  */
@@ -116,8 +117,8 @@ const kpPerfectionistSortConfig = [
 ]
 
 /**
- * Rules shared by JS and TS scripts Partial rule set requires `files` and `languageOptions` keys to
- * be set appropriately in file-specific configs.
+ * Rules shared by JS and TS scripts Partial rule set requires `files` and
+ * `languageOptions` keys to be set appropriately in file-specific configs.
  */
 export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
@@ -200,11 +201,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				publicOnly: true,
 			},
 		],
-		'jsdoc/tag-lines': [
-			'warn',
-			'always',
-			{ applyToEndTag: false, count: 'any', endLines: 0, maxBlockLines: 1, startLines: 0 },
-		],
+		// Overridden by prettier jsdoc plugin gets this...
+		'jsdoc/tag-lines': 'off',
 		'max-params': ['warn', { max: 8 }],
 		'new-cap': [
 			'error',

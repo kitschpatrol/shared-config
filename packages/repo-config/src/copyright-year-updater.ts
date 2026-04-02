@@ -55,8 +55,7 @@ const licenseBoilerplateDatePatterns: RegExp[] = [
 ]
 
 /**
- * Files to ignore when searching for license files.
- * .gitignore style patterns.
+ * Files to ignore when searching for license files. .gitignore style patterns.
  */
 const IGNORE_PATTERNS = ['node_modules/**', 'test/**']
 
