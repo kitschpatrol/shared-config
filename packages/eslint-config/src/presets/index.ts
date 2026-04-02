@@ -1,6 +1,7 @@
 export * from './astro'
 export * from './de-morgan'
 export * from './depend'
+export * from './e18e'
 export * from './eslint-comments'
 export * from './eslint-javascript'
 export * from './eslint-typescript'

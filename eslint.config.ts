@@ -37,6 +37,7 @@ export default eslintConfig(
 			'perfectionist/sort-objects': 'off',
 			'ts/naming-convention': 'off',
 			'unicorn/no-null': 'off',
+			'unicorn/prevent-abbreviations': 'off',
 		},
 	},
 	{

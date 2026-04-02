@@ -22,6 +22,8 @@ export type ForegroundColor =
 	| 'yellow'
 	| 'yellowBright'
 
+const LINE_SPLIT_REGEX = /\r?\n/
+
 /**
  * Creates a transform stream that filters out lines that match the given matcher
  */
@@ -30,7 +32,7 @@ export function createStreamFilter(matcher: (text: string) => boolean): Transfor
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
 			const filtered = chunk
 				.toString()
-				.split(/\r?\n/)
+				.split(LINE_SPLIT_REGEX)
 				.filter((line) => line.trim() !== '' && !matcher(line))
 				.join('\n')
 			this.push(filtered + '\n')
@@ -50,7 +52,7 @@ export function createStreamTransform(
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
 			const lines: string[] = chunk
 				.toString()
-				.split(/\r?\n/)
+				.split(LINE_SPLIT_REGEX)
 				.filter((line) => line.trim().length > 0)
 
 			const transformed = lines

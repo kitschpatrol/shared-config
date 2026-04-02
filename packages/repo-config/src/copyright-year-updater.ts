@@ -73,11 +73,14 @@ function maskLicenseBoilerplateDates(content: string): string {
 	return masked
 }
 
+const YEAR_RANGE_REGEX = /(\d{4})\s*-\s*(\d{4})/
+const YEAR_REGEX = /(\d{4})/
+
 function updateLicenseContent(content: string, currentYear: number): string {
 	const maskedContent = maskLicenseBoilerplateDates(content)
 
 	// Match a four-digit range with optional spaces around the dash.
-	const rangeRegex = /(\d{4})\s*-\s*(\d{4})/
+	const rangeRegex = YEAR_RANGE_REGEX
 	const rangeMatch = rangeRegex.exec(maskedContent)
 
 	if (rangeMatch) {
@@ -92,7 +95,7 @@ function updateLicenseContent(content: string, currentYear: number): string {
 	}
 
 	// If no range was found, try matching a single four-digit year.
-	const singleYearRegex = /(\d{4})/
+	const singleYearRegex = YEAR_REGEX
 	const singleMatch = singleYearRegex.exec(maskedContent)
 	if (singleMatch) {
 		const [, year] = singleMatch

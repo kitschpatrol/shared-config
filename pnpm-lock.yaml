@@ -189,6 +189,9 @@ importers:
 
   packages/eslint-config:
     dependencies:
+      '@e18e/eslint-plugin':
+        specifier: ^0.3.0
+        version: 0.3.0(eslint@9.39.4(jiti@2.6.1))
       '@eslint-community/eslint-plugin-eslint-comments':
         specifier: ^4.7.1
         version: 4.7.1(eslint@9.39.4(jiti@2.6.1))
@@ -1305,6 +1308,17 @@ packages:
     engines: {node: '>=20.19.0'}
     peerDependencies:
       postcss-selector-parser: ^7.1.1
+
+  '@e18e/eslint-plugin@0.3.0':
+    resolution: {integrity: sha512-hHgfpxsrZ2UYHcicA+tGZnmk19uJTaye9VH79O+XS8R4ona2Hx3xjhXghclNW58uXMk3xXlbYEOMr8thsoBmWg==}
+    peerDependencies:
+      eslint: ^9.0.0 || ^10.0.0
+      oxlint: ^1.55.0
+    peerDependenciesMeta:
+      eslint:
+        optional: true
+      oxlint:
+        optional: true
 
   '@emnapi/core@1.9.1':
     resolution: {integrity: sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA==}
@@ -6816,6 +6830,12 @@ snapshots:
   '@csstools/selector-specificity@6.0.0(postcss-selector-parser@7.1.1)':
     dependencies:
       postcss-selector-parser: 7.1.1
+
+  '@e18e/eslint-plugin@0.3.0(eslint@9.39.4(jiti@2.6.1))':
+    dependencies:
+      eslint-plugin-depend: 1.5.0(eslint@9.39.4(jiti@2.6.1))
+    optionalDependencies:
+      eslint: 9.39.4(jiti@2.6.1)
 
   '@emnapi/core@1.9.1':
     dependencies:

@@ -69,6 +69,7 @@ camelcase
 camerakit
 cameraring
 camerawheel
+canparse
 capsizecss
 certbot
 charuco

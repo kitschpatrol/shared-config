@@ -1,3 +1,4 @@
+import pluginE18e from '@e18e/eslint-plugin'
 import pluginEslintComments from '@eslint-community/eslint-plugin-eslint-comments'
 import pluginTs from '@typescript-eslint/eslint-plugin'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
@@ -124,6 +125,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
 		'de-morgan': pluginDeMorgan,
 		depend: pluginDepend,
+		e18e: pluginE18e,
 		'eslint-comments': pluginEslintComments,
 		import: pluginImport,
 		jsdoc: pluginJsdocComments,
@@ -152,6 +154,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...regexpRecommendedRules,
 		...deMorganRecommendedRules,
 		...dependRecommendedRules,
+
 		...mathRecommendedRules,
 		'capitalized-comments': [
 			'error',
@@ -163,6 +166,15 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				ignorePattern: String.raw`if|else|await|macOS|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
 			},
 		],
+		// Cherry-picked e18e rules that don't overlap with unicorn/depend/ts
+		'e18e/prefer-array-fill': 'error',
+		'e18e/prefer-array-from-map': 'error',
+		'e18e/prefer-array-to-reversed': 'error',
+		'e18e/prefer-array-to-sorted': 'error',
+		'e18e/prefer-array-to-spliced': 'error',
+		'e18e/prefer-static-regex': 'error',
+		'e18e/prefer-timer-args': 'error',
+		'e18e/prefer-url-canparse': 'error',
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
 		'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
 		// Overlaps with `unicorn/no-named-default`, and gives false positives for imports from CJS modules

@@ -49,6 +49,7 @@
 		"update-rules": "tsx scripts/presetgen.ts && tsx scripts/typegen.ts && cd ../../ && ksc-eslint fix $PWD && ksc-prettier fix $PWD"
 	},
 	"dependencies": {
+		"@e18e/eslint-plugin": "^0.3.0",
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
 		"@eslint-react/eslint-plugin": "2.1.1",
 		"@html-eslint/eslint-plugin": "^0.58.1",

@@ -129,6 +129,8 @@ import remarkLintStrikethroughMarker from 'remark-lint-strikethrough-marker' // 
 // import remarkLintSpacesAroundNumber from 'remark-lint-spaces-around-number' // Ensures there are spaces around number and Chinese.
 // import remarkLintSpacesAroundWord from 'remark-lint-spaces-around-word' // Ensures there are spaces around English word and Chinese.
 
+const GFM_ALERT_REGEX = /^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/i
+
 const remarkSharedConfig: RemarkConfig = {
 	plugins: [
 		remarkLint,
@@ -196,13 +198,15 @@ const remarkSharedConfig: RemarkConfig = {
 				// Call the default text handler, then strip the leading "\" from GFM alerts
 				// Case insensitivity is important!
 				const markdownString = mdastToTextHandlers.text(node, parent, state, info)
-				return markdownString.replace(/^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/i, '')
+				return markdownString.replace(GFM_ALERT_REGEX, '')
 			},
 		},
 		rule: '-',
 		strong: '*',
 	},
 }
+
+const REMARK_LINT_REGEX = /^remark-lint-/
 
 /**
  * Overrides specific rules in a set of plugins.
@@ -222,7 +226,7 @@ function overrideRules(
 
 	for (let [ruleName, newArguments] of rules) {
 		// Internally, function names are different from the package names
-		ruleName = ruleName.replace(/^remark-lint-/, 'remark-lint:')
+		ruleName = ruleName.replace(REMARK_LINT_REGEX, 'remark-lint:')
 
 		let ruleFunction: unknown
 		const index = plugins.findIndex((plugin) => {

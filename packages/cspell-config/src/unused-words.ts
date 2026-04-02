@@ -3,6 +3,8 @@
 import { lint } from 'cspell'
 import { getDefaultConfigLoader } from 'cspell-lib'
 
+const POSSESSIVE_SUFFIX_REGEX = /['\u2019\u2018]s$/
+
 export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<string[]> {
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
 	if (config === undefined) {
@@ -29,7 +31,7 @@ export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<
 			issue({ text, uri }) {
 				unusedWords = unusedWords.filter(
 					(word) =>
-						word.toLowerCase() !== text.toLowerCase().replace(/['\u2019\u2018]s$/, '') ||
+						word.toLowerCase() !== text.toLowerCase().replace(POSSESSIVE_SUFFIX_REGEX, '') ||
 						uri === url.href,
 				)
 			},
