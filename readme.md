@@ -1,27 +1,18 @@
 <!-- title({ prefix: "🔬 " }) -->
 
-# 🔬 shared-config-monorepo
+# 🔬 @kitschpatrol/shared-config
 
 <!-- /title -->
 
-<!-- badges({ custom: {
-    "CI": {
-      image: "https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg",
-      link: "https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml",
-    },
-  }
-})
--->
+<!-- //automatic badge expansion disabled due to build complexity  -->
 
-[![NPM Package shared-config-monorepo](https://img.shields.io/npm/v/shared-config-monorepo.svg)](https://npmjs.com/package/shared-config-monorepo)
+[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
-<!-- /badges -->
-
 <!-- description -->
 
-**A single dependency and CLI command to configure and run various linters and code quality tools in TypeScript projects.**
+**A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single CLI command.**
 
 <!-- /description -->
 

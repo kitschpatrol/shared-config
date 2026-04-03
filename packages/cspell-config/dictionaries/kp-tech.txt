@@ -80,6 +80,7 @@ childadded
 childremoved
 chipset
 chronophage
+cinderblock
 clippy
 cloze
 clozes
@@ -479,6 +480,7 @@ Parachain
 parsimmon
 pathtrace
 pathtracer
+pbxproj
 pdfreader
 pdfs
 pendingupload
@@ -528,6 +530,7 @@ Protovis
 Proxyman
 psds
 psexec
+publiccode
 pushshift
 pylib
 pylint
