@@ -75,7 +75,7 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.4",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat-plugin-cli-help": "^2.0.0",
+		"mdat-plugin-cli-help": "^2.0.2",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",
