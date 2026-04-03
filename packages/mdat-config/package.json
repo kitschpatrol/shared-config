@@ -58,7 +58,7 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.4",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^2.0.1",
+		"mdat": "^2.1.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",

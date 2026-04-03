@@ -1,22 +1,10 @@
-<!-- title({ prefix: "🔬 " }) -->
-
 # 🔬 @kitschpatrol/shared-config
-
-<!-- /title -->
-
-<!-- //automatic badge expansion disabled due to build complexity  -->
 
 [![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
-<!-- description -->
-
 **A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single CLI command.**
-
-<!-- /description -->
-
-<!-- table-of-contents({ depth: 2 }) -->
 
 ## Table of contents
 
@@ -27,8 +15,6 @@
 - [Development notes](#development-notes)
 - [Background](#background)
 - [License](#license)
-
-<!-- /table-of-contents -->
 
 ## Overview
 
@@ -217,8 +203,6 @@ pnpm run fix
 
 ### CLI
 
-<!-- cli-help({ cliCommand: 'ksc' }) -->
-
 #### Command: `ksc`
 
 Run aggregated @kitschpatrol/shared-config commands.
@@ -318,8 +302,6 @@ ksc print-config [file]
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-<!-- /cli-help -->
-
 Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `ksc` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
@@ -412,10 +394,6 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [ZumerBox](https://github.com/zumerlab/zumerbox)
 - [lintroll](https://www.npmjs.com/package/lintroll)
 
-<!-- license -->
-
 ## License
 
 [MIT](license.txt) © Eric Mika
-
-<!-- /license -->

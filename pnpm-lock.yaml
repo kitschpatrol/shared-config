@@ -92,9 +92,12 @@ importers:
       json-stringify-pretty-compact:
         specifier: ^4.0.0
         version: 4.0.0
+      mdat:
+        specifier: ^2.1.0
+        version: 2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
       mdat-plugin-cli-help:
         specifier: ^2.0.2
-        version: 2.0.2(mdat@2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3))
+        version: 2.0.2(mdat@2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3))
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -449,8 +452,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       mdat:
-        specifier: ^2.0.1
-        version: 2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
+        specifier: ^2.1.0
+        version: 2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -824,8 +827,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       mdat:
-        specifier: ^2.0.1
-        version: 2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
+        specifier: ^2.1.0
+        version: 2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -3846,8 +3849,8 @@ packages:
   fast-xml-builder@1.1.4:
     resolution: {integrity: sha512-f2jhpN4Eccy0/Uz9csxh3Nu6q4ErKxf0XIsasomfOihuSUa3/xw6w8dnOtCDgEItQFJG8KyXPzQXzcODDrrbOg==}
 
-  fast-xml-parser@5.5.9:
-    resolution: {integrity: sha512-jldvxr1MC6rtiZKgrFnDSvT8xuH+eJqxqOBThUVjYrxssYTo1avZLGql5l0a0BAERR01CadYzZ83kVEkbyDg+g==}
+  fast-xml-parser@5.5.10:
+    resolution: {integrity: sha512-go2J2xODMc32hT+4Xr/bBGXMaIoiCwrwp2mMtAvKyvEFW6S/v5Gn2pBmE4nvbwNjGhpcAiOwEv7R6/GZ6XRa9w==}
     hasBin: true
 
   fastest-levenshtein@1.0.16:
@@ -4737,8 +4740,8 @@ packages:
     peerDependencies:
       mdat: ^2.0.0
 
-  mdat@2.0.1:
-    resolution: {integrity: sha512-NATQ2Umb6TeCXTaAkoG9TAkEkuuxsejT4OqYYRbGmQeScmDjQC7mjVxGCSbMon1vwATBuAwqFNAg0vAMhs1Tpw==}
+  mdat@2.1.0:
+    resolution: {integrity: sha512-+3ggyaz0t5AuFrmtgipsPKgG6LCbz+LlnpmzzmATjv/CoJfgLMEG/zEurZxDi9cKRikGuyutjUQCVodUezKmsw==}
     engines: {node: '>=22.17.0'}
     hasBin: true
     peerDependencies:
@@ -4764,8 +4767,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  metascope@0.5.0:
-    resolution: {integrity: sha512-3QFwAys48NEZ5hms4yMMQjdAy1bifL/t+xR7kNUBP+oE31bLYm19WhsAnhgG8DR9qs/BqFf3KhWivTu5XUzMkw==}
+  metascope@0.6.0:
+    resolution: {integrity: sha512-P96lu9TAHRpxoTKUBVQMzyP3R34xTiTQjje6R31tPR+SG7Syk0/JxeGt6TFnkKz4+/efLO9/i63ICODSIhLLRg==}
     engines: {node: '>=22.17.0'}
     hasBin: true
 
@@ -5113,8 +5116,8 @@ packages:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
 
-  path-expression-matcher@1.2.0:
-    resolution: {integrity: sha512-DwmPWeFn+tq7TiyJ2CxezCAirXjFxvaiD03npak3cRjlP9+OjTmSy1EpIrEbh+l6JgUundniloMLDQ/6VTdhLQ==}
+  path-expression-matcher@1.2.1:
+    resolution: {integrity: sha512-d7gQQmLvAKXKXE2GeP9apIGbMYKz88zWdsn/BN2HRWVQsDFdUY36WSLTY0Jvd4HWi7Fb30gQ62oAOzdgJA6fZw==}
     engines: {node: '>=14.0.0'}
 
   path-key@3.1.1:
@@ -5547,8 +5550,8 @@ packages:
   remark-lint@10.0.1:
     resolution: {integrity: sha512-1+PYGFziOg4pH7DDf1uMd4AR3YuO2EMnds/SdIWMPGT7CAfDRSnAmpxPsJD0Ds3IKpn97h3d5KPGf1WFOg6hXQ==}
 
-  remark-mdat@2.0.2:
-    resolution: {integrity: sha512-9S3NPq7JRlZB+PrO/kxKuEzH0E+Qui+ClalqlAQ4t33rTuEcr+P0yNIg11Zbf2JbLVDzSPy+DSmeYK7ZGYadUA==}
+  remark-mdat@2.1.0:
+    resolution: {integrity: sha512-uF3VHNokD52PO6OZB8LDqPnb263ToPnzsZElZ1Vsj1+wI4BwF+dTHDxU96mr1CNPzqCSSLf7/PqMf0T8v+bz5Q==}
     engines: {node: '>=20.19.6'}
 
   remark-mdx@3.1.1:
@@ -5659,9 +5662,6 @@ packages:
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
-
-  scule@1.3.0:
-    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
@@ -9605,12 +9605,12 @@ snapshots:
 
   fast-xml-builder@1.1.4:
     dependencies:
-      path-expression-matcher: 1.2.0
+      path-expression-matcher: 1.2.1
 
-  fast-xml-parser@5.5.9:
+  fast-xml-parser@5.5.10:
     dependencies:
       fast-xml-builder: 1.1.4
-      path-expression-matcher: 1.2.0
+      path-expression-matcher: 1.2.1
       strnum: 2.2.2
 
   fastest-levenshtein@1.0.16: {}
@@ -10613,20 +10613,20 @@ snapshots:
       unist-util-is: 6.0.1
       unist-util-visit: 5.1.0
 
-  mdat-plugin-cli-help@2.0.2(mdat@2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)):
+  mdat-plugin-cli-help@2.0.2(mdat@2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)):
     dependencies:
       '@types/which': 3.0.4
       chevrotain: 12.0.0
       execa: 9.6.1
       lognow: 0.6.0
-      mdat: 2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
+      mdat: 2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3)
       type-fest: 5.5.0
       which: 6.0.1
       zod: 4.3.6
     transitivePeerDependencies:
       - electron
 
-  mdat@2.0.1(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3):
+  mdat@2.1.0(@types/node@22.18.13)(prettier@3.8.1)(typescript@5.9.3):
     dependencies:
       '@clack/prompts': 1.2.0
       cosmiconfig: 9.0.1(typescript@5.9.3)
@@ -10635,7 +10635,7 @@ snapshots:
       globby: 16.2.0
       lognow: 0.6.0
       mdast-util-toc: 7.1.0
-      metascope: 0.5.0
+      metascope: 0.6.0
       path-type: 6.0.0
       picocolors: 1.1.1
       plur: 6.0.0
@@ -10643,7 +10643,7 @@ snapshots:
       pretty-ms: 9.3.0
       remark: 15.0.1
       remark-gfm: 4.0.1
-      remark-mdat: 2.0.2
+      remark-mdat: 2.1.0
       to-vfile: 8.0.0
       type-fest: 5.5.0
       unified-engine: 11.2.2
@@ -10670,7 +10670,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  metascope@0.5.0:
+  metascope@0.6.0:
     dependencies:
       '@bacons/xcode': 1.0.0-alpha.33
       '@kitschpatrol/tokei': 2.0.0
@@ -10681,7 +10681,7 @@ snapshots:
       '@types/yargs': 17.0.35
       case-police: 2.2.0
       defu: 6.1.6
-      fast-xml-parser: 5.5.9
+      fast-xml-parser: 5.5.10
       find-workspaces: 0.3.1
       git-url-parse: 16.1.0
       gray-matter-es: 0.2.1
@@ -10696,11 +10696,11 @@ snapshots:
       read-pkg: 10.1.0
       read-pyproject: 0.3.1
       remark-parse: 11.0.0
-      scule: 1.3.0
       semver: 7.7.4
       simple-git: 3.33.0
       smol-toml: 1.6.1
       spdx-license-list: 6.11.0
+      string-ts: 2.3.1
       tinyexec: 1.0.4
       tinyglobby: 0.2.15
       unified: 11.0.5
@@ -11298,7 +11298,7 @@ snapshots:
 
   path-exists@4.0.0: {}
 
-  path-expression-matcher@1.2.0: {}
+  path-expression-matcher@1.2.1: {}
 
   path-key@3.1.1: {}
 
@@ -11865,7 +11865,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  remark-mdat@2.0.2:
+  remark-mdat@2.1.0:
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
@@ -12047,8 +12047,6 @@ snapshots:
       '@eslint-community/regexpp': 4.12.2
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
-
-  scule@1.3.0: {}
 
   semver@7.7.4: {}
 
