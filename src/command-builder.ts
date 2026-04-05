@@ -283,7 +283,9 @@ function normalizeCommandName(name: string): string {
 /** Handle comma-separated and repeated --skip values. */
 function normalizeSkipValues(skip: string[] | undefined): string[] {
 	if (skip === undefined || skip.length === 0) return []
-	return skip.flatMap((value) => value.split(',')).map((value) => normalizeCommandName(value.trim()))
+	return skip
+		.flatMap((value) => value.split(','))
+		.map((value) => normalizeCommandName(value.trim()))
 }
 
 /** Add --skip option to a yargs builder. */
@@ -313,10 +315,7 @@ export async function executeCommands(
 	const skippedCommands: Command[] = []
 
 	for (const command of commands) {
-		if (
-			normalizedSkip.length > 0 &&
-			normalizedSkip.includes(normalizeCommandName(command.name))
-		) {
+		if (normalizedSkip.length > 0 && normalizedSkip.includes(normalizeCommandName(command.name))) {
 			skippedCommands.push(command)
 		} else {
 			commandsToRun.push(command)

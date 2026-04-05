@@ -887,6 +887,11 @@ export interface RuleOptions {
 	 */
 	'html/require-closing-tags'?: Linter.RuleEntry<HtmlRequireClosingTags>
 	/**
+	 * Require that certain elements have meaningful content.
+	 * @see https://html-eslint.org/docs/rules/require-content
+	 */
+	'html/require-content'?: Linter.RuleEntry<[]>
+	/**
 	 * Require `<details>` elements to have a `<summary>` as their first child element.
 	 * @see https://html-eslint.org/docs/rules/require-details-summary
 	 */
@@ -961,6 +966,11 @@ export interface RuleOptions {
 	 * @see https://html-eslint.org/docs/rules/sort-attrs
 	 */
 	'html/sort-attrs'?: Linter.RuleEntry<HtmlSortAttrs>
+	/**
+	 * Require `viewBox` attribute on `<svg>` elements
+	 * @see https://html-eslint.org/docs/rules/svg-require-viewbox
+	 */
+	'html/svg-require-viewbox'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce the use of baseline features.
 	 * @see https://html-eslint.org/docs/rules/use-baseline
@@ -8479,6 +8489,8 @@ type HtmlAttrsNewline =
 			{
 				closeStyle?: 'newline' | 'sameline'
 				ifAttrsMoreThan?: number
+				skip?: string[]
+				inline?: string[]
 			},
 	  ]
 // ----- html/element-newline -----
