@@ -253,11 +253,12 @@ Usage:
 ksc init
 ```
 
-| Option              | Description                       | Type                 | Default  |
-| ------------------- | --------------------------------- | -------------------- | -------- |
-| `--location`        | Where to store the configuration. | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help                         | `boolean`            |          |
-| `--version`<br>`-v` | Show version number               | `boolean`            |          |
+| Option              | Description                                         | Type                 | Default  |
+| ------------------- | --------------------------------------------------- | -------------------- | -------- |
+| `--location`        | Where to store the configuration.                   | `"file"` `"package"` | `"file"` |
+| `--skip`            | Tool names to skip (with or without "ksc-" prefix). | `array`              |          |
+| `--help`<br>`-h`    | Show help                                           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number                                 | `boolean`            |          |
 
 #### Subcommand: `ksc lint`
 
@@ -273,10 +274,11 @@ ksc lint [files..]
 | ------------------- | ------------------------------ | ------- | ------- |
 | `files`             | Files or glob pattern to lint. | `array` | `[]`    |
 
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
+| Option              | Description                                         | Type      |
+| ------------------- | --------------------------------------------------- | --------- |
+| `--skip`            | Tool names to skip (with or without "ksc-" prefix). | `array`   |
+| `--help`<br>`-h`    | Show help                                           | `boolean` |
+| `--version`<br>`-v` | Show version number                                 | `boolean` |
 
 #### Subcommand: `ksc fix`
 
@@ -292,10 +294,11 @@ ksc fix [files..]
 | ------------------- | ----------------------------- | ------- | ------- |
 | `files`             | Files or glob pattern to fix. | `array` | `[]`    |
 
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
+| Option              | Description                                         | Type      |
+| ------------------- | --------------------------------------------------- | --------- |
+| `--skip`            | Tool names to skip (with or without "ksc-" prefix). | `array`   |
+| `--help`<br>`-h`    | Show help                                           | `boolean` |
+| `--version`<br>`-v` | Show version number                                 | `boolean` |
 
 #### Subcommand: `ksc print-config`
 
@@ -311,10 +314,11 @@ ksc print-config [file]
 | ------------------- | ------------------------------------------------ | -------- |
 | `file`              | File or glob pattern to print configuration for. | `string` |
 
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
+| Option              | Description                                         | Type      |
+| ------------------- | --------------------------------------------------- | --------- |
+| `--skip`            | Tool names to skip (with or without "ksc-" prefix). | `array`   |
+| `--help`<br>`-h`    | Show help                                           | `boolean` |
+| `--version`<br>`-v` | Show version number                                 | `boolean` |
 
 <!-- /cli-help -->
 

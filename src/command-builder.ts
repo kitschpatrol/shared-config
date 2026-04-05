@@ -2,6 +2,7 @@
 
 import type { CosmiconfigResult } from 'cosmiconfig'
 import type internal from 'node:stream'
+import type { Argv } from 'yargs'
 import { cosmiconfig } from 'cosmiconfig'
 import { TypeScriptLoader as typeScriptLoader } from 'cosmiconfig-typescript-loader'
 import { execa } from 'execa'
@@ -272,6 +273,28 @@ function isCommandFunction(command: Command): command is CommandFunction {
 	return 'execute' in command
 }
 
+const KSC_PREFIX_REGEX = /^ksc-/
+
+/** Strip `ksc-` prefix for flexible name matching. */
+function normalizeCommandName(name: string): string {
+	return name.replace(KSC_PREFIX_REGEX, '')
+}
+
+/** Handle comma-separated and repeated --skip values. */
+function normalizeSkipValues(skip: string[] | undefined): string[] {
+	if (skip === undefined || skip.length === 0) return []
+	return skip.flatMap((value) => value.split(',')).map((value) => normalizeCommandName(value.trim()))
+}
+
+/** Add --skip option to a yargs builder. */
+function addSkipOption<T>(yargsInstance: Argv<T>): Argv<T> {
+	return yargsInstance.option('skip', {
+		array: true,
+		describe: 'Tool names to skip (with or without "ksc-" prefix).',
+		type: 'string',
+	}) as Argv<T>
+}
+
 /**
  * Execute multiple commands (either functions or command line) in serial
  */
@@ -282,15 +305,59 @@ export async function executeCommands(
 	commands: Command[],
 	verbose?: boolean,
 	showSummary?: boolean,
+	skip?: string[],
 ): Promise<number> {
-	const exitCodes: Array<{ exitCode: number; name: string }> = []
+	// Partition commands into run / skip
+	const normalizedSkip = skip ?? []
+	const commandsToRun: Command[] = []
+	const skippedCommands: Command[] = []
 
 	for (const command of commands) {
+		if (
+			normalizedSkip.length > 0 &&
+			normalizedSkip.includes(normalizeCommandName(command.name))
+		) {
+			skippedCommands.push(command)
+		} else {
+			commandsToRun.push(command)
+		}
+	}
+
+	// Warn about unrecognized --skip values
+	if (normalizedSkip.length > 0) {
+		const matchedNames = new Set(skippedCommands.map((c) => normalizeCommandName(c.name)))
+		const unmatchedSkips = normalizedSkip.filter((s) => !matchedNames.has(s))
+		if (unmatchedSkips.length > 0) {
+			const availableNames = commands.map((c) => normalizeCommandName(c.name)).join(', ')
+			logStream.write(
+				`⚠️  ${picocolors.yellow(`Unrecognized --skip ${pluralize('value', unmatchedSkips.length)}: ${unmatchedSkips.join(', ')}. Available: ${availableNames}`)}\n`,
+			)
+		}
+	}
+
+	const exitCodes: Array<{ exitCode: number; name: string }> = []
+
+	for (const command of commandsToRun) {
 		const exitCode = await (isCommandFunction(command)
 			? executeFunctionCommand(logStream, positionalArguments, optionFlags, command, verbose)
 			: executeCliCommand(logStream, positionalArguments, optionFlags, command, verbose))
 
 		exitCodes.push({ exitCode, name: command.name })
+	}
+
+	// Total includes skipped for consistent denominator across all summary lines
+	const totalCommands = commands.length
+
+	// Always show skipped feedback when tools were skipped, even if showSummary is false
+	if (skippedCommands.length > 0) {
+		const skippedNames = skippedCommands.map(({ name }) => name)
+		logStream.write(
+			`⏭️ ${picocolors.dim(
+				picocolors.bold(
+					`${skippedNames.length} / ${totalCommands} ${pluralize('Command', skippedNames.length)} Skipped:`,
+				),
+			)} ${picocolors.dim(skippedNames.join(', '))}\n`,
+		)
 	}
 
 	if (showSummary) {
@@ -300,7 +367,6 @@ export async function executeCommands(
 		const failedCommands = exitCodes
 			.filter(({ exitCode }) => exitCode !== 0)
 			.map(({ name }) => name)
-		const totalCommands = exitCodes.length
 
 		if (successfulCommands.length > 0) {
 			logStream.write(
@@ -502,7 +568,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (init !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
-				return init.locationOptionFlag
+				const y = init.locationOptionFlag
 					? yargs.option('location', {
 							choices: ['file', 'package'],
 							default: 'file',
@@ -510,6 +576,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 							type: 'string',
 						})
 					: yargs
+				return showSummary ? addSkipOption(y) : y
 			},
 			command: 'init',
 			// Command: init.locationOptionFlag ? 'init [--location]' : 'init',
@@ -521,6 +588,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const location = init.locationOptionFlag ? (argv.location as string | undefined) : undefined
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
+				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 
 				// Grab context by closure
 				const copyAndMergeInitFilesCommand: CommandFunction = {
@@ -541,6 +610,9 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					[],
 					location === undefined ? [] : ['--location', location],
 					[copyAndMergeInitFilesCommand, ...(init.commands ?? [])],
+					undefined,
+					undefined,
+					skip,
 				)
 
 				process.exit(exitCode)
@@ -551,16 +623,18 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (lint !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
-				return lint.positionalArgumentMode === 'none'
-					? yargs
-					: yargs.positional('files', {
-							array: true,
-							...(lint.positionalArgumentDefault === undefined
-								? {}
-								: { default: lint.positionalArgumentDefault }),
-							describe: 'Files or glob pattern to lint.',
-							type: 'string',
-						})
+				const y =
+					lint.positionalArgumentMode === 'none'
+						? yargs
+						: yargs.positional('files', {
+								array: true,
+								...(lint.positionalArgumentDefault === undefined
+									? {}
+									: { default: lint.positionalArgumentDefault }),
+								describe: 'Files or glob pattern to lint.',
+								type: 'string',
+							})
+				return showSummary ? addSkipOption(y) : y
 			},
 			command:
 				lint.positionalArgumentMode === 'none'
@@ -572,6 +646,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 			async handler(argv) {
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
+				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 				const exitCode = await executeCommands(
 					logStream,
 					positionalArguments,
@@ -579,6 +655,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					lint.commands,
 					verbose,
 					showSummary,
+					skip,
 				)
 				process.exit(exitCode)
 			},
@@ -589,16 +666,18 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (fix !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
-				return fix.positionalArgumentMode === 'none'
-					? yargs
-					: yargs.positional('files', {
-							array: true,
-							...(fix.positionalArgumentDefault === undefined
-								? {}
-								: { default: fix.positionalArgumentDefault }),
-							describe: 'Files or glob pattern to fix.',
-							type: 'string',
-						})
+				const y =
+					fix.positionalArgumentMode === 'none'
+						? yargs
+						: yargs.positional('files', {
+								array: true,
+								...(fix.positionalArgumentDefault === undefined
+									? {}
+									: { default: fix.positionalArgumentDefault }),
+								describe: 'Files or glob pattern to fix.',
+								type: 'string',
+							})
+				return showSummary ? addSkipOption(y) : y
 			},
 			command:
 				fix.positionalArgumentMode === 'none'
@@ -610,7 +689,17 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 			async handler(argv) {
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
-				const exitCode = await executeCommands(logStream, positionalArguments, [], fix.commands)
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
+				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
+				const exitCode = await executeCommands(
+					logStream,
+					positionalArguments,
+					[],
+					fix.commands,
+					undefined,
+					undefined,
+					skip,
+				)
 				process.exit(exitCode)
 			},
 		})
@@ -619,15 +708,17 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (printConfig !== undefined) {
 		yargsInstance.command({
 			builder(yargs) {
-				return printConfig.positionalArgumentMode === 'none'
-					? yargs
-					: yargs.positional('file', {
-							...(printConfig.positionalArgumentDefault === undefined
-								? {}
-								: { default: printConfig.positionalArgumentDefault }),
-							describe: 'File or glob pattern to print configuration for.',
-							type: 'string',
-						})
+				const y =
+					printConfig.positionalArgumentMode === 'none'
+						? yargs
+						: yargs.positional('file', {
+								...(printConfig.positionalArgumentDefault === undefined
+									? {}
+									: { default: printConfig.positionalArgumentDefault }),
+								describe: 'File or glob pattern to print configuration for.',
+								type: 'string',
+							})
+				return showSummary ? addSkipOption(y) : y
 			},
 			command:
 				printConfig.positionalArgumentMode === 'none'
@@ -640,6 +731,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const fileArgument = (argv.file as string | undefined) ?? undefined
 				const positionalArguments = fileArgument === undefined ? [] : [fileArgument]
+				// eslint-disable-next-line ts/no-unsafe-type-assertion
+				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 
 				const exitCode = await executeCommands(
 					logStream,
@@ -648,6 +741,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					printConfig.commands,
 					verbose,
 					showSummary,
+					skip,
 				)
 				process.exit(exitCode)
 			},
