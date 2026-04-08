@@ -225,6 +225,36 @@ ksc-stylelint print-config [file]
 
 <!-- /cli-help -->
 
+### API
+
+The package also exports `fix`, `fixFile` functions for linting and fixing CSS programmatically, pre-configured with the shared Stylelint configuration.
+
+```typescript
+import { clearCache, fix, fixFile } from '@kitschpatrol/stylelint-config'
+
+// Fix a CSS string
+const fixed = await fix('a { color: rgb(0, 0, 0); }\n')
+
+// Fix with a bare file extension for syntax inference
+const scss = await fix(source, 'scss')
+
+// Fix with config overrides
+const withOverrides = await fix(source, { rules: { 'color-hex-length': 'long' } })
+
+// Both file type and config overrides
+const both = await fix(source, 'scss', { rules: { 'color-hex-length': 'long' } })
+
+// Fix a file in place
+await fixFile('./src/styles.css')
+
+// Clear cached Stylelint module
+clearCache()
+```
+
+Config is resolved in priority order: shared defaults < per-call overrides.
+
+The Stylelint module is cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
+
 <!-- license -->
 
 ## License

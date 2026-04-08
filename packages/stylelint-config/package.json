@@ -43,7 +43,8 @@
 	"scripts": {
 		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
-		"prepublishOnly": "pnpm run build"
+		"prepublishOnly": "pnpm run build",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
