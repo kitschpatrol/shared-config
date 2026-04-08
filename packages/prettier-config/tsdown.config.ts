@@ -16,6 +16,7 @@ export default defineConfig([
 		attw: {
 			profile: 'esm-only',
 		},
+		entry: 'src/index.ts',
 		fixedExtension: false,
 		minify: true,
 		publint: true,

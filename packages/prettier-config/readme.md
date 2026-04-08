@@ -193,6 +193,33 @@ ksc-prettier print-config
 
 <!-- /cli-help -->
 
+### API
+
+The package also exports `fix`, `fixFile` functions for formatting code programmatically, pre-configured with the shared Prettier configuration.
+
+```typescript
+import { clearCache, fix, fixFile } from '@kitschpatrol/prettier-config'
+
+// Format a string (defaults to TypeScript parser)
+const formatted = await fix('const x=1')
+
+// Format with a virtual filepath for parser inference and override matching
+const markdown = await fix('# Hello\nworld', 'file.md')
+
+// Both filepath and config overrides
+const result = await fix('const x = 1', 'file.ts', { printWidth: 80 })
+
+// Format a file in place with config overrides
+await fixFile('./src/index.ts', { printWidth: 80 })
+
+// Clear cached Prettier module and resolved plugin paths
+clearCache()
+```
+
+Config is resolved in priority order: shared defaults < local project config (via `prettier.resolveConfig`) < per-call overrides.
+
+The Prettier module and resolved plugin paths are cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
+
 ## Ruby support
 
 Ruby formatting Expects a global Ruby install >=2.7 with the following gems:
