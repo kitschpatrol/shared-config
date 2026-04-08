@@ -308,6 +308,32 @@ ksc print-config [file]
 
 Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `ksc` effectively runs the same command against all the tool-specific packages.
 
+### API
+
+The package also exports `fix`, `fixFile` functions that run all shared-config tools in sequence, matching the order of `ksc fix`: Mdat → ESLint → Stylelint → Prettier. Each tool silently skips content it doesn't understand.
+
+The CLI is preferred, but there are occasionally edge cases where it's handy to run a string or a generated file through the shared-config pipeline without leaving TypeScript.
+
+```typescript
+import { clearCache, fix, fixFile } from '@kitschpatrol/shared-config'
+
+// Fix a string with all tools (defaults to TypeScript)
+const fixed = await fix('let x = 1\nconsole.log(x)\n')
+
+// Fix with a file type hint
+const fixedCss = await fix(cssSource, 'css')
+const fixedMarkdown = await fix(mdSource, 'md')
+
+// Fix a file in place with all tools
+await fixFile('./src/index.ts')
+await fixFile('./src/styles.css')
+
+// Clear all cached tool modules
+clearCache()
+```
+
+Each sub-package with a `fix` command also exports its own `fix`, `fixFile`, and `clearCache` for standalone use. See the individual package readmes for details. (With the exception of, `ksc-repo`, whose `fix` behavior is too file-specific to be generically useful.)
+
 ## Implementation notes
 
 ### Line endings

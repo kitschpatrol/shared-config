@@ -11,6 +11,15 @@ export default defineConfig([
 		publint: true,
 		tsconfig: false,
 	},
-	// No shared config library
-	// for shared-config
+	// Shared config library
+	{
+		attw: {
+			profile: 'esm-only',
+		},
+		entry: 'src/index.ts',
+		fixedExtension: false,
+		minify: true,
+		publint: true,
+		tsconfig: 'tsconfig.build.json',
+	},
 ])
