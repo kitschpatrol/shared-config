@@ -187,6 +187,30 @@ ksc-mdat print-config
 
 <!-- /cli-help -->
 
+### API
+
+The package also exports `fix`, `fixFile` functions for expanding Mdat comment placeholders programmatically, pre-configured with the shared Mdat configuration. The [mdat](https://github.com/kitschpatrol/mdat) project already provides a robust TypeScript API and CLI for general use cases, but these proxies are provided for convenience in @kitschpatrol/shared-config projects.
+
+```typescript
+import { clearCache, fix, fixFile } from '@kitschpatrol/mdat-config'
+
+// Expand mdat placeholders in a string using the default config
+const expanded = await fix('<!-- shared-config -->\n<!-- /shared-config -->\n')
+
+// Expand with custom rules
+const customExpanded = await fix(source, { 'my-rule': '**Custom content.**' })
+
+// Expand with custom rules in a file in place
+await fixFile('./readme.md', { 'my-rule': '**Custom content.**' })
+
+// Clear cached Mdat module
+clearCache()
+```
+
+Config is merged in priority order: shared defaults < per-call overrides (via mdat's `mergeConfig`).
+
+The Mdat module is cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
+
 <!-- license -->
 
 ## License
