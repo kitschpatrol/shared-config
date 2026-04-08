@@ -76,7 +76,7 @@
 		"fs-extra": "^11.3.4",
 		"globby": "^16.2.0",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^2.2.0",
+		"mdat": "^2.2.1",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.1",

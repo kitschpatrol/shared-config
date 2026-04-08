@@ -56,8 +56,8 @@
 		"@html-eslint/eslint-plugin": "^0.59.0",
 		"@html-eslint/parser": "^0.59.0",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@typescript-eslint/eslint-plugin": "^8.58.0",
-		"@typescript-eslint/parser": "^8.58.0",
+		"@typescript-eslint/eslint-plugin": "^8.58.1",
+		"@typescript-eslint/parser": "^8.58.1",
 		"@vitest/eslint-plugin": "^1.6.14",
 		"astro-eslint-parser": "^1.4.0",
 		"cosmiconfig": "^9.0.1",
@@ -69,7 +69,7 @@
 		"eslint-flat-config-utils": "^3.1.0",
 		"eslint-import-resolver-typescript": "^4.4.4",
 		"eslint-mdx": "^3.7.0",
-		"eslint-plugin-astro": "^1.6.0",
+		"eslint-plugin-astro": "^1.7.0",
 		"eslint-plugin-de-morgan": "^2.1.1",
 		"eslint-plugin-depend": "^1.5.0",
 		"eslint-plugin-html": "^8.1.4",
@@ -112,7 +112,7 @@
 		"eslint-config-xo-typescript": "^9.0.0",
 		"eslint-typegen": "^2.3.1",
 		"globby": "^16.2.0",
-		"svelte": "^5.55.1"
+		"svelte": "^5.55.2"
 	},
 	"engines": {
 		"node": ">=22.18.0"
