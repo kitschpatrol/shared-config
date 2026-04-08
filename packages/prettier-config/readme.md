@@ -195,13 +195,15 @@ ksc-prettier print-config
 
 ## Ruby support
 
-Ruby formatting Expects a global Ruby install >=2.7 via `rbenv` at `~/.rbenv/shims/ruby` with the following gems:
+Ruby formatting Expects a global Ruby install >=2.7 with the following gems:
 
 - `bundler`
 - `prettier_print`
 - `syntax_tree`
 - `syntax_tree-haml`
 - `syntax_tree-rbs`
+
+Locally, I provide this via `rbenv` at `~/.rbenv/shims/ruby`, but other install techniques should work.
 
 Note: Do _not_ add `plugins: ['prettier-plugin-ruby']` to the per-file scope, it must be global.
 
