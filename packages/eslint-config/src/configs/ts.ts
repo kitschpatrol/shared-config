@@ -1,5 +1,5 @@
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
-import { getLanguageOptions } from '../factory'
+import { getLanguageOptions } from '../config'
 import { GLOB_TS } from '../globs'
 import { xoTypescriptDtsRules } from '../presets'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'

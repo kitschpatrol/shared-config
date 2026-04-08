@@ -181,6 +181,36 @@ ksc-eslint print-config [file]
 
 <!-- /cli-help -->
 
+### API
+
+The package also exports `fix`, `fixFile` functions for linting and fixing code programmatically, pre-configured with the shared ESLint configuration.
+
+```typescript
+import { clearCache, fix, fixFile } from '@kitschpatrol/eslint-config'
+
+// Fix a string (defaults to TypeScript parser)
+const fixed = await fix('let x = 1\nconsole.log(x)\n')
+
+// Fix with a bare file extension for parser inference
+const withExtension = await fix(code, 'tsx')
+
+// Fix with ESLint options
+const withOptions = await fix(code, { react: true })
+
+// Both file type and options
+const withBoth = await fix(code, 'tsx', { react: true })
+
+// Fix a file in place with options
+await fixFile('./src/index.ts', { type: 'lib' })
+
+// Clear cached ESLint module and instances
+clearCache()
+```
+
+Config is resolved using the shared `eslintConfig()` factory with `isInEditor: false`. Per-call options accept the same `OptionsConfig` shape as the factory.
+
+The ESLint module and instances are cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
+
 ## Notes
 
 Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).

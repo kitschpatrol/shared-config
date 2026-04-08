@@ -7,7 +7,7 @@ import { globby } from 'globby'
 import fs from 'node:fs/promises'
 import process from 'node:process'
 import { formatTextAndSaveFile } from '../../../src/prettier-utilities'
-import { defaultPluginRenaming } from '../src/factory'
+import { defaultPluginRenaming } from '../src/config'
 import { interopDefault } from '../src/utilities'
 
 type ExpansionConfig = {

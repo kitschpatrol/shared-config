@@ -1,7 +1,8 @@
 // export { commandDefinition } from './command.js'
+export { clearCache, type FileType, fix, fixFile } from './api.js'
+export * from './config'
+export { eslintConfig as default } from './config'
 export * from './configs'
-export * from './factory'
-export { eslintConfig as default } from './factory'
 export * from './globs'
 export type * from './types'
 

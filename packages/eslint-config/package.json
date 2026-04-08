@@ -46,6 +46,7 @@
 		"cli": "node ./bin/cli.js",
 		"inspect": "npx @eslint/config-inspector --config ./init/eslint.config.ts",
 		"prepublishOnly": "pnpm run build",
+		"test": "vitest run",
 		"update-rules": "tsx scripts/presetgen.ts && tsx scripts/typegen.ts && cd ../../ && ksc-eslint fix $PWD && ksc-prettier fix $PWD"
 	},
 	"dependencies": {
