@@ -1,6 +1,8 @@
 apkg
 btif
 cjpeg
+cjsx
+ctsx
 dfont
 flac
 gcode
@@ -9,6 +11,8 @@ gifs
 icns
 importmap
 localappdata
+mjsx
+mtsx
 pyproject
 refspec
 tfstate
