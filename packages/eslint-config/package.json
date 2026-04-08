@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/eslint-config",
-	"version": "7.1.0",
+	"version": "7.2.0",
 	"description": "ESLint configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"shared-config",
