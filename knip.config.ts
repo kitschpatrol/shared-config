@@ -1,7 +1,12 @@
 import { knipConfig } from '@kitschpatrol/knip-config'
 
 export default knipConfig({
-	ignore: ['**/init/**', 'test/fixtures/**', 'packages/eslint-config/src/presets/**'],
+	ignore: [
+		'**/init/**',
+		'test/fixtures/**',
+		'**/test/fixtures/**',
+		'packages/eslint-config/src/presets/**',
+	],
 	ignoreBinaries: ['ksdiff', 'pbcopy'],
 	ignoreDependencies: [
 		'case-police',
