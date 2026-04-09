@@ -2,6 +2,7 @@ import type { Parents, Text } from 'mdast'
 import type { Info, State } from 'mdast-util-to-markdown'
 import type { Pluggable, PluggableList, Preset as RemarkConfig } from 'unified'
 import { defaultHandlers as mdastToTextHandlers } from 'mdast-util-to-markdown'
+import remarkAttributeList from 'remark-attribute-list'
 import remarkDirective from 'remark-directive'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
@@ -138,6 +139,7 @@ export const remarkSharedConfig: RemarkConfig = {
 		remarkFrontmatter,
 		remarkGfm,
 		remarkDirective,
+		remarkAttributeList,
 		remarkLintCheckboxContentIndent,
 		[remarkLintFencedCodeFlag, { allowEmpty: false }],
 		remarkLintFinalDefinition,
