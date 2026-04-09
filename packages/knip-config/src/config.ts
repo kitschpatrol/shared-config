@@ -1,0 +1,77 @@
+import type { KnipConfig } from 'knip'
+import { deepmerge } from 'deepmerge-ts'
+
+export type { KnipConfig } from 'knip'
+
+/**
+ * Must return a POJO to be merged into package.json
+ */
+export const sharedKnipConfig: KnipConfig = {
+	entry: [
+		// Default entry... not merging in from default Knip config?
+		'{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
+		'src/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
+
+		// Customized entries
+		'src/{bin,lib,cli}/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
+		'scripts/**/*.{js,mjs,cjs,ts,mts,cts}',
+		'.remarkrc.{js,mjs,cjs,ts,mts,cts}',
+		'cspell.config.{js,mjs,cjs,ts,mts,cts}',
+		'eslint.config.{js,mjs,cjs,ts,mts,cts}',
+		'mdat.config.{js,mjs,cjs,ts,mts,cts}',
+		'prettier.config.{js,mjs,cjs,ts,mts,cts}',
+		'stylelint.config.{js,mjs,cjs,ts,mts,cts}',
+	],
+	// Allow calling of individual ksc binaries...
+	ignoreBinaries: [
+		'ksc-repo',
+		'ksc-mdat',
+		'ksc-typescript',
+		'ksc-eslint',
+		'ksc-stylelint',
+		'ksc-cspell',
+		'ksc-knip',
+		'ksc-remark',
+		'ksc-prettier',
+		// 1Password CLI, typically a global install...
+		'op',
+		// GitHub CLI, typically a global install...
+		'gh',
+	],
+	ignoreDependencies: [
+		'@kitschpatrol/cspell-config',
+		'@kitschpatrol/dict-en-wiktionary', // Undetected due to string import in cspell.config.ts
+		'@kitschpatrol/eslint-config',
+		'@kitschpatrol/knip-config',
+		'@kitschpatrol/mdat-config',
+		'@kitschpatrol/prettier-config',
+		'@kitschpatrol/remark-config',
+		'@kitschpatrol/repo-config',
+		'@kitschpatrol/stylelint-config',
+		'@kitschpatrol/typescript-config',
+		'@prettier/plugin-php',
+		'@prettier/plugin-ruby',
+		'@prettier/plugin-xml',
+		'prettier-plugin-packagejson',
+		'prettier-plugin-sh',
+		'prettier-plugin-tailwindcss',
+		'prettier-plugin-toml',
+	],
+}
+
+/**
+ * **@Kitschpatrol's Shared Knip Configuration**
+ *
+ * @example
+ * 	import { knipConfig } from '@kitschpatrol/knip-config'
+ *
+ * 	export default knipConfig({
+ * 		// Customizations here
+ * 	})
+ *
+ * @see [@kitschpatrol/knip-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/knip-config)
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
+ */
+export function knipConfig(config?: KnipConfig): KnipConfig {
+	return deepmerge(sharedKnipConfig, config)
+}
