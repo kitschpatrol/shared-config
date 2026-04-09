@@ -34,13 +34,13 @@
 	"scripts": {
 		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
-		"prepublishOnly": "pnpm run build"
+		"prepublishOnly": "pnpm build"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@pnpm/lockfile.fs": "^1001.1.32",
 		"cosmiconfig": "^9.0.1",
-		"cosmiconfig-typescript-loader": "^6.2.0",
+		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"execa": "^9.6.1",
