@@ -267,6 +267,7 @@ uncapitalize
 undelightable
 ungoogleable
 unignore
+unported
 unshift
 unspeak
 untildify
