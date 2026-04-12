@@ -220,6 +220,12 @@ Config is resolved in priority order: shared defaults < local project config (vi
 
 The Prettier module and resolved plugin paths are cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
 
+## Astro support
+
+Note that this configuration uses the [@kitschpatrol/prettier-plugin-astro](https://github.com/kitschpatrol/prettier-plugin-astro) fork of the official [Prettier plugin for Astro project](https://github.com/withastro/prettier-plugin-astro).
+
+This fork includes some fixes not yet merged into the official project.
+
 ## Ruby support
 
 Ruby formatting Expects a global Ruby install >=2.7 with the following gems:

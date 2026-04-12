@@ -40,7 +40,7 @@ export const sharedPrettierConfig: PrettierConfig = {
 			files: '*.astro',
 			options: {
 				parser: 'astro',
-				plugins: ['prettier-plugin-astro'],
+				plugins: ['@kitschpatrol/prettier-plugin-astro'],
 			},
 		},
 		{

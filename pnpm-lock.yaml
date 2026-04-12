@@ -472,6 +472,9 @@ importers:
 
   packages/prettier-config:
     dependencies:
+      '@kitschpatrol/prettier-plugin-astro':
+        specifier: 0.14.1-fork.1
+        version: 0.14.1-fork.1(prettier@3.8.2)
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
@@ -520,9 +523,6 @@ importers:
       prettier:
         specifier: ^3.8.2
         version: 3.8.2
-      prettier-plugin-astro:
-        specifier: ^0.14.1
-        version: 0.14.1
       prettier-plugin-jsdoc:
         specifier: ^1.8.0
         version: 1.8.0(prettier@3.8.2)
@@ -537,7 +537,7 @@ importers:
         version: 3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1))
       prettier-plugin-tailwindcss:
         specifier: ^0.7.2
-        version: 0.7.2(prettier-plugin-astro@0.14.1)(prettier-plugin-jsdoc@1.8.0(prettier@3.8.2))(prettier-plugin-svelte@3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1)))(prettier@3.8.2)
+        version: 0.7.2(prettier-plugin-jsdoc@1.8.0(prettier@3.8.2))(prettier-plugin-svelte@3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1)))(prettier@3.8.2)
       prettier-plugin-toml:
         specifier: ^2.0.6
         version: 2.0.6(prettier@3.8.2)
@@ -971,9 +971,6 @@ packages:
   '@arethetypeswrong/core@0.18.2':
     resolution: {integrity: sha512-GiwTmBFOU1/+UVNqqCGzFJYfBXEytUkiI+iRZ6Qx7KmUVtLm00sYySkfe203C9QtPG11yOz1ZaMek8dT/xnlgg==}
     engines: {node: '>=20'}
-
-  '@astrojs/compiler@2.13.1':
-    resolution: {integrity: sha512-f3FN83d2G/v32ipNClRKgYv30onQlMZX1vCeZMjPsMMPl1mDpmbl0+N5BYo4S/ofzqJyS5hvwacEo0CCVDn/Qg==}
 
   '@astrojs/compiler@3.0.1':
     resolution: {integrity: sha512-z97oYbdebO5aoWzuJ/8q5hLK232+17KcLZ7cJ8BCWk6+qNzVxn/gftC0KzMBUTD8WAaBkPpNSQK6PXLnNrZ0CA==}
@@ -1695,6 +1692,12 @@ packages:
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
+
+  '@kitschpatrol/prettier-plugin-astro@0.14.1-fork.1':
+    resolution: {integrity: sha512-VOQtRCD+m2dpIAJWKsrT4M3fLLoAC71LVQhAQVAl+ONumOKLIOXBKBR4AGKNS6WZ6Gg40DSMqmSk8Y+mjDyIkQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      prettier: ^3.7.0
 
   '@kitschpatrol/tokei-darwin-arm64@2.0.1':
     resolution: {integrity: sha512-nLtvxu9lXaF5mKWPfABoYdGOTMdWONRz03npwCz34FYWAIVi0KARhWCFGDd9NRjVB431f290WpBhI1nQg47Rrg==}
@@ -5366,10 +5369,6 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-astro@0.14.1:
-    resolution: {integrity: sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==}
-    engines: {node: ^14.15.0 || >=16.0.0}
-
   prettier-plugin-jsdoc@1.8.0:
     resolution: {integrity: sha512-byW8EBZ1DSA3CPdDGBXfcdqqhh2eq0+HlIOPTGZ6rf9O2p/AwBmtS0e49ot5ZeOdcszj81FyzbyHr/VS0eYpCg==}
     engines: {node: '>=14.13.1 || >=16.0.0'}
@@ -5819,8 +5818,9 @@ packages:
     resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
-  sass-formatter@0.7.9:
-    resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
+  sass-formatter@0.8.0:
+    resolution: {integrity: sha512-Nf4eMGE2O5vnJG7KPCRyksWS9gVKSYoUWtPeMXRRxwZSPVQhSGtL602xVYS65LvMkHmkvKa7xpauF0+/5pPwrg==}
+    hasBin: true
 
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
@@ -6709,8 +6709,6 @@ snapshots:
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
 
-  '@astrojs/compiler@2.13.1': {}
-
   '@astrojs/compiler@3.0.1': {}
 
   '@babel/code-frame@7.29.0':
@@ -7433,6 +7431,12 @@ snapshots:
       keyv: 5.6.0
 
   '@keyv/serialize@1.1.1': {}
+
+  '@kitschpatrol/prettier-plugin-astro@0.14.1-fork.1(prettier@3.8.2)':
+    dependencies:
+      '@astrojs/compiler': 3.0.1
+      prettier: 3.8.2
+      sass-formatter: 0.8.0
 
   '@kitschpatrol/tokei-darwin-arm64@2.0.1':
     optional: true
@@ -11667,12 +11671,6 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-astro@0.14.1:
-    dependencies:
-      '@astrojs/compiler': 2.13.1
-      prettier: 3.8.2
-      sass-formatter: 0.7.9
-
   prettier-plugin-jsdoc@1.8.0(prettier@3.8.2):
     dependencies:
       binary-searching: 2.0.5
@@ -11699,11 +11697,10 @@ snapshots:
       prettier: 3.8.2
       svelte: 5.55.3(@typescript-eslint/types@8.58.1)
 
-  prettier-plugin-tailwindcss@0.7.2(prettier-plugin-astro@0.14.1)(prettier-plugin-jsdoc@1.8.0(prettier@3.8.2))(prettier-plugin-svelte@3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1)))(prettier@3.8.2):
+  prettier-plugin-tailwindcss@0.7.2(prettier-plugin-jsdoc@1.8.0(prettier@3.8.2))(prettier-plugin-svelte@3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1)))(prettier@3.8.2):
     dependencies:
       prettier: 3.8.2
     optionalDependencies:
-      prettier-plugin-astro: 0.14.1
       prettier-plugin-jsdoc: 1.8.0(prettier@3.8.2)
       prettier-plugin-svelte: 3.5.1(prettier@3.8.2)(svelte@5.55.3(@typescript-eslint/types@8.58.1))
 
@@ -12365,7 +12362,7 @@ snapshots:
 
   safe-stable-stringify@2.5.0: {}
 
-  sass-formatter@0.7.9:
+  sass-formatter@0.8.0:
     dependencies:
       suf-log: 2.5.3
 

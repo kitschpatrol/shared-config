@@ -9,7 +9,7 @@ const sharedOptions = [
 	'--plugin=@prettier/plugin-php',
 	'--plugin=@prettier/plugin-ruby',
 	'--plugin=@prettier/plugin-xml',
-	'--plugin=prettier-plugin-astro',
+	'--plugin=@kitschpatrol/prettier-plugin-astro',
 	'--plugin=prettier-plugin-packagejson',
 	'--plugin=prettier-plugin-sh',
 	// Disabled because it is huge
