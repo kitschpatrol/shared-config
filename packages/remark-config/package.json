@@ -61,7 +61,7 @@
 		"mdast-util-to-markdown": "^2.1.2",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.1",
+		"prettier": "^3.8.2",
 		"remark-attribute-list": "^0.4.0",
 		"remark-directive": "^4.0.0",
 		"remark-frontmatter": "^5.0.0",

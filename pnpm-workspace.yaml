@@ -1,6 +1,8 @@
 packages:
   - packages/*
 
+ignoreWorkspaceRootCheck: true
+
 ignoredBuiltDependencies:
   - rollup
 
