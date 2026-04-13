@@ -56,6 +56,8 @@ export const sharedKnipConfig: KnipConfig = {
 		'prettier-plugin-sh',
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
+		'remark-attribute-list', // From @kitschpatrol/prettier-plugin-astro, needed when added to tsconfig
+		'remark-directive', // From @kitschpatrol/prettier-plugin-astro, needed when added to tsconfig
 	],
 }
 
