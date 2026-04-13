@@ -48,7 +48,7 @@
 		"test": "vitest run"
 	},
 	"dependencies": {
-		"@kitschpatrol/prettier-plugin-astro": "0.14.1-fork.1",
+		"@kitschpatrol/prettier-plugin-astro": "0.14.1-fork.2",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@prettier/plugin-php": "^0.25.0",
 		"@prettier/plugin-ruby": "^4.0.4",
