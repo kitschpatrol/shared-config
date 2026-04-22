@@ -273,6 +273,6 @@ As part of the `lint` command process, `@kitschpatrol/cspell-config` also runs a
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
 
 <!-- /license -->

@@ -196,6 +196,6 @@ This is necessary to prevent unactionable warnings because Svelte [doesn't play 
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
 
 <!-- /license -->

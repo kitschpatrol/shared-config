@@ -59,10 +59,10 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.4",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^2.2.1",
+		"mdat": "^2.3.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.2",
+		"prettier": "^3.8.3",
 		"yargs": "^18.0.0"
 	},
 	"engines": {

@@ -426,4 +426,4 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)

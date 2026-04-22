@@ -230,6 +230,6 @@ This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-confi
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
 
 <!-- /license -->

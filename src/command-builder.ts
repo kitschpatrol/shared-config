@@ -296,7 +296,7 @@ function addSkipOption<T>(yargsInstance: Argv<T>): Argv<T> {
 		array: true,
 		describe: 'Tool names to skip (with or without "ksc-" prefix).',
 		type: 'string',
-	}) as Argv<T>
+	})
 }
 
 /**

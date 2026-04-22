@@ -54,7 +54,7 @@
 	"dependencies": {
 		"@cspell/cspell-types": "^10.0.0",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"case-police": "^2.2.0",
+		"case-police": "^2.2.1",
 		"cosmiconfig": "^9.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"cspell": "^10.0.0",
@@ -67,7 +67,7 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.2",
+		"prettier": "^3.8.3",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {

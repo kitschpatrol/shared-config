@@ -225,8 +225,8 @@ export async function eslintConfig(
 	// We pick the known keys as ESLint would do schema validation
 	// eslint-disable-next-line unicorn/no-array-reduce
 	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
-		// eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment, ts/no-unsafe-type-assertion
 		if (key in options) {
+			// eslint-disable-next-line ts/no-unsafe-assignment, ts/no-unsafe-type-assertion, ts/no-explicit-any
 			accumulator[key] = options[key] as any
 		}
 		return accumulator
