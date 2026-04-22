@@ -73,6 +73,24 @@ export async function astro(
 				...sharedScriptConfig.rules,
 				...astroRecommendedRules,
 				...astroJsxA11yRecommendedRules,
+				'perfectionist/sort-intersection-types': [
+					'error',
+					{
+						groups: [
+							'named',
+							'union',
+							'intersection',
+							'conditional',
+							'function',
+							'import',
+							'keyword',
+							'operator',
+							'literal',
+							'tuple',
+							'object', // Must be last, otherwise esbuild will choke on `&` characters
+						],
+					},
+				],
 				// TODO right spot?
 				// 'ts/no-unsafe-assignment': 'off', // Crashing
 				'ts/no-unsafe-return': 'off', // Happens in templates
