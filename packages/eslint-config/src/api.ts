@@ -41,7 +41,9 @@ const PATH_CHARACTER_REGEX = /[./\\]/
 
 /** Convert a bare extension to a virtual filepath, or pass through as-is. */
 function resolveFileType(fileType: string): string {
-	if (PATH_CHARACTER_REGEX.test(fileType)) return fileType
+	if (PATH_CHARACTER_REGEX.test(fileType)) {
+		return fileType
+	}
 	return `file.${fileType}`
 }
 

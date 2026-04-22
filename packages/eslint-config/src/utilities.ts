@@ -38,8 +38,12 @@ export async function interopDefault<T>(
  */
 export function isInEditorEnv(): boolean {
 	// Skip editor detection if running in CI or git hooks
-	if (process.env.CI) return false
-	if (isInGitHooksOrLintStaged()) return false
+	if (process.env.CI) {
+		return false
+	}
+	if (isInGitHooksOrLintStaged()) {
+		return false
+	}
 
 	const editorEnvVariables = [
 		process.env.VSCODE_PID,
@@ -92,7 +96,9 @@ export function renamePluginInConfigs(
 		clone.rules &&= renameRules(clone.rules, map)
 		clone.plugins &&= Object.fromEntries(
 			Object.entries(clone.plugins).map(([key, value]) => {
-				if (key in map) return [map[key], value]
+				if (key in map) {
+					return [map[key], value]
+				}
 				return [key, value]
 			}),
 		)
@@ -129,7 +135,9 @@ Record<string, any> {
 	return Object.fromEntries(
 		Object.entries(rules).map(([key, value]) => {
 			for (const [from, to] of Object.entries(map)) {
-				if (key.startsWith(`${from}/`)) return [to + key.slice(from.length), value]
+				if (key.startsWith(`${from}/`)) {
+					return [to + key.slice(from.length), value]
+				}
 			}
 			return [key, value]
 		}),

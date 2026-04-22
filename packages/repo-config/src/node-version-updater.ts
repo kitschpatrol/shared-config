@@ -24,7 +24,9 @@ type DevEngines = {
 function getDevEnginesNodeVersion(packageJson: Record<string, unknown>): string | undefined {
 	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const devEngines = packageJson.devEngines as DevEngines | undefined
-	if (!devEngines?.runtime) return undefined
+	if (!devEngines?.runtime) {
+		return undefined
+	}
 
 	const runtimes = Array.isArray(devEngines.runtime) ? devEngines.runtime : [devEngines.runtime]
 	const nodeRuntime = runtimes.find((r) => r.name === 'node')
@@ -65,7 +67,9 @@ function setDevEnginesNodeVersion(packageJson: Record<string, unknown>, version:
 function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void {
 	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const devEngines = packageJson.devEngines as DevEngines | undefined
-	if (!devEngines?.runtime) return
+	if (!devEngines?.runtime) {
+		return
+	}
 
 	if (Array.isArray(devEngines.runtime)) {
 		devEngines.runtime = devEngines.runtime.filter((r) => r.name !== 'node')
@@ -86,7 +90,9 @@ function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void
 }
 
 function formatCauses(causes: string[]): string {
-	if (causes.length === 0) return ''
+	if (causes.length === 0) {
+		return ''
+	}
 	return ` (from ${causes.join(', ')})`
 }
 
@@ -233,7 +239,9 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 
 	for (const packageDirectory of packageDirectories) {
 		const result = await nodeVersionCheckSingle(logStream, fix, packageDirectory)
-		if (result !== 0) exitCode = 1
+		if (result !== 0) {
+			exitCode = 1
+		}
 	}
 
 	return exitCode

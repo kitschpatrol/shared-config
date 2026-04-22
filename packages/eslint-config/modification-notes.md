@@ -73,9 +73,12 @@ These might be out of date.
 
 ### Consider
 
-- [ ] prettier-plugin-curly
 - [ ] sentences-per-line
 - [ ] console-fail-test
 - [ ] resolving tsconfig `checkJs` to determine how to handle js (<https://github.com/privatenumber/get-tsconfig>)
 - [ ] [eslint-plugin-sonarjs](https://github.com/SonarSource/SonarJS/blob/master/packages/jsts/src/rules/README.md) (hmm)
 - [ ] [eslint-plugin-write-good-comments](https://github.com/kantord/eslint-plugin-write-good-comments)
+
+### Rejected
+
+- [ ] prettier-plugin-curly

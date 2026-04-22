@@ -85,10 +85,11 @@ export async function eslintConfig(
 	let { isInEditor } = options
 	if (isInEditor === undefined) {
 		isInEditor = isInEditorEnvironment()
-		if (isInEditor)
+		if (isInEditor) {
 			console.log(
 				'[@kitschpatrol/eslint-config] Detected running in editor, some rules are disabled.',
 			)
+		}
 	}
 
 	const configs: Array<Awaitable<TypedFlatConfigItem[]>> = []
@@ -225,10 +226,14 @@ export async function eslintConfig(
 	// eslint-disable-next-line unicorn/no-array-reduce
 	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
 		// eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment, ts/no-unsafe-type-assertion
-		if (key in options) accumulator[key] = options[key] as any
+		if (key in options) {
+			accumulator[key] = options[key] as any
+		}
 		return accumulator
 	}, {})
-	if (Object.keys(fusedConfig).length > 0) configs.push([fusedConfig])
+	if (Object.keys(fusedConfig).length > 0) {
+		configs.push([fusedConfig])
+	}
 
 	let composer = new FlatConfigComposer<TypedFlatConfigItem, ConfigNames>()
 

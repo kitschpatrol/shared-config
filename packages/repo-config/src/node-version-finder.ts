@@ -51,10 +51,14 @@ function findLockfileDirectory(startDirectory: string): string | undefined {
 			return current
 		}
 
-		if (current === root) break
+		if (current === root) {
+			break
+		}
 
 		const parent = path.dirname(current)
-		if (parent === current) break
+		if (parent === current) {
+			break
+		}
 		current = parent
 	}
 
@@ -72,10 +76,14 @@ function resolvePackageKey(
 ): string | undefined {
 	// Try name@version first (most common)
 	const full = `${depName}@${versionRef}`
-	if (full in packages) return full
+	if (full in packages) {
+		return full
+	}
 
 	// Try just the version ref (it might already be a full key with peer suffixes)
-	if (versionRef in packages) return versionRef
+	if (versionRef in packages) {
+		return versionRef
+	}
 
 	return undefined
 }
@@ -115,10 +123,14 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		const visited = new Set<string>()
 
 		function traverse(name: string, versionRef: string) {
-			if (versionRef.startsWith('link:')) return
+			if (versionRef.startsWith('link:')) {
+				return
+			}
 
 			const key = resolvePackageKey(name, versionRef, packages)
-			if (!key || visited.has(key)) return
+			if (!key || visited.has(key)) {
+				return
+			}
 			visited.add(key)
 
 			// @ts-expect-error - Type issues
@@ -161,8 +173,11 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 
 				const currentMax = isDev ? overallDevMax : overallProductionMax
 				if (!currentMax || gt(treeMax, currentMax)) {
-					if (isDev) overallDevMax = treeMax
-					else overallProductionMax = treeMax
+					if (isDev) {
+						overallDevMax = treeMax
+					} else {
+						overallProductionMax = treeMax
+					}
 				}
 			}
 		}
@@ -174,8 +189,12 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 	// @ts-expect-error - String key
 	const importer = lockfile.importers[importerKey]
 	if (importer) {
-		if (importer.dependencies) processDependencies(importer.dependencies, false)
-		if (importer.devDependencies) processDependencies(importer.devDependencies, true)
+		if (importer.dependencies) {
+			processDependencies(importer.dependencies, false)
+		}
+		if (importer.devDependencies) {
+			processDependencies(importer.devDependencies, true)
+		}
 	}
 
 	const version =

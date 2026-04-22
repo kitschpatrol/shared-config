@@ -282,7 +282,9 @@ function normalizeCommandName(name: string): string {
 
 /** Handle comma-separated and repeated --skip values. */
 function normalizeSkipValues(skip: string[] | undefined): string[] {
-	if (skip === undefined || skip.length === 0) return []
+	if (skip === undefined || skip.length === 0) {
+		return []
+	}
 	return skip
 		.flatMap((value) => value.split(','))
 		.map((value) => normalizeCommandName(value.trim()))
