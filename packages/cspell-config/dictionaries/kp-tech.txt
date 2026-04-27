@@ -1,6 +1,7 @@
 aacbrew
 Acrobits
 adjustmentsinfo
+adobereader
 Afternic
 Airtable
 altool
@@ -12,6 +13,7 @@ aphex
 apos
 Appium
 AppleScript
+appstore
 apufix
 Archivy
 argless
@@ -22,6 +24,7 @@ assetsignore
 astable
 Astro
 astrojs
+asyncio
 attw
 autoanki
 autoclean
@@ -38,6 +41,7 @@ backlinks
 backtest
 balena
 Balsamiq
+bandcamp
 beforeunload
 bézier
 bgsound
@@ -49,6 +53,7 @@ bigrams
 bindability
 bioinformatics
 bitvise
+blackmagic
 Blotar
 boids
 Boostnote
@@ -99,6 +104,7 @@ colorjs
 colspan
 combinators
 confbox
+configparser
 controlend
 controlstart
 conv
@@ -143,6 +149,7 @@ dendron
 deno
 devel
 dicom
+direnv
 disablepictureinpicture
 distutils
 divs
@@ -173,6 +180,7 @@ fanout
 farbfeld
 farmfe
 fassets
+fastapi
 faststart
 favicons
 fbase
@@ -221,10 +229,14 @@ glew
 glkview
 godebug
 gogs
+golangci
+googlechrome
 goreleaser
+graphviz
 Grav
 Gridsome
 GSAP
+gstreamer
 guetzli
 gzipped
 Hackaday
@@ -264,6 +276,7 @@ introstart
 InvisBox
 iosveka
 ipynb
+isort
 itson
 jetblack
 jpgs
@@ -279,12 +292,14 @@ keepnames
 Keybr
 keydown
 keyof
+killall
 Kinect
 kinects
 kiota
 kputil
 ksc
 ksdiff
+kubectx
 labelot
 lanczos
 langchain
@@ -394,6 +409,7 @@ Multitaction
 multiview
 mypy
 nannou
+nanotech
 navas
 Navizon
 ndis
@@ -412,6 +428,7 @@ njson
 Noctua
 Nodebox
 nodenext
+nodenv
 noembed
 nokey
 noopener
@@ -449,6 +466,7 @@ ohmyzsh
 okhsv
 oklab
 ollama
+omnigraffle
 onehot
 openframeworks
 opengl
@@ -532,6 +550,7 @@ psds
 psexec
 publiccode
 pushshift
+pyenv
 pylib
 pylint
 pypi
@@ -602,6 +621,7 @@ softphone
 softprops
 sortf
 sortstatic
+soundcloud
 speex
 squoosh
 srgb
@@ -675,6 +695,7 @@ Tukul
 tweakpane
 tweener
 tweens
+typora
 unibody
 unifiedjs
 unist

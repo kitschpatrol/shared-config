@@ -6,6 +6,8 @@ chunkname
 codespell
 curlies
 displaynames
+eslintjs
+eslintjson
 esmodule
 fetchcontent
 findlast
