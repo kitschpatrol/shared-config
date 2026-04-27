@@ -41,6 +41,7 @@ export function isInEditorEnv(): boolean {
 	if (process.env.CI) {
 		return false
 	}
+
 	if (isInGitHooksOrLintStaged()) {
 		return false
 	}
@@ -99,6 +100,7 @@ export function renamePluginInConfigs(
 				if (key in map) {
 					return [map[key], value]
 				}
+
 				return [key, value]
 			}),
 		)
@@ -139,6 +141,7 @@ Record<string, any> {
 					return [to + key.slice(from.length), value]
 				}
 			}
+
 			return [key, value]
 		}),
 	)
@@ -185,15 +188,18 @@ export function generatePerfectionistSortConfig(
 				elementNamePattern = `^${string}$`
 				break
 			}
+
 			case 'leading': {
 				elementNamePattern = `^${string}.*$`
 				break
 			}
+
 			case 'trailing': {
 				elementNamePattern = `^.*${string}$`
 				break
 			}
 		}
+
 		customGroups.push({ elementNamePattern, groupName: string })
 	}
 

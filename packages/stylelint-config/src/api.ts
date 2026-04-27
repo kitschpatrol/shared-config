@@ -30,6 +30,7 @@ function resolveFileType(fileType: string): string {
 	if (PATH_CHARACTER_REGEX.test(fileType)) {
 		return fileType
 	}
+
 	return `file.${fileType}`
 }
 

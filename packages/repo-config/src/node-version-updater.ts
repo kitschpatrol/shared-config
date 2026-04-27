@@ -93,6 +93,7 @@ function formatCauses(causes: string[]): string {
 	if (causes.length === 0) {
 		return ''
 	}
+
 	return ` (from ${causes.join(', ')})`
 }
 

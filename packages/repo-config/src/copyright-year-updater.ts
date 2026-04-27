@@ -69,6 +69,7 @@ function maskLicenseBoilerplateDates(content: string): string {
 		pattern.lastIndex = 0
 		masked = masked.replace(pattern, (match) => match.replaceAll(/\d/g, 'X'))
 	}
+
 	return masked
 }
 
@@ -90,6 +91,7 @@ function updateLicenseContent(content: string, currentYear: number): string {
 			const after = content.slice(rangeMatch.index)
 			return before + after.replace(rangeRegex, newRange)
 		}
+
 		return content
 	}
 
@@ -104,6 +106,7 @@ function updateLicenseContent(content: string, currentYear: number): string {
 			const after = content.slice(singleMatch.index)
 			return before + after.replace(singleYearRegex, newRange)
 		}
+
 		return content
 	}
 

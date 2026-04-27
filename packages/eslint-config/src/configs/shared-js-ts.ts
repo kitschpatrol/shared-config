@@ -1,5 +1,6 @@
 import pluginE18e from '@e18e/eslint-plugin'
 import pluginEslintComments from '@eslint-community/eslint-plugin-eslint-comments'
+import pluginStylistic from '@stylistic/eslint-plugin'
 import pluginTs from '@typescript-eslint/eslint-plugin'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import pluginDeMorgan from 'eslint-plugin-de-morgan'
@@ -132,6 +133,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		node: pluginNode,
 		perfectionist: pluginPerfectionist,
 		regexp: pluginRegexp,
+		stylistic: pluginStylistic,
 		ts: pluginTs,
 		unicorn: pluginUnicorn,
 	},
@@ -250,6 +252,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			{ newlinesBetween: 0, order: 'asc', type: 'natural' },
 		],
 		'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+		'stylistic/padding-line-between-statements': [
+			'error',
+			{ blankLine: 'always', next: '*', prev: 'block-like' },
+		],
 		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
 		'ts/member-ordering': 'off', // Conflicts with perfectionist
 		'ts/naming-convention': [

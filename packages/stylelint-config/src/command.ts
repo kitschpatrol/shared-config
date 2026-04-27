@@ -59,6 +59,7 @@ async function printStylelintConfigCommand(
 	for (const line of prettyAndColorfulJsonLines) {
 		logStream.write(`${line}\n`)
 	}
+
 	return 0
 }
 

@@ -50,6 +50,7 @@ export const defaultPluginRenaming = {
 	'@html-eslint': 'html',
 	'package-json': 'json-package',
 	'@typescript-eslint': 'ts',
+	'@stylistic-eslint': 'stylistic',
 	'import-x': 'import',
 	n: 'node',
 	vitest: 'test',
@@ -229,6 +230,7 @@ export async function eslintConfig(
 			// eslint-disable-next-line ts/no-unsafe-assignment, ts/no-unsafe-type-assertion, ts/no-explicit-any
 			accumulator[key] = options[key] as any
 		}
+
 		return accumulator
 	}, {})
 	if (Object.keys(fusedConfig).length > 0) {

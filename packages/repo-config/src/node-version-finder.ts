@@ -59,6 +59,7 @@ function findLockfileDirectory(startDirectory: string): string | undefined {
 		if (parent === current) {
 			break
 		}
+
 		current = parent
 	}
 
@@ -131,6 +132,7 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 			if (!key || visited.has(key)) {
 				return
 			}
+
 			visited.add(key)
 
 			// @ts-expect-error - Type issues
@@ -192,6 +194,7 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		if (importer.dependencies) {
 			processDependencies(importer.dependencies, false)
 		}
+
 		if (importer.devDependencies) {
 			processDependencies(importer.devDependencies, true)
 		}

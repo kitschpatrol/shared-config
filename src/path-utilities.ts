@@ -118,6 +118,7 @@ export function getCwdOverride(option?: CwdOverrideOptions): string {
 		if (!fse.pathExistsSync(option)) {
 			throw new Error(`Custom cwd directory does not exist: ${option}`)
 		}
+
 		return option
 	}
 

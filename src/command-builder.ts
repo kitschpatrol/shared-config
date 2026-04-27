@@ -285,6 +285,7 @@ function normalizeSkipValues(skip: string[] | undefined): string[] {
 	if (skip === undefined || skip.length === 0) {
 		return []
 	}
+
 	return skip
 		.flatMap((value) => value.split(','))
 		.map((value) => normalizeCommandName(value.trim()))
@@ -786,6 +787,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
 			for (const line of prettyAndColorfulJsonLines) {
 				logStream.write(`${line}\n`)
 			}
+
 			return 0
 		},
 		name: `Cosmiconfig ${configName}`,

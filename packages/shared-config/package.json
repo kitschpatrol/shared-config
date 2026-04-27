@@ -7,10 +7,12 @@
 		"eslint-config",
 		"stylelint-config",
 		"prettier-config",
+		"typescript-config",
 		"remark-config",
 		"remark-lint",
 		"github-actions",
 		"cspell",
+		"tsconfig",
 		"mdat",
 		"cli",
 		"ksc"
@@ -80,7 +82,7 @@
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.3",
 		"semver": "^7.7.4",
-		"stylelint": "^17.8.0",
+		"stylelint": "^17.9.1",
 		"yargs": "^18.0.0"
 	},
 	"engines": {
