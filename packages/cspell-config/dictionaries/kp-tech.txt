@@ -460,6 +460,7 @@ Octocat
 Odroid
 Odroidh
 Odroidxu
+oembed
 oflog
 ofparam
 ohmyzsh
