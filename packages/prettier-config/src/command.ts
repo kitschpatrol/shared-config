@@ -18,9 +18,11 @@ const sharedOptions = [
 	// TODO Disabled in favor of jsdoc pending https://github.com/hosseinmd/prettier-plugin-jsdoc/pull/255
 	// '--plugin=prettier-plugin-tailwindcss',
 	'--plugin=prettier-plugin-toml',
-	// Note: prettier-plugin-jsdoc is loaded via the config's plugins array, not here,
-	// because its options (e.g. jsdocCommentLineStrategy) must be registered before
-	// config validation. See outputFilter below for the residual warning workaround.
+	// Must be passed via CLI: prettier replaces (rather than merges with) the config's
+	// `plugins` array whenever any `--plugin` flag is present, so jsdoc-in-config alone
+	// gets dropped. The `Ignored unknown option { jsdoc... }` warnings this triggers are
+	// swallowed by the outputFilter below.
+	'--plugin=prettier-plugin-jsdoc',
 	// Have to resolve to the project root for ignore to work when calling prettier in subdirectories
 	`--ignore-path=${getFilePathAtProjectRoot('.gitignore') ?? '.gitignore'}`,
 	`--ignore-path=${getFilePathAtProjectRoot('.prettierignore') ?? '.prettierignore'}`,
