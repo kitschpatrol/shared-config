@@ -701,6 +701,7 @@ unibody
 unifiedjs
 unist
 universaljs
+unlighthouse
 unplugin
 unrs
 unsetenv
