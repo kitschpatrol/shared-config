@@ -21,9 +21,6 @@ function customizeSortOrder(keys: string[], newKeys: string[]): string[] {
 export const sharedPrettierConfig: PrettierConfig = {
 	bracketSpacing: true,
 	endOfLine: 'lf',
-	// Additional prettier-plugin-jsdoc options. These trigger "Ignored unknown
-	// option" warnings from prettier CLI because the plugin registers its options
-	// after config validation; warnings are filtered in command.ts via outputFilter.
 	jsdocCommentLineStrategy: 'keep',
 	jsdocPreferCodeFences: true,
 	jsdocPrintWidth: 80,
@@ -39,14 +36,18 @@ export const sharedPrettierConfig: PrettierConfig = {
 			files: '*.astro',
 			options: {
 				parser: 'astro',
-				plugins: ['@kitschpatrol/prettier-plugin-astro'],
+				// Includes prettier-plugin-jsdoc so its options remain valid for this
+				// file's parser context — otherwise prettier emits "Ignored unknown
+				// option { jsdoc... }" warnings because an override's `plugins` array
+				// REPLACES the top-level plugins for matched files.
+				plugins: ['@kitschpatrol/prettier-plugin-astro', 'prettier-plugin-jsdoc'],
 			},
 		},
 		{
 			files: '*.svelte',
 			options: {
 				parser: 'svelte',
-				plugins: ['prettier-plugin-svelte'],
+				plugins: ['prettier-plugin-svelte', 'prettier-plugin-jsdoc'],
 			},
 		},
 		{
@@ -59,7 +60,7 @@ export const sharedPrettierConfig: PrettierConfig = {
 			files: ['*rc', '*ignore', '*.sh', '*.zsh', '*.bash', '*.fish'],
 			options: {
 				parser: 'sh',
-				plugins: ['prettier-plugin-sh'],
+				plugins: ['prettier-plugin-sh', 'prettier-plugin-jsdoc'],
 			},
 		},
 		// Make this match eslint 'json-package/order-properties'
