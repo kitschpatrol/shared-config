@@ -7,7 +7,7 @@
 <!-- badges -->
 
 [![NPM Package @kitschpatrol/cspell-config](https://img.shields.io/npm/v/@kitschpatrol/cspell-config.svg)](https://npmjs.com/package/@kitschpatrol/cspell-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 
 <!-- /badges -->
 

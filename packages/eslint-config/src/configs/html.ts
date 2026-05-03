@@ -63,7 +63,7 @@ export async function html(
 				'html/no-aria-hidden-body': 'error',
 				'html/no-duplicate-attrs': 'error',
 				'html/no-duplicate-id': 'error',
-				'html/no-extra-spacing-attrs': 'off', // Overrides recommended
+				'html/no-extra-spacing-tags': 'off', // Overrides recommended
 				'html/no-inline-styles': 'error',
 				'html/no-multiple-h1': 'error',
 				'html/no-non-scalable-viewport': 'error',

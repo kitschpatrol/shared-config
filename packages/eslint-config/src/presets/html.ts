@@ -7,7 +7,7 @@ export const htmlRecommendedRules: Rules = {
 	'html/require-doctype': 'error',
 	'html/require-title': 'error',
 	'html/no-multiple-h1': 'error',
-	'html/no-extra-spacing-attrs': 'error',
+	'html/no-extra-spacing-tags': 'error',
 	'html/attrs-newline': 'error',
 	'html/element-newline': ['error', { inline: ['$inline'] }],
 	'html/no-duplicate-id': 'error',

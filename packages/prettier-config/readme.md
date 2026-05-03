@@ -7,7 +7,7 @@
 <!-- badges -->
 
 [![NPM Package @kitschpatrol/prettier-config](https://img.shields.io/npm/v/@kitschpatrol/prettier-config.svg)](https://npmjs.com/package/@kitschpatrol/prettier-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 
 <!-- /badges -->
 

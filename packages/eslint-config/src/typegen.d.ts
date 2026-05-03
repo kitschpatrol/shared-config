@@ -546,9 +546,7 @@ export interface RuleOptions {
 	 */
 	'dot-notation'?: Linter.RuleEntry<DotNotation>
 	/**
-	 * Bans a list of dependencies from being used
-	 *
-	 * @see https://github.com/es-tooling/eslint-plugin-depend/blob/main/docs/rules/ban-dependencies.md
+	 * Disallow dependencies in favor of more performant or secure alternatives
 	 */
 	'e18e/ban-dependencies'?: Linter.RuleEntry<E18EBanDependencies>
 	/**
@@ -896,9 +894,16 @@ export interface RuleOptions {
 	/**
 	 * Disallow extra spacing around attributes
 	 *
+	 * @deprecated
 	 * @see https://html-eslint.org/docs/rules/no-extra-spacing-attrs
 	 */
 	'html/no-extra-spacing-attrs'?: Linter.RuleEntry<HtmlNoExtraSpacingAttrs>
+	/**
+	 * Disallow extra spacing inside tags
+	 *
+	 * @see https://html-eslint.org/docs/rules/no-extra-spacing-tags
+	 */
+	'html/no-extra-spacing-tags'?: Linter.RuleEntry<HtmlNoExtraSpacingTags>
 	/**
 	 * Disallow unnecessary consecutive spaces
 	 *
@@ -7416,7 +7421,7 @@ export interface RuleOptions {
 	 */
 	'test/no-mocks-import'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallow .only blocks in tests
+	 * Disallow focused/only tests
 	 *
 	 * @see https://github.com/levibuzolic/eslint-plugin-no-only-tests
 	 */
@@ -10838,6 +10843,17 @@ type HtmlMaxElementDepth =
 	  ]
 // ----- html/no-extra-spacing-attrs -----
 type HtmlNoExtraSpacingAttrs =
+	| []
+	| [
+			{
+				disallowInAssignment?: boolean
+				disallowMissing?: boolean
+				disallowTabs?: boolean
+				enforceBeforeSelfClose?: boolean
+			},
+	  ]
+// ----- html/no-extra-spacing-tags -----
+type HtmlNoExtraSpacingTags =
 	| []
 	| [
 			{

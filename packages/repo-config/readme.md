@@ -7,7 +7,7 @@
 <!-- badges -->
 
 [![NPM Package @kitschpatrol/repo-config](https://img.shields.io/npm/v/@kitschpatrol/repo-config.svg)](https://npmjs.com/package/@kitschpatrol/repo-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 
 <!-- /badges -->
 
