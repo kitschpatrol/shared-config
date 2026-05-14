@@ -43,7 +43,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm -r publish",
+		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') pnpm -r publish",
 		"test": "vitest run"
 	},
 	"devDependencies": {
@@ -89,6 +89,6 @@
 	},
 	"packageManager": "pnpm@11.1.1",
 	"engines": {
-		"node": ">=22.18.0"
+		"node": "^22.18.0 || >=24.0.0"
 	}
 }
