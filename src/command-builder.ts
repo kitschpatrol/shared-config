@@ -843,7 +843,7 @@ export const DESCRIPTION = {
 		'In a monorepo, it will also run in all packages below the current working directory.',
 	monorepoSearch: 'Searches up to the root of a monorepo if necessary.',
 	multiArgumentCaveat:
-		'Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.',
+		'Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.',
 	multiOptionCaveat:
 		'Will use option flags where possible if provided, but some of the invoked tools will ignore them.',
 	optionalFileRun: 'Package-scoped by default, file-scoped if a file argument is provided.',

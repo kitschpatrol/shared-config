@@ -232,9 +232,9 @@ ksc <command>
 | Command        | Argument    | Description                                                                                                                                                                                 |
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `init`         |             | Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them. |
-| `lint`         | `[files..]` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.               |
-| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.                |
-| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.                      |
+| `lint`         | `[files..]` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.               |
+| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                |
+| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -262,7 +262,7 @@ ksc init
 
 #### Subcommand: `ksc lint`
 
-Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.
 
 Usage:
 
@@ -282,7 +282,7 @@ ksc lint [files..]
 
 #### Subcommand: `ksc fix`
 
-Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.
 
 Usage:
 
@@ -302,7 +302,7 @@ ksc fix [files..]
 
 #### Subcommand: `ksc print-config`
 
-Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.
 
 Usage:
 
