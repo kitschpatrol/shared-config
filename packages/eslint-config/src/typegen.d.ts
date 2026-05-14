@@ -495,7 +495,6 @@ export interface RuleOptions {
 	curly?: Linter.RuleEntry<Curly>
 	/**
 	 * Transforms the negation of a conjunction !(A && B) into the equivalent !A
-	 *
 	 * || !B according to De Morgan’s law
 	 *
 	 * @see https://github.com/azat-io/eslint-plugin-de-morgan/blob/main/docs/no-negated-conjunction.md
@@ -550,9 +549,19 @@ export interface RuleOptions {
 	 */
 	'e18e/ban-dependencies'?: Linter.RuleEntry<E18EBanDependencies>
 	/**
+	 * Disallow `delete` on properties — V8 deoptimizes the object to dictionary
+	 * mode
+	 */
+	'e18e/no-delete-property'?: Linter.RuleEntry<[]>
+	/**
 	 * Prefer optimized alternatives to `indexOf()` equality checks
 	 */
 	'e18e/no-indexof-equality'?: Linter.RuleEntry<[]>
+	/**
+	 * Disallow spreading the accumulator inside a `reduce` callback (O(N²)
+	 * growth)
+	 */
+	'e18e/no-spread-in-reduce'?: Linter.RuleEntry<[]>
 	/**
 	 * Prefer Array.prototype.at() over length-based indexing
 	 */
@@ -567,7 +576,8 @@ export interface RuleOptions {
 	 */
 	'e18e/prefer-array-from-map'?: Linter.RuleEntry<[]>
 	/**
-	 * Prefer Array.some() over Array.find() when checking for element existence
+	 * Prefer Array.some() over Array.find() and Array.filter().length checks when
+	 * checking for element existence
 	 */
 	'e18e/prefer-array-some'?: Linter.RuleEntry<[]>
 	/**
@@ -595,6 +605,11 @@ export interface RuleOptions {
 	 */
 	'e18e/prefer-includes'?: Linter.RuleEntry<[]>
 	/**
+	 * Prefer String.prototype.{includes,startsWith,endsWith} over equivalent
+	 * regex.test() calls
+	 */
+	'e18e/prefer-includes-over-regex-test'?: Linter.RuleEntry<[]>
+	/**
 	 * Prefer inline equality checks over temporary object creation for simple
 	 * comparisons
 	 */
@@ -619,10 +634,20 @@ export interface RuleOptions {
 	 */
 	'e18e/prefer-spread-syntax'?: Linter.RuleEntry<[]>
 	/**
+	 * Prefer hoisting an `Intl.Collator` instance over calling localeCompare in a
+	 * sort callback
+	 */
+	'e18e/prefer-static-collator'?: Linter.RuleEntry<[]>
+	/**
 	 * Prefer defining regular expressions at module scope to avoid re-compilation
 	 * on every function call
 	 */
 	'e18e/prefer-static-regex'?: Linter.RuleEntry<[]>
+	/**
+	 * Prefer String.fromCharCode() over String.fromCodePoint() for code points
+	 * below 0x10000
+	 */
+	'e18e/prefer-string-fromcharcode'?: Linter.RuleEntry<[]>
 	/**
 	 * Prefer passing function and arguments directly to setTimeout/setInterval
 	 * instead of wrapping in an arrow function or using bind
@@ -7572,7 +7597,8 @@ export interface RuleOptions {
 	 */
 	'test/prefer-expect-resolves'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce using `expectTypeOf` instead of `expect(typeof ...)`
+	 * Enforce using `expect(...).toBeTypeOf(...)` instead of `expect(typeof
+	 * ...).toBe(...)`
 	 *
 	 * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-expect-type-of.md
 	 */
@@ -15673,7 +15699,6 @@ type NodeNoUnpublishedBin =
 								replace: [string, string]
 							}[],
 					  ]
-				[k: string]: unknown | undefined
 			},
 	  ]
 // ----- node/no-unpublished-import -----
@@ -16683,6 +16708,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'navigator.hardwareConcurrency'
 					| 'navigator.language'
 					| 'navigator.languages'
+					| 'navigator.locks'
+					| 'navigator.locks.request'
+					| 'navigator.locks.query'
 					| 'navigator.platform'
 					| 'navigator.userAgent'
 					| 'structuredClone'
@@ -16731,13 +16759,18 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'console.warn'
 					| 'crypto'
 					| 'crypto.subtle'
+					| 'crypto.subtle.decapsulateBits'
+					| 'crypto.subtle.decapsulateKey'
 					| 'crypto.subtle.decrypt'
 					| 'crypto.subtle.deriveBits'
 					| 'crypto.subtle.deriveKey'
 					| 'crypto.subtle.digest'
+					| 'crypto.subtle.encapsulateBits'
+					| 'crypto.subtle.encapsulateKey'
 					| 'crypto.subtle.encrypt'
 					| 'crypto.subtle.exportKey'
 					| 'crypto.subtle.generateKey'
+					| 'crypto.subtle.getPublicKey'
 					| 'crypto.subtle.importKey'
 					| 'crypto.subtle.sign'
 					| 'crypto.subtle.unwrapKey'
@@ -16748,6 +16781,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'Crypto'
 					| 'CryptoKey'
 					| 'SubtleCrypto'
+					| 'SubtleCrypto.supports'
 					| 'CloseEvent'
 					| 'CustomEvent'
 					| 'Event'
@@ -17056,13 +17090,18 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.fips'
 					| 'crypto.webcrypto'
 					| 'crypto.webcrypto.subtle'
+					| 'crypto.webcrypto.subtle.decapsulateBits'
+					| 'crypto.webcrypto.subtle.decapsulateKey'
 					| 'crypto.webcrypto.subtle.decrypt'
 					| 'crypto.webcrypto.subtle.deriveBits'
 					| 'crypto.webcrypto.subtle.deriveKey'
 					| 'crypto.webcrypto.subtle.digest'
+					| 'crypto.webcrypto.subtle.encapsulateBits'
+					| 'crypto.webcrypto.subtle.encapsulateKey'
 					| 'crypto.webcrypto.subtle.encrypt'
 					| 'crypto.webcrypto.subtle.exportKey'
 					| 'crypto.webcrypto.subtle.generateKey'
+					| 'crypto.webcrypto.subtle.getPublicKey'
 					| 'crypto.webcrypto.subtle.importKey'
 					| 'crypto.webcrypto.subtle.sign'
 					| 'crypto.webcrypto.subtle.unwrapKey'
@@ -17070,6 +17109,8 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.webcrypto.subtle.wrapKey'
 					| 'crypto.webcrypto.getRandomValues'
 					| 'crypto.webcrypto.randomUUID'
+					| 'crypto.argon2'
+					| 'crypto.argon2Sync'
 					| 'crypto.checkPrime'
 					| 'crypto.checkPrimeSync'
 					| 'crypto.createCipher'
@@ -17086,7 +17127,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.createSecretKey'
 					| 'crypto.createSign'
 					| 'crypto.createVerify'
+					| 'crypto.decapsulate'
 					| 'crypto.diffieHellman'
+					| 'crypto.encapsulate'
 					| 'crypto.generateKey'
 					| 'crypto.generateKeyPair'
 					| 'crypto.generateKeyPairSync'
@@ -17284,6 +17327,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs.promises.lutimes'
 					| 'fs.promises.mkdir'
 					| 'fs.promises.mkdtemp'
+					| 'fs.promises.mkdtempDisposable'
 					| 'fs.promises.open'
 					| 'fs.promises.opendir'
 					| 'fs.promises.readFile'
@@ -17375,6 +17419,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs.lutimesSync'
 					| 'fs.mkdirSync'
 					| 'fs.mkdtempSync'
+					| 'fs.mkdtempDisposableSync'
 					| 'fs.opendirSync'
 					| 'fs.openSync'
 					| 'fs.readdirSync'
@@ -17407,6 +17452,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs.Stats'
 					| 'fs.StatFs'
 					| 'fs.WriteStream'
+					| 'fs.Utf8Stream'
 					| 'fs.common_objects'
 					| 'fs/promises'
 					| 'fs/promises.FileHandle'
@@ -17425,6 +17471,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs/promises.lutimes'
 					| 'fs/promises.mkdir'
 					| 'fs/promises.mkdtemp'
+					| 'fs/promises.mkdtempDisposable'
 					| 'fs/promises.open'
 					| 'fs/promises.opendir'
 					| 'fs/promises.readFile'
@@ -17473,12 +17520,19 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'http.validateHeaderName'
 					| 'http.validateHeaderValue'
 					| 'http.setMaxIdleHTTPParsers'
+					| 'http.Agent()'
 					| 'http.Agent'
+					| 'http.ClientRequest()'
 					| 'http.ClientRequest'
+					| 'http.Server()'
 					| 'http.Server'
+					| 'http.ServerResponse()'
 					| 'http.ServerResponse'
+					| 'http.IncomingMessage()'
 					| 'http.IncomingMessage'
+					| 'http.OutgoingMessage()'
 					| 'http.OutgoingMessage'
+					| 'http.WebSocket()'
 					| 'http.WebSocket'
 					| '_http_agent'
 					| '_http_client'
@@ -17501,6 +17555,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'inspector.Network.loadingFinished'
 					| 'inspector.Network.requestWillBeSent'
 					| 'inspector.Network.responseReceived'
+					| 'inspector.Network.webSocketCreated'
+					| 'inspector.Network.webSocketHandshakeResponseReceived'
+					| 'inspector.Network.webSocketClosed'
 					| 'inspector.NetworkResources.put'
 					| 'inspector.console'
 					| 'inspector.close'
@@ -17515,6 +17572,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'inspector/promises.Network.loadingFinished'
 					| 'inspector/promises.Network.requestWillBeSent'
 					| 'inspector/promises.Network.responseReceived'
+					| 'inspector/promises.Network.webSocketCreated'
+					| 'inspector/promises.Network.webSocketHandshakeResponseReceived'
+					| 'inspector/promises.Network.webSocketClosed'
 					| 'inspector/promises.NetworkResources.put'
 					| 'inspector/promises.console'
 					| 'inspector/promises.close'
@@ -17699,6 +17759,8 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'perf_hooks.performance.timerify'
 					| 'perf_hooks.performance.toJSON'
 					| 'perf_hooks.createHistogram'
+					| 'perf_hooks.eventLoopUtilization'
+					| 'perf_hooks.timerify'
 					| 'perf_hooks.monitorEventLoopDelay'
 					| 'perf_hooks.PerformanceEntry'
 					| 'perf_hooks.PerformanceMark'
@@ -17757,10 +17819,12 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'sea.isSea'
 					| 'sea.getAsset'
 					| 'sea.getAssetAsBlob'
+					| 'sea.getAssetKeys'
 					| 'sea.getRawAsset'
 					| 'sea.sea.isSea'
 					| 'sea.sea.getAsset'
 					| 'sea.sea.getAssetAsBlob'
+					| 'sea.sea.getAssetKeys'
 					| 'sea.sea.getRawAsset'
 					| 'stream'
 					| 'stream.promises'
@@ -17815,6 +17879,12 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'stream/consumers.buffer'
 					| 'stream/consumers.json'
 					| 'stream/consumers.text'
+					| '_stream_duplex'
+					| '_stream_passthrough'
+					| '_stream_readable'
+					| '_stream_transform'
+					| '_stream_wrap'
+					| '_stream_writable'
 					| 'string_decoder'
 					| 'string_decoder.StringDecoder'
 					| 'sqlite'
@@ -17824,6 +17894,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'sqlite.constants.SQLITE_CHANGESET_ABORT'
 					| 'sqlite.backup'
 					| 'sqlite.DatabaseSync'
+					| 'sqlite.Session'
 					| 'sqlite.StatementSync'
 					| 'sqlite.SQLITE_CHANGESET_OMIT'
 					| 'sqlite.SQLITE_CHANGESET_REPLACE'
@@ -17848,6 +17919,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'test.mock.getter'
 					| 'test.mock.method'
 					| 'test.mock.module'
+					| 'test.mock.property'
 					| 'test.mock.reset'
 					| 'test.mock.restoreAll'
 					| 'test.mock.setter'
@@ -17907,6 +17979,8 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'tls.Server'
 					| 'tls.setDefaultCACertificates'
 					| 'tls.TLSSocket'
+					| '_tls_common'
+					| '_tls_wrap'
 					| 'trace_events'
 					| 'trace_events.createTracing'
 					| 'trace_events.getEnabledCategories'
@@ -18100,6 +18174,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'v8.writeHeapSnapshot'
 					| 'v8.setHeapSnapshotNearHeapLimit'
 					| 'v8.GCProfiler'
+					| 'v8.startCpuProfile'
 					| 'vm.constants'
 					| 'vm.compileFunction'
 					| 'vm.createContext'
@@ -18120,6 +18195,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'worker_threads.resourceLimits'
 					| 'worker_threads.SHARE_ENV'
 					| 'worker_threads.threadId'
+					| 'worker_threads.threadName'
 					| 'worker_threads.workerData'
 					| 'worker_threads.getEnvironmentData'
 					| 'worker_threads.getHeapStatistics'
@@ -18128,6 +18204,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'worker_threads.isInternalThread'
 					| 'worker_threads.isMainThread'
 					| 'worker_threads.isMarkedAsUntransferable'
+					| 'worker_threads.locks'
+					| 'worker_threads.locks.request'
+					| 'worker_threads.locks.query'
 					| 'worker_threads.moveMessagePortToContext'
 					| 'worker_threads.postMessageToThread'
 					| 'worker_threads.receiveMessageOnPort'

@@ -21,6 +21,7 @@ export const e18eRecommendedRules: Rules = {
 	'e18e/prefer-regex-test': 'error',
 	'e18e/prefer-array-some': 'error',
 	'e18e/prefer-static-regex': 'error',
+	'e18e/prefer-string-fromcharcode': 'error',
 	// End expansion
 }
 
@@ -53,5 +54,6 @@ export const e18ePerformanceImprovements: Rules = {
 	'e18e/prefer-regex-test': 'error',
 	'e18e/prefer-array-some': 'error',
 	'e18e/prefer-static-regex': 'error',
+	'e18e/prefer-string-fromcharcode': 'error',
 	// End expansion
 }

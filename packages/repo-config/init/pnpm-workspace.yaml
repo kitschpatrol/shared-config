@@ -1,6 +1,6 @@
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+allowBuilds:
+  esbuild: true
+  oxc-resolver: true
 
 publicHoistPattern:
   - '@kitschpatrol/repo-config'

@@ -9,7 +9,6 @@ export const nodeRecommendedRules: Rules = {
 	'node/no-missing-import': 'error',
 	'node/no-missing-require': 'error',
 	'node/no-process-exit': 'error',
-	'node/no-unpublished-bin': 'error',
 	'node/no-unpublished-import': 'error',
 	'node/no-unpublished-require': 'error',
 	'node/no-unsupported-features/es-builtins': 'error',

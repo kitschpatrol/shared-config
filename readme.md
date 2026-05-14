@@ -100,7 +100,7 @@ The top-level `ksc` command also takes care of some nuances in terms of _which_ 
 
 ### Dependencies
 
-[Node](https://nodejs.org) >=22.18.0 is required, and [pnpm](https://pnpm.io) >=10 is recommended. NPM and yarn might work as well, but I haven't tested them.
+[Node](https://nodejs.org) >=22.18.0 is required, and [pnpm](https://pnpm.io) >=11 is recommended. NPM and yarn might work as well, but I haven't tested them.
 
 ### Installation
 
@@ -390,7 +390,9 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 
 [`xo`](https://github.com/xojs/xo) is really, really close to what I'm after here, but I wanted a few extra tools and preferred to use "first party" VS Code plugins where possible.
 
-[`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) is also excellent, and probably the best starting point for most people for most new projects. However, it does not take a "single top-level dependency" / "single unified CLI" approach.
+More recently, the [Vite+ project / `vp` cli tool](https://viteplus.dev/) seems most similar to what I'm after in terms of proxying a variety of tools behind a unified CLI interface.
+
+[`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) is also excellent, and probably the best starting point for most people for most new projects. However, it does not take a "single top-level dependency" / "single unified CLI" approach. I ended up developing my own project templates in [kitschpatrol/create-project](https://github.com/kitschpatrol/create-project). (This uses the same underlying [project template system](https://www.create.bingo/) as `create-typescript-app`.)
 
 [`antfu/eslint-config`](https://github.com/antfu/eslint-config) and [`@sxzz/eslint-config`](https://github.com/sxzz/eslint-config) inspired the approach to ESLint integration.
 
@@ -400,11 +402,13 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [1stG/configs](https://github.com/1stG/configs)
 - [antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
+- [Complete](https://complete-ts.github.io/)
 - [create-typescript-app](https://github.com/JoshuaKGoldberg/create-typescript-app)
 - [envsa/shared-config](https://www.npmjs.com/package/@envsa/shared-config) (Liam Rella's fork of `@kitschpatrol/shared-config`)
 - [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
 - [eslint-config-hyperse](https://github.com/hyperse-io/eslint-config-hyperse)
 - [lass](https://lass.js.org) (xo etc.)
+- [lintroll](https://www.npmjs.com/package/lintroll)
 - [megalinter](https://github.com/oxsecurity/megalinter) (Multi-language.)
 - [neostandard](https://github.com/neostandard/neostandard)
 - [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
@@ -413,16 +417,15 @@ Something to investigate: An [approach](https://github.com/antfu/eslint-config#v
 - [sheriff](https://www.eslint-config-sheriff.dev)
 - [standard](https://standardjs.com)
 - [sxzz/eslint-config](https://github.com/sxzz/eslint-config)
+- [TanStack Config](https://tanstack.com/config/latest)
 - [trunk](https://trunk.io)
 - [ts-reset](https://github.com/mattpocock/ts-reset)
 - [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
+- [vercel/style-guide](https://github.com/vercel/style-guide)
+- [Vite+](https://viteplus.dev/)
 - [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
 - [xo](https://github.com/xojs/xo)
-- [TanStack Config](https://tanstack.com/config/latest)
-- [Complete](https://complete-ts.github.io/)
-- [vercel/style-guide](https://github.com/vercel/style-guide)
 - [ZumerBox](https://github.com/zumerlab/zumerbox)
-- [lintroll](https://www.npmjs.com/package/lintroll)
 
 ## License
 

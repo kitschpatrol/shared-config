@@ -3,15 +3,6 @@ packages:
 
 ignoreWorkspaceRootCheck: true
 
-ignoredBuiltDependencies:
-  - rollup
-
-onlyBuiltDependencies:
-  - esbuild
-  - oxc-resolver
-  - puppeteer
-  - unrs-resolver
-
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -26,3 +17,9 @@ publicHoistPattern:
 
 overrides:
   normalize-package-data: ^8.0.0
+allowBuilds:
+  esbuild: true
+  oxc-resolver: true
+  puppeteer: true
+  unrs-resolver: true
+  rollup: false
