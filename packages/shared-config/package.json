@@ -64,7 +64,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1100.0.7",
+		"@pnpm/lockfile.fs": "^1100.0.8",
 		"cosmiconfig": "^9.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"cspell": "^10.0.0",
@@ -77,16 +77,16 @@
 		"fs-extra": "^11.3.5",
 		"globby": "^16.2.0",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^2.3.2",
+		"mdat": "^2.3.4",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.3",
 		"semver": "^7.8.0",
-		"stylelint": "^17.11.0",
+		"stylelint": "^17.11.1",
 		"yargs": "^18.0.0"
 	},
 	"engines": {
-		"node": ">=22.18.0"
+		"node": "^22.22.2 || >=24.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

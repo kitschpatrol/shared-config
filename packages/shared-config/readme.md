@@ -112,7 +112,7 @@ The top-level `ksc` command also takes care of some nuances in terms of _which_ 
 
 ### Dependencies
 
-[Node](https://nodejs.org) >=22.18.0 is required, and [pnpm](https://pnpm.io) >=11 is recommended. NPM and yarn might work as well, but I haven't tested them.
+[Node](https://nodejs.org) >=22.22.2 is required, and [pnpm](https://pnpm.io) >=11 is recommended. NPM and yarn might work as well, but I haven't tested them.
 
 ### Installation
 

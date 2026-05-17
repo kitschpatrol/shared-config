@@ -187,6 +187,7 @@ fbase
 fbtweak
 fcwd
 fddk
+fflate
 ffmetadata
 ffprobe
 fieldset
@@ -238,6 +239,7 @@ Gridsome
 GSAP
 gstreamer
 guetzli
+gypfile
 gzipped
 Hackaday
 hackintosh
@@ -312,6 +314,7 @@ lerp
 lerper
 lerpy
 lfsconfig
+libc
 libpam
 libreddit
 libtheora

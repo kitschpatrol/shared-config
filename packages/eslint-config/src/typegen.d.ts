@@ -2034,44 +2034,44 @@ export interface RuleOptions {
 	/**
 	 * Enforce that names for bin properties are in kebab case.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/bin-name-casing.md
+	 * @see https://eslint-plugin-package-json.dev/rules/bin-name-casing
 	 */
 	'json-package/bin-name-casing'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce consistent format for the exports field (implicit or explicit
 	 * subpaths).
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/exports-subpaths-style.md
+	 * @see https://eslint-plugin-package-json.dev/rules/exports-subpaths-style
 	 */
 	'json-package/exports-subpaths-style'?: Linter.RuleEntry<JsonPackageExportsSubpathsStyle>
 	/**
 	 * Reports on unnecessary empty arrays and objects.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/no-empty-fields.md
+	 * @see https://eslint-plugin-package-json.dev/rules/no-empty-fields
 	 */
 	'json-package/no-empty-fields'?: Linter.RuleEntry<JsonPackageNoEmptyFields>
 	/**
 	 * Prevents adding unnecessary / redundant files.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/no-redundant-files.md
+	 * @see https://eslint-plugin-package-json.dev/rules/no-redundant-files
 	 */
 	'json-package/no-redundant-files'?: Linter.RuleEntry<[]>
 	/**
 	 * Warns when publishConfig.access is used in unscoped packages.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/no-redundant-publishConfig.md
+	 * @see https://eslint-plugin-package-json.dev/rules/no-redundant-publishConfig
 	 */
 	'json-package/no-redundant-publishConfig'?: Linter.RuleEntry<[]>
 	/**
 	 * Package properties should be declared in standard order
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/order-properties.md
+	 * @see https://eslint-plugin-package-json.dev/rules/order-properties
 	 */
 	'json-package/order-properties'?: Linter.RuleEntry<JsonPackageOrderProperties>
 	/**
 	 * Enforce either object or shorthand declaration for repository.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/repository-shorthand.md
+	 * @see https://eslint-plugin-package-json.dev/rules/repository-shorthand
 	 */
 	'json-package/repository-shorthand'?: Linter.RuleEntry<JsonPackageRepositoryShorthand>
 	/**
@@ -2079,482 +2079,530 @@ export interface RuleOptions {
 	 * or `contributors` is defined, and that if `contributors` is present, it
 	 * should include at least one contributor.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-attribution.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-attribution
 	 */
 	'json-package/require-attribution'?: Linter.RuleEntry<JsonPackageRequireAttribution>
 	/**
 	 * Requires the `author` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-author.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-author
 	 */
 	'json-package/require-author'?: Linter.RuleEntry<JsonPackageRequireAuthor>
 	/**
 	 * Requires the `bin` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-bin.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-bin
 	 */
 	'json-package/require-bin'?: Linter.RuleEntry<JsonPackageRequireBin>
 	/**
+	 * Requires the `browser` property to be present.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-browser
+	 */
+	'json-package/require-browser'?: Linter.RuleEntry<JsonPackageRequireBrowser>
+	/**
 	 * Requires the `bugs` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-bugs.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-bugs
 	 */
 	'json-package/require-bugs'?: Linter.RuleEntry<JsonPackageRequireBugs>
 	/**
 	 * Requires the `bundleDependencies` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-bundleDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-bundleDependencies
 	 */
 	'json-package/require-bundleDependencies'?: Linter.RuleEntry<JsonPackageRequireBundleDependencies>
 	/**
+	 * Requires the `config` property to be present.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-config
+	 */
+	'json-package/require-config'?: Linter.RuleEntry<JsonPackageRequireConfig>
+	/**
 	 * Requires the `contributors` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-contributors.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-contributors
 	 */
 	'json-package/require-contributors'?: Linter.RuleEntry<JsonPackageRequireContributors>
 	/**
 	 * Requires the `cpu` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-cpu.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-cpu
 	 */
 	'json-package/require-cpu'?: Linter.RuleEntry<JsonPackageRequireCpu>
 	/**
 	 * Requires the `dependencies` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-dependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-dependencies
 	 */
 	'json-package/require-dependencies'?: Linter.RuleEntry<JsonPackageRequireDependencies>
 	/**
 	 * Requires the `description` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-description.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-description
 	 */
 	'json-package/require-description'?: Linter.RuleEntry<JsonPackageRequireDescription>
 	/**
 	 * Requires the `devDependencies` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-devDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-devDependencies
 	 */
 	'json-package/require-devDependencies'?: Linter.RuleEntry<JsonPackageRequireDevDependencies>
 	/**
 	 * Requires the `devEngines` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-devEngines.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-devEngines
 	 */
 	'json-package/require-devEngines'?: Linter.RuleEntry<JsonPackageRequireDevEngines>
 	/**
 	 * Requires the `directories` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-directories.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-directories
 	 */
 	'json-package/require-directories'?: Linter.RuleEntry<JsonPackageRequireDirectories>
 	/**
 	 * Requires the `engines` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-engines.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-engines
 	 */
 	'json-package/require-engines'?: Linter.RuleEntry<JsonPackageRequireEngines>
 	/**
 	 * Requires the `exports` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-exports.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-exports
 	 */
 	'json-package/require-exports'?: Linter.RuleEntry<JsonPackageRequireExports>
 	/**
 	 * Requires the `files` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-files.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-files
 	 */
 	'json-package/require-files'?: Linter.RuleEntry<JsonPackageRequireFiles>
 	/**
 	 * Requires the `funding` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-funding.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-funding
 	 */
 	'json-package/require-funding'?: Linter.RuleEntry<JsonPackageRequireFunding>
 	/**
+	 * Requires the `gypfile` property to be present.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-gypfile
+	 */
+	'json-package/require-gypfile'?: Linter.RuleEntry<JsonPackageRequireGypfile>
+	/**
 	 * Requires the `homepage` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-homepage.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-homepage
 	 */
 	'json-package/require-homepage'?: Linter.RuleEntry<JsonPackageRequireHomepage>
 	/**
 	 * Requires the `keywords` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-keywords.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-keywords
 	 */
 	'json-package/require-keywords'?: Linter.RuleEntry<JsonPackageRequireKeywords>
 	/**
+	 * Requires the `libc` property to be present.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-libc
+	 */
+	'json-package/require-libc'?: Linter.RuleEntry<JsonPackageRequireLibc>
+	/**
 	 * Requires the `license` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-license.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-license
 	 */
 	'json-package/require-license'?: Linter.RuleEntry<JsonPackageRequireLicense>
 	/**
 	 * Requires the `main` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-main.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-main
 	 */
 	'json-package/require-main'?: Linter.RuleEntry<JsonPackageRequireMain>
 	/**
 	 * Requires the `man` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-man.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-man
 	 */
 	'json-package/require-man'?: Linter.RuleEntry<JsonPackageRequireMan>
 	/**
 	 * Requires the `module` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-module.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-module
 	 */
 	'json-package/require-module'?: Linter.RuleEntry<JsonPackageRequireModule>
 	/**
 	 * Requires the `name` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-name.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-name
 	 */
 	'json-package/require-name'?: Linter.RuleEntry<JsonPackageRequireName>
 	/**
 	 * Requires the `optionalDependencies` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-optionalDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-optionalDependencies
 	 */
 	'json-package/require-optionalDependencies'?: Linter.RuleEntry<JsonPackageRequireOptionalDependencies>
 	/**
 	 * Requires the `os` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-os.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-os
 	 */
 	'json-package/require-os'?: Linter.RuleEntry<JsonPackageRequireOs>
 	/**
 	 * Requires the `packageManager` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-packageManager.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-packageManager
 	 */
 	'json-package/require-packageManager'?: Linter.RuleEntry<JsonPackageRequirePackageManager>
 	/**
 	 * Requires the `peerDependencies` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-peerDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-peerDependencies
 	 */
 	'json-package/require-peerDependencies'?: Linter.RuleEntry<JsonPackageRequirePeerDependencies>
 	/**
 	 * Requires the `private` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-private.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-private
 	 */
 	'json-package/require-private'?: Linter.RuleEntry<[]>
 	/**
 	 * Requires the `publishConfig` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-publishConfig.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-publishConfig
 	 */
 	'json-package/require-publishConfig'?: Linter.RuleEntry<JsonPackageRequirePublishConfig>
 	/**
 	 * Requires the `repository` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-repository.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-repository
 	 */
 	'json-package/require-repository'?: Linter.RuleEntry<JsonPackageRequireRepository>
 	/**
 	 * Requires the `scripts` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-scripts.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-scripts
 	 */
 	'json-package/require-scripts'?: Linter.RuleEntry<JsonPackageRequireScripts>
 	/**
 	 * Requires the `sideEffects` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-sideEffects.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-sideEffects
 	 */
 	'json-package/require-sideEffects'?: Linter.RuleEntry<JsonPackageRequireSideEffects>
 	/**
 	 * Requires the `type` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-type.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-type
 	 */
 	'json-package/require-type'?: Linter.RuleEntry<JsonPackageRequireType>
 	/**
 	 * Requires the `types` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-types.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-types
 	 */
 	'json-package/require-types'?: Linter.RuleEntry<JsonPackageRequireTypes>
 	/**
 	 * Requires the `version` property to be present.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/require-version.md
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-version
 	 */
 	'json-package/require-version'?: Linter.RuleEntry<JsonPackageRequireVersion>
 	/**
 	 * Restricts the range of dependencies to allow or disallow specific types of
 	 * ranges.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/restrict-dependency-ranges.md
+	 * @see https://eslint-plugin-package-json.dev/rules/restrict-dependency-ranges
 	 */
 	'json-package/restrict-dependency-ranges'?: Linter.RuleEntry<JsonPackageRestrictDependencyRanges>
 	/**
 	 * Disallows unnecessary properties in private packages.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/restrict-private-properties.md
+	 * @see https://eslint-plugin-package-json.dev/rules/restrict-private-properties
 	 */
 	'json-package/restrict-private-properties'?: Linter.RuleEntry<JsonPackageRestrictPrivateProperties>
 	/**
 	 * Disallows specified top-level properties in package.json.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/restrict-top-level-properties.md
+	 * @see https://eslint-plugin-package-json.dev/rules/restrict-top-level-properties
 	 */
 	'json-package/restrict-top-level-properties'?: Linter.RuleEntry<JsonPackageRestrictTopLevelProperties>
 	/**
 	 * Enforce that names for `scripts` are in kebab case (optionally separated by
 	 * colons).
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/scripts-name-casing.md
+	 * @see https://eslint-plugin-package-json.dev/rules/scripts-name-casing
 	 */
 	'json-package/scripts-name-casing'?: Linter.RuleEntry<[]>
 	/**
 	 * Selected collections must be in a consistent order (lexicographical for
 	 * most; lifecycle-aware for scripts).
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/sort-collections.md
+	 * @see https://eslint-plugin-package-json.dev/rules/sort-collections
 	 */
 	'json-package/sort-collections'?: Linter.RuleEntry<JsonPackageSortCollections>
 	/**
 	 * Requires that all peer dependencies are also declared as dev dependencies
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/specify-peers-locally.md
+	 * @see https://eslint-plugin-package-json.dev/rules/specify-peers-locally
 	 */
 	'json-package/specify-peers-locally'?: Linter.RuleEntry<[]>
 	/**
 	 * Checks a dependency isn't specified more than once (i.e. in `dependencies`
 	 * and `devDependencies`)
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/unique-dependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/unique-dependencies
 	 */
 	'json-package/unique-dependencies'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `author` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-author.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-author
 	 */
 	'json-package/valid-author'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `bin` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-bin.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-bin
 	 */
 	'json-package/valid-bin'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `browser` property is valid.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-browser
+	 */
+	'json-package/valid-browser'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `bugs` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-bugs.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-bugs
 	 */
 	'json-package/valid-bugs'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that the `bundleDependencies` (also: `bundledDependencies`)
-	 * property is valid.
+	 * Enforce that the `bundleDependencies` (also `bundledDependencies`) property
+	 * is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-bundleDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-bundleDependencies
 	 */
 	'json-package/valid-bundleDependencies'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `config` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-config.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-config
 	 */
 	'json-package/valid-config'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `contributors` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-contributors.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-contributors
 	 */
 	'json-package/valid-contributors'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `cpu` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-cpu.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-cpu
 	 */
 	'json-package/valid-cpu'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `dependencies` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-dependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-dependencies
 	 */
 	'json-package/valid-dependencies'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `description` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-description.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-description
 	 */
 	'json-package/valid-description'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `devDependencies` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-devDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-devDependencies
 	 */
 	'json-package/valid-devDependencies'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `devEngines` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-devEngines.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-devEngines
 	 */
 	'json-package/valid-devEngines'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `directories` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-directories.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-directories
 	 */
 	'json-package/valid-directories'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `engines` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-engines.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-engines
 	 */
 	'json-package/valid-engines'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `exports` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-exports.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-exports
 	 */
 	'json-package/valid-exports'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `files` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-files.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-files
 	 */
 	'json-package/valid-files'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `funding` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-funding.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-funding
 	 */
 	'json-package/valid-funding'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `gypfile` property is valid.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-gypfile
+	 */
+	'json-package/valid-gypfile'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `homepage` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-homepage.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-homepage
 	 */
 	'json-package/valid-homepage'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `keywords` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-keywords.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-keywords
 	 */
 	'json-package/valid-keywords'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `libc` property is valid.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-libc
+	 */
+	'json-package/valid-libc'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `license` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-license.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-license
 	 */
 	'json-package/valid-license'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `main` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-main.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-main
 	 */
 	'json-package/valid-main'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `man` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-man.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-man
 	 */
 	'json-package/valid-man'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `module` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-module.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-module
 	 */
 	'json-package/valid-module'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that package names are valid npm package names
+	 * Enforce that the `name` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-name.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-name
 	 */
 	'json-package/valid-name'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `optionalDependencies` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-optionalDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-optionalDependencies
 	 */
 	'json-package/valid-optionalDependencies'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `os` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-os.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-os
 	 */
 	'json-package/valid-os'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that package.json has all properties required by the npm spec
-	 *
-	 * @deprecated
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-package-definition.md
-	 */
-	'json-package/valid-package-definition'?: Linter.RuleEntry<JsonPackageValidPackageDefinition>
-	/**
 	 * Enforce that the `packageManager` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-packageManager.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-packageManager
 	 */
 	'json-package/valid-packageManager'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `peerDependencies` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-peerDependencies.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-peerDependencies
 	 */
 	'json-package/valid-peerDependencies'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the `peerDependenciesMeta` property is valid.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-peerDependenciesMeta
+	 */
+	'json-package/valid-peerDependenciesMeta'?: Linter.RuleEntry<[]>
+	/**
+	 * Enforces that any dependencies declared in `peerDependenciesMeta` are also
+	 * defined in the package's `peerDependencies`.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-peerDependenciesMeta-relationship
+	 */
+	'json-package/valid-peerDependenciesMeta-relationship'?: Linter.RuleEntry<[]>
+	/**
 	 * Enforce that the `private` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-private.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-private
 	 */
 	'json-package/valid-private'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `publishConfig` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-publishConfig.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-publishConfig
 	 */
 	'json-package/valid-publishConfig'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `repository` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-repository.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-repository
 	 */
 	'json-package/valid-repository'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that if repository directory is specified, it matches the path to
 	 * the package.json file
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-repository-directory.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-repository-directory
 	 */
 	'json-package/valid-repository-directory'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `scripts` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-scripts.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-scripts
 	 */
 	'json-package/valid-scripts'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `sideEffects` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-sideEffects.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-sideEffects
 	 */
 	'json-package/valid-sideEffects'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `type` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-type.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-type
 	 */
 	'json-package/valid-type'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that package versions are valid semver specifiers
+	 * Enforce that the `version` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-version.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-version
 	 */
 	'json-package/valid-version'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce that the `workspaces` property is valid.
 	 *
-	 * @see https://github.com/michaelfaith/eslint-plugin-package-json/blob/HEAD/docs/rules/valid-workspaces.md
+	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-workspaces
 	 */
 	'json-package/valid-workspaces'?: Linter.RuleEntry<[]>
 	/**
@@ -12613,7 +12661,7 @@ type JsonPackageOrderProperties =
 	| []
 	| [
 			{
-				order?: ('legacy' | 'sort-package-json') | string[]
+				order?: 'sort-package-json' | string[]
 			},
 	  ]
 // ----- json-package/repository-shorthand -----
@@ -12650,6 +12698,14 @@ type JsonPackageRequireBin =
 				ignorePrivate?: boolean
 			},
 	  ]
+// ----- json-package/require-browser -----
+type JsonPackageRequireBrowser =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/require-bugs -----
 type JsonPackageRequireBugs =
 	| []
@@ -12660,6 +12716,14 @@ type JsonPackageRequireBugs =
 	  ]
 // ----- json-package/require-bundleDependencies -----
 type JsonPackageRequireBundleDependencies =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-config -----
+type JsonPackageRequireConfig =
 	| []
 	| [
 			{
@@ -12754,6 +12818,14 @@ type JsonPackageRequireFunding =
 				ignorePrivate?: boolean
 			},
 	  ]
+// ----- json-package/require-gypfile -----
+type JsonPackageRequireGypfile =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/require-homepage -----
 type JsonPackageRequireHomepage =
 	| []
@@ -12764,6 +12836,14 @@ type JsonPackageRequireHomepage =
 	  ]
 // ----- json-package/require-keywords -----
 type JsonPackageRequireKeywords =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-libc -----
+type JsonPackageRequireLibc =
 	| []
 	| [
 			{
@@ -12956,14 +13036,6 @@ type JsonPackageRestrictTopLevelProperties =
 	  ]
 // ----- json-package/sort-collections -----
 type JsonPackageSortCollections = [] | [string[]]
-// ----- json-package/valid-package-definition -----
-type JsonPackageValidPackageDefinition =
-	| []
-	| [
-			{
-				ignoreProperties?: string[]
-			},
-	  ]
 // ----- json/array-bracket-newline -----
 type JsonArrayBracketNewline =
 	| []

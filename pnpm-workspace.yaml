@@ -1,8 +1,6 @@
 packages:
   - packages/*
-
 ignoreWorkspaceRootCheck: true
-
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -14,12 +12,12 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
-
 overrides:
+  # See https://github.com/arethetypeswrong/arethetypeswrong.github.io/issues/258 https://github.com/101arrowz/fflate/issues/258
+  fflate: 0.8.2
   normalize-package-data: ^8.0.0
 allowBuilds:
   esbuild: true
   oxc-resolver: true
   puppeteer: true
   unrs-resolver: true
-  rollup: false

@@ -38,7 +38,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1100.0.7",
+		"@pnpm/lockfile.fs": "^1100.0.8",
 		"cosmiconfig": "^9.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
@@ -55,7 +55,7 @@
 		"yargs": "^18.0.0"
 	},
 	"engines": {
-		"node": ">=22.18.0"
+		"node": "^22.22.2 || >=24.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

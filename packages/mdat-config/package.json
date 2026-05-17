@@ -59,14 +59,14 @@
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.3.5",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^2.3.2",
+		"mdat": "^2.3.4",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.3",
 		"yargs": "^18.0.0"
 	},
 	"engines": {
-		"node": ">=22.18.0"
+		"node": "^22.22.2 || >=24.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
