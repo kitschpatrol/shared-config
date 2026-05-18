@@ -94,11 +94,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       mdat:
-        specifier: ^2.3.4
-        version: 2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
+        specifier: ^2.3.5
+        version: 2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
       mdat-plugin-cli-help:
         specifier: ^3.0.1
-        version: 3.0.1(mdat@2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3))
+        version: 3.0.1(mdat@2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3))
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -459,8 +459,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       mdat:
-        specifier: ^2.3.4
-        version: 2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
+        specifier: ^2.3.5
+        version: 2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -837,8 +837,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       mdat:
-        specifier: ^2.3.4
-        version: 2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
+        specifier: ^2.3.5
+        version: 2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -1019,8 +1019,8 @@ packages:
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
 
-  '@cacheable/memory@2.0.8':
-    resolution: {integrity: sha512-FvEb29x5wVwu/Kf93IWwsOOEuhHh6dYCJF3vcKLzXc0KXIW181AOzv6ceT4ZpBHDvAfG60eqb+ekmrnLHIy+jw==}
+  '@cacheable/memory@2.0.9':
+    resolution: {integrity: sha512-HdMx6DoGywB30vacDbBsITbIX4pgFqj1zsrV58jZBUw3klzkNoXhj7qOqAgledhxG7YZI5rBSJg7Zp8/VG0DuA==}
 
   '@cacheable/utils@2.4.1':
     resolution: {integrity: sha512-eiFgzCbIneyMlLOmNG4g9xzF7Hv3Mga4LjxjcSC/ues6VYq2+gUbQI8JqNuw/ZM8tJIeIaBGpswAsqV2V7ApgA==}
@@ -4800,8 +4800,8 @@ packages:
     peerDependencies:
       mdat: ^2.0.0
 
-  mdat@2.3.4:
-    resolution: {integrity: sha512-RMovlbWvX4wNrFLqCemAgQFH23t6eb7E0PFJWWace4jHO6D1iqnSZVG9EiybB2P4BCqAvMM2nCRVw4ezu/n+Zg==}
+  mdat@2.3.5:
+    resolution: {integrity: sha512-90OHI0UbgwaXWs7BMo/0f6osFV9LOcPeh/1nd9nLSRUh1ZLftEPqY+uSMJEF0rk6mHkf+/yw1z0IeFP/49AjwQ==}
     engines: {node: '>=22.17.0'}
     hasBin: true
     peerDependencies:
@@ -4824,8 +4824,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  metascope@0.7.6:
-    resolution: {integrity: sha512-JYlx0yLygYguxJp7rVcxlOdb0GUJDDF53bJ7iC7cNuJVbZOfTl1at5ZgdNrpAJiRi3UYTbeE4HRrjMsCW6+Ziw==}
+  metascope@0.8.0:
+    resolution: {integrity: sha512-AejeROkasDlg4vW4lX3ojfOmA18MQlErvuFl5SBLZkSHjzhLwVaufxJGG+bp8NK3IeYagcWIkKqItegVI+ySkg==}
     engines: {node: '>=22.17.0'}
     hasBin: true
 
@@ -6687,7 +6687,7 @@ snapshots:
 
   '@braidai/lang@1.1.2': {}
 
-  '@cacheable/memory@2.0.8':
+  '@cacheable/memory@2.0.9':
     dependencies:
       '@cacheable/utils': 2.4.1
       '@keyv/bigmap': 1.3.1(keyv@5.6.0)
@@ -8613,7 +8613,7 @@ snapshots:
 
   cacheable@2.3.5:
     dependencies:
-      '@cacheable/memory': 2.0.8
+      '@cacheable/memory': 2.0.9
       '@cacheable/utils': 2.4.1
       hookified: 1.15.1
       keyv: 5.6.0
@@ -10774,20 +10774,20 @@ snapshots:
       unist-util-is: 6.0.1
       unist-util-visit: 5.1.0
 
-  mdat-plugin-cli-help@3.0.1(mdat@2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)):
+  mdat-plugin-cli-help@3.0.1(mdat@2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)):
     dependencies:
       '@types/which': 3.0.4
       chevrotain: 12.0.0
       execa: 9.6.1
       lognow: 0.6.2
-      mdat: 2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
+      mdat: 2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3)
       type-fest: 5.6.0
       which: 7.0.0
       zod: 4.4.3
     transitivePeerDependencies:
       - electron
 
-  mdat@2.3.4(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3):
+  mdat@2.3.5(@types/node@22.19.19)(prettier@3.8.3)(typescript@5.9.3):
     dependencies:
       '@clack/prompts': 1.4.0
       cosmiconfig: 9.0.1(typescript@5.9.3)
@@ -10796,7 +10796,7 @@ snapshots:
       globby: 16.2.0
       lognow: 0.6.2
       mdast-util-toc: 7.1.0
-      metascope: 0.7.6
+      metascope: 0.8.0
       path-type: 6.0.0
       picocolors: 1.1.1
       plur: 6.0.0
@@ -10829,7 +10829,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  metascope@0.7.6:
+  metascope@0.8.0:
     dependencies:
       '@bacons/xcode': 1.0.0-alpha.33
       '@kitschpatrol/tokei': 2.0.1
