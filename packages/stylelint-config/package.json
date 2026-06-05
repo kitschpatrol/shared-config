@@ -59,8 +59,8 @@
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.8.3",
-		"stylelint": "^17.11.1",
-		"stylelint-config-clean-order": "^8.0.1",
+		"stylelint": "^17.12.0",
+		"stylelint-config-clean-order": "^10.0.0",
 		"stylelint-config-html": "^1.1.0",
 		"stylelint-config-standard": "^40.0.0",
 		"yargs": "^18.0.0"

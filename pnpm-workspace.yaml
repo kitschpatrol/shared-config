@@ -13,9 +13,7 @@ publicHoistPattern:
   - '*remark*'
   - '*stylelint*'
 overrides:
-  # See https://github.com/arethetypeswrong/arethetypeswrong.github.io/issues/258 https://github.com/101arrowz/fflate/issues/258
-  fflate: 0.8.2
-  normalize-package-data: ^8.0.0
+  normalize-package-data: ^9.0.0
 allowBuilds:
   esbuild: true
   oxc-resolver: true

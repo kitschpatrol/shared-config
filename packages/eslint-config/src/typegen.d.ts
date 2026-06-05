@@ -495,7 +495,6 @@ export interface RuleOptions {
 	curly?: Linter.RuleEntry<Curly>
 	/**
 	 * Transforms the negation of a conjunction !(A && B) into the equivalent !A
-	 *
 	 * || !B according to De Morgan’s law
 	 *
 	 * @see https://github.com/azat-io/eslint-plugin-de-morgan/blob/main/docs/no-negated-conjunction.md
@@ -2051,6 +2050,13 @@ export interface RuleOptions {
 	 */
 	'json-package/no-empty-fields'?: Linter.RuleEntry<JsonPackageNoEmptyFields>
 	/**
+	 * Requires that dependencies do not use local file paths, which will likely
+	 * result in errors when installing from a registry.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/no-local-dependencies
+	 */
+	'json-package/no-local-dependencies'?: Linter.RuleEntry<JsonPackageNoLocalDependencies>
+	/**
 	 * Prevents adding unnecessary / redundant files.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/no-redundant-files
@@ -2262,6 +2268,12 @@ export interface RuleOptions {
 	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-peerDependencies
 	 */
 	'json-package/require-peerDependencies'?: Linter.RuleEntry<JsonPackageRequirePeerDependencies>
+	/**
+	 * Requires the `peerDependenciesMeta` property to be present.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-peerDependenciesMeta
+	 */
+	'json-package/require-peerDependenciesMeta'?: Linter.RuleEntry<JsonPackageRequirePeerDependenciesMeta>
 	/**
 	 * Requires the `private` property to be present.
 	 *
@@ -7058,6 +7070,12 @@ export interface RuleOptions {
 	 */
 	'svelte/no-navigation-without-resolve'?: Linter.RuleEntry<SvelteNoNavigationWithoutResolve>
 	/**
+	 * Disallow `<style>` elements nested inside other elements or blocks
+	 *
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-nested-style-tag/
+	 */
+	'svelte/no-nested-style-tag'?: Linter.RuleEntry<[]>
+	/**
 	 * Disallow use of not function in event handler
 	 *
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-not-function-handler/
@@ -7198,6 +7216,12 @@ export interface RuleOptions {
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-const/
 	 */
 	'svelte/prefer-const'?: Linter.RuleEntry<SveltePreferConst>
+	/**
+	 * Disallow unnecessary `$derived.by()` when `$derived()` is sufficient
+	 *
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-derived-over-derived-by/
+	 */
+	'svelte/prefer-derived-over-derived-by'?: Linter.RuleEntry<[]>
 	/**
 	 * Destructure values from object stores for better change tracking & fewer
 	 * redraws
@@ -10857,6 +10881,7 @@ type HtmlAttrsNewline =
 			{
 				closeStyle?: 'newline' | 'sameline'
 				ifAttrsMoreThan?: number
+				maxLen?: number
 				skip?: string[]
 				inline?: string[]
 			},
@@ -11045,6 +11070,7 @@ type HtmlSortAttrs =
 					| string
 					| {
 							pattern: string
+							order?: 'preserve' | 'alphabetically'
 					  }
 				)[]
 			},
@@ -12656,6 +12682,14 @@ type JsonPackageNoEmptyFields =
 				ignoreProperties?: string[]
 			},
 	  ]
+// ----- json-package/no-local-dependencies -----
+type JsonPackageNoLocalDependencies =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
 // ----- json-package/order-properties -----
 type JsonPackageOrderProperties =
 	| []
@@ -12916,6 +12950,14 @@ type JsonPackageRequirePackageManager =
 	  ]
 // ----- json-package/require-peerDependencies -----
 type JsonPackageRequirePeerDependencies =
+	| []
+	| [
+			{
+				ignorePrivate?: boolean
+			},
+	  ]
+// ----- json-package/require-peerDependenciesMeta -----
+type JsonPackageRequirePeerDependenciesMeta =
 	| []
 	| [
 			{

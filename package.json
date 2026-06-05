@@ -47,7 +47,7 @@
 		"test": "vitest run"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.2",
+		"@arethetypeswrong/core": "^0.18.3",
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
 		"@kitschpatrol/knip-config": "workspace:*",
@@ -59,10 +59,10 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.types": "^1100.0.5",
+		"@pnpm/lockfile.types": "^1100.0.8",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "~22.19.19",
-		"@types/react": "^19.2.14",
+		"@types/react": "^19.2.15",
 		"@types/semver": "^7.7.1",
 		"@types/yargs": "^17.0.35",
 		"bumpp": "^11.1.0",
@@ -81,13 +81,13 @@
 		"prettier": "^3.8.3",
 		"publint": "^0.3.21",
 		"shx": "^0.4.0",
-		"tsdown": "^0.22.0",
-		"tsx": "^4.22.1",
+		"tsdown": "^0.22.1",
+		"tsx": "^4.22.3",
 		"typescript": "~5.9.3",
-		"vitest": "^4.1.6",
+		"vitest": "^4.1.7",
 		"yargs": "^18.0.0"
 	},
-	"packageManager": "pnpm@11.1.2",
+	"packageManager": "pnpm@11.5.0",
 	"engines": {
 		"node": "^22.22.2 || >=24.0.0"
 	}
