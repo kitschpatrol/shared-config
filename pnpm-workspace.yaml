@@ -19,3 +19,8 @@ allowBuilds:
   oxc-resolver: true
   puppeteer: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/*'
+  - mdat
+  - mdat-plugin-cli-help
+  - remark-mdat

@@ -82,6 +82,7 @@ côte
 côte&ciel
 Crestron
 Cydwoq
+dailymotion
 Daiso
 Danspace
 Datomic
@@ -217,6 +218,7 @@ nytimes
 Ohaus
 Oishii
 Oncorus
+onenote
 Optery
 Optimo
 Optoma

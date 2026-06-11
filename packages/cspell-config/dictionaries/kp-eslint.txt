@@ -45,6 +45,7 @@ replaceall
 sameline
 selectrange
 setstate
+shellcheck
 spinbutton
 statfs
 supportedvaluesof

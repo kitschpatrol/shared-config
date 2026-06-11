@@ -24,10 +24,12 @@ refspec
 rhtml
 tfstate
 tfvars
+tmpl
 tmpv
 tzdb
 usdz
 venv
+viminfo
 vimrc
 vmwarevm
 wgsl

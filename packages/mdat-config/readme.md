@@ -211,6 +211,19 @@ Config is merged in priority order: shared defaults < per-call overrides (via md
 
 The Mdat module is cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
 
+## Troubleshooting
+
+### `No readme found` errors
+
+Running `ksc-mdat fix` can sometimes throw this error in complex repos that have additional `package.json` files that are not actually defining additional packages in the monorepo, e.g. a `package.json` that's part of a test fixture or demo project.
+
+In these cases, make sure your workspace is explicitly defined in your `pnpm-workspace.yaml`, even if there's just one package in the repo:
+
+```yml
+packages:
+  - '.'
+```
+
 <!-- license -->
 
 ## License

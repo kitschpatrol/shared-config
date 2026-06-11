@@ -25,6 +25,7 @@ assed
 autofiction
 autophagic
 Ayurvedic
+backgrounding
 badass
 Barcade
 barramundi
@@ -78,6 +79,7 @@ cutz
 cyberia
 cyberstates
 Danby
+deadend
 delaminating
 dicked
 dinero
@@ -178,6 +180,7 @@ Muséum
 naology
 neuro
 Neuromancer
+nihilo
 Ninefox
 nomin
 nori
@@ -292,5 +295,6 @@ youmean
 zettelkasten
 ziptie
 Zofran
+zoomable
 zoomer
 zoomers

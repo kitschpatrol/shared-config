@@ -48,7 +48,7 @@
 		"test": "vitest run"
 	},
 	"dependencies": {
-		"@kitschpatrol/prettier-plugin-astro": "0.14.1-fork.2",
+		"@kitschpatrol/prettier-plugin-astro": "0.14.1-fork.5",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@prettier/plugin-php": "^0.25.0",
 		"@prettier/plugin-ruby": "^4.0.4",
@@ -71,7 +71,7 @@
 		"prettier-plugin-svelte": "^3.5.2",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"prettier-plugin-toml": "^2.0.6",
-		"sort-package-json": "^3.6.1",
+		"sort-package-json": "^4.0.0",
 		"yargs": "^18.0.0"
 	},
 	"engines": {

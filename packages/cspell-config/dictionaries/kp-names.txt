@@ -60,6 +60,7 @@ andycb
 Anella
 Ango
 Anja
+ankane
 Ankeny
 Annaeus
 Ansari
@@ -390,6 +391,7 @@ Emerick
 emisjerry
 Enault
 Endy
+enes
 Engelbart
 Engst
 Enso
@@ -631,6 +633,7 @@ Ippudo
 Irina
 Irisch
 Isaacson
+ishii
 Isono
 Issey
 Italo
@@ -729,6 +732,7 @@ Kiritimati
 Kishfy
 Kishle
 Kitano
+kitlangton
 kitschpatrol
 Kitts
 Kleinberger
@@ -851,6 +855,7 @@ Lrai
 L’Rai
 Ludion
 Luiz
+lukechilds
 Lumpur
 Lupton
 Lutz
@@ -1090,6 +1095,7 @@ Paolo
 Paounov
 Papia
 Paradis
+paulmillr
 Pavel
 Pawel
 Pawlikowski
@@ -1172,6 +1178,7 @@ repalash
 Resnick
 Resy
 Reza
+rhettbull
 Riano
 Rica
 Ridhi
@@ -1195,6 +1202,7 @@ Róis
 Rokeby
 Romare
 Romie
+romkatv
 ronaldpr
 Ronin
 Roopa
@@ -1321,6 +1329,7 @@ Söhne
 Soleri
 SolidGoldMagikarp
 Soman
+sørensen
 Sorhus
 Sout
 Sova
@@ -1406,6 +1415,7 @@ Terzoula
 Tetzeli
 Thacker
 Thakar
+thakur
 Thao
 Theiner
 Theo

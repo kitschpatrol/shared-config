@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
-**A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single CLI command.**
+**A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency. All invoked via a single CLI command.**
 
 ## Table of contents
 

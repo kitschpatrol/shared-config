@@ -10,7 +10,7 @@
 
 <!-- description -->
 
-**A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single CLI command.**
+**A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency. All invoked via a single CLI command.**
 
 <!-- /description -->
 
