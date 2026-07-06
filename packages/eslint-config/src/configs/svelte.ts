@@ -62,6 +62,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 					'error',
 					{
 						case: 'pascalCase',
+						checkDirectories: false,
 						ignore: [
 							String.raw`^\+`, // SvelteKit +page.svelte etc.
 						],
@@ -98,6 +99,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 						cases: {
 							camelCase: true,
 						},
+						checkDirectories: false,
 					},
 				],
 			},

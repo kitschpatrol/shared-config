@@ -213,7 +213,7 @@ The ESLint module and instances are cached internally for performance across mul
 
 ## Notes
 
-Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
+Regrettably the `eslint-config init --location package` option is not supported due to ESLint's removal of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
 ### Origins
 

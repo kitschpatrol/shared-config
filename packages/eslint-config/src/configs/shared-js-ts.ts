@@ -215,8 +215,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'no-await-in-loop': 'off',
+		'no-else-return': 'off', // Superseded by unicorn/no-useless-else
 		// TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
 		'no-unreachable': 'warn',
+		'no-useless-concat': 'off', // Superseded by unicorn/no-useless-concat
 		'no-warning-comments': 'off',
 		'node/hashbang': 'off',
 		'node/no-extraneous-import': 'off',
@@ -227,6 +229,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		// Too many false positives
 		'node/no-unpublished-import': 'off',
 		'node/no-unsupported-features/node-builtins': 'error',
+		'operator-assignment': 'off', // Superseded by unicorn/operator-assignment
 		'perfectionist/sort-imports': [
 			'error',
 			{
@@ -421,11 +424,11 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			},
 		],
 		'ts/sort-type-constituents': 'off', // Conflicts with perfectionist/sort-intersection-types
+		'unicorn/consistent-boolean-name': 'off', // Superseded by ts/naming-convention boolean prefix enforcement
+		'unicorn/consistent-class-member-order': 'off', // Conflicts with perfectionist/sort-classes
+		'unicorn/filename-case': ['error', { checkDirectories: false }], // Directory checking is too aggressive for consumers
 		'unicorn/import-style': 'off', // Conflicts with import/consistent-type-specifier-style prefer-top-level
-		'unicorn/prefer-math-trunc': 'off', // Superseded by math/prefer-math-trunc
-		'unicorn/prefer-modern-math-apis': 'off', // Superseded by eslint-plugin-math
-		'unicorn/prefer-number-properties': 'off', // Superseded by eslint-plugin-math
-		'unicorn/prevent-abbreviations': [
+		'unicorn/name-replacements': [
 			'error',
 			{
 				replacements: {
@@ -456,6 +459,12 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				},
 			},
 		],
+		'unicorn/no-top-level-assignment-in-function': 'off', // Module-level memoization and caching are accepted patterns
+		'unicorn/prefer-math-trunc': 'off', // Superseded by math/prefer-math-trunc
+		'unicorn/prefer-modern-math-apis': 'off', // Superseded by eslint-plugin-math
+		'unicorn/prefer-number-is-safe-integer': 'off', // Superseded by math/prefer-number-is-safe-integer
+		'unicorn/prefer-number-properties': 'off', // Superseded by eslint-plugin-math
+		'unicorn/prefer-type-literal-last': 'off', // Conflicts with perfectionist/sort-union-types and sort-intersection-types
 	},
 	settings: {
 		// Do NOT need to rename these settings

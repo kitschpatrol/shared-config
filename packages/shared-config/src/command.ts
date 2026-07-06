@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import type { CommandCli, CommandDefinition, Commands } from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
 import { kebabCase } from '../../../src/string-utilities.js'

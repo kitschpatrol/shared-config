@@ -47,7 +47,7 @@ export const commandDefinition: CommandDefinition = {
 			positionalArgumentMode: 'optional',
 		},
 		init: {
-			// ESLint 9 does not support configuration in package.json
+			// ESLint does not support configuration in package.json
 			locationOptionFlag: false,
 		},
 		lint: {

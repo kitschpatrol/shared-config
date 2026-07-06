@@ -23,7 +23,7 @@ export type ForegroundColor =
 	| 'yellow'
 	| 'yellowBright'
 
-const LINE_SPLIT_REGEX = /\r?\n/
+const LINE_SPLIT_REGEX = /\r?\n/v
 /**
  * Creates a transform stream that filters out lines that match the given
  * matcher. VT control characters are stripped before matching.
@@ -36,8 +36,7 @@ export function createStreamFilter(matcher: (text: string) => boolean): Transfor
 				.split(LINE_SPLIT_REGEX)
 				.filter((line) => line.trim() !== '' && !matcher(stripVTControlCharacters(line)))
 				.join('\n')
-			this.push(filtered + '\n')
-			callback()
+			callback(undefined, filtered + '\n')
 		},
 	})
 }
@@ -49,6 +48,13 @@ export function createStreamTransform(
 	logPrefix: string | undefined,
 	logColor?: ForegroundColor,
 ): Transform {
+	const prefix =
+		logPrefix === undefined || logPrefix === ''
+			? ''
+			: logColor === undefined
+				? logPrefix
+				: picocolors[logColor](logPrefix)
+
 	return new Transform({
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
 			const lines: string[] = chunk
@@ -56,15 +62,9 @@ export function createStreamTransform(
 				.split(LINE_SPLIT_REGEX)
 				.filter((line) => line.trim().length > 0)
 
-			const transformed = lines
-				.map(
-					(line) =>
-						`${logPrefix ? (logColor === undefined ? logPrefix : picocolors[logColor](logPrefix)) : ''} ${line}\n`,
-				)
-				.join('')
+			const transformed = lines.map((line) => `${prefix} ${line}\n`).join('')
 
-			this.push(transformed)
-			callback()
+			callback(undefined, transformed)
 		},
 	})
 }
@@ -75,9 +75,10 @@ export function createStreamTransform(
 export async function streamToString(stream: Stream): Promise<string> {
 	const chunks: Uint8Array[] = []
 	return new Promise((resolve, reject) => {
-		stream.on('data', (chunk: Uint8Array) => chunks.push(chunk))
+		stream.on('data', (chunk: Uint8Array) => {
+			chunks.push(chunk)
+		})
 		stream.on('error', (error) => {
-			// eslint-disable-next-line ts/no-unsafe-type-assertion
 			reject(error as Error)
 		})
 		stream.on('end', () => {

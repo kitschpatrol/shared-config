@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import type { CosmiconfigResult } from 'cosmiconfig'
 import type internal from 'node:stream'
 import type { Argv } from 'yargs'
@@ -128,8 +126,6 @@ async function executeFunctionCommand(
 	command: CommandFunction,
 	verbose?: boolean,
 ): Promise<number> {
-	let exitCode = 1 // Assume failure
-
 	// Add to the log stream if desired
 	let targetStream: NodeJS.WritableStream
 
@@ -150,13 +146,11 @@ async function executeFunctionCommand(
 	}
 
 	try {
-		exitCode = await command.execute(targetStream, positionalArguments, optionFlags)
+		return await command.execute(targetStream, positionalArguments, optionFlags)
 	} catch (error) {
 		console.error(String(error))
-		exitCode = 1
+		return 1
 	}
-
-	return exitCode
 }
 
 async function executeCliCommand(
@@ -213,7 +207,7 @@ async function executeCliCommand(
 			env: {
 				// Use colorful output unless NO_COLOR is set
 				// eslint-disable-next-line ts/naming-convention
-				...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
+				...(process.env.NO_COLOR === undefined && { FORCE_COLOR: 'true' }),
 				// Quiet Node when processing *.config.ts files in Node 22
 				// Suppress experimental type stripping warning with --no-warnings
 				// TODO what's the story here on Node 20?
@@ -247,7 +241,7 @@ async function executeCliCommand(
 		if (command.prettyJsonOutput) {
 			cliTargetStream.end()
 			// TODO is this a bad cast?
-			// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 			const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream)
 			const prettyAndColorfulJsonLines = stringify(JSON.parse(jsonString)).split('\n')
 			for (const line of prettyAndColorfulJsonLines) {
@@ -273,7 +267,7 @@ function isCommandFunction(command: Command): command is CommandFunction {
 	return 'execute' in command
 }
 
-const KSC_PREFIX_REGEX = /^ksc-/
+const KSC_PREFIX_REGEX = /^ksc-/v
 
 /** Strip `ksc-` prefix for flexible name matching. */
 function normalizeCommandName(name: string): string {
@@ -353,12 +347,11 @@ export async function executeCommands(
 	// Always show skipped feedback when tools were skipped, even if showSummary is false
 	if (skippedCommands.length > 0) {
 		const skippedNames = skippedCommands.map(({ name }) => name)
+		const skippedSummary = picocolors.bold(
+			`${skippedNames.length} / ${totalCommands} ${pluralize('Command', skippedNames.length)} Skipped:`,
+		)
 		logStream.write(
-			`⏭️ ${picocolors.dim(
-				picocolors.bold(
-					`${skippedNames.length} / ${totalCommands} ${pluralize('Command', skippedNames.length)} Skipped:`,
-				),
-			)} ${picocolors.dim(skippedNames.join(', '))}\n`,
+			`⏭️ ${picocolors.dim(skippedSummary)} ${picocolors.dim(skippedNames.join(', '))}\n`,
 		)
 	}
 
@@ -371,22 +364,20 @@ export async function executeCommands(
 			.map(({ name }) => name)
 
 		if (successfulCommands.length > 0) {
+			const successSummary = picocolors.bold(
+				`${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
+			)
 			logStream.write(
-				`✅ ${picocolors.green(
-					picocolors.bold(
-						`${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
-					),
-				)} ${picocolors.green(successfulCommands.join(', '))}\n`,
+				`✅ ${picocolors.green(successSummary)} ${picocolors.green(successfulCommands.join(', '))}\n`,
 			)
 		}
 
 		if (failedCommands.length > 0) {
+			const failedSummary = picocolors.bold(
+				`${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
+			)
 			logStream.write(
-				`❌ ${picocolors.red(
-					picocolors.bold(
-						`${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
-					),
-				)} ${picocolors.red(failedCommands.join(', '))}\n`,
+				`❌ ${picocolors.red(failedSummary)} ${picocolors.red(failedCommands.join(', '))}\n`,
 			)
 		}
 	}
@@ -429,13 +420,9 @@ async function copyAndMergeInitFiles(
 		if (hasConfigLocationOption) {
 			const configKey = Object.keys(configPackageJson)[0]
 
-			if (location === 'package') {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
-				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
-					string,
-					unknown
-				>
+			const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<string, unknown>
 
+			if (location === 'package') {
 				// Merge json into package.json
 				logStream.write(
 					`Merging: \nPackage config key "${configKey}" → "${destination}" (Because --location is set to "package")\n`,
@@ -443,23 +430,15 @@ async function copyAndMergeInitFiles(
 				const mergedPackageJson = merge(destinationPackageJson, configPackageJson)
 				fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: '\t' })
 				await formatFileInPlace(destinationPackage)
-			} else {
+			} else if (Object.keys(destinationPackageJson).includes(configKey)) {
 				// Removing configuration key from package.json
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
-				const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
-					string,
-					unknown
-				>
-
-				if (Object.keys(destinationPackageJson).includes(configKey)) {
-					logStream.write(
-						`Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,
-					)
-					// eslint-disable-next-line ts/no-dynamic-delete
-					delete destinationPackageJson[configKey]
-					fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: '\t' })
-					await formatFileInPlace(destinationPackage)
-				}
+				logStream.write(
+					`Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,
+				)
+				// eslint-disable-next-line ts/no-dynamic-delete
+				delete destinationPackageJson[configKey]
+				fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: '\t' })
+				await formatFileInPlace(destinationPackage)
 			}
 		}
 
@@ -478,22 +457,26 @@ async function copyAndMergeInitFiles(
 		logStream.write(`Adding initial configuration files from:\n"${source}" → "${destination}"\n`)
 
 		await fse.copy(source, destination, {
-			async filter(source, destination) {
-				const isFile = fs.statSync(source).isFile()
-				const destinationExists = fs.existsSync(destination)
+			async filter(sourcePath, destinationPath) {
+				const isFile = fs.statSync(sourcePath).isFile()
+				const destinationExists = fs.existsSync(destinationPath)
 
 				if (isFile) {
 					// Special case to skip copying config files to root if --location is set to package
-					if (hasConfigLocationOption && location === 'package' && source.includes(configFile)) {
+					if (
+						hasConfigLocationOption &&
+						location === 'package' &&
+						sourcePath.includes(configFile)
+					) {
 						if (destinationExists) {
 							logStream.write(
-								`Deleting: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+								`Deleting: \n"${sourcePath}" → "${destinationPath}" (Because --location is set to "package")\n`,
 							)
 
-							fse.removeSync(destination)
+							fse.removeSync(destinationPath)
 						} else {
 							logStream.write(
-								`Skipping: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+								`Skipping: \n"${sourcePath}" → "${destinationPath}" (Because --location is set to "package")\n`,
 							)
 						}
 
@@ -503,32 +486,30 @@ async function copyAndMergeInitFiles(
 					// Special case to merge package.json and .vscode json settings files
 					if (
 						destinationExists &&
-						(destination.includes('.vscode/') || destination.includes('package.json')) &&
-						path.extname(destination) === '.json'
+						(destinationPath.includes('.vscode/') || destinationPath.includes('package.json')) &&
+						path.extname(destinationPath) === '.json'
 					) {
 						// Merge
-						logStream.write(`Merging: \n"${source}" → "${destination}"\n`)
+						logStream.write(`Merging: \n"${sourcePath}" → "${destinationPath}"\n`)
 
-						// eslint-disable-next-line ts/no-unsafe-type-assertion
-						const sourceJson = fse.readJSONSync(source) as Record<string, unknown>
-						// eslint-disable-next-line ts/no-unsafe-type-assertion
-						const destinationJson = fse.readJSONSync(destination) as Record<string, unknown>
+						const sourceJson = fse.readJSONSync(sourcePath) as Record<string, unknown>
+						const destinationJson = fse.readJSONSync(destinationPath) as Record<string, unknown>
 						const mergedJson = merge(destinationJson, sourceJson)
 
-						fse.writeJSONSync(destination, mergedJson, { spaces: '\t' })
-						await formatFileInPlace(destination)
+						fse.writeJSONSync(destinationPath, mergedJson, { spaces: '\t' })
+						await formatFileInPlace(destinationPath)
 
 						return false
 					}
 
 					if (destinationExists) {
-						logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`)
-						await formatFileInPlace(destination)
+						logStream.write(`Overwriting: \n"${sourcePath}" → "${destinationPath}"\n`)
+						await formatFileInPlace(destinationPath)
 						return true
 					}
 
-					logStream.write(`Copying: \n"${source}" → "${destination}"\n`)
-					await formatFileInPlace(destination)
+					logStream.write(`Copying: \n"${sourcePath}" → "${destinationPath}"\n`)
+					await formatFileInPlace(destinationPath)
 					return true
 				}
 
@@ -569,15 +550,15 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 
 	if (init !== undefined) {
 		yargsInstance.command({
-			builder(yargs) {
+			builder(yargsBuilder) {
 				const y = init.locationOptionFlag
-					? yargs.option('location', {
+					? yargsBuilder.option('location', {
 							choices: ['file', 'package'],
 							default: 'file',
 							describe: 'Where to store the configuration.',
 							type: 'string',
 						})
-					: yargs
+					: yargsBuilder
 				return showSummary ? addSkipOption(y) : y
 			},
 			command: 'init',
@@ -588,16 +569,15 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 			async handler(argv) {
 				// Copy files
 
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const location = init.locationOptionFlag ? (argv.location as string | undefined) : undefined
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 
 				// Grab context by closure
 				const copyAndMergeInitFilesCommand: CommandFunction = {
-					async execute(logStream, _, optionFlags) {
+					async execute(commandLogStream, _, optionFlags) {
 						return copyAndMergeInitFiles(
-							logStream,
+							commandLogStream,
 							optionFlags.at(1),
 							init.configFile,
 							init.configPackageJson,
@@ -617,22 +597,22 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					skip,
 				)
 
-				process.exit(exitCode)
+				process.exitCode = exitCode
 			},
 		})
 	}
 
 	if (lint !== undefined) {
 		yargsInstance.command({
-			builder(yargs) {
+			builder(yargsBuilder) {
 				const y =
 					lint.positionalArgumentMode === 'none'
-						? yargs
-						: yargs.positional('files', {
+						? yargsBuilder
+						: yargsBuilder.positional('files', {
 								array: true,
-								...(lint.positionalArgumentDefault === undefined
-									? {}
-									: { default: lint.positionalArgumentDefault }),
+								...(lint.positionalArgumentDefault !== undefined && {
+									default: lint.positionalArgumentDefault,
+								}),
 								describe: 'Files or glob pattern to lint.',
 								type: 'string',
 							})
@@ -646,9 +626,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'lint <files..>',
 			describe: lint.description,
 			async handler(argv) {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 				const exitCode = await executeCommands(
 					logStream,
@@ -659,7 +638,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					showSummary,
 					skip,
 				)
-				process.exit(exitCode)
+				process.exitCode = exitCode
 			},
 		})
 	}
@@ -667,15 +646,15 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	// Duplicative of above, but whatever
 	if (fix !== undefined) {
 		yargsInstance.command({
-			builder(yargs) {
+			builder(yargsBuilder) {
 				const y =
 					fix.positionalArgumentMode === 'none'
-						? yargs
-						: yargs.positional('files', {
+						? yargsBuilder
+						: yargsBuilder.positional('files', {
 								array: true,
-								...(fix.positionalArgumentDefault === undefined
-									? {}
-									: { default: fix.positionalArgumentDefault }),
+								...(fix.positionalArgumentDefault !== undefined && {
+									default: fix.positionalArgumentDefault,
+								}),
 								describe: 'Files or glob pattern to fix.',
 								type: 'string',
 							})
@@ -689,9 +668,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'fix <files..>',
 			describe: fix.description,
 			async handler(argv) {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 				const exitCode = await executeCommands(
 					logStream,
@@ -702,21 +680,21 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					undefined,
 					skip,
 				)
-				process.exit(exitCode)
+				process.exitCode = exitCode
 			},
 		})
 	}
 
 	if (printConfig !== undefined) {
 		yargsInstance.command({
-			builder(yargs) {
+			builder(yargsBuilder) {
 				const y =
 					printConfig.positionalArgumentMode === 'none'
-						? yargs
-						: yargs.positional('file', {
-								...(printConfig.positionalArgumentDefault === undefined
-									? {}
-									: { default: printConfig.positionalArgumentDefault }),
+						? yargsBuilder
+						: yargsBuilder.positional('file', {
+								...(printConfig.positionalArgumentDefault !== undefined && {
+									default: printConfig.positionalArgumentDefault,
+								}),
 								describe: 'File or glob pattern to print configuration for.',
 								type: 'string',
 							})
@@ -730,10 +708,9 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						: 'print-config <file>',
 			describe: printConfig.description,
 			async handler(argv) {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const fileArgument = (argv.file as string | undefined) ?? undefined
 				const positionalArguments = fileArgument === undefined ? [] : [fileArgument]
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 
 				const exitCode = await executeCommands(
@@ -745,7 +722,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					showSummary,
 					skip,
 				)
-				process.exit(exitCode)
+				process.exitCode = exitCode
 			},
 		})
 	}

@@ -46,7 +46,10 @@ async function generateMdatReadmeCommands(action: 'check' | 'expand'): Promise<C
 		commands.push({
 			cwdOverride: directory,
 			name: 'mdat',
-			optionFlags: configPath ? ['--config', configPath, '--format'] : ['--format'], // Don't love this
+			optionFlags:
+				configPath === undefined || configPath === ''
+					? ['--format']
+					: ['--config', configPath, '--format'], // Don't love this
 			subcommands: [action],
 		})
 	}

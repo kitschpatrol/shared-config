@@ -97,7 +97,8 @@ describe('CLI basics', () => {
 				reject: false,
 			})
 
-			for (const file of await fse.readdir(tempDirectory)) {
+			const files = await fse.readdir(tempDirectory)
+			for (const file of files) {
 				const fileContent = await fse.readFile(path.join(tempDirectory, file), 'utf8')
 				const originalContent = await fse.readFile(path.join(sourceDirectory, file), 'utf8')
 				expect(fileContent).toEqual(originalContent)
@@ -115,7 +116,8 @@ describe('CLI basics', () => {
 				reject: false,
 			})
 
-			for (const file of await fse.readdir(tempDirectory)) {
+			const files = await fse.readdir(tempDirectory)
+			for (const file of files) {
 				const fileContent = await fse.readFile(path.join(tempDirectory, file), 'utf8')
 				const destinationFilePath = path.join('../', destinationDirectory, path.basename(file))
 

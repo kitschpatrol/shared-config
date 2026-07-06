@@ -1,9 +1,8 @@
 /* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable unicorn/no-useless-undefined */
 import { lint } from 'cspell'
 import { getDefaultConfigLoader } from 'cspell-lib'
 
-const POSSESSIVE_SUFFIX_REGEX = /['\u2019\u2018]s$/
+const POSSESSIVE_SUFFIX_REGEX = /['\u{2019}\u{2018}]s$/v
 
 export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<string[]> {
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)

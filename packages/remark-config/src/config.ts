@@ -131,7 +131,7 @@ import remarkLintStrikethroughMarker from 'remark-lint-strikethrough-marker' // 
 
 export type { Preset as RemarkConfig } from 'unified'
 
-const GFM_ALERT_REGEX = /^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/i
+const GFM_ALERT_REGEX = /^\\(?=\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])/iv
 
 export const remarkSharedConfig: RemarkConfig = {
 	plugins: [
@@ -209,7 +209,7 @@ export const remarkSharedConfig: RemarkConfig = {
 	},
 }
 
-const REMARK_LINT_REGEX = /^remark-lint-/
+const REMARK_LINT_REGEX = /^remark-lint-/v
 
 /**
  * Overrides specific rules in a set of plugins.
@@ -246,8 +246,7 @@ function overrideRules(
 		})
 
 		if (index !== -1) {
-			// eslint-disable-next-line ts/no-unsafe-type-assertion
-			plugins.splice(index, 1, [ruleFunction, newArguments] as Pluggable)
+			plugins[index] = [ruleFunction, newArguments] as Pluggable
 		}
 	}
 

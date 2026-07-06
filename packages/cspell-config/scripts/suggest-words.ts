@@ -55,7 +55,7 @@ async function getSharedConfigWords(): Promise<string[]> {
 	return [...new Set(sharedConfigWords)].toSorted()
 }
 
-const KP_PREFIX_REGEX = /^kp-/
+const KP_PREFIX_REGEX = /^kp-/v
 
 async function getDictionaryCategories(): Promise<string[]> {
 	const categories = await globby('../dictionaries/*.txt', {
@@ -71,7 +71,11 @@ async function getDictionaryCategories(): Promise<string[]> {
 }
 
 async function main() {
-	const searchDirectory = process.argv[2] || '~/Code/'
+	const searchDirectoryArgument = process.argv.at(2)
+	const searchDirectory =
+		searchDirectoryArgument === undefined || searchDirectoryArgument === ''
+			? '~/Code/'
+			: searchDirectoryArgument
 
 	const projectWords = await getWordListsFromProjects(searchDirectory)
 	const sharedConfigWords = await getSharedConfigWords()

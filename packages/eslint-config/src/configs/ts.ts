@@ -23,7 +23,7 @@ export async function ts(
 			name: 'kp/ts/rules',
 			rules: {
 				...sharedScriptConfig.rules,
-				...(typeAware.enabled ? {} : sharedScriptDisableTypeCheckedRules),
+				...(!typeAware.enabled && sharedScriptDisableTypeCheckedRules),
 				'jsdoc/require-param': 'off',
 				'jsdoc/require-returns': 'off',
 				...overrides,

@@ -103,6 +103,7 @@ export async function astro(
 							kebabCase: true,
 							pascalCase: true,
 						},
+						checkDirectories: false,
 						ignore: [String.raw`^\[slug\]\.astro$`],
 					},
 				],

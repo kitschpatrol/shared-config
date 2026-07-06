@@ -12,6 +12,7 @@ import { interopDefault } from '../src/utilities'
 
 type ExpansionConfig = {
 	dotPath: string
+	excludePrefixes: string[]
 	library: string
 }
 
@@ -40,11 +41,21 @@ const delimiters = {
 	end: '// End expansion',
 } as const
 
+const excludeDirectiveRegex = /^exclude:\s*/v
+
 /**
  * Adds new rule expansions where indicated by delimiter comments:
  *
  * @example
  * 	// Begin expansion 'eslint-plugin-jsdoc' 'flat/recommended-typescript-flavor'
+ * 	// Rules will be expanded here...
+ * 	// End expansion
+ *
+ * 	An optional third quoted string excludes rules by prefix (rename logic is
+ * 	applied, but using canonical names is recommended):
+ *
+ * @example
+ * 	// Begin expansion 'eslint-config-xo' '[4].rules' 'exclude: unicorn/, xo/'
  * 	// Rules will be expanded here...
  * 	// End expansion
  *
@@ -80,11 +91,17 @@ async function addNewExpansions(lines: string[]): Promise<string[]> {
  * @returns Array of expanded rule lines
  */
 async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise<string[]> {
-	const { dotPath, library } = expansionConfig
+	const { dotPath, excludePrefixes, library } = expansionConfig
 
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
-	const importedLibrary = (await interopDefault(import(library))) as
-		Record<string, unknown> | unknown[]
+	let importedLibrary = (await interopDefault(import(library))) as
+		| (() => Promise<Record<string, unknown> | unknown[]> | Record<string, unknown> | unknown[])
+		| Record<string, unknown>
+		| unknown[]
+
+	// Some configs (e.g. eslint-config-xo) export a factory function
+	if (typeof importedLibrary === 'function') {
+		importedLibrary = await importedLibrary()
+	}
 
 	// Attempt some common paths... infer 'rules' key for final object
 	const rules: Record<string, unknown> | undefined =
@@ -98,15 +115,21 @@ async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise
 	}
 
 	const renamedRules = renamePluginsInRules(rules, defaultPluginRenaming)
+	const deprecatedRuleEntries = Object.fromEntries(deprecatedRules.map((key) => [key, undefined]))
 	const renamedDeprecatedRules = Object.keys(
-		renamePluginsInRules(
-			Object.fromEntries(deprecatedRules.map((key) => [key, undefined])),
-			defaultPluginRenaming,
-		),
+		renamePluginsInRules(deprecatedRuleEntries, defaultPluginRenaming),
+	)
+	const excludedPrefixEntries = Object.fromEntries(excludePrefixes.map((key) => [key, undefined]))
+	const renamedExcludedPrefixes = Object.keys(
+		renamePluginsInRules(excludedPrefixEntries, defaultPluginRenaming),
 	)
 
 	const jsonLines: string[] = []
 	for (const [key, value] of Object.entries(renamedRules)) {
+		if (renamedExcludedPrefixes.some((excludedPrefix) => key.startsWith(excludedPrefix))) {
+			continue
+		}
+
 		// eslint-disable-next-line ts/no-unsafe-assignment
 		const line = `${JSON.stringify({ [key]: value }).slice(1, -1)},`
 
@@ -157,16 +180,27 @@ async function main() {
  * @throws {Error} If the line doesn't contain proper quote-wrapped strings
  */
 function parseExpansionConfig(line: string): ExpansionConfig {
-	const quoteRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g
+	const quoteRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/gv
 	const matches = line.match(quoteRegex)
 
 	if (matches?.length === undefined || matches.length < 2) {
 		throw new Error(`Invalid expansion config in line: ${line}`)
 	}
 
+	const excludeMatch = matches.at(2)?.replaceAll(/['"]/gv, '')
+	const excludePrefixes =
+		excludeMatch === undefined
+			? []
+			: excludeMatch
+					.replace(excludeDirectiveRegex, '')
+					.split(',')
+					.map((prefix) => prefix.trim())
+					.filter((prefix) => prefix.length > 0)
+
 	return {
-		dotPath: matches[1].replaceAll(/['"]/g, ''),
-		library: matches[0].replaceAll(/['"]/g, ''),
+		dotPath: matches[1].replaceAll(/['"]/gv, ''),
+		excludePrefixes,
+		library: matches[0].replaceAll(/['"]/gv, ''),
 	}
 }
 
@@ -185,7 +219,6 @@ async function processFile(filePath: string): Promise<number | undefined> {
 	}
 
 	const lines = content.split('\n')
-	let ruleCount = 0
 
 	// First pass: Remove existing expansion content
 	const cleanedLines = removeExistingExpansions(lines)
@@ -193,7 +226,7 @@ async function processFile(filePath: string): Promise<number | undefined> {
 	// Second pass: Add new expansions
 	const expandedLines = await addNewExpansions(cleanedLines)
 
-	ruleCount = expandedLines.length - cleanedLines.length
+	const ruleCount = expandedLines.length - cleanedLines.length
 
 	// Format and save the file
 	await formatTextAndSaveFile(filePath, expandedLines.join('\n'))

@@ -12,7 +12,7 @@ function getWorkspaceOptionFlags(): string[] {
 		if (packageDirectory !== workspaceRoot) {
 			// Yes, we are in a subpackage
 			const packagePath = path.relative(workspaceRoot, packageDirectory)
-			if (packagePath) {
+			if (packagePath !== '') {
 				// Knip uses POSIX paths internally for workspace names,
 				// so convert Windows backslashes to forward slashes
 				return ['--workspace', packagePath.split(path.sep).join('/')]

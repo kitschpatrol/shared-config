@@ -31,6 +31,7 @@ maxsafeinteger
 menuitemcheckbox
 menuitemradio
 minsafeinteger
+misrefactored
 multilines
 namepaths
 nonblock
@@ -61,4 +62,5 @@ trimstart
 uncloneable
 waitasync
 weakrefs
+whatwg
 withresolvers

@@ -56,12 +56,12 @@
 		"deepmerge": "^4.3.1",
 		"execa": "^9.6.1",
 		"find-workspaces": "^0.3.1",
-		"fs-extra": "^11.3.5",
+		"fs-extra": "^11.3.6",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"mdast-util-to-markdown": "^2.1.2",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.1",
+		"prettier": "^3.9.4",
 		"remark-attribute-list": "^0.4.0",
 		"remark-directive": "^4.0.0",
 		"remark-frontmatter": "^5.0.0",
@@ -103,7 +103,7 @@
 		"yargs": "^18.0.0"
 	},
 	"engines": {
-		"node": ">=24.0.0"
+		"node": "^24.16.0 || >=26.3.0"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -23,7 +23,7 @@ export async function tsx(
 			name: 'kp/tsx/rules',
 			rules: {
 				...sharedJsxTsxConfig.rules,
-				...(typeAware.enabled ? {} : sharedScriptDisableTypeCheckedRules),
+				...(!typeAware.enabled && sharedScriptDisableTypeCheckedRules),
 				...overrides,
 			},
 		},

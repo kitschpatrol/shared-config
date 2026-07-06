@@ -26,7 +26,7 @@ const configs = await combine(
 	{
 		plugins: {
 			'': {
-				rules: Object.fromEntries(builtinRules.entries()),
+				rules: Object.fromEntries(builtinRules),
 			},
 		},
 	},
@@ -48,7 +48,6 @@ const configs = await combine(
 	yaml(),
 )
 
-// eslint-disable-next-line ts/no-unsafe-type-assertion
 const configNames = configs.map((index) => index.name).filter(Boolean) as string[]
 
 let dts = await flatConfigsToRulesDTS(configs, {

@@ -2,7 +2,7 @@
  * Converts a camelCase string to kebab-case.
  */
 export function kebabCase(text: string): string {
-	return text.replaceAll(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase())
+	return text.replaceAll(/[A-Z\u{C0}-\u{D6}\u{D8}-\u{DE}]/gv, (match) => '-' + match.toLowerCase())
 }
 
 /**

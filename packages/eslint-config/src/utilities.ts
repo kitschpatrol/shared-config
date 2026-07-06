@@ -23,7 +23,7 @@ export async function interopDefault<T>(
 	m: Awaitable<T>,
 ): Promise<T extends { default: infer U } ? U : T> {
 	const resolved = await m
-	// eslint-disable-next-line ts/no-unsafe-return, ts/no-unsafe-member-access, ts/no-explicit-any, ts/no-unsafe-type-assertion
+	// eslint-disable-next-line ts/no-unsafe-return, ts/no-unsafe-member-access, ts/no-explicit-any
 	return (resolved as any).default ?? resolved
 }
 
@@ -38,7 +38,7 @@ export async function interopDefault<T>(
  */
 export function isInEditorEnv(): boolean {
 	// Skip editor detection if running in CI or git hooks
-	if (process.env.CI) {
+	if (process.env.CI !== undefined && process.env.CI !== '') {
 		return false
 	}
 
@@ -97,7 +97,7 @@ export function renamePluginInConfigs(
 		clone.rules &&= renameRules(clone.rules, map)
 		clone.plugins &&= Object.fromEntries(
 			Object.entries(clone.plugins).map(([key, value]) => {
-				if (key in map) {
+				if (Object.hasOwn(map, key)) {
 					return [map[key], value]
 				}
 
@@ -157,6 +157,33 @@ export function toArray<T>(value: T | T[]): T[] {
 }
 
 /**
+ * Builds the element name pattern for a Perfectionist custom group.
+ *
+ * @param string - The string to match
+ * @param matchType - How to match the string
+ *
+ * @returns Regular expression pattern matching the string
+ */
+function getElementNamePattern(
+	string: string,
+	matchType: 'exact' | 'leading' | 'trailing',
+): string {
+	switch (matchType) {
+		case 'exact': {
+			return `^${string}$`
+		}
+
+		case 'leading': {
+			return `^${string}.*$`
+		}
+
+		case 'trailing': {
+			return `^.*${string}$`
+		}
+	}
+}
+
+/**
  * Generates a Perfectionist sort configuration object from an array of strings.
  * Uses the v5.0 array-based customGroups format.
  *
@@ -179,29 +206,10 @@ export function generatePerfectionistSortConfig(
 		allNamesMatchPattern: string
 	}
 } {
-	const customGroups: Array<{ elementNamePattern: string; groupName: string }> = []
-
-	for (const string of strings) {
-		let elementNamePattern: string
-		switch (matchType) {
-			case 'exact': {
-				elementNamePattern = `^${string}$`
-				break
-			}
-
-			case 'leading': {
-				elementNamePattern = `^${string}.*$`
-				break
-			}
-
-			case 'trailing': {
-				elementNamePattern = `^.*${string}$`
-				break
-			}
-		}
-
-		customGroups.push({ elementNamePattern, groupName: string })
-	}
+	const customGroups = strings.map((string) => ({
+		elementNamePattern: getElementNamePattern(string, matchType),
+		groupName: string,
+	}))
 
 	// Generate pattern for useConfigurationIf
 	const exactMatch = strings.join('|')

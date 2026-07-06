@@ -36,8 +36,8 @@ export default eslintConfig(
 			// Don't sort generated preset rules
 			'perfectionist/sort-objects': 'off',
 			'ts/naming-convention': 'off',
+			'unicorn/name-replacements': 'off',
 			'unicorn/no-null': 'off',
-			'unicorn/prevent-abbreviations': 'off',
 		},
 	},
 	{
@@ -62,6 +62,8 @@ export default eslintConfig(
 	{
 		files: ['test/fixtures/output-fixed-manual/*'],
 		rules: {
+			// Fixture files deliberately mix exports with top-level calls
+			'unicorn/no-top-level-side-effects': 'off',
 			// Using these to force ES Modules...
 			'unicorn/require-module-specifiers': 'off',
 		},

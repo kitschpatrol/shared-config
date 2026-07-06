@@ -14,7 +14,6 @@ import { checkForUnusedWords } from './unused-words.js'
 async function getCspellIgnorePaths(): Promise<string> {
 	// Resolve cspell ignore paths for Case Police
 
-	// eslint-disable-next-line unicorn/no-useless-undefined
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
 	if (config === undefined) {
 		throw new Error('No CSpell configuration found.')
@@ -27,12 +26,9 @@ async function getCspellIgnorePaths(): Promise<string> {
 	}
 
 	// Comma-delimited list of paths
-	const globStrings: string[] = []
-
-	// eslint-disable-next-line unicorn/prevent-abbreviations
-	for (const globDefOrString of resolvedConfig.ignorePaths) {
-		globStrings.push(typeof globDefOrString === 'string' ? globDefOrString : globDefOrString.glob)
-	}
+	const globStrings: string[] = Array.from(resolvedConfig.ignorePaths, (ignorePathEntry) =>
+		typeof ignorePathEntry === 'string' ? ignorePathEntry : ignorePathEntry.glob,
+	)
 
 	return globStrings.join(',')
 }
@@ -134,14 +130,12 @@ async function casePoliceCommand(
 }
 
 async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promise<number> {
-	const configName = 'cspell'
-
-	// eslint-disable-next-line unicorn/no-useless-undefined
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
 	if (config === undefined) {
 		throw new Error('No CSpell configuration found.')
 	}
 
+	const configName = 'cspell'
 	logStream.write(`Found ${configName} readme configuration at "${fileURLToPath(config.url)}"\n`)
 
 	const resolvedConfig = await resolveConfigFileImports(config)

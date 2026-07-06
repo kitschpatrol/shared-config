@@ -51,7 +51,7 @@ export async function react(
 			name: 'kp/react/rules',
 			rules: {
 				...reactRecommendedTypeCheckedRules,
-				...(typeAware.enabled ? {} : reactDisableTypeCheckedRules),
+				...(!typeAware.enabled && reactDisableTypeCheckedRules),
 				...overrides,
 			},
 		},

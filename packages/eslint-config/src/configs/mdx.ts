@@ -59,6 +59,7 @@ export async function mdx(
 							kebabCase: true,
 							pascalCase: true,
 						},
+						checkDirectories: false,
 					},
 				],
 				...overrides,

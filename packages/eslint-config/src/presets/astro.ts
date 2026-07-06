@@ -9,6 +9,9 @@ export const astroRecommendedRules: Rules = {
 	'astro/no-deprecated-astro-fetchcontent': 'error',
 	'astro/no-deprecated-astro-resolve': 'error',
 	'astro/no-deprecated-getentrybyslug': 'error',
+	'astro/no-exports-from-components': 'error',
+	'astro/no-omitted-end-tags': 'error',
+	'astro/no-prerender-export-outside-pages': 'error',
 	'astro/no-unused-define-vars-in-style': 'error',
 	'astro/valid-compile': 'error',
 	// End expansion

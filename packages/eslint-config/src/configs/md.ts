@@ -51,7 +51,7 @@ export async function md(
 				// "Error: Could not find ESLint Linter in require cache"
 				'mdx/remark': 'warn',
 				'react/react-in-jsx-scope': 0,
-				'unicorn/filename-case': 'error', // No shouting
+				'unicorn/filename-case': ['error', { checkDirectories: false }], // No shouting
 				...overrides,
 			},
 		},

@@ -34,7 +34,7 @@ export type FileType =
 	| 'zsh'
 	| (string & {})
 
-const PATH_CHARACTER_REGEX = /[./\\]/
+const PATH_CHARACTER_REGEX = /[.\/\\]/v
 
 /** Convert a bare extension to a virtual filepath, or pass through as-is. */
 function resolveFileType(fileType: string): string {

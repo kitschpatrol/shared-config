@@ -28,7 +28,7 @@ export async function js(
 				...sharedScriptConfig.rules,
 				'jsdoc/check-tag-names': 'off',
 				'jsdoc/no-types': 'off',
-				...(typeAware.enabled ? {} : sharedScriptDisableTypeCheckedRules),
+				...(!typeAware.enabled && sharedScriptDisableTypeCheckedRules),
 				...overrides,
 			},
 		},

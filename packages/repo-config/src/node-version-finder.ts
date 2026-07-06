@@ -1,7 +1,4 @@
-/* eslint-disable ts/no-unsafe-argument */
-/* eslint-disable ts/no-unsafe-member-access */
-/* eslint-disable ts/no-unsafe-assignment */
-import type { PackageSnapshots } from '@pnpm/lockfile.types'
+import type { PackageSnapshots, ProjectId } from '@pnpm/lockfile.types'
 import { readWantedLockfile } from '@pnpm/lockfile.fs'
 import fse from 'fs-extra'
 import path from 'node:path'
@@ -71,22 +68,38 @@ function findLockfileDirectory(startDirectory: string): string | undefined {
  * peer-dependency suffixes, e.g. "1001.1.30(@pnpm/logger@1001.0.1)".
  */
 function resolvePackageKey(
-	depName: string,
+	dependencyName: string,
 	versionRef: string,
 	packages: PackageSnapshots,
 ): string | undefined {
 	// Try name@version first (most common)
-	const full = `${depName}@${versionRef}`
-	if (full in packages) {
+	const full = `${dependencyName}@${versionRef}`
+	if (Object.hasOwn(packages, full)) {
 		return full
 	}
 
 	// Try just the version ref (it might already be a full key with peer suffixes)
-	if (versionRef in packages) {
+	if (Object.hasOwn(packages, versionRef)) {
 		return versionRef
 	}
 
 	return undefined
+}
+
+/**
+ * Pick the greater of two optional semver versions, preferring `b` on ties.
+ * Empty strings are treated as missing values.
+ */
+function pickGreaterVersion(a: string | undefined, b: string | undefined): string | undefined {
+	if (a === undefined || a === '') {
+		return b === undefined || b === '' ? undefined : b
+	}
+
+	if (b === undefined || b === '') {
+		return a
+	}
+
+	return gt(a, b) ? a : b
 }
 
 /**
@@ -96,7 +109,7 @@ function resolvePackageKey(
  */
 export async function getMinimumNodeVersions(projectPath: string): Promise<MinimumNodeVersions> {
 	const lockfileDirectory = findLockfileDirectory(projectPath)
-	if (!lockfileDirectory) {
+	if (lockfileDirectory === undefined || lockfileDirectory === '') {
 		throw new Error(`${LOCKFILE_NAME} not found at or above "${projectPath}".`)
 	}
 
@@ -119,7 +132,7 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 	const productionCauses: Record<string, Set<string>> = {}
 	const devCauses: Record<string, Set<string>> = {}
 
-	function getSubtreeMaxNode(depName: string, depRef: string): string | undefined {
+	function getSubtreeMaxNode(dependencyName: string, dependencyRef: string): string | undefined {
 		let treeMaxNode: string | undefined
 		const visited = new Set<string>()
 
@@ -129,34 +142,35 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 			}
 
 			const key = resolvePackageKey(name, versionRef, packages)
-			if (!key || visited.has(key)) {
+			if (key === undefined || key === '' || visited.has(key)) {
 				return
 			}
 
 			visited.add(key)
 
-			// @ts-expect-error - Type issues
-			const pkg = packages[key]
-			const engine = pkg?.engines?.node
+			const pkg = packages[key as keyof PackageSnapshots]
+			const engine = pkg.engines?.node
 
-			if (engine) {
+			if (engine !== undefined && engine !== '') {
 				const pkgMin = minVersion(engine)?.version
-				if (pkgMin && (!treeMaxNode || gt(pkgMin, treeMaxNode))) {
+				if (
+					pkgMin !== undefined &&
+					pkgMin !== '' &&
+					(treeMaxNode === undefined || treeMaxNode === '' || gt(pkgMin, treeMaxNode))
+				) {
 					treeMaxNode = pkgMin
 				}
 			}
 
 			// Traverse transitive dependencies
-			if (pkg?.dependencies) {
+			if (pkg.dependencies) {
 				for (const [childName, childRef] of Object.entries(pkg.dependencies)) {
-					if (typeof childRef === 'string') {
-						traverse(childName, childRef)
-					}
+					traverse(childName, childRef)
 				}
 			}
 		}
 
-		traverse(depName, depRef)
+		traverse(dependencyName, dependencyRef)
 		return treeMaxNode
 	}
 
@@ -164,17 +178,18 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		dependencies: Record<string, string | { version: string }>,
 		isDev: boolean,
 	) {
-		for (const [depName, depRef] of Object.entries(dependencies)) {
-			const versionString = typeof depRef === 'string' ? depRef : depRef.version
-			const treeMax = getSubtreeMaxNode(depName, versionString)
+		for (const [dependencyName, dependencyRef] of Object.entries(dependencies)) {
+			const versionString =
+				typeof dependencyRef === 'string' ? dependencyRef : dependencyRef.version
+			const treeMax = getSubtreeMaxNode(dependencyName, versionString)
 
-			if (treeMax) {
+			if (treeMax !== undefined && treeMax !== '') {
 				const causes = isDev ? devCauses : productionCauses
 				causes[treeMax] ??= new Set()
-				causes[treeMax].add(depName)
+				causes[treeMax].add(dependencyName)
 
 				const currentMax = isDev ? overallDevMax : overallProductionMax
-				if (!currentMax || gt(treeMax, currentMax)) {
+				if (currentMax === undefined || currentMax === '' || gt(treeMax, currentMax)) {
 					if (isDev) {
 						overallDevMax = treeMax
 					} else {
@@ -187,10 +202,10 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 
 	// Only process the importer matching the requested project path, so that
 	// each workspace package gets its own per-package engine constraints.
-	const importerKey = path.relative(lockfileDirectory, projectPath) || '.'
-	// @ts-expect-error - String key
-	const importer = lockfile.importers[importerKey]
-	if (importer) {
+	const relativeProjectPath = path.relative(lockfileDirectory, projectPath)
+	const importerKey = relativeProjectPath === '' ? '.' : relativeProjectPath
+	if (Object.hasOwn(lockfile.importers, importerKey)) {
+		const importer = lockfile.importers[importerKey as ProjectId]
 		if (importer.dependencies) {
 			processDependencies(importer.dependencies, false)
 		}
@@ -200,30 +215,24 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		}
 	}
 
-	const version =
-		overallProductionMax && overallDevMax
-			? gt(overallProductionMax, overallDevMax)
-				? `>=${overallProductionMax}`
-				: `>=${overallDevMax}`
-			: overallProductionMax
-				? `>=${overallProductionMax}`
-				: overallDevMax
-					? `>=${overallDevMax}`
-					: undefined
+	const overallMax = pickGreaterVersion(overallProductionMax, overallDevMax)
+	const version = overallMax === undefined ? undefined : `>=${overallMax}`
 
 	return {
-		dependencies: overallProductionMax
-			? {
-					topLevelCauses: [...productionCauses[overallProductionMax]],
-					version: `>=${overallProductionMax}`,
-				}
-			: undefined,
-		devDependencies: overallDevMax
-			? {
-					topLevelCauses: [...devCauses[overallDevMax]],
-					version: `>=${overallDevMax}`,
-				}
-			: undefined,
+		dependencies:
+			overallProductionMax !== undefined && overallProductionMax !== ''
+				? {
+						topLevelCauses: [...productionCauses[overallProductionMax]],
+						version: `>=${overallProductionMax}`,
+					}
+				: undefined,
+		devDependencies:
+			overallDevMax !== undefined && overallDevMax !== ''
+				? {
+						topLevelCauses: [...devCauses[overallDevMax]],
+						version: `>=${overallDevMax}`,
+					}
+				: undefined,
 		lockfile: lockfilePath,
 		version,
 	}

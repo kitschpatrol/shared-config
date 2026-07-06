@@ -1,5 +1,6 @@
 /* eslint-disable ts/no-unnecessary-type-parameters */
 import type { Linter } from 'eslint'
+import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import globals from 'globals'
 import { isPackageExists } from 'local-pkg'
@@ -90,26 +91,14 @@ export async function eslintConfig(
 
 	const configs: Array<Awaitable<TypedFlatConfigItem[]>> = []
 
-	if (enableGitignore) {
-		if (typeof enableGitignore === 'boolean') {
-			configs.push(
-				interopDefault(import('eslint-config-flat-gitignore')).then((r) => [
-					r({
-						name: 'kp/gitignore',
-						strict: false,
-					}),
-				]),
-			)
-		} else {
-			configs.push(
-				interopDefault(import('eslint-config-flat-gitignore')).then((r) => [
-					r({
-						name: 'kp/gitignore',
-						...enableGitignore,
-					}),
-				]),
-			)
-		}
+	if (enableGitignore !== false) {
+		configs.push(
+			gitignoreConfig(
+				typeof enableGitignore === 'boolean'
+					? { name: 'kp/gitignore', strict: false }
+					: { name: 'kp/gitignore', ...enableGitignore },
+			),
+		)
 	}
 
 	// Base configs
@@ -183,7 +172,7 @@ export async function eslintConfig(
 
 	// Frameworks
 
-	if (enableReact) {
+	if (enableReact !== false) {
 		configs.push(
 			react({
 				overrides: getOverrides(options, 'react'),
@@ -191,7 +180,7 @@ export async function eslintConfig(
 		)
 	}
 
-	if (enableSvelte) {
+	if (enableSvelte !== false) {
 		configs.push(
 			svelte({
 				overrides: getOverrides(options, 'svelte'),
@@ -200,7 +189,7 @@ export async function eslintConfig(
 		)
 	}
 
-	if (enableAstro) {
+	if (enableAstro !== false) {
 		configs.push(
 			astro({
 				overrides: getOverrides(options, 'astro'),
@@ -221,8 +210,8 @@ export async function eslintConfig(
 	// We pick the known keys as ESLint would do schema validation
 	// eslint-disable-next-line unicorn/no-array-reduce
 	const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
-		if (key in options) {
-			// eslint-disable-next-line ts/no-unsafe-assignment, ts/no-unsafe-type-assertion, ts/no-explicit-any
+		if (Object.hasOwn(options, key)) {
+			// eslint-disable-next-line ts/no-unsafe-assignment, ts/no-explicit-any
 			accumulator[key] = options[key] as any
 		}
 
@@ -251,7 +240,7 @@ export async function eslintConfig(
 
 	// console.log(plugins)
 
-	// eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any, ts/no-unsafe-type-assertion
+	// eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any
 	composer = composer.append(...configs, ...(userConfigs as any))
 
 	composer = composer.renamePlugins(defaultPluginRenaming)
@@ -265,12 +254,22 @@ export async function eslintConfig(
 }
 
 /**
+ * Load the gitignore-based ignores config.
+ *
+ * @param options - Options passed to `eslint-config-flat-gitignore`.
+ */
+async function gitignoreConfig(options: FlatGitignoreOptions): Promise<TypedFlatConfigItem[]> {
+	const configureGitignore = await interopDefault(import('eslint-config-flat-gitignore'))
+	return [configureGitignore(options)]
+}
+
+/**
  * Get ESLint language options object.
  *
  * @param typeAware - Whether to enable type-aware linting.
- * @param jsx - Whether to enable JSX parsing.
+ * @param isJsxEnabled - Whether to enable JSX parsing.
  */
-export function getLanguageOptions(typeAware = true, jsx = false): Linter.LanguageOptions {
+export function getLanguageOptions(typeAware = true, isJsxEnabled = false): Linter.LanguageOptions {
 	return {
 		ecmaVersion: 2023,
 		globals: {
@@ -283,7 +282,7 @@ export function getLanguageOptions(typeAware = true, jsx = false): Linter.Langua
 		parserOptions: {
 			ecmaFeatures: {
 				impliedStrict: true,
-				jsx,
+				jsx: isJsxEnabled,
 			},
 			...(typeAware
 				? {
@@ -311,7 +310,7 @@ export function getOverrides<K extends keyof OptionsConfig>(
 ): Partial<Linter.RulesRecord & RuleOptions> {
 	const sub = resolveSubOptions(options, key)
 	return {
-		...('overrides' in sub ? sub.overrides : {}),
+		...('overrides' in sub && sub.overrides),
 	}
 }
 
@@ -327,7 +326,7 @@ export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
 ): Partial<Linter.RulesRecord & RuleOptions> {
 	const sub = resolveSubOptions(options, key)
 	return {
-		...('overridesEmbeddedScripts' in sub ? sub.overridesEmbeddedScripts : {}),
+		...('overridesEmbeddedScripts' in sub && sub.overridesEmbeddedScripts),
 	}
 }
 
@@ -351,6 +350,6 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 	options: OptionsConfig,
 	key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
-	// eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any, ts/no-unsafe-type-assertion
-	return typeof options[key] === 'boolean' ? ({} as any) : options[key] || ({} as any)
+	// eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any
+	return typeof options[key] === 'boolean' ? ({} as any) : (options[key] ?? ({} as any))
 }

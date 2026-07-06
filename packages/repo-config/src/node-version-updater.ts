@@ -22,7 +22,6 @@ type DevEngines = {
  * Get the devEngines.runtime entry for node from a package.json object.
  */
 function getDevEnginesNodeVersion(packageJson: Record<string, unknown>): string | undefined {
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const devEngines = packageJson.devEngines as DevEngines | undefined
 	if (!devEngines?.runtime) {
 		return undefined
@@ -37,7 +36,6 @@ function getDevEnginesNodeVersion(packageJson: Record<string, unknown>): string 
  * Set the devEngines.runtime entry for node in a package.json object.
  */
 function setDevEnginesNodeVersion(packageJson: Record<string, unknown>, version: string): void {
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const devEngines = (packageJson.devEngines as DevEngines | undefined) ?? {}
 
 	if (devEngines.runtime) {
@@ -65,7 +63,6 @@ function setDevEnginesNodeVersion(packageJson: Record<string, unknown>, version:
  * Remove the devEngines.runtime entry for node from a package.json object.
  */
 function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void {
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const devEngines = packageJson.devEngines as DevEngines | undefined
 	if (!devEngines?.runtime) {
 		return
@@ -108,11 +105,10 @@ async function nodeVersionCheckSingle(
 		return 0
 	}
 
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const packageJson = fse.readJsonSync(packageJsonPath) as Record<string, unknown>
 
 	// Read current values from package.json
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
+
 	const enginesNode = (packageJson.engines as Record<string, string> | undefined)?.node
 	const devEnginesNodeVersion = getDevEnginesNodeVersion(packageJson)
 
@@ -133,7 +129,6 @@ async function nodeVersionCheckSingle(
 				`Missing engines.node — suggest setting to "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 			)
 			if (fix) {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion
 				const engines = (packageJson.engines as Record<string, string> | undefined) ?? {}
 				engines.node = enginesNodeVersionWanted
 				packageJson.engines = engines
@@ -146,7 +141,6 @@ async function nodeVersionCheckSingle(
 					`engines.node is "${enginesNode}" but production dependencies require at least "${enginesNodeVersionWanted}"${formatCauses(enginesNodeCauses)}`,
 				)
 				if (fix) {
-					// eslint-disable-next-line ts/no-unsafe-type-assertion
 					;(packageJson.engines as Record<string, string>).node = enginesNodeVersionWanted
 				}
 			}
@@ -157,7 +151,12 @@ async function nodeVersionCheckSingle(
 	// Compare against the effective engines.node: the higher of what prod deps require
 	// and what's already set (the engines.node check only upgrades, never downgrades).
 	const effectiveEnginesNode = (() => {
-		if (enginesNodeVersionWanted && enginesNode) {
+		if (
+			enginesNodeVersionWanted !== undefined &&
+			enginesNodeVersionWanted !== '' &&
+			enginesNode !== undefined &&
+			enginesNode !== ''
+		) {
 			const wantedMin = semver.minVersion(enginesNodeVersionWanted)
 			const currentMin = semver.minVersion(enginesNode)
 			if (wantedMin && currentMin) {
@@ -167,12 +166,14 @@ async function nodeVersionCheckSingle(
 
 		return enginesNodeVersionWanted ?? enginesNode
 	})()
-	const effectiveEnginesNodeMin = effectiveEnginesNode
-		? semver.minVersion(effectiveEnginesNode)
-		: undefined
-	const devWantedMin = devEnginesVersionWanted
-		? semver.minVersion(devEnginesVersionWanted)
-		: undefined
+	const effectiveEnginesNodeMin =
+		effectiveEnginesNode !== undefined && effectiveEnginesNode !== ''
+			? semver.minVersion(effectiveEnginesNode)
+			: undefined
+	const devWantedMin =
+		devEnginesVersionWanted !== undefined && devEnginesVersionWanted !== ''
+			? semver.minVersion(devEnginesVersionWanted)
+			: undefined
 
 	const devEnginesNeeded =
 		devWantedMin && effectiveEnginesNodeMin && semver.gt(devWantedMin, effectiveEnginesNodeMin)
