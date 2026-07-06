@@ -602,6 +602,16 @@ export interface RuleOptions {
 	 */
 	'e18e/prefer-exponentiation-operator'?: Linter.RuleEntry<[]>
 	/**
+	 * Prefer Array.prototype.flatMap() over .map(fn).flat() to avoid the
+	 * intermediate array
+	 */
+	'e18e/prefer-flatmap-over-map-flat'?: Linter.RuleEntry<[]>
+	/**
+	 * Prefer `Map.prototype.getOrInsert()` over reading an entry with a default
+	 * and writing it back
+	 */
+	'e18e/prefer-get-or-insert'?: Linter.RuleEntry<[]>
+	/**
 	 * Prefer .includes() over indexOf() comparisons for arrays and strings
 	 */
 	'e18e/prefer-includes'?: Linter.RuleEntry<[]>
@@ -953,7 +963,7 @@ export interface RuleOptions {
 	 *
 	 * @see https://html-eslint.org/docs/rules/no-inline-styles
 	 */
-	'html/no-inline-styles'?: Linter.RuleEntry<[]>
+	'html/no-inline-styles'?: Linter.RuleEntry<HtmlNoInlineStyles>
 	/**
 	 * Disallow invalid attribute values according to HTML standards
 	 *
@@ -1243,288 +1253,288 @@ export interface RuleOptions {
 	/**
 	 * Enforce or ban the use of inline type-only markers for named imports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/consistent-type-specifier-style.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/consistent-type-specifier-style.md
 	 */
 	'import/consistent-type-specifier-style'?: Linter.RuleEntry<ImportConsistentTypeSpecifierStyle>
 	/**
 	 * Ensure a default export is present, given a default import.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/default.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/default.md
 	 */
 	'import/default'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce a leading comment with the webpackChunkName for dynamic imports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/dynamic-import-chunkname.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/dynamic-import-chunkname.md
 	 */
 	'import/dynamic-import-chunkname'?: Linter.RuleEntry<ImportDynamicImportChunkname>
 	/**
 	 * Forbid any invalid exports, i.e. re-export of the same name.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/export.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/export.md
 	 */
 	'import/export'?: Linter.RuleEntry<[]>
 	/**
 	 * Ensure all exports appear after other statements.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/exports-last.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/exports-last.md
 	 */
 	'import/exports-last'?: Linter.RuleEntry<[]>
 	/**
 	 * Ensure consistent use of file extension within the import path.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/extensions.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/extensions.md
 	 */
 	'import/extensions'?: Linter.RuleEntry<ImportExtensions>
 	/**
 	 * Ensure all imports appear before other statements.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/first.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/first.md
 	 */
 	'import/first'?: Linter.RuleEntry<ImportFirst>
 	/**
 	 * Prefer named exports to be grouped together in a single export declaration.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/group-exports.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/group-exports.md
 	 */
 	'import/group-exports'?: Linter.RuleEntry<[]>
 	/**
 	 * Replaced by `import-x/first`.
 	 *
 	 * @deprecated
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/imports-first.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/imports-first.md
 	 */
 	'import/imports-first'?: Linter.RuleEntry<ImportImportsFirst>
 	/**
 	 * Enforce the maximum number of dependencies a module can have.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/max-dependencies.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/max-dependencies.md
 	 */
 	'import/max-dependencies'?: Linter.RuleEntry<ImportMaxDependencies>
 	/**
 	 * Ensure named imports correspond to a named export in the remote file.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/named.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/named.md
 	 */
 	'import/named'?: Linter.RuleEntry<ImportNamed>
 	/**
 	 * Ensure imported namespaces contain dereferenced properties as they are
 	 * dereferenced.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/namespace.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/namespace.md
 	 */
 	'import/namespace'?: Linter.RuleEntry<ImportNamespace>
 	/**
 	 * Enforce a newline after import statements.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/newline-after-import.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/newline-after-import.md
 	 */
 	'import/newline-after-import'?: Linter.RuleEntry<ImportNewlineAfterImport>
 	/**
 	 * Forbid import of modules using absolute paths.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-absolute-path.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-absolute-path.md
 	 */
 	'import/no-absolute-path'?: Linter.RuleEntry<ImportNoAbsolutePath>
 	/**
 	 * Forbid AMD `require` and `define` calls.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-amd.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-amd.md
 	 */
 	'import/no-amd'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid anonymous values as default exports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-anonymous-default-export.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-anonymous-default-export.md
 	 */
 	'import/no-anonymous-default-export'?: Linter.RuleEntry<ImportNoAnonymousDefaultExport>
 	/**
 	 * Forbid CommonJS `require` calls and `module.exports` or `exports.*`.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-commonjs.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-commonjs.md
 	 */
 	'import/no-commonjs'?: Linter.RuleEntry<ImportNoCommonjs>
 	/**
 	 * Forbid a module from importing a module with a dependency path back to
 	 * itself.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-cycle.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-cycle.md
 	 */
 	'import/no-cycle'?: Linter.RuleEntry<ImportNoCycle>
 	/**
 	 * Forbid default exports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-default-export.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-default-export.md
 	 */
 	'import/no-default-export'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid imported names marked with `@deprecated` documentation tag.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-deprecated.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-deprecated.md
 	 */
 	'import/no-deprecated'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid repeated import of the same module in multiple places.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-duplicates.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-duplicates.md
 	 */
 	'import/no-duplicates'?: Linter.RuleEntry<ImportNoDuplicates>
 	/**
 	 * Forbid `require()` calls with expressions.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-dynamic-require.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-dynamic-require.md
 	 */
 	'import/no-dynamic-require'?: Linter.RuleEntry<ImportNoDynamicRequire>
 	/**
 	 * Forbid empty named import blocks.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-empty-named-blocks.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-empty-named-blocks.md
 	 */
 	'import/no-empty-named-blocks'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid the use of extraneous packages.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-extraneous-dependencies.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-extraneous-dependencies.md
 	 */
 	'import/no-extraneous-dependencies'?: Linter.RuleEntry<ImportNoExtraneousDependencies>
 	/**
 	 * Forbid import statements with CommonJS module.exports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-import-module-exports.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-import-module-exports.md
 	 */
 	'import/no-import-module-exports'?: Linter.RuleEntry<ImportNoImportModuleExports>
 	/**
 	 * Forbid importing the submodules of other modules.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-internal-modules.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-internal-modules.md
 	 */
 	'import/no-internal-modules'?: Linter.RuleEntry<ImportNoInternalModules>
 	/**
 	 * Forbid the use of mutable exports with `var` or `let`.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-mutable-exports.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-mutable-exports.md
 	 */
 	'import/no-mutable-exports'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid use of exported name as identifier of default export.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-named-as-default.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-named-as-default.md
 	 */
 	'import/no-named-as-default'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid use of exported name as property of default export.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-named-as-default-member.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-named-as-default-member.md
 	 */
 	'import/no-named-as-default-member'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid named default exports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-named-default.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-named-default.md
 	 */
 	'import/no-named-default'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid named exports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-named-export.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-named-export.md
 	 */
 	'import/no-named-export'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid namespace (a.k.a. "wildcard" `*`) imports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-namespace.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-namespace.md
 	 */
 	'import/no-namespace'?: Linter.RuleEntry<ImportNoNamespace>
 	/**
 	 * Forbid Node.js builtin modules.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-nodejs-modules.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-nodejs-modules.md
 	 */
 	'import/no-nodejs-modules'?: Linter.RuleEntry<ImportNoNodejsModules>
 	/**
 	 * Forbid importing packages through relative paths.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-relative-packages.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-relative-packages.md
 	 */
 	'import/no-relative-packages'?: Linter.RuleEntry<ImportNoRelativePackages>
 	/**
 	 * Forbid importing modules from parent directories.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-relative-parent-imports.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-relative-parent-imports.md
 	 */
 	'import/no-relative-parent-imports'?: Linter.RuleEntry<ImportNoRelativeParentImports>
 	/**
 	 * Forbid importing a default export by a different name.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-rename-default.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-rename-default.md
 	 */
 	'import/no-rename-default'?: Linter.RuleEntry<ImportNoRenameDefault>
 	/**
 	 * Enforce which files can be imported in a given folder.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-restricted-paths.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-restricted-paths.md
 	 */
 	'import/no-restricted-paths'?: Linter.RuleEntry<ImportNoRestrictedPaths>
 	/**
 	 * Forbid a module from importing itself.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-self-import.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-self-import.md
 	 */
 	'import/no-self-import'?: Linter.RuleEntry<[]>
 	/**
 	 * Forbid unassigned imports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-unassigned-import.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-unassigned-import.md
 	 */
 	'import/no-unassigned-import'?: Linter.RuleEntry<ImportNoUnassignedImport>
 	/**
 	 * Ensure imports point to a file/module that can be resolved.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-unresolved.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-unresolved.md
 	 */
 	'import/no-unresolved'?: Linter.RuleEntry<ImportNoUnresolved>
 	/**
 	 * Forbid modules without exports, or exports without matching import in
 	 * another module.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-unused-modules.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-unused-modules.md
 	 */
 	'import/no-unused-modules'?: Linter.RuleEntry<ImportNoUnusedModules>
 	/**
 	 * Forbid unnecessary path segments in import and require statements.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-useless-path-segments.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-useless-path-segments.md
 	 */
 	'import/no-useless-path-segments'?: Linter.RuleEntry<ImportNoUselessPathSegments>
 	/**
 	 * Forbid webpack loader syntax in imports.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/no-webpack-loader-syntax.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/no-webpack-loader-syntax.md
 	 */
 	'import/no-webpack-loader-syntax'?: Linter.RuleEntry<[]>
 	/**
 	 * Enforce a convention in module import order.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/order.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/order.md
 	 */
 	'import/order'?: Linter.RuleEntry<ImportOrder>
 	/**
 	 * Prefer a default export if module exports a single name or multiple names.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/prefer-default-export.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/prefer-default-export.md
 	 */
 	'import/prefer-default-export'?: Linter.RuleEntry<ImportPreferDefaultExport>
 	/**
 	 * Enforce using namespace imports for specific modules, like
 	 * `react`/`react-dom`, etc.
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/prefer-namespace-import.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/prefer-namespace-import.md
 	 */
 	'import/prefer-namespace-import'?: Linter.RuleEntry<ImportPreferNamespaceImport>
 	/**
 	 * Forbid potentially ambiguous parse goal (`script` vs. `module`).
 	 *
-	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.16.2/docs/rules/unambiguous.md
+	 * @see https://github.com/un-ts/eslint-plugin-import-x/blob/v4.17.1/docs/rules/unambiguous.md
 	 */
 	'import/unambiguous'?: Linter.RuleEntry<[]>
 	/**
@@ -2070,7 +2080,7 @@ export interface RuleOptions {
 	 */
 	'json-package/no-redundant-publishConfig'?: Linter.RuleEntry<[]>
 	/**
-	 * Package properties should be declared in standard order
+	 * Enforces that package properties are declared in a consistent order.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/order-properties
 	 */
@@ -6956,6 +6966,12 @@ export interface RuleOptions {
 	 */
 	'svelte/no-add-event-listener'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallow the use of `{@const}` in favor of `{const ...}` declaration tags
+	 *
+	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-at-const-tags/
+	 */
+	'svelte/no-at-const-tags'?: Linter.RuleEntry<[]>
+	/**
 	 * Disallow the use of `{@debug}`
 	 *
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/no-at-debug-tags/
@@ -7336,7 +7352,7 @@ export interface RuleOptions {
 	 */
 	'svelte/valid-each-key'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallow props other than data or errors in SvelteKit page components.
+	 * Disallow invalid props in SvelteKit route components.
 	 *
 	 * @see https://sveltejs.github.io/eslint-plugin-svelte/rules/valid-prop-names-in-kit-pages/
 	 */
@@ -9944,6 +9960,12 @@ export interface RuleOptions {
 	 */
 	'yaml/no-tab-indent'?: Linter.RuleEntry<[]>
 	/**
+	 * Disallow trailing whitespace at the end of lines
+	 *
+	 * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-trailing-spaces.html
+	 */
+	'yaml/no-trailing-spaces'?: Linter.RuleEntry<YamlNoTrailingSpaces>
+	/**
 	 * Disallow trailing zeros for floats
 	 *
 	 * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-trailing-zeros.html
@@ -10594,11 +10616,7 @@ type CommaDangle =
 	  ]
 type _CommaDangleValue = 'always-multiline' | 'always' | 'never' | 'only-multiline'
 type _CommaDangleValueWithIgnore =
-	| 'always-multiline'
-	| 'always'
-	| 'ignore'
-	| 'never'
-	| 'only-multiline'
+	'always-multiline' | 'always' | 'ignore' | 'never' | 'only-multiline'
 // ----- comma-spacing -----
 type CommaSpacing =
 	| []
@@ -10972,6 +10990,14 @@ type HtmlNoExtraSpacingText =
 				skip?: string[]
 			},
 	  ]
+// ----- html/no-inline-styles -----
+type HtmlNoInlineStyles =
+	| []
+	| [
+			{
+				allowExpressions?: boolean
+			},
+	  ]
 // ----- html/no-invalid-attr-value -----
 type HtmlNoInvalidAttrValue =
 	| []
@@ -11033,6 +11059,11 @@ type HtmlRequireAttrs = {
 	attr: string
 	value?: string
 	message?: string
+	conditions?: {
+		attr: string
+		value?: string
+		kind: 'present' | 'absent' | 'equal' | 'not-equal'
+	}[]
 }[]
 // ----- html/require-closing-tags -----
 type HtmlRequireClosingTags =
@@ -11234,7 +11265,7 @@ type ImportNoAbsolutePath =
 				amd?: boolean
 				esmodule?: boolean
 
-				ignore?: [string, ...string[]]
+				ignore?: [unknown, ...unknown[]]
 			},
 	  ]
 // ----- import/no-anonymous-default-export -----
@@ -11280,7 +11311,7 @@ type ImportNoCycle =
 				amd?: boolean
 				esmodule?: boolean
 
-				ignore?: [string, ...string[]]
+				ignore?: [unknown, ...unknown[]]
 				maxDepth?: number | '∞'
 
 				ignoreExternal?: boolean
@@ -11365,7 +11396,7 @@ type ImportNoRelativePackages =
 				amd?: boolean
 				esmodule?: boolean
 
-				ignore?: [string, ...string[]]
+				ignore?: [unknown, ...unknown[]]
 			},
 	  ]
 // ----- import/no-relative-parent-imports -----
@@ -11377,7 +11408,7 @@ type ImportNoRelativeParentImports =
 				amd?: boolean
 				esmodule?: boolean
 
-				ignore?: [string, ...string[]]
+				ignore?: [unknown, ...unknown[]]
 			},
 	  ]
 // ----- import/no-rename-default -----
@@ -11431,7 +11462,7 @@ type ImportNoUnresolved =
 				amd?: boolean
 				esmodule?: boolean
 
-				ignore?: [string, ...string[]]
+				ignore?: [unknown, ...unknown[]]
 				caseSensitive?: boolean
 				caseSensitiveStrict?: boolean
 			},
@@ -12630,11 +12661,7 @@ type JsdocTypeFormatting =
 				objectFieldQuote?: 'double' | 'single' | null
 
 				objectFieldSeparator?:
-					| 'comma'
-					| 'comma-and-linebreak'
-					| 'linebreak'
-					| 'semicolon'
-					| 'semicolon-and-linebreak'
+					'comma' | 'comma-and-linebreak' | 'linebreak' | 'semicolon' | 'semicolon-and-linebreak'
 
 				objectFieldSeparatorOptionalLinebreak?: boolean
 
@@ -13027,10 +13054,7 @@ type JsonPackageRestrictDependencyRanges =
 	| [
 			| {
 					forDependencyTypes?: (
-						| 'dependencies'
-						| 'devDependencies'
-						| 'optionalDependencies'
-						| 'peerDependencies'
+						'dependencies' | 'devDependencies' | 'optionalDependencies' | 'peerDependencies'
 					)[]
 
 					forPackages?: string[]
@@ -13041,10 +13065,7 @@ type JsonPackageRestrictDependencyRanges =
 			  }
 			| {
 					forDependencyTypes?: (
-						| 'dependencies'
-						| 'devDependencies'
-						| 'optionalDependencies'
-						| 'peerDependencies'
+						'dependencies' | 'devDependencies' | 'optionalDependencies' | 'peerDependencies'
 					)[]
 
 					forPackages?: string[]
@@ -13078,7 +13099,18 @@ type JsonPackageRestrictTopLevelProperties =
 			},
 	  ]
 // ----- json-package/sort-collections -----
-type JsonPackageSortCollections = [] | [string[]]
+type JsonPackageSortCollections =
+	| []
+	| [
+			(
+				| string
+				| {
+						key: string
+
+						order: string[]
+				  }
+			)[],
+	  ]
 // ----- json/array-bracket-newline -----
 type JsonArrayBracketNewline =
 	| []
@@ -13133,11 +13165,7 @@ type JsonCommaDangle =
 	  ]
 type _JsonCommaDangleValue = 'always-multiline' | 'always' | 'never' | 'only-multiline'
 type _JsonCommaDangleValueWithIgnore =
-	| 'always-multiline'
-	| 'always'
-	| 'ignore'
-	| 'never'
-	| 'only-multiline'
+	'always-multiline' | 'always' | 'ignore' | 'never' | 'only-multiline'
 // ----- json/comma-style -----
 type JsonCommaStyle =
 	| []
@@ -14597,19 +14625,7 @@ type NoBitwise =
 	| [
 			{
 				allow?: (
-					| '^'
-					| '|'
-					| '&'
-					| '<<'
-					| '>>'
-					| '>>>'
-					| '^='
-					| '|='
-					| '&='
-					| '<<='
-					| '>>='
-					| '>>>='
-					| '~'
+					'^' | '|' | '&' | '<<' | '>>' | '>>>' | '^=' | '|=' | '&=' | '<<=' | '>>=' | '>>>=' | '~'
 				)[]
 				int32Hint?: boolean
 			},
@@ -15678,8 +15694,7 @@ type NodeNoMissingImport =
 				ignoreTypeImport?: boolean
 				tsconfigPath?: string
 				typescriptExtensionMap?:
-					| unknown[][]
-					| ('react' | 'react-jsx' | 'react-jsxdev' | 'react-native' | 'preserve')
+					unknown[][] | ('react' | 'react-jsx' | 'react-jsxdev' | 'react-native' | 'preserve')
 			},
 	  ]
 // ----- node/no-missing-require -----
@@ -15694,8 +15709,7 @@ type NodeNoMissingRequire =
 					[k: string]: unknown | undefined
 				}
 				typescriptExtensionMap?:
-					| unknown[][]
-					| ('react' | 'react-jsx' | 'react-jsxdev' | 'react-native' | 'preserve')
+					unknown[][] | ('react' | 'react-jsx' | 'react-jsxdev' | 'react-native' | 'preserve')
 				tsconfigPath?: string
 			},
 	  ]
@@ -18826,12 +18840,7 @@ type PerfectionistSortArrayIncludes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -18891,12 +18900,7 @@ type PerfectionistSortArrayIncludes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -18942,12 +18946,7 @@ type PerfectionistSortArrayIncludes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19074,12 +19073,7 @@ type PerfectionistSortArrays = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19139,12 +19133,7 @@ type PerfectionistSortArrays = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19190,12 +19179,7 @@ type PerfectionistSortArrays = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19322,12 +19306,7 @@ type PerfectionistSortClasses = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19505,12 +19484,7 @@ type PerfectionistSortClasses = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19615,12 +19589,7 @@ type PerfectionistSortClasses = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19768,12 +19737,7 @@ type PerfectionistSortDecorators = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19829,12 +19793,7 @@ type PerfectionistSortDecorators = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19878,12 +19837,7 @@ type PerfectionistSortDecorators = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -19998,12 +19952,7 @@ type PerfectionistSortEnums = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20095,12 +20044,7 @@ type PerfectionistSortEnums = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20162,12 +20106,7 @@ type PerfectionistSortEnums = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20298,12 +20237,7 @@ type PerfectionistSortExportAttributes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20359,12 +20293,7 @@ type PerfectionistSortExportAttributes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20408,12 +20337,7 @@ type PerfectionistSortExportAttributes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20540,12 +20464,7 @@ type PerfectionistSortExports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20609,12 +20528,7 @@ type PerfectionistSortExports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20662,12 +20576,7 @@ type PerfectionistSortExports = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20772,12 +20681,7 @@ type PerfectionistSortHeritageClauses = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20833,12 +20737,7 @@ type PerfectionistSortHeritageClauses = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -20882,12 +20781,7 @@ type PerfectionistSortHeritageClauses = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -21014,12 +20908,7 @@ type PerfectionistSortImportAttributes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -21075,12 +20964,7 @@ type PerfectionistSortImportAttributes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -21124,12 +21008,7 @@ type PerfectionistSortImportAttributes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -21639,12 +21518,7 @@ type PerfectionistSortInterfaces = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -21746,12 +21620,7 @@ type PerfectionistSortInterfaces = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -21819,12 +21688,7 @@ type PerfectionistSortInterfaces = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -21999,12 +21863,7 @@ type PerfectionistSortIntersectionTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22088,12 +21947,7 @@ type PerfectionistSortIntersectionTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22151,12 +22005,7 @@ type PerfectionistSortIntersectionTypes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22283,12 +22132,7 @@ type PerfectionistSortJsxProps = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22388,12 +22232,7 @@ type PerfectionistSortJsxProps = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22459,12 +22298,7 @@ type PerfectionistSortJsxProps = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22545,12 +22379,7 @@ type PerfectionistSortMaps = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22606,12 +22435,7 @@ type PerfectionistSortMaps = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -22655,12 +22479,7 @@ type PerfectionistSortMaps = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23118,12 +22937,7 @@ type PerfectionistSortNamedExports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23187,12 +23001,7 @@ type PerfectionistSortNamedExports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23240,12 +23049,7 @@ type PerfectionistSortNamedExports = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23374,12 +23178,7 @@ type PerfectionistSortNamedImports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23443,12 +23242,7 @@ type PerfectionistSortNamedImports = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23496,12 +23290,7 @@ type PerfectionistSortNamedImports = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -23632,12 +23421,7 @@ type PerfectionistSortObjectTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -23739,12 +23523,7 @@ type PerfectionistSortObjectTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -23812,12 +23591,7 @@ type PerfectionistSortObjectTypes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -23994,12 +23768,7 @@ type PerfectionistSortObjects = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -24101,12 +23870,7 @@ type PerfectionistSortObjects = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -24174,12 +23938,7 @@ type PerfectionistSortObjects = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 					sortBy?: 'name' | 'value'
@@ -24384,12 +24143,7 @@ type PerfectionistSortSets = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24449,12 +24203,7 @@ type PerfectionistSortSets = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24500,12 +24249,7 @@ type PerfectionistSortSets = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24615,12 +24359,7 @@ type PerfectionistSortSwitchCase =
 			{
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24662,12 +24401,7 @@ type PerfectionistSortUnionTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24751,12 +24485,7 @@ type PerfectionistSortUnionTypes = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24814,12 +24543,7 @@ type PerfectionistSortUnionTypes = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -24946,12 +24670,7 @@ type PerfectionistSortVariableDeclarations = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -25011,12 +24730,7 @@ type PerfectionistSortVariableDeclarations = {
 		| {
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -25062,12 +24776,7 @@ type PerfectionistSortVariableDeclarations = {
 
 				fallbackSort?: {
 					type:
-						| 'alphabetical'
-						| 'natural'
-						| 'line-length'
-						| 'custom'
-						| 'unsorted'
-						| 'subgroup-order'
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
 
 					order?: 'asc' | 'desc'
 				}
@@ -25879,11 +25588,7 @@ type StylisticCommaDangle =
 	  ]
 type _StylisticCommaDangleValue = 'always-multiline' | 'always' | 'never' | 'only-multiline'
 type _StylisticCommaDangleValueWithIgnore =
-	| 'always-multiline'
-	| 'always'
-	| 'never'
-	| 'only-multiline'
-	| 'ignore'
+	'always-multiline' | 'always' | 'never' | 'only-multiline' | 'ignore'
 // ----- stylistic/comma-spacing -----
 type StylisticCommaSpacing =
 	| []
@@ -26364,8 +26069,7 @@ type StylisticJsxCurlySpacing =
 type StylisticJsxEqualsSpacing = [] | ['always' | 'never']
 // ----- stylistic/jsx-first-prop-new-line -----
 type StylisticJsxFirstPropNewLine =
-	| []
-	| ['always' | 'never' | 'multiline' | 'multiline-multiprop' | 'multiprop']
+	[] | ['always' | 'never' | 'multiline' | 'multiline-multiprop' | 'multiprop']
 // ----- stylistic/jsx-function-call-newline -----
 type StylisticJsxFunctionCallNewline = [] | ['always' | 'multiline']
 // ----- stylistic/jsx-indent -----
@@ -28206,7 +27910,9 @@ type TestNoHooks =
 	| []
 	| [
 			{
-				allow?: ('beforeAll' | 'beforeEach' | 'afterAll' | 'afterEach')[]
+				allow?: (
+					'beforeAll' | 'beforeEach' | 'afterAll' | 'afterEach' | 'aroundAll' | 'aroundEach'
+				)[]
 			},
 	  ]
 // ----- test/no-large-snapshots -----
@@ -30813,19 +30519,9 @@ type TsMethodSignatureStyle = [] | ['property' | 'method']
 // ----- ts/naming-convention -----
 type _TsNamingConventionFormatOptionsConfig = _TsNamingConventionPredefinedFormats[] | null
 type _TsNamingConventionPredefinedFormats =
-	| 'camelCase'
-	| 'strictCamelCase'
-	| 'PascalCase'
-	| 'StrictPascalCase'
-	| 'snake_case'
-	| 'UPPER_CASE'
+	'camelCase' | 'strictCamelCase' | 'PascalCase' | 'StrictPascalCase' | 'snake_case' | 'UPPER_CASE'
 type _TsNamingConventionUnderscoreOptions =
-	| 'forbid'
-	| 'allow'
-	| 'require'
-	| 'requireDouble'
-	| 'allowDouble'
-	| 'allowSingleOrDouble'
+	'forbid' | 'allow' | 'require' | 'requireDouble' | 'allowDouble' | 'allowSingleOrDouble'
 type _TsNamingConvention_PrefixSuffixConfig = string[]
 type _TsNamingConventionTypeModifiers = 'boolean' | 'string' | 'number' | 'function' | 'array'
 type TsNamingConvention = (
@@ -31155,13 +30851,7 @@ type TsNamingConvention = (
 			filter?: string | _TsNamingConvention_MatchRegexConfig
 			selector: 'classicAccessor'
 			modifiers?: (
-				| 'abstract'
-				| 'private'
-				| 'protected'
-				| 'public'
-				| 'requiresQuotes'
-				| 'static'
-				| 'override'
+				'abstract' | 'private' | 'protected' | 'public' | 'requiresQuotes' | 'static' | 'override'
 			)[]
 			types?: _TsNamingConventionTypeModifiers[]
 	  }
@@ -31176,13 +30866,7 @@ type TsNamingConvention = (
 			filter?: string | _TsNamingConvention_MatchRegexConfig
 			selector: 'autoAccessor'
 			modifiers?: (
-				| 'abstract'
-				| 'private'
-				| 'protected'
-				| 'public'
-				| 'requiresQuotes'
-				| 'static'
-				| 'override'
+				'abstract' | 'private' | 'protected' | 'public' | 'requiresQuotes' | 'static' | 'override'
 			)[]
 			types?: _TsNamingConventionTypeModifiers[]
 	  }
@@ -31197,13 +30881,7 @@ type TsNamingConvention = (
 			filter?: string | _TsNamingConvention_MatchRegexConfig
 			selector: 'accessor'
 			modifiers?: (
-				| 'abstract'
-				| 'private'
-				| 'protected'
-				| 'public'
-				| 'requiresQuotes'
-				| 'static'
-				| 'override'
+				'abstract' | 'private' | 'protected' | 'public' | 'requiresQuotes' | 'static' | 'override'
 			)[]
 			types?: _TsNamingConventionTypeModifiers[]
 	  }
@@ -31717,11 +31395,7 @@ type TsNoTypeAlias =
 	| [
 			{
 				allowAliases?:
-					| 'always'
-					| 'never'
-					| 'in-unions'
-					| 'in-intersections'
-					| 'in-unions-and-intersections'
+					'always' | 'never' | 'in-unions' | 'in-intersections' | 'in-unions-and-intersections'
 
 				allowCallbacks?: 'always' | 'never'
 
@@ -31732,25 +31406,13 @@ type TsNoTypeAlias =
 				allowGenerics?: 'always' | 'never'
 
 				allowLiterals?:
-					| 'always'
-					| 'never'
-					| 'in-unions'
-					| 'in-intersections'
-					| 'in-unions-and-intersections'
+					'always' | 'never' | 'in-unions' | 'in-intersections' | 'in-unions-and-intersections'
 
 				allowMappedTypes?:
-					| 'always'
-					| 'never'
-					| 'in-unions'
-					| 'in-intersections'
-					| 'in-unions-and-intersections'
+					'always' | 'never' | 'in-unions' | 'in-intersections' | 'in-unions-and-intersections'
 
 				allowTupleTypes?:
-					| 'always'
-					| 'never'
-					| 'in-unions'
-					| 'in-intersections'
-					| 'in-unions-and-intersections'
+					'always' | 'never' | 'in-unions' | 'in-intersections' | 'in-unions-and-intersections'
 			},
 	  ]
 // ----- ts/no-unnecessary-boolean-literal-compare -----
@@ -32187,8 +31849,7 @@ type TsRestrictTemplateExpressions =
 	  ]
 // ----- ts/return-await -----
 type TsReturnAwait =
-	| []
-	| [('always' | 'error-handling-correctness-only' | 'in-try-catch' | 'never') & string]
+	[] | [('always' | 'error-handling-correctness-only' | 'in-try-catch' | 'never') & string]
 // ----- ts/sort-type-constituents -----
 type TsSortTypeConstituents =
 	| []
@@ -32683,8 +32344,7 @@ type UnicornPreventAbbreviations =
 			},
 	  ]
 type _UnicornPreventAbbreviationsReplacements =
-	| (false | _UnicornPreventAbbreviations_BooleanObject)
-	| undefined
+	(false | _UnicornPreventAbbreviations_BooleanObject) | undefined
 interface _UnicornPreventAbbreviations_Abbreviations {
 	[k: string]: _UnicornPreventAbbreviationsReplacements | undefined
 }
@@ -32955,6 +32615,15 @@ type YamlNoMultipleEmptyLines =
 				max: number
 				maxEOF?: number
 				maxBOF?: number
+			},
+	  ]
+// ----- yaml/no-trailing-spaces -----
+type YamlNoTrailingSpaces =
+	| []
+	| [
+			{
+				skipBlankLines?: boolean
+				ignoreComments?: boolean
 			},
 	  ]
 // ----- yaml/plain-scalar -----

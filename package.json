@@ -47,7 +47,7 @@
 		"test": "vitest run"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.3",
+		"@arethetypeswrong/core": "^0.18.4",
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
 		"@kitschpatrol/knip-config": "workspace:*",
@@ -59,14 +59,14 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.types": "^1100.0.8",
+		"@pnpm/lockfile.types": "^1100.0.12",
 		"@types/fs-extra": "^11.0.4",
-		"@types/node": "~22.19.19",
-		"@types/react": "^19.2.16",
+		"@types/node": "~22.19.21",
+		"@types/react": "^19.2.17",
 		"@types/semver": "^7.7.1",
 		"@types/yargs": "^17.0.35",
 		"bumpp": "^11.1.0",
-		"cosmiconfig": "^9.0.1",
+		"cosmiconfig": "^9.0.2",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
@@ -78,17 +78,17 @@
 		"mdat-plugin-cli-help": "^3.0.2",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.3",
+		"prettier": "^3.9.1",
 		"publint": "^0.3.21",
 		"shx": "^0.4.0",
-		"tsdown": "^0.22.2",
+		"tsdown": "^0.22.3",
 		"tsx": "^4.22.4",
 		"typescript": "~5.9.3",
-		"vitest": "^4.1.8",
+		"vitest": "^4.1.9",
 		"yargs": "^18.0.0"
 	},
-	"packageManager": "pnpm@11.5.3",
+	"packageManager": "pnpm@11.10.0",
 	"engines": {
-		"node": "^22.22.2 || >=24.0.0"
+		"node": "^22.22.3 || >=24.0.0"
 	}
 }

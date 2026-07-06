@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"cosmiconfig": "^9.0.1",
+		"cosmiconfig": "^9.0.2",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
@@ -53,7 +53,7 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.8.3",
+		"prettier": "^3.9.1",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
@@ -63,7 +63,7 @@
 		"typescript": "^5.8.3 || ^6.0.0"
 	},
 	"engines": {
-		"node": "^22.22.2 || >=24.0.0"
+		"node": "^22.22.3 || >=24.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -84,8 +84,7 @@ async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise
 
 	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const importedLibrary = (await interopDefault(import(library))) as
-		| Record<string, unknown>
-		| unknown[]
+		Record<string, unknown> | unknown[]
 
 	// Attempt some common paths... infer 'rules' key for final object
 	const rules: Record<string, unknown> | undefined =
