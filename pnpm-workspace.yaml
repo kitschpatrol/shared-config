@@ -24,3 +24,16 @@ minimumReleaseAgeExclude:
   - mdat
   - mdat-plugin-cli-help
   - remark-mdat
+  - '@eslint-react/ast@5.11.2'
+  - '@eslint-react/core@5.11.2'
+  - '@eslint-react/eslint-plugin@5.11.2'
+  - '@eslint-react/eslint@5.11.2'
+  - '@eslint-react/jsx@5.11.2'
+  - '@eslint-react/shared@5.11.2'
+  - '@eslint-react/var@5.11.2'
+  - eslint-plugin-react-dom@5.11.2
+  - eslint-plugin-react-jsx@5.11.2
+  - eslint-plugin-react-naming-convention@5.11.2
+  - eslint-plugin-react-rsc@5.11.2
+  - eslint-plugin-react-web-api@5.11.2
+  - eslint-plugin-react-x@5.11.2

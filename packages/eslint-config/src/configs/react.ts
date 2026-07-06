@@ -29,19 +29,11 @@ export async function react(
 
 	const recommendedTypescriptConfig = pluginReact.configs['recommended-typescript']
 
-	// TODO figure out https://github.com/Rel1cx/eslint-react/releases/tag/v2.2.2
-	const { plugins } = recommendedTypescriptConfig
-
 	return [
 		{
 			name: 'kp/react/setup',
 			plugins: {
-				react: plugins['@eslint-react'],
-				'react-debug': plugins['@eslint-react/debug'],
-				'react-dom': plugins['@eslint-react/dom'],
-				'react-hooks-extra': plugins['@eslint-react/hooks-extra'],
-				'react-naming-convention': plugins['@eslint-react/naming-convention'],
-				'react-web-api': plugins['@eslint-react/web-api'],
+				react: pluginReact,
 			},
 			settings: recommendedTypescriptConfig.settings,
 		},

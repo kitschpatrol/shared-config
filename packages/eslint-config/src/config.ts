@@ -40,11 +40,6 @@ const flatConfigProperties = [
 /* eslint-disable perfectionist/sort-objects */
 export const defaultPluginRenaming = {
 	'@eslint-community/eslint-comments': 'eslint-comments',
-	'@eslint-react/debug': 'react-debug',
-	'@eslint-react/dom': 'react-dom',
-	'@eslint-react/hooks-extra': 'react-hooks-extra',
-	'@eslint-react/naming-convention': 'react-naming-convention',
-	'@eslint-react/web-api': 'react-web-api',
 	'@eslint-react': 'react',
 	jsonc: 'json',
 	'@html-eslint': 'html',
