@@ -116,7 +116,7 @@
 		"svelte": "^5.56.4"
 	},
 	"engines": {
-		"node": ">=22.22.3"
+		"node": ">=24.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
