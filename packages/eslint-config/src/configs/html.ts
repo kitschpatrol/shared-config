@@ -8,7 +8,7 @@ import type {
 } from '../types'
 // Extra src to catch html`` templates in JS and TS files
 // TODO what about scripts in html`` templates?
-import { GLOB_HTML } from '../globs'
+import { GLOB_HTML, GLOB_MARKDOWN_HTML_CODE, GLOB_MDX_HTML_CODE } from '../globs'
 import { htmlRecommendedRules } from '../presets/html'
 
 // eslint-plugin-html lints scripts inside HTML files
@@ -87,6 +87,21 @@ export async function html(
 				'html/require-meta-viewport': 'error',
 				'html/require-title': 'error',
 				...overrides,
+			},
+		},
+		{
+			// Fenced HTML blocks in Markdown and MDX files are extracted into
+			// virtual files by the remark processor. Disable rules that assume a
+			// complete document, since code blocks are fragments or minimal examples.
+			files: [GLOB_MARKDOWN_HTML_CODE, GLOB_MDX_HTML_CODE],
+			name: 'kp/html/markdown-code-blocks',
+			rules: {
+				'html/no-multiple-h1': 'off',
+				'html/require-doctype': 'off',
+				'html/require-lang': 'off',
+				'html/require-meta-charset': 'off',
+				'html/require-meta-viewport': 'off',
+				'html/require-title': 'off',
 			},
 		},
 	]

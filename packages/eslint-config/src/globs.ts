@@ -33,11 +33,10 @@ export const GLOB_ASTRO_JS = `${GLOB_ASTRO}/*.js`
 export const GLOB_ASTRO_TS = `${GLOB_ASTRO}/*.ts`
 export const GLOB_GRAPHQL = '**/*.{g,graph}ql'
 
-// ? more specific is better ?
 export const GLOB_MARKDOWN_CODE = `${GLOB_MARKDOWN}/${GLOB_SRC}`
 export const GLOB_MDX_CODE = `${GLOB_MDX}/${GLOB_SRC}`
-// Export const GLOB_MARKDOWN_CODE = `${GLOB_MARKDOWN}/**/*`
-// export const GLOB_MDX_CODE = `${GLOB_MDX}/**/*`
+export const GLOB_MARKDOWN_HTML_CODE = `${GLOB_MARKDOWN}/${GLOB_HTML}`
+export const GLOB_MDX_HTML_CODE = `${GLOB_MDX}/${GLOB_HTML}`
 
 export const GLOB_TESTS = [
 	`**/__tests__/**/*.${GLOB_SRC_EXT}`,
