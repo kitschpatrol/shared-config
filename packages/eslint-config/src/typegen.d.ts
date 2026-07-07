@@ -34687,6 +34687,7 @@ export type ConfigNames =
 	| 'kp/html-script'
 	| 'kp/html/setup'
 	| 'kp/html'
+	| 'kp/html/markdown-code-blocks'
 	| 'kp/ignores'
 	| 'kp/js/rules'
 	| 'kp/json/setup'

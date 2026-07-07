@@ -19,11 +19,15 @@
 
 ## Overview
 
-It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `ksc-cspell` to perform CSpell-related project initialization and linting.
+It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `ksc-cspell` to perform CSpell-related project initialization, linting, and fixing.
 
-In addition to basic CSpell functionality, this package bundles a few extra features: It identifies "unused" words in your local CSpell configuration's ignore list that don't actually appear anywhere in your project, and it incorporates [Case Police](https://github.com/antfu/case-police) to enforce case consistency.
+In addition to core CSpell functionality, `ksc-cspell` bundles a few extensions:
 
-Note that automated fixes are handled via an ESLint integration provided in [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config).
+- **Unused word detection:** `ksc-cspell lint` identifies "unused" words in your local CSpell configuration's `words` array that don't actually appear anywhere in your project.
+- **Case consistency:** `ksc-cspell lint` incorporates [Case Police](https://github.com/antfu/case-police) to catch incorrectly-cased proper nouns, brands, and acronyms.
+- **Configuration cleanup:** `ksc-cspell fix` removes unused words from your local CSpell configuration's `words` array and sorts it alphabetically.
+
+Note that the `fix` command only maintains your CSpell configuration — it never touches the spelling issues themselves.
 
 <!-- recommendation -->
 
@@ -188,7 +192,7 @@ In your project's root `.cspell.json`:
 
 #### Command: `ksc-cspell`
 
-Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)
+Kitschpatrol's CSpell shared configuration tools.
 
 This section lists top-level commands for `ksc-cspell`.
 
@@ -198,11 +202,12 @@ Usage:
 ksc-cspell <command>
 ```
 
-| Command        | Argument    | Description                                                                                                  |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------ |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                |
-| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default.                   |
-| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
+| Command        | Argument    | Description                                                                                                                                                       |
+| -------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                     |
+| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default.                                                                        |
+| `fix`          | `[files..]` | Remove unused words from the local CSpell configuration's "words" array and sort it alphabetically. Matches files below the current working directory by default. |
+| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -240,6 +245,25 @@ ksc-cspell lint [files..]
 | Positional Argument | Description                    | Type    | Default  |
 | ------------------- | ------------------------------ | ------- | -------- |
 | `files`             | Files or glob pattern to lint. | `array` | `"**/*"` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `ksc-cspell fix`
+
+Remove unused words from the local CSpell configuration's "words" array and sort it alphabetically. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+ksc-cspell fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default  |
+| ------------------- | ----------------------------- | ------- | -------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"**/*"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

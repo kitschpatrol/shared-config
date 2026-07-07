@@ -9,6 +9,7 @@ import type { CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION, executeCommands } from '../../../src/command-builder.js'
 import { stringify } from '../../../src/json-utilities.js'
 import { createStreamFilter, createStreamTransform } from '../../../src/stream-utilities.js'
+import { fixWordsInConfig } from './fix-words.js'
 import { checkForUnusedWords } from './unused-words.js'
 
 async function getCspellIgnorePaths(): Promise<string> {
@@ -38,7 +39,17 @@ async function checkForUnusedWordsCommand(
 	positionalArguments: string[],
 ): Promise<number> {
 	// Run the check unused words script
-	const unusedWords = await checkForUnusedWords(positionalArguments)
+	const { errors, filesChecked, unusedWords } = await checkForUnusedWords(positionalArguments)
+
+	// Without a successful spell-check run, every word looks unused
+	if (errors > 0 || (filesChecked === 0 && unusedWords.length > 0)) {
+		const subStream = createStreamTransform('[Unused Words]', 'cyanBright')
+		subStream.pipe(logStream)
+		subStream.write(
+			`Could not check for unused words: CSpell checked ${filesChecked} files with ${errors} errors.\n`,
+		)
+		return 1
+	}
 
 	if (unusedWords.length > 0) {
 		const subStream = createStreamTransform('[Unused Words]', 'cyanBright')
@@ -53,6 +64,32 @@ async function checkForUnusedWordsCommand(
 
 		// Consider this an error
 		return 1
+	}
+
+	return 0
+}
+
+async function fixWordsCommand(
+	logStream: NodeJS.WritableStream,
+	positionalArguments: string[],
+): Promise<number> {
+	const subStream = createStreamTransform('[Words]', 'cyanBright')
+	subStream.pipe(logStream)
+
+	const result = await fixWordsInConfig(positionalArguments)
+
+	if (result === undefined) {
+		// Keep quiet
+		// subStream.write('No "words" array found in the CSpell configuration. Nothing to fix.\n')
+		return 0
+	}
+
+	for (const removedWord of result.removedWords) {
+		subStream.write(`Removed unused word: ${removedWord}\n`)
+	}
+
+	if (result.reordered) {
+		subStream.write('Sorted the "words" array alphabetically.\n')
 	}
 
 	return 0
@@ -149,6 +186,17 @@ async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promi
 
 export const commandDefinition: CommandDefinition = {
 	commands: {
+		fix: {
+			commands: [
+				{
+					execute: fixWordsCommand,
+					name: fixWordsCommand.name,
+				},
+			],
+			description: `Remove unused words from the local CSpell configuration's "words" array and sort it alphabetically. ${DESCRIPTION.fileRun}`,
+			positionalArgumentDefault: '**/*',
+			positionalArgumentMode: 'optional',
+		},
 		init: {
 			configFile: 'cspell.config.ts',
 			configPackageJson: {
@@ -197,8 +245,7 @@ export const commandDefinition: CommandDefinition = {
 		// 	options: ['--debug', '--no-exit-code', '--no-color'],
 		// },
 	},
-	description:
-		"Kitschpatrol's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)",
+	description: "Kitschpatrol's CSpell shared configuration tools.",
 	logColor: 'cyan',
 	logPrefix: '[CSpell]',
 	name: 'ksc-cspell',

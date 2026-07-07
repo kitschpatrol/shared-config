@@ -379,6 +379,7 @@ Maaku
 Machato
 macmediakeyforwarder
 mactracker
+magicast
 magick
 magicmark
 mailarchiver
