@@ -428,6 +428,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'unicorn/consistent-class-member-order': 'off', // Conflicts with perfectionist/sort-classes
 		'unicorn/filename-case': ['error', { checkDirectories: false }], // Directory checking is too aggressive for consumers
 		'unicorn/import-style': 'off', // Conflicts with import/consistent-type-specifier-style prefer-top-level
+		'unicorn/max-nested-calls': 'off', // Deeply nested calls are common and readable in functional composition
 		'unicorn/name-replacements': [
 			'error',
 			{
