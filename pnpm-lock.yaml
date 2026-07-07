@@ -87,7 +87,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -105,7 +105,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       publint:
         specifier: ^0.3.21
@@ -165,7 +165,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -177,7 +177,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       yargs:
         specifier: ^18.0.0
@@ -214,10 +214,10 @@ importers:
         specifier: ^5.10.0
         version: 5.10.0(eslint@10.6.0(jiti@2.7.0))
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.62.0
+        specifier: ^8.62.1
         version: 8.62.1(@typescript-eslint/parser@8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
       '@typescript-eslint/parser':
-        specifier: ^8.62.0
+        specifier: ^8.62.1
         version: 8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
       '@vitest/eslint-plugin':
         specifier: ^1.6.20
@@ -316,7 +316,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       globals:
         specifier: ^17.7.0
@@ -337,7 +337,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       sort-package-json:
         specifier: ^4.0.0
@@ -410,7 +410,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -425,7 +425,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       yargs:
         specifier: ^18.0.0
@@ -455,7 +455,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -470,7 +470,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       yargs:
         specifier: ^18.0.0
@@ -515,7 +515,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -527,7 +527,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       prettier-plugin-jsdoc:
         specifier: ^1.8.1
@@ -581,7 +581,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -596,7 +596,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       remark-attribute-list:
         specifier: ^0.4.0
@@ -743,7 +743,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       globby:
         specifier: ^16.2.0
@@ -758,7 +758,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       semver:
         specifier: ^7.8.5
@@ -830,7 +830,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       globby:
         specifier: ^16.2.0
@@ -848,7 +848,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       semver:
         specifier: ^7.8.5
@@ -884,7 +884,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -896,7 +896,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       stylelint:
         specifier: ^17.14.0
@@ -910,6 +910,9 @@ importers:
       stylelint-config-standard:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.14.0(typescript@6.0.3))
+      stylelint-plugin-defensive-css:
+        specifier: ^2.9.3
+        version: 2.9.3(stylelint@17.14.0(typescript@6.0.3))
       yargs:
         specifier: ^18.0.0
         version: 18.0.0
@@ -938,7 +941,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.3.5
+        specifier: ^11.3.6
         version: 11.3.6
       json-stringify-pretty-compact:
         specifier: ^4.0.0
@@ -950,7 +953,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       prettier:
-        specifier: ^3.9.1
+        specifier: ^3.9.4
         version: 3.9.4
       yargs:
         specifier: ^18.0.0
@@ -6225,6 +6228,11 @@ packages:
     engines: {node: '>=20.19.0'}
     peerDependencies:
       stylelint: ^16.18.0 || ^17.0.0
+
+  stylelint-plugin-defensive-css@2.9.3:
+    resolution: {integrity: sha512-PyDi9C3i51f8tOoAFUORpcHwiyybc+7vAhGwIASothux1bjYMaoXAZy9eR+QPM1Ye33qVW9qq3Sn7c0CSJ1egw==}
+    peerDependencies:
+      stylelint: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
   stylelint@17.14.0:
     resolution: {integrity: sha512-8xkHPpdqYryeIsOgfsYTmr6cIeC4nLYWk5S8BPxpodq8mIuepggkMljsHewWfuAjj/+qpRKou2QerhjMH3iasg==}
@@ -12973,6 +12981,10 @@ snapshots:
     dependencies:
       postcss: 8.5.16
       postcss-sorting: 10.0.0(postcss@8.5.16)
+      stylelint: 17.14.0(typescript@6.0.3)
+
+  stylelint-plugin-defensive-css@2.9.3(stylelint@17.14.0(typescript@6.0.3)):
+    dependencies:
       stylelint: 17.14.0(typescript@6.0.3)
 
   stylelint@17.14.0(typescript@6.0.3):

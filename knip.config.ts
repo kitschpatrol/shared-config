@@ -22,5 +22,6 @@ export default knipConfig({
 		'remark-directive',
 		'stylelint-config-html',
 		'stylelint-config-standard',
+		'stylelint-plugin-defensive-css',
 	],
 })

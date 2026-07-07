@@ -9,7 +9,12 @@ const propertiesOrder = propertyGroups.map((properties) => ({
 }))
 
 export const sharedStylelintConfig: StylelintConfig = {
-	extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-config-html'],
+	extends: [
+		'stylelint-config-standard',
+		'stylelint-config-clean-order',
+		'stylelint-config-html',
+		'stylelint-plugin-defensive-css/configs/recommended',
+	],
 	overrides: [
 		{
 			// Not unusual to have empty style tags in an Astro template
@@ -23,6 +28,12 @@ export const sharedStylelintConfig: StylelintConfig = {
 		'color-hex-length': null,
 		'comment-empty-line-before': null,
 		'declaration-empty-line-before': null,
+		// Deliberate user-select: none is legitimate in interactive UI
+		'defensive-css/no-user-select-none': null,
+		// Named grid lines are overkill for simple grids
+		'defensive-css/require-named-grid-lines': null,
+		// Element selectors are idiomatic in scoped Svelte and Astro style blocks
+		'defensive-css/require-pure-selectors': null,
 		// 'at-rule-empty-line-before': 'never',
 		'order/properties-order': [
 			propertiesOrder,

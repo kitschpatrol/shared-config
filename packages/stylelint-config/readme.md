@@ -59,6 +59,7 @@ To use just this Stylelint config in isolation:
 - [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) _(Extends the above with [additional rules](https://github.com/stylelint/stylelint-config-standard/blob/main/index.js))_
 - [stylelint-config-clean-order](https://github.com/kutsan/stylelint-config-clean-order)
 - [stylelint-config-html](https://www.npmjs.com/package/stylelint-config-html) _(Parses HTML, XML, Vue, Svelte, Astro, and PHP files)_
+- [stylelint-plugin-defensive-css](https://github.com/yuschick/stylelint-plugin-defensive-css) _(Recommended preset for defensive and accessible CSS)_
 - [Additional customizations](./src/index.ts)
 
 ## Usage
