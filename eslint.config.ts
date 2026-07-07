@@ -4,7 +4,8 @@ export default eslintConfig(
 	{
 		astro: true,
 		ignores: [
-			'bin/',
+			// Packages compile their CLIs to committed, minified bin/cli.js files
+			'**/bin/',
 			'packages/eslint-config/src/typegen.d.ts',
 			'test/fixtures/input/*',
 			'test/fixtures/output-fixed-auto/*',
