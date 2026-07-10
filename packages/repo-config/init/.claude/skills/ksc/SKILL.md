@@ -24,6 +24,8 @@ These cause the most lint failures. Follow them strictly:
 - **Strict template expressions** — Only strings and numbers are allowed in template literals (`ts/restrict-template-expressions` with `allowNumber: true`). Booleans, objects, nullish values must be converted explicitly: `` `flag: ${String(isReady)}` ``
 - **Strict plus operands** — Cannot implicitly add string + number (`ts/restrict-plus-operands`)
 - **Prefer nullish coalescing** — Use `??` not `||` for nullish checks (`ts/prefer-nullish-coalescing`). Use `?.` optional chains (`ts/prefer-optional-chain`)
+- **Check indexed access** — `noUncheckedIndexedAccess` is enabled: `array[i]` and `record[key]` are typed `T | undefined`. Narrow before use
+- **Exact optional properties** — `exactOptionalPropertyTypes` is enabled: `undefined` cannot be assigned to an optional property unless its type explicitly includes `| undefined`. Omit the key instead (e.g. conditional spread)
 
 ## Naming Conventions
 
@@ -36,7 +38,7 @@ These cause the most lint failures. Follow them strictly:
 - **Destructured variables**: `camelCase` or `StrictPascalCase` allowed
 - **File names**: `kebab-case` enforced by `unicorn/filename-case`
 - **Prefer `type` over `interface`**: `ts/consistent-type-definitions` enforces `type Foo = { ... }` not `interface Foo { ... }`
-- **Type imports**: Use inline style: `import { type Foo } from './bar'`
+- **Type imports/exports**: Use top-level style: `import type { Foo } from './bar'` and `export type { Foo }` — inline specifiers like `import { type Foo }` are flagged (`import/consistent-type-specifier-style` with `prefer-top-level`)
 - **Array types**: Simple types use `string[]`, complex types use `Array<string | number>` (`ts/array-type` with `array-simple`)
 
 ## Sorting — Do Not Manually Sort
@@ -67,11 +69,13 @@ Formatting is handled by Prettier — do not fight it:
 
 Additional ESLint style rules:
 
+- **Always use braces** — `if`/`else`/loops require braces even for single statements (`curly`)
+- **Blank line after blocks** — A blank line is required between a block-like statement (`if`, `for`, `while`, `try`, function declarations, etc.) and the next statement (`stylistic/padding-line-between-statements`, auto-fixed)
 - **Comments must be capitalized** (`capitalized-comments`) — exception for commented-out code patterns like `if`, `else`, `const`, `import`, etc.
 - **No `Array.reduce()`** — Use `for...of` loops instead (`unicorn/no-array-reduce`)
 - **No `Array.forEach()`** — Use `for...of` loops instead (`unicorn/no-array-for-each`)
 - **Use `node:` protocol** for Node.js built-in imports: `import fs from 'node:fs'` (`unicorn/prefer-node-protocol`)
-- **No abbreviations** (`unicorn/prevent-abbreviations`) except these allowed ones: `i`, `j`, `acc`, `arg`, `args`, `db`, `dev`, `doc`, `docs`, `env`, `fn`, `lib`, `param`, `params`, `pkg`, `prop`, `props`, `ref`, `refs`, `sep`, `src`, `temp`, `util`, `utils`
+- **No abbreviations** (`unicorn/name-replacements`) except these allowed ones: `i`, `j`, `acc`, `arg`, `args`, `db`, `dev`, `doc`, `docs`, `env`, `fn`, `lib`, `param`, `params`, `pkg`, `prop`, `props`, `ref`, `refs`, `sep`, `src`, `temp`, `util`, `utils`
 - **Explicit length checks** — Write `array.length > 0` not `array.length` (`unicorn/explicit-length-check`)
 - **Catch variable naming** — Use `error` not `err` or `e` (`unicorn/catch-error-name`)
 
@@ -90,6 +94,8 @@ ESLint plugins are renamed in this config. Use these short names in `eslint-disa
 - `n` -> `node`
 - `vitest` -> `test`
 - `@eslint-community/eslint-comments` -> `eslint-comments`
+- `@eslint-react` -> `react`
+- `@stylistic` -> `stylistic`
 - `jsonc` -> `json`
 - `yml` -> `yaml`
 - `@html-eslint` -> `html`
@@ -118,7 +124,7 @@ ESLint plugins are renamed in this config. Use these short names in `eslint-disa
 - `pnpm ksc-eslint lint` / `pnpm ksc-eslint fix` — ESLint only
 - `pnpm ksc-prettier lint` / `pnpm ksc-prettier fix` — Prettier only
 - `pnpm ksc-typescript lint` — TypeScript type checking only
-- `pnpm ksc-cspell lint` — Spell checking only
+- `pnpm ksc-cspell lint` / `pnpm ksc-cspell fix` — Spell checking only (`fix` removes unused words from the config's `words` array and sorts it)
 - `pnpm ksc-stylelint lint` / `pnpm ksc-stylelint fix` — CSS/style linting only
 - `pnpm ksc-remark lint` / `pnpm ksc-remark fix` — Markdown linting only
 - `pnpm ksc-knip lint` — Unused code/export detection
@@ -127,10 +133,17 @@ Use individual commands to focus on specific linter errors instead of running th
 
 ## TypeScript Configuration
 
-- Target: `ES2023` with `DOM` and `DOM.Iterable` libs
+Requires TypeScript 6, which enables all `strict` checks by default. Additional flags:
+
+- Target: `ES2025` with `DOM` lib
 - Module: `ESNext` with `bundler` module resolution
-- `strict: true` — all strict checks enabled (strictNullChecks, strictFunctionTypes, etc.)
-- `erasableSyntaxOnly: true` — no `const enum`, no runtime `namespace` blocks, no `enum` with computed values. Only type-level syntax that can be erased is allowed.
+- `noUncheckedIndexedAccess: true` — indexed access on arrays and records yields `T | undefined`
+- `exactOptionalPropertyTypes: true` — optional properties do not accept explicit `undefined`
+- `noImplicitReturns: true` — if any code path returns a value, all paths must return explicitly
+- `noImplicitOverride: true` — class members that override a base member need the `override` keyword
+- `verbatimModuleSyntax: true` — imports/exports used only as types must be marked with `type`
+- `noFallthroughCasesInSwitch: true`
+- `erasableSyntaxOnly: true` — no `enum`, no runtime `namespace` blocks, no parameter properties. Only type-level syntax that can be erased is allowed.
 - `noUnusedLocals: true`, `noUnusedParameters: true`
 - `isolatedModules: true`
 - JSON imports enabled (`resolveJsonModule: true`)
