@@ -35,7 +35,7 @@ export async function react(
 			plugins: {
 				react: pluginReact,
 			},
-			settings: recommendedTypescriptConfig.settings,
+			settings: recommendedTypescriptConfig.settings ?? {},
 		},
 		{
 			files,

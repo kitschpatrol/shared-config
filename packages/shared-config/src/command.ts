@@ -36,7 +36,7 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 				...(key === 'init'
 					? {
 							// Special case for init location flag
-							receiveOptionFlags: definition.commands[key]?.locationOptionFlag,
+							receiveOptionFlags: definition.commands[key]?.locationOptionFlag ?? false,
 						}
 					: {
 							// Other commands can take positional arguments

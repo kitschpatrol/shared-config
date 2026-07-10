@@ -12,6 +12,7 @@
 		"**/dist/",
 		"**/bin/",
 		"test/fixtures/input/*.*",
-		"test/fixtures/output-fixed-auto/*.*"
+		"test/fixtures/output-fixed-auto/*.*",
+		"test/fixtures/output-fixed-manual/*.*"
 	]
 }

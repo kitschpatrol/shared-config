@@ -12,6 +12,10 @@ async function lint(source: string, filePath: string): Promise<Linter.LintMessag
 		overrideConfigFile: true,
 	})
 	const [result] = await eslint.lintText(source, { filePath })
+	if (result === undefined) {
+		throw new Error(`ESLint returned no results for "${filePath}"`)
+	}
+
 	return result.messages
 }
 

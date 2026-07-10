@@ -14,8 +14,11 @@ async function printEslintConfigCommand(
 	// of optional positional argument
 	let commandToExecute: Command
 
-	if (positionalArguments.length > 0) {
-		const resolvedFile = path.join(process.cwd(), positionalArguments[0])
+	const [firstPositionalArgument] = positionalArguments
+	if (firstPositionalArgument === undefined) {
+		commandToExecute = getCosmiconfigCommand('eslint')
+	} else {
+		const resolvedFile = path.join(process.cwd(), firstPositionalArgument)
 		logStream.write(`Showing configuration for file: ${resolvedFile}\n`)
 
 		commandToExecute = {
@@ -23,8 +26,6 @@ async function printEslintConfigCommand(
 			optionFlags: ['--print-config'],
 			receivePositionalArguments: true,
 		}
-	} else {
-		commandToExecute = getCosmiconfigCommand('eslint')
 	}
 
 	return executeCommands(logStream, positionalArguments, [], [commandToExecute])

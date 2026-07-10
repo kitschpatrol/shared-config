@@ -149,6 +149,10 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 			visited.add(key)
 
 			const pkg = packages[key as keyof PackageSnapshots]
+			if (pkg === undefined) {
+				return
+			}
+
 			const engine = pkg.engines?.node
 
 			if (engine !== undefined && engine !== '') {
@@ -204,8 +208,8 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 	// each workspace package gets its own per-package engine constraints.
 	const relativeProjectPath = path.relative(lockfileDirectory, projectPath)
 	const importerKey = relativeProjectPath === '' ? '.' : relativeProjectPath
-	if (Object.hasOwn(lockfile.importers, importerKey)) {
-		const importer = lockfile.importers[importerKey as ProjectId]
+	const importer = lockfile.importers[importerKey as ProjectId]
+	if (importer !== undefined) {
 		if (importer.dependencies) {
 			processDependencies(importer.dependencies, false)
 		}
@@ -222,14 +226,14 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 		dependencies:
 			overallProductionMax !== undefined && overallProductionMax !== ''
 				? {
-						topLevelCauses: [...productionCauses[overallProductionMax]],
+						topLevelCauses: [...(productionCauses[overallProductionMax] ?? [])],
 						version: `>=${overallProductionMax}`,
 					}
 				: undefined,
 		devDependencies:
 			overallDevMax !== undefined && overallDevMax !== ''
 				? {
-						topLevelCauses: [...devCauses[overallDevMax]],
+						topLevelCauses: [...(devCauses[overallDevMax] ?? [])],
 						version: `>=${overallDevMax}`,
 					}
 				: undefined,

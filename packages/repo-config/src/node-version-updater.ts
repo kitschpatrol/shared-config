@@ -40,11 +40,11 @@ function setDevEnginesNodeVersion(packageJson: Record<string, unknown>, version:
 
 	if (devEngines.runtime) {
 		if (Array.isArray(devEngines.runtime)) {
-			const nodeIndex = devEngines.runtime.findIndex((r) => r.name === 'node')
-			if (nodeIndex === -1) {
+			const nodeRuntime = devEngines.runtime.find((r) => r.name === 'node')
+			if (nodeRuntime === undefined) {
 				devEngines.runtime.push({ name: 'node', version })
 			} else {
-				devEngines.runtime[nodeIndex].version = version
+				nodeRuntime.version = version
 			}
 		} else if (devEngines.runtime.name === 'node') {
 			devEngines.runtime.version = version
@@ -70,11 +70,12 @@ function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void
 
 	if (Array.isArray(devEngines.runtime)) {
 		devEngines.runtime = devEngines.runtime.filter((r) => r.name !== 'node')
-		if (devEngines.runtime.length === 0) {
+		const [firstRuntime] = devEngines.runtime
+		if (firstRuntime === undefined) {
 			delete devEngines.runtime
 		} else if (devEngines.runtime.length === 1) {
 			// Unwrap single-element array back to object
-			devEngines.runtime = devEngines.runtime[0]
+			devEngines.runtime = firstRuntime
 		}
 	} else if (devEngines.runtime.name === 'node') {
 		delete devEngines.runtime

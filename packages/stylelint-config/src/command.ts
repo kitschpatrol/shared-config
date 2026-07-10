@@ -47,11 +47,12 @@ async function printStylelintConfigCommand(
 
 	// Use stylelint's built-in method to print the config
 	let filePath
-	if (positionalArguments.length > 0) {
-		filePath = path.join(process.cwd(), positionalArguments[0])
-		logStream.write(`Showing config for file at "${filePath}"\n`)
-	} else {
+	const [firstPositionalArgument] = positionalArguments
+	if (firstPositionalArgument === undefined) {
 		filePath = getCwdOverride('package-dir')
+	} else {
+		filePath = path.join(process.cwd(), firstPositionalArgument)
+		logStream.write(`Showing config for file at "${filePath}"\n`)
 	}
 
 	const config = await stylelint.resolveConfig(filePath)

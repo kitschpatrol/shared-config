@@ -181,9 +181,10 @@ async function main() {
  */
 function parseExpansionConfig(line: string): ExpansionConfig {
 	const quoteRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/gv
-	const matches = line.match(quoteRegex)
+	const matches = line.match(quoteRegex) ?? []
+	const [libraryMatch, dotPathMatch] = matches
 
-	if (matches?.length === undefined || matches.length < 2) {
+	if (libraryMatch === undefined || dotPathMatch === undefined) {
 		throw new Error(`Invalid expansion config in line: ${line}`)
 	}
 
@@ -198,9 +199,9 @@ function parseExpansionConfig(line: string): ExpansionConfig {
 					.filter((prefix) => prefix.length > 0)
 
 	return {
-		dotPath: matches[1].replaceAll(/['"]/gv, ''),
+		dotPath: dotPathMatch.replaceAll(/['"]/gv, ''),
 		excludePrefixes,
-		library: matches[0].replaceAll(/['"]/gv, ''),
+		library: libraryMatch.replaceAll(/['"]/gv, ''),
 	}
 }
 

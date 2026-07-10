@@ -430,7 +430,7 @@ async function copyAndMergeInitFiles(
 				const mergedPackageJson = merge(destinationPackageJson, configPackageJson)
 				fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: '\t' })
 				await formatFileInPlace(destinationPackage)
-			} else if (Object.keys(destinationPackageJson).includes(configKey)) {
+			} else if (configKey !== undefined && Object.keys(destinationPackageJson).includes(configKey)) {
 				// Removing configuration key from package.json
 				logStream.write(
 					`Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,

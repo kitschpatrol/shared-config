@@ -126,7 +126,7 @@ export async function fix(
 	const eslint = await getEslintInstance(options)
 	const [result] = await eslint.lintText(source, { filePath: filepath })
 
-	return result.output ?? source
+	return result?.output ?? source
 }
 
 /**
@@ -141,7 +141,7 @@ export async function fixFile(filePath: string, config?: OptionsConfig): Promise
 	// Use basename so the virtual filepath matches allowDefaultProject globs
 	const [result] = await eslint.lintText(content, { filePath: path.basename(filePath) })
 
-	if (result.output !== undefined) {
+	if (result?.output !== undefined) {
 		await fs.writeFile(filePath, result.output, 'utf8')
 	}
 }

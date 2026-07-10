@@ -36,7 +36,7 @@ export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<
 	}
 
 	let unusedWords = [...settings.words]
-	settings.words = undefined
+	delete settings.words
 
 	const runResult = await lint(
 		fileGlobs,
