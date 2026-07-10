@@ -216,7 +216,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'no-await-in-loop': 'off',
 		'no-else-return': 'off', // Superseded by unicorn/no-useless-else
-		// TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
+		// TSConfig must have allowUnreachableCode: true so TypeScript ignores unreachable code entirely, letting this rule flag it instead. Unlike TypeScript's editor suggestion (whose quick fix can spontaneously delete unreachable code via fix-on-save), this rule has no auto-fix.
 		'no-unreachable': 'warn',
 		'no-useless-concat': 'off', // Superseded by unicorn/no-useless-concat
 		'no-warning-comments': 'off',
