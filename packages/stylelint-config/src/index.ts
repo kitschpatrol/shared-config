@@ -1,7 +1,8 @@
-export { clearCache, type FileType, fix, fixFile } from './api.js'
+export { clearCache, fix, fixFile } from './api.js'
+export type { FileType } from './api.js'
 export {
 	sharedStylelintConfig as default,
 	sharedStylelintConfig,
 	stylelintConfig,
-	type StylelintConfig,
 } from './config.js'
+export type { StylelintConfig } from './config.js'

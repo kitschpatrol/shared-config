@@ -94,16 +94,17 @@ export function renamePluginInConfigs(
 ): TypedFlatConfigItem[] {
 	return configs.map((i) => {
 		const clone = { ...i }
-		clone.rules &&= renameRules(clone.rules, map)
-		clone.plugins &&= Object.fromEntries(
-			Object.entries(clone.plugins).map(([key, value]) => {
-				if (Object.hasOwn(map, key)) {
-					return [map[key], value]
-				}
+		// Note `&&=` breaks ts/no-unnecessary-condition under exactOptionalPropertyTypes, since the assignment target type excludes undefined
+		if (clone.rules) {
+			clone.rules = renameRules(clone.rules, map)
+		}
 
-				return [key, value]
-			}),
-		)
+		if (clone.plugins) {
+			clone.plugins = Object.fromEntries(
+				Object.entries(clone.plugins).map(([key, value]) => [map[key] ?? key, value] as const),
+			)
+		}
+
 		return clone
 	})
 }

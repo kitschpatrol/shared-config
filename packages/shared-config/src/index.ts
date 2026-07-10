@@ -1,1 +1,2 @@
-export { clearCache, type FileType, fix, fixFile } from './api.js'
+export { clearCache, fix, fixFile } from './api.js'
+export type { FileType } from './api.js'

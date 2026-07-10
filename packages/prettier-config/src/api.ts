@@ -77,25 +77,30 @@ function resolvePluginPath(name: string): string {
 function resolvePluginsInConfig(config: PrettierConfig): PrettierConfig {
 	const resolved = { ...config }
 
-	resolved.plugins &&= resolved.plugins.map((plugin) =>
-		typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
-	)
+	// Note `&&=` breaks ts/no-unnecessary-condition under exactOptionalPropertyTypes, since the assignment target type excludes undefined
+	if (resolved.plugins) {
+		resolved.plugins = resolved.plugins.map((plugin) =>
+			typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
+		)
+	}
 
-	resolved.overrides &&= resolved.overrides.map((override) => {
-		if (!override.options?.plugins) {
-			return override
-		}
+	if (resolved.overrides) {
+		resolved.overrides = resolved.overrides.map((override) => {
+			if (!override.options?.plugins) {
+				return override
+			}
 
-		return {
-			...override,
-			options: {
-				...override.options,
-				plugins: override.options.plugins.map((plugin) =>
-					typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
-				),
-			},
-		}
-	})
+			return {
+				...override,
+				options: {
+					...override.options,
+					plugins: override.options.plugins.map((plugin) =>
+						typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
+					),
+				},
+			}
+		})
+	}
 
 	return resolved
 }

@@ -21,4 +21,4 @@ export function mdatConfig(config?: MdatConfig): MdatConfig {
 	return mergeConfig(sharedMdatConfig, config ?? {})
 }
 
-export { type Config as MdatConfig } from 'mdat'
+export type { Config as MdatConfig } from 'mdat'

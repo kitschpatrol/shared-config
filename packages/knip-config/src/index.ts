@@ -1,6 +1,2 @@
-export {
-	sharedKnipConfig as default,
-	knipConfig,
-	type KnipConfig,
-	sharedKnipConfig,
-} from './config.js'
+export { sharedKnipConfig as default, knipConfig, sharedKnipConfig } from './config.js'
+export type { KnipConfig } from './config.js'

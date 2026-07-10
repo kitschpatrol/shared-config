@@ -77,4 +77,4 @@ export function stylelintConfig(config?: StylelintConfig): StylelintConfig {
 	}
 }
 
-export { type Config as StylelintConfig } from 'stylelint'
+export type { Config as StylelintConfig } from 'stylelint'

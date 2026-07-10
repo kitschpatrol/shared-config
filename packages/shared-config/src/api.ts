@@ -92,4 +92,4 @@ export function clearCache(): void {
 	prettierClearCache()
 }
 
-export { type FileType } from '@kitschpatrol/prettier-config'
+export type { FileType } from '@kitschpatrol/prettier-config'

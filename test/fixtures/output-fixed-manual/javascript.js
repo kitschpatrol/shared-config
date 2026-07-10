@@ -36,8 +36,11 @@ const multilineString = `
 `
 
 // Use destructuring assignment to extract values from an object
-const { age, name } = people[0]
-log(`First person in the array is ${name} and they are ${age} years old.`, multilineString)
+const [firstPerson] = people
+if (firstPerson !== undefined) {
+	const { age, name } = firstPerson
+	log(`First person in the array is ${name} and they are ${age} years old.`, multilineString)
+}
 
 // Use the spread operator to create a new array
 const numbers = [1, 2, 3]

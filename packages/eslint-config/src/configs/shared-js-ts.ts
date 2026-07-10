@@ -216,6 +216,15 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		],
 		'no-await-in-loop': 'off',
 		'no-else-return': 'off', // Superseded by unicorn/no-useless-else
+		// No existing rule enforces top-level `export type` over inline type specifiers in exports — import/consistent-type-specifier-style only covers imports, and ts/consistent-type-exports accepts both marker styles
+		'no-restricted-syntax': [
+			'error',
+			{
+				message:
+					'Use a top-level `export type { … }` statement instead of an inline type specifier.',
+				selector: 'ExportSpecifier[exportKind="type"]',
+			},
+		],
 		// TSConfig must have allowUnreachableCode: true so TypeScript ignores unreachable code entirely, letting this rule flag it instead. Unlike TypeScript's editor suggestion (whose quick fix can spontaneously delete unreachable code via fix-on-save), this rule has no auto-fix.
 		'no-unreachable': 'warn',
 		'no-useless-concat': 'off', // Superseded by unicorn/no-useless-concat
@@ -260,6 +269,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			{ blankLine: 'always', next: '*', prev: 'block-like' },
 		],
 		'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
+		// Fix mixed exports by splitting into separate statements, matching import/consistent-type-specifier-style prefer-top-level and the no-restricted-syntax ban on inline type specifiers in exports
+		'ts/consistent-type-exports': ['error', { fixMixedExportsWithInlineTypeSpecifier: false }],
+		// Fix with top-level `import type` statements, matching import/consistent-type-specifier-style prefer-top-level
+		'ts/consistent-type-imports': ['error', { fixStyle: 'separate-type-imports' }],
 		'ts/member-ordering': 'off', // Conflicts with perfectionist
 		'ts/naming-convention': [
 			// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
@@ -381,6 +394,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			// 	selector: 'objectLiteralProperty',
 			// },
 		],
+		'ts/no-import-type-side-effects': 'error',
 		'ts/no-non-null-assertion': 'off',
 		'ts/no-restricted-types': [
 			'error',
