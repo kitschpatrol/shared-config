@@ -213,7 +213,15 @@ The ESLint module and instances are cached internally for performance across mul
 
 ## Notes
 
+### Config location
+
 Regrettably the `eslint-config init --location package` option is not supported due to ESLint's removal of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
+
+### Preset generation
+
+The `update-rules` script is used to manually regenerate preset rule sets when plugin dependencies are updated.
+
+The script requires two calls to `ksc-prettier fix` to accommodate a lack of idempotence in Prettier's handling of the resulting `typegen.d.ts` file. This surfaced a few Prettier versions ago, and the necessity of this work-around should be reevaluated periodically against future versions of Prettier.
 
 ### Origins
 
