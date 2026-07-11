@@ -86,10 +86,19 @@ type InitCommand = {
 // Lint
 // Optionally takes files (plural) positional arguments (array of strings, possibly expanded from glob?)
 type LintCommand = {
-	commands: Command[]
+	/**
+	 * Commands to run, or a function that resolves them at execution time (e.g.
+	 * for project-dependent command selection).
+	 */
+	commands: (() => Promise<Command[]>) | Command[]
 	description: string
 	positionalArgumentDefault?: string // Only applies if arguments mode is not 'none'
 	positionalArgumentMode: 'none' | 'optional' | 'required'
+}
+
+/** Resolve a static or lazily-generated command list. */
+async function resolveCommands(commands: (() => Promise<Command[]>) | Command[]): Promise<Command[]> {
+	return typeof commands === 'function' ? commands() : commands
 }
 
 // Fix
@@ -636,7 +645,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					logStream,
 					positionalArguments,
 					[],
-					lint.commands,
+					await resolveCommands(lint.commands),
 					verbose,
 					showSummary,
 					skip,
@@ -678,7 +687,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					logStream,
 					positionalArguments,
 					[],
-					fix.commands,
+					await resolveCommands(fix.commands),
 					undefined,
 					undefined,
 					skip,
@@ -720,7 +729,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					logStream,
 					positionalArguments,
 					[],
-					printConfig.commands,
+					await resolveCommands(printConfig.commands),
 					verbose,
 					showSummary,
 					skip,

@@ -171,11 +171,15 @@ ksc-typescript print-config
 
 ## Notes
 
-### Svelte caveat
+### Svelte and Astro caveat
 
-The `ksc-typescript lint` command will detect whether it's running in a Svelte project, and treat `lint` as a no-op when that's the case.
+The `tsc` command ignores `.svelte` and `.astro` files, and [errors](https://github.com/sveltejs/language-tools/issues/2527) on plain `.ts` files that import them. So, if `svelte-check` or `@astrojs/check` is declared in your package's dependencies or devDependencies, the `ksc-typescript lint` command runs that checker instead of `tsc --noEmit`:
 
-This is necessary to prevent unactionable warnings because Svelte [doesn't play well](https://github.com/sveltejs/language-tools/issues/2527) with the underlying TypeScript `tsc` command.
+- `svelte-check` → `svelte-check --tsconfig ./tsconfig.json` (covers `.svelte` and plain `.ts` / `.js` files)
+- `@astrojs/check` → `astro check` (covers `.astro` and plain `.ts` / `.js` files)
+- Both → `astro check` plus `svelte-check` scoped to `.svelte` files only
+
+If neither checker is declared, `tsc --noEmit` runs as usual, even in projects with a `svelte.config.js` or `astro.config.mjs` file.
 
 ### General
 
