@@ -155,7 +155,6 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		...regexpRecommendedRules,
 		...deMorganRecommendedRules,
 		...dependRecommendedRules,
-
 		...mathRecommendedRules,
 		'capitalized-comments': [
 			'error',
@@ -164,7 +163,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				ignoreConsecutiveComments: true,
 				ignoreInlineComments: true,
 				// Forgive some additional common patterns arising from temporarily commenting out lines of code
-				ignorePattern: String.raw`if|else|await|macOS|const|let|var|import|export|pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
+				ignorePattern: String.raw`await|c8|console\.log|const|cspell|else|eslint|export|if|ignore|import|let|macOS|pragma|prettier-ignore|svelte-ignore|type-coverage:|var|webpack\w+:`,
 			},
 		],
 		// Cherry-picked e18e rules that don't overlap with unicorn/depend/ts
