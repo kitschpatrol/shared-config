@@ -25,7 +25,6 @@ These cause the most lint failures. Follow them strictly:
 - **Strict plus operands** — Cannot implicitly add string + number (`ts/restrict-plus-operands`)
 - **Prefer nullish coalescing** — Use `??` not `||` for nullish checks (`ts/prefer-nullish-coalescing`). Use `?.` optional chains (`ts/prefer-optional-chain`)
 - **Check indexed access** — `noUncheckedIndexedAccess` is enabled: `array[i]` and `record[key]` are typed `T | undefined`. Narrow before use
-- **Exact optional properties** — `exactOptionalPropertyTypes` is enabled: `undefined` cannot be assigned to an optional property unless its type explicitly includes `| undefined`. Omit the key instead (e.g. conditional spread)
 
 ## Naming Conventions
 
@@ -138,7 +137,6 @@ Requires TypeScript 6, which enables all `strict` checks by default. Additional 
 - Target: `ES2025` with `DOM` lib
 - Module: `ESNext` with `bundler` module resolution
 - `noUncheckedIndexedAccess: true` — indexed access on arrays and records yields `T | undefined`
-- `exactOptionalPropertyTypes: true` — optional properties do not accept explicit `undefined`
 - `noImplicitReturns: true` — if any code path returns a value, all paths must return explicitly
 - `noImplicitOverride: true` — class members that override a base member need the `override` keyword
 - `verbatimModuleSyntax: true` — imports/exports used only as types must be marked with `type`
