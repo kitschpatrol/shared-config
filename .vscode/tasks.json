@@ -1,0 +1,121 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "ksc lint",
+			"detail": "Lint the project with @kitschpatrol/shared-config and report problems",
+			"type": "shell",
+			"command": "pnpm exec ksc lint --machine",
+			"options": { "cwd": "${workspaceFolder}" },
+			"presentation": {
+				"clear": true,
+				"echo": true,
+				"focus": false,
+				"panel": "dedicated",
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"showReuseMessage": false
+			},
+			"problemMatcher": [
+				{
+					"owner": "ksc-typescript",
+					"source": "tsc",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"pattern": {
+						"regexp": "^([^\\s].*)\\((\\d+),(\\d+)\\): (error|warning) (TS\\d+): (.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"severity": 4,
+						"code": 5,
+						"message": 6
+					}
+				},
+				{
+					"owner": "ksc-eslint",
+					"source": "eslint",
+					"fileLocation": "absolute",
+					"pattern": [
+						{
+							"regexp": "^((?:[A-Za-z]:)?[/\\\\].*)$",
+							"file": 1
+						},
+						{
+							"regexp": "^\\s+(\\d+):(\\d+)\\s+(error|warning)\\s+(.+?)(?:\\s\\s+([\\w@/-]\\S*))?\\s*$",
+							"line": 1,
+							"column": 2,
+							"severity": 3,
+							"message": 4,
+							"code": 5,
+							"loop": true
+						}
+					]
+				},
+				{
+					"owner": "ksc-stylelint",
+					"source": "stylelint",
+					"fileLocation": "absolute",
+					"pattern": {
+						"regexp": "^(.+?):(\\d+):(\\d+): (.+) \\[(error|warning)\\]$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4,
+						"severity": 5
+					}
+				},
+				{
+					"owner": "ksc-cspell",
+					"source": "cspell",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"severity": "warning",
+					"pattern": {
+						"regexp": "^(.+?):(\\d+):(\\d+) - ((?:Unknown|Forbidden) word .*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				},
+				{
+					"owner": "ksc-case-police",
+					"source": "case-police",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"severity": "warning",
+					"pattern": {
+						"regexp": "^(.+? → .+?)\\s\\s+(\\S+):(\\d+):(\\d+)\\s*$",
+						"message": 1,
+						"file": 2,
+						"line": 3,
+						"column": 4
+					}
+				},
+				{
+					"owner": "ksc-knip",
+					"source": "knip",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"severity": "warning",
+					"pattern": {
+						"regexp": "^([^\\s.].*?)\\s\\s+([^.\\s]\\S*):(\\d+):(\\d+)\\s*$",
+						"message": 1,
+						"file": 2,
+						"line": 3,
+						"column": 4
+					}
+				},
+				{
+					"owner": "ksc-prettier",
+					"source": "prettier",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"severity": "warning",
+					"pattern": {
+						"regexp": "^\\[warn\\] (\\S+)$",
+						"kind": "file",
+						"file": 1,
+						"message": 1
+					}
+				}
+			]
+		}
+	]
+}

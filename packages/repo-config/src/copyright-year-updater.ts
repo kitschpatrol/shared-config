@@ -1,6 +1,8 @@
 // eslint-disable-next-line depend/ban-dependencies
 import { globby } from 'globby'
 import fs from 'node:fs/promises'
+import type { CollectResult } from '../../../src/command-builder.js'
+import { normalizeDiagnosticPath } from '../../../src/diagnostics.js'
 import { getPackageDirectory } from '../../../src/path-utilities'
 import { pluralize } from '../../../src/string-utilities'
 
@@ -114,23 +116,18 @@ function updateLicenseContent(content: string, currentYear: number): string {
 	return content
 }
 
-async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Promise<number> {
+async function findOutdatedLicenseFiles(fix: boolean): Promise<string[]> {
 	const currentYear = new Date().getFullYear()
-	const licenseFiles: string[] = []
 
 	// Use multiple glob patterns to cover different casings for "license.txt"
 	const patterns = ['**/license.txt', '**/license', ...IGNORE_PATTERNS.map((p) => `!${p}`)]
 
-	const files = await globby(patterns, {
+	const licenseFiles = await globby(patterns, {
 		caseSensitiveMatch: false,
 		cwd: getPackageDirectory(),
 		followSymbolicLinks: false, // Avoid infinite loops
 		gitignore: true,
 	})
-
-	for (const filePath of files) {
-		licenseFiles.push(filePath)
-	}
 
 	const outdatedLicenseFiles: string[] = []
 
@@ -149,6 +146,12 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
 			console.error(`Failed to process ${filePath}:`, error)
 		}
 	}
+
+	return outdatedLicenseFiles
+}
+
+async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Promise<number> {
+	const outdatedLicenseFiles = await findOutdatedLicenseFiles(fix)
 
 	if (outdatedLicenseFiles.length > 0) {
 		logStream.write(
@@ -169,6 +172,25 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
  */
 export async function copyrightYearLinterCommand(logStream: NodeJS.WritableStream) {
 	return copyrightYear(logStream, false)
+}
+
+/**
+ * Structured counterpart to `copyrightYearLinterCommand` for machine and JSON
+ * output modes.
+ */
+export async function copyrightYearLinterCollect(): Promise<CollectResult & { exitCode: number }> {
+	const outdatedLicenseFiles = await findOutdatedLicenseFiles(false)
+
+	return {
+		diagnostics: outdatedLicenseFiles.map((filePath) => ({
+			file: normalizeDiagnosticPath(filePath, getPackageDirectory()),
+			message: 'License file has an outdated copyright year',
+			severity: 'error' as const,
+			tool: 'copyright-year',
+		})),
+		exitCode: outdatedLicenseFiles.length > 0 ? 1 : 0,
+		unparsed: [],
+	}
 }
 
 /**

@@ -1,8 +1,13 @@
 import type { CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
-import { copyrightYearFixerCommand, copyrightYearLinterCommand } from './copyright-year-updater.js'
+import {
+	copyrightYearFixerCommand,
+	copyrightYearLinterCollect,
+	copyrightYearLinterCommand,
+} from './copyright-year-updater.js'
 import {
 	nodeVersionFixerCommand,
+	nodeVersionLinterCollect,
 	nodeVersionLinterCommand,
 	printNodeVersionCommand,
 } from './node-version-updater.js'
@@ -13,11 +18,12 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					execute: copyrightYearFixerCommand,
-					name: copyrightYearLinterCommand.name,
+					// Explicit name because function names are minified in builds
+					name: 'copyright-year',
 				},
 				{
 					execute: nodeVersionFixerCommand,
-					name: nodeVersionFixerCommand.name,
+					name: 'node-version',
 				},
 			],
 			description: `Fix common issues like outdated copyright years in license files. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
@@ -29,12 +35,15 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					collect: copyrightYearLinterCollect,
 					execute: copyrightYearLinterCommand,
-					name: copyrightYearFixerCommand.name,
+					// Explicit name because function names are minified in builds
+					name: 'copyright-year',
 				},
 				{
+					collect: nodeVersionLinterCollect,
 					execute: nodeVersionLinterCommand,
-					name: nodeVersionLinterCommand.name,
+					name: 'node-version',
 				},
 			],
 			description: `Check the repo for common issues. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
@@ -44,7 +53,7 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					execute: printNodeVersionCommand,
-					name: printNodeVersionCommand.name,
+					name: 'node-version',
 				},
 			],
 			description: 'Print minimum Node.js version constraints from the pnpm lockfile.',

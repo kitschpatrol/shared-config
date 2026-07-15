@@ -1,8 +1,70 @@
 import fse from 'fs-extra'
 import path from 'node:path'
-import type { Command, CommandDefinition } from '../../../src/command-builder.js'
+import type {
+	CollectContext,
+	CollectResult,
+	Command,
+	CommandDefinition,
+} from '../../../src/command-builder.js'
+import type { Diagnostic } from '../../../src/diagnostics.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
+import { normalizeDiagnosticPath, toOutputLines } from '../../../src/diagnostics.js'
 import { getPackageDirectory } from '../../../src/path-utilities.js'
+
+// "src/foo.ts(12,5): error TS2304: Cannot find name 'x'."
+const TSC_FILE_DIAGNOSTIC_REGEX =
+	/^(?<file>.+?)\((?<line>\d+),(?<column>\d+)\): (?<severity>error|warning) (?<code>TS\d+): (?<message>.*)$/v
+// "error TS5083: Cannot read file 'tsconfig.json'."
+const TSC_GLOBAL_DIAGNOSTIC_REGEX = /^(?<severity>error|warning) (?<code>TS\d+): (?<message>.*)$/v
+const CONTINUATION_LINE_REGEX = /^\s/v
+
+/**
+ * Parses `tsc --noEmit` text output into diagnostics. Indented lines continue
+ * the previous diagnostic's message.
+ */
+export function parseTscOutput(context: CollectContext): CollectResult {
+	const diagnostics: Diagnostic[] = []
+	const unparsed: string[] = []
+
+	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
+		const fileMatch = TSC_FILE_DIAGNOSTIC_REGEX.exec(line)
+		if (fileMatch?.groups !== undefined) {
+			const { code, column, file, line: lineNumber, message, severity } = fileMatch.groups
+			diagnostics.push({
+				column: Number(column),
+				file: normalizeDiagnosticPath(file ?? '', context.cwd),
+				line: Number(lineNumber),
+				message: message ?? '',
+				rule: code,
+				severity: severity === 'warning' ? 'warning' : 'error',
+				tool: 'tsc',
+			})
+			continue
+		}
+
+		const globalMatch = TSC_GLOBAL_DIAGNOSTIC_REGEX.exec(line)
+		if (globalMatch?.groups !== undefined) {
+			const { code, message, severity } = globalMatch.groups
+			diagnostics.push({
+				message: message ?? '',
+				rule: code,
+				severity: severity === 'warning' ? 'warning' : 'error',
+				tool: 'tsc',
+			})
+			continue
+		}
+
+		const previousDiagnostic = diagnostics.at(-1)
+		if (CONTINUATION_LINE_REGEX.test(line) && previousDiagnostic !== undefined) {
+			previousDiagnostic.message += `\n${line.trim()}`
+			continue
+		}
+
+		unparsed.push(line)
+	}
+
+	return { diagnostics, unparsed }
+}
 
 /**
  * Returns the names of all dependencies and devDependencies declared in the
@@ -23,7 +85,7 @@ async function getDeclaredDependencies(): Promise<Set<string>> {
 }
 
 async function generateTypeScriptLintCommands(): Promise<Command[]> {
-	// Tsc ignores .astro and .svelte files and can't resolve imports of them
+	// TSC ignores .astro and .svelte files and can't resolve imports of them
 	// from plain .ts files, so projects that declare the framework-specific
 	// checkers use those instead.
 	// See https://github.com/sveltejs/language-tools/issues/2527
@@ -58,6 +120,9 @@ async function generateTypeScriptLintCommands(): Promise<Command[]> {
 
 	return [
 		{
+			collect: {
+				parse: parseTscOutput,
+			},
 			cwdOverride: 'package-dir',
 			name: 'tsc',
 			optionFlags: ['--noEmit'],

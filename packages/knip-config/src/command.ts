@@ -1,8 +1,89 @@
 import path from 'node:path'
-import type { CommandDefinition } from '../../../src/command-builder.js'
+import type {
+	CollectContext,
+	CollectResult,
+	CommandDefinition,
+} from '../../../src/command-builder.js'
+import type { Diagnostic } from '../../../src/diagnostics.js'
 import { DESCRIPTION, getCosmiconfigCommand } from '../../../src/command-builder.js'
+import { normalizeDiagnosticPath, toOutputLines } from '../../../src/diagnostics.js'
 import { getPackageDirectory, getWorkspaceRoot, isMonorepo } from '../../../src/path-utilities.js'
 import sharedKnipConfig from './index.js'
+
+/** Human-readable labels for Knip's issue categories. */
+const KNIP_CATEGORY_LABELS: Record<string, string> = {
+	binaries: 'Unlisted binary',
+	catalog: 'Unused catalog entry',
+	classMembers: 'Unused class member',
+	dependencies: 'Unused dependency',
+	devDependencies: 'Unused devDependency',
+	duplicates: 'Duplicate export',
+	enumMembers: 'Unused enum member',
+	exports: 'Unused export',
+	files: 'Unused file',
+	namespaceMembers: 'Unused namespace member',
+	nsExports: 'Unused namespace export',
+	nsTypes: 'Unused namespace type',
+	optionalPeerDependencies: 'Unused optional peer dependency',
+	types: 'Unused exported type',
+	unlisted: 'Unlisted dependency',
+	unresolved: 'Unresolved import',
+}
+
+type KnipIssueEntry = string | { col?: number; line?: number; name: string }
+
+type KnipIssue = Record<string, unknown> & { file: string }
+
+function flattenKnipEntries(value: unknown): KnipIssueEntry[] {
+	if (!Array.isArray(value)) {
+		return []
+	}
+
+	// Some categories (e.g. duplicates) nest entries one level deeper
+	return value.flatMap((entry: unknown) =>
+		Array.isArray(entry) ? (entry as KnipIssueEntry[]) : [entry as KnipIssueEntry],
+	)
+}
+
+/** Parses `knip --reporter json` output into diagnostics. */
+export function parseKnipJsonOutput(context: CollectContext): CollectResult {
+	let parsed: { issues?: KnipIssue[] }
+	try {
+		parsed = JSON.parse(context.stdout) as { issues?: KnipIssue[] }
+	} catch {
+		return {
+			diagnostics: [],
+			unparsed: [...toOutputLines(context.stdout), ...toOutputLines(context.stderr)],
+		}
+	}
+
+	const diagnostics: Diagnostic[] = []
+	const issues = parsed.issues ?? []
+	for (const issue of issues) {
+		const file = normalizeDiagnosticPath(issue.file, context.cwd)
+
+		for (const [category, value] of Object.entries(issue)) {
+			const label = KNIP_CATEGORY_LABELS[category]
+			if (label !== undefined) {
+				for (const entry of flattenKnipEntries(value)) {
+					const name = typeof entry === 'string' ? entry : entry.name
+					const location = typeof entry === 'string' ? {} : { column: entry.col, line: entry.line }
+
+					diagnostics.push({
+						...location,
+						file,
+						message: category === 'files' ? label : `${label}: ${name}`,
+						rule: category,
+						severity: 'warning',
+						tool: 'knip',
+					})
+				}
+			}
+		}
+	}
+
+	return { diagnostics, unparsed: toOutputLines(context.stderr) }
+}
 
 function getWorkspaceOptionFlags(): string[] {
 	if (isMonorepo()) {
@@ -62,6 +143,16 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					collect: {
+						optionFlags: [
+							'--no-progress',
+							'--no-config-hints',
+							...getWorkspaceOptionFlags(),
+							'--reporter',
+							'json',
+						],
+						parse: parseKnipJsonOutput,
+					},
 					// Run from root, then pass --workspace IF in a monorepo and called from a subpackage
 					cwdOverride: 'workspace-root',
 					name: 'knip',

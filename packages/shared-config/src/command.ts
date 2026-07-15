@@ -43,6 +43,9 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 							receivePositionalArguments:
 								definition.commands[key]?.positionalArgumentMode !== 'none',
 						}),
+				// The spawned ksc-* CLIs honor KSC_FORMAT themselves: they render
+				// machine output directly and emit their own JSON reports for merging
+				...(key === 'lint' && { outputFormatAware: true }),
 				subcommands: [kebabCase(key)],
 			})
 		}

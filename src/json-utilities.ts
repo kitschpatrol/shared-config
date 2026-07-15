@@ -57,3 +57,35 @@ export function merge(
 ): any[] {
 	return deepmerge(destination, source, options)
 }
+
+type VsCodeTask = Record<string, unknown>
+
+function getVsCodeTasks(json: Record<string, unknown>): VsCodeTask[] {
+	const { tasks } = json
+	return Array.isArray(tasks) ? (tasks as VsCodeTask[]) : []
+}
+
+/**
+ * Merge VS Code tasks.json files. Top-level keys are shallow-merged, and the
+ * `tasks` array is merged by task `label`: a source task replaces a destination
+ * task with the same label, otherwise it's appended. Index-based deep merging
+ * would splice unrelated tasks together.
+ */
+export function mergeVsCodeTasks(
+	destination: Record<string, unknown>,
+	source: Record<string, unknown>,
+): Record<string, unknown> {
+	const mergedTasks = [...getVsCodeTasks(destination)]
+	for (const sourceTask of getVsCodeTasks(source)) {
+		const index = mergedTasks.findIndex(
+			(task) => task.label !== undefined && task.label === sourceTask.label,
+		)
+		if (index === -1) {
+			mergedTasks.push(sourceTask)
+		} else {
+			mergedTasks[index] = sourceTask
+		}
+	}
+
+	return { ...destination, ...source, tasks: mergedTasks }
+}

@@ -1,6 +1,54 @@
-import type { CommandDefinition } from '../../../src/command-builder.js'
+import type {
+	CollectContext,
+	CollectResult,
+	CommandDefinition,
+} from '../../../src/command-builder.js'
+import type { Diagnostic } from '../../../src/diagnostics.js'
 import { DESCRIPTION, getCosmiconfigCommand } from '../../../src/command-builder.js'
+import { normalizeDiagnosticPath, toOutputLines } from '../../../src/diagnostics.js'
 import { getFilePathAtProjectRoot } from '../../../src/path-utilities.js'
+
+// "[warn] src/foo.ts" (paths never contain spaces in this position; the
+// human-facing summary line does, which excludes it)
+const PRETTIER_WARN_FILE_REGEX = /^\[warn\] (?<file>\S+)$/v
+const PRETTIER_ERROR_REGEX = /^\[error\] (?<message>.+)$/v
+
+/** Parses `prettier --check --log-level=warn` text output into diagnostics. */
+export function parsePrettierOutput(context: CollectContext): CollectResult {
+	const diagnostics: Diagnostic[] = []
+	const unparsed: string[] = []
+
+	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
+		const fileMatch = PRETTIER_WARN_FILE_REGEX.exec(line)
+		if (fileMatch?.groups?.file !== undefined) {
+			diagnostics.push({
+				file: normalizeDiagnosticPath(fileMatch.groups.file, context.cwd),
+				message: 'File is not formatted with Prettier',
+				severity: 'warning',
+				tool: 'prettier',
+			})
+			continue
+		}
+
+		if (line.startsWith('[warn] Code style issues found')) {
+			continue
+		}
+
+		const errorMatch = PRETTIER_ERROR_REGEX.exec(line)
+		if (errorMatch?.groups?.message !== undefined) {
+			diagnostics.push({
+				message: errorMatch.groups.message,
+				severity: 'error',
+				tool: 'prettier',
+			})
+			continue
+		}
+
+		unparsed.push(line)
+	}
+
+	return { diagnostics, unparsed }
+}
 
 // Plugins are also listed in the shared prettier config, so passing them via
 // CLI is redundant when prettier finds the config. We pass them anyway as
@@ -57,6 +105,9 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					collect: {
+						parse: parsePrettierOutput,
+					},
 					name: 'prettier',
 					optionFlags: [...sharedOptions, '--check'],
 					receivePositionalArguments: true,

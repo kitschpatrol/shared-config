@@ -136,10 +136,11 @@ ksc-eslint lint [files..]
 | ------------------- | ------------------------------ | ------- | ------- |
 | `files`             | Files or glob pattern to lint. | `array` | `"."`   |
 
-| Option              | Description         | Type      |
-| ------------------- | ------------------- | --------- |
-| `--help`<br>`-h`    | Show help           | `boolean` |
-| `--version`<br>`-v` | Show version number | `boolean` |
+| Option              | Description                                                                                                                                                           | Type                            | Default    |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| `--format`          | Output format: "native" streams each tool's own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report. | `"json"` `"machine"` `"native"` | `"native"` |
+| `--help`<br>`-h`    | Show help                                                                                                                                                             | `boolean`                       |            |
+| `--version`<br>`-v` | Show version number                                                                                                                                                   | `boolean`                       |            |
 
 #### Subcommand: `ksc-eslint fix`
 

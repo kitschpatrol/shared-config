@@ -3,14 +3,24 @@ import { constants } from 'node:fs'
 import { access } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { stripVTControlCharacters } from 'node:util'
 import { packageUp } from 'package-up'
-import type { CommandDefinition } from '../../../src/command-builder.js'
-import { DESCRIPTION, executeCommands } from '../../../src/command-builder.js'
+import type {
+	CollectContext,
+	CollectResult,
+	CommandDefinition,
+} from '../../../src/command-builder.js'
+import type { Diagnostic } from '../../../src/diagnostics.js'
+import { DESCRIPTION } from '../../../src/command-builder.js'
+import { normalizeDiagnosticPath, toOutputLines } from '../../../src/diagnostics.js'
 import { stringify } from '../../../src/json-utilities.js'
-import { createStreamFilter, createStreamTransform } from '../../../src/stream-utilities.js'
+import { createStreamTransform } from '../../../src/stream-utilities.js'
 import { fixWordsInConfig } from './fix-words.js'
 import { checkForUnusedWords } from './unused-words.js'
+
+async function getCspellConfigFilePath(): Promise<string | undefined> {
+	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
+	return config === undefined ? undefined : fileURLToPath(config.url)
+}
 
 async function getCspellIgnorePaths(): Promise<string> {
 	// Resolve cspell ignore paths for Case Police
@@ -32,6 +42,43 @@ async function getCspellIgnorePaths(): Promise<string> {
 	)
 
 	return globStrings.join(',')
+}
+
+// "src/foo.ts:12:5 - Unknown word (example) fix: (examples)"
+const CSPELL_ISSUE_REGEX = /^(?<file>.+?):(?<line>\d+):(?<column>\d+) - (?<message>.+)$/v
+const CSPELL_SUGGESTION_REGEX = / fix: \((?<suggestion>[^\)]+)\)$/v
+
+/** Parses `cspell --quiet` text output into diagnostics. */
+export function parseCspellOutput(context: CollectContext): CollectResult {
+	const diagnostics: Diagnostic[] = []
+	const unparsed: string[] = []
+
+	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
+		const match = CSPELL_ISSUE_REGEX.exec(line)
+		if (match?.groups === undefined) {
+			unparsed.push(line)
+			continue
+		}
+
+		const { column, file, line: lineNumber, message } = match.groups
+		const suggestionMatch = CSPELL_SUGGESTION_REGEX.exec(message ?? '')
+		const suggestion = suggestionMatch?.groups?.suggestion
+
+		diagnostics.push({
+			column: Number(column),
+			file: normalizeDiagnosticPath(file ?? '', context.cwd),
+			line: Number(lineNumber),
+			message:
+				suggestionMatch === null
+					? (message ?? '')
+					: (message ?? '').slice(0, -suggestionMatch[0].length),
+			...(suggestion !== undefined && { suggestion }),
+			severity: 'warning',
+			tool: 'cspell',
+		})
+	}
+
+	return { diagnostics, unparsed }
 }
 
 async function checkForUnusedWordsCommand(
@@ -67,6 +114,45 @@ async function checkForUnusedWordsCommand(
 	}
 
 	return 0
+}
+
+/** Structured counterpart to `checkForUnusedWordsCommand`. */
+async function collectUnusedWords(
+	positionalArguments: string[],
+): Promise<CollectResult & { exitCode: number }> {
+	const { errors, filesChecked, unusedWords } = await checkForUnusedWords(positionalArguments)
+
+	// Without a successful spell-check run, every word looks unused
+	if (errors > 0 || (filesChecked === 0 && unusedWords.length > 0)) {
+		return {
+			diagnostics: [
+				{
+					message: `Could not check for unused words: CSpell checked ${filesChecked} files with ${errors} errors`,
+					severity: 'error',
+					tool: 'unused-words',
+				},
+			],
+			exitCode: 1,
+			unparsed: [],
+		}
+	}
+
+	const configFilePath = await getCspellConfigFilePath()
+	const file =
+		configFilePath === undefined
+			? {}
+			: { file: normalizeDiagnosticPath(configFilePath, process.cwd()) }
+
+	return {
+		diagnostics: unusedWords.map((word) => ({
+			...file,
+			message: `Unused word in CSpell config "words" array: ${word}`,
+			severity: 'warning' as const,
+			tool: 'unused-words',
+		})),
+		exitCode: unusedWords.length > 0 ? 1 : 0,
+		unparsed: [],
+	}
 }
 
 async function fixWordsCommand(
@@ -116,54 +202,44 @@ async function getCasePoliceDictionaryPath(): Promise<string> {
 	return source
 }
 
-// We wrap this to filter out unwanted output, since there is no exported API
-// and no options exposed to quiet the noise
-async function casePoliceCommand(
-	logStream: NodeJS.WritableStream,
-	positionalArguments: string[],
-): Promise<number> {
-	const logPrefix = '[Case Police]'
+// @case-police-ignore Github
+// "Github → GitHub \t ./src/command.ts:63:27" (words are single tokens)
+const CASE_POLICE_ISSUE_REGEX =
+	/^(?<from>\S+) → (?<to>\S+)\s+(?<file>\S+):(?<line>\d+):(?<column>\d+)$/v
 
-	// Create filter stream
-	const subStream = createStreamFilter((text) => {
-		const plainText = stripVTControlCharacters(text)
+/**
+ * Parses case-police text output into diagnostics. Only word recommendation
+ * lines are considered; banner and summary noise is dropped, matching the
+ * output filter used in native mode.
+ */
+export function parseCasePoliceOutput(context: CollectContext): CollectResult {
+	const diagnostics: Diagnostic[] = []
+	const unparsed: string[] = []
 
-		// Sample output:
-		// [Case Police] Case  Police  v0.7.2
-		// [Case Police] 18 files found for checking, 486 words loaded
-		// [Case Police]
-		// [Case Police] GitHub → GitHub   ./src/command.ts:63:27
-		// [Case Police]
-		// [Case Police] 1 files contain case errors
-		// [Case Police] run npx case-police --fix to fix
-		// [Case Police]
+	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
+		if (!line.includes('→')) {
+			continue
+		}
 
-		// Only allow word recommendations through
-		const shouldStrip = !plainText.startsWith(logPrefix) || !plainText.includes('→')
+		const match = CASE_POLICE_ISSUE_REGEX.exec(line)
+		if (match?.groups === undefined) {
+			unparsed.push(line)
+			continue
+		}
 
-		return shouldStrip
-	})
-	subStream.pipe(logStream)
+		const { column, file, from, line: lineNumber, to } = match.groups
+		diagnostics.push({
+			column: Number(column),
+			file: normalizeDiagnosticPath(file ?? '', context.cwd),
+			line: Number(lineNumber),
+			message: `Case error: "${from}" should be "${to}"`,
+			severity: 'warning',
+			...(to !== undefined && { suggestion: to }),
+			tool: 'case-police',
+		})
+	}
 
-	return executeCommands(
-		subStream,
-		positionalArguments,
-		[],
-		[
-			{
-				logColor: 'cyanBright',
-				logPrefix,
-				name: 'case-police',
-				optionFlags: [
-					'--dict',
-					await getCasePoliceDictionaryPath(),
-					'--ignore',
-					await getCspellIgnorePaths(),
-				],
-				receivePositionalArguments: true,
-			},
-		],
-	)
+	return { diagnostics, unparsed }
 }
 
 async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promise<number> {
@@ -190,7 +266,8 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					execute: fixWordsCommand,
-					name: fixWordsCommand.name,
+					// Explicit name because function names are minified in builds
+					name: 'words',
 				},
 			],
 			description: `Remove unused words from the local CSpell configuration's "words" array and sort it alphabetically. ${DESCRIPTION.fileRun}`,
@@ -207,21 +284,43 @@ export const commandDefinition: CommandDefinition = {
 			locationOptionFlag: true,
 		},
 		lint: {
-			commands: [
-				{
-					name: 'cspell',
-					optionFlags: ['--quiet'],
-					receivePositionalArguments: true,
-				},
-				{
-					execute: checkForUnusedWordsCommand,
-					name: checkForUnusedWordsCommand.name,
-				},
-				{
-					execute: casePoliceCommand,
-					name: casePoliceCommand.name,
-				},
-			],
+			// Resolved lazily so the case-police dictionary and ignore paths are
+			// looked up at execution time
+			async commands() {
+				return [
+					{
+						collect: {
+							parse: parseCspellOutput,
+						},
+						name: 'cspell',
+						optionFlags: ['--quiet'],
+						receivePositionalArguments: true,
+					},
+					{
+						collect: collectUnusedWords,
+						execute: checkForUnusedWordsCommand,
+						// Explicit name because function names are minified in builds
+						name: 'unused-words',
+					},
+					{
+						collect: {
+							parse: parseCasePoliceOutput,
+						},
+						logColor: 'cyanBright',
+						logPrefix: '[Case Police]',
+						name: 'case-police',
+						optionFlags: [
+							'--dict',
+							await getCasePoliceDictionaryPath(),
+							'--ignore',
+							await getCspellIgnorePaths(),
+						],
+						// Only show word recommendations, drop banner and summary noise
+						outputFilter: (line) => !line.includes('→'),
+						receivePositionalArguments: true,
+					},
+				]
+			},
 			description: `Check for spelling mistakes. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault: '**/*',
 			positionalArgumentMode: 'optional',
@@ -230,7 +329,7 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					execute: printCspellConfigCommand,
-					name: printCspellConfigCommand.name,
+					name: 'cspell-config',
 				},
 			],
 			description: `Print the resolved CSpell configuration. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,

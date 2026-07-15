@@ -2,6 +2,7 @@ import type { Stream } from 'node:stream'
 import { Transform } from 'node:stream'
 import { stripVTControlCharacters } from 'node:util'
 import picocolors from 'picocolors'
+import { getOutputFormat } from './output-format.js'
 
 // Define color type for picocolors
 export type ForegroundColor =
@@ -26,45 +27,64 @@ export type ForegroundColor =
 const LINE_SPLIT_REGEX = /\r?\n/v
 /**
  * Creates a transform stream that filters out lines that match the given
- * matcher. VT control characters are stripped before matching.
+ * matcher. VT control characters are stripped before matching. Partial lines
+ * are buffered across chunk boundaries so the matcher always sees whole lines.
  */
 export function createStreamFilter(matcher: (text: string) => boolean): Transform {
+	let remainder = ''
+
+	const filterLines = (lines: string[]): string =>
+		lines
+			.filter((line) => line.trim() !== '' && !matcher(stripVTControlCharacters(line)))
+			.map((line) => `${line}\n`)
+			.join('')
+
 	return new Transform({
+		flush(callback) {
+			callback(undefined, filterLines([remainder]))
+		},
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
-			const filtered = chunk
-				.toString()
-				.split(LINE_SPLIT_REGEX)
-				.filter((line) => line.trim() !== '' && !matcher(stripVTControlCharacters(line)))
-				.join('\n')
-			callback(undefined, filtered + '\n')
+			const lines = (remainder + chunk.toString()).split(LINE_SPLIT_REGEX)
+			remainder = lines.pop() ?? ''
+			callback(undefined, filterLines(lines))
 		},
 	})
 }
 
 /**
- * Creates a transform stream that prepends a log prefix to each line
+ * Creates a transform stream that prepends a log prefix to each line. Partial
+ * lines are buffered across chunk boundaries so a line split mid-chunk isn't
+ * emitted as two prefixed lines. In machine output mode the prefix is
+ * suppressed entirely so lines stay parseable by editor problem matchers.
  */
 export function createStreamTransform(
 	logPrefix: string | undefined,
 	logColor?: ForegroundColor,
 ): Transform {
+	const resolvedLogPrefix = getOutputFormat() === 'native' ? logPrefix : undefined
 	const prefix =
-		logPrefix === undefined || logPrefix === ''
+		resolvedLogPrefix === undefined || resolvedLogPrefix === ''
 			? ''
 			: logColor === undefined
-				? logPrefix
-				: picocolors[logColor](logPrefix)
+				? resolvedLogPrefix
+				: picocolors[logColor](resolvedLogPrefix)
+
+	let remainder = ''
+
+	const transformLines = (lines: string[]): string =>
+		lines
+			.filter((line) => line.trim().length > 0)
+			.map((line) => (prefix === '' ? `${line}\n` : `${prefix} ${line}\n`))
+			.join('')
 
 	return new Transform({
+		flush(callback) {
+			callback(undefined, transformLines([remainder]))
+		},
 		transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
-			const lines: string[] = chunk
-				.toString()
-				.split(LINE_SPLIT_REGEX)
-				.filter((line) => line.trim().length > 0)
-
-			const transformed = lines.map((line) => `${prefix} ${line}\n`).join('')
-
-			callback(undefined, transformed)
+			const lines = (remainder + chunk.toString()).split(LINE_SPLIT_REGEX)
+			remainder = lines.pop() ?? ''
+			callback(undefined, transformLines(lines))
 		},
 	})
 }

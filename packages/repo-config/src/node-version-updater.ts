@@ -2,6 +2,9 @@
 import fse from 'fs-extra'
 import path from 'node:path'
 import semver from 'semver'
+import type { CollectResult } from '../../../src/command-builder.js'
+import type { Diagnostic } from '../../../src/diagnostics.js'
+import { normalizeDiagnosticPath } from '../../../src/diagnostics.js'
 import { stringify } from '../../../src/json-utilities'
 import { findWorkspacePackageDirectories, getPackageDirectory } from '../../../src/path-utilities'
 import { formatFileInPlace } from '../../../src/prettier-utilities'
@@ -96,14 +99,13 @@ function formatCauses(causes: string[]): string {
 }
 
 async function nodeVersionCheckSingle(
-	logStream: NodeJS.WritableStream,
 	fix: boolean,
 	packageDirectory: string,
-): Promise<number> {
+): Promise<{ issues: string[]; packageJsonPath: string }> {
 	const packageJsonPath = path.join(packageDirectory, 'package.json')
 
 	if (!fse.existsSync(packageJsonPath)) {
-		return 0
+		return { issues: [], packageJsonPath }
 	}
 
 	const packageJson = fse.readJsonSync(packageJsonPath) as Record<string, unknown>
@@ -216,24 +218,12 @@ async function nodeVersionCheckSingle(
 		}
 	}
 
-	if (issues.length > 0) {
-		logStream.write(
-			`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)} in ${packageJsonPath}:\n`,
-		)
-		for (const issue of issues) {
-			logStream.write(`  - ${issue}\n`)
-		}
-
-		if (fix) {
-			fse.writeJsonSync(packageJsonPath, packageJson, { spaces: '\t' })
-			await formatFileInPlace(packageJsonPath)
-			return 0
-		}
-
-		return 1
+	if (issues.length > 0 && fix) {
+		fse.writeJsonSync(packageJsonPath, packageJson, { spaces: '\t' })
+		await formatFileInPlace(packageJsonPath)
 	}
 
-	return 0
+	return { issues, packageJsonPath }
 }
 
 async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean): Promise<number> {
@@ -241,13 +231,45 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 	let exitCode = 0
 
 	for (const packageDirectory of packageDirectories) {
-		const result = await nodeVersionCheckSingle(logStream, fix, packageDirectory)
-		if (result !== 0) {
-			exitCode = 1
+		const { issues, packageJsonPath } = await nodeVersionCheckSingle(fix, packageDirectory)
+		if (issues.length > 0) {
+			logStream.write(
+				`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)} in ${packageJsonPath}:\n`,
+			)
+			for (const issue of issues) {
+				logStream.write(`  - ${issue}\n`)
+			}
+
+			if (!fix) {
+				exitCode = 1
+			}
 		}
 	}
 
 	return exitCode
+}
+
+/**
+ * Structured counterpart to `nodeVersionLinterCommand` for machine and JSON
+ * output modes.
+ */
+export async function nodeVersionLinterCollect(): Promise<CollectResult & { exitCode: number }> {
+	const packageDirectories = findWorkspacePackageDirectories()
+	const diagnostics: Diagnostic[] = []
+
+	for (const packageDirectory of packageDirectories) {
+		const { issues, packageJsonPath } = await nodeVersionCheckSingle(false, packageDirectory)
+		for (const issue of issues) {
+			diagnostics.push({
+				file: normalizeDiagnosticPath(packageJsonPath, process.cwd()),
+				message: issue,
+				severity: 'error',
+				tool: 'node-version',
+			})
+		}
+	}
+
+	return { diagnostics, exitCode: diagnostics.length > 0 ? 1 : 0, unparsed: [] }
 }
 
 /**

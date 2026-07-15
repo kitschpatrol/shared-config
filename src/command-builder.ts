@@ -13,11 +13,19 @@ import { packageUp } from 'package-up'
 import picocolors from 'picocolors'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import type { Diagnostic, LintReport, ToolRun } from './diagnostics.js'
+import type { OutputFormat } from './output-format.js'
 import type { CwdOverrideOptions } from './path-utilities.js'
 import type { ForegroundColor } from './stream-utilities.js'
 import { version } from '../package.json' with { type: 'json' }
+import { createLintReport, renderMachineDiagnostic, toOutputLines } from './diagnostics.js'
 import { isErrorExecaError } from './execa-utilities.js'
-import { merge, stringify } from './json-utilities.js'
+import { merge, mergeVsCodeTasks, stringify } from './json-utilities.js'
+import {
+	detectAndSetOutputFormat,
+	getOutputFormat,
+	OUTPUT_FORMAT_OPTIONS,
+} from './output-format.js'
 import { getCwdOverride } from './path-utilities.js'
 import { formatFileInPlace } from './prettier-utilities.js'
 import { createStreamFilter, createStreamTransform, streamToString } from './stream-utilities.js'
@@ -32,7 +40,33 @@ type CommandCommon = {
 	name: string
 }
 
+/** Captured output and context handed to a `collect.parse` adapter. */
+export type CollectContext = {
+	/** Working directory the tool ran in, for resolving relative paths. */
+	cwd: string
+	exitCode: number
+	stderr: string
+	stdout: string
+}
+
+/** Normalized result of collecting a command's output. */
+export type CollectResult = {
+	diagnostics: Diagnostic[]
+	/** Output lines the adapter could not interpret. Never silently dropped. */
+	unparsed: string[]
+}
+
 type CommandFunction = CommandCommon & {
+	/**
+	 * Structured counterpart to `execute` used in machine and JSON output modes.
+	 * Performs the same check but returns diagnostics instead of writing to a
+	 * stream. Commands without one fall back to capturing `execute` output as
+	 * unparsed lines.
+	 */
+	collect?: (
+		positionalArguments: string[],
+		optionFlags: string[],
+	) => Promise<CollectResult & { exitCode: number }>
 	execute: (
 		logStream: NodeJS.WritableStream,
 		positionalArguments: string[], // Passed by default, but can be ignored in implementation
@@ -42,6 +76,17 @@ type CommandFunction = CommandCommon & {
 
 export type CommandCli = CommandCommon & {
 	/**
+	 * Adapter used in machine and JSON output modes: the command runs with its
+	 * output captured (with `collect.optionFlags` replacing `optionFlags` if
+	 * provided, e.g. to select a tool's JSON reporter) and `parse` turns the
+	 * captured output into diagnostics. Commands without one fall back to passing
+	 * captured output through as unparsed lines.
+	 */
+	collect?: {
+		optionFlags?: string[]
+		parse: (context: CollectContext) => CollectResult
+	}
+	/**
 	 * Optionally change the context where the command is executed. Defaults to
 	 * `process.cwd()` if undefined.
 	 */
@@ -50,6 +95,12 @@ export type CommandCli = CommandCommon & {
 	optionFlags?: string[]
 	/** Optional filter to suppress matching lines from stdout/stderr. */
 	outputFilter?: (line: string) => boolean
+	/**
+	 * Set on commands that spawn `ksc-*` CLIs, which honor `KSC_FORMAT`
+	 * themselves: in machine mode their output passes through untouched, and in
+	 * JSON mode their stdout is parsed as a nested `LintReport` and merged.
+	 */
+	outputFormatAware?: boolean
 	/** Command-local fixed positional arguments. */
 	positionalArguments?: string[]
 	/** Formats and colorizes output if JSON. False if undefined. */
@@ -97,7 +148,9 @@ type LintCommand = {
 }
 
 /** Resolve a static or lazily-generated command list. */
-async function resolveCommands(commands: (() => Promise<Command[]>) | Command[]): Promise<Command[]> {
+async function resolveCommands(
+	commands: (() => Promise<Command[]>) | Command[],
+): Promise<Command[]> {
 	return typeof commands === 'function' ? commands() : commands
 }
 
@@ -150,7 +203,7 @@ async function executeFunctionCommand(
 		targetStream.write(
 			picocolors.bold(
 				`Running: "${command.name}() with Positional arguments: ${String(positionalArguments)} and Option flags: ${String(optionFlags)}"`,
-			),
+			) + '\n',
 		)
 	}
 
@@ -160,6 +213,22 @@ async function executeFunctionCommand(
 		console.error(String(error))
 		return 1
 	}
+}
+
+/** Assembles the full argument list for a CLI command invocation. */
+function resolveCliArguments(
+	command: CommandCli,
+	positionalArguments: string[],
+	optionFlags: string[],
+	activeOptionFlags: string[] | undefined,
+): string[] {
+	return [
+		...(command.subcommands ?? []),
+		...(command.receiveOptionFlags ? optionFlags : []),
+		...(activeOptionFlags ?? []),
+		...(command.receivePositionalArguments ? positionalArguments : []),
+		...(command.positionalArguments ?? []),
+	]
 }
 
 async function executeCliCommand(
@@ -182,41 +251,40 @@ async function executeCliCommand(
 		targetStream = subStream
 	}
 
-	const resolvedSubcommands = command.subcommands ?? []
-
-	const resolvedPositionalArguments = [
-		...(command.receivePositionalArguments ? positionalArguments : []),
-		...(command.positionalArguments ?? []),
-	]
-	const resolvedOptionFlags = [
-		...(command.receiveOptionFlags ? optionFlags : []),
-		...(command.optionFlags ?? []),
-	]
-
-	const resolvedArguments = [
-		...resolvedSubcommands,
-		...resolvedOptionFlags,
-		...resolvedPositionalArguments,
-	]
+	const resolvedArguments = resolveCliArguments(
+		command,
+		positionalArguments,
+		optionFlags,
+		command.optionFlags,
+	)
 
 	// Manage current working directory
 	const cwd = getCwdOverride(command.cwdOverride)
 
 	if (verbose) {
-		targetStream.write(`Running: "${command.name} ${resolvedArguments.join(' ')}"`)
+		targetStream.write(`Running: "${command.name} ${resolvedArguments.join(' ')}"\n`)
 	}
 
 	const cliTargetStream: NodeJS.WritableStream = command.prettyJsonOutput
 		? new PassThrough()
 		: targetStream
 
+	// Plain output when a machine-readable format is active (e.g. passthrough of
+	// format-aware ksc-* children), otherwise colorful output unless NO_COLOR is set
+	/* eslint-disable ts/naming-convention */
+	const colorEnv: Record<string, string> =
+		getOutputFormat() === 'native'
+			? process.env.NO_COLOR === undefined
+				? { FORCE_COLOR: 'true' }
+				: {}
+			: { NO_COLOR: '1' }
+	/* eslint-enable ts/naming-convention */
+
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
 			cwd,
 			env: {
-				// Use colorful output unless NO_COLOR is set
-				// eslint-disable-next-line ts/naming-convention
-				...(process.env.NO_COLOR === undefined && { FORCE_COLOR: 'true' }),
+				...colorEnv,
 				// Quiet Node when processing *.config.ts files in Node 22
 				// Suppress experimental type stripping warning with --no-warnings
 				// TODO what's the story here on Node 20?
@@ -276,6 +344,219 @@ function isCommandFunction(command: Command): command is CommandFunction {
 	return 'execute' in command
 }
 
+/**
+ * Runs a CLI command with output captured instead of streamed, for the machine
+ * and JSON output modes. Color is disabled so parsers see plain text.
+ * Optionally streams stderr through (used to surface progress from format-aware
+ * ksc-* children while their stdout is captured).
+ */
+async function runCliCommandCaptured(
+	positionalArguments: string[],
+	optionFlags: string[],
+	command: CommandCli,
+	pipeStderrTo?: NodeJS.WritableStream,
+): Promise<CollectContext> {
+	const activeOptionFlags = command.collect?.optionFlags ?? command.optionFlags
+	const resolvedArguments = resolveCliArguments(
+		command,
+		positionalArguments,
+		optionFlags,
+		activeOptionFlags,
+	)
+	const cwd = getCwdOverride(command.cwdOverride)
+
+	try {
+		const subprocess = execa(command.name, resolvedArguments, {
+			cwd,
+			// eslint-disable-next-line ts/naming-convention
+			env: { NO_COLOR: '1' },
+			preferLocal: true,
+			reject: false,
+			stdin: 'inherit',
+		})
+
+		if (pipeStderrTo !== undefined) {
+			subprocess.stderr.pipe(pipeStderrTo, { end: false })
+		}
+
+		const result = await subprocess
+		return {
+			cwd,
+			exitCode: result.exitCode ?? 1,
+			stderr: result.stderr,
+			stdout: result.stdout,
+		}
+	} catch (error) {
+		console.error(`${command.name} failed with error:`)
+		console.error(error)
+		const exitCode =
+			isErrorExecaError(error) && typeof error.exitCode === 'number' ? error.exitCode : 1
+		return { cwd, exitCode, stderr: '', stdout: '' }
+	}
+}
+
+/** Result of collecting a single command's run in machine or JSON mode. */
+type CommandCollectOutcome = {
+	diagnostics: Diagnostic[]
+	exitCode: number
+	/** Usually one entry; several when merging a format-aware child's report. */
+	tools: ToolRun[]
+}
+
+function isLintReport(value: unknown): value is LintReport {
+	return (
+		typeof value === 'object' &&
+		value !== null &&
+		'version' in value &&
+		value.version === 1 &&
+		'diagnostics' in value &&
+		Array.isArray(value.diagnostics) &&
+		'tools' in value &&
+		Array.isArray(value.tools)
+	)
+}
+
+/**
+ * Runs a single command in collect mode: captures its output and turns it into
+ * diagnostics via its adapter, falling back to unparsed lines so tool output is
+ * never silently dropped.
+ */
+async function collectCommand(
+	logStream: NodeJS.WritableStream,
+	positionalArguments: string[],
+	optionFlags: string[],
+	command: Command,
+): Promise<CommandCollectOutcome> {
+	const startTime = Date.now()
+	const elapsed = () => Date.now() - startTime
+
+	if (isCommandFunction(command)) {
+		if (command.collect !== undefined) {
+			try {
+				const { diagnostics, exitCode, unparsed } = await command.collect(
+					positionalArguments,
+					optionFlags,
+				)
+				return {
+					diagnostics,
+					exitCode,
+					tools: [{ durationMs: elapsed(), exitCode, name: command.name, unparsed }],
+				}
+			} catch (error) {
+				return {
+					diagnostics: [],
+					exitCode: 1,
+					tools: [
+						{ durationMs: elapsed(), exitCode: 1, name: command.name, unparsed: [String(error)] },
+					],
+				}
+			}
+		}
+
+		// Fallback: run the human implementation with its output captured
+		let captured = ''
+		const captureStream = new PassThrough()
+		captureStream.on('data', (chunk: string | Uint8Array) => {
+			captured += chunk.toString()
+		})
+
+		let exitCode: number
+		try {
+			exitCode = await command.execute(captureStream, positionalArguments, optionFlags)
+		} catch (error) {
+			captured += `\n${String(error)}`
+			exitCode = 1
+		}
+
+		return {
+			diagnostics: [],
+			exitCode,
+			tools: [
+				{ durationMs: elapsed(), exitCode, name: command.name, unparsed: toOutputLines(captured) },
+			],
+		}
+	}
+
+	// Format-aware ksc-* children emit their own JSON report on stdout (this
+	// path is only reached in JSON mode; machine mode passes them through)
+	if (command.outputFormatAware) {
+		const context = await runCliCommandCaptured(
+			positionalArguments,
+			optionFlags,
+			command,
+			logStream,
+		)
+
+		try {
+			const report: unknown = JSON.parse(context.stdout)
+			if (!isLintReport(report)) {
+				throw new Error('Child output is not a lint report')
+			}
+
+			return { diagnostics: report.diagnostics, exitCode: context.exitCode, tools: report.tools }
+		} catch {
+			return {
+				diagnostics: [],
+				exitCode: context.exitCode,
+				tools: [
+					{
+						durationMs: elapsed(),
+						exitCode: context.exitCode,
+						name: command.name,
+						unparsed: toOutputLines(context.stdout),
+					},
+				],
+			}
+		}
+	}
+
+	const context = await runCliCommandCaptured(positionalArguments, optionFlags, command)
+
+	if (command.collect !== undefined) {
+		try {
+			const { diagnostics, unparsed } = command.collect.parse(context)
+			return {
+				diagnostics,
+				exitCode: context.exitCode,
+				tools: [
+					{ durationMs: elapsed(), exitCode: context.exitCode, name: command.name, unparsed },
+				],
+			}
+		} catch (error) {
+			return {
+				diagnostics: [],
+				exitCode: context.exitCode,
+				tools: [
+					{
+						durationMs: elapsed(),
+						exitCode: context.exitCode,
+						name: command.name,
+						unparsed: [
+							...toOutputLines(context.stdout),
+							...toOutputLines(context.stderr),
+							String(error),
+						],
+					},
+				],
+			}
+		}
+	}
+
+	// No adapter: pass everything through as unparsed lines
+	return {
+		diagnostics: [],
+		exitCode: context.exitCode,
+		tools: [
+			{
+				durationMs: elapsed(),
+				exitCode: context.exitCode,
+				name: command.name,
+				unparsed: [...toOutputLines(context.stdout), ...toOutputLines(context.stderr)],
+			},
+		],
+	}
+}
+
 const KSC_PREFIX_REGEX = /^ksc-/v
 
 /** Strip `ksc-` prefix for flexible name matching. */
@@ -304,7 +585,83 @@ function addSkipOption<T>(yargsInstance: Argv<T>): Argv<T> {
 }
 
 /**
- * Execute multiple commands (either functions or command line) in serial
+ * True when a command should stream its output directly instead of being
+ * collected: always in native mode, and in machine mode for format-aware ksc-*
+ * children, which render machine output themselves.
+ */
+function shouldPassThrough(command: Command, format: OutputFormat): boolean {
+	if (format === 'native') {
+		return true
+	}
+
+	return format === 'machine' && !isCommandFunction(command) && command.outputFormatAware === true
+}
+
+/**
+ * Renders a collected command's diagnostics and unparsed lines in machine
+ * format.
+ */
+function writeMachineOutcome(
+	logStream: NodeJS.WritableStream,
+	outcome: CommandCollectOutcome,
+): void {
+	for (const diagnostic of outcome.diagnostics) {
+		logStream.write(`${renderMachineDiagnostic(diagnostic)}\n`)
+	}
+
+	for (const tool of outcome.tools) {
+		for (const line of tool.unparsed) {
+			logStream.write(`${line}\n`)
+		}
+	}
+}
+
+/** Result of executing a batch of commands. */
+export type ExecuteCommandsResult = {
+	exitCode: number
+	/** Present only when `format` is `json`. */
+	report: LintReport | undefined
+}
+
+/**
+ * Partitions commands into run / skip lists based on `--skip` values, warning
+ * about values that match no command.
+ */
+function partitionSkippedCommands(
+	logStream: NodeJS.WritableStream,
+	commands: Command[],
+	skip: string[],
+): { commandsToRun: Command[]; skippedCommands: Command[] } {
+	const commandsToRun: Command[] = []
+	const skippedCommands: Command[] = []
+
+	for (const command of commands) {
+		if (skip.length > 0 && skip.includes(normalizeCommandName(command.name))) {
+			skippedCommands.push(command)
+		} else {
+			commandsToRun.push(command)
+		}
+	}
+
+	// Warn about unrecognized --skip values
+	if (skip.length > 0) {
+		const matchedNames = new Set(skippedCommands.map((c) => normalizeCommandName(c.name)))
+		const unmatchedSkips = skip.filter((s) => !matchedNames.has(s))
+		if (unmatchedSkips.length > 0) {
+			const availableNames = commands.map((c) => normalizeCommandName(c.name)).join(', ')
+			logStream.write(
+				`⚠️  ${picocolors.yellow(`Unrecognized --skip ${pluralize('value', unmatchedSkips.length)}: ${unmatchedSkips.join(', ')}. Available: ${availableNames}`)}\n`,
+			)
+		}
+	}
+
+	return { commandsToRun, skippedCommands }
+}
+
+/**
+ * Execute multiple commands (either functions or command line) in serial. In
+ * `machine` and `json` output formats, command output is captured and parsed
+ * into normalized diagnostics instead of streamed.
  */
 export async function executeCommands(
 	logStream: NodeJS.WritableStream,
@@ -314,47 +671,54 @@ export async function executeCommands(
 	verbose?: boolean,
 	showSummary?: boolean,
 	skip?: string[],
-): Promise<number> {
-	// Partition commands into run / skip
-	const normalizedSkip = skip ?? []
-	const commandsToRun: Command[] = []
-	const skippedCommands: Command[] = []
-
-	for (const command of commands) {
-		if (normalizedSkip.length > 0 && normalizedSkip.includes(normalizeCommandName(command.name))) {
-			skippedCommands.push(command)
-		} else {
-			commandsToRun.push(command)
-		}
-	}
-
-	// Warn about unrecognized --skip values
-	if (normalizedSkip.length > 0) {
-		const matchedNames = new Set(skippedCommands.map((c) => normalizeCommandName(c.name)))
-		const unmatchedSkips = normalizedSkip.filter((s) => !matchedNames.has(s))
-		if (unmatchedSkips.length > 0) {
-			const availableNames = commands.map((c) => normalizeCommandName(c.name)).join(', ')
-			logStream.write(
-				`⚠️  ${picocolors.yellow(`Unrecognized --skip ${pluralize('value', unmatchedSkips.length)}: ${unmatchedSkips.join(', ')}. Available: ${availableNames}`)}\n`,
-			)
-		}
-	}
+	format: OutputFormat = 'native',
+): Promise<ExecuteCommandsResult> {
+	const { commandsToRun, skippedCommands } = partitionSkippedCommands(
+		logStream,
+		commands,
+		skip ?? [],
+	)
 
 	const exitCodes: Array<{ exitCode: number; name: string }> = []
+	const toolRuns: ToolRun[] = []
+	const diagnostics: Diagnostic[] = []
+
+	// The verbose "Running:" lines are human-facing chrome, shown in native format only
+	const nativeVerbose = format === 'native' ? verbose : false
 
 	for (const command of commandsToRun) {
-		const exitCode = await (isCommandFunction(command)
-			? executeFunctionCommand(logStream, positionalArguments, optionFlags, command, verbose)
-			: executeCliCommand(logStream, positionalArguments, optionFlags, command, verbose))
+		if (shouldPassThrough(command, format)) {
+			const exitCode = await (isCommandFunction(command)
+				? executeFunctionCommand(
+						logStream,
+						positionalArguments,
+						optionFlags,
+						command,
+						nativeVerbose,
+					)
+				: executeCliCommand(logStream, positionalArguments, optionFlags, command, nativeVerbose))
 
-		exitCodes.push({ exitCode, name: command.name })
+			exitCodes.push({ exitCode, name: command.name })
+			continue
+		}
+
+		const outcome = await collectCommand(logStream, positionalArguments, optionFlags, command)
+		exitCodes.push({ exitCode: outcome.exitCode, name: command.name })
+		toolRuns.push(...outcome.tools)
+		diagnostics.push(...outcome.diagnostics)
+
+		if (format === 'machine') {
+			writeMachineOutcome(logStream, outcome)
+		}
 	}
 
 	// Total includes skipped for consistent denominator across all summary lines
 	const totalCommands = commands.length
 
+	// Skipped feedback and success / failure summaries are human-facing chrome,
+	// shown in native format only
 	// Always show skipped feedback when tools were skipped, even if showSummary is false
-	if (skippedCommands.length > 0) {
+	if (format === 'native' && skippedCommands.length > 0) {
 		const skippedNames = skippedCommands.map(({ name }) => name)
 		const skippedSummary = picocolors.bold(
 			`${skippedNames.length} / ${totalCommands} ${pluralize('Command', skippedNames.length)} Skipped:`,
@@ -364,7 +728,7 @@ export async function executeCommands(
 		)
 	}
 
-	if (showSummary) {
+	if (format === 'native' && showSummary) {
 		const successfulCommands = exitCodes
 			.filter(({ exitCode }) => exitCode === 0)
 			.map(({ name }) => name)
@@ -392,7 +756,10 @@ export async function executeCommands(
 	}
 
 	// Return zero if all zero, otherwise return 1
-	return exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1
+	return {
+		exitCode: exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1,
+		report: format === 'json' ? createLintReport(toolRuns, diagnostics) : undefined,
+	}
 }
 
 async function copyAndMergeInitFiles(
@@ -506,7 +873,10 @@ async function copyAndMergeInitFiles(
 
 						const sourceJson = fse.readJSONSync(sourcePath) as Record<string, unknown>
 						const destinationJson = fse.readJSONSync(destinationPath) as Record<string, unknown>
-						const mergedJson = merge(destinationJson, sourceJson)
+						// Tasks are merged by label to avoid splicing unrelated tasks together
+						const mergedJson = destinationPath.endsWith('.vscode/tasks.json')
+							? mergeVsCodeTasks(destinationJson, sourceJson)
+							: merge(destinationJson, sourceJson)
 
 						fse.writeJSONSync(destinationPath, mergedJson, { spaces: '\t' })
 						await formatFileInPlace(destinationPath)
@@ -552,9 +922,15 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 		verbose,
 	} = commandDefinition
 
-	// Set up log stream
+	// Must happen before any output streams are created so prefixes are
+	// suppressed consistently, and before yargs parses so the env var
+	// propagates to spawned ksc-* subprocesses
+	detectAndSetOutputFormat()
+
+	// Set up log stream. In JSON mode stdout is reserved for the report, so
+	// human-facing progress goes to stderr.
 	const logStream = createStreamTransform(logPrefix, logColor)
-	logStream.pipe(process.stdout)
+	logStream.pipe(getOutputFormat() === 'json' ? process.stderr : process.stdout)
 
 	const yargsInstance = yargs(hideBin(process.argv))
 		.scriptName(name)
@@ -599,7 +975,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				}
 
 				// Run commands
-				const exitCode = await executeCommands(
+				const { exitCode } = await executeCommands(
 					logStream,
 					[],
 					location === undefined ? [] : ['--location', location],
@@ -617,7 +993,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (lint !== undefined) {
 		yargsInstance.command({
 			builder(yargsBuilder) {
-				const y =
+				const y = (
 					lint.positionalArgumentMode === 'none'
 						? yargsBuilder
 						: yargsBuilder.positional('files', {
@@ -628,6 +1004,12 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 								describe: 'Files or glob pattern to lint.',
 								type: 'string',
 							})
+				).option('format', {
+					choices: OUTPUT_FORMAT_OPTIONS,
+					default: 'native' as const,
+					describe:
+						'Output format: "native" streams each tool\'s own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report.',
+				})
 				return showSummary ? addSkipOption(y) : y
 			},
 			command:
@@ -641,7 +1023,10 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
 
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
-				const exitCode = await executeCommands(
+				// The environment variable is the source of truth: it's set by the
+				// pre-parse argv sniff and inherited from parent ksc processes
+				const format = getOutputFormat()
+				const { exitCode, report } = await executeCommands(
 					logStream,
 					positionalArguments,
 					[],
@@ -649,7 +1034,13 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					verbose,
 					showSummary,
 					skip,
+					format,
 				)
+
+				if (report !== undefined) {
+					process.stdout.write(`${JSON.stringify(report, undefined, '\t')}\n`)
+				}
+
 				process.exitCode = exitCode
 			},
 		})
@@ -683,7 +1074,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
 
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
-				const exitCode = await executeCommands(
+				const { exitCode } = await executeCommands(
 					logStream,
 					positionalArguments,
 					[],
@@ -725,7 +1116,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
 
-				const exitCode = await executeCommands(
+				const { exitCode } = await executeCommands(
 					logStream,
 					positionalArguments,
 					[],

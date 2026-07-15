@@ -85,7 +85,8 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					execute: printMdatConfigCommand,
-					name: printMdatConfigCommand.name,
+					// Explicit name because function names are minified in builds
+					name: 'mdat-config',
 				},
 			],
 			description: `Print the effective Mdat configuration. ${DESCRIPTION.packageSearch}. ${DESCRIPTION.monorepoSearch}.`,

@@ -260,11 +260,12 @@ ksc lint [files..]
 | ------------------- | ------------------------------ | ------- | ------- |
 | `files`             | Files or glob pattern to lint. | `array` | `[]`    |
 
-| Option              | Description                                         | Type      |
-| ------------------- | --------------------------------------------------- | --------- |
-| `--skip`            | Tool names to skip (with or without "ksc-" prefix). | `array`   |
-| `--help`<br>`-h`    | Show help                                           | `boolean` |
-| `--version`<br>`-v` | Show version number                                 | `boolean` |
+| Option              | Description                                                                                                                                                           | Type                            | Default    |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| `--format`          | Output format: "native" streams each tool's own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report. | `"json"` `"machine"` `"native"` | `"native"` |
+| `--skip`            | Tool names to skip (with or without "ksc-" prefix).                                                                                                                   | `array`                         |            |
+| `--help`<br>`-h`    | Show help                                                                                                                                                             | `boolean`                       |            |
+| `--version`<br>`-v` | Show version number                                                                                                                                                   | `boolean`                       |            |
 
 #### Subcommand: `ksc fix`
 
