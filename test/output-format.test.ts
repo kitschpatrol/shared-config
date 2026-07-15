@@ -115,6 +115,62 @@ describe('json output format', () => {
 	})
 })
 
+describe('fix output format', () => {
+	const fixFixtureFile = path.join(fixtureDirectory, 'fix-fixture.ts')
+	const fixFixtureFileRelative = path.relative(process.cwd(), fixFixtureFile)
+
+	async function runKscEslintFix(extraArguments: string[]) {
+		return execa('ksc-eslint', ['fix', fixFixtureFileRelative, ...extraArguments], {
+			localDir: process.cwd(),
+			preferLocal: true,
+			reject: false,
+		})
+	}
+
+	it('applies fixes and reports remaining issues with --format machine', async () => {
+		// Prefer-const is auto-fixable, ts/no-unused-vars is not
+		await fse.outputFile(
+			fixFixtureFile,
+			'let fixableVariable = 1\nconst unusedVariable = 2\nexport { fixableVariable }\n',
+		)
+
+		const { exitCode, stdout } = await runKscEslintFix(['--format', 'machine'])
+
+		expect(exitCode).toBe(1)
+		// The fix was still applied even though output was collected
+		expect(await fse.readFile(fixFixtureFile, 'utf8')).toContain('const fixableVariable')
+		// Only the unfixable issues remain, as parseable lines without prefixes
+		expect(stdout).toBe(stripVTControlCharacters(stdout))
+		expect(stdout).not.toContain('[ESLint]')
+		expect(stdout).toMatch(MACHINE_LINE_REGEX)
+		expect(stdout).toContain('[eslint/ts/no-unused-vars]')
+	})
+
+	it('emits an aggregate report on stdout with --format json', async () => {
+		await fse.outputFile(
+			fixFixtureFile,
+			'let fixableVariable = 1\nconst unusedVariable = 2\nexport { fixableVariable }\n',
+		)
+
+		const { exitCode, stdout } = await runKscEslintFix(['--format', 'json'])
+
+		expect(exitCode).toBe(1)
+		expect(await fse.readFile(fixFixtureFile, 'utf8')).toContain('const fixableVariable')
+
+		const report = JSON.parse(stdout) as LintReport
+		expect(report.version).toBe(1)
+		expect(report.success).toBe(false)
+		expect(report.tools[0]?.name).toBe('eslint')
+
+		const diagnostic = report.diagnostics.find((d) => d.rule === 'ts/no-unused-vars')
+		expect(diagnostic).toBeDefined()
+		expect(diagnostic?.file).toBe(fixFixtureFileRelative)
+		expect(diagnostic?.line).toBe(2)
+		// The fixed prefer-const issue is not reported
+		expect(report.diagnostics.some((d) => d.rule === 'prefer-const')).toBe(false)
+	})
+})
+
 describe('native output format', () => {
 	it('prefixes output by default', async () => {
 		const { exitCode, stdout } = await runKscEslintLint([])

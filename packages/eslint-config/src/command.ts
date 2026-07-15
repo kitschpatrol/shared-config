@@ -95,6 +95,11 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					collect: {
+						// The --fix flag must be retained so fixes are still applied
+						optionFlags: ['--fix', '--format', 'json'],
+						parse: parseEslintJsonOutput,
+					},
 					name: 'eslint',
 					// Consider '--concurrency', 'auto'
 					// Didn't benchmark particularly fast in September 2025

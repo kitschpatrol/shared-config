@@ -148,6 +148,11 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					collect: {
+						// The --fix flag must be retained so fixes are still applied
+						optionFlags: [...sharedOptionFlags, '--fix', '--formatter', 'json'],
+						parse: parseStylelintJsonOutput,
+					},
 					name: 'stylelint',
 					optionFlags: [...sharedOptionFlags, '--fix'],
 					receivePositionalArguments: true,

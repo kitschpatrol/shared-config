@@ -86,6 +86,11 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					// At --log-level=warn a successful --write run is silent, so the
+					// parser only sees [error] lines from files prettier can't process
+					collect: {
+						parse: parsePrettierOutput,
+					},
 					name: 'prettier',
 					optionFlags: [...sharedOptions, '--write'],
 					receivePositionalArguments: true,

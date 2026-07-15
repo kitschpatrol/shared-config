@@ -96,9 +96,10 @@ export type CommandCli = CommandCommon & {
 	/** Optional filter to suppress matching lines from stdout/stderr. */
 	outputFilter?: (line: string) => boolean
 	/**
-	 * Set on commands that spawn `ksc-*` CLIs, which honor `KSC_FORMAT`
-	 * themselves: in machine mode their output passes through untouched, and in
-	 * JSON mode their stdout is parsed as a nested `LintReport` and merged.
+	 * Set on commands that spawn `ksc-*` lint or fix CLIs, which honor
+	 * `KSC_FORMAT` themselves: in machine mode their output passes through
+	 * untouched, and in JSON mode their stdout is parsed as a nested
+	 * `LintReport` and merged.
 	 */
 	outputFormatAware?: boolean
 	/** Command-local fixed positional arguments. */
@@ -584,6 +585,16 @@ function addSkipOption<T>(yargsInstance: Argv<T>): Argv<T> {
 	})
 }
 
+/** Add --format option to a yargs builder. Shared by the lint and fix commands. */
+function addFormatOption<T>(yargsInstance: Argv<T>) {
+	return yargsInstance.option('format', {
+		choices: OUTPUT_FORMAT_OPTIONS,
+		default: 'native' as const,
+		describe:
+			'Output format: "native" streams each tool\'s own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report.',
+	})
+}
+
 /**
  * True when a command should stream its output directly instead of being
  * collected: always in native mode, and in machine mode for format-aware ksc-*
@@ -993,7 +1004,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (lint !== undefined) {
 		yargsInstance.command({
 			builder(yargsBuilder) {
-				const y = (
+				const y = addFormatOption(
 					lint.positionalArgumentMode === 'none'
 						? yargsBuilder
 						: yargsBuilder.positional('files', {
@@ -1003,13 +1014,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 								}),
 								describe: 'Files or glob pattern to lint.',
 								type: 'string',
-							})
-				).option('format', {
-					choices: OUTPUT_FORMAT_OPTIONS,
-					default: 'native' as const,
-					describe:
-						'Output format: "native" streams each tool\'s own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report.',
-				})
+							}),
+				)
 				return showSummary ? addSkipOption(y) : y
 			},
 			command:
@@ -1050,7 +1056,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (fix !== undefined) {
 		yargsInstance.command({
 			builder(yargsBuilder) {
-				const y =
+				const y = addFormatOption(
 					fix.positionalArgumentMode === 'none'
 						? yargsBuilder
 						: yargsBuilder.positional('files', {
@@ -1060,7 +1066,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 								}),
 								describe: 'Files or glob pattern to fix.',
 								type: 'string',
-							})
+							}),
+				)
 				return showSummary ? addSkipOption(y) : y
 			},
 			command:
@@ -1074,7 +1081,10 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				const positionalArguments = (argv.files as string[] | undefined) ?? []
 
 				const skip = normalizeSkipValues(argv.skip as string[] | undefined)
-				const { exitCode } = await executeCommands(
+				// The environment variable is the source of truth: it's set by the
+				// pre-parse argv sniff and inherited from parent ksc processes
+				const format = getOutputFormat()
+				const { exitCode, report } = await executeCommands(
 					logStream,
 					positionalArguments,
 					[],
@@ -1082,7 +1092,13 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					undefined,
 					undefined,
 					skip,
+					format,
 				)
+
+				if (report !== undefined) {
+					process.stdout.write(`${JSON.stringify(report, undefined, '\t')}\n`)
+				}
+
 				process.exitCode = exitCode
 			},
 		})
