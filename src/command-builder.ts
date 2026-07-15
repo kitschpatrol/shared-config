@@ -98,8 +98,8 @@ export type CommandCli = CommandCommon & {
 	/**
 	 * Set on commands that spawn `ksc-*` lint or fix CLIs, which honor
 	 * `KSC_FORMAT` themselves: in machine mode their output passes through
-	 * untouched, and in JSON mode their stdout is parsed as a nested
-	 * `LintReport` and merged.
+	 * untouched, and in JSON mode their stdout is parsed as a nested `LintReport`
+	 * and merged.
 	 */
 	outputFormatAware?: boolean
 	/** Command-local fixed positional arguments. */

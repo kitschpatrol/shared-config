@@ -170,6 +170,25 @@ ksc-typescript print-config
 
 <!-- /cli-help -->
 
+### VS Code tasks
+
+`ksc-typescript init` adds a `.vscode/tasks.json` with a single task:
+
+- **`ksc-typescript lint`** runs `ksc-typescript lint --format machine`, type checking the project
+
+If you're using the complete [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) package, you'd more likely want to run:
+
+- **`ksc lint`** runs `ksc lint --format machine`, which runs all `ksc lint` tools across the whole project
+- **`ksc fix`** runs `ksc fix --format machine`, which applies all `ksc fix` auto-fixes and reports anything unfixable
+
+Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
+
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+
+The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
+
+If your project already has a `.vscode/tasks.json`, `init` merges by task label: your own tasks are left alone, and same-label tasks are replaced with the latest definitions.
+
 ## Notes
 
 ### Svelte and Astro caveat

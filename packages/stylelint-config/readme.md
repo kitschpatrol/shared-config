@@ -228,6 +228,26 @@ ksc-stylelint print-config [file]
 
 <!-- /cli-help -->
 
+### VS Code tasks
+
+`ksc-stylelint init` adds a `.vscode/tasks.json` with two tasks:
+
+- **`ksc-stylelint lint`** runs `ksc-stylelint lint --format machine` across the whole project
+- **`ksc-stylelint fix`** runs `ksc-stylelint fix --format machine`, applying auto-fixes and reporting whatever couldn't be fixed
+
+If you're using the complete [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) package, you'd more likely want to run:
+
+- **`ksc lint`** runs `ksc lint --format machine`, which runs all `ksc lint` tools across the whole project
+- **`ksc fix`** runs `ksc fix --format machine`, which applies all `ksc fix` auto-fixes and reports anything unfixable
+
+Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
+
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+
+The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
+
+If your project already has a `.vscode/tasks.json`, `init` merges by task label: your own tasks are left alone, and same-label tasks are replaced with the latest definitions.
+
 ### API
 
 The package also exports `fix`, `fixFile` functions for linting and fixing CSS programmatically, pre-configured with the shared Stylelint configuration.

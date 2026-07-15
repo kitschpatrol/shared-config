@@ -39,7 +39,10 @@ export type ToolRun = {
 	unparsed: string[]
 }
 
-/** Aggregate report emitted by `ksc lint --format json` and `ksc fix --format json`. */
+/**
+ * Aggregate report emitted by `ksc lint --format json` and `ksc fix --format
+ * json`.
+ */
 export type LintReport = {
 	cwd: string
 	diagnostics: Diagnostic[]

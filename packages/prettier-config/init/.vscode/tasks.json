@@ -2,10 +2,10 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "ksc-repo lint",
-			"detail": "Check the repo for common issues.",
+			"label": "ksc-prettier lint",
+			"detail": "Check that files are formatted according to your Prettier configuration.",
 			"type": "shell",
-			"command": "pnpm exec ksc-repo lint --format machine",
+			"command": "pnpm exec ksc-prettier lint --format machine",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -36,10 +36,10 @@
 			]
 		},
 		{
-			"label": "ksc-repo fix",
-			"detail": "Fix common issues like outdated copyright years in license files.",
+			"label": "ksc-prettier fix",
+			"detail": "Format files according to your Prettier configuration.",
 			"type": "shell",
-			"command": "pnpm exec ksc-repo fix --format machine",
+			"command": "pnpm exec ksc-prettier fix --format machine",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},

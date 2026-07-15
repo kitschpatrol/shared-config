@@ -31,6 +31,7 @@ This includes the following:
 - [`pnpm-workspace.yaml`](https://pnpm.io/pnpm-workspace_yaml) with hoisting patterns for `ksc` tool access and trusted dependency installation scripts.
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
+- `.vscode/tasks.json` with `ksc-repo lint` and `ksc-repo fix` [tasks](https://code.visualstudio.com/docs/debugtest/tasks) that run the checks above in `--format machine` mode and feed reported issues into VS Code's Problems panel via a problem matcher. (The other `@kitschpatrol/shared-config` packages contribute tasks for their own tools the same way.) If a `tasks.json` already exists, `init` merges by task label, leaving your own tasks untouched.
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
   - `set-github-metadata.yml` Populates GitHub repo metadata from package.json
@@ -209,6 +210,26 @@ ksc-repo print-config
 | `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
+
+### VS Code tasks
+
+`ksc-repo init` adds a `.vscode/tasks.json` with two tasks:
+
+- **`ksc-repo lint`** runs `ksc-repo lint --format machine` across the whole project
+- **`ksc-repo fix`** runs `ksc-repo fix --format machine`, applying auto-fixes and reporting whatever couldn't be fixed
+
+If you're using the complete [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) package, you'd more likely want to run:
+
+- **`ksc lint`** runs `ksc lint --format machine`, which runs all `ksc lint` tools across the whole project
+- **`ksc fix`** runs `ksc fix --format machine`, which applies all `ksc fix` auto-fixes and reports anything unfixable
+
+Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
+
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+
+The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
+
+If your project already has a `.vscode/tasks.json`, `init` merges by task label: your own tasks are left alone, and same-label tasks are replaced with the latest definitions.
 
 <!-- license -->
 

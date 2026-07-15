@@ -1,0 +1,39 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "ksc-knip lint",
+			"detail": "Check for unused code and dependencies.",
+			"type": "shell",
+			"command": "pnpm exec ksc-knip lint --format machine",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"clear": true,
+				"echo": true,
+				"focus": false,
+				"panel": "dedicated",
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"showReuseMessage": false
+			},
+			"problemMatcher": [
+				{
+					"owner": "ksc",
+					"source": "ksc",
+					"fileLocation": ["relative", "${workspaceFolder}"],
+					"pattern": {
+						"regexp": "^(.+?):(\\d+):(\\d+): (error|warning|info): (.+) \\[([^\\]]+)\\]$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"severity": 4,
+						"message": 5,
+						"code": 6
+					}
+				}
+			]
+		}
+	]
+}

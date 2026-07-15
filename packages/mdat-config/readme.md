@@ -189,6 +189,26 @@ ksc-mdat print-config
 
 <!-- /cli-help -->
 
+### VS Code tasks
+
+`ksc-mdat init` adds a `.vscode/tasks.json` with two tasks:
+
+- **`ksc-mdat lint`** runs `ksc-mdat lint --format machine`, validating that readme content placeholders are expanded and up to date
+- **`ksc-mdat fix`** runs `ksc-mdat fix --format machine`, expanding readme content placeholders
+
+If you're using the complete [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) package, you'd more likely want to run:
+
+- **`ksc lint`** runs `ksc lint --format machine`, which runs all `ksc lint` tools across the whole project
+- **`ksc fix`** runs `ksc fix --format machine`, which applies all `ksc fix` auto-fixes and reports anything unfixable
+
+Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
+
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+
+The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
+
+If your project already has a `.vscode/tasks.json`, `init` merges by task label: your own tasks are left alone, and same-label tasks are replaced with the latest definitions.
+
 ### API
 
 The package also exports `fix`, `fixFile` functions for expanding Mdat comment placeholders programmatically, pre-configured with the shared Mdat configuration. The [mdat](https://github.com/kitschpatrol/mdat) project already provides a robust TypeScript API and CLI for general use cases, but these proxies are provided for convenience in @kitschpatrol/shared-config projects.

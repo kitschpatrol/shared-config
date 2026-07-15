@@ -336,6 +336,21 @@ clearCache()
 
 Each sub-package with a `fix` command also exports its own `fix`, `fixFile`, and `clearCache` for standalone use. See the individual package readmes for details. (With the exception of, `ksc-repo`, whose `fix` behavior is too file-specific to be generically useful.)
 
+### VS Code tasks
+
+`ksc init` assembles a `.vscode/tasks.json` for your project. The `ksc` package contributes two aggregate tasks:
+
+- **`ksc lint`** runs `ksc lint --format machine` runs all `ksc lint` tools across the whole project
+- **`ksc fix`** runs `ksc fix --format machine`, applies all `ksc fix` auto-fixes, and reports anything unfixable
+
+Each tool package's `init` (invoked by `ksc init`) also contributes granular tasks for the commands it supports — `ksc-eslint lint`, `ksc-eslint fix`, `ksc-typescript lint`, and so on — so a single tool can be run without invoking the whole suite.
+
+Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
+
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
+
+The tasks share a problem matcher owner, so the panel reflects the most recent run instead of stacking duplicates across tasks. Existing `tasks.json` files are merged by task label: your own tasks are left alone, and same-label `ksc` tasks are updated in place.
+
 ## Implementation notes
 
 ### Line endings

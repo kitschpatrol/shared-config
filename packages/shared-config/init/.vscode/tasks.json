@@ -2,10 +2,10 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "ksc-repo lint",
-			"detail": "Check the repo for common issues.",
+			"label": "ksc lint",
+			"detail": "Lint your project with multiple tools in one go.",
 			"type": "shell",
-			"command": "pnpm exec ksc-repo lint --format machine",
+			"command": "pnpm exec ksc lint --format machine",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -36,10 +36,10 @@
 			]
 		},
 		{
-			"label": "ksc-repo fix",
-			"detail": "Fix common issues like outdated copyright years in license files.",
+			"label": "ksc fix",
+			"detail": "Fix your project with multiple tools in one go.",
 			"type": "shell",
-			"command": "pnpm exec ksc-repo fix --format machine",
+			"command": "pnpm exec ksc fix --format machine",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
