@@ -127,7 +127,7 @@ export type OptionsTypeAware = {
 
 export type Rules = RuleOptions
 
-export type TypedFlatConfigItem = Omit<Linter.Config, 'plugins'> & {
+export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord & Rules>, 'plugins'> & {
 	// Relax plugins type limitation, as most of the plugins did not have correct type info yet.
 	/**
 	 * An object containing a name-value mapping of plugin names to plugin
