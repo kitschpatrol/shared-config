@@ -50,14 +50,19 @@ describe('machine output format', () => {
 		expect(stdout).toContain(`${fixtureFileRelative}:`)
 	})
 
-	it('emits identical output with the KSC_FORMAT environment variable', async () => {
-		const flagResult = await runKscEslintLint(['--format', 'machine'])
-		// eslint-disable-next-line ts/naming-convention
-		const environmentResult = await runKscEslintLint([], { KSC_FORMAT: 'machine' })
+	// Runs the CLI twice, so it needs extra headroom on slow Windows CI runners
+	it(
+		'emits identical output with the KSC_FORMAT environment variable',
+		{ timeout: 60_000 },
+		async () => {
+			const flagResult = await runKscEslintLint(['--format', 'machine'])
+			// eslint-disable-next-line ts/naming-convention
+			const environmentResult = await runKscEslintLint([], { KSC_FORMAT: 'machine' })
 
-		expect(environmentResult.exitCode).toBe(1)
-		expect(environmentResult.stdout).toBe(flagResult.stdout)
-	})
+			expect(environmentResult.exitCode).toBe(1)
+			expect(environmentResult.stdout).toBe(flagResult.stdout)
+		},
+	)
 
 	it('rejects invalid format values', async () => {
 		const { exitCode, stderr } = await runKscEslintLint(['--format', 'bogus'])

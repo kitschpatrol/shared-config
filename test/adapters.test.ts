@@ -37,7 +37,7 @@ describe('tsc adapter', () => {
 		expect(diagnostics).toHaveLength(3)
 		expect(diagnostics[0]).toMatchObject({
 			column: 5,
-			file: 'src/foo.ts',
+			file: path.join('src', 'foo.ts'),
 			line: 12,
 			message: "Cannot find name 'x'.",
 			rule: 'TS2304',
