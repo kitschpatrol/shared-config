@@ -73,7 +73,7 @@
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"globby": "^16.2.0",
+		"globby": "^16.2.1",
 		"untildify": "^6.0.0"
 	},
 	"engines": {

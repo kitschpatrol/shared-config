@@ -55,7 +55,7 @@ export function parseTscOutput(context: CollectContext): CollectResult {
 		}
 
 		const previousDiagnostic = diagnostics.at(-1)
-		if (CONTINUATION_LINE_REGEX.test(line) && previousDiagnostic !== undefined) {
+		if (previousDiagnostic !== undefined && CONTINUATION_LINE_REGEX.test(line)) {
 			previousDiagnostic.message += `\n${line.trim()}`
 			continue
 		}

@@ -56,7 +56,7 @@ export async function fixWordsInConfig(
 
 	// Without a successful spell-check run, every word looks unused, so
 	// modifying the configuration would wrongly wipe the whole words array
-	if (errors > 0 || filesChecked === 0) {
+	if (filesChecked === 0 || errors > 0) {
 		throw new Error(
 			`Refusing to modify "${configFilePath}": CSpell checked ${filesChecked} files with ${errors} errors, so word usage can't be determined. Check your file globs and configuration.`,
 		)

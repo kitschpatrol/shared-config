@@ -218,7 +218,7 @@ async function nodeVersionCheckSingle(
 		}
 	}
 
-	if (issues.length > 0 && fix) {
+	if (fix && issues.length > 0) {
 		fse.writeJsonSync(packageJsonPath, packageJson, { spaces: '\t' })
 		await formatFileInPlace(packageJsonPath)
 	}

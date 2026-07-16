@@ -173,6 +173,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				ignoreInlineComments: true,
 				// Forgive some additional common patterns arising from temporarily commenting out lines of code
 				ignorePattern: String.raw`await|c8|console\.log|const|cspell|else|eslint|export|if|ignore|import|let|macOS|pragma|prettier-ignore|svelte-ignore|type-coverage:|var|webpack\w+:`,
+				// TODO consider XO's preset....
+				//ignorePattern: String.raw`pragma|\w{1,40}[\-:]ignore|ignore|webpack\w+:|c8|v8|type-coverage:|const |let |var |import |export |function |class |if \(|for \(|while \(|switch \(`,
 			},
 		],
 		// Cherry-picked e18e rules that don't overlap with unicorn/depend/ts

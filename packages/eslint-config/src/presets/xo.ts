@@ -8,6 +8,30 @@ import type { Rules } from '../types'
 // node, and eslint-comments authority stays with this config's own presets, and
 // the no-use-extend-native and xo plugins aren't registered here.
 
+// Many are skipped on account of our managing these concerns elsewhere (or not
+// at all). NOte that config order shifted with the addition of xo/css in in 72.0.0.
+
+// [0] xo/ignores - Skipped
+// [1] xo/ava - Skipped
+// [2] xo/ava-package-json - Skipped
+// [3] node-test/recommended - Skipped
+// [4] xo/base - Included
+// [5] xo/json - Skipped
+// [6] xo/json5 - Skipped
+// [7] xo/jsonc - Skipped
+// [8] xo/package-json - Skipped
+// [9] xo/regexp - Skipped
+// [10] xo/jsdoc - Skipped
+// [11] xo/jsdoc-typescript - Skipped
+// [12] xo/html - Skipped
+// [13] xo/markdown - Skipped
+// [14] xo/css - Skipped (New in 72!)
+// [15] xo/typescript - Included
+// [16] xo/typescript-declaration - Included
+// [17] xo/typescript-test-declaration - Included
+// [18] xo/typescript-jsx - Included
+// [19] xo/config-file - Skipped
+
 // (xo/base)
 export const xoJavascriptRules: Rules = {
 	// Begin expansion 'eslint-config-xo' '[4].rules' 'exclude: @eslint-community/eslint-comments/, import-x/, n/, no-use-extend-native/, unicorn/, xo/'
@@ -215,7 +239,6 @@ export const xoJavascriptRules: Rules = {
 	// "@stylistic/computed-property-spacing":["error","never",{"enforceForClassMembers":true}],
 	// "@stylistic/eol-last":"error",
 	// "@stylistic/function-call-spacing":["error","never"],
-	// "@stylistic/function-paren-newline":["error","multiline"],
 	'func-name-matching': ['error', { considerPropertyDescriptor: true }],
 	'func-names': ['error', 'never'],
 	// "@stylistic/function-call-argument-newline":["error","consistent"],
@@ -276,7 +299,7 @@ export const xoJavascriptRules: Rules = {
 	// "@stylistic/generator-star-spacing":["error","both"],
 	'no-class-assign': 'error',
 	'no-const-assign': 'error',
-	'no-constant-binary-expression': 'error',
+	'no-constant-binary-expression': ['error', { checkRelationalComparisons: true }],
 	'no-dupe-class-members': 'error',
 	'no-new-native-nonconstructor': 'error',
 	'no-this-before-super': 'error',
@@ -329,14 +352,9 @@ export const xoJavascriptRules: Rules = {
 	// End expansion
 }
 
-// The merged eslint-config-xo also ships ava ([1], [2]), node-test ([3]),
-// json/json5/jsonc ([5]–[7]), regexp ([8]), jsdoc ([9], [10]), html ([11]),
-// markdown ([12]), css ([13]), and xo.config ([18]) entries, all ignored on
-// account of managing these concerns elsewhere (or not at all)
-
 // (xo/typescript)
 export const xoTypescriptRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[14].rules'
+	// Begin expansion 'eslint-config-xo' '[15].rules'
 	'ts/adjacent-overload-signatures': 'error',
 	'ts/array-type': ['error', { default: 'array-simple' }],
 	'ts/await-thenable': 'error',
@@ -677,7 +695,6 @@ export const xoTypescriptRules: Rules = {
 	'no-duplicate-imports': 'off',
 	'unicorn/import-style': 'off',
 	'import/extensions': 'off',
-	'node/file-extension-in-import': 'off',
 	'import/export': 'off',
 	'import/default': 'off',
 	// "@stylistic/operator-linebreak":["error","before",{"overrides":{"=":"after"}}],
@@ -687,14 +704,14 @@ export const xoTypescriptRules: Rules = {
 
 // (xo/typescript-declaration)
 export const xoTypescriptDtsRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[15].rules'
+	// Begin expansion 'eslint-config-xo' '[16].rules'
 	'ts/no-unused-vars': 'off',
 	// End expansion
 }
 
 // (xo/typescript-test-declaration)
 export const xoTypescriptTestRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[16].rules'
+	// Begin expansion 'eslint-config-xo' '[17].rules'
 	'ts/no-unsafe-call': 'off',
 	'ts/no-confusing-void-expression': 'off',
 	'ts/no-unnecessary-type-arguments': 'off',
@@ -704,7 +721,7 @@ export const xoTypescriptTestRules: Rules = {
 
 // (xo/typescript-jsx)
 export const xoTsxRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[17].rules'
+	// Begin expansion 'eslint-config-xo' '[18].rules'
 	'ts/naming-convention': [
 		'error',
 		{
