@@ -8,27 +8,45 @@ import decircular from 'decircular'
 import deepmerge from 'deepmerge'
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact'
 
+// TODO should this merge with logic in command?
+function shouldColor(): boolean {
+	if (process.env.NO_COLOR !== undefined) {
+		return false
+	}
+
+	if (process.env.FORCE_COLOR !== undefined) {
+		return true
+	}
+
+	return process.stdout.isTTY && process.env.TERM !== 'dumb'
+}
+
 /** Serialize an object to a colorized, compact JSON string for terminal output. */
 export function stringify(object: any): string {
-	return jsonColorizer(
-		jsonStringifyPrettyCompact(decircular(object), {
-			indent: 2,
-			replacer(_, value) {
-				if (typeof value === 'function') {
-					// eslint-disable-next-line ts/no-unsafe-function-type
-					return (value as Function).name
-				}
+	return shouldColor() ? stringifyColorized(object) : stringifyHelper(object)
+}
 
-				return value as unknown
-			},
-		}),
-		{
-			colors: {
-				// eslint-disable-next-line ts/naming-convention
-				BRACKET: 'gray',
-			},
+function stringifyHelper(object: any): string {
+	return jsonStringifyPrettyCompact(decircular(object), {
+		indent: 2,
+		replacer(_, value) {
+			if (typeof value === 'function') {
+				// eslint-disable-next-line ts/no-unsafe-function-type
+				return (value as Function).name
+			}
+
+			return value as unknown
 		},
-	)
+	})
+}
+
+function stringifyColorized(object: any): string {
+	return jsonColorizer(stringifyHelper(object), {
+		colors: {
+			// eslint-disable-next-line ts/naming-convention
+			BRACKET: 'gray',
+		},
+	})
 }
 
 // https://www.npmjs.com/package/deepmerge#arraymerge-example-combine-arrays

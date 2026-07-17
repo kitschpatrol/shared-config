@@ -57,6 +57,32 @@ To use just this TypeScript config in isolation:
    pnpm exec ksc-typescript init
    ```
 
+### Astro and Svelte projects
+
+Framework-specific configs are also exported. Each extends the base config and overrides only what the framework requires.
+
+In an Astro project, the entire `tsconfig.json` is:
+
+```json
+{
+  "extends": "@kitschpatrol/typescript-config/astro"
+}
+```
+
+This mirrors the `astro/tsconfigs/strict` preset that `create-astro` scaffolds by default, including the `.astro/types.d.ts` include and `dist` exclude, layered over the base config.
+
+In a SvelteKit project, extend both this config and SvelteKit's generated config, with the generated config last so its per-project `paths`, `rootDirs`, `include`, and `exclude` take precedence:
+
+```json
+{
+  "extends": ["@kitschpatrol/typescript-config/svelte", "./.svelte-kit/tsconfig.json"]
+}
+```
+
+This mirrors the `tsconfig.json` that `sv create` scaffolds for SvelteKit projects. Standalone Svelte projects without SvelteKit (Vite's split `tsconfig.app.json` / `tsconfig.node.json` layout) aren't covered by this config.
+
+See the [Svelte and Astro caveat](#svelte-and-astro-caveat) below for how `ksc-typescript lint` handles type checking in these projects.
+
 ## Usage
 
 You can call `ksc-typescript` directly, or use the script bundled with the config.

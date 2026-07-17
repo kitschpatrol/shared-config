@@ -1,0 +1,14 @@
+{
+	// SvelteKit generates per-project paths, rootDirs, include, and exclude, so
+	// projects must extend both configs, with the generated config last:
+	// "extends": ["@kitschpatrol/typescript-config/svelte", "./.svelte-kit/tsconfig.json"]
+	"extends": "./base.json",
+	"compilerOptions": {
+		// The sv create template rewrites relative .ts import extensions in emitted output
+		"rewriteRelativeImportExtensions": true,
+		// The sv create template enables source maps for svelte-package output
+		"sourceMap": true,
+		// The sv create template enables CJS interop for importing CommonJS modules in ESM
+		"esModuleInterop": true
+	}
+}

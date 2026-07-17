@@ -270,6 +270,7 @@ async function executeCliCommand(
 		? new PassThrough()
 		: targetStream
 
+	// TODO what about TTY?
 	// Plain output when a machine-readable format is active (e.g. passthrough of
 	// format-aware ksc-* children), otherwise colorful output unless NO_COLOR is set
 	/* eslint-disable ts/naming-convention */
@@ -1044,7 +1045,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				)
 
 				if (report !== undefined) {
-					process.stdout.write(`${JSON.stringify(report, undefined, '\t')}\n`)
+					// Final JSON output for lint commands
+					process.stdout.write(`${stringify(report)}\n`)
 				}
 
 				process.exitCode = exitCode
@@ -1096,7 +1098,8 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 				)
 
 				if (report !== undefined) {
-					process.stdout.write(`${JSON.stringify(report, undefined, '\t')}\n`)
+					// Final JSON output for fix commands
+					process.stdout.write(`${stringify(report)}\n`)
 				}
 
 				process.exitCode = exitCode
