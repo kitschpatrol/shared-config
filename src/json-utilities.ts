@@ -7,23 +7,14 @@ import jsonColorizer from '@pinojs/json-colorizer'
 import decircular from 'decircular'
 import deepmerge from 'deepmerge'
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact'
-
-// TODO should this merge with logic in command?
-function shouldColor(): boolean {
-	if (process.env.NO_COLOR !== undefined) {
-		return false
-	}
-
-	if (process.env.FORCE_COLOR !== undefined) {
-		return true
-	}
-
-	return process.stdout.isTTY && process.env.TERM !== 'dumb'
-}
+import { shouldColorStream } from './color-utilities.js'
 
 /** Serialize an object to a colorized, compact JSON string for terminal output. */
 export function stringify(object: any): string {
-	return shouldColor() ? stringifyColorized(object) : stringifyHelper(object)
+	// No CI color: JSON output on CI is typically captured and parsed, not read
+	return shouldColorStream(process.stdout, { ciColor: false })
+		? stringifyColorized(object)
+		: stringifyHelper(object)
 }
 
 function stringifyHelper(object: any): string {

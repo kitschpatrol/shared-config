@@ -10,7 +10,6 @@ import path from 'node:path'
 import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
-import picocolors from 'picocolors'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import type { Diagnostic, LintReport, ToolRun } from './diagnostics.js'
@@ -18,6 +17,12 @@ import type { OutputFormat } from './output-format.js'
 import type { CwdOverrideOptions } from './path-utilities.js'
 import type { ForegroundColor } from './stream-utilities.js'
 import { version } from '../package.json' with { type: 'json' }
+import {
+	getChildColorEnvironment,
+	getColors,
+	getLogDestination,
+	shouldColorStream,
+} from './color-utilities.js'
 import { createLintReport, renderMachineDiagnostic, toOutputLines } from './diagnostics.js'
 import { isErrorExecaError } from './execa-utilities.js'
 import { merge, mergeVsCodeTasks, stringify } from './json-utilities.js'
@@ -202,7 +207,7 @@ async function executeFunctionCommand(
 
 	if (verbose) {
 		targetStream.write(
-			picocolors.bold(
+			getColors().bold(
 				`Running: "${command.name}() with Positional arguments: ${String(positionalArguments)} and Option flags: ${String(optionFlags)}"`,
 			) + '\n',
 		)
@@ -270,17 +275,15 @@ async function executeCliCommand(
 		? new PassThrough()
 		: targetStream
 
-	// TODO what about TTY?
-	// Plain output when a machine-readable format is active (e.g. passthrough of
-	// format-aware ksc-* children), otherwise colorful output unless NO_COLOR is set
-	/* eslint-disable ts/naming-convention */
-	const colorEnv: Record<string, string> =
-		getOutputFormat() === 'native'
-			? process.env.NO_COLOR === undefined
-				? { FORCE_COLOR: 'true' }
-				: {}
-			: { NO_COLOR: '1' }
-	/* eslint-enable ts/naming-convention */
+	// Children write to pipes and would disable color on their own, so mirror the
+	// parent's decision for its own destination. Color is off when output is
+	// piped to a non-TTY, captured for machine or JSON parsing, or parsed for
+	// JSON pretty-printing
+	const colorEnv = getChildColorEnvironment(
+		getOutputFormat() === 'native' &&
+			command.prettyJsonOutput !== true &&
+			shouldColorStream(getLogDestination()),
+	)
 
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
@@ -363,8 +366,7 @@ async function runCliCommandCaptured(
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
 			cwd,
-			// eslint-disable-next-line ts/naming-convention
-			env: { NO_COLOR: '1' },
+			env: getChildColorEnvironment(false),
 			preferLocal: true,
 			reject: false,
 			stdin: 'inherit',
@@ -655,7 +657,7 @@ function partitionSkippedCommands(
 		if (unmatchedSkips.length > 0) {
 			const availableNames = commands.map((c) => normalizeCommandName(c.name)).join(', ')
 			logStream.write(
-				`⚠️  ${picocolors.yellow(`Unrecognized --skip ${pluralize('value', unmatchedSkips.length)}: ${unmatchedSkips.join(', ')}. Available: ${availableNames}`)}\n`,
+				`⚠️  ${getColors().yellow(`Unrecognized --skip ${pluralize('value', unmatchedSkips.length)}: ${unmatchedSkips.join(', ')}. Available: ${availableNames}`)}\n`,
 			)
 		}
 	}
@@ -723,14 +725,14 @@ export async function executeCommands(
 	// Skipped feedback and success / failure summaries are human-facing chrome,
 	// shown in native format only
 	// Always show skipped feedback when tools were skipped, even if showSummary is false
+	const colors = getColors()
+
 	if (format === 'native' && skippedCommands.length > 0) {
 		const skippedNames = skippedCommands.map(({ name }) => name)
-		const skippedSummary = picocolors.bold(
+		const skippedSummary = colors.bold(
 			`${skippedNames.length} / ${totalCommands} ${pluralize('Command', skippedNames.length)} Skipped:`,
 		)
-		logStream.write(
-			`⏭️ ${picocolors.dim(skippedSummary)} ${picocolors.dim(skippedNames.join(', '))}\n`,
-		)
+		logStream.write(`⏭️ ${colors.dim(skippedSummary)} ${colors.dim(skippedNames.join(', '))}\n`)
 	}
 
 	if (format === 'native' && showSummary) {
@@ -742,21 +744,19 @@ export async function executeCommands(
 			.map(({ name }) => name)
 
 		if (successfulCommands.length > 0) {
-			const successSummary = picocolors.bold(
+			const successSummary = colors.bold(
 				`${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
 			)
 			logStream.write(
-				`✅ ${picocolors.green(successSummary)} ${picocolors.green(successfulCommands.join(', '))}\n`,
+				`✅ ${colors.green(successSummary)} ${colors.green(successfulCommands.join(', '))}\n`,
 			)
 		}
 
 		if (failedCommands.length > 0) {
-			const failedSummary = picocolors.bold(
+			const failedSummary = colors.bold(
 				`${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
 			)
-			logStream.write(
-				`❌ ${picocolors.red(failedSummary)} ${picocolors.red(failedCommands.join(', '))}\n`,
-			)
+			logStream.write(`❌ ${colors.red(failedSummary)} ${colors.red(failedCommands.join(', '))}\n`)
 		}
 	}
 
@@ -935,7 +935,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	// Set up log stream. In JSON mode stdout is reserved for the report, so
 	// human-facing progress goes to stderr.
 	const logStream = createStreamTransform(logPrefix, logColor)
-	logStream.pipe(getOutputFormat() === 'json' ? process.stderr : process.stdout)
+	logStream.pipe(getLogDestination())
 
 	const yargsInstance = yargs(hideBin(process.argv))
 		.scriptName(name)

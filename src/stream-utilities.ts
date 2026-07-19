@@ -1,7 +1,7 @@
 import type { Stream } from 'node:stream'
 import { Transform } from 'node:stream'
 import { stripVTControlCharacters } from 'node:util'
-import picocolors from 'picocolors'
+import { getColors } from './color-utilities.js'
 import { getOutputFormat } from './output-format.js'
 
 // Define color type for picocolors
@@ -67,7 +67,7 @@ export function createStreamTransform(
 			? ''
 			: logColor === undefined
 				? resolvedLogPrefix
-				: picocolors[logColor](resolvedLogPrefix)
+				: getColors()[logColor](resolvedLogPrefix)
 
 	let remainder = ''
 

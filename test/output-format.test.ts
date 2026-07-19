@@ -16,7 +16,7 @@ const MACHINE_LINE_REGEX = /^(?<file>.+?):(?<line>\d+):(?<column>\d+): error: .+
 
 async function runKscEslintLint(
 	extraArguments: string[],
-	environment: Record<string, string> = {},
+	environment: Record<string, string | undefined> = {},
 ) {
 	return execa('ksc-eslint', ['lint', fixtureFileRelative, ...extraArguments], {
 		env: environment,
@@ -182,6 +182,59 @@ describe('native output format', () => {
 
 		expect(exitCode).toBe(1)
 		expect(stripVTControlCharacters(stdout)).toContain('[ESLint]')
+	})
+})
+
+describe('color output', () => {
+	// Unset ambient color config (undefined values remove inherited variables)
+	// so each test controls the color decision, including on CI runners
+	/* eslint-disable ts/naming-convention */
+	const plainEnvironment = {
+		CI: undefined,
+		FORCE_COLOR: undefined,
+		NO_COLOR: undefined,
+		TERM: undefined,
+	}
+	/* eslint-enable ts/naming-convention */
+
+	it('disables color when output is piped', async () => {
+		const { exitCode, stderr, stdout } = await runKscEslintLint([], plainEnvironment)
+
+		expect(exitCode).toBe(1)
+		expect(stdout).toBe(stripVTControlCharacters(stdout))
+		expect(stderr).toBe(stripVTControlCharacters(stderr))
+	})
+
+	it('forces color through pipes with FORCE_COLOR', async () => {
+		// eslint-disable-next-line ts/naming-convention
+		const { stdout } = await runKscEslintLint([], { ...plainEnvironment, FORCE_COLOR: '1' })
+
+		expect(stdout).not.toBe(stripVTControlCharacters(stdout))
+	})
+
+	it('keeps machine output plain even with FORCE_COLOR', async () => {
+		const { stdout } = await runKscEslintLint(['--format', 'machine'], {
+			...plainEnvironment,
+			// eslint-disable-next-line ts/naming-convention
+			FORCE_COLOR: '1',
+		})
+
+		expect(stdout).toBe(stripVTControlCharacters(stdout))
+		expect(stdout).toMatch(MACHINE_LINE_REGEX)
+	})
+
+	it('captures parseable tool output under FORCE_COLOR with --format json', async () => {
+		const { stdout } = await runKscEslintLint(['--format', 'json'], {
+			...plainEnvironment,
+			// eslint-disable-next-line ts/naming-convention
+			FORCE_COLOR: '1',
+		})
+
+		// FORCE_COLOR colorizes the report itself, so strip before parsing
+		const report = JSON.parse(stripVTControlCharacters(stdout)) as LintReport
+		expect(report.diagnostics.some((d) => d.rule === 'ts/no-unused-vars')).toBe(true)
+		// Captured tool output stayed plain and parsed cleanly into diagnostics
+		expect(report.tools.every((tool) => tool.unparsed.length === 0)).toBe(true)
 	})
 })
 
