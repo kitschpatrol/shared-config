@@ -25,7 +25,9 @@ allowBuilds:
   unrs-resolver: true
 minimumReleaseAgeExclude:
   - '@kitschpatrol/*'
+  - '@pnpm/lockfile.fs'
+  - execa
   - mdat
   - mdat-plugin-cli-help
-  - remark-mdat
   - prettier
+  - remark-mdat

@@ -308,14 +308,7 @@ async function executeCliCommand(
 			subprocess.stderr.pipe(cliTargetStream, { end: false })
 		}
 
-		await subprocess
-
-		// If (debug) {
-		// 	console.log(`Executed:   ${subprocess.spawnargs.join(' ')}`)
-		// 	console.log(`Exit Code:  ${subprocess.exitCode}`)
-		// 	console.log(`Actual CWD: ${process.cwd()}`)
-		// 	console.log(`Active CWD: ${cwd}`)
-		// }
+		const result = await subprocess
 
 		if (command.prettyJsonOutput) {
 			cliTargetStream.end()
@@ -328,7 +321,7 @@ async function executeCliCommand(
 			}
 		}
 
-		exitCode = subprocess.exitCode ?? 1
+		exitCode = result.exitCode ?? 1
 	} catch (error) {
 		// Extra debugging...
 		console.error(`${command.name} failed with error:`)
