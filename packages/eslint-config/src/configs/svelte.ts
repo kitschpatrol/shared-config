@@ -69,6 +69,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 					},
 				],
 				'unicorn/no-useless-undefined': 'off', // Needed for let props
+				'svelte/sort-attributes': 'error',
 				...overrides,
 			},
 		},
