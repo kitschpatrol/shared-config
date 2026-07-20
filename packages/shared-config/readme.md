@@ -229,12 +229,12 @@ Usage:
 ksc <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                                                                                 |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them. |
-| `lint`         | `[files..]` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.               |
-| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                |
-| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                      |
+| Command        | Argument    | Description                                                                                                                                                                                                                                                                    |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `init`         |             | Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.                                                                                    |
+| `lint`         | `[files..]` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                                                                                                  |
+| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Tools without auto-fixes run their checks afterward, so remaining issues match a subsequent lint. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope. |
+| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.                                                                                                         |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -283,7 +283,7 @@ ksc lint [files..]
 
 #### Subcommand: `ksc fix`
 
-Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.
+Fix your project with multiple tools in one go. Tools without auto-fixes run their checks afterward, so remaining issues match a subsequent lint. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package scope.
 
 Usage:
 

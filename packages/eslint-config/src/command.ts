@@ -97,13 +97,15 @@ export const commandDefinition: CommandDefinition = {
 				{
 					collect: {
 						// The --fix flag must be retained so fixes are still applied
-						optionFlags: ['--fix', '--format', 'json'],
+						optionFlags: ['--fix', '--max-warnings', '0', '--format', 'json'],
 						parse: parseEslintJsonOutput,
 					},
 					name: 'eslint',
 					// Consider '--concurrency', 'auto'
 					// Didn't benchmark particularly fast in September 2025
-					optionFlags: ['--fix'],
+					// Matching lint's --max-warnings 0 means unfixable warnings fail
+					// fix exactly as they'd fail a subsequent lint
+					optionFlags: ['--fix', '--max-warnings', '0'],
 					receivePositionalArguments: true,
 				},
 			],

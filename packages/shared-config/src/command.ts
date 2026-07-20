@@ -27,28 +27,43 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 	// Sort definition by order field in place
 	definitions.sort((a, b) => a.order - b.order)
 
-	const commands: CommandCli[] = []
+	// Tools without a fix command (e.g. type checking) run their lint during
+	// fix instead, after all the fixers so they see the fixed state. This way
+	// fix surfaces every issue a subsequent lint would report.
+	const entries: Array<{ definition: CommandDefinition; effectiveKey: keyof Commands }> = []
 	for (const definition of definitions) {
-		const keys = Object.keys(definition.commands)
-		if (keys.includes(key)) {
-			commands.push({
-				name: definition.name,
-				...(key === 'init'
-					? {
-							// Special case for init location flag
-							receiveOptionFlags: definition.commands[key]?.locationOptionFlag ?? false,
-						}
-					: {
-							// Other commands can take positional arguments
-							receivePositionalArguments:
-								definition.commands[key]?.positionalArgumentMode !== 'none',
-						}),
-				// The spawned ksc-* CLIs honor KSC_FORMAT themselves: they render
-				// machine output directly and emit their own JSON reports for merging
-				...((key === 'lint' || key === 'fix') && { outputFormatAware: true }),
-				subcommands: [kebabCase(key)],
-			})
+		if (definition.commands[key] !== undefined) {
+			entries.push({ definition, effectiveKey: key })
 		}
+	}
+
+	if (key === 'fix') {
+		for (const definition of definitions) {
+			if (definition.commands.fix === undefined && definition.commands.lint !== undefined) {
+				entries.push({ definition, effectiveKey: 'lint' })
+			}
+		}
+	}
+
+	const commands: CommandCli[] = []
+	for (const { definition, effectiveKey } of entries) {
+		commands.push({
+			name: definition.name,
+			...(effectiveKey === 'init'
+				? {
+						// Special case for init location flag
+						receiveOptionFlags: definition.commands.init?.locationOptionFlag ?? false,
+					}
+				: {
+						// Other commands can take positional arguments
+						receivePositionalArguments:
+							definition.commands[effectiveKey]?.positionalArgumentMode !== 'none',
+					}),
+			// The spawned ksc-* CLIs honor KSC_FORMAT themselves: they render
+			// machine output directly and emit their own JSON reports for merging
+			...((key === 'lint' || key === 'fix') && { outputFormatAware: true }),
+			subcommands: [kebabCase(effectiveKey)],
+		})
 	}
 
 	return commands
@@ -58,7 +73,7 @@ export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: getCommands('fix', subcommandDefinitions),
-			description: `Fix your project with multiple tools in one go. ${DESCRIPTION.multiArgumentCaveat}`,
+			description: `Fix your project with multiple tools in one go. Tools without auto-fixes run their checks afterward, so remaining issues match a subsequent lint. ${DESCRIPTION.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},
 		init: {

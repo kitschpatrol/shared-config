@@ -263,14 +263,45 @@ async function printCspellConfigCommand(logStream: NodeJS.WritableStream): Promi
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
-			commands: [
-				{
-					execute: fixWordsCommand,
-					// Explicit name because function names are minified in builds
-					name: 'words',
-				},
-			],
-			description: `Remove unused words from the local CSpell configuration's "words" array and sort it alphabetically. ${DESCRIPTION.fileRun}`,
+			// Resolved lazily so the case-police dictionary and ignore paths are
+			// looked up at execution time. Fixers run first so the spell check that
+			// follows reports exactly what a subsequent lint would.
+			async commands() {
+				return [
+					{
+						collect: {
+							parse: parseCasePoliceOutput,
+						},
+						logColor: 'cyanBright',
+						logPrefix: '[Case Police]',
+						name: 'case-police',
+						optionFlags: [
+							'--fix',
+							'--dict',
+							await getCasePoliceDictionaryPath(),
+							'--ignore',
+							await getCspellIgnorePaths(),
+						],
+						// Only show word recommendations, drop banner and summary noise
+						outputFilter: (line) => !line.includes('→'),
+						receivePositionalArguments: true,
+					},
+					{
+						execute: fixWordsCommand,
+						// Explicit name because function names are minified in builds
+						name: 'words',
+					},
+					{
+						collect: {
+							parse: parseCspellOutput,
+						},
+						name: 'cspell',
+						optionFlags: ['--quiet'],
+						receivePositionalArguments: true,
+					},
+				]
+			},
+			description: `Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault: '**/*',
 			positionalArgumentMode: 'optional',
 		},
