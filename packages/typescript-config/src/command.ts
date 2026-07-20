@@ -163,6 +163,7 @@ export const commandDefinition: CommandDefinition = {
 			// TODO confirm monorepo behavior
 			description: `Run type checking on your project. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
+			showResolvedCommands: true,
 		},
 		printConfig: {
 			commands: [

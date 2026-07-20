@@ -11,6 +11,15 @@ function createLogStream(): PassThrough {
 	return stream
 }
 
+function createCapturedLogStream(): { output: () => string; stream: PassThrough } {
+	let output = ''
+	const stream = new PassThrough()
+	stream.on('data', (chunk: string | Uint8Array) => {
+		output += chunk.toString()
+	})
+	return { output: () => output, stream }
+}
+
 async function delay(milliseconds: number): Promise<void> {
 	await new Promise((resolve) => {
 		setTimeout(resolve, milliseconds)
@@ -78,6 +87,7 @@ describe('command scheduler', () => {
 			['ksc-knip', 6],
 		])
 		expect(groups.find(({ name }) => name === 'ksc-mdat')?.parallel).toBe(true)
+		expect(groups.find(({ name }) => name === 'ksc-typescript')?.showResolvedCommands).toBe(true)
 		expect(
 			groups.filter(({ stage }) => stage !== 6).every(({ stage }, index) => stage === index),
 		).toBe(true)
@@ -207,6 +217,29 @@ describe('command scheduler', () => {
 		)
 
 		expect(starts).toEqual(['a1', 'a2', 'b1', 'b2'])
+	})
+
+	it.each([
+		[['svelte-check'], 'svelte-check'],
+		[['astro check'], 'astro check'],
+		[['astro check', 'svelte-check'], 'astro check, svelte-check'],
+		[['tsc'], 'tsc'],
+	])('annotates a group with its resolved commands: %s', async (commandNames, annotation) => {
+		const { output, stream } = createCapturedLogStream()
+		const group: CommandGroup = {
+			...createGroup('ksc-typescript', []),
+			commands: commandNames.map((name) =>
+				createTrackedCommand(name, async () => {
+					await delay(0)
+					return 0
+				}),
+			),
+			showResolvedCommands: true,
+		}
+
+		await executeCommands(stream, [], [], [group], true)
+
+		expect(output()).toContain(`Running: "ksc-typescript lint" (${annotation})\n`)
 	})
 
 	it('aggregates failures and keeps JSON tool ordering deterministic', async () => {

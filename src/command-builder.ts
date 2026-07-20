@@ -148,6 +148,8 @@ export type CommandGroup = CommandCommon & {
 	parallel?: boolean
 	positionalArgumentDefault?: string
 	positionalArgumentMode: LintCommand['positionalArgumentMode']
+	/** Append the resolved child command names to the parent `Running:` line. */
+	showResolvedCommands?: boolean
 	/** Human-facing aggregate subcommand name, e.g. `lint` or `fix`. */
 	subcommand: string
 	/** Show a parent-style `Running:` line without making leaf commands verbose. */
@@ -185,6 +187,8 @@ type LintCommand = {
 	parallel?: boolean
 	positionalArgumentDefault?: string // Only applies if arguments mode is not 'none'
 	positionalArgumentMode: 'none' | 'optional' | 'required'
+	/** Append the resolved child command names to an aggregate `Running:` line. */
+	showResolvedCommands?: boolean
 }
 
 /** Resolve a static or lazily-generated command list. */
@@ -808,19 +812,37 @@ function createGroupLogStream(
 	return groupStream
 }
 
+function getResolvedCommandName(command: Command): string {
+	if (isCommandGroup(command)) {
+		return `${command.name} ${command.subcommand}`
+	}
+
+	if (!isCommandFunction(command) && command.subcommands !== undefined) {
+		return [command.name, ...command.subcommands].join(' ')
+	}
+
+	return command.name
+}
+
 async function executeCommand(
 	command: Command,
 	context: CommandExecutionContext,
 ): Promise<CommandExecutionOutcome> {
 	if (isCommandGroup(command)) {
-		if (context.nativeVerbose) {
-			const displayArguments = [command.subcommand, ...context.positionalArguments].join(' ')
-			context.logStream.write(`Running: "${command.name} ${displayArguments}"\n`)
-		}
-
 		const groupLogStream = createGroupLogStream(context.logStream, command)
 		try {
 			const commands = await resolveCommands(command.commands)
+
+			if (context.nativeVerbose) {
+				const displayArguments = [command.subcommand, ...context.positionalArguments].join(' ')
+				const resolvedCommands = command.showResolvedCommands
+					? ` (${commands.map((nestedCommand) => getResolvedCommandName(nestedCommand)).join(', ')})`
+					: ''
+				context.logStream.write(
+					`Running: "${command.name} ${displayArguments}"${resolvedCommands}\n`,
+				)
+			}
+
 			const outcomes = await executeCommandPlan(
 				commands,
 				{

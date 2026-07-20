@@ -80,6 +80,7 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 				parallel: nestedDefinition.parallel,
 				positionalArgumentDefault: nestedDefinition.positionalArgumentDefault,
 				positionalArgumentMode: nestedDefinition.positionalArgumentMode,
+				showResolvedCommands: nestedDefinition.showResolvedCommands,
 				stage: key === 'fix' ? (FIX_STAGES[definition.name] ?? 7) : 0,
 				subcommand: kebabCase(effectiveKey),
 				verbose: definition.verbose,

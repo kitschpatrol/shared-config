@@ -35,7 +35,10 @@ export function createStreamFilter(matcher: (text: string) => boolean): Transfor
 
 	const filterLines = (lines: string[]): string =>
 		lines
-			.filter((line) => line.trim() !== '' && !matcher(stripVTControlCharacters(line)))
+			.filter((line) => {
+				const plainLine = stripVTControlCharacters(line)
+				return plainLine.trim() !== '' && !matcher(plainLine)
+			})
 			.map((line) => `${line}\n`)
 			.join('')
 

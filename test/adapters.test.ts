@@ -11,6 +11,7 @@ import { parseKnipJsonOutput } from '../packages/knip-config/src/command.js'
 import { parsePrettierOutput } from '../packages/prettier-config/src/command.js'
 import { parseStylelintJsonOutput } from '../packages/stylelint-config/src/command.js'
 import { isSvelteCheckNoise, parseTscOutput } from '../packages/typescript-config/src/command.js'
+import { createStreamFilter, streamToString } from '../src/stream-utilities.js'
 
 function makeContext(partial: Partial<CollectContext>): CollectContext {
 	return {
@@ -78,6 +79,17 @@ describe('svelte-check output filter', () => {
 				'1784557516657 COMPLETED 3078 FILES 0 ERRORS 0 WARNINGS 0 FILES_WITH_PROBLEMS',
 			),
 		).toBe(true)
+	})
+
+	it('suppresses the trailing color reset from an all-clear summary', async () => {
+		const outputFilter = createStreamFilter(isSvelteCheckNoise)
+		const output = streamToString(outputFilter)
+
+		// Svelte-check colors the entire newline-terminated summary, leaving the
+		// closing ANSI sequence after the newline as its own buffered line.
+		outputFilter.end('\u{1B}[32msvelte-check found 0 errors and 0 warnings\n\u{1B}[39m')
+
+		await expect(output).resolves.toBe('')
 	})
 
 	it('keeps diagnostics and summaries that report problems', () => {
