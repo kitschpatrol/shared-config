@@ -98,7 +98,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 					'error',
 					{
 						cases: {
-							camelCase: true,
+							kebabCase: true,
 						},
 						checkDirectories: false,
 					},
