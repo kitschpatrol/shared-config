@@ -18,6 +18,27 @@ const TSC_FILE_DIAGNOSTIC_REGEX =
 const TSC_GLOBAL_DIAGNOSTIC_REGEX = /^(?<severity>error|warning) (?<code>TS\d+): (?<message>.*)$/v
 const CONTINUATION_LINE_REGEX = /^\s/v
 
+// Human format: the progress lines and the all-clear summary. Passing
+// `--output human` would also drop the progress lines, but strips code context
+// from real diagnostics, so filter instead. The summary keeps its `====`
+// separator, file count, and colors when there's something to report.
+const SVELTE_CHECK_HUMAN_NOISE_REGEX =
+	/^(?:Loading svelte-check in workspace: |Getting Svelte diagnostics\.\.\.|svelte-check found 0 errors and 0 warnings$)/v
+
+// Machine format, which svelte-check selects itself when CLAUDECODE=1: the
+// START line and the all-clear COMPLETED line.
+// See https://github.com/sveltejs/language-tools/issues/2868
+const SVELTE_CHECK_MACHINE_NOISE_REGEX =
+	/^\d+ (?:START "|COMPLETED \d+ FILES 0 ERRORS 0 WARNINGS 0 FILES_WITH_PROBLEMS$)/v
+
+/**
+ * True for svelte-check output lines that carry no diagnostic information, so a
+ * clean run stays silent.
+ */
+export function isSvelteCheckNoise(line: string): boolean {
+	return SVELTE_CHECK_HUMAN_NOISE_REGEX.test(line) || SVELTE_CHECK_MACHINE_NOISE_REGEX.test(line)
+}
+
 /**
  * Parses `tsc --noEmit` text output into diagnostics. Indented lines continue
  * the previous diagnostic's message.
@@ -112,6 +133,7 @@ async function generateTypeScriptLintCommands(): Promise<Command[]> {
 				cwdOverride: 'package-dir',
 				name: 'svelte-check',
 				optionFlags: hasAstroCheck ? [] : ['--tsconfig', './tsconfig.json'],
+				outputFilter: isSvelteCheckNoise,
 			})
 		}
 

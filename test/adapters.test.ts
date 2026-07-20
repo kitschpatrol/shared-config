@@ -10,7 +10,7 @@ import { parseEslintJsonOutput } from '../packages/eslint-config/src/command.js'
 import { parseKnipJsonOutput } from '../packages/knip-config/src/command.js'
 import { parsePrettierOutput } from '../packages/prettier-config/src/command.js'
 import { parseStylelintJsonOutput } from '../packages/stylelint-config/src/command.js'
-import { parseTscOutput } from '../packages/typescript-config/src/command.js'
+import { isSvelteCheckNoise, parseTscOutput } from '../packages/typescript-config/src/command.js'
 
 function makeContext(partial: Partial<CollectContext>): CollectContext {
 	return {
@@ -61,6 +61,39 @@ describe('tsc adapter', () => {
 		const { diagnostics } = parseTscOutput(makeContext({ cwd: toolCwd, stdout }))
 
 		expect(diagnostics[0]?.file).toBe(path.join('packages', 'example', 'src', 'foo.ts'))
+	})
+})
+
+describe('svelte-check output filter', () => {
+	it('suppresses progress lines and the all-clear summary', () => {
+		expect(isSvelteCheckNoise('Loading svelte-check in workspace: /Users/me/project')).toBe(true)
+		expect(isSvelteCheckNoise('Getting Svelte diagnostics...')).toBe(true)
+		expect(isSvelteCheckNoise('svelte-check found 0 errors and 0 warnings')).toBe(true)
+	})
+
+	it('suppresses machine-format chrome on clean runs', () => {
+		expect(isSvelteCheckNoise('1784557516651 START "/Users/me/project"')).toBe(true)
+		expect(
+			isSvelteCheckNoise(
+				'1784557516657 COMPLETED 3078 FILES 0 ERRORS 0 WARNINGS 0 FILES_WITH_PROBLEMS',
+			),
+		).toBe(true)
+	})
+
+	it('keeps diagnostics and summaries that report problems', () => {
+		expect(isSvelteCheckNoise('svelte-check found 1 error and 0 warnings in 1 file')).toBe(false)
+		expect(isSvelteCheckNoise('svelte-check found 0 errors and 2 warnings in 1 file')).toBe(false)
+		expect(isSvelteCheckNoise('====================================')).toBe(false)
+		expect(isSvelteCheckNoise('/Users/me/project/src/App.svelte:4:2')).toBe(false)
+		expect(isSvelteCheckNoise("Error: Cannot find name 'foo' (ts)")).toBe(false)
+		expect(
+			isSvelteCheckNoise(
+				'1784557516657 COMPLETED 10 FILES 2 ERRORS 0 WARNINGS 1 FILES_WITH_PROBLEMS',
+			),
+		).toBe(false)
+		expect(
+			isSvelteCheckNoise('1784557516655 ERROR "src/App.svelte" 1:1 "Cannot find name \'foo\'"'),
+		).toBe(false)
 	})
 })
 
