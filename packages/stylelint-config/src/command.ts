@@ -148,6 +148,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'stylelint' },
 					collect: {
 						// The --fix flag must be retained so fixes are still applied
 						optionFlags: [...sharedOptionFlags, '--fix', '--formatter', 'json'],
@@ -174,6 +175,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'stylelint' },
 					collect: {
 						optionFlags: [...sharedOptionFlags, '--formatter', 'json'],
 						parse: parseStylelintJsonOutput,

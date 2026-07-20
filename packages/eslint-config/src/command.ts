@@ -95,6 +95,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'eslint' },
 					collect: {
 						// The --fix flag must be retained so fixes are still applied
 						optionFlags: ['--fix', '--max-warnings', '0', '--format', 'json'],
@@ -120,6 +121,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'eslint' },
 					collect: {
 						optionFlags: ['--max-warnings', '0', '--format', 'json'],
 						parse: parseEslintJsonOutput,

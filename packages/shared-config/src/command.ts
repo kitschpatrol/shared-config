@@ -1,4 +1,10 @@
-import type { CommandCli, CommandDefinition, Commands } from '../../../src/command-builder.js'
+import type {
+	Command,
+	CommandCli,
+	CommandDefinition,
+	CommandGroup,
+	Commands,
+} from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
 import { kebabCase } from '../../../src/string-utilities.js'
 import { commandDefinition as cspellCommand } from '../../cspell-config/src/command.js'
@@ -23,7 +29,18 @@ const subcommandDefinitions = [
 	typescriptCommand,
 ]
 
-function getCommands(key: keyof Commands, definitions: CommandDefinition[]): CommandCli[] {
+const FIX_STAGES: Readonly<Record<string, number>> = {
+	'ksc-cspell': 4,
+	'ksc-eslint': 2,
+	'ksc-knip': 6,
+	'ksc-mdat': 1,
+	'ksc-prettier': 5,
+	'ksc-repo': 0,
+	'ksc-stylelint': 3,
+	'ksc-typescript': 6,
+}
+
+function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Command[] {
 	// Sort definition by order field in place
 	definitions.sort((a, b) => a.order - b.order)
 
@@ -45,9 +62,33 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 		}
 	}
 
-	const commands: CommandCli[] = []
+	const commands: Command[] = []
 	for (const { definition, effectiveKey } of entries) {
-		commands.push({
+		const nestedDefinition =
+			effectiveKey === 'lint'
+				? definition.commands.lint
+				: effectiveKey === 'fix'
+					? definition.commands.fix
+					: undefined
+		if (nestedDefinition !== undefined && (key === 'lint' || key === 'fix')) {
+			const group: CommandGroup = {
+				commands: nestedDefinition.commands,
+				kind: 'group',
+				logColor: definition.logColor,
+				logPrefix: definition.logPrefix,
+				name: definition.name,
+				parallel: nestedDefinition.parallel,
+				positionalArgumentDefault: nestedDefinition.positionalArgumentDefault,
+				positionalArgumentMode: nestedDefinition.positionalArgumentMode,
+				stage: key === 'fix' ? (FIX_STAGES[definition.name] ?? 7) : 0,
+				subcommand: kebabCase(effectiveKey),
+				verbose: definition.verbose,
+			}
+			commands.push(group)
+			continue
+		}
+
+		const command: CommandCli = {
 			name: definition.name,
 			...(effectiveKey === 'init'
 				? {
@@ -59,11 +100,9 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 						receivePositionalArguments:
 							definition.commands[effectiveKey]?.positionalArgumentMode !== 'none',
 					}),
-			// The spawned ksc-* CLIs honor KSC_FORMAT themselves: they render
-			// machine output directly and emit their own JSON reports for merging
-			...((key === 'lint' || key === 'fix') && { outputFormatAware: true }),
 			subcommands: [kebabCase(effectiveKey)],
-		})
+		}
+		commands.push(command)
 	}
 
 	return commands
@@ -74,6 +113,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: getCommands('fix', subcommandDefinitions),
 			description: `Fix your project with multiple tools in one go. Tools without auto-fixes run their checks afterward, so remaining issues match a subsequent lint. ${DESCRIPTION.multiArgumentCaveat}`,
+			parallel: true,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
@@ -85,6 +125,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
 			description: `Lint your project with multiple tools in one go. ${DESCRIPTION.multiArgumentCaveat}`,
+			parallel: true,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {

@@ -153,6 +153,7 @@ ksc-mdat lint
 | Option              | Description                                                                                                                                                           | Type                            | Default    |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
 | `--format`          | Output format: "native" streams each tool's own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report. | `"json"` `"machine"` `"native"` | `"native"` |
+| `--cache`           | Use tool-native caches stored below node\_modules/.cache/ksc at the workspace root. Disable with --no-cache.                                                          | `boolean`                       | `true`     |
 | `--help`<br>`-h`    | Show help                                                                                                                                                             | `boolean`                       |            |
 | `--version`<br>`-v` | Show version number                                                                                                                                                   | `boolean`                       |            |
 
@@ -169,6 +170,7 @@ ksc-mdat fix
 | Option              | Description                                                                                                                                                           | Type                            | Default    |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
 | `--format`          | Output format: "native" streams each tool's own output, "machine" prints one parseable line per issue for editor problem matchers, "json" prints an aggregate report. | `"json"` `"machine"` `"native"` | `"native"` |
+| `--cache`           | Use tool-native caches stored below node\_modules/.cache/ksc at the workspace root. Disable with --no-cache.                                                          | `boolean`                       | `true`     |
 | `--help`<br>`-h`    | Show help                                                                                                                                                             | `boolean`                       |            |
 | `--version`<br>`-v` | Show version number                                                                                                                                                   | `boolean`                       |            |
 

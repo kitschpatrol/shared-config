@@ -6,6 +6,7 @@ import { TypeScriptLoader as typeScriptLoader } from 'cosmiconfig-typescript-loa
 import { execa } from 'execa'
 import fse from 'fs-extra'
 import fs from 'node:fs'
+import { availableParallelism } from 'node:os'
 import path from 'node:path'
 import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
@@ -31,7 +32,7 @@ import {
 	getOutputFormat,
 	OUTPUT_FORMAT_OPTIONS,
 } from './output-format.js'
-import { getCwdOverride } from './path-utilities.js'
+import { getCwdOverride, getWorkspaceRoot } from './path-utilities.js'
 import { formatFileInPlace } from './prettier-utilities.js'
 import { createStreamFilter, createStreamTransform, streamToString } from './stream-utilities.js'
 import { pluralize } from './string-utilities.js'
@@ -42,6 +43,18 @@ type CommandCommon = {
 	/** Enables a string prefix in the log output. False if undefined. */
 	logPrefix?: string
 	/** CLI command name to execute, or function name to be used in logs */
+	name: string
+	/**
+	 * Commands with the same stage may run concurrently; stages run in ascending
+	 * order.
+	 */
+	stage?: number
+}
+
+type CommandCache = {
+	/** Cache flags excluding the location, which is added consistently by KSC. */
+	flags: string[]
+	/** Tool-specific cache file name below `<workspace>/node_modules/.cache/ksc/`. */
 	name: string
 }
 
@@ -61,7 +74,7 @@ export type CollectResult = {
 	unparsed: string[]
 }
 
-type CommandFunction = CommandCommon & {
+export type CommandFunction = CommandCommon & {
 	/**
 	 * Structured counterpart to `execute` used in machine and JSON output modes.
 	 * Performs the same check but returns diagnostics instead of writing to a
@@ -80,6 +93,8 @@ type CommandFunction = CommandCommon & {
 }
 
 export type CommandCli = CommandCommon & {
+	/** Built-in tool cache configuration. */
+	cache?: CommandCache
 	/**
 	 * Adapter used in machine and JSON output modes: the command runs with its
 	 * output captured (with `collect.optionFlags` replacing `optionFlags` if
@@ -125,7 +140,21 @@ export type CommandCli = CommandCommon & {
 	subcommands?: string[]
 }
 
-export type Command = CommandCli | CommandFunction
+/** A nested command group executed in-process under the same worker budget. */
+export type CommandGroup = CommandCommon & {
+	commands: (() => Promise<Command[]>) | Command[]
+	kind: 'group'
+	/** Whether commands in the same stage are parallel-safe. */
+	parallel?: boolean
+	positionalArgumentDefault?: string
+	positionalArgumentMode: LintCommand['positionalArgumentMode']
+	/** Human-facing aggregate subcommand name, e.g. `lint` or `fix`. */
+	subcommand: string
+	/** Show a parent-style `Running:` line without making leaf commands verbose. */
+	verbose?: boolean
+}
+
+export type Command = CommandCli | CommandFunction | CommandGroup
 
 // Init
 // Optionally takes --location option flag
@@ -149,6 +178,11 @@ type LintCommand = {
 	 */
 	commands: (() => Promise<Command[]>) | Command[]
 	description: string
+	/**
+	 * Run commands in each stage concurrently, subject to the global worker
+	 * budget.
+	 */
+	parallel?: boolean
 	positionalArgumentDefault?: string // Only applies if arguments mode is not 'none'
 	positionalArgumentMode: 'none' | 'optional' | 'required'
 }
@@ -227,11 +261,19 @@ function resolveCliArguments(
 	positionalArguments: string[],
 	optionFlags: string[],
 	activeOptionFlags: string[] | undefined,
+	cache: boolean,
 ): string[] {
 	return [
 		...(command.subcommands ?? []),
 		...(command.receiveOptionFlags ? optionFlags : []),
 		...(activeOptionFlags ?? []),
+		...(cache && command.cache !== undefined
+			? [
+					...command.cache.flags,
+					'--cache-location',
+					path.join(getWorkspaceRoot(), 'node_modules', '.cache', 'ksc', command.cache.name),
+				]
+			: []),
 		...(command.receivePositionalArguments ? positionalArguments : []),
 		...(command.positionalArguments ?? []),
 	]
@@ -242,6 +284,7 @@ async function executeCliCommand(
 	positionalArguments: string[],
 	optionFlags: string[],
 	command: CommandCli,
+	cache: boolean,
 	verbose?: boolean,
 ): Promise<number> {
 	let exitCode = 1 // Assume failure
@@ -262,6 +305,7 @@ async function executeCliCommand(
 		positionalArguments,
 		optionFlags,
 		command.optionFlags,
+		cache,
 	)
 
 	// Manage current working directory
@@ -342,6 +386,11 @@ function isCommandFunction(command: Command): command is CommandFunction {
 	return 'execute' in command
 }
 
+/** Type guard for an in-process nested command group. */
+function isCommandGroup(command: Command): command is CommandGroup {
+	return 'kind' in command
+}
+
 /**
  * Runs a CLI command with output captured instead of streamed, for the machine
  * and JSON output modes. Color is disabled so parsers see plain text.
@@ -352,6 +401,7 @@ async function runCliCommandCaptured(
 	positionalArguments: string[],
 	optionFlags: string[],
 	command: CommandCli,
+	cache: boolean,
 	pipeStderrTo?: NodeJS.WritableStream,
 ): Promise<CollectContext> {
 	const activeOptionFlags = command.collect?.optionFlags ?? command.optionFlags
@@ -360,6 +410,7 @@ async function runCliCommandCaptured(
 		positionalArguments,
 		optionFlags,
 		activeOptionFlags,
+		cache,
 	)
 	const cwd = getCwdOverride(command.cwdOverride)
 
@@ -423,6 +474,7 @@ async function collectCommand(
 	positionalArguments: string[],
 	optionFlags: string[],
 	command: Command,
+	cache: boolean,
 ): Promise<CommandCollectOutcome> {
 	const startTime = Date.now()
 	const elapsed = () => Date.now() - startTime
@@ -474,6 +526,10 @@ async function collectCommand(
 		}
 	}
 
+	if (isCommandGroup(command)) {
+		throw new Error('Command groups must be expanded before collection')
+	}
+
 	// Format-aware ksc-* children emit their own JSON report on stdout (this
 	// path is only reached in JSON mode; machine mode passes them through)
 	if (command.outputFormatAware) {
@@ -481,6 +537,7 @@ async function collectCommand(
 			positionalArguments,
 			optionFlags,
 			command,
+			cache,
 			logStream,
 		)
 
@@ -507,7 +564,7 @@ async function collectCommand(
 		}
 	}
 
-	const context = await runCliCommandCaptured(positionalArguments, optionFlags, command)
+	const context = await runCliCommandCaptured(positionalArguments, optionFlags, command, cache)
 
 	if (command.collect !== undefined) {
 		try {
@@ -591,6 +648,16 @@ function addFormatOption<T>(yargsInstance: Argv<T>) {
 	})
 }
 
+/** Add the shared cache option to lint and fix commands. */
+function addCacheOption<T>(yargsInstance: Argv<T>) {
+	return yargsInstance.option('cache', {
+		boolean: true,
+		default: true,
+		describe:
+			'Use tool-native caches stored below node_modules/.cache/ksc at the workspace root. Disable with --no-cache.',
+	})
+}
+
 /**
  * True when a command should stream its output directly instead of being
  * collected: always in native mode, and in machine mode for format-aware ksc-*
@@ -601,7 +668,12 @@ function shouldPassThrough(command: Command, format: OutputFormat): boolean {
 		return true
 	}
 
-	return format === 'machine' && !isCommandFunction(command) && command.outputFormatAware === true
+	return (
+		format === 'machine' &&
+		!isCommandFunction(command) &&
+		!isCommandGroup(command) &&
+		command.outputFormatAware === true
+	)
 }
 
 /**
@@ -628,6 +700,271 @@ export type ExecuteCommandsResult = {
 	exitCode: number
 	/** Present only when `format` is `json`. */
 	report: LintReport | undefined
+}
+
+export type ExecuteCommandsOptions = {
+	/** Enable built-in caches declared by individual tools. */
+	cache?: boolean
+	/** Maximum number of leaf jobs running at once across the whole command tree. */
+	concurrency?: number
+	/** Diagnostic output format. */
+	format?: OutputFormat
+	/** Run commands within a stage concurrently. */
+	parallel?: boolean
+}
+
+/** Default shared worker budget for lint and fix commands. */
+function getDefaultConcurrency(): number {
+	return Math.min(4, availableParallelism())
+}
+
+/** A small FIFO semaphore shared by every leaf command in a command tree. */
+class CommandScheduler {
+	public readonly concurrency: number
+	private active = 0
+	private readonly queue: Array<() => void> = []
+
+	public constructor(concurrency: number) {
+		this.concurrency = concurrency
+	}
+
+	public async run<T>(job: () => Promise<T>): Promise<T> {
+		if (this.active >= this.concurrency) {
+			await new Promise<void>((resolve) => {
+				this.queue.push(resolve)
+			})
+		}
+
+		this.active += 1
+		try {
+			return await job()
+		} finally {
+			this.active -= 1
+			this.queue.shift()?.()
+		}
+	}
+}
+
+async function prepareExecution(options: ExecuteCommandsOptions): Promise<{
+	cache: boolean
+	scheduler: CommandScheduler
+}> {
+	const cache = options.cache ?? false
+	const concurrency = options.concurrency ?? getDefaultConcurrency()
+	if (!Number.isInteger(concurrency) || concurrency < 1) {
+		throw new Error('Concurrency must be a positive integer.')
+	}
+
+	if (cache) {
+		await fse.ensureDir(path.join(getWorkspaceRoot(), 'node_modules', '.cache', 'ksc'))
+	}
+
+	return { cache, scheduler: new CommandScheduler(concurrency) }
+}
+
+type CommandExecutionOutcome = {
+	diagnostics: Diagnostic[]
+	exitCode: number
+	machineOutcomes: CommandCollectOutcome[]
+	name: string
+	tools: ToolRun[]
+}
+
+type CommandExecutionContext = {
+	cache: boolean
+	format: OutputFormat
+	logStream: NodeJS.WritableStream
+	nativeVerbose: boolean | undefined
+	optionFlags: string[]
+	positionalArguments: string[]
+	scheduler: CommandScheduler
+}
+
+function resolveGroupPositionalArguments(
+	group: CommandGroup,
+	positionalArguments: string[],
+): string[] {
+	if (group.positionalArgumentMode === 'none') {
+		return []
+	}
+
+	if (positionalArguments.length > 0) {
+		return positionalArguments
+	}
+
+	return group.positionalArgumentDefault === undefined ? [] : [group.positionalArgumentDefault]
+}
+
+function createGroupLogStream(
+	logStream: NodeJS.WritableStream,
+	group: CommandGroup,
+): NodeJS.WritableStream {
+	if (group.logPrefix === undefined) {
+		return logStream
+	}
+
+	const groupStream = createStreamTransform(group.logPrefix, group.logColor)
+	groupStream.pipe(logStream)
+	return groupStream
+}
+
+async function executeCommand(
+	command: Command,
+	context: CommandExecutionContext,
+): Promise<CommandExecutionOutcome> {
+	if (isCommandGroup(command)) {
+		if (context.nativeVerbose) {
+			const displayArguments = [command.subcommand, ...context.positionalArguments].join(' ')
+			context.logStream.write(`Running: "${command.name} ${displayArguments}"\n`)
+		}
+
+		const groupLogStream = createGroupLogStream(context.logStream, command)
+		try {
+			const commands = await resolveCommands(command.commands)
+			const outcomes = await executeCommandPlan(
+				commands,
+				{
+					...context,
+					logStream: groupLogStream,
+					nativeVerbose: command.verbose,
+					positionalArguments: resolveGroupPositionalArguments(
+						command,
+						context.positionalArguments,
+					),
+				},
+				command.parallel === true,
+			)
+
+			return {
+				diagnostics: outcomes.flatMap(({ diagnostics }) => diagnostics),
+				exitCode: outcomes.every(({ exitCode }) => exitCode === 0) ? 0 : 1,
+				machineOutcomes: outcomes.flatMap(({ machineOutcomes }) => machineOutcomes),
+				name: command.name,
+				tools: outcomes.flatMap(({ tools }) => tools),
+			}
+		} catch (error) {
+			const message = String(error)
+			const failureTool = {
+				durationMs: 0,
+				exitCode: 1,
+				name: command.name,
+				unparsed: [message],
+			}
+
+			if (context.format === 'native') {
+				groupLogStream.write(`${message}\n`)
+			}
+
+			return {
+				diagnostics: [],
+				exitCode: 1,
+				machineOutcomes: [{ diagnostics: [], exitCode: 1, tools: [failureTool] }],
+				name: command.name,
+				tools: [failureTool],
+			}
+		}
+	}
+
+	return context.scheduler.run(async () => {
+		if (shouldPassThrough(command, context.format)) {
+			const exitCode = await (isCommandFunction(command)
+				? executeFunctionCommand(
+						context.logStream,
+						context.positionalArguments,
+						context.optionFlags,
+						command,
+						context.nativeVerbose,
+					)
+				: executeCliCommand(
+						context.logStream,
+						context.positionalArguments,
+						context.optionFlags,
+						command,
+						context.cache,
+						context.nativeVerbose,
+					))
+
+			return {
+				diagnostics: [],
+				exitCode,
+				machineOutcomes: [],
+				name: command.name,
+				tools: [],
+			}
+		}
+
+		const outcome = await collectCommand(
+			context.logStream,
+			context.positionalArguments,
+			context.optionFlags,
+			command,
+			context.cache,
+		)
+		return {
+			diagnostics: outcome.diagnostics,
+			exitCode: outcome.exitCode,
+			machineOutcomes: [outcome],
+			name: command.name,
+			tools: outcome.tools,
+		}
+	})
+}
+
+/**
+ * Execute stage barriers in order while retaining original result ordering. A
+ * concurrency of one intentionally takes the wholly serial path so it also
+ * restores deterministic command start order.
+ */
+async function executeCommandPlan(
+	commands: Command[],
+	context: CommandExecutionContext,
+	parallel: boolean,
+): Promise<CommandExecutionOutcome[]> {
+	if (!parallel || context.scheduler.concurrency === 1) {
+		const outcomes: CommandExecutionOutcome[] = []
+		for (const command of commands) {
+			outcomes.push(await executeCommand(command, context))
+		}
+
+		return outcomes
+	}
+
+	// Let sibling groups enqueue their first leaf before this parallel group
+	// fills the shared FIFO. This prevents a wide group such as Mdat from
+	// monopolizing every worker ahead of otherwise independent tools.
+	await Promise.resolve()
+
+	const stages = new Map<number, Array<{ command: Command; index: number }>>()
+	for (const [index, command] of commands.entries()) {
+		const stage = command.stage ?? 0
+		const entries = stages.get(stage) ?? []
+		entries.push({ command, index })
+		stages.set(stage, entries)
+	}
+
+	const indexedOutcomes: Array<CommandExecutionOutcome | undefined> = Array.from({
+		length: commands.length,
+	})
+	const orderedStages = stages
+		.keys()
+		.toArray()
+		.toSorted((a, b) => a - b)
+	for (const stage of orderedStages) {
+		const entries = stages.get(stage) ?? []
+		const outcomes = await Promise.all(
+			entries.map(async ({ command, index }) => ({
+				index,
+				outcome: await executeCommand(command, context),
+			})),
+		)
+		for (const { index, outcome } of outcomes) {
+			indexedOutcomes[index] = outcome
+		}
+	}
+
+	return indexedOutcomes.filter(
+		(outcome): outcome is CommandExecutionOutcome => outcome !== undefined,
+	)
 }
 
 /**
@@ -666,9 +1003,9 @@ function partitionSkippedCommands(
 }
 
 /**
- * Execute multiple commands (either functions or command line) in serial. In
- * `machine` and `json` output formats, command output is captured and parsed
- * into normalized diagnostics instead of streamed.
+ * Execute multiple commands (functions, CLIs, or nested command groups) under
+ * one worker budget. Machine and JSON results are emitted in declaration order
+ * even when the underlying checks finish out of order.
  */
 export async function executeCommands(
 	logStream: NodeJS.WritableStream,
@@ -678,44 +1015,43 @@ export async function executeCommands(
 	verbose?: boolean,
 	showSummary?: boolean,
 	skip?: string[],
-	format: OutputFormat = 'native',
+	formatOrOptions: ExecuteCommandsOptions | OutputFormat = 'native',
 ): Promise<ExecuteCommandsResult> {
+	const options = typeof formatOrOptions === 'string' ? {} : formatOrOptions
+	const format =
+		typeof formatOrOptions === 'string' ? formatOrOptions : (options.format ?? 'native')
 	const { commandsToRun, skippedCommands } = partitionSkippedCommands(
 		logStream,
 		commands,
 		skip ?? [],
 	)
 
-	const exitCodes: Array<{ exitCode: number; name: string }> = []
-	const toolRuns: ToolRun[] = []
-	const diagnostics: Diagnostic[] = []
-
 	// The verbose "Running:" lines are human-facing chrome, shown in native format only
 	const nativeVerbose = format === 'native' ? verbose : false
+	const { cache, scheduler } = await prepareExecution(options)
 
-	for (const command of commandsToRun) {
-		if (shouldPassThrough(command, format)) {
-			const exitCode = await (isCommandFunction(command)
-				? executeFunctionCommand(
-						logStream,
-						positionalArguments,
-						optionFlags,
-						command,
-						nativeVerbose,
-					)
-				: executeCliCommand(logStream, positionalArguments, optionFlags, command, nativeVerbose))
+	const outcomes = await executeCommandPlan(
+		commandsToRun,
+		{
+			cache,
+			format,
+			logStream,
+			nativeVerbose,
+			optionFlags,
+			positionalArguments,
+			scheduler,
+		},
+		options.parallel === true,
+	)
+	const exitCodes = outcomes.map(({ exitCode, name }) => ({ exitCode, name }))
+	const toolRuns = outcomes.flatMap(({ tools }) => tools)
+	const diagnostics = outcomes.flatMap(({ diagnostics }) => diagnostics)
 
-			exitCodes.push({ exitCode, name: command.name })
-			continue
-		}
-
-		const outcome = await collectCommand(logStream, positionalArguments, optionFlags, command)
-		exitCodes.push({ exitCode: outcome.exitCode, name: command.name })
-		toolRuns.push(...outcome.tools)
-		diagnostics.push(...outcome.diagnostics)
-
-		if (format === 'machine') {
-			writeMachineOutcome(logStream, outcome)
+	if (format === 'machine') {
+		for (const outcome of outcomes) {
+			for (const machineOutcome of outcome.machineOutcomes) {
+				writeMachineOutcome(logStream, machineOutcome)
+			}
 		}
 	}
 
@@ -998,17 +1334,19 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (lint !== undefined) {
 		yargsInstance.command({
 			builder(yargsBuilder) {
-				const y = addFormatOption(
-					lint.positionalArgumentMode === 'none'
-						? yargsBuilder
-						: yargsBuilder.positional('files', {
-								array: true,
-								...(lint.positionalArgumentDefault !== undefined && {
-									default: lint.positionalArgumentDefault,
+				const y = addCacheOption(
+					addFormatOption(
+						lint.positionalArgumentMode === 'none'
+							? yargsBuilder
+							: yargsBuilder.positional('files', {
+									array: true,
+									...(lint.positionalArgumentDefault !== undefined && {
+										default: lint.positionalArgumentDefault,
+									}),
+									describe: 'Files or glob pattern to lint.',
+									type: 'string',
 								}),
-								describe: 'Files or glob pattern to lint.',
-								type: 'string',
-							}),
+					),
 				)
 				return showSummary ? addSkipOption(y) : y
 			},
@@ -1034,7 +1372,11 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					verbose,
 					showSummary,
 					skip,
-					format,
+					{
+						cache: argv.cache,
+						format,
+						parallel: lint.parallel,
+					},
 				)
 
 				if (report !== undefined) {
@@ -1051,17 +1393,19 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 	if (fix !== undefined) {
 		yargsInstance.command({
 			builder(yargsBuilder) {
-				const y = addFormatOption(
-					fix.positionalArgumentMode === 'none'
-						? yargsBuilder
-						: yargsBuilder.positional('files', {
-								array: true,
-								...(fix.positionalArgumentDefault !== undefined && {
-									default: fix.positionalArgumentDefault,
+				const y = addCacheOption(
+					addFormatOption(
+						fix.positionalArgumentMode === 'none'
+							? yargsBuilder
+							: yargsBuilder.positional('files', {
+									array: true,
+									...(fix.positionalArgumentDefault !== undefined && {
+										default: fix.positionalArgumentDefault,
+									}),
+									describe: 'Files or glob pattern to fix.',
+									type: 'string',
 								}),
-								describe: 'Files or glob pattern to fix.',
-								type: 'string',
-							}),
+					),
 				)
 				return showSummary ? addSkipOption(y) : y
 			},
@@ -1087,7 +1431,11 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 					undefined,
 					undefined,
 					skip,
-					format,
+					{
+						cache: argv.cache,
+						format,
+						parallel: fix.parallel,
+					},
 				)
 
 				if (report !== undefined) {

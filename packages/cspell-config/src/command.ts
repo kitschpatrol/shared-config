@@ -292,6 +292,7 @@ export const commandDefinition: CommandDefinition = {
 						name: 'words',
 					},
 					{
+						cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'cspell' },
 						collect: {
 							parse: parseCspellOutput,
 						},
@@ -320,6 +321,7 @@ export const commandDefinition: CommandDefinition = {
 			async commands() {
 				return [
 					{
+						cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'cspell' },
 						collect: {
 							parse: parseCspellOutput,
 						},

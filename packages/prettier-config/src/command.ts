@@ -86,6 +86,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'prettier' },
 					// At --log-level=warn a successful --write run is silent, so the
 					// parser only sees [error] lines from files prettier can't process
 					collect: {
@@ -110,6 +111,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
+					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'prettier' },
 					collect: {
 						parse: parsePrettierOutput,
 					},

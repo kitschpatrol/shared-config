@@ -62,6 +62,7 @@ export const commandDefinition: CommandDefinition = {
 		fix: {
 			commands: await generateMdatReadmeCommands('expand'),
 			description: `Expand all Mdat content placeholders in your readme.md file(s). ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
+			parallel: true,
 			positionalArgumentMode: 'none',
 		},
 		init: {
@@ -79,6 +80,7 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: await generateMdatReadmeCommands('check'),
 			description: `Validate that all Mdat content placeholders in your readme.md file(s) have been expanded and are up to date. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
+			parallel: true,
 			positionalArgumentMode: 'none',
 		},
 		printConfig: {

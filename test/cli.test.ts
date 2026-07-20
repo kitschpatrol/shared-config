@@ -76,6 +76,17 @@ describe('CLI basics', () => {
 		`)
 	})
 
+	it('should document cache controls without exposing scheduler tuning', async () => {
+		const { exitCode, stdout } = await execa('ksc', ['lint', '--help'], {
+			localDir: process.cwd(),
+			preferLocal: true,
+		})
+
+		expect(exitCode).toBe(0)
+		expect(stdout).toContain('--no-cache')
+		expect(stdout).not.toContain('--concurrency')
+	})
+
 	describe.skip('CLI rule configuration', () => {
 		const tempDirectory = './input-copy/'
 
