@@ -53,6 +53,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				// https://github.com/typescript-eslint/typescript-eslint/blob/1cf9243/docs/getting-started/linting/FAQ.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 				'no-undef-init': 'off', // Initialize props to undefined
 				'prefer-const': 'off', // Needed for let props
+				'svelte/sort-attributes': 'error',
 				// TODO revisit, what's template and what's code?
 				// TOdO import shared?
 				'ts/no-confusing-void-expression': 'off', // Reactive statements
@@ -69,7 +70,6 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 					},
 				],
 				'unicorn/no-useless-undefined': 'off', // Needed for let props
-				'svelte/sort-attributes': 'error',
 				...overrides,
 			},
 		},

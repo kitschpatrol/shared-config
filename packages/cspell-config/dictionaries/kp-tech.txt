@@ -840,6 +840,7 @@ wordnet
 workerd
 WorkFlowy
 worktree
+worktrees
 xbee
 xcrun
 XCTU

@@ -98,5 +98,6 @@ export const GLOB_EXCLUDE = [
 
 	'**/.agents',
 	'**/.claude',
+	'**/.worktrees',
 	'**/skills-lock.json',
 ]

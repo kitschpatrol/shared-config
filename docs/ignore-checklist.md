@@ -1,6 +1,6 @@
 # Ignore checklist
 
-<!-- cspell:ignore remarkignore stylelintignore subpackages globber lockfiles -->
+<!-- cspell:ignore remarkignore stylelintignore subpackages globber lockfiles worktrunk -->
 
 Where to add an ignore pattern for every tool in this repo, plus what each tool ignores on its own. Two scenarios: ignoring something **in this repo only**, and shipping a **new default ignore to all shared-config consumers**.
 
@@ -53,6 +53,30 @@ For a brand-new extension, most tools ignore it implicitly — only some need an
 
 - **Always sees it:** Git (tracks anything), CSpell (spell-checks any text file — `enabledFileTypes: { '*': true }` in CSpell 10's defaults). These two are the usual mandatory edits.
 - **Sees it only if configured for it:** ESLint (a config's `files` glob must match — see `GLOB_*` in [`globs.ts`](../packages/eslint-config/src/globs.ts)), Prettier (must have a parser/plugin for the extension), Stylelint (extension must be in the `ksc` default glob list), TypeScript (JS/TS files only), Knip (default `project` glob is `**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}`), Vitest (must match `**/*.{test,spec}.?(c|m)[jt]s?(x)`).
+
+## Worktrees
+
+A linked git worktree checked out inside the repo is just an untracked directory of ordinary source files — every tool that sweeps `**/*` from the root descends into it (duplicate lint errors, doubled test runs, tsc redeclaration errors). The clean fix is keeping worktrees outside the repo folder (worktrunk's default layout); when they must live inside, the standardized directory name is `.worktrees/`.
+
+Shipped package defaults (so every consumer gets ESLint and CSpell/Case Police coverage for free):
+
+- `**/.worktrees` in `GLOB_EXCLUDE` ([`packages/eslint-config/src/globs.ts`](../packages/eslint-config/src/globs.ts))
+- `**/.worktrees/**` in `ignorePaths` ([`packages/cspell-config/src/config.ts`](../packages/cspell-config/src/config.ts)) — this is what also covers Case Police, since gitignore doesn't flow to it
+- `.worktrees/` in the [`repo-config` init `.gitignore`](../packages/repo-config/init/.gitignore) and `.worktrees/` in the [`typescript-config` init `tsconfig.json`](../packages/typescript-config/init/tsconfig.json) `exclude` (init boilerplate only — existing projects edit their own)
+
+Remaining per-project steps in existing projects:
+
+1. `.gitignore`: add `.worktrees/` — covers Git, Prettier, Stylelint, and Knip (ESLint and CSpell are already covered by the package defaults).
+2. `tsconfig.json`: add `.worktrees/` to `exclude` — tsc reads no ignore files, and the shared `include: ["**/**.*"]` will pull worktree files in.
+3. `vitest.config.ts` (if the project has tests): Vitest reads no ignore files and its v4 default excludes are only `node_modules` and `.git`. Config `exclude` replaces the defaults, so spread them:
+
+   ```ts
+   import { configDefaults, defineConfig } from 'vitest/config'
+
+   export default defineConfig({
+     test: { exclude: [...configDefaults.exclude, '**/.worktrees/**'] },
+   })
+   ```
 
 ## Per-tool default ignore behavior
 

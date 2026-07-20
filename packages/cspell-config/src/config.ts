@@ -92,6 +92,7 @@ export const sharedCspellConfig: CspellConfig = {
 		'*.wav',
 		'**/.agents/**',
 		'**/.claude/**',
+		'**/.worktrees/**',
 		'*/*package.json',
 		'package-lock.json',
 		'package.json',

@@ -10,6 +10,7 @@
 .eslint-config-inspector
 .pnpm-store/
 .svelte-kit/
+.worktrees/
 {tmp,temp}/
 **/*.min.js
 /scratch/
