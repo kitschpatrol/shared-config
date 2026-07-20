@@ -58,6 +58,17 @@ describe('fixFile', () => {
 		const content = await fs.readFile(filePath, 'utf8')
 		expect(content).toContain('Custom file content.')
 	})
+
+	it('should leave non-Markdown files unchanged', async () => {
+		const filePath = path.join(tempDirectory, 'test.svelte')
+		const source = '<T.Group>\n\t<T.Mesh />\n</T.Group>\n'
+		await fs.writeFile(filePath, source, 'utf8')
+
+		await fixFile(filePath)
+
+		const content = await fs.readFile(filePath, 'utf8')
+		expect(content).toBe(source)
+	})
 })
 
 describe('clearCache', () => {

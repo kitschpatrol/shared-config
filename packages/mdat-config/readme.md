@@ -215,6 +215,8 @@ If your project already has a `.vscode/tasks.json`, `init` merges by task label:
 
 The package also exports `fix`, `fixFile` functions for expanding Mdat comment placeholders programmatically, pre-configured with the shared Mdat configuration. The [mdat](https://github.com/kitschpatrol/mdat) project already provides a robust TypeScript API and CLI for general use cases, but these proxies are provided for convenience in @kitschpatrol/shared-config projects.
 
+`fixFile` only processes `.md` and `.markdown` files; other file types are left unchanged.
+
 ```typescript
 import { clearCache, fix, fixFile } from '@kitschpatrol/mdat-config'
 

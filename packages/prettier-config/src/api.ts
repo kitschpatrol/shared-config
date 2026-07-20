@@ -1,6 +1,7 @@
 import type prettier from 'prettier'
 import { deepmerge } from 'deepmerge-ts'
 import fs from 'node:fs/promises'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { PrettierConfig } from './config.js'
 import { sharedPrettierConfig } from './config.js'
@@ -105,6 +106,37 @@ function resolvePluginsInConfig(config: PrettierConfig): PrettierConfig {
 	return resolved
 }
 
+/** Return whether a Prettier override glob matches a filepath. */
+function matchesOverrideGlob(filepath: string, pattern: string): boolean {
+	return path.matchesGlob(filepath, pattern) || path.matchesGlob(path.basename(filepath), pattern)
+}
+
+/** Apply config override globs for programmatic formatting. */
+function applyConfigOverrides(config: PrettierConfig, filepath: string): PrettierConfig {
+	const resolved = { ...config }
+	delete resolved.overrides
+	const configOverrides = config.overrides ?? []
+
+	for (const override of configOverrides) {
+		const filePatterns = Array.isArray(override.files) ? override.files : [override.files]
+		const excludePatterns =
+			override.excludeFiles === undefined
+				? []
+				: Array.isArray(override.excludeFiles)
+					? override.excludeFiles
+					: [override.excludeFiles]
+
+		if (
+			filePatterns.some((pattern) => matchesOverrideGlob(filepath, pattern)) &&
+			excludePatterns.every((pattern) => !matchesOverrideGlob(filepath, pattern))
+		) {
+			Object.assign(resolved, override.options)
+		}
+	}
+
+	return resolved
+}
+
 // --- Config resolution ---
 
 async function resolveEffectiveConfig(
@@ -115,7 +147,7 @@ async function resolveEffectiveConfig(
 	const localConfig = await prettier.resolveConfig(filepath, { editorconfig: true })
 	const baseConfig = localConfig ?? sharedPrettierConfig
 	const merged = overrides ? deepmerge(baseConfig, overrides) : baseConfig
-	return resolvePluginsInConfig(merged)
+	return resolvePluginsInConfig(applyConfigOverrides(merged, filepath))
 }
 
 // --- Public API ---

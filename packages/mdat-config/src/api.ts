@@ -1,5 +1,6 @@
 import type { expandString, mergeConfig } from 'mdat'
 import fs from 'node:fs/promises'
+import path from 'node:path'
 import type { MdatConfig } from './config.js'
 import { sharedMdatConfig } from './config.js'
 
@@ -11,6 +12,8 @@ type MdatApi = {
 }
 
 let mdatModule: MdatApi | undefined
+
+const MARKDOWN_EXTENSIONS = new Set(['.markdown', '.md'])
 
 async function getMdat(): Promise<MdatApi> {
 	if (!mdatModule) {
@@ -47,11 +50,17 @@ export async function fix(source: string, config?: MdatConfig): Promise<string> 
  * Expand Mdat comment placeholders in a Markdown file in place using the shared
  * configuration.
  *
+ * Non-Markdown files are left unchanged.
+ *
  * @param filePath - Path to the Markdown file.
  * @param config - Optional `MdatConfig` overrides merged on top of the shared
  *   config.
  */
 export async function fixFile(filePath: string, config?: MdatConfig): Promise<void> {
+	if (!MARKDOWN_EXTENSIONS.has(path.extname(filePath).toLowerCase())) {
+		return
+	}
+
 	const content = await fs.readFile(filePath, 'utf8')
 	const { expandString: expand, mergeConfig: merge } = await getMdat()
 	const effectiveConfig = config ? merge(sharedMdatConfig, config) : sharedMdatConfig

@@ -6,6 +6,19 @@ import { clearCache, fix, fixFile } from '../src/index.js'
 
 let tempDirectory: string
 
+const svelteSource = `<script lang="ts">
+	const promise = Promise.resolve()
+</script>
+
+<T.Group>
+	{#await promise}
+		<T.Mesh />
+	{/await}
+
+	{/* @ts-expect-error - types */ undefined}
+</T.Group>
+`
+
 beforeAll(async () => {
 	tempDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'shared-config-fix-test-'))
 })
@@ -36,6 +49,25 @@ describe('fix', () => {
 		const result = await fix(source, 'css')
 		expect(result).toContain('color: red')
 	})
+
+	it('should not process Svelte as Markdown', async () => {
+		const result = await fix(svelteSource, 'svelte')
+
+		expect(result).toContain('<T.Group>')
+		expect(result).toContain('{#await promise}')
+		expect(result).not.toContain(String.raw`\<T.Group>`)
+		expect(result).not.toContain('```')
+	})
+
+	it('should process Markdown with Mdat', async () => {
+		const result = await fix('<!-- shared-config -->\n<!-- /shared-config -->\n', 'md')
+
+		expect(result).toContain('Project configuration')
+	})
+
+	it('should propagate Prettier parser errors', async () => {
+		await expect(fix('const =', 'ts')).rejects.toThrow()
+	})
 })
 
 describe('fixFile', () => {
@@ -57,6 +89,19 @@ describe('fixFile', () => {
 
 		const content = await fs.readFile(filePath, 'utf8')
 		expect(content).toContain('rgb(0 0 0)')
+	})
+
+	it('should not process a Svelte file as Markdown', async () => {
+		const filePath = path.join(tempDirectory, 'test.svelte')
+		await fs.writeFile(filePath, svelteSource, 'utf8')
+
+		await fixFile(filePath)
+
+		const content = await fs.readFile(filePath, 'utf8')
+		expect(content).toContain('<T.Group>')
+		expect(content).toContain('{#await promise}')
+		expect(content).not.toContain(String.raw`\<T.Group>`)
+		expect(content).not.toContain('```')
 	})
 })
 

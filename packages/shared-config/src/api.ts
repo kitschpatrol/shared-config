@@ -19,13 +19,29 @@ import {
 	fix as stylelintFix,
 	fixFile as stylelintFixFile,
 } from '@kitschpatrol/stylelint-config'
+import path from 'node:path'
 
 // Ordered to match CLI `ksc fix`: mdat (2) → eslint (4) → stylelint (5) → prettier (9)
 
+const MARKDOWN_EXTENSIONS = new Set(['markdown', 'md'])
+const DOT_PREFIX_REGEX = /^\./v
+
+/** Return whether a file type hint or path identifies a Markdown file. */
+function isMarkdown(fileTypeOrPath: string | undefined): boolean {
+	if (fileTypeOrPath === undefined) {
+		return false
+	}
+
+	const pathExtension = path.extname(fileTypeOrPath)
+	const extension = pathExtension === '' ? fileTypeOrPath : pathExtension
+	return MARKDOWN_EXTENSIONS.has(extension.replace(DOT_PREFIX_REGEX, '').toLowerCase())
+}
+
 /**
  * Fix a source string by running all shared-config tools in sequence: Mdat →
- * ESLint → Stylelint → Prettier. Each tool silently skips content it doesn't
- * understand.
+ * ESLint → Stylelint → Prettier. Mdat only runs for Markdown file type hints.
+ * ESLint and Stylelint silently skip content they don't understand, while
+ * Prettier errors are propagated.
  *
  * @param source - The source code to fix.
  * @param fileType - A file extension (e.g. `'ts'`, `'css'`, `'md'`) or virtual
@@ -36,10 +52,9 @@ import {
 export async function fix(source: string, fileType?: FileType): Promise<string> {
 	let result = source
 
-	// Separate try-catch blocks allow partial failure / fall-through
-	try {
+	if (isMarkdown(fileType)) {
 		result = await mdatFix(result)
-	} catch {}
+	}
 
 	try {
 		result = await eslintFix(result, fileType)
@@ -49,24 +64,23 @@ export async function fix(source: string, fileType?: FileType): Promise<string> 
 		result = await stylelintFix(result, fileType)
 	} catch {}
 
-	try {
-		result = await prettierFix(result, fileType)
-	} catch {}
+	result = await prettierFix(result, fileType)
 
 	return result
 }
 
 /**
  * Fix a file in place by running all shared-config tools in sequence: Mdat →
- * ESLint → Stylelint → Prettier. Each tool silently skips content it doesn't
- * understand.
+ * ESLint → Stylelint → Prettier. Mdat only runs for Markdown files. ESLint and
+ * Stylelint silently skip files they don't understand, while Prettier errors
+ * are propagated.
  *
  * @param filePath - Path to the file to fix.
  */
 export async function fixFile(filePath: string): Promise<void> {
-	try {
+	if (isMarkdown(filePath)) {
 		await mdatFixFile(filePath)
-	} catch {}
+	}
 
 	try {
 		await eslintFixFile(filePath)
@@ -76,9 +90,7 @@ export async function fixFile(filePath: string): Promise<void> {
 		await stylelintFixFile(filePath)
 	} catch {}
 
-	try {
-		await prettierFixFile(filePath)
-	} catch {}
+	await prettierFixFile(filePath)
 }
 
 /**

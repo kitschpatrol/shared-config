@@ -314,7 +314,7 @@ Recall that the `@kitschpatrol/shared-config` package aggregates integration and
 
 ### API
 
-The package also exports `fix`, `fixFile` functions that run all shared-config tools in sequence, matching the order of `ksc fix`: Mdat → ESLint → Stylelint → Prettier. Each tool silently skips content it doesn't understand.
+The package also exports `fix`, `fixFile` functions that run shared-config tools in sequence, matching the order of `ksc fix`: Mdat → ESLint → Stylelint → Prettier. Mdat is only applied to Markdown file type hints and paths. ESLint and Stylelint silently skip content they don't understand, while Prettier errors are propagated.
 
 The CLI is preferred, but there are occasionally edge cases where it's handy to run a string or a generated file through the shared-config pipeline without leaving TypeScript.
 

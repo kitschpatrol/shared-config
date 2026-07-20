@@ -95,6 +95,17 @@ describe('fixFile', () => {
 		const content = await fs.readFile(filePath, 'utf8')
 		expect(content).not.toContain('\t')
 	})
+
+	it('should apply parser overrides without a local config file', async () => {
+		const filePath = path.join(tempDirectory, 'test.svelte')
+		await fs.writeFile(filePath, '<script>const x=1</script>\n<div>{x}</div>', 'utf8')
+
+		await fixFile(filePath)
+
+		const content = await fs.readFile(filePath, 'utf8')
+		expect(content).toContain('<script>')
+		expect(content).toContain('<div>{x}</div>')
+	})
 })
 
 describe('clearCache', () => {
