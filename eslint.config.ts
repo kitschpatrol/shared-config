@@ -11,7 +11,21 @@ export default eslintConfig(
 			'test/fixtures/output-fixed-auto/*',
 		],
 		react: true,
-		svelte: true,
+		svelte: {
+			overrides: {
+				// Test exercises StyleLint's matching of a postcss style block
+				'svelte/block-lang': [
+					'error',
+					{
+						enforceScriptPresent: false,
+						enforceStylePresent: false,
+						script: 'ts', // A list of languages or null to signify no language specified
+						// eslint-disable-next-line unicorn/no-null
+						style: [null, 'postcss'],
+					},
+				],
+			},
+		},
 		ts: {
 			overrides: {
 				'depend/ban-dependencies': [

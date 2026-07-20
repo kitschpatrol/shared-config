@@ -48,12 +48,59 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			rules: {
 				...sharedScriptConfig.rules,
 				...svelteRecommendedRules,
+				'import/no-duplicates': 'off', // Doesn't detect svelte/* exports correctly
 				'import/no-mutable-exports': 'off', // Allow prop export
 				'no-sequences': 'off', // Reactive statements
 				// https://github.com/typescript-eslint/typescript-eslint/blob/1cf9243/docs/getting-started/linting/FAQ.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 				'no-undef-init': 'off', // Initialize props to undefined
 				'prefer-const': 'off', // Needed for let props
+				'svelte/block-lang': [
+					'error',
+					{
+						enforceScriptPresent: false,
+						enforceStylePresent: false,
+						script: 'ts', // A list of languages or null to signify no language specified
+						style: undefined,
+					},
+				],
+				'svelte/button-has-type': 'error', // Original
+				// Annoying...
+				// 'svelte/consistent-selector-style': [
+				// 	'error',
+				// 	{
+				// 		checkGlobal: false,
+				// 		style: ['type', 'class'],
+				// 	},
+				// ],
+				'svelte/consistent-selector-style': 'off',
+				'svelte/derived-has-same-inputs-outputs': 'error',
+				'svelte/experimental-require-slot-types': 'error',
+				'svelte/experimental-require-strict-events': 'error',
+				'svelte/html-self-closing': 'error',
+				'svelte/no-add-event-listener': 'error',
+				// 'svelte/no-at-const-tags': 'error', // Type errors?
+				'svelte/no-extra-reactive-curlies': 'error',
+				'svelte/no-ignored-unsubscribe': 'error',
+				'svelte/no-nested-style-tag': 'error',
+				'svelte/no-spaces-around-equal-signs-in-attribute': 'error',
+				'svelte/no-target-blank': 'error',
+				'svelte/no-trailing-spaces': 'error',
+				'svelte/no-unused-class-name': 'error',
+				'svelte/prefer-class-directive': 'error',
+				'svelte/prefer-const': 'error',
+				'svelte/prefer-derived-over-derived-by': 'error',
+				'svelte/prefer-destructured-store-props': 'error',
+				'svelte/prefer-style-directive': 'error',
+				'svelte/require-event-prefix': 'error',
+				'svelte/require-optimized-style-attribute': 'error',
+				'svelte/require-store-callbacks-use-set-param': 'error',
+				'svelte/require-stores-init': 'error',
+				'svelte/shorthand-attribute': 'error',
+				'svelte/shorthand-directive': 'error',
 				'svelte/sort-attributes': 'error',
+				'svelte/spaced-html-comment': 'error', // TODO get it from Prettier or eslint-html?
+				'svelte/valid-compile': 'error',
+				'svelte/valid-style-parse': 'error',
 				// TODO revisit, what's template and what's code?
 				// TOdO import shared?
 				'ts/no-confusing-void-expression': 'off', // Reactive statements

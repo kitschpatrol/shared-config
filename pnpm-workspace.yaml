@@ -14,8 +14,6 @@ publicHoistPattern:
   - '*stylelint*'
 overrides:
   normalize-package-data: ^9.0.0
-  # 1100.1.12 was published to npm with only lib/index.js — remove once a fixed version ships
-  '@pnpm/lockfile.fs': 1100.1.11
 peerDependencyRules:
   allowedVersions:
     # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
@@ -33,3 +31,4 @@ minimumReleaseAgeExclude:
   - mdat-plugin-cli-help
   - prettier
   - remark-mdat
+  - eslint-plugin-svelte@3.22.0

@@ -68,6 +68,8 @@ export const svelteAllRules: Rules = {
 	'svelte/no-at-const-tags': 'error',
 	'svelte/no-at-debug-tags': 'error',
 	'svelte/no-at-html-tags': 'error',
+	'svelte/no-bind-value-on-checkable-inputs': 'error',
+	'svelte/no-conflicting-module-names': 'error',
 	'svelte/no-dom-manipulating': 'error',
 	'svelte/no-dupe-else-if-blocks': 'error',
 	'svelte/no-dupe-on-directives': 'error',

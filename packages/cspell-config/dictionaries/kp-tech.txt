@@ -90,6 +90,7 @@ childremoved
 chipset
 chronophage
 cinderblock
+claudecode
 cleanshot
 clippy
 cloze
@@ -135,6 +136,7 @@ cubicbezier
 culori
 cupsctl
 Cura
+curlies
 cwebp
 Cyberduck
 Cython
@@ -795,6 +797,7 @@ unplugin
 unrs
 unsetenv
 unsharp
+unstub
 urlopen
 urlset
 USBImager
