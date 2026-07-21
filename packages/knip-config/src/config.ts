@@ -52,6 +52,8 @@ export const sharedKnipConfig: KnipConfig = {
 		'@prettier/plugin-php',
 		'@prettier/plugin-ruby',
 		'@prettier/plugin-xml',
+		'node-addon-api', // Sharp wants it sometimes
+		'node-gyp', // Sharp wants it sometimes
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
 		'prettier-plugin-tailwindcss',
