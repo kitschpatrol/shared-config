@@ -267,6 +267,42 @@ describe('command scheduler', () => {
 		])
 	})
 
+	it('treats parsed errors as failures even when a tool exits zero', async () => {
+		const command: CommandFunction = {
+			async collect() {
+				await delay(0)
+				return {
+					diagnostics: [
+						{ message: 'Checker error', severity: 'error' as const, tool: 'test-checker' },
+					],
+					exitCode: 0,
+					unparsed: [],
+				}
+			},
+			async execute() {
+				await delay(0)
+				return 0
+			},
+			name: 'test-checker',
+		}
+
+		const result = await executeCommands(
+			createLogStream(),
+			[],
+			[],
+			[command],
+			undefined,
+			undefined,
+			undefined,
+			{ format: 'json' },
+		)
+
+		expect(result.exitCode).toBe(1)
+		expect(result.report?.success).toBe(false)
+		expect(result.report?.summary.errors).toBe(1)
+		expect(result.report?.tools[0]?.exitCode).toBe(1)
+	})
+
 	it('skips a nested tool group without starting its leaves', async () => {
 		const starts: string[] = []
 		const tracked = (name: string) =>

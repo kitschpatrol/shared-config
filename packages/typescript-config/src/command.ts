@@ -1,91 +1,15 @@
 import fse from 'fs-extra'
 import path from 'node:path'
-import type {
-	CollectContext,
-	CollectResult,
-	Command,
-	CommandDefinition,
-} from '../../../src/command-builder.js'
-import type { Diagnostic } from '../../../src/diagnostics.js'
+import type { Command, CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
-import { normalizeDiagnosticPath, toOutputLines } from '../../../src/diagnostics.js'
 import { getPackageDirectory } from '../../../src/path-utilities.js'
+import { isAstroCheckNoise, parseAstroCheckOutput } from './check-adapters/astro.js'
+import { isSvelteCheckNoise, parseSvelteCheckOutput } from './check-adapters/svelte.js'
+import { parseTscOutput } from './check-adapters/tsc.js'
 
-// "src/foo.ts(12,5): error TS2304: Cannot find name 'x'."
-const TSC_FILE_DIAGNOSTIC_REGEX =
-	/^(?<file>.+?)\((?<line>\d+),(?<column>\d+)\): (?<severity>error|warning) (?<code>TS\d+): (?<message>.*)$/v
-// "error TS5083: Cannot read file 'tsconfig.json'."
-const TSC_GLOBAL_DIAGNOSTIC_REGEX = /^(?<severity>error|warning) (?<code>TS\d+): (?<message>.*)$/v
-const CONTINUATION_LINE_REGEX = /^\s/v
-
-// Human format: the progress lines and the all-clear summary. Passing
-// `--output human` would also drop the progress lines, but strips code context
-// from real diagnostics, so filter instead. The summary keeps its `====`
-// separator, file count, and colors when there's something to report.
-const SVELTE_CHECK_HUMAN_NOISE_REGEX =
-	/^(?:Loading svelte-check in workspace: |Getting Svelte diagnostics\.\.\.|svelte-check found 0 errors and 0 warnings$)/v
-
-// Machine format, which svelte-check selects itself when CLAUDECODE=1: the
-// START line and the all-clear COMPLETED line.
-// See https://github.com/sveltejs/language-tools/issues/2868
-const SVELTE_CHECK_MACHINE_NOISE_REGEX =
-	/^\d+ (?:START "|COMPLETED \d+ FILES 0 ERRORS 0 WARNINGS 0 FILES_WITH_PROBLEMS$)/v
-
-/**
- * True for svelte-check output lines that carry no diagnostic information, so a
- * clean run stays silent.
- */
-export function isSvelteCheckNoise(line: string): boolean {
-	return SVELTE_CHECK_HUMAN_NOISE_REGEX.test(line) || SVELTE_CHECK_MACHINE_NOISE_REGEX.test(line)
-}
-
-/**
- * Parses `tsc --noEmit` text output into diagnostics. Indented lines continue
- * the previous diagnostic's message.
- */
-export function parseTscOutput(context: CollectContext): CollectResult {
-	const diagnostics: Diagnostic[] = []
-	const unparsed: string[] = []
-
-	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
-		const fileMatch = TSC_FILE_DIAGNOSTIC_REGEX.exec(line)
-		if (fileMatch?.groups !== undefined) {
-			const { code, column, file, line: lineNumber, message, severity } = fileMatch.groups
-			diagnostics.push({
-				column: Number(column),
-				file: normalizeDiagnosticPath(file ?? '', context.cwd),
-				line: Number(lineNumber),
-				message: message ?? '',
-				rule: code,
-				severity: severity === 'warning' ? 'warning' : 'error',
-				tool: 'tsc',
-			})
-			continue
-		}
-
-		const globalMatch = TSC_GLOBAL_DIAGNOSTIC_REGEX.exec(line)
-		if (globalMatch?.groups !== undefined) {
-			const { code, message, severity } = globalMatch.groups
-			diagnostics.push({
-				message: message ?? '',
-				rule: code,
-				severity: severity === 'warning' ? 'warning' : 'error',
-				tool: 'tsc',
-			})
-			continue
-		}
-
-		const previousDiagnostic = diagnostics.at(-1)
-		if (previousDiagnostic !== undefined && CONTINUATION_LINE_REGEX.test(line)) {
-			previousDiagnostic.message += `\n${line.trim()}`
-			continue
-		}
-
-		unparsed.push(line)
-	}
-
-	return { diagnostics, unparsed }
-}
+export { isAstroCheckNoise, parseAstroCheckOutput } from './check-adapters/astro.js'
+export { isSvelteCheckNoise, parseSvelteCheckOutput } from './check-adapters/svelte.js'
+export { parseTscOutput } from './check-adapters/tsc.js'
 
 /**
  * Returns the names of all dependencies and devDependencies declared in the
@@ -105,12 +29,12 @@ async function getDeclaredDependencies(): Promise<Set<string>> {
 	])
 }
 
-async function generateTypeScriptLintCommands(): Promise<Command[]> {
+/** Build the checker plan from package dependency names. */
+export function createTypeScriptLintCommands(dependencies: ReadonlySet<string>): Command[] {
 	// TSC ignores .astro and .svelte files and can't resolve imports of them
 	// from plain .ts files, so projects that declare the framework-specific
 	// checkers use those instead.
 	// See https://github.com/sveltejs/language-tools/issues/2527
-	const dependencies = await getDeclaredDependencies()
 	const hasAstroCheck = dependencies.has('@astrojs/check')
 	const hasSvelteCheck = dependencies.has('svelte-check')
 
@@ -119,8 +43,15 @@ async function generateTypeScriptLintCommands(): Promise<Command[]> {
 		if (hasAstroCheck) {
 			// Covers .astro files plus everything in the project tsconfig
 			commands.push({
+				collect: {
+					// Astro logger events become one-line JSON records. @astrojs/check's
+					// file diagnostics remain text and are handled by the same adapter.
+					optionFlags: ['--json'],
+					parse: parseAstroCheckOutput,
+				},
 				cwdOverride: 'package-dir',
 				name: 'astro',
+				outputFilter: isAstroCheckNoise,
 				subcommands: ['check'],
 			})
 		}
@@ -129,10 +60,15 @@ async function generateTypeScriptLintCommands(): Promise<Command[]> {
 			// With --tsconfig, svelte-check covers plain .ts/.js files in addition
 			// to .svelte files. When astro check already covers those (Astro
 			// project with Svelte islands), only check .svelte files.
+			const optionFlags = hasAstroCheck ? [] : ['--tsconfig', './tsconfig.json']
 			commands.push({
+				collect: {
+					optionFlags: [...optionFlags, '--output', 'machine-verbose'],
+					parse: parseSvelteCheckOutput,
+				},
 				cwdOverride: 'package-dir',
 				name: 'svelte-check',
-				optionFlags: hasAstroCheck ? [] : ['--tsconfig', './tsconfig.json'],
+				optionFlags,
 				outputFilter: isSvelteCheckNoise,
 			})
 		}
@@ -150,6 +86,10 @@ async function generateTypeScriptLintCommands(): Promise<Command[]> {
 			optionFlags: ['--noEmit'],
 		},
 	]
+}
+
+async function generateTypeScriptLintCommands(): Promise<Command[]> {
+	return createTypeScriptLintCommands(await getDeclaredDependencies())
 }
 
 export const commandDefinition: CommandDefinition = {

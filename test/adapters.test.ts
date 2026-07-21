@@ -10,7 +10,14 @@ import { parseEslintJsonOutput } from '../packages/eslint-config/src/command.js'
 import { parseKnipJsonOutput } from '../packages/knip-config/src/command.js'
 import { parsePrettierOutput } from '../packages/prettier-config/src/command.js'
 import { parseStylelintJsonOutput } from '../packages/stylelint-config/src/command.js'
-import { isSvelteCheckNoise, parseTscOutput } from '../packages/typescript-config/src/command.js'
+import {
+	createTypeScriptLintCommands,
+	isAstroCheckNoise,
+	isSvelteCheckNoise,
+	parseAstroCheckOutput,
+	parseSvelteCheckOutput,
+	parseTscOutput,
+} from '../packages/typescript-config/src/command.js'
 import { createStreamFilter, streamToString } from '../src/stream-utilities.js'
 
 function makeContext(partial: Partial<CollectContext>): CollectContext {
@@ -63,6 +70,165 @@ describe('tsc adapter', () => {
 
 		expect(diagnostics[0]?.file).toBe(path.join('packages', 'example', 'src', 'foo.ts'))
 	})
+
+	it('counts an unparseable failed run as an error', () => {
+		const { diagnostics, unparsed } = parseTscOutput(
+			makeContext({ stderr: 'TypeScript failed unexpectedly' }),
+		)
+
+		expect(diagnostics).toContainEqual({
+			message: 'TypeScript failed unexpectedly',
+			severity: 'error',
+			tool: 'tsc',
+		})
+		expect(unparsed).toEqual(['TypeScript failed unexpectedly'])
+	})
+})
+
+describe('typescript checker plan', () => {
+	it('uses Astro JSON logs for collection and filtered human output in native mode', () => {
+		const commands = createTypeScriptLintCommands(new Set(['@astrojs/check']))
+
+		expect(commands).toHaveLength(1)
+		expect(commands[0]).toMatchObject({
+			collect: { optionFlags: ['--json'], parse: parseAstroCheckOutput },
+			name: 'astro',
+			outputFilter: isAstroCheckNoise,
+			subcommands: ['check'],
+		})
+	})
+
+	it('keeps Svelte scoped to component files when Astro covers the tsconfig', () => {
+		const commands = createTypeScriptLintCommands(new Set(['@astrojs/check', 'svelte-check']))
+
+		expect(commands[1]).toMatchObject({
+			collect: { optionFlags: ['--output', 'machine-verbose'], parse: parseSvelteCheckOutput },
+			name: 'svelte-check',
+			optionFlags: [],
+		})
+	})
+
+	it('passes the tsconfig to both native and collected standalone Svelte checks', () => {
+		const commands = createTypeScriptLintCommands(new Set(['svelte-check']))
+
+		expect(commands[0]).toMatchObject({
+			collect: {
+				optionFlags: ['--tsconfig', './tsconfig.json', '--output', 'machine-verbose'],
+				parse: parseSvelteCheckOutput,
+			},
+			name: 'svelte-check',
+			optionFlags: ['--tsconfig', './tsconfig.json'],
+		})
+	})
+})
+
+describe('astro check adapter', () => {
+	it('parses JSON logger warnings and text diagnostics without progress noise', () => {
+		const stdout = [
+			JSON.stringify({
+				label: '@astrojs/cloudflare',
+				level: 'info',
+				message: 'Enabling compile-time image optimization.',
+			}),
+			JSON.stringify({
+				label: 'adapter',
+				level: 'warn',
+				message: 'Ensure the image service supports the Workers runtime.',
+			}),
+			'src/pages/index.astro:12:5 - error ts(2322): Type number is not assignable to string.',
+			'12 const title: string = 1',
+			'       ~~~~~',
+			'Result (34 files):',
+			'- 1 error',
+			'- 0 warnings',
+			'- 0 hints',
+		].join('\n')
+
+		const { diagnostics, unparsed } = parseAstroCheckOutput(makeContext({ stdout }))
+
+		expect(diagnostics).toEqual([
+			{
+				message: 'Ensure the image service supports the Workers runtime.',
+				rule: 'adapter',
+				severity: 'warning',
+				tool: 'astro',
+			},
+			{
+				column: 5,
+				file: path.join('src', 'pages', 'index.astro'),
+				line: 12,
+				message: 'Type number is not assignable to string.',
+				rule: 'ts(2322)',
+				severity: 'error',
+				tool: 'astro',
+			},
+		])
+		expect(unparsed).toEqual([])
+	})
+
+	it('falls back to human logger records and counts warnings', () => {
+		const stdout = [
+			'09:51:22 [content] Syncing content',
+			'09:51:22 [WARN] [adapter] Custom image service warning.',
+			'Result (34 files):',
+			'- 0 errors',
+			'- 0 warnings',
+			'- 0 hints',
+		].join('\n')
+
+		const { diagnostics, unparsed } = parseAstroCheckOutput(makeContext({ exitCode: 0, stdout }))
+
+		expect(diagnostics).toEqual([
+			{
+				message: 'Custom image service warning.',
+				rule: 'adapter',
+				severity: 'warning',
+				tool: 'astro',
+			},
+		])
+		expect(unparsed).toEqual([])
+	})
+
+	it('counts an unparseable failed run as an error', () => {
+		const { diagnostics, unparsed } = parseAstroCheckOutput(
+			makeContext({ stderr: 'Astro check failed before diagnostics were available.' }),
+		)
+
+		expect(diagnostics).toContainEqual({
+			message: 'Astro check failed before diagnostics were available.',
+			severity: 'error',
+			tool: 'astro',
+		})
+		expect(unparsed).toEqual(['Astro check failed before diagnostics were available.'])
+	})
+
+	it('filters progress and result chrome but keeps warnings and diagnostics', () => {
+		expect(isAstroCheckNoise('09:51:22 [content] Syncing content')).toBe(true)
+		expect(isAstroCheckNoise('09:51:22 [types] Generated 332ms')).toBe(true)
+		expect(isAstroCheckNoise('Result (34 files):')).toBe(true)
+		expect(isAstroCheckNoise('Result (34 files): ')).toBe(true)
+		expect(isAstroCheckNoise('- 0 errors')).toBe(true)
+		expect(isAstroCheckNoise('09:51:22 [WARN] [adapter] Keep me')).toBe(false)
+		expect(isAstroCheckNoise('src/pages/index.astro:1:1 - error ts(1): Nope')).toBe(false)
+	})
+
+	it('leaves only actionable lines in native output', async () => {
+		const outputFilter = createStreamFilter(isAstroCheckNoise)
+		const output = streamToString(outputFilter)
+
+		outputFilter.end(
+			[
+				'09:51:22 [content] Syncing content',
+				'09:51:22 [WARN] [adapter] Keep me',
+				'Result (34 files): ',
+				'- 0 errors',
+				'- 0 warnings',
+				'- 0 hints',
+			].join('\n'),
+		)
+
+		await expect(output).resolves.toBe('09:51:22 [WARN] [adapter] Keep me\n')
+	})
 })
 
 describe('svelte-check output filter', () => {
@@ -106,6 +272,84 @@ describe('svelte-check output filter', () => {
 		expect(
 			isSvelteCheckNoise('1784557516655 ERROR "src/App.svelte" 1:1 "Cannot find name \'foo\'"'),
 		).toBe(false)
+	})
+})
+
+describe('svelte-check adapter', () => {
+	it('parses machine-verbose diagnostics and ignores completion chrome', () => {
+		const stdout = [
+			'1784557516651 START "/Users/me/project"',
+			`1784557516652 ${JSON.stringify({
+				code: 2322,
+				end: { character: 9, line: 3 },
+				filename: 'src/App.svelte',
+				message: 'Type number is not assignable to string.',
+				source: 'ts',
+				start: { character: 1, line: 3 },
+				type: 'ERROR',
+			})}`,
+			`1784557516653 ${JSON.stringify({
+				filename: 'src/App.svelte',
+				message: 'Unused CSS selector',
+				source: 'css',
+				start: { character: 0, line: 8 },
+				type: 'WARNING',
+			})}`,
+			'1784557516657 COMPLETED 10 FILES 1 ERRORS 1 WARNINGS 1 FILES_WITH_PROBLEMS',
+		].join('\n')
+
+		const { diagnostics, unparsed } = parseSvelteCheckOutput(makeContext({ stdout }))
+
+		expect(diagnostics).toEqual([
+			{
+				column: 2,
+				endColumn: 10,
+				endLine: 4,
+				file: path.join('src', 'App.svelte'),
+				line: 4,
+				message: 'Type number is not assignable to string.',
+				rule: 'ts(2322)',
+				severity: 'error',
+				tool: 'svelte-check',
+			},
+			{
+				column: 1,
+				file: path.join('src', 'App.svelte'),
+				line: 9,
+				message: 'Unused CSS selector',
+				rule: 'css',
+				severity: 'warning',
+				tool: 'svelte-check',
+			},
+		])
+		expect(unparsed).toEqual([])
+	})
+
+	it('treats machine failures as errors even if svelte-check exits zero', () => {
+		const { diagnostics, unparsed } = parseSvelteCheckOutput(
+			makeContext({ exitCode: 0, stdout: '1784557516657 FAILURE "Language server crashed"' }),
+		)
+
+		expect(diagnostics).toEqual([
+			{ message: 'Language server crashed', severity: 'error', tool: 'svelte-check' },
+		])
+		expect(unparsed).toEqual([])
+	})
+
+	it('supports compact machine output as a compatibility fallback', () => {
+		const { diagnostics } = parseSvelteCheckOutput(
+			makeContext({
+				stdout: String.raw`1784557516655 ERROR "src/App.svelte" 1:2 "Cannot find name \"foo\""`,
+			}),
+		)
+
+		expect(diagnostics[0]).toMatchObject({
+			column: 2,
+			file: path.join('src', 'App.svelte'),
+			line: 1,
+			message: 'Cannot find name "foo"',
+			severity: 'error',
+		})
 	})
 })
 

@@ -463,9 +463,16 @@ function isLintReport(value: unknown): value is LintReport {
 		value.version === 1 &&
 		'diagnostics' in value &&
 		Array.isArray(value.diagnostics) &&
+		'success' in value &&
+		typeof value.success === 'boolean' &&
 		'tools' in value &&
 		Array.isArray(value.tools)
 	)
+}
+
+/** Parsed errors are authoritative even if a child tool accidentally exits 0. */
+function getCollectedExitCode(exitCode: number, diagnostics: Diagnostic[]): number {
+	return exitCode === 0 && diagnostics.some(({ severity }) => severity === 'error') ? 1 : exitCode
 }
 
 /**
@@ -486,14 +493,19 @@ async function collectCommand(
 	if (isCommandFunction(command)) {
 		if (command.collect !== undefined) {
 			try {
-				const { diagnostics, exitCode, unparsed } = await command.collect(
-					positionalArguments,
-					optionFlags,
-				)
+				const collected = await command.collect(positionalArguments, optionFlags)
+				const exitCode = getCollectedExitCode(collected.exitCode, collected.diagnostics)
 				return {
-					diagnostics,
+					diagnostics: collected.diagnostics,
 					exitCode,
-					tools: [{ durationMs: elapsed(), exitCode, name: command.name, unparsed }],
+					tools: [
+						{
+							durationMs: elapsed(),
+							exitCode,
+							name: command.name,
+							unparsed: collected.unparsed,
+						},
+					],
 				}
 			} catch (error) {
 				return {
@@ -551,7 +563,16 @@ async function collectCommand(
 				throw new Error('Child output is not a lint report')
 			}
 
-			return { diagnostics: report.diagnostics, exitCode: context.exitCode, tools: report.tools }
+			return {
+				diagnostics: report.diagnostics,
+				exitCode:
+					context.exitCode === 0 &&
+					report.success &&
+					report.diagnostics.every(({ severity }) => severity !== 'error')
+						? 0
+						: 1,
+				tools: report.tools,
+			}
 		} catch {
 			return {
 				diagnostics: [],
@@ -573,12 +594,11 @@ async function collectCommand(
 	if (command.collect !== undefined) {
 		try {
 			const { diagnostics, unparsed } = command.collect.parse(context)
+			const exitCode = getCollectedExitCode(context.exitCode, diagnostics)
 			return {
 				diagnostics,
-				exitCode: context.exitCode,
-				tools: [
-					{ durationMs: elapsed(), exitCode: context.exitCode, name: command.name, unparsed },
-				],
+				exitCode,
+				tools: [{ durationMs: elapsed(), exitCode, name: command.name, unparsed }],
 			}
 		} catch (error) {
 			return {
