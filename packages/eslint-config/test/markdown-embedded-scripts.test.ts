@@ -59,6 +59,30 @@ describe.each([
 			expect(result.messages).toEqual([])
 		}
 	})
+
+	it('does not require complete JSDoc in example code', async () => {
+		const result = await lint(
+			eslint,
+			fence(
+				'ts',
+				[
+					'/**',
+					' * Greet a user.',
+					' *',
+					' * @param name',
+					' */',
+					'export function greet(name: string) {',
+					"  return 'Hello, ' + name",
+					'}',
+				].join('\n'),
+			),
+			filePath,
+		)
+		const ruleIds = result.messages.map((message) => message.ruleId)
+
+		expect(ruleIds).not.toContain('jsdoc/require-param-description')
+		expect(ruleIds).not.toContain('jsdoc/require-returns')
+	})
 })
 
 describe('embedded script overrides', () => {

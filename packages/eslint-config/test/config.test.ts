@@ -275,6 +275,9 @@ describe('Markdown and MDX config layering', () => {
 				projectService: false,
 			})
 			expect(config.rules).toMatchObject({
+				'jsdoc/require-jsdoc': ['error', { publicOnly: true }],
+				'jsdoc/require-param-description': 'off',
+				'jsdoc/require-returns': 'off',
 				'no-undef': 'off',
 				'ts/await-thenable': 'off',
 				'ts/no-unused-vars': 'off',

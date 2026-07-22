@@ -79,6 +79,8 @@ export function createMarkdownConfigs(options: MarkdownConfigOptions): TypedFlat
 				...sharedScriptConfig.rules,
 				...sharedScriptDisableTypeCheckedRules,
 				...mdxCodeBlocksRules,
+				'jsdoc/require-param-description': 'off',
+				'jsdoc/require-returns': 'off',
 				'ts/no-unused-expressions': 'off',
 				'unicorn/filename-case': 'off',
 				...overridesEmbeddedScripts,
