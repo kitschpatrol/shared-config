@@ -1,5 +1,4 @@
 /**
- *
  * @param root0
  * @param root0.greeted
  * @param root0.greeting
@@ -16,7 +15,7 @@ export function HelloWorld({
 		return null
 	}
 
-	// TODO: Don't use random in render
+	// IRL you wouldn't use random in render
 	const number_ = Math.floor(Math.random() * 1e7)
 		.toString()
 		.replaceAll(/\.\d+/g, '')

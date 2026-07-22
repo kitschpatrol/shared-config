@@ -15,6 +15,19 @@
 		box-shadow: -2px 3px 5px #00000067;
 	}
 
+	@media (hover: hover) {
+		button:not(:disabled):hover div:not(.down) {
+			color: white;
+			/* background-color: theme(colors.vm-magenta); */
+			background-color: #f01ef6;
+			/* text-shadow: 0 0 3px white; */
+		}
+
+		/* button:not(:hover) div { */
+		/* transition: 500ms; */
+		/* } */
+	}
+
 	button:not(:disabled):active div {
 		top: 2px;
 		right: 2px;
@@ -39,18 +52,5 @@
 
 	button:disabled {
 		opacity: 0.5;
-	}
-
-	@media (hover: hover) {
-		button:not(:disabled):hover div:not(.down) {
-			color: white;
-			/* background-color: theme(colors.vm-magenta); */
-			background-color: #f01ef6;
-			/* text-shadow: 0 0 3px white; */
-		}
-
-		/* button:not(:hover) div { */
-		/* transition: 500ms; */
-		/* } */
 	}
 </style>
