@@ -18,13 +18,8 @@ async function printMdatConfigCommand(logStream: NodeJS.WritableStream): Promise
 		logStream.write(`Found ${configName} readme configuration at "${result.filepath}"\n`)
 	}
 
-	// Then load it through mdat to get the actual resolved object with readme-related defaults
-	const additionalConfig = await loadConfig()
-
-	// TODO still need this?
-	const config = await loadConfig({
-		additionalConfig,
-	})
+	// Load the fully resolved config, including Mdat's built-in readme defaults.
+	const config = await loadConfig()
 	const prettyAndColorfulJsonLines = stringify(config).split('\n')
 	for (const line of prettyAndColorfulJsonLines) {
 		logStream.write(`${line}\n`)
