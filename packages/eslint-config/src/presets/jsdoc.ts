@@ -1,7 +1,5 @@
 import type { Rules } from '../types'
 
-// TODO remove direct to-valid-identifier dependency once fixed in eslint-plugin-jsdoc
-
 export const jsdocCommentsRecommendedTypescriptFlavorRules: Rules = {
 	// Begin expansion 'eslint-plugin-jsdoc' 'flat/recommended-typescript-flavor'
 	'jsdoc/check-access': 'warn',

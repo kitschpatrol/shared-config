@@ -282,7 +282,7 @@ Spaces are required by the [specification](https://yaml.org/spec/1.2.2/#61-inden
 
 ### Markdown and MDX
 
-Spaces are not technically required, but are specified in alignment with the [Remark project's conclusions](https://github.com/remarkjs/remark-lint/tree/main/packages/remark-lint-no-tabs#recommendation) and to prevent fragility in YAML frontmatter. _(TODO: Need 4 spaces instead of 2?)_
+Spaces are not technically required, but are specified in alignment with the [Remark project's conclusions](https://github.com/remarkjs/remark-lint/tree/main/packages/remark-lint-no-tabs#recommendation) and to prevent fragility in YAML frontmatter.
 
 ## Shared plugins
 
