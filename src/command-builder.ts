@@ -1,5 +1,4 @@
 import type { CosmiconfigResult } from 'cosmiconfig'
-import type internal from 'node:stream'
 import type { Argv } from 'yargs'
 import { cosmiconfig } from 'cosmiconfig'
 import { TypeScriptLoader as typeScriptLoader } from 'cosmiconfig-typescript-loader'
@@ -9,7 +8,6 @@ import fs from 'node:fs'
 import { availableParallelism } from 'node:os'
 import path from 'node:path'
 import { PassThrough } from 'node:stream'
-import { fileURLToPath } from 'node:url'
 import { packageUp } from 'package-up'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -319,9 +317,8 @@ async function executeCliCommand(
 		targetStream.write(`Running: "${command.name} ${resolvedArguments.join(' ')}"\n`)
 	}
 
-	const cliTargetStream: NodeJS.WritableStream = command.prettyJsonOutput
-		? new PassThrough()
-		: targetStream
+	const prettyJsonStream = command.prettyJsonOutput ? new PassThrough() : undefined
+	const cliTargetStream = prettyJsonStream ?? targetStream
 
 	// Children write to pipes and would disable color on their own, so mirror the
 	// parent's decision for its own destination. Color is off when output is
@@ -336,13 +333,7 @@ async function executeCliCommand(
 	try {
 		const subprocess = execa(command.name, resolvedArguments, {
 			cwd,
-			env: {
-				...colorEnv,
-				// Quiet Node when processing *.config.ts files in Node 22
-				// Suppress experimental type stripping warning with --no-warnings
-				// TODO what's the story here on Node 20?
-				// NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
-			},
+			env: colorEnv,
 			preferLocal: true,
 			reject: false, // Prevents throwing on non-zero exit code
 			stdin: 'inherit',
@@ -361,11 +352,9 @@ async function executeCliCommand(
 
 		const result = await subprocess
 
-		if (command.prettyJsonOutput) {
-			cliTargetStream.end()
-			// TODO is this a bad cast?
-
-			const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream)
+		if (prettyJsonStream !== undefined) {
+			prettyJsonStream.end()
+			const jsonString = await streamToString(prettyJsonStream)
 			const prettyAndColorfulJsonLines = stringify(JSON.parse(jsonString)).split('\n')
 			for (const line of prettyAndColorfulJsonLines) {
 				targetStream.write(`${line}\n`)
@@ -1145,6 +1134,12 @@ export async function executeCommands(
 	}
 }
 
+/** Find the init directory belonging to the package that contains a built CLI. */
+export async function findInitDirectory(moduleDirectory: string): Promise<string | undefined> {
+	const sourcePackage = await packageUp({ cwd: moduleDirectory })
+	return sourcePackage === undefined ? undefined : path.join(path.dirname(sourcePackage), 'init')
+}
+
 async function copyAndMergeInitFiles(
 	logStream: NodeJS.WritableStream,
 	location: string | undefined,
@@ -1160,14 +1155,12 @@ async function copyAndMergeInitFiles(
 		throw new Error('The `init` command must be used in a directory with a package.json file')
 	}
 
-	// TODO do we actually need import.meta.resolve() here?
-	const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) })
-	if (sourcePackage === undefined) {
-		logStream.write('Error: The script being called was not in a package, weird.\n')
+	const source = await findInitDirectory(import.meta.dirname)
+	if (source === undefined) {
+		logStream.write('Error: Could not locate the package containing this CLI.\n')
 		return 1
 	}
 
-	const source = path.join(path.dirname(sourcePackage), 'init')
 	const destination = path.dirname(destinationPackage)
 
 	const hasConfigLocationOption =

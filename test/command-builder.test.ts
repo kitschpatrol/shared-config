@@ -3,7 +3,7 @@ import { PassThrough } from 'node:stream'
 import { describe, expect, it } from 'vitest'
 import type { Command, CommandFunction, CommandGroup } from '../src/command-builder.js'
 import { commandDefinition as sharedCommandDefinition } from '../packages/shared-config/src/command.js'
-import { executeCommands } from '../src/command-builder.js'
+import { executeCommands, findInitDirectory } from '../src/command-builder.js'
 
 function createLogStream(): PassThrough {
 	const stream = new PassThrough()
@@ -375,5 +375,46 @@ describe('tool-native cache arguments', () => {
 		)
 
 		expect(result.report?.tools[0]?.unparsed).toEqual(['[]'])
+	})
+})
+
+describe('CLI package ownership', () => {
+	it.each(['eslint-config', 'shared-config'])(
+		'finds the %s init directory from its built CLI directory',
+		async (packageName) => {
+			const packageDirectory = path.join(process.cwd(), 'packages', packageName)
+
+			expect(await findInitDirectory(path.join(packageDirectory, 'bin'))).toBe(
+				path.join(packageDirectory, 'init'),
+			)
+		},
+	)
+
+	it('pretty-prints captured JSON without widening the capture stream type', async () => {
+		const { output, stream } = createCapturedLogStream()
+		const command: Command = {
+			name: process.execPath,
+			optionFlags: [
+				'-e',
+				'process.stdout.write(JSON.stringify({nested:{value:true},status:"ok"}))',
+			],
+			prettyJsonOutput: true,
+		}
+
+		const result = await executeCommands(
+			stream,
+			[],
+			[],
+			[command],
+			undefined,
+			undefined,
+			undefined,
+			{
+				format: 'native',
+			},
+		)
+
+		expect(result.exitCode).toBe(0)
+		expect(JSON.parse(output())).toEqual({ nested: { value: true }, status: 'ok' })
 	})
 })

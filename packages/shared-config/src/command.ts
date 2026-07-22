@@ -121,7 +121,7 @@ export const commandDefinition: CommandDefinition = {
 			commands: getCommands('init', subcommandDefinitions),
 			description: `Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. ${DESCRIPTION.multiOptionCaveat}`,
 			locationOptionFlag: true,
-			// TODO does this try to copy files from shared config?
+			// The aggregate CLI contributes its own ksc tasks before running each package initializer.
 		},
 		lint: {
 			commands: getCommands('lint', subcommandDefinitions),
