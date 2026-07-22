@@ -52,6 +52,30 @@ describe('fix', () => {
 		expect(result).toContain('\n')
 	})
 
+	it('should format JSDoc while sorting Tailwind classes', async () => {
+		const input = [
+			'/**',
+			' * @param {  string   } name description',
+			' */',
+			'export function Greeting(name: string) {',
+			'  return <div className="text-white p-4 flex">{name}</div>',
+			'}',
+		].join('\n')
+		const result = await fix(input, 'file.tsx')
+
+		expect(result).toContain('@param {string} name Description')
+		expect(result).toContain('className="flex p-4 text-white"')
+	})
+
+	it.each([
+		['Astro', 'file.astro'],
+		['Svelte', 'file.svelte'],
+	])('should sort Tailwind classes in the %s parser override', async (_, filePath) => {
+		const result = await fix('<div class="text-white p-4 flex">Hello</div>', filePath)
+
+		expect(result).toContain('class="flex p-4 text-white"')
+	})
+
 	it('should accept a bare extension as file type', async () => {
 		const result = await fix('{"a":1,"b":2}', 'json')
 		expect(result).toContain('"a"')

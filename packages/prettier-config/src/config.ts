@@ -1,10 +1,13 @@
 import type { Config as BasePrettierConfig } from 'prettier'
 import type { Options as PrettierPluginJsdocOptions } from 'prettier-plugin-jsdoc'
+import type { PluginOptions as PrettierPluginTailwindOptions } from 'prettier-plugin-tailwindcss'
 import { deepmerge } from 'deepmerge-ts'
 import { homedir } from 'node:os'
 import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 
-export type PrettierConfig = BasePrettierConfig & PrettierPluginJsdocOptions
+export type PrettierConfig = BasePrettierConfig &
+	PrettierPluginJsdocOptions &
+	PrettierPluginTailwindOptions
 
 /**
  * Merge custom keys into the `sort-package-json` `order` array. Where
@@ -27,7 +30,7 @@ export const sharedPrettierConfig: PrettierConfig = {
 	jsdocSeparateReturnsFromParam: true,
 	overrides: [
 		{
-			files: ['*.md', '*.mdx', '*.yml'],
+			files: ['*.markdown', '*.md', '*.mdx', '*.yml', '*.yaml'],
 			options: {
 				useTabs: false,
 			},
@@ -36,18 +39,26 @@ export const sharedPrettierConfig: PrettierConfig = {
 			files: '*.astro',
 			options: {
 				parser: 'astro',
-				// Includes prettier-plugin-jsdoc so its options remain valid for this
-				// file's parser context — otherwise prettier emits "Ignored unknown
-				// option { jsdoc... }" warnings because an override's `plugins` array
-				// REPLACES the top-level plugins for matched files.
-				plugins: ['@kitschpatrol/prettier-plugin-astro', 'prettier-plugin-jsdoc'],
+				// Override plugin arrays replace the top-level list. Keep parser plugins
+				// first, JSDoc next, and Tailwind last so their transforms compose.
+				plugins: [
+					'prettier-plugin-astro',
+					'prettier-plugin-jsdoc',
+					// MUST come last
+					'prettier-plugin-tailwindcss',
+				],
 			},
 		},
 		{
 			files: '*.svelte',
 			options: {
 				parser: 'svelte',
-				plugins: ['prettier-plugin-svelte', 'prettier-plugin-jsdoc'],
+				plugins: [
+					'prettier-plugin-svelte',
+					'prettier-plugin-jsdoc',
+					// MUST come last
+					'prettier-plugin-tailwindcss',
+				],
 			},
 		},
 		{
@@ -86,12 +97,12 @@ export const sharedPrettierConfig: PrettierConfig = {
 		'@prettier/plugin-xml',
 		'prettier-plugin-packagejson',
 		'prettier-plugin-sh',
-		// TODO Disabled in favor of jsdoc pending https://github.com/hosseinmd/prettier-plugin-jsdoc/pull/255
-		// 'prettier-plugin-tailwindcss',
 		'prettier-plugin-toml',
 		// Disabled because it is huge
 		// 'prettier-plugin-sql',
 		'prettier-plugin-jsdoc',
+		// Must load last to compose with other plugins, including prettier-plugin-jsdoc
+		'prettier-plugin-tailwindcss',
 	],
 	printWidth: 100,
 	semi: false,

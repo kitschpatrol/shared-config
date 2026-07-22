@@ -481,9 +481,6 @@ importers:
 
   packages/prettier-config:
     dependencies:
-      '@kitschpatrol/prettier-plugin-astro':
-        specifier: 0.14.1-fork.5
-        version: 0.14.1-fork.5(prettier@3.9.5)
       '@pinojs/json-colorizer':
         specifier: ^4.0.0
         version: 4.0.0
@@ -532,6 +529,9 @@ importers:
       prettier:
         specifier: ^3.9.5
         version: 3.9.5
+      prettier-plugin-astro:
+        specifier: npm:@kitschpatrol/prettier-plugin-astro@0.14.1-fork.5
+        version: '@kitschpatrol/prettier-plugin-astro@0.14.1-fork.5(prettier@3.9.5)'
       prettier-plugin-jsdoc:
         specifier: ^1.8.1
         version: 1.8.1(prettier@3.9.5)(supports-color@10.2.2)
@@ -546,7 +546,7 @@ importers:
         version: 3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0))
       prettier-plugin-tailwindcss:
         specifier: ^0.8.0
-        version: 0.8.1(prettier-plugin-jsdoc@1.8.1(prettier@3.9.5)(supports-color@10.2.2))(prettier-plugin-svelte@3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0)))(prettier@3.9.5)
+        version: 0.8.1(@kitschpatrol/prettier-plugin-astro@0.14.1-fork.5(prettier@3.9.5))(prettier-plugin-jsdoc@1.8.1(prettier@3.9.5)(supports-color@10.2.2))(prettier-plugin-svelte@3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0)))(prettier@3.9.5)
       prettier-plugin-toml:
         specifier: ^2.0.6
         version: 2.0.6(prettier@3.9.5)
@@ -12532,10 +12532,11 @@ snapshots:
       prettier: 3.9.5
       svelte: 5.56.6(@typescript-eslint/types@8.64.0)
 
-  prettier-plugin-tailwindcss@0.8.1(prettier-plugin-jsdoc@1.8.1(prettier@3.9.5)(supports-color@10.2.2))(prettier-plugin-svelte@3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0)))(prettier@3.9.5):
+  prettier-plugin-tailwindcss@0.8.1(@kitschpatrol/prettier-plugin-astro@0.14.1-fork.5(prettier@3.9.5))(prettier-plugin-jsdoc@1.8.1(prettier@3.9.5)(supports-color@10.2.2))(prettier-plugin-svelte@3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0)))(prettier@3.9.5):
     dependencies:
       prettier: 3.9.5
     optionalDependencies:
+      prettier-plugin-astro: '@kitschpatrol/prettier-plugin-astro@0.14.1-fork.5(prettier@3.9.5)'
       prettier-plugin-jsdoc: 1.8.1(prettier@3.9.5)(supports-color@10.2.2)
       prettier-plugin-svelte: 3.5.2(prettier@3.9.5)(svelte@5.56.6(@typescript-eslint/types@8.64.0))
 

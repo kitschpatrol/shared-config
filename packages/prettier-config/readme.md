@@ -246,7 +246,7 @@ The Prettier module and resolved plugin paths are cached internally for performa
 
 ## Astro support
 
-Note that this configuration uses the [@kitschpatrol/prettier-plugin-astro](https://github.com/kitschpatrol/prettier-plugin-astro) fork of the official [Prettier plugin for Astro project](https://github.com/withastro/prettier-plugin-astro).
+Note that this configuration installs the [@kitschpatrol/prettier-plugin-astro](https://github.com/kitschpatrol/prettier-plugin-astro) fork under the canonical `prettier-plugin-astro` package alias. This preserves compatibility with plugins that resolve Astro support by package name, including `prettier-plugin-tailwindcss`.
 
 This fork includes some fixes not yet merged into the official project.
 

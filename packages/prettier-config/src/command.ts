@@ -64,7 +64,7 @@ export function parsePrettierOutput(context: CollectContext): CollectResult {
 // when invoked from a subdirectory.
 const sharedOptions = [
 	'--log-level=warn',
-	'--plugin=@kitschpatrol/prettier-plugin-astro',
+	'--plugin=prettier-plugin-astro',
 	'--plugin=@prettier/plugin-php',
 	'--plugin=@prettier/plugin-ruby',
 	'--plugin=@prettier/plugin-xml',
@@ -72,11 +72,11 @@ const sharedOptions = [
 	'--plugin=prettier-plugin-packagejson',
 	'--plugin=prettier-plugin-sh',
 	'--plugin=prettier-plugin-svelte',
-	// TODO Disabled in favor of jsdoc pending https://github.com/hosseinmd/prettier-plugin-jsdoc/pull/255
-	// '--plugin=prettier-plugin-tailwindcss',
 	'--plugin=prettier-plugin-toml',
 	// Disabled because it is huge
 	// '--plugin=prettier-plugin-sql',
+	// Must load last to compose with other plugins, including prettier-plugin-jsdoc
+	'--plugin=prettier-plugin-tailwindcss',
 	`--ignore-path=${getFilePathAtProjectRoot('.gitignore') ?? '.gitignore'}`,
 	`--ignore-path=${getFilePathAtProjectRoot('.prettierignore') ?? '.prettierignore'}`,
 ]

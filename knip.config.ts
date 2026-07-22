@@ -11,12 +11,12 @@ export default knipConfig({
 	ignoreDependencies: [
 		// Consumed only via marker-driven dynamic imports in the preset generation script
 		'@eslint/js',
-		'@kitschpatrol/prettier-plugin-astro',
 		'@types/eslint-config-prettier',
 		'@types/react',
 		'case-police',
 		'eslint-config-prettier',
 		'eslint-config-xo',
+		'prettier-plugin-astro',
 		'prettier-plugin-svelte',
 		'remark-attribute-list',
 		'remark-directive',
