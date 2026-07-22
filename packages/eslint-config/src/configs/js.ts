@@ -1,4 +1,9 @@
-import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
+import type {
+	OptionsOverrides,
+	OptionsTsconfigRootDirectory,
+	OptionsTypeAware,
+	TypedFlatConfigItem,
+} from '../types'
 import { getLanguageOptions } from '../config'
 import { GLOB_JS } from '../globs'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
@@ -7,35 +12,30 @@ import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './share
  * JavaScript configuration, note use of TypeScript rules
  */
 export async function js(
-	options: OptionsOverrides & OptionsTypeAware = {},
+	options: OptionsOverrides & OptionsTsconfigRootDirectory & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {
-	const {
-		overrides = {},
-		typeAware = {
-			enabled: true,
-			ignores: [],
-		},
-	} = options
+	const { overrides = {}, tsconfigRootDirectory } = options
+	const { enabled = true, ignores = [] } = options.typeAware ?? {}
 
 	return [
 		{
 			// Includes plugins...
 			...sharedScriptConfig,
 			files: [GLOB_JS],
-			languageOptions: getLanguageOptions(typeAware.enabled, false),
+			languageOptions: getLanguageOptions(enabled, false, tsconfigRootDirectory),
 			name: 'kp/js/rules',
 			rules: {
 				...sharedScriptConfig.rules,
 				'jsdoc/check-tag-names': 'off',
 				'jsdoc/no-types': 'off',
-				...(!typeAware.enabled && sharedScriptDisableTypeCheckedRules),
+				...(!enabled && sharedScriptDisableTypeCheckedRules),
 				...overrides,
 			},
 		},
-		typeAware.enabled && typeAware.ignores.length > 0
+		enabled && ignores.length > 0
 			? {
-					files: typeAware.ignores,
-					languageOptions: getLanguageOptions(false, false),
+					files: ignores,
+					languageOptions: getLanguageOptions(false, false, tsconfigRootDirectory),
 					name: 'kp/js/disable-type-aware',
 					rules: {
 						...sharedScriptDisableTypeCheckedRules,

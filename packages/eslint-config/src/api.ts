@@ -1,7 +1,9 @@
 import type eslint from 'eslint'
 import type { ESLint as ESLintClass } from 'eslint'
+import { getTsconfig } from 'get-tsconfig'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import process from 'node:process'
 import type { OptionsConfig } from './types.js'
 import { eslintConfig } from './config.js'
 
@@ -69,6 +71,16 @@ async function getEslintInstance(options?: OptionsConfig): Promise<ESLintClass> 
 		const { ESLint } = await getEslintModule()
 		// FlatConfigComposer is thenable — awaiting it resolves to the flat config array
 		const configs = await eslintConfig({ isInEditor: false, ...options })
+		const configSearchDirectory = path.resolve(options?.tsconfigRootDirectory ?? process.cwd())
+		const tsconfig = getTsconfig(configSearchDirectory)
+		const tsconfigRootDirectory =
+			tsconfig === null ? configSearchDirectory : path.dirname(tsconfig.path)
+		const relativeWorkingDirectory = path
+			.relative(tsconfigRootDirectory, process.cwd())
+			.split(path.sep)
+			.join('/')
+		const virtualFilePrefix =
+			relativeWorkingDirectory.length === 0 ? '' : `${relativeWorkingDirectory}/`
 
 		const instance = new ESLint({
 			baseConfig: [
@@ -78,7 +90,9 @@ async function getEslintInstance(options?: OptionsConfig): Promise<ESLintClass> 
 					languageOptions: {
 						parserOptions: {
 							projectService: {
-								allowDefaultProject: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+								allowDefaultProject: ['ts', 'tsx', 'js', 'jsx'].map(
+									(extension) => `${virtualFilePrefix}*.${extension}`,
+								),
 							},
 						},
 					},

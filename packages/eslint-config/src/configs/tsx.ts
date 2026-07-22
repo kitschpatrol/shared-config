@@ -1,36 +1,36 @@
-import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types'
+import type {
+	OptionsOverrides,
+	OptionsTsconfigRootDirectory,
+	OptionsTypeAware,
+	TypedFlatConfigItem,
+} from '../types'
 import { getLanguageOptions } from '../config'
 import { GLOB_TSX } from '../globs'
 import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 import { sharedJsxTsxConfig } from './shared-jsx-tsx'
 
 export async function tsx(
-	options: OptionsOverrides & OptionsTypeAware = {},
+	options: OptionsOverrides & OptionsTsconfigRootDirectory & OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {
-	const {
-		overrides = {},
-		typeAware = {
-			enabled: true,
-			ignores: [],
-		},
-	} = options
+	const { overrides = {}, tsconfigRootDirectory } = options
+	const { enabled = true, ignores = [] } = options.typeAware ?? {}
 
 	return [
 		{
 			...sharedJsxTsxConfig,
 			files: [GLOB_TSX],
-			languageOptions: getLanguageOptions(typeAware.enabled, true),
+			languageOptions: getLanguageOptions(enabled, true, tsconfigRootDirectory),
 			name: 'kp/tsx/rules',
 			rules: {
 				...sharedJsxTsxConfig.rules,
-				...(!typeAware.enabled && sharedScriptDisableTypeCheckedRules),
+				...(!enabled && sharedScriptDisableTypeCheckedRules),
 				...overrides,
 			},
 		},
-		typeAware.enabled && typeAware.ignores.length > 0
+		enabled && ignores.length > 0
 			? {
-					files: typeAware.ignores,
-					languageOptions: getLanguageOptions(false, true),
+					files: ignores,
+					languageOptions: getLanguageOptions(false, true, tsconfigRootDirectory),
 					name: 'kp/tsx/disable-type-aware',
 					rules: {
 						...sharedScriptDisableTypeCheckedRules,

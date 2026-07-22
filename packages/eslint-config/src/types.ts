@@ -4,12 +4,11 @@ import type { ConfigNames, RuleOptions } from './typegen'
 
 export type Awaitable<T> = Promise<T> | T
 
-export type OptionsConfig = {
+export type OptionsConfig = OptionsTsconfigRootDirectory & {
 	/**
 	 * Enable Astro support.
 	 *
 	 * @default auto-detect based on the dependencies
-	 * TODO typescript support?
 	 */
 	astro?: boolean | (OptionsOverrides & OptionsOverridesEmbeddedScripts & OptionsTypeAware)
 	/**
@@ -63,7 +62,7 @@ export type OptionsConfig = {
 	 *
 	 * @default auto-detect based on the dependencies
 	 */
-	svelte?: boolean | OptionsOverrides
+	svelte?: boolean | (OptionsOverrides & OptionsTypeAware)
 	/** Enable test support. */
 	test?: OptionsOverrides
 	/**
@@ -105,6 +104,17 @@ export type OptionsOverridesEmbeddedScripts = {
 	overridesEmbeddedScripts?: TypedFlatConfigItem['rules']
 }
 
+export type OptionsTsconfigRootDirectory = {
+	/**
+	 * Directory from which to begin searching upward for `tsconfig.json`.
+	 *
+	 * By default this is inferred from the active `eslint.config.*` call frame,
+	 * which follows ESLint 10's per-file config lookup. It falls back to the
+	 * current working directory for programmatic use.
+	 */
+	tsconfigRootDirectory?: string
+}
+
 export type OptionsTypeAware = {
 	typeAware?: {
 		/**
@@ -120,8 +130,10 @@ export type OptionsTypeAware = {
 		/**
 		 * [Minimatch](https://github.com/isaacs/minimatch/tree/v3]) patterns of
 		 * specific files to exclude from type aware rules.
+		 *
+		 * @default Empty array
 		 */
-		ignores: string[]
+		ignores?: string[]
 	}
 }
 

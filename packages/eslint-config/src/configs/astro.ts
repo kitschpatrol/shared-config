@@ -1,9 +1,8 @@
 import globals from 'globals'
-import path from 'node:path'
-import process from 'node:process'
 import type {
 	OptionsOverrides,
 	OptionsOverridesEmbeddedScripts,
+	OptionsTsconfigRootDirectory,
 	OptionsTypeAware,
 	Rules,
 	TypedFlatConfigItem,
@@ -15,16 +14,13 @@ import { interopDefault } from '../utilities'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
 export async function astro(
-	options: OptionsOverrides & OptionsOverridesEmbeddedScripts & OptionsTypeAware = {},
+	options: OptionsOverrides &
+		OptionsOverridesEmbeddedScripts &
+		OptionsTsconfigRootDirectory &
+		OptionsTypeAware = {},
 ): Promise<TypedFlatConfigItem[]> {
-	const {
-		overrides = {},
-		overridesEmbeddedScripts = {},
-		typeAware = {
-			enabled: true,
-			ignores: [],
-		},
-	} = options
+	const { overrides = {}, overridesEmbeddedScripts = {}, tsconfigRootDirectory } = options
+	const { enabled = true, ignores = [] } = options.typeAware ?? {}
 
 	// Configs that can be disabled import dependencies dynamically?
 	// TODO worth it?
@@ -57,10 +53,13 @@ export async function astro(
 				parserOptions: {
 					extraFileExtensions: ['.astro'],
 					parser: tsParser,
-					...(typeAware.enabled
+					...(enabled
 						? {
-								// Not yet compatible with projectService
-								project: path.join(process.cwd(), 'tsconfig.json'), // Not sure why this isn't inherited
+								// Astro maps projectService to project: true internally.
+								project: true,
+								...(tsconfigRootDirectory !== undefined && {
+									tsconfigRootDir: tsconfigRootDirectory,
+								}),
 							}
 						: {
 								project: undefined,
@@ -73,6 +72,7 @@ export async function astro(
 				...sharedScriptConfig.rules,
 				...astroRecommendedRules,
 				...astroJsxA11yRecommendedRules,
+				...(!enabled && sharedScriptDisableTypeCheckedRules),
 				'perfectionist/sort-intersection-types': [
 					'error',
 					{
@@ -110,9 +110,9 @@ export async function astro(
 				...overrides,
 			},
 		},
-		typeAware.ignores.length > 0
+		enabled && ignores.length > 0
 			? {
-					files: typeAware.ignores,
+					files: ignores,
 					languageOptions: {
 						parserOptions: {
 							project: undefined,

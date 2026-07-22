@@ -324,6 +324,9 @@ importers:
       fs-extra:
         specifier: ^11.3.6
         version: 11.3.6
+      get-tsconfig:
+        specifier: ^4.14.0
+        version: 4.14.0
       globals:
         specifier: ^17.7.0
         version: 17.7.0

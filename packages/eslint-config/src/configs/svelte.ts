@@ -1,16 +1,31 @@
 import path from 'node:path'
 import process from 'node:process'
-import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type {
+	OptionsOverrides,
+	OptionsTsconfigRootDirectory,
+	OptionsTypeAware,
+	TypedFlatConfigItem,
+} from '../types'
 import { GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { svelteRecommendedRules } from '../presets'
 import { interopDefault } from '../utilities'
-import { sharedScriptConfig } from './shared-js-ts'
+import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
 
-export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
-	const { overrides = {} } = options
+export async function svelte(
+	options: OptionsOverrides &
+		OptionsTsconfigRootDirectory &
+		OptionsTypeAware & { typeAwareJavaScript?: boolean } = {},
+): Promise<TypedFlatConfigItem[]> {
+	const { overrides = {}, tsconfigRootDirectory = process.cwd() } = options
+	const { enabled = true, ignores = [] } = options.typeAware ?? {}
+	const typeAwareJavaScript = options.typeAwareJavaScript ?? enabled
 
 	const files = [GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS]
+	const filesWithoutTypeInformation = [
+		...(enabled ? [] : [GLOB_SVELTE, GLOB_SVELTE_TS]),
+		...(typeAwareJavaScript ? [] : [GLOB_SVELTE_JS]),
+	]
 
 	const [pluginSvelte, parserSvelte] = await Promise.all([
 		interopDefault(import('eslint-plugin-svelte')),
@@ -37,10 +52,10 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				parserOptions: {
 					extraFileExtensions: ['.svelte', '.svelte.ts'],
 					parser: tsParser, // TODO js version?
-					projectService: true,
-					svelteConfig: path.join(process.cwd(), 'svelte.config.js'),
+					projectService: enabled || typeAwareJavaScript,
+					svelteConfig: path.join(tsconfigRootDirectory, 'svelte.config.js'),
 					svelteFeatures: { experimentalGenerics: true },
-					tsconfigRootDir: process.cwd(),
+					tsconfigRootDir: tsconfigRootDirectory,
 				},
 			},
 			name: 'kp/svelte/rules',
@@ -48,6 +63,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 			rules: {
 				...sharedScriptConfig.rules,
 				...svelteRecommendedRules,
+				...(!enabled && !typeAwareJavaScript && sharedScriptDisableTypeCheckedRules),
 				'import/no-duplicates': 'off', // Doesn't detect svelte/* exports correctly
 				'import/no-mutable-exports': 'off', // Allow prop export
 				'no-sequences': 'off', // Reactive statements
@@ -120,6 +136,34 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
 				...overrides,
 			},
 		},
+		filesWithoutTypeInformation.length > 0
+			? {
+					files: filesWithoutTypeInformation,
+					languageOptions: {
+						parserOptions: {
+							projectService: false,
+						},
+					},
+					name: 'kp/svelte/disable-type-aware-by-language',
+					rules: {
+						...sharedScriptDisableTypeCheckedRules,
+					},
+				}
+			: {},
+		(enabled || typeAwareJavaScript) && ignores.length > 0
+			? {
+					files: ignores,
+					languageOptions: {
+						parserOptions: {
+							projectService: false,
+						},
+					},
+					name: 'kp/svelte/disable-type-aware',
+					rules: {
+						...sharedScriptDisableTypeCheckedRules,
+					},
+				}
+			: {},
 		{
 			// TODO is this the right spot?
 			files: ['**/routes/**/+*.ts'],

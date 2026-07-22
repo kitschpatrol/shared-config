@@ -2,8 +2,12 @@
 import type { Linter } from 'eslint'
 import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { getTsconfig } from 'get-tsconfig'
 import globals from 'globals'
 import { isPackageExists } from 'local-pkg'
+import path from 'node:path'
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
 import type { RuleOptions } from './typegen'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 import {
@@ -56,6 +60,9 @@ export const defaultPluginRenaming = {
 
 export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
 
+type TypeAwareConfigKey = 'astro' | 'js' | 'jsx' | 'react' | 'svelte' | 'ts' | 'tsx'
+const ESLINT_CONFIG_FILENAME_REGEX = /^eslint\.config\.[cm]?[jt]s$/v
+
 /**
  * Construct an array of ESLint flat config items.
  *
@@ -78,6 +85,15 @@ export async function eslintConfig(
 		react: enableReact = isPackageExists('react'),
 		svelte: enableSvelte = isPackageExists('svelte'),
 	} = options
+	const eslintConfigRootDirectory = path.resolve(
+		options.tsconfigRootDirectory ?? getEslintConfigRootDirectoryFromStack() ?? process.cwd(),
+	)
+	const tsconfig = getTsconfig(eslintConfigRootDirectory)
+	const tsconfigRootDirectory =
+		tsconfig === null ? eslintConfigRootDirectory : path.dirname(tsconfig.path)
+	const isTypeAwareTypeScript = tsconfig !== null
+	const isTypeAwareJavaScript =
+		isTypeAwareTypeScript && tsconfig.config.compilerOptions?.checkJs === true
 
 	let { isInEditor } = options
 	if (isInEditor === undefined) {
@@ -112,36 +128,28 @@ export async function eslintConfig(
 			},
 		],
 		js({
-			typeAware: {
-				enabled: true, // TODO check tsconfig...
-				ignores: [],
-			},
 			...resolveSubOptions(options, 'js'),
 			overrides: getOverrides(options, 'js'),
+			tsconfigRootDirectory,
+			typeAware: resolveTypeAwareOptions(options, 'js', isTypeAwareJavaScript),
 		}),
 		jsx({
-			typeAware: {
-				enabled: true, // TODO check tsconfig...
-				ignores: [],
-			},
 			...resolveSubOptions(options, 'jsx'),
 			overrides: getOverrides(options, 'jsx'),
+			tsconfigRootDirectory,
+			typeAware: resolveTypeAwareOptions(options, 'jsx', isTypeAwareJavaScript),
 		}),
 		ts({
-			typeAware: {
-				enabled: true, // TODO check tsconfig...
-				ignores: [],
-			},
 			...resolveSubOptions(options, 'ts'),
 			overrides: getOverrides(options, 'ts'),
+			tsconfigRootDirectory,
+			typeAware: resolveTypeAwareOptions(options, 'ts', isTypeAwareTypeScript),
 		}),
 		tsx({
-			typeAware: {
-				enabled: true, // TODO check tsconfig...
-				ignores: [],
-			},
 			...resolveSubOptions(options, 'tsx'),
 			overrides: getOverrides(options, 'tsx'),
+			tsconfigRootDirectory,
+			typeAware: resolveTypeAwareOptions(options, 'tsx', isTypeAwareTypeScript),
 		}),
 		test({
 			isInEditor,
@@ -175,7 +183,11 @@ export async function eslintConfig(
 	if (enableReact !== false) {
 		configs.push(
 			react({
+				...resolveSubOptions(options, 'react'),
 				overrides: getOverrides(options, 'react'),
+				tsconfigRootDirectory,
+				typeAware: resolveTypeAwareOptions(options, 'react', isTypeAwareTypeScript),
+				typeAwareJavaScript: resolveTypeAwareEnabled(options, 'react', isTypeAwareJavaScript),
 			}),
 		)
 	}
@@ -183,8 +195,11 @@ export async function eslintConfig(
 	if (enableSvelte !== false) {
 		configs.push(
 			svelte({
+				...resolveSubOptions(options, 'svelte'),
 				overrides: getOverrides(options, 'svelte'),
-				// TODO TS flag?
+				tsconfigRootDirectory,
+				typeAware: resolveTypeAwareOptions(options, 'svelte', isTypeAwareTypeScript),
+				typeAwareJavaScript: resolveTypeAwareEnabled(options, 'svelte', isTypeAwareJavaScript),
 			}),
 		)
 	}
@@ -192,8 +207,11 @@ export async function eslintConfig(
 	if (enableAstro !== false) {
 		configs.push(
 			astro({
+				...resolveSubOptions(options, 'astro'),
 				overrides: getOverrides(options, 'astro'),
 				overridesEmbeddedScripts: getOverridesEmbeddedScripts(options, 'astro'),
+				tsconfigRootDirectory,
+				typeAware: resolveTypeAwareOptions(options, 'astro', isTypeAwareTypeScript),
 			}),
 		)
 	}
@@ -268,8 +286,13 @@ async function gitignoreConfig(options: FlatGitignoreOptions): Promise<TypedFlat
  *
  * @param typeAware - Whether to enable type-aware linting.
  * @param isJsxEnabled - Whether to enable JSX parsing.
+ * @param tsconfigRootDirectory - Root directory for TypeScript project lookup.
  */
-export function getLanguageOptions(typeAware = true, isJsxEnabled = false): Linter.LanguageOptions {
+export function getLanguageOptions(
+	typeAware = true,
+	isJsxEnabled = false,
+	tsconfigRootDirectory?: string,
+): Linter.LanguageOptions {
 	return {
 		ecmaVersion: 2023,
 		globals: {
@@ -277,7 +300,6 @@ export function getLanguageOptions(typeAware = true, isJsxEnabled = false): Lint
 			...globals.es2023,
 			...globals.nodeBuiltin,
 		},
-		// TODO Always use typescript parser to get type info for JavaScript files when checkjs is true?
 		parser: tsParser,
 		parserOptions: {
 			ecmaFeatures: {
@@ -287,7 +309,9 @@ export function getLanguageOptions(typeAware = true, isJsxEnabled = false): Lint
 			...(typeAware
 				? {
 						projectService: true,
-						tsconfigRootDir: process.cwd(), // TODO import.meta.dirname preferred?
+						...(tsconfigRootDirectory !== undefined && {
+							tsconfigRootDir: tsconfigRootDirectory,
+						}),
 					}
 				: {
 						projectService: false,
@@ -296,6 +320,68 @@ export function getLanguageOptions(typeAware = true, isJsxEnabled = false): Lint
 			sourceType: 'module',
 		},
 	}
+}
+
+/** Infer the directory of the active ESLint flat config from the call stack. */
+function getEslintConfigRootDirectoryFromStack(): string | undefined {
+	// The structured stack trace API is implemented by the supported Node runtimes.
+	/* eslint-disable unicorn/no-nonstandard-builtin-properties */
+	// eslint-disable-next-line ts/unbound-method
+	const originalPrepareStackTrace = Error.prepareStackTrace
+	const originalStackTraceLimit = Error.stackTraceLimit
+
+	try {
+		Error.stackTraceLimit = Infinity
+		Error.prepareStackTrace = (_error, structuredStackTrace) => structuredStackTrace
+
+		const stackContainer: { stack?: NodeJS.CallSite[] } = {}
+		Error.captureStackTrace(stackContainer, getEslintConfigRootDirectoryFromStack)
+
+		const structuredStack = stackContainer.stack ?? []
+		for (const callSite of structuredStack) {
+			const filePathOrUrl = callSite.getFileName()
+			if (filePathOrUrl === null) {
+				continue
+			}
+
+			const filePath = filePathOrUrl.startsWith('file://')
+				? fileURLToPath(filePathOrUrl)
+				: filePathOrUrl
+			const parsedPath = path.parse(filePath)
+
+			if (ESLINT_CONFIG_FILENAME_REGEX.test(parsedPath.base)) {
+				return parsedPath.dir
+			}
+		}
+	} finally {
+		Error.prepareStackTrace = originalPrepareStackTrace
+		Error.stackTraceLimit = originalStackTraceLimit
+	}
+	/* eslint-enable unicorn/no-nonstandard-builtin-properties */
+
+	return undefined
+}
+
+/** Resolve auto-detection and user overrides for a type-aware config. */
+function resolveTypeAwareOptions(
+	options: OptionsConfig,
+	key: TypeAwareConfigKey,
+	autoEnabled: boolean,
+): { enabled: boolean; ignores: string[] } {
+	const subOptions = resolveSubOptions(options, key)
+	return {
+		enabled: subOptions.typeAware?.enabled ?? autoEnabled,
+		ignores: subOptions.typeAware?.ignores ?? [],
+	}
+}
+
+/** Resolve only the enabled state for a second language in a framework config. */
+function resolveTypeAwareEnabled(
+	options: OptionsConfig,
+	key: 'react' | 'svelte',
+	autoEnabled: boolean,
+): boolean {
+	return resolveSubOptions(options, key).typeAware?.enabled ?? autoEnabled
 }
 
 /**
