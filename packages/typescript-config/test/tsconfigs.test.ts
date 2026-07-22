@@ -1,6 +1,8 @@
+import { execa } from 'execa'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
+import process from 'node:process'
 import ts from 'typescript'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
@@ -70,6 +72,24 @@ describe('base export', () => {
 		expect(parsed.options.target).toBe(ts.ScriptTarget.ES2025)
 		expect(parsed.options.jsx).toBe(ts.JsxEmit.React)
 		expect(parsed.options.noUncheckedIndexedAccess).toBe(true)
+	})
+
+	it('is found by tsc from a nested package without its own config', async () => {
+		const fixture = await createFixture('config-search', {
+			'packages/nested/package.json': '{ "name": "nested", "private": true }\n',
+			'src/index.ts': 'export const value = 1\n',
+			'tsconfig.json': '{ "extends": "@kitschpatrol/typescript-config" }\n',
+		})
+		const typescriptCli = path.resolve(
+			import.meta.dirname,
+			'../../../node_modules/typescript/bin/tsc',
+		)
+		const { stdout } = await execa(process.execPath, [typescriptCli, '--showConfig'], {
+			cwd: path.join(fixture, 'packages/nested'),
+		})
+		const config = JSON.parse(stdout) as { compilerOptions?: { target?: string } }
+
+		expect(config.compilerOptions?.target).toBe('es2025')
 	})
 })
 

@@ -12,6 +12,7 @@ import { parsePrettierOutput } from '../packages/prettier-config/src/command.js'
 import { parseStylelintJsonOutput } from '../packages/stylelint-config/src/command.js'
 import {
 	createTypeScriptLintCommands,
+	createTypeScriptWorkspaceLintCommands,
 	isAstroCheckNoise,
 	isSvelteCheckNoise,
 	parseAstroCheckOutput,
@@ -119,6 +120,89 @@ describe('typescript checker plan', () => {
 			name: 'svelte-check',
 			optionFlags: ['--tsconfig', './tsconfig.json'],
 		})
+	})
+
+	it('runs one plain TypeScript check for an inherited root config', () => {
+		const commands = createTypeScriptWorkspaceLintCommands([
+			{
+				dependencies: new Set(),
+				directory: '/workspace',
+				hasTypeScriptConfig: true,
+			},
+			{
+				dependencies: new Set(),
+				directory: '/workspace/packages/inherited',
+				hasTypeScriptConfig: false,
+			},
+		])
+
+		expect(commands).toHaveLength(1)
+		expect(commands[0]).toMatchObject({ cwdOverride: '/workspace', name: 'tsc' })
+	})
+
+	it('runs framework checkers from the package that declares them', () => {
+		const commands = createTypeScriptWorkspaceLintCommands([
+			{
+				dependencies: new Set(),
+				directory: '/workspace',
+				hasTypeScriptConfig: true,
+			},
+			{
+				dependencies: new Set(['svelte-check']),
+				directory: '/workspace/packages/site',
+				hasTypeScriptConfig: false,
+			},
+		])
+
+		expect(commands).toHaveLength(2)
+		expect(commands[0]).toMatchObject({ cwdOverride: '/workspace', name: 'tsc' })
+		expect(commands[1]).toMatchObject({
+			cwdOverride: '/workspace/packages/site',
+			name: 'svelte-check',
+		})
+	})
+
+	it('runs every package with its own local tsconfig', () => {
+		const commands = createTypeScriptWorkspaceLintCommands([
+			{
+				dependencies: new Set(),
+				directory: '/workspace',
+				hasTypeScriptConfig: false,
+			},
+			{
+				dependencies: new Set(),
+				directory: '/workspace/packages/a',
+				hasTypeScriptConfig: true,
+			},
+			{
+				dependencies: new Set(),
+				directory: '/workspace/packages/b',
+				hasTypeScriptConfig: true,
+			},
+		])
+
+		expect(
+			commands.map((command) => ({
+				cwdOverride: 'cwdOverride' in command ? command.cwdOverride : undefined,
+				name: command.name,
+			})),
+		).toEqual([
+			{ cwdOverride: '/workspace/packages/a', name: 'tsc' },
+			{ cwdOverride: '/workspace/packages/b', name: 'tsc' },
+		])
+	})
+
+	it('keeps a missing-config check when no package has a tsconfig', () => {
+		const commands = createTypeScriptWorkspaceLintCommands([
+			{
+				dependencies: new Set(),
+				directory: '/workspace',
+				hasTypeScriptConfig: false,
+			},
+		])
+
+		expect(commands).toHaveLength(1)
+		expect(commands[0]).toMatchObject({ cwdOverride: '/workspace', name: 'tsc' })
 	})
 })
 

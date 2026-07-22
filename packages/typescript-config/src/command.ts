@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import path from 'node:path'
 import type { Command, CommandDefinition } from '../../../src/command-builder.js'
 import { DESCRIPTION } from '../../../src/command-builder.js'
-import { getPackageDirectory } from '../../../src/path-utilities.js'
+import { findWorkspacePackageDirectories } from '../../../src/path-utilities.js'
 import { isAstroCheckNoise, parseAstroCheckOutput } from './check-adapters/astro.js'
 import { isSvelteCheckNoise, parseSvelteCheckOutput } from './check-adapters/svelte.js'
 import { parseTscOutput } from './check-adapters/tsc.js'
@@ -17,8 +17,7 @@ export { parseTscOutput } from './check-adapters/tsc.js'
  * `svelte-check` or `@astrojs/check` is an explicit signal that it's the
  * intended type checker for the project.
  */
-async function getDeclaredDependencies(): Promise<Set<string>> {
-	const packageDirectory = getPackageDirectory()
+async function getDeclaredDependencies(packageDirectory: string): Promise<Set<string>> {
 	const packageJson = (await fse.readJson(path.join(packageDirectory, 'package.json'))) as {
 		dependencies?: Record<string, string>
 		devDependencies?: Record<string, string>
@@ -29,8 +28,17 @@ async function getDeclaredDependencies(): Promise<Set<string>> {
 	])
 }
 
+export type TypeScriptPackageContext = {
+	dependencies: ReadonlySet<string>
+	directory: string
+	hasTypeScriptConfig: boolean
+}
+
 /** Build the checker plan from package dependency names. */
-export function createTypeScriptLintCommands(dependencies: ReadonlySet<string>): Command[] {
+export function createTypeScriptLintCommands(
+	dependencies: ReadonlySet<string>,
+	cwdOverride = 'package-dir',
+): Command[] {
 	// TSC ignores .astro and .svelte files and can't resolve imports of them
 	// from plain .ts files, so projects that declare the framework-specific
 	// checkers use those instead.
@@ -49,7 +57,7 @@ export function createTypeScriptLintCommands(dependencies: ReadonlySet<string>):
 					optionFlags: ['--json'],
 					parse: parseAstroCheckOutput,
 				},
-				cwdOverride: 'package-dir',
+				cwdOverride,
 				name: 'astro',
 				outputFilter: isAstroCheckNoise,
 				subcommands: ['check'],
@@ -66,7 +74,7 @@ export function createTypeScriptLintCommands(dependencies: ReadonlySet<string>):
 					optionFlags: [...optionFlags, '--output', 'machine-verbose'],
 					parse: parseSvelteCheckOutput,
 				},
-				cwdOverride: 'package-dir',
+				cwdOverride,
 				name: 'svelte-check',
 				optionFlags,
 				outputFilter: isSvelteCheckNoise,
@@ -81,15 +89,51 @@ export function createTypeScriptLintCommands(dependencies: ReadonlySet<string>):
 			collect: {
 				parse: parseTscOutput,
 			},
-			cwdOverride: 'package-dir',
+			cwdOverride,
 			name: 'tsc',
 			optionFlags: ['--noEmit'],
 		},
 	]
 }
 
+/**
+ * Build a monorepo checker plan without repeatedly checking the same inherited
+ * root tsconfig. A package gets its own commands when it has a local
+ * `tsconfig.json` or declares a framework checker that must run from that
+ * package. If no local config exists anywhere, retain the previous behavior by
+ * running from the invocation package so TypeScript can report the missing
+ * configuration.
+ */
+export function createTypeScriptWorkspaceLintCommands(
+	packages: readonly TypeScriptPackageContext[],
+): Command[] {
+	const hasAnyTypeScriptConfig = packages.some(({ hasTypeScriptConfig }) => hasTypeScriptConfig)
+
+	return packages.flatMap(({ dependencies, directory, hasTypeScriptConfig }, index) => {
+		const hasFrameworkChecker =
+			dependencies.has('@astrojs/check') || dependencies.has('svelte-check')
+		const isMissingConfigFallback = !hasAnyTypeScriptConfig && index === 0
+
+		return hasTypeScriptConfig || hasFrameworkChecker || isMissingConfigFallback
+			? createTypeScriptLintCommands(dependencies, directory)
+			: []
+	})
+}
+
 async function generateTypeScriptLintCommands(): Promise<Command[]> {
-	return createTypeScriptLintCommands(await getDeclaredDependencies())
+	const packageDirectories = findWorkspacePackageDirectories()
+	const packages = await Promise.all(
+		packageDirectories.map(async (directory): Promise<TypeScriptPackageContext> => {
+			const [dependencies, hasTypeScriptConfig] = await Promise.all([
+				getDeclaredDependencies(directory),
+				fse.pathExists(path.join(directory, 'tsconfig.json')),
+			])
+
+			return { dependencies, directory, hasTypeScriptConfig }
+		}),
+	)
+
+	return createTypeScriptWorkspaceLintCommands(packages)
 }
 
 export const commandDefinition: CommandDefinition = {
@@ -100,7 +144,6 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			// Resolved lazily so project detection happens at execution time
 			commands: generateTypeScriptLintCommands,
-			// TODO confirm monorepo behavior
 			description: `Run type checking on your project. ${DESCRIPTION.packageRun} ${DESCRIPTION.monorepoRun}`,
 			positionalArgumentMode: 'none',
 			showResolvedCommands: true,
@@ -113,7 +156,6 @@ export const commandDefinition: CommandDefinition = {
 					prettyJsonOutput: true,
 				},
 			],
-			// TODO confirm monorepo behavior
 			description: `Print the TypeScript configuration for the project. ${DESCRIPTION.packageSearch} ${DESCRIPTION.monorepoSearch}`,
 			positionalArgumentMode: 'none',
 		},
