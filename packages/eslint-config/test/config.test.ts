@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import type { TypedFlatConfigItem } from '../src/types.js'
 import { eslintConfig } from '../src/config.js'
-import { disables, js, jsx, svelte, ts, tsx } from '../src/configs/index.js'
+import { disables, js, jsx, md, mdx, svelte, ts, tsx } from '../src/configs/index.js'
 import { sharedScriptConfig } from '../src/configs/shared-js-ts.js'
 import { sharedJsxTsxConfig } from '../src/configs/shared-jsx-tsx.js'
 import { GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS } from '../src/globs.js'
@@ -167,6 +167,44 @@ describe('Svelte config layering', () => {
 		const appConfig = getConfig(configs, 'kp/svelte/sveltekit-app')
 		expect(appConfig.files).toEqual(['src/app.html'])
 		expect(appConfig.rules?.['html/require-title']).toBe('off')
+	})
+})
+
+describe('Markdown and MDX config layering', () => {
+	it('uses the same non-type-aware shared script baseline for code blocks', async () => {
+		const [markdownConfigs, mdxConfigs] = await Promise.all([md(), mdx()])
+
+		for (const config of [
+			getConfig(markdownConfigs, 'kp/markdown/code-blocks'),
+			getConfig(mdxConfigs, 'kp/mdx/code-blocks'),
+		]) {
+			expect(config.languageOptions?.parser).toBe(tsParser)
+			expect(config.plugins?.ts).toBe(sharedScriptConfig.plugins?.ts)
+			expect(getParserOptions(config)).toMatchObject({
+				ecmaFeatures: { impliedStrict: true },
+				projectService: false,
+			})
+			expect(config.rules).toMatchObject({
+				'no-undef': 'off',
+				'ts/await-thenable': 'off',
+				'ts/no-unused-vars': 'off',
+				'unicorn/filename-case': 'off',
+			})
+		}
+	})
+
+	it('uses the plugin flat recommendations for both document formats', async () => {
+		const [markdownConfigs, mdxConfigs] = await Promise.all([md(), mdx()])
+
+		for (const config of [
+			getConfig(markdownConfigs, 'kp/markdown/remark'),
+			getConfig(mdxConfigs, 'kp/mdx/remark'),
+		]) {
+			expect(config.rules).toMatchObject({
+				'mdx/remark': 'warn',
+				'no-unused-expressions': 'error',
+			})
+		}
 	})
 })
 
