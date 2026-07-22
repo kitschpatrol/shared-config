@@ -8764,6 +8764,7 @@ export interface RuleOptions {
 	/**
 	 * Disallow specified modules when loaded by `import`
 	 *
+	 * @deprecated
 	 * @see https://typescript-eslint.io/rules/no-restricted-imports
 	 */
 	'ts/no-restricted-imports'?: Linter.RuleEntry<TsNoRestrictedImports>
@@ -13628,6 +13629,8 @@ type JsdocNormalizeSeeLinks =
 				canonicalForm?: 'pipe' | 'prefix'
 
 				enableFixer?: boolean
+
+				wrapBareUrls?: boolean
 			},
 	  ]
 // ----- jsdoc/prefer-import-tag -----
