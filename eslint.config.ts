@@ -26,6 +26,14 @@ export default eslintConfig(
 				],
 			},
 		},
+		test: {
+			overrides: {
+				'test/expect-expect': [
+					'error',
+					{ assertFunctionNames: ['expect', 'assert', 'expectNoFatalErrors'] },
+				],
+			},
+		},
 		ts: {
 			overrides: {
 				'depend/ban-dependencies': [

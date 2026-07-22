@@ -330,9 +330,6 @@ importers:
       json-stringify-pretty-compact:
         specifier: ^4.0.0
         version: 4.0.0
-      jsonc-eslint-parser:
-        specifier: ^3.1.0
-        version: 3.1.0
       local-pkg:
         specifier: ^1.2.1
         version: 1.2.1

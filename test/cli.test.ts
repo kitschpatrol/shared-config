@@ -87,7 +87,7 @@ describe('CLI basics', () => {
 		expect(stdout).not.toContain('--concurrency')
 	})
 
-	describe.skip('CLI rule configuration', () => {
+	describe.todo('CLI rule configuration', () => {
 		const tempDirectory = './input-copy/'
 
 		beforeEach(async () => {

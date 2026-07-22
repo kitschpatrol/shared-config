@@ -1,6 +1,5 @@
 import pluginJson from 'eslint-plugin-jsonc'
 import pluginJsonPackage from 'eslint-plugin-package-json'
-import * as parserJson from 'jsonc-eslint-parser'
 import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json'
 import type { OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
@@ -15,10 +14,12 @@ import {
 
 export async function json(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {} } = options
+	const files = [GLOB_JSON, GLOB_JSONC, GLOB_JSON5]
 
 	return [
-		// Jsonc plugin
 		{
+			files,
+			language: 'json/x',
 			name: 'kp/json/setup',
 			plugins: {
 				json: pluginJson,
@@ -27,9 +28,6 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		{
 			files: [GLOB_JSON],
-			languageOptions: {
-				parser: parserJson,
-			},
 			name: 'kp/json/rules-json',
 			rules: {
 				...jsonRecommendedWithJsonRules,
@@ -37,9 +35,6 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		{
 			files: [GLOB_JSONC],
-			languageOptions: {
-				parser: parserJson,
-			},
 			name: 'kp/json/rules-jsonc',
 			rules: {
 				...jsonRecommendedWithJsoncRules,
@@ -47,16 +42,13 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		{
 			files: [GLOB_JSON5],
-			languageOptions: {
-				parser: parserJson,
-			},
 			name: 'kp/json/rules-json5',
 			rules: {
 				...jsonRecommendedWithJson5Rules,
 			},
 		},
 		{
-			files: [GLOB_JSON, GLOB_JSONC, GLOB_JSON5],
+			files,
 			name: 'kp/json/rules',
 			rules: {
 				...jsonRecommendedWithJsonCommonRules,
@@ -74,7 +66,6 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
 		},
 		// Package json
 		{
-			// TODO parser situation? Fine since it's already inheriting parser from above?
 			files: ['**/package.json'],
 			name: 'kp/json/rules-package',
 			rules: {

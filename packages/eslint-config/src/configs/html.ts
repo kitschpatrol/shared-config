@@ -6,9 +6,7 @@ import type {
 	OptionsOverridesEmbeddedScripts,
 	TypedFlatConfigItem,
 } from '../types'
-// Extra src to catch html`` templates in JS and TS files
-// TODO what about scripts in html`` templates?
-import { GLOB_HTML, GLOB_MARKDOWN_HTML_CODE, GLOB_MDX_HTML_CODE } from '../globs'
+import { GLOB_HTML, GLOB_MARKDOWN_HTML_CODE, GLOB_MDX_HTML_CODE, GLOB_SRC } from '../globs'
 import { htmlRecommendedRules } from '../presets/html'
 
 // eslint-plugin-html lints scripts inside HTML files
@@ -46,7 +44,10 @@ export async function html(
 			},
 		},
 		{
-			// All files get the rules, to include templates like html`` found in JS and TS files
+			// Markup rules support physical HTML and HTML tagged templates. Template
+			// interpolations remain regular host-language expressions; literal script
+			// bodies are only extracted from physical HTML by eslint-plugin-html.
+			files: [GLOB_HTML, GLOB_SRC],
 			name: 'kp/html',
 			plugins: {
 				html: pluginHtml,
@@ -87,6 +88,14 @@ export async function html(
 				'html/require-meta-viewport': 'error',
 				'html/require-title': 'error',
 				...overrides,
+			},
+			settings: {
+				html: {
+					templateLiterals: {
+						comments: [String.raw`^\s*html\s*$`],
+						tags: ['^html$'],
+					},
+				},
 			},
 		},
 		{

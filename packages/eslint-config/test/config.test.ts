@@ -5,15 +5,34 @@ import { pathToFileURL } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import type { TypedFlatConfigItem } from '../src/types.js'
 import { eslintConfig } from '../src/config.js'
-import { astro, disables, js, jsx, md, mdx, svelte, ts, tsx } from '../src/configs/index.js'
+import {
+	astro,
+	disables,
+	html,
+	js,
+	json,
+	jsx,
+	md,
+	mdx,
+	svelte,
+	test as testConfig,
+	ts,
+	tsx,
+} from '../src/configs/index.js'
 import { sharedScriptConfig } from '../src/configs/shared-js-ts.js'
 import { sharedJsxTsxConfig } from '../src/configs/shared-jsx-tsx.js'
 import {
 	GLOB_ASTRO,
 	GLOB_ASTRO_TS,
+	GLOB_HTML,
+	GLOB_JSON,
+	GLOB_JSON5,
+	GLOB_JSONC,
+	GLOB_SRC,
 	GLOB_SVELTE,
 	GLOB_SVELTE_JS,
 	GLOB_SVELTE_TS,
+	GLOB_TESTS,
 } from '../src/globs.js'
 import { tsParser } from '../src/parsers.js'
 
@@ -271,6 +290,61 @@ describe('Markdown and MDX config layering', () => {
 				'no-unused-expressions': 'error',
 			})
 		}
+	})
+})
+
+describe('HTML, JSON, and test config ownership', () => {
+	it('scopes HTML structure rules to documents and tagged source templates', async () => {
+		const configs = await html()
+		const scriptConfig = getConfig(configs, 'kp/html-script')
+		const rulesConfig = getConfig(configs, 'kp/html')
+
+		expect(scriptConfig.files).toEqual([GLOB_HTML])
+		expect(rulesConfig.files).toEqual([GLOB_HTML, GLOB_SRC])
+		expect(rulesConfig.settings).toMatchObject({
+			html: {
+				templateLiterals: {
+					comments: [String.raw`^\s*html\s*$`],
+					tags: ['^html$'],
+				},
+			},
+		})
+	})
+
+	it('assigns every JSON variant to the JSONC language explicitly', async () => {
+		const configs = await json()
+		const setupConfig = getConfig(configs, 'kp/json/setup')
+
+		expect(setupConfig.files).toEqual([GLOB_JSON, GLOB_JSONC, GLOB_JSON5])
+		expect(setupConfig.language).toBe('json/x')
+		for (const name of [
+			'kp/json/rules-json',
+			'kp/json/rules-jsonc',
+			'kp/json/rules-json5',
+			'kp/json/rules-package',
+		]) {
+			expect(getConfig(configs, name).languageOptions?.parser).toBeUndefined()
+		}
+	})
+
+	it('provides the complete installed Vitest global set as read-only', async () => {
+		const configs = await testConfig()
+		const setupConfig = getConfig(configs, 'kp/test/setup')
+		const rulesConfig = getConfig(configs, 'kp/test/rules')
+		const testGlobals = rulesConfig.languageOptions?.globals ?? {}
+
+		expect(setupConfig.settings).toMatchObject({ vitest: { typecheck: true } })
+		expect(rulesConfig.files).toEqual(GLOB_TESTS)
+		expect(testGlobals).toMatchObject({
+			afterAll: false,
+			beforeAll: false,
+			describe: false,
+			expect: false,
+			onTestFailed: false,
+			onTestFinished: false,
+			vi: false,
+		})
+		expect(Object.values(testGlobals).every((value) => value === false)).toBe(true)
 	})
 })
 

@@ -39,10 +39,10 @@ export async function test(
 			},
 		},
 		{
-			files: [GLOB_TESTS],
+			files: GLOB_TESTS,
 			languageOptions: {
 				globals: {
-					// TODO more globals?
+					// Matches the installed Vitest environment while keeping globals read-only.
 					...globals.vitest,
 				},
 			},
