@@ -9,6 +9,7 @@ import { getChildColorEnvironment } from '../../../src/color-utilities.js'
 const packageRoot = path.resolve(import.meta.dirname, '..')
 const cliSource = path.join(packageRoot, 'src/cli.ts')
 const tsxImport = import.meta.resolve('tsx')
+const REPORTED_CONFIG_PATH_REGEX = /Found mdat readme configuration at "([^"]+)"/v
 
 let tempDirectory: string
 
@@ -46,7 +47,9 @@ async function expectPrintConfig(ruleName: string, configPath: string): Promise<
 	)
 
 	expect(exitCode).toBe(0)
-	expect(stdout).toContain(`Found mdat readme configuration at "${resolvedConfigPath}"`)
+	const reportedConfigPath = REPORTED_CONFIG_PATH_REGEX.exec(stdout)?.[1]
+	expect(reportedConfigPath).toBeDefined()
+	expect(await fs.realpath(reportedConfigPath!)).toBe(resolvedConfigPath)
 	expect(stdout).toContain(`"${ruleName}"`)
 	// Built-in defaults prove print-config returns the resolved config, not just user input.
 	expect(stdout).toContain('"title"')

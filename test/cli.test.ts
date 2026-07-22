@@ -174,7 +174,7 @@ describe('CLI basics', () => {
 			expect(report.summary.errors + report.summary.warnings).toBeGreaterThan(0)
 			expect(
 				report.diagnostics.some((diagnostic) =>
-					diagnostic.file?.startsWith(`${tempDirectoryRelative}/`),
+					diagnostic.file?.startsWith(`${tempDirectoryRelative}${path.sep}`),
 				),
 			).toBe(true)
 		})

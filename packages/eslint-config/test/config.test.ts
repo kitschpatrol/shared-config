@@ -81,6 +81,11 @@ function getProjectService(config: TypedFlatConfigItem): unknown {
 	return getParserOptions(config).projectService
 }
 
+function expectPathsToBeEquivalent(actual: unknown, expected: string): void {
+	expect(actual).toBeTypeOf('string')
+	expect(path.normalize(actual as string)).toBe(path.normalize(expected))
+}
+
 describe('core script config layering', () => {
 	it('extends the complete shared script config for JSX and TSX', async () => {
 		const sharedConfigProperties = Object.fromEntries(
@@ -439,7 +444,8 @@ describe('ESLint 10 config lookup compatibility', () => {
 		// The repository cwd has checkJs enabled. The selected nested config does not.
 		expect(getProjectService(getConfig(configs, 'kp/js/rules'))).toBe(false)
 		expect(getProjectService(getConfig(configs, 'kp/ts/rules'))).toBe(true)
-		expect(getParserOptions(getConfig(configs, 'kp/ts/rules')).tsconfigRootDir).toBe(
+		expectPathsToBeEquivalent(
+			getParserOptions(getConfig(configs, 'kp/ts/rules')).tsconfigRootDir,
 			projectDirectory,
 		)
 	})
@@ -490,13 +496,13 @@ describe('framework type-aware propagation', () => {
 
 		const svelteScripts = getConfig(configs, 'kp/svelte/scripts')
 		expect(getProjectService(svelteScripts)).toBe(true)
-		expect(getParserOptions(svelteScripts).tsconfigRootDir).toBe(projectDirectory)
+		expectPathsToBeEquivalent(getParserOptions(svelteScripts).tsconfigRootDir, projectDirectory)
 		expect(getConfig(configs, 'kp/svelte/disable-type-aware-by-language').files).toEqual([
 			'**/*.svelte.js',
 		])
 
 		const astroComponent = getConfig(configs, 'kp/astro/component')
 		expect(getParserOptions(astroComponent).project).toBe(true)
-		expect(getParserOptions(astroComponent).tsconfigRootDir).toBe(projectDirectory)
+		expectPathsToBeEquivalent(getParserOptions(astroComponent).tsconfigRootDir, projectDirectory)
 	})
 })
