@@ -38,28 +38,6 @@ import { generatePerfectionistSortConfig } from '../utilities'
 
 // ---------
 
-/**
- * Recommended rules from the readme, but no preset config is exported from the
- * plugin. Using built-in approach instead pending
- * https://github.com/sweepline/eslint-plugin-unused-imports/issues/50 TODO What
- * about react?
- *
- * @see https://github.com/sweepline/eslint-plugin-unused-imports
- */
-// const kpUnusedImportsRules: Rules = {
-//   'no-unused-vars': 'off', // Or "@typescript-eslint/no-unused-vars": "off",
-//   'unused-imports/no-unused-imports': 'error',
-//   'unused-imports/no-unused-vars': [
-//     'warn',
-//     {
-//       args: 'after-used',
-//       argsIgnorePattern: '^_',
-//       vars: 'all',
-//       varsIgnorePattern: '^_',
-//     },
-//   ],
-// }
-
 const kpSharedDisableTypeCheckedRules: Rules = {
 	'jsdoc/check-tag-names': ['error', { typed: false }],
 	'jsdoc/no-types': 'off',
