@@ -105,8 +105,7 @@ export const sharedCspellConfig: CspellConfig = {
 	languageSettings: [
 		{
 			ignoreRegExpList: [
-				// TODO does regex really need to be global?
-				'/^```(?:.|\\s)+?^```/mig', // Code fences
+				'/^```[\\s\\S]+?^```/m', // Code fences; CSpell adds the required global flag
 				String.raw`\$\$.*?\$\$`, // Ignore display MathJax $$...$$
 				String.raw`\$[^$\n]*\$`, // Ignore inline MathJax $...$
 				// False negatives...
