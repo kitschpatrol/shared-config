@@ -32,6 +32,13 @@ export async function js(
 				...overrides,
 			},
 		},
+		{
+			files: ['**/*.cjs'],
+			name: 'kp/js/cjs',
+			rules: {
+				'ts/no-require-imports': 'off',
+			},
+		},
 		enabled && ignores.length > 0
 			? {
 					files: ignores,

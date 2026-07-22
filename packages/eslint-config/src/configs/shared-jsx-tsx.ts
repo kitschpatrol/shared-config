@@ -7,7 +7,7 @@ import { sharedScriptConfig } from './shared-js-ts'
  * Shared JSX/TSX configuration "extends" sharedScriptConfig
  */
 export const sharedJsxTsxConfig: TypedFlatConfigItem = {
-	// TODO inherit from ...sharedScriptConfig?
+	...sharedScriptConfig,
 	plugins: {
 		...sharedScriptConfig.plugins,
 		'jsx-a11y': pluginJsxA11y,

@@ -5,10 +5,14 @@ import { pathToFileURL } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import type { TypedFlatConfigItem } from '../src/types.js'
 import { eslintConfig } from '../src/config.js'
+import { disables, js, jsx, ts, tsx } from '../src/configs/index.js'
+import { sharedScriptConfig } from '../src/configs/shared-js-ts.js'
+import { sharedJsxTsxConfig } from '../src/configs/shared-jsx-tsx.js'
 
 let tempDirectory: string
 
 type ParserOptions = {
+	ecmaFeatures?: unknown
 	project?: unknown
 	projectService?: unknown
 	tsconfigRootDir?: unknown
@@ -46,6 +50,57 @@ function getParserOptions(config: TypedFlatConfigItem): ParserOptions {
 function getProjectService(config: TypedFlatConfigItem): unknown {
 	return getParserOptions(config).projectService
 }
+
+describe('core script config layering', () => {
+	it('extends the complete shared script config for JSX and TSX', async () => {
+		const sharedConfigProperties = Object.fromEntries(
+			Object.entries(sharedScriptConfig).filter(([key]) => key !== 'plugins' && key !== 'rules'),
+		)
+		expect(sharedJsxTsxConfig).toMatchObject(sharedConfigProperties)
+		expect(sharedJsxTsxConfig.plugins).toMatchObject(sharedScriptConfig.plugins ?? {})
+		expect(sharedJsxTsxConfig.plugins?.ts).toBe(sharedScriptConfig.plugins?.ts)
+		expect(sharedJsxTsxConfig.plugins?.['jsx-a11y']).toBeDefined()
+		expect(sharedJsxTsxConfig.rules?.['no-await-in-loop']).toBe('off')
+		expect(sharedJsxTsxConfig.rules?.['jsx-a11y/alt-text']).toBeDefined()
+
+		const [jsxConfigs, tsxConfigs] = await Promise.all([
+			jsx({ typeAware: { enabled: false } }),
+			tsx({ typeAware: { enabled: false } }),
+		])
+		for (const config of [
+			getConfig(jsxConfigs, 'kp/jsx/rules'),
+			getConfig(tsxConfigs, 'kp/tsx/rules'),
+		]) {
+			expect(config.plugins?.ts).toBe(sharedScriptConfig.plugins?.ts)
+			expect(config.plugins?.['jsx-a11y']).toBeDefined()
+			expect(getParserOptions(config).ecmaFeatures).toMatchObject({ jsx: true })
+		}
+	})
+
+	it('keeps CJS overrides with the JavaScript config', async () => {
+		const jsConfigs = await js({ typeAware: { enabled: false } })
+		const cjsConfig = getConfig(jsConfigs, 'kp/js/cjs')
+		expect(cjsConfig.files).toEqual(['**/*.cjs'])
+		expect(cjsConfig.rules?.['ts/no-require-imports']).toBe('off')
+
+		const finalConfigs = await disables()
+		expect(finalConfigs.some((config) => config.name === 'kp/disables/cjs')).toBe(false)
+	})
+
+	it('folds declaration-file overrides into the TypeScript config', async () => {
+		const tsConfigs = await ts({ typeAware: { enabled: false } })
+		const declarationConfig = getConfig(tsConfigs, 'kp/ts/dts')
+		expect(declarationConfig.files).toEqual(['**/*.d.?([cm])ts'])
+		expect(declarationConfig.rules).toMatchObject({
+			'eslint-comments/no-unlimited-disable': 'off',
+			'import/no-duplicates': 'off',
+			'no-restricted-syntax': 'off',
+		})
+
+		const finalConfigs = await disables()
+		expect(finalConfigs.some((config) => config.name === 'kp/disables/dts')).toBe(false)
+	})
+})
 
 describe('type-aware auto-detection', () => {
 	it('disables typed linting when no tsconfig is found', async () => {

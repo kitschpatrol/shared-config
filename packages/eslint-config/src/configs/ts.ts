@@ -34,6 +34,9 @@ export async function ts(
 			name: 'kp/ts/dts',
 			rules: {
 				...xoTypescriptDtsRules,
+				'eslint-comments/no-unlimited-disable': 'off',
+				'import/no-duplicates': 'off',
+				'no-restricted-syntax': 'off',
 			},
 		},
 		enabled && ignores.length > 0
