@@ -35056,8 +35056,8 @@ type Yoda =
 // Names of all the configs
 export type ConfigNames =
 	| 'kp/astro/setup'
+	| 'kp/astro/component'
 	| 'kp/astro/rules'
-	| 'kp/astro/script-js'
 	| 'kp/astro/script-ts'
 	| 'kp/disables/stylelint-config'
 	| 'kp/disables/prettier'

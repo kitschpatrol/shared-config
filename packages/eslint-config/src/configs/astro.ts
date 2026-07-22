@@ -4,10 +4,9 @@ import type {
 	OptionsOverridesEmbeddedScripts,
 	OptionsTsconfigRootDirectory,
 	OptionsTypeAware,
-	Rules,
 	TypedFlatConfigItem,
 } from '../types'
-import { GLOB_ASTRO, GLOB_ASTRO_JS, GLOB_ASTRO_TS } from '../globs'
+import { GLOB_ASTRO, GLOB_ASTRO_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { astroJsxA11yRecommendedRules, astroRecommendedRules } from '../presets'
 import { interopDefault } from '../utilities'
@@ -22,16 +21,11 @@ export async function astro(
 	const { overrides = {}, overridesEmbeddedScripts = {}, tsconfigRootDirectory } = options
 	const { enabled = true, ignores = [] } = options.typeAware ?? {}
 
-	// Configs that can be disabled import dependencies dynamically?
-	// TODO worth it?
+	// Keep the framework parser and plugin out of the startup path unless Astro is enabled.
 	const [pluginAstro, parserAstro] = await Promise.all([
 		interopDefault(import('eslint-plugin-astro')),
 		interopDefault(import('astro-eslint-parser')),
 	] as const)
-
-	const astroCustomEmbeddedScriptsRules: Rules = {
-		'unicorn/filename-case': 'off',
-	}
 
 	return [
 		{
@@ -41,12 +35,11 @@ export async function astro(
 			},
 		},
 		{
-			// Includes plugins...
 			...sharedScriptConfig,
 			files: [GLOB_ASTRO],
 			languageOptions: {
 				globals: {
-					...globals.nodeBuiltin, // TODO plugin itself uses .node in its config?
+					...globals.node,
 					...pluginAstro.environments.astro.globals,
 				},
 				parser: parserAstro,
@@ -55,23 +48,24 @@ export async function astro(
 					parser: tsParser,
 					...(enabled
 						? {
-								// Astro maps projectService to project: true internally.
+								// Astro's ESLint parser uses `project: true`; it cannot consume project services.
 								project: true,
+								projectService: undefined,
 								...(tsconfigRootDirectory !== undefined && {
 									tsconfigRootDir: tsconfigRootDirectory,
 								}),
 							}
 						: {
 								project: undefined,
+								projectService: false,
 							}),
 				},
+				sourceType: 'module',
 			},
-			name: 'kp/astro/rules',
+			name: 'kp/astro/component',
 			processor: 'astro/client-side-ts',
 			rules: {
 				...sharedScriptConfig.rules,
-				...astroRecommendedRules,
-				...astroJsxA11yRecommendedRules,
 				...(!enabled && sharedScriptDisableTypeCheckedRules),
 				'perfectionist/sort-intersection-types': [
 					'error',
@@ -91,11 +85,15 @@ export async function astro(
 						],
 					},
 				],
-				// TODO right spot?
-				// 'ts/no-unsafe-assignment': 'off', // Crashing
-				'ts/no-unsafe-return': 'off', // Happens in templates
-				// Astro components are usually PascalCase,
-				// but when used as pages they are kebab-case
+			},
+		},
+		{
+			files: [GLOB_ASTRO],
+			name: 'kp/astro/rules',
+			rules: {
+				...astroRecommendedRules,
+				...astroJsxA11yRecommendedRules,
+				// Astro components are usually PascalCase, while pages may be kebab-case.
 				'unicorn/filename-case': [
 					'error',
 					{
@@ -125,47 +123,27 @@ export async function astro(
 					},
 				}
 			: {},
-		// Via https://github.com/ota-meshi/eslint-plugin-astro/blob/main/src/configs/flat/base.ts#L56
 		{
-			files: [GLOB_ASTRO_JS],
-			languageOptions: {
-				ecmaVersion: 2023,
-				globals: {
-					...globals.browser,
-				},
-				parser: undefined,
-				sourceType: 'module',
-			},
-			// Define the configuration for `<script>` tag.
-			// Script in `<script>` is assigned a virtual file name with the `.js` extension.
-			// This is unreachable since we use `client-side-ts` processor?
-			name: 'kp/astro/script-js',
-			rules: {
-				...sharedScriptDisableTypeCheckedRules,
-				...astroCustomEmbeddedScriptsRules,
-				...overridesEmbeddedScripts,
-			},
-		},
-		{
+			// `client-side-ts` emits every client script with a virtual `.ts` filename.
+			...sharedScriptConfig,
 			files: [GLOB_ASTRO_TS],
 			languageOptions: {
-				ecmaVersion: 2023,
+				ecmaVersion: 'latest',
 				globals: {
 					...globals.browser,
 				},
 				parser: tsParser,
-				// No typed rules?
 				parserOptions: {
+					project: null,
 					projectService: false,
 				},
 				sourceType: 'module',
 			},
-			// Define the configuration for `<script>` tag when using `client-side-ts` processor.
-			// Script in `<script>` is assigned a virtual file name with the `.ts` extension.
 			name: 'kp/astro/script-ts',
 			rules: {
+				...sharedScriptConfig.rules,
 				...sharedScriptDisableTypeCheckedRules,
-				...astroCustomEmbeddedScriptsRules,
+				'unicorn/filename-case': 'off',
 				...overridesEmbeddedScripts,
 			},
 		},

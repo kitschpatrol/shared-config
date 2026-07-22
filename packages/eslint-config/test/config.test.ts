@@ -5,10 +5,16 @@ import { pathToFileURL } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import type { TypedFlatConfigItem } from '../src/types.js'
 import { eslintConfig } from '../src/config.js'
-import { disables, js, jsx, md, mdx, svelte, ts, tsx } from '../src/configs/index.js'
+import { astro, disables, js, jsx, md, mdx, svelte, ts, tsx } from '../src/configs/index.js'
 import { sharedScriptConfig } from '../src/configs/shared-js-ts.js'
 import { sharedJsxTsxConfig } from '../src/configs/shared-jsx-tsx.js'
-import { GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS } from '../src/globs.js'
+import {
+	GLOB_ASTRO,
+	GLOB_ASTRO_TS,
+	GLOB_SVELTE,
+	GLOB_SVELTE_JS,
+	GLOB_SVELTE_TS,
+} from '../src/globs.js'
 import { tsParser } from '../src/parsers.js'
 
 let tempDirectory: string
@@ -104,6 +110,66 @@ describe('core script config layering', () => {
 
 		const finalConfigs = await disables()
 		expect(finalConfigs.some((config) => config.name === 'kp/disables/dts')).toBe(false)
+	})
+})
+
+describe('Astro config layering', () => {
+	it('separates components from non-type-aware client scripts', async () => {
+		const configs = await astro({
+			overridesEmbeddedScripts: { 'no-undef': 'error' },
+			tsconfigRootDirectory: tempDirectory,
+			typeAware: { enabled: false },
+		})
+
+		const componentConfig = getConfig(configs, 'kp/astro/component')
+		expect(componentConfig.files).toEqual([GLOB_ASTRO])
+		expect(componentConfig.processor).toBe('astro/client-side-ts')
+		expect(componentConfig.languageOptions?.sourceType).toBe('module')
+		expect(componentConfig.languageOptions?.globals).toMatchObject({
+			// eslint-disable-next-line ts/naming-convention
+			Astro: false,
+			require: false,
+		})
+		expect(getParserOptions(componentConfig)).toMatchObject({
+			extraFileExtensions: ['.astro'],
+			parser: tsParser,
+			project: undefined,
+			projectService: false,
+		})
+		expect(componentConfig.rules?.['ts/no-unsafe-return']).toBe('off')
+
+		const scriptConfig = getConfig(configs, 'kp/astro/script-ts')
+		expect(scriptConfig.files).toEqual([GLOB_ASTRO_TS])
+		expect(scriptConfig.languageOptions?.parser).toBe(tsParser)
+		expect(scriptConfig.languageOptions?.globals).toMatchObject({ document: false })
+		expect(getParserOptions(scriptConfig)).toMatchObject({
+			projectService: false,
+		})
+		expect(getParserOptions(scriptConfig).project).toBeNull()
+		expect(scriptConfig.plugins?.ts).toBe(sharedScriptConfig.plugins?.ts)
+		expect(scriptConfig.rules).toMatchObject({
+			'no-undef': 'error',
+			'ts/await-thenable': 'off',
+			'unicorn/filename-case': 'off',
+		})
+		expect(configs.some((config) => config.name === 'kp/astro/script-js')).toBe(false)
+
+		const typedConfigs = await astro({ typeAware: { enabled: true } })
+		expect(getConfig(typedConfigs, 'kp/astro/component').rules?.['ts/no-unsafe-return']).toBe(
+			sharedScriptConfig.rules?.['ts/no-unsafe-return'],
+		)
+	})
+
+	it('keeps template recommendations and overrides in the final component layer', async () => {
+		const configs = await astro({
+			overrides: { 'astro/no-exports-from-components': 'off' },
+			typeAware: { enabled: false },
+		})
+		const rulesConfig = getConfig(configs, 'kp/astro/rules')
+
+		expect(rulesConfig.files).toEqual([GLOB_ASTRO])
+		expect(rulesConfig.rules?.['astro/missing-client-only-directive-value']).toBe('error')
+		expect(rulesConfig.rules?.['astro/no-exports-from-components']).toBe('off')
 	})
 })
 
@@ -319,9 +385,9 @@ describe('framework type-aware propagation', () => {
 			tsconfigRootDirectory: projectDirectory,
 		})
 
-		const astroRules = getConfig(configs, 'kp/astro/rules')
-		expect(getParserOptions(astroRules).project).toBeUndefined()
-		expect(astroRules.rules?.['ts/await-thenable']).toBe('off')
+		const astroComponent = getConfig(configs, 'kp/astro/component')
+		expect(getParserOptions(astroComponent).project).toBeUndefined()
+		expect(astroComponent.rules?.['ts/await-thenable']).toBe('off')
 
 		const reactRules = getConfig(configs, 'kp/react/rules')
 		expect(reactRules.rules?.['react/no-leaked-conditional-rendering']).toBe('off')
@@ -355,8 +421,8 @@ describe('framework type-aware propagation', () => {
 			'**/*.svelte.js',
 		])
 
-		const astroRules = getConfig(configs, 'kp/astro/rules')
-		expect(getParserOptions(astroRules).project).toBe(true)
-		expect(getParserOptions(astroRules).tsconfigRootDir).toBe(projectDirectory)
+		const astroComponent = getConfig(configs, 'kp/astro/component')
+		expect(getParserOptions(astroComponent).project).toBe(true)
+		expect(getParserOptions(astroComponent).tsconfigRootDir).toBe(projectDirectory)
 	})
 })

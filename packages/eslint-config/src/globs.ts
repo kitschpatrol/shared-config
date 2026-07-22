@@ -29,7 +29,6 @@ export const GLOB_XML = '**/*.xml'
 export const GLOB_SVG = '**/*.svg'
 export const GLOB_HTML = '**/*.htm?(l)'
 export const GLOB_ASTRO = '**/*.astro'
-export const GLOB_ASTRO_JS = `${GLOB_ASTRO}/*.js`
 export const GLOB_ASTRO_TS = `${GLOB_ASTRO}/*.ts`
 export const GLOB_GRAPHQL = '**/*.{g,graph}ql'
 
