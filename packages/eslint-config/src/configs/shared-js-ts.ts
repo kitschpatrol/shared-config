@@ -43,6 +43,9 @@ const kpSharedDisableTypeCheckedRules: Rules = {
 	'jsdoc/no-types': 'off',
 }
 
+/** XO's `capitalized-comments` ignore pattern, extended with local exceptions. */
+const capitalizedCommentsIgnorePattern = String.raw`pragma|\w{1,40}[\-:]ignore|ignore|webpack\w+:|c8|v8|type-coverage:|const|let|var|import|export|function |class |if|for \(|while \(|switch \(|await|console\.log|cspell|else|eslint|macOS|prettier-ignore|svelte-ignore`
+
 /** Shared by several perfectionist rules */
 const kpPerfectionistSortConfig = [
 	// Note precedence sensitivity...
@@ -149,10 +152,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 			{
 				ignoreConsecutiveComments: true,
 				ignoreInlineComments: true,
-				// Forgive some additional common patterns arising from temporarily commenting out lines of code
-				ignorePattern: String.raw`await|c8|console\.log|const|cspell|else|eslint|export|if|ignore|import|let|macOS|pragma|prettier-ignore|svelte-ignore|type-coverage:|var|webpack\w+:`,
-				// TODO consider XO's preset....
-				//ignorePattern: String.raw`pragma|\w{1,40}[\-:]ignore|ignore|webpack\w+:|c8|v8|type-coverage:|const |let |var |import |export |function |class |if \(|for \(|while \(|switch \(`,
+				// Forgive XO's generated-code patterns plus common locally encountered directives and commented-out code
+				ignorePattern: capitalizedCommentsIgnorePattern,
 			},
 		],
 		// Cherry-picked e18e rules that don't overlap with unicorn/depend/ts
