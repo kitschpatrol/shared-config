@@ -19,6 +19,11 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       # Checks for broken links in all the repository's Markdown files
       - name: Check Repository Links
         uses: JustinBeckwith/linkinator-action@b01779287d9a8423ef7d222fb1c3ba5a2b11ac58 # v2.4.4
@@ -29,6 +34,7 @@ jobs:
           retryErrors: true
           verbosity: info
           statusCodes: '{"429":"skip"}'
+
       # Checks for broken links on the repository's website
       # Only runs if GitHub website link does NOT point back to the GitHub repository itself
       - name: Check Website Links
