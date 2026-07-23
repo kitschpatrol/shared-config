@@ -256,7 +256,7 @@ This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-confi
 - [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [@sxzz/eslint-config](https://github.com/sxzz/eslint-config)
 - [linting-setup-using-eslint](https://chris.lu/web_development/tutorials/next-js-static-mdx-blog/linting-setup-using-eslint)
-- On [prefer-repository-shorthand](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/223)
+- On [prefer-repository-shorthand](https://github.com/michaelfaith/eslint-plugin-package-json/issues/223)
 
 <!-- license -->
 

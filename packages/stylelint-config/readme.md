@@ -107,7 +107,7 @@ Additional tool-specific ignores may be added to the config via the [`ignoreFile
 
 #### Ignoring code
 
-See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code).
+See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code/).
 
 Blocks:
 
