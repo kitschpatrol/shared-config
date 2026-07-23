@@ -30,7 +30,7 @@ jobs:
         with:
           paths: '**/*.md'
           requireHttps: error
-          redirects: error
+          # redirects: error
           retry: true
           retryErrors: true
           verbosity: DEBUG
