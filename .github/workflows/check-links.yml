@@ -33,7 +33,7 @@ jobs:
           redirects: warn
           retry: true
           retryErrors: true
-          verbosity: INFO
+          verbosity: DEBUG
           statusCodes: '{"429":"skip"}'
 
       # Checks for broken links on the repository's website
