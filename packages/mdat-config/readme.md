@@ -72,7 +72,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 "Fix" in this case is a slight misnomer for consistency with the other shared-config tools.
 
-It runs `mdat expand` to expand placeholder comments in your readme.md using the bundled [`mdat`](https://github.com/kitschpatrol/mdat/blob/main/packages/mdat/readme.md) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `mdat.config.ts` file.
+It runs `mdat expand` to expand placeholder comments in your readme.md using the bundled [`mdat`](https://github.com/kitschpatrol/mdat/blob/main/readme.md) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `mdat.config.ts` file.
 
 ### Configuration
 

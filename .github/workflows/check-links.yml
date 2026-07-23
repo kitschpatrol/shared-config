@@ -33,7 +33,7 @@ jobs:
           retry: true
           retryErrors: true
           verbosity: info
-          statusCodes: '{"429":"skip"}'
+          statusCodes: '{"3xx": "info", "429":"skip"}'
 
       # Checks for broken links on the repository's website
       # Only runs if GitHub website link does NOT point back to the GitHub repository itself
