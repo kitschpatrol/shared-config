@@ -103,7 +103,7 @@ pnpm exec ksc-stylelint init --location package
 
 Ignores all files in `.gitignore` by default.
 
-Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure#ignorefiles) key.
+Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure/#ignorefiles) key.
 
 #### Ignoring code
 

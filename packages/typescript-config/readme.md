@@ -105,7 +105,7 @@ See the `tsconfig.json` [`exclude`](https://www.typescriptlang.org/tsconfig/#exc
 
 ### Ignoring code
 
-See [the TypeScript directive comments documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#improved-checking-for-js-files) for more details.
+See [the TypeScript directive comments documentation](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check) for more details.
 
 Entire files (at top):
 
