@@ -6,8 +6,8 @@
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/typescript-config](https://img.shields.io/npm/v/@kitschpatrol/typescript-config.svg)](https://npmjs.com/package/@kitschpatrol/typescript-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
+[![NPM Package @kitschpatrol/typescript-config](https://img.shields.io/npm/v/@kitschpatrol/typescript-config.svg)](https://www.npmjs.com/package/@kitschpatrol/typescript-config)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 
 <!-- /badges -->
 

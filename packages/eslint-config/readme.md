@@ -6,8 +6,8 @@
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/eslint-config](https://img.shields.io/npm/v/@kitschpatrol/eslint-config.svg)](https://npmjs.com/package/@kitschpatrol/eslint-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
+[![NPM Package @kitschpatrol/eslint-config](https://img.shields.io/npm/v/@kitschpatrol/eslint-config.svg)](https://www.npmjs.com/package/@kitschpatrol/eslint-config)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 
 <!-- /badges -->
 
