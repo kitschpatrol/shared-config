@@ -365,7 +365,7 @@ Each tool package's `init` (invoked by `ksc init`) also contributes granular tas
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
 
 The tasks share a problem matcher owner, so the panel reflects the most recent run instead of stacking duplicates across tasks. Existing `tasks.json` files are merged by task label: your own tasks are left alone, and same-label `ksc` tasks are updated in place.
 
