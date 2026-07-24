@@ -87,7 +87,7 @@ There are two options for authenticating the release workflow action:
 
 If you want releases to come from your account instead of `github_actions`, then:
 
-1. Create a [fine-grained personal access token](https://github.com/settings/tokens?type=beta) in your GitHub account with the following permissions:
+1. Create a [fine-grained personal access token](https://github.com/settings/personal-access-tokens) in your GitHub account with the following permissions:
 
    | Permission     | Access         |
    | -------------- | -------------- |
@@ -99,7 +99,7 @@ If you want releases to come from your account instead of `github_actions`, then
 
    You can do this through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`.
 
-   Alternately, you can do this locally with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
+   Alternately, you can do this locally with the [GitHub CLI](https://cli.github.com) and a credential manager like [1Password CLI](https://www.1password.dev/cli/get-started):
 
    ```sh
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
@@ -227,7 +227,7 @@ If you're using the complete [@kitschpatrol/shared-config](https://github.com/ki
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every reported issue, pointing to the offending file, line, and column.
 
 The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
 

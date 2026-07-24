@@ -72,7 +72,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 "Fix" in this case is a slight misnomer for consistency with the other shared-config tools.
 
-It runs `mdat expand` to expand placeholder comments in your readme.md using the bundled [`mdat`](https://github.com/kitschpatrol/mdat/blob/main/packages/mdat/readme.md) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `mdat.config.ts` file.
+It runs `mdat expand` to expand placeholder comments in your readme.md using the bundled [`mdat`](https://github.com/kitschpatrol/mdat/blob/main/readme.md) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `mdat.config.ts` file.
 
 ### Configuration
 
@@ -205,7 +205,7 @@ If you're using the complete [@kitschpatrol/shared-config](https://github.com/ki
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every reported issue, pointing to the offending file, line, and column.
 
 The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
 

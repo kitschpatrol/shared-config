@@ -1,7 +1,7 @@
 # 🔬 @kitschpatrol/shared-config
 
-[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://www.npmjs.com/package/@kitschpatrol/shared-config)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
 
 **A collection of shared configurations, linters, and formatting tools for TypeScript projects. All managed as a single dependency. All invoked via a single CLI command.**
@@ -177,7 +177,7 @@ pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add
 
 5. Set up GitHub action credentials (if desired)
 
-   The GitHub actions included in @kitschpatrol/repo-config require permissions to create releases and update your repository metadata. You can add these through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`, or with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
+   The GitHub actions included in @kitschpatrol/repo-config require permissions to create releases and update your repository metadata. You can add these through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`, or with the [GitHub CLI](https://cli.github.com) and a credential manager like [1Password CLI](https://www.1password.dev/cli/get-started):
 
    ```sh
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
@@ -349,7 +349,7 @@ Each tool package's `init` (invoked by `ksc init`) also contributes granular tas
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
 
 The tasks share a problem matcher owner, so the panel reflects the most recent run instead of stacking duplicates across tasks. Existing `tasks.json` files are merged by task label: your own tasks are left alone, and same-label `ksc` tasks are updated in place.
 
@@ -401,7 +401,7 @@ To tell git to ignore changes to the placeholders, run `pnpm run bin-ignore`.
 
 For local development via `pnpm`, use `file:` dependency protocol instead of `link:`
 
-Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style handling to ESLint instead of Prettier.
+Something to investigate: An [approach](https://github.com/antfu/eslint-config#ide-support-auto-fix-on-save) to ignoring style rules in VS Code, and possibly migrate all style handling to ESLint instead of Prettier.
 
 ## Background
 
@@ -432,7 +432,7 @@ More recently, the [Vite+ project / `vp` cli tool](https://viteplus.dev/) seems 
 - [neostandard](https://github.com/neostandard/neostandard)
 - [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
 - [qlty](https://github.com/qltysh/qlty) (Multi-language.)
-- [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
+- [routine-npm-packages](https://github.com/kachkaev/reusable-stuff) and [example](https://github.com/kachkaev/website)
 - [sheriff](https://www.eslint-config-sheriff.dev)
 - [standard](https://standardjs.com)
 - [sxzz/eslint-config](https://github.com/sxzz/eslint-config)

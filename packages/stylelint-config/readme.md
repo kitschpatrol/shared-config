@@ -103,11 +103,11 @@ pnpm exec ksc-stylelint init --location package
 
 Ignores all files in `.gitignore` by default.
 
-Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure#ignorefiles) key.
+Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure/#ignorefiles) key.
 
 #### Ignoring code
 
-See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code).
+See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code/).
 
 Blocks:
 
@@ -244,7 +244,7 @@ If you're using the complete [@kitschpatrol/shared-config](https://github.com/ki
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every reported issue, pointing to the offending file, line, and column.
 
 The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
 

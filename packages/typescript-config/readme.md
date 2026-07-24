@@ -105,7 +105,7 @@ See the `tsconfig.json` [`exclude`](https://www.typescriptlang.org/tsconfig/#exc
 
 ### Ignoring code
 
-See [the TypeScript directive comments documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#improved-checking-for-js-files) for more details.
+See [the TypeScript directive comments documentation](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check) for more details.
 
 Entire files (at top):
 
@@ -210,7 +210,7 @@ If you're using the complete [@kitschpatrol/shared-config](https://github.com/ki
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every reported issue, pointing to the offending file, line, and column.
 
 The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
 

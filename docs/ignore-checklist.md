@@ -97,7 +97,7 @@ No built-in patterns. Reads nested `.gitignore` files, `.git/info/exclude`, and 
 - Default `--ignore-path` is _both_ `./.gitignore` and `./.prettierignore`. Passing `--ignore-path` explicitly **replaces** that default — which `ksc` does, resolving both files at the workspace root so runs from subdirectories behave. Consequence: nested `.prettierignore`/`.gitignore` files in monorepo subpackages are **not** consulted under `ksc`.
 - Given a directory, Prettier only formats files whose extension/filename maps to a known parser (built-in or plugin).
 
-### CSpell 10 — [docs](https://cspell.org/configuration/) (defaults verified from installed source)
+### CSpell 10 — [docs](https://cspell.org/docs/Configuration) (defaults verified from installed source)
 
 - Default settings ship an **empty** `ignorePaths`; the CLI's globber excludes only `node_modules/**` (and `--exclude` on the command line replaces that, it doesn't merge).
 - Hidden files/dirs are skipped by default (`enableGlobDot` defaults to `false`; our config sets it explicitly).

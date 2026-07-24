@@ -199,7 +199,7 @@ If you're using the complete [@kitschpatrol/shared-config](https://github.com/ki
 
 Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ menu item).
 
-Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/debugtest/debugging#_errors-and-warnings) with every reported issue, pointing to the offending file, line, and column.
+Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every reported issue, pointing to the offending file, line, and column.
 
 The tasks share a problem matcher owner with the other `@kitschpatrol/shared-config` tasks, so the panel reflects the most recent run rather than stacking duplicates.
 
@@ -256,7 +256,7 @@ This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-confi
 - [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 - [@sxzz/eslint-config](https://github.com/sxzz/eslint-config)
 - [linting-setup-using-eslint](https://chris.lu/web_development/tutorials/next-js-static-mdx-blog/linting-setup-using-eslint)
-- On [prefer-repository-shorthand](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/223)
+- On [prefer-repository-shorthand](https://github.com/michaelfaith/eslint-plugin-package-json/issues/223)
 
 <!-- license -->
 

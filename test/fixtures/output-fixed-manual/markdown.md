@@ -32,4 +32,4 @@ function identity(x) {
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.
 
-[another one]: http://example.com 'Example title'
+[another one]: https://example.com 'Example title'
