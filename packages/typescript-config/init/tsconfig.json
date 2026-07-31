@@ -7,7 +7,6 @@
 		// https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
 		// "exactOptionalPropertyTypes": true
 	},
-	// Includes project dot-files files for typescript-eslint integration
 	"include": ["**/**.*"],
 	"exclude": ["dist/"]
 }

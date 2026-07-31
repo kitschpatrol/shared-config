@@ -22,5 +22,8 @@
 		"erasableSyntaxOnly": true,
 		"skipLibCheck": true,
 		"noErrorTruncation": true
-	}
+	},
+	// Includes project dot-files files for typescript-eslint integration
+	"include": ["**/**.*"],
+	"exclude": ["dist/"]
 }

@@ -3,12 +3,13 @@
 	"compilerOptions": {
 		// Astro treats .astro files (and framework islands) as JSX left for its own compiler
 		"jsx": "preserve",
+		"jsxImportSource": "astro",
 		// Astro leaves lib unset, pulling in DOM.Iterable via the target's defaults
 		"lib": ["ES2025", "DOM", "DOM.Iterable"],
 		// Astro requires CJS interop for importing CommonJS modules in ESM
 		"esModuleInterop": true
 	},
-	"include": ["${configDir}/.astro/types.d.ts", "${configDir}/**/*"],
+	"include": ["${configDir}/.astro/types.d.ts", "${configDir}/**/**.*"],
 	// Mirrors astro/tsconfigs/base, which resolves these against the project root
 	"exclude": ["${configDir}/dist"]
 }
