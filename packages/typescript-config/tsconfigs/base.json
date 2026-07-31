@@ -24,6 +24,6 @@
 		"noErrorTruncation": true
 	},
 	// Includes project dot-files files for typescript-eslint integration
-	"include": ["**/**.*"],
-	"exclude": ["dist/"]
+	"include": ["${configDir}/**/**.*"],
+	"exclude": ["${configDir}/dist"]
 }
