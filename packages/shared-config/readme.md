@@ -195,7 +195,7 @@ pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
    ```
 
-   See the [@kitschpatrol/repo-config readme](/packages/repo-config/readme.md#github-configuration) for more details.
+   See the [@kitschpatrol/repo-config readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/repo-config/readme.md#github-configuration) for more details.
 
 ## Usage
 
