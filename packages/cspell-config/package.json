@@ -62,7 +62,7 @@
 		"cspell-lib": "^10.0.1",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
-		"execa": "^10.0.0",
+		"execa": "^10.0.1",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.4.0",
 		"json-stringify-pretty-compact": "^4.0.0",
@@ -70,7 +70,7 @@
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.9.6",
-		"yargs": "^18.0.0"
+		"yargs": "^18.1.0"
 	},
 	"devDependencies": {
 		"globby": "^16.2.2",
