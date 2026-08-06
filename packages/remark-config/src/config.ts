@@ -254,7 +254,7 @@ function overrideRules(
 }
 
 /**
- * **Remark Shared Configuration**
+ * **@Kitschpatrol's Shared [Remark](https://remark.js.org) Configuration**
  *
  * @example
  * 	export default remarkConfig({
@@ -265,7 +265,6 @@ function overrideRules(
  * 	})
  *
  * @see [@kitschpatrol/remark-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config)
- *
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */
 export function remarkConfig(options?: {

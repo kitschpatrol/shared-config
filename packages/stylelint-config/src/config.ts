@@ -53,7 +53,7 @@ export const sharedStylelintConfig: StylelintConfig = {
 }
 
 /**
- * **@Kitschpatrol's Shared Stylelint Configuration**
+ * **@Kitschpatrol's Shared [Stylelint](https://stylelint.io) Configuration**
  *
  * @example
  * 	import { stylelintConfig } from '@kitschpatrol/stylelint-config'
@@ -67,7 +67,6 @@ export const sharedStylelintConfig: StylelintConfig = {
  * 	})
  *
  * @see [@kitschpatrol/stylelint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/stylelint-config)
- *
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */
 export function stylelintConfig(config?: StylelintConfig): StylelintConfig {

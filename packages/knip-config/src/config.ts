@@ -64,7 +64,7 @@ export const sharedKnipConfig: KnipConfig = {
 }
 
 /**
- * **@Kitschpatrol's Shared Knip Configuration**
+ * **@Kitschpatrol's Shared [Knip](https://knip.dev) Configuration**
  *
  * @example
  * 	import { knipConfig } from '@kitschpatrol/knip-config'

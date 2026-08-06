@@ -119,7 +119,7 @@ export const sharedCspellConfig: CspellConfig = {
 }
 
 /**
- * **@Kitschpatrol's Shared Cspell Configuration**
+ * **@Kitschpatrol's Shared [CSpell](https://cspell.org) Configuration**
  *
  * @example
  * 	export default cspellConfig({
@@ -127,7 +127,6 @@ export const sharedCspellConfig: CspellConfig = {
  * 	})
  *
  * @see [@kitschpatrol/cspell-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/cspell-config)
- *
  * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)
  */
 export function cspellConfig(config?: CspellConfig): CspellConfig {

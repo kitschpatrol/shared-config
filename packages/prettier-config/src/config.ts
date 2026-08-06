@@ -113,7 +113,7 @@ export const sharedPrettierConfig: PrettierConfig = {
 }
 
 /**
- * **@Kitschpatrol's Shared Prettier Configuration**
+ * **@Kitschpatrol's Shared [Prettier](https://prettier.io/) Configuration**
  *
  * @example
  * 	export default prettierConfig({

@@ -64,11 +64,25 @@ type TypeAwareConfigKey = 'astro' | 'js' | 'jsx' | 'react' | 'svelte' | 'ts' | '
 const ESLINT_CONFIG_FILENAME_REGEX = /^eslint\.config\.[cm]?[jt]s$/v
 
 /**
- * Construct an array of ESLint flat config items.
+ * **@Kitschpatrol's Shared [ESLint](https://eslint.org/) Configuration***
+ *
+ * @example
+ * 	import { eslintConfig } from '@kitschpatrol/eslint-config'
+ *
+ * 	export default eslintConfig(
+ * 		{
+ * 			// Option customizations here
+ * 		},
+ * 		{
+ * 			// Additional flat config objects here
+ * 		},
+ * 	)
  *
  * @param options The options for generating the ESLint configurations.
  * @param userConfigs The user configurations to be merged with the generated
  *   configurations.
+ * @see [@kitschpatrol/eslint-config](https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config)
+ * @see [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config)*
  */
 export async function eslintConfig(
 	options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},

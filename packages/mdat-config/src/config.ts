@@ -7,7 +7,8 @@ export const sharedMdatConfig: MdatConfig = {
 }
 
 /**
- * **@Kitschpatrol's Shared Mdat Configuration**
+ * **@Kitschpatrol's Shared [Mdat](https://github.com/kitschpatrol/mdat)
+ * Configuration**
  *
  * @example
  * 	export default mdatConfig({
