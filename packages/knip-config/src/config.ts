@@ -24,21 +24,20 @@ export const sharedKnipConfig: KnipConfig = {
 	],
 	// Allow calling of individual ksc binaries...
 	ignoreBinaries: [
-		'ksc-repo',
-		'ksc-mdat',
-		'ksc-typescript',
-		'ksc-eslint',
-		'ksc-stylelint',
+		'gh', // GitHub CLI, typically a global install...
 		'ksc-cspell',
+		'ksc-eslint',
 		'ksc-knip',
-		'ksc-remark',
+		'ksc-mdat',
 		'ksc-prettier',
-		// 1Password CLI, typically a global install...
-		'op',
-		// GitHub CLI, typically a global install...
-		'gh',
+		'ksc-remark',
+		'ksc-repo',
+		'ksc-stylelint',
+		'ksc-typescript',
+		'op', // 1Password CLI, typically a global install...
 	],
 	ignoreDependencies: [
+		'@astrojs/check', // Called by @kitschpatrol/typescript-config
 		'@kitschpatrol/cspell-config',
 		'@kitschpatrol/dict-en-wiktionary', // Undetected due to string import in cspell.config.ts
 		'@kitschpatrol/eslint-config',
@@ -60,6 +59,7 @@ export const sharedKnipConfig: KnipConfig = {
 		'prettier-plugin-toml',
 		'remark-attribute-list', // From @kitschpatrol/prettier-plugin-astro, needed when added to tsconfig
 		'remark-directive', // From @kitschpatrol/prettier-plugin-astro, needed when added to tsconfig
+		'sharp',
 	],
 }
 
