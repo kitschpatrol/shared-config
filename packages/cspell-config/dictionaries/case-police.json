@@ -1,4 +1,5 @@
 {
 	"pnpm": "pnpm",
-	"realsense": "RealSense"
+	"realsense": "RealSense",
+	"cspell": "CSpell"
 }
