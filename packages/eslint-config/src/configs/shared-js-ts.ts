@@ -469,6 +469,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'unicorn/prefer-number-is-safe-integer': 'off', // Superseded by math/prefer-number-is-safe-integer
 		'unicorn/prefer-number-properties': 'off', // Superseded by eslint-plugin-math
 		'unicorn/prefer-type-literal-last': 'off', // Conflicts with perfectionist/sort-union-types and sort-intersection-types
+		'unicorn/single-line-block-comment-style': 'off', // Comment shape is owned by prettier-plugin-jsdoc; the fixer's un-prefixed multiline output also gets misread as indented code and fenced by jsdocPreferCodeFences
 	},
 	settings: {
 		// Do NOT need to rename these settings
