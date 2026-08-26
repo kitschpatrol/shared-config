@@ -3,6 +3,7 @@ A'yen
 Aaiun
 Ababa
 Abbate
+abdo
 Acconci
 Acker
 Acko
@@ -17,8 +18,10 @@ Adrián
 Aelita
 aemarse
 aesculapa
+aeshirey
 Agarwal
 Agarwala
+agkozak
 Aherin
 Ahern
 Ainslie
@@ -36,12 +39,15 @@ Alain
 Alberro
 Albers
 Aldous
+alexchantastic
 alexeaton
+aloxaf
 Amane
 Amato
 Amed
 Amelot
 Amet
+amey
 Amlen
 Ammous
 Amplifi
@@ -75,17 +81,21 @@ Araguaina
 Aran
 Arbi
 arcangel
+archagon
 Ariely
 Arjo
 Arjun
 armadillu
 Armen
+artboffin
 Arte
 Artifex
+arturoc
 Arzuaga
 Aseem
 Ashuk
 Ashwin
+astellato
 Atikokan
 Atreet
 Attia
@@ -120,11 +130,13 @@ Barokka
 Barriga
 Barthelemy
 Bartholl
+bascom
 Bassick
 Batuman
 Bayles
 beatfeat
 Beckwith
+begemann
 Belson
 Bembe
 Bengio
@@ -144,6 +156,7 @@ Beuerer
 Beyah
 Bezos
 Bhoj
+bicol
 Biesty
 Bifo
 Bihn
@@ -158,8 +171,10 @@ Bizee
 Bjarne
 Bjorn
 Bjørn
+Blep
 Bodden
 Boeck
+boelen
 Boesch
 Bofill
 Böhler
@@ -169,7 +184,9 @@ Bonawitz
 Bonime
 Boomgaard
 Borenstein
+borntyping
 Borrelli
+bosal
 Bostom
 Bostrom
 Boujou
@@ -191,7 +208,9 @@ Brause
 Brea
 Breezer
 Brendon
+brettalcox
 Bretton
+brettterpstra
 Brex
 Brichter
 Bricman
@@ -199,6 +218,7 @@ Bringle
 Britz
 Bront
 Brower
+brownlee
 Brutvan
 Bryson
 Bubuck
@@ -240,13 +260,16 @@ Catmull
 ccorcos
 Celko
 ceperley
+cersei
 César
 Chadd
 Chaikin
 Chaim
 Chana
+changyuheng
 Chapelle
 Chapin
+charliemonroe
 Charnov
 Chas
 checkowski
@@ -313,6 +336,7 @@ Dalma
 Damore
 Damyata
 Danbo
+danieldormann
 Danja
 Danmarkshavn
 Darche
@@ -321,6 +345,7 @@ Datta
 dbaeumer
 Deamer
 Debord
+defuddle
 Degaulle
 Degenhardt
 Dekkers
@@ -341,6 +366,7 @@ desousak
 dewwy
 Didion
 Diez
+diffable
 Dili
 Diller
 Dimnet
@@ -385,6 +411,7 @@ Elfick
 Elie
 Elixia
 Elle
+elliotwoods
 Elly
 Emefre
 Emel
@@ -474,6 +501,7 @@ frontiernerds
 Frumin
 Fung
 Galette
+gallatin
 Galo
 gameoverhack
 Garey
@@ -508,6 +536,7 @@ Goleman
 Goliński
 Gomes
 Gondry
+goodchild
 Gopnik
 Gordan
 Gordie
@@ -536,6 +565,7 @@ Güeros
 Guillaume
 Guillin
 Guíxols
+gusev
 Gwern
 Hacia
 hackeling
@@ -576,6 +606,7 @@ Henpen
 Herbin
 Hersh
 Heti
+hideoo
 Higa
 Higgs
 Hillman
@@ -722,7 +753,9 @@ Kessler
 Keur
 KeWlers
 Khandyga
+kiano
 Kiet
+kiley
 Kilmer
 Kimi
 Kimon
@@ -989,6 +1022,7 @@ Moresby
 Mori
 Moriah
 Morpheu
+morrell
 Morril
 Morry
 Morty
@@ -1305,6 +1339,7 @@ Siever
 Sigel
 siipo
 Silverman
+silverwind
 Simkin
 Simpkins
 Simun
