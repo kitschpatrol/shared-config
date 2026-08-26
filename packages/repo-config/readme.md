@@ -28,7 +28,7 @@ The `lint` and `fix` commands check and correct:
 
 This includes the following:
 
-- [`pnpm-workspace.yaml`](https://pnpm.io/pnpm-workspace_yaml) with hoisting patterns for `ksc` tool access and trusted dependency installation scripts.
+- [`pnpm-workspace.yaml`](https://pnpm.io/settings) with hoisting patterns for `ksc` tool access and trusted dependency installation scripts.
 - `.gitignore` with typical patterns
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
 - `.vscode/tasks.json` with `ksc-repo lint` and `ksc-repo fix` [tasks](https://code.visualstudio.com/docs/debugtest/tasks) that run the checks above in `--format machine` mode and feed reported issues into VS Code's Problems panel via a problem matcher. (The other `@kitschpatrol/shared-config` packages contribute tasks for their own tools the same way.) If a `tasks.json` already exists, `init` merges by task label, leaving your own tasks untouched.
