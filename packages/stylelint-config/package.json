@@ -48,7 +48,7 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"cosmiconfig": "^9.0.2",
+		"cosmiconfig": "^10.0.0",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
@@ -61,9 +61,9 @@
 		"prettier": "^3.9.6",
 		"stylelint": "^17.14.1",
 		"stylelint-config-clean-order": "^10.0.0",
-		"stylelint-config-html": "^1.1.0",
+		"stylelint-config-html": "^2.0.0",
 		"stylelint-config-standard": "^40.0.0",
-		"stylelint-plugin-defensive-css": "^2.9.4",
+		"stylelint-plugin-defensive-css": "^2.9.6",
 		"yargs": "^18.1.0"
 	},
 	"engines": {

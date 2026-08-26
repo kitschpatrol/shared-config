@@ -9,7 +9,8 @@ import type { Rules } from '../types'
 // the no-use-extend-native and xo plugins aren't registered here.
 
 // Many are skipped on account of our managing these concerns elsewhere (or not
-// at all). NOte that config order shifted with the addition of xo/css in in 72.0.0.
+// at all). Note that config order can shift between releases (e.g. when xo/css
+// was added). Indices below last verified against eslint-config-xo 1.0.0.
 
 // [0] xo/ignores - Skipped
 // [1] xo/ava - Skipped

@@ -1581,7 +1581,10 @@ export async function getCosmiconfigResult(
 	const explorer = cosmiconfig(configName, {
 		loaders: {
 			// Using the alternate typescript loader fixes ERR_MODULE_NOT_FOUND errors
-			// in configuration files that import modules via a path
+			// in configuration files that import modules via a path. Cosmiconfig 10's
+			// default .ts loader relies on Node's native type stripping, which still
+			// can't resolve those imports (and rejects non-erasable syntax), so the
+			// dedicated loader remains necessary.
 			// https://github.com/cosmiconfig/cosmiconfig/issues/345
 			// https://github.com/Codex-/cosmiconfig-typescript-loader
 			// Same approach taken in mdat's implementation...

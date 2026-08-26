@@ -107,6 +107,7 @@ export const svelteAllRules: Rules = {
 	'svelte/no-unused-svelte-ignore': 'error',
 	'svelte/no-useless-children-snippet': 'error',
 	'svelte/no-useless-mustaches': 'error',
+	'svelte/prefer-attribute-interpolation': 'error',
 	'svelte/prefer-class-directive': 'error',
 	'svelte/prefer-const': 'error',
 	'svelte/prefer-derived-over-derived-by': 'error',
