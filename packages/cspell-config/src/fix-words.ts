@@ -23,7 +23,9 @@ export type FixWordsResult = {
  * sorts the remaining words alphabetically.
  *
  * @param fileGlobs - Files to spell-check when determining whether a word is
- *   used. Defaults to all files below the current working directory.
+ *   used. Defaults to all files below the current working directory. Passing a
+ *   subset of the tree removes words used solely in unlisted files, so callers
+ *   must pass globs covering every file the configuration applies to.
  *
  * @returns A summary of the changes, or `undefined` if the configuration has no
  *   local `words` entries.

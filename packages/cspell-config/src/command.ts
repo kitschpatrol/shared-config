@@ -17,6 +17,21 @@ import { createStreamTransform } from '../../../src/stream-utilities.js'
 import { fixWordsInConfig } from './fix-words.js'
 import { checkForUnusedWords } from './unused-words.js'
 
+const DEFAULT_FILE_GLOB = '**/*'
+
+/**
+ * True when the resolved positional arguments cover the entire tree rather than
+ * user-specified files. Unused-word detection is only meaningful for a full
+ * run: checking a subset of files makes every word used solely in an unlisted
+ * file look unused.
+ */
+function isFullRun(positionalArguments: string[]): boolean {
+	return (
+		positionalArguments.length === 0 ||
+		(positionalArguments.length === 1 && positionalArguments[0] === DEFAULT_FILE_GLOB)
+	)
+}
+
 async function getCspellConfigFilePath(): Promise<string | undefined> {
 	const config = await getDefaultConfigLoader().searchForConfigFile(undefined)
 	return config === undefined ? undefined : fileURLToPath(config.url)
@@ -85,6 +100,12 @@ async function checkForUnusedWordsCommand(
 	logStream: NodeJS.WritableStream,
 	positionalArguments: string[],
 ): Promise<number> {
+	// A file-scoped run can't tell whether a word is used elsewhere, so any
+	// report would be full of false positives
+	if (!isFullRun(positionalArguments)) {
+		return 0
+	}
+
 	// Run the check unused words script
 	const { errors, filesChecked, unusedWords } = await checkForUnusedWords(positionalArguments)
 
@@ -120,6 +141,12 @@ async function checkForUnusedWordsCommand(
 async function collectUnusedWords(
 	positionalArguments: string[],
 ): Promise<CollectResult & { exitCode: number }> {
+	// A file-scoped run can't tell whether a word is used elsewhere, so any
+	// report would be full of false positives
+	if (!isFullRun(positionalArguments)) {
+		return { diagnostics: [], exitCode: 0, unparsed: [] }
+	}
+
 	const { errors, filesChecked, unusedWords } = await checkForUnusedWords(positionalArguments)
 
 	// Without a successful spell-check run, every word looks unused
@@ -161,6 +188,15 @@ async function fixWordsCommand(
 ): Promise<number> {
 	const subStream = createStreamTransform('[Words]', 'cyanBright')
 	subStream.pipe(logStream)
+
+	// A file-scoped run can't tell whether a word is used elsewhere, so pruning
+	// the config against it would delete words used solely in unlisted files
+	if (!isFullRun(positionalArguments)) {
+		subStream.write(
+			'Skipping unused word removal because file arguments were provided. Run without file arguments to remove unused words.\n',
+		)
+		return 0
+	}
 
 	const result = await fixWordsInConfig(positionalArguments)
 
@@ -302,8 +338,8 @@ export const commandDefinition: CommandDefinition = {
 					},
 				]
 			},
-			description: `Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. ${DESCRIPTION.fileRun}`,
-			positionalArgumentDefault: '**/*',
+			description: `Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. ${DESCRIPTION.fileRun} Unused words are only removed when no file arguments are given, since detecting them requires checking every file.`,
+			positionalArgumentDefault: DEFAULT_FILE_GLOB,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
@@ -354,8 +390,8 @@ export const commandDefinition: CommandDefinition = {
 					},
 				]
 			},
-			description: `Check for spelling mistakes. ${DESCRIPTION.fileRun}`,
-			positionalArgumentDefault: '**/*',
+			description: `Check for spelling mistakes. ${DESCRIPTION.fileRun} Unused words in the configuration's "words" array are only reported when no file arguments are given, since detecting them requires checking every file.`,
+			positionalArgumentDefault: DEFAULT_FILE_GLOB,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {

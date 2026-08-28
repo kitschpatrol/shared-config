@@ -74,18 +74,22 @@ export default defineConfig({
 	)
 
 	it(
-		'should refuse to modify the config when no files are checked',
+		'should not remove words when file arguments are provided',
 		async () => {
 			const originalContent = `export default {
 	useGitignore: false,
-	words: ['zzwordused'],
+	words: ['mmwordused', 'zzwordused'],
 }
 `
 			const configPath = await writeWorkFile('cspell.config.ts', originalContent)
+			await writeWorkFile('document.md', 'The zzwordused term appears here.\n')
+			await writeWorkFile('other.md', 'The mmwordused term appears here.\n')
 
-			// Glob matches no files, so word usage can't be determined
-			const { exitCode } = await runCli('fix', 'no-such-directory/**')
-			expect(exitCode).toBe(1)
+			// Scoped to document.md, so mmwordused (used only in other.md) would
+			// wrongly look unused
+			const { exitCode, stdout } = await runCli('fix', 'document.md')
+			expect(exitCode).toBe(0)
+			expect(stdout).toContain('Skipping unused word removal')
 
 			const configContent = await fs.readFile(configPath, 'utf8')
 			expect(configContent).toBe(originalContent)
@@ -152,6 +156,31 @@ export default defineConfig({
 
 			const configContent = await fs.readFile(configPath, 'utf8')
 			expect(configContent).toBe(originalContent)
+		},
+		testTimeout,
+	)
+})
+
+describe('lint scoped to files', () => {
+	it(
+		'should not report unused words when file arguments are provided',
+		async () => {
+			await writeWorkFile(
+				'cspell.config.ts',
+				`export default {
+	useGitignore: false,
+	words: ['mmwordused', 'zzwordused'],
+}
+`,
+			)
+			await writeWorkFile('document.md', 'The zzwordused term appears here.\n')
+			await writeWorkFile('other.md', 'The mmwordused term appears here.\n')
+
+			// Scoped to document.md, so mmwordused (used only in other.md) would
+			// wrongly look unused
+			const { exitCode, stdout } = await runCli('lint', 'document.md')
+			expect(exitCode).toBe(0)
+			expect(stdout).not.toContain('mmwordused')
 		},
 		testTimeout,
 	)

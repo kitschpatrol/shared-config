@@ -43,7 +43,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && npm -r publish --otp $(op item get npm --otp)",
+		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && pnpm -r publish --otp $(op item get npm --otp)",
 		"test": "vitest run"
 	},
 	"devDependencies": {
