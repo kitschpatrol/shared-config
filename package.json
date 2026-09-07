@@ -39,7 +39,7 @@
 		"build:1-stand-alone": "pnpm --filter=!shared-config --filter=!shared-config-monorepo build",
 		"build:2-shared": "pnpm --filter=shared-config build",
 		"build:3-readmes": "pnpm ksc-mdat fix && shx cp ./packages/shared-config/readme.md ./readme.md && mdat strip",
-		"clean": "shx rm -f pnpm-lock.yaml && pnpm bin-restore && git clean -fdX -e !.claude/",
+		"clean-deep": "shx rm -f pnpm-lock.yaml && pnpm bin-restore && git clean -fdX -e !.claude/",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
