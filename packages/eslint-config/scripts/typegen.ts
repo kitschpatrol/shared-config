@@ -21,6 +21,7 @@ import {
 	tsx,
 	yaml,
 } from '../src'
+import { extraFileExtensions } from '../src/configs/extra-file-extensions'
 
 const configs = await combine(
 	{
@@ -32,6 +33,7 @@ const configs = await combine(
 	},
 	astro(),
 	disables(),
+	extraFileExtensions({ astro: true, svelte: true }),
 	html(),
 	ignores(),
 	js(),

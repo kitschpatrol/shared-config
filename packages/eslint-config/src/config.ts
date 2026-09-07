@@ -28,6 +28,7 @@ import {
 	tsx,
 	yaml,
 } from './configs'
+import { extraFileExtensions } from './configs/extra-file-extensions'
 import { tsParser } from './parsers'
 import { interopDefault, isInEditorEnv as isInEditorEnvironment } from './utilities'
 
@@ -230,7 +231,14 @@ export async function eslintConfig(
 		)
 	}
 
-	configs.push(disables())
+	configs.push(
+		// Must follow every config that sets a parser so the value is identical for all of them
+		extraFileExtensions({
+			astro: enableAstro !== false,
+			svelte: enableSvelte !== false,
+		}),
+		disables(),
+	)
 
 	if ('files' in options) {
 		throw new Error(

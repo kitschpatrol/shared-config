@@ -35331,6 +35331,7 @@ export type ConfigNames =
 	| 'kp/astro/script-ts'
 	| 'kp/disables/stylelint-config'
 	| 'kp/disables/prettier'
+	| 'kp/extra-file-extensions'
 	| 'kp/html-script'
 	| 'kp/html/setup'
 	| 'kp/html'
