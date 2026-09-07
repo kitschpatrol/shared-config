@@ -1,5 +1,6 @@
 import type { Linter } from 'eslint'
 import { ESLint } from 'eslint'
+import path from 'node:path'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { eslintConfig } from '../src/index.js'
 
@@ -71,6 +72,26 @@ describe('Svelte parsing', () => {
 
 		expectNoFatalErrors(javaScriptResult)
 		expectNoFatalErrors(typeScriptResult)
+	})
+
+	it('reads the exports of JavaScript dependencies through the TypeScript parser', async () => {
+		// Without the parser mapping, import rules hand JavaScript dependencies to the Svelte parser,
+		// which treats them as components and cannot see their exports
+		const result = await lint(
+			[
+				"import * as dependency from './namespace-dependency.js'",
+				'',
+				'export const value = dependency.value',
+				'export const missing = dependency.missing',
+				'',
+			].join('\n'),
+			path.join(import.meta.dirname, 'fixtures', 'consumer.svelte.ts'),
+		)
+
+		expectNoFatalErrors(result)
+		const messages = result.messages.filter((message) => message.ruleId === 'import/namespace')
+		expect(messages).toHaveLength(1)
+		expect(messages[0]?.message).toContain("'missing'")
 	})
 
 	it('applies the SvelteKit route exception to the effective TypeScript config', async () => {

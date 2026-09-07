@@ -111,6 +111,8 @@ const kpPerfectionistSortConfig = [
  * Rules shared by JS and TS scripts Partial rule set requires `files` and
  * `languageOptions` keys to be set appropriately in file-specific configs.
  */
+const scriptExtensions = ['.ts', '.tsx', '.cts', '.mts', '.js', '.jsx', '.cjs', '.mjs']
+
 export const sharedScriptConfig: TypedFlatConfigItem = {
 	plugins: {
 		'de-morgan': pluginDeMorgan,
@@ -474,10 +476,14 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 	settings: {
 		// Do NOT need to rename these settings
 		// From pluginImport.flatConfigs.typescript.settings,
-		'import-x/extensions': ['.ts', '.tsx', '.cts', '.mts', '.js', '.jsx', '.cjs', '.mjs'],
+		'import-x/extensions': scriptExtensions,
 		'import-x/external-module-folders': ['node_modules', 'node_modules/@types'],
+		// The plugin preset only lists the TypeScript extensions here. Import rules that read a
+		// dependency's exports parse it with the importing file's parser unless it's mapped, so a
+		// JavaScript dependency imported from a Svelte or Astro file would go through that
+		// framework's parser, fail, and be skipped.
 		'import-x/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.tsx', '.cts', '.mts'],
+			'@typescript-eslint/parser': scriptExtensions,
 		},
 		// 'import-x/resolver': { typescript: true },
 		'import-x/resolver-next': [
