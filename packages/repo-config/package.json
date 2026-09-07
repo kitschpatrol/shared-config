@@ -38,8 +38,8 @@
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1100.2.2",
-		"cosmiconfig": "^10.0.0",
+		"@pnpm/lockfile.fs": "^1100.2.6",
+		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",

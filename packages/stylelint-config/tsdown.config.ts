@@ -13,9 +13,7 @@ export default defineConfig([
 	},
 	// Shared config library
 	{
-		attw: {
-			profile: 'esm-only',
-		},
+		attw: true,
 		fixedExtension: false,
 		minify: true,
 		publint: true,

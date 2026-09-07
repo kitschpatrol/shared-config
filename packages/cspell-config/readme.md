@@ -202,12 +202,12 @@ Usage:
 ksc-cspell <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                                                                                                        |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                                      |
-| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default.                                                                                                                         |
-| `fix`          | `[files..]` | Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. Matches files below the current working directory by default. |
-| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                                                                                       |
+| Command        | Argument    | Description                                                                                                                                                                                                                                                                                                                           |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                                                                                                                                                         |
+| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default. Unused words in the configuration's "words" array are only reported when no file arguments are given, since detecting them requires checking every file.                                                                                   |
+| `fix`          | `[files..]` | Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. Matches files below the current working directory by default. Unused words are only removed when no file arguments are given, since detecting them requires checking every file. |
+| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                                                                                                                                                                                                          |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -234,7 +234,7 @@ ksc-cspell init
 
 #### Subcommand: `ksc-cspell lint`
 
-Check for spelling mistakes. Matches files below the current working directory by default.
+Check for spelling mistakes. Matches files below the current working directory by default. Unused words in the configuration's "words" array are only reported when no file arguments are given, since detecting them requires checking every file.
 
 Usage:
 
@@ -255,7 +255,7 @@ ksc-cspell lint [files..]
 
 #### Subcommand: `ksc-cspell fix`
 
-Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. Matches files below the current working directory by default.
+Fix letter casing issues, remove unused words from the local CSpell configuration's "words" array, and report remaining (unfixable) spelling errors. Matches files below the current working directory by default. Unused words are only removed when no file arguments are given, since detecting them requires checking every file.
 
 Usage:
 

@@ -44,11 +44,11 @@
 		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm build",
-		"test": "vitest run"
+		"test": "vitest run --config ../../vitest.config.ts"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
-		"cosmiconfig": "^10.0.0",
+		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
@@ -59,11 +59,11 @@
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.9.6",
-		"stylelint": "^17.14.1",
+		"stylelint": "^17.15.0",
 		"stylelint-config-clean-order": "^10.0.0",
 		"stylelint-config-html": "^2.0.0",
 		"stylelint-config-standard": "^40.0.0",
-		"stylelint-plugin-defensive-css": "^2.9.6",
+		"stylelint-plugin-defensive-css": "^2.9.7",
 		"yargs": "^18.1.0"
 	},
 	"engines": {

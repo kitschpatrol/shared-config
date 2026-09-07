@@ -4,7 +4,7 @@
 
 Where to add an ignore pattern for every tool in this repo, plus what each tool ignores on its own. Two scenarios: ignoring something **in this repo only**, and shipping a **new default ignore to all shared-config consumers**.
 
-Facts verified 2026-07 against the installed versions: ESLint 10.7, Prettier 3.9, CSpell 10.0, Stylelint 17.14, Knip 6.27, TypeScript 6.0, Vitest 4.1.
+Facts verified 2026-07 against the installed versions: ESLint 10.7, Prettier 3.9, CSpell 10.0, Stylelint 17.14, Knip 6.27, TypeScript 6.0, Vitest 5.0 (re-verified 2026-09).
 
 ## Scenario 1: Ignore a file type in this repo
 
@@ -68,7 +68,7 @@ Remaining per-project steps in existing projects:
 
 1. `.gitignore`: add `.worktrees/` — covers Git, Prettier, Stylelint, and Knip (ESLint and CSpell are already covered by the package defaults).
 2. `tsconfig.json`: add `.worktrees/` to `exclude` — tsc reads no ignore files, and the shared `include: ["**/**.*"]` will pull worktree files in.
-3. `vitest.config.ts` (if the project has tests): Vitest reads no ignore files and its v4 default excludes are only `node_modules` and `.git`. Config `exclude` replaces the defaults, so spread them:
+3. `vitest.config.ts` (if the project has tests): Vitest reads no ignore files and its default excludes (unchanged since v4) are only `node_modules` and `.git`. Config `exclude` replaces the defaults, so spread them:
 
    ```ts
    import { configDefaults, defineConfig } from 'vitest/config'
@@ -124,10 +124,11 @@ Docs: [`ignoreFiles`](https://stylelint.io/user-guide/configure/#ignorefiles) ·
 - Default `exclude` (only when unspecified): `node_modules`, `bower_components`, `jspm_packages`, and `outDir`. Specifying your own `exclude` replaces that list.
 - `exclude` only filters `include` glob expansion — it does **not** stop a file from entering the program via an `import`, `types`, or `/// <reference>`.
 
-### Vitest 4 — [`exclude` docs](https://vitest.dev/config/exclude)
+### Vitest 5 — [`exclude` docs](https://vitest.dev/config/exclude)
 
-- Default include: `**/*.{test,spec}.?(c|m)[jt]s?(x)`. Default exclude shrank in v4 to just `**/node_modules/**` and `**/.git/**`.
+- Default include: `**/*.{test,spec}.?(c|m)[jt]s?(x)`. Default exclude (since v4) is just `**/node_modules/**` and `**/.git/**`.
 - Setting `include`/`exclude` in config **replaces** the defaults — spread `configDefaults.exclude` to extend. (CLI `--exclude` adds instead.)
+- Config files are not looked up from parent directories (new in v5). A run from a subpackage sees no root `vitest.config.ts` unless it passes `--config ../../vitest.config.ts`, which the package `test` scripts in this repo do.
 
 ### mdat
 

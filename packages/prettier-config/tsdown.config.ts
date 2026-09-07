@@ -13,9 +13,7 @@ export default defineConfig([
 	},
 	// Shared config library
 	{
-		attw: {
-			profile: 'esm-only',
-		},
+		attw: true,
 		entry: 'src/index.ts',
 		fixedExtension: false,
 		minify: true,

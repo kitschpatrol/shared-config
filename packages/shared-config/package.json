@@ -56,7 +56,7 @@
 		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm build",
-		"test": "vitest run"
+		"test": "vitest run --config ../../vitest.config.ts"
 	},
 	"dependencies": {
 		"@kitschpatrol/cspell-config": "workspace:*",
@@ -69,12 +69,12 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1100.2.4",
-		"cosmiconfig": "^10.0.0",
+		"@pnpm/lockfile.fs": "^1100.2.6",
+		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
-		"cspell": "^10.1.1",
-		"cspell-config-lib": "^10.1.1",
-		"cspell-lib": "^10.1.1",
+		"cspell": "^10.2.2",
+		"cspell-config-lib": "^10.2.2",
+		"cspell-lib": "^10.2.2",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"deepmerge-ts": "^8.0.2",
@@ -84,12 +84,12 @@
 		"globby": "^16.2.4",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"magicast": "^0.5.4",
-		"mdat": "^3.1.0",
+		"mdat": "^3.2.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.9.6",
 		"semver": "^7.8.5",
-		"stylelint": "^17.14.1",
+		"stylelint": "^17.15.0",
 		"yargs": "^18.1.0"
 	},
 	"engines": {

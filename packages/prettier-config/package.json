@@ -45,14 +45,14 @@
 		"build": "tsdown",
 		"cli": "node ./bin/cli.js",
 		"prepublishOnly": "pnpm build",
-		"test": "vitest run"
+		"test": "vitest run --config ../../vitest.config.ts"
 	},
 	"dependencies": {
 		"@pinojs/json-colorizer": "^4.0.0",
 		"@prettier/plugin-php": "^0.25.0",
 		"@prettier/plugin-ruby": "^4.0.4",
 		"@prettier/plugin-xml": "^3.4.2",
-		"cosmiconfig": "^10.0.0",
+		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
