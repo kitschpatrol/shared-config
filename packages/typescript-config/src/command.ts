@@ -47,22 +47,23 @@ export function createTypeScriptLintCommands(
 	const hasSvelteCheck = dependencies.has('svelte-check')
 
 	if (hasAstroCheck || hasSvelteCheck) {
-		const commands: Command[] = []
-		if (hasAstroCheck) {
-			// Covers .astro files plus everything in the project tsconfig
-			commands.push({
-				collect: {
-					// Astro logger events become one-line JSON records. @astrojs/check's
-					// file diagnostics remain text and are handled by the same adapter.
-					optionFlags: ['--json'],
-					parse: parseAstroCheckOutput,
-				},
-				cwdOverride,
-				name: 'astro',
-				outputFilter: isAstroCheckNoise,
-				subcommands: ['check'],
-			})
-		}
+		const commands: Command[] = hasAstroCheck
+			? [
+					// Covers .astro files plus everything in the project tsconfig
+					{
+						collect: {
+							// Astro logger events become one-line JSON records. @astrojs/check's
+							// file diagnostics remain text and are handled by the same adapter.
+							optionFlags: ['--json'],
+							parse: parseAstroCheckOutput,
+						},
+						cwdOverride,
+						name: 'astro',
+						outputFilter: isAstroCheckNoise,
+						subcommands: ['check'],
+					},
+				]
+			: []
 
 		if (hasSvelteCheck) {
 			// With --tsconfig, svelte-check covers plain .ts/.js files in addition

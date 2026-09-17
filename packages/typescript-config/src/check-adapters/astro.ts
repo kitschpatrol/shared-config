@@ -22,38 +22,32 @@ type AstroLogEvent = {
 function parseAstroLogEvent(line: string): AstroLogEvent | undefined {
 	try {
 		const value: unknown = JSON.parse(line)
-		if (
-			!isRecord(value) ||
+		return !isRecord(value) ||
 			typeof value.message !== 'string' ||
 			(value.level !== 'debug' &&
 				value.level !== 'error' &&
 				value.level !== 'info' &&
 				value.level !== 'warn')
-		) {
-			return undefined
-		}
-
-		return {
-			...(typeof value.label === 'string' && value.label.length > 0 && { label: value.label }),
-			level: value.level,
-			message: value.message,
-		}
+			? undefined
+			: {
+					...(typeof value.label === 'string' && value.label.length > 0 && { label: value.label }),
+					level: value.level,
+					message: value.message,
+				}
 	} catch {
 		return undefined
 	}
 }
 
 function toAstroLogDiagnostic(logEvent: AstroLogEvent): Diagnostic | undefined {
-	if (logEvent.level !== 'error' && logEvent.level !== 'warn') {
-		return undefined
-	}
-
-	return {
-		...(logEvent.label !== undefined && { rule: logEvent.label }),
-		message: logEvent.message,
-		severity: logEvent.level === 'error' ? 'error' : 'warning',
-		tool: 'astro',
-	}
+	return logEvent.level !== 'error' && logEvent.level !== 'warn'
+		? undefined
+		: {
+				...(logEvent.label !== undefined && { rule: logEvent.label }),
+				message: logEvent.message,
+				severity: logEvent.level === 'error' ? 'error' : 'warning',
+				tool: 'astro',
+			}
 }
 
 function parseAstroFileDiagnostic(line: string, cwd: string): Diagnostic | undefined {

@@ -633,13 +633,9 @@ function normalizeCommandName(name: string): string {
 
 /** Handle comma-separated and repeated --skip values. */
 function normalizeSkipValues(skip: string[] | undefined): string[] {
-	if (skip === undefined || skip.length === 0) {
-		return []
-	}
-
-	return skip
-		.flatMap((value) => value.split(','))
-		.map((value) => normalizeCommandName(value.trim()))
+	return skip === undefined || skip.length === 0
+		? []
+		: skip.flatMap((value) => value.split(',')).map((value) => normalizeCommandName(value.trim()))
 }
 
 /** Add --skip option to a yargs builder. */
@@ -677,16 +673,12 @@ function addCacheOption<T>(yargsInstance: Argv<T>) {
  * children, which render machine output themselves.
  */
 function shouldPassThrough(command: Command, format: OutputFormat): boolean {
-	if (format === 'native') {
-		return true
-	}
-
-	return (
-		format === 'machine' &&
-		!isCommandFunction(command) &&
-		!isCommandGroup(command) &&
-		command.outputFormatAware === true
-	)
+	return format === 'native'
+		? true
+		: format === 'machine' &&
+				!isCommandFunction(command) &&
+				!isCommandGroup(command) &&
+				command.outputFormatAware === true
 }
 
 /**
@@ -826,11 +818,9 @@ function getResolvedCommandName(command: Command): string {
 		return `${command.name} ${command.subcommand}`
 	}
 
-	if (!isCommandFunction(command) && command.subcommands !== undefined) {
-		return [command.name, ...command.subcommands].join(' ')
-	}
-
-	return command.name
+	return !isCommandFunction(command) && command.subcommands !== undefined
+		? [command.name, ...command.subcommands].join(' ')
+		: command.name
 }
 
 async function executeCommand(

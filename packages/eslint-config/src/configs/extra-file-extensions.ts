@@ -21,19 +21,17 @@ export async function extraFileExtensions(options: {
 	const { astro, svelte } = options
 	const extensions = [...(astro ? ['.astro'] : []), ...(svelte ? ['.svelte'] : [])]
 
-	if (extensions.length === 0) {
-		return []
-	}
-
-	return [
-		{
-			files: [GLOB_SRC, ...(astro ? [GLOB_ASTRO] : []), ...(svelte ? [GLOB_SVELTE] : [])],
-			languageOptions: {
-				parserOptions: {
-					extraFileExtensions: extensions,
+	return extensions.length === 0
+		? []
+		: [
+				{
+					files: [GLOB_SRC, ...(astro ? [GLOB_ASTRO] : []), ...(svelte ? [GLOB_SVELTE] : [])],
+					languageOptions: {
+						parserOptions: {
+							extraFileExtensions: extensions,
+						},
+					},
+					name: 'kp/extra-file-extensions',
 				},
-			},
-			name: 'kp/extra-file-extensions',
-		},
-	]
+			]
 }

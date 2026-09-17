@@ -77,13 +77,9 @@ export function isMonorepo(): boolean {
  */
 export function getWorkspaceRoot(): string {
 	const workspaceRoot = findWorkspacesRoot()
-	if (workspaceRoot !== null) {
-		// Find-workspaces returns POSIX paths on Windows (e.g. C:/Users/project),
-		// normalize to native format for consistent path operations
-		return path.resolve(workspaceRoot.location)
-	}
-
-	return getPackageDirectory()
+	// Find-workspaces returns POSIX paths on Windows (e.g. C:/Users/project),
+	// normalize to native format for consistent path operations
+	return workspaceRoot === null ? getPackageDirectory() : path.resolve(workspaceRoot.location)
 }
 
 /**
@@ -92,11 +88,7 @@ export function getWorkspaceRoot(): string {
 export function getFilePathAtProjectRoot(fileName: string): string | undefined {
 	const filePath = path.join(getWorkspaceRoot(), fileName)
 
-	if (fse.existsSync(filePath)) {
-		return filePath
-	}
-
-	return undefined
+	return fse.existsSync(filePath) ? filePath : undefined
 }
 
 export type CwdOverrideOptions = 'package-dir' | 'workspace-root' | (string & {})

@@ -120,17 +120,16 @@ export async function eslintConfig(
 		}
 	}
 
-	const configs: Array<Awaitable<TypedFlatConfigItem[]>> = []
-
-	if (enableGitignore !== false) {
-		configs.push(
-			gitignoreConfig(
-				typeof enableGitignore === 'boolean'
-					? { name: 'kp/gitignore', strict: false }
-					: { name: 'kp/gitignore', ...enableGitignore },
-			),
-		)
-	}
+	const configs: Array<Awaitable<TypedFlatConfigItem[]>> =
+		enableGitignore === false
+			? []
+			: [
+					gitignoreConfig(
+						typeof enableGitignore === 'boolean'
+							? { name: 'kp/gitignore', strict: false }
+							: { name: 'kp/gitignore', ...enableGitignore },
+					),
+				]
 
 	// Base configs
 	configs.push(

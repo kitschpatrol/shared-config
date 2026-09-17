@@ -91,11 +91,7 @@ function removeDevEnginesNodeVersion(packageJson: Record<string, unknown>): void
 }
 
 function formatCauses(causes: string[]): string {
-	if (causes.length === 0) {
-		return ''
-	}
-
-	return ` (from ${causes.join(', ')})`
+	return causes.length === 0 ? '' : ` (from ${causes.join(', ')})`
 }
 
 async function nodeVersionCheckSingle(
@@ -232,17 +228,19 @@ async function nodeVersionCheck(logStream: NodeJS.WritableStream, fix: boolean):
 
 	for (const packageDirectory of packageDirectories) {
 		const { issues, packageJsonPath } = await nodeVersionCheckSingle(fix, packageDirectory)
-		if (issues.length > 0) {
-			logStream.write(
-				`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)} in ${packageJsonPath}:\n`,
-			)
-			for (const issue of issues) {
-				logStream.write(`  - ${issue}\n`)
-			}
+		if (issues.length === 0) {
+			continue
+		}
 
-			if (!fix) {
-				exitCode = 1
-			}
+		logStream.write(
+			`${fix ? 'Fixed' : 'Found'} ${issues.length} Node.js version ${pluralize('issue', issues.length)} in ${packageJsonPath}:\n`,
+		)
+		for (const issue of issues) {
+			logStream.write(`  - ${issue}\n`)
+		}
+
+		if (!fix) {
+			exitCode = 1
 		}
 	}
 

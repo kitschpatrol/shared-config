@@ -75,11 +75,9 @@ export function renderMachineDiagnostic(diagnostic: Diagnostic): string {
 	const source =
 		diagnostic.rule === undefined ? diagnostic.tool : `${diagnostic.tool}/${diagnostic.rule}`
 
-	if (diagnostic.file === undefined) {
-		return `${diagnostic.severity}: ${message} [${source}]`
-	}
-
-	return `${diagnostic.file}:${diagnostic.line ?? 1}:${diagnostic.column ?? 1}: ${diagnostic.severity}: ${message} [${source}]`
+	return diagnostic.file === undefined
+		? `${diagnostic.severity}: ${message} [${source}]`
+		: `${diagnostic.file}:${diagnostic.line ?? 1}:${diagnostic.column ?? 1}: ${diagnostic.severity}: ${message} [${source}]`
 }
 
 function compareDiagnostics(a: Diagnostic, b: Diagnostic): number {
@@ -90,11 +88,7 @@ function compareDiagnostics(a: Diagnostic, b: Diagnostic): number {
 	}
 
 	const lineComparison = (a.line ?? 0) - (b.line ?? 0)
-	if (lineComparison !== 0) {
-		return lineComparison
-	}
-
-	return (a.column ?? 0) - (b.column ?? 0)
+	return lineComparison === 0 ? (a.column ?? 0) - (b.column ?? 0) : lineComparison
 }
 
 /** Assembles the aggregate JSON report for a lint pass. */

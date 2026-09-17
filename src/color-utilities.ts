@@ -23,11 +23,7 @@ function environmentColorOverride(): boolean | undefined {
 		return env.FORCE_COLOR !== '0' && env.FORCE_COLOR !== 'false'
 	}
 
-	if (env.TERM === 'dumb') {
-		return false
-	}
-
-	return undefined
+	return env.TERM === 'dumb' ? false : undefined
 }
 
 /**
@@ -46,11 +42,7 @@ export function shouldColorStream(
 		return override
 	}
 
-	if (stream.isTTY === true) {
-		return true
-	}
-
-	return ciColor && Boolean(process.env.CI)
+	return stream.isTTY === true ? true : ciColor && Boolean(process.env.CI)
 }
 
 /**
@@ -67,11 +59,9 @@ export function getLogDestination(): NodeJS.WriteStream {
  * parseable stream, even under FORCE_COLOR or CI.
  */
 export function getColors(): Colors {
-	if (getOutputFormat() === 'machine') {
-		return picocolors.createColors(false)
-	}
-
-	return picocolors.createColors(shouldColorStream(getLogDestination()))
+	return getOutputFormat() === 'machine'
+		? picocolors.createColors(false)
+		: picocolors.createColors(shouldColorStream(getLogDestination()))
 }
 
 /**

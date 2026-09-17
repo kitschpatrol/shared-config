@@ -40,11 +40,7 @@ const PATH_CHARACTER_REGEX = /[.\/\\]/v
 /** Convert a bare extension to a virtual filepath, or pass through as-is. */
 function resolveFileType(fileType: string): string {
 	// If it contains a dot, slash, or backslash, treat as a filepath
-	if (PATH_CHARACTER_REGEX.test(fileType)) {
-		return fileType
-	}
-
-	return `file.${fileType}`
+	return PATH_CHARACTER_REGEX.test(fileType) ? fileType : `file.${fileType}`
 }
 
 // --- Cached singletons ---
@@ -86,21 +82,19 @@ function resolvePluginsInConfig(config: PrettierConfig): PrettierConfig {
 	}
 
 	if (resolved.overrides) {
-		resolved.overrides = resolved.overrides.map((override) => {
-			if (!override.options?.plugins) {
-				return override
-			}
-
-			return {
-				...override,
-				options: {
-					...override.options,
-					plugins: override.options.plugins.map((plugin) =>
-						typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
-					),
-				},
-			}
-		})
+		resolved.overrides = resolved.overrides.map((override) =>
+			override.options?.plugins
+				? {
+						...override,
+						options: {
+							...override.options,
+							plugins: override.options.plugins.map((plugin) =>
+								typeof plugin === 'string' ? resolvePluginPath(plugin) : plugin,
+							),
+						},
+					}
+				: override,
+		)
 	}
 
 	return resolved

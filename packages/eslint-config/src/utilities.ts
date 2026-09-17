@@ -38,11 +38,7 @@ export async function interopDefault<T>(
  */
 export function isInEditorEnv(): boolean {
 	// Skip editor detection if running in CI or git hooks
-	if (process.env.CI !== undefined && process.env.CI !== '') {
-		return false
-	}
-
-	if (isInGitHooksOrLintStaged()) {
+	if ((process.env.CI !== undefined && process.env.CI !== '') || isInGitHooksOrLintStaged()) {
 		return false
 	}
 

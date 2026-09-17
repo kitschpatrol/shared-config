@@ -10,7 +10,7 @@ import type { Rules } from '../types'
 
 // Many are skipped on account of our managing these concerns elsewhere (or not
 // at all). Note that config order can shift between releases (e.g. when xo/css
-// was added). Indices below last verified against eslint-config-xo 1.0.0.
+// was added). Indices below last verified against eslint-config-xo 3.0.1.
 
 // [0] xo/ignores - Skipped
 // [1] xo/ava - Skipped

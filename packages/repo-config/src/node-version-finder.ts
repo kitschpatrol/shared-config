@@ -79,11 +79,7 @@ function resolvePackageKey(
 	}
 
 	// Try just the version ref (it might already be a full key with peer suffixes)
-	if (Object.hasOwn(packages, versionRef)) {
-		return versionRef
-	}
-
-	return undefined
+	return Object.hasOwn(packages, versionRef) ? versionRef : undefined
 }
 
 /**
@@ -187,18 +183,20 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 				typeof dependencyRef === 'string' ? dependencyRef : dependencyRef.version
 			const treeMax = getSubtreeMaxNode(dependencyName, versionString)
 
-			if (treeMax !== undefined && treeMax !== '') {
-				const causes = isDev ? devCauses : productionCauses
-				causes[treeMax] ??= new Set()
-				causes[treeMax].add(dependencyName)
+			if (treeMax === undefined || treeMax === '') {
+				continue
+			}
 
-				const currentMax = isDev ? overallDevMax : overallProductionMax
-				if (currentMax === undefined || currentMax === '' || gt(treeMax, currentMax)) {
-					if (isDev) {
-						overallDevMax = treeMax
-					} else {
-						overallProductionMax = treeMax
-					}
+			const causes = isDev ? devCauses : productionCauses
+			causes[treeMax] ??= new Set()
+			causes[treeMax].add(dependencyName)
+
+			const currentMax = isDev ? overallDevMax : overallProductionMax
+			if (currentMax === undefined || currentMax === '' || gt(treeMax, currentMax)) {
+				if (isDev) {
+					overallDevMax = treeMax
+				} else {
+					overallProductionMax = treeMax
 				}
 			}
 		}

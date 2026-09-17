@@ -35,14 +35,12 @@ type KnipIssueEntry = string | { col?: number; line?: number; name: string }
 type KnipIssue = Record<string, unknown> & { file: string }
 
 function flattenKnipEntries(value: unknown): KnipIssueEntry[] {
-	if (!Array.isArray(value)) {
-		return []
-	}
-
 	// Some categories (e.g. duplicates) nest entries one level deeper
-	return value.flatMap((entry: unknown) =>
-		Array.isArray(entry) ? (entry as KnipIssueEntry[]) : [entry as KnipIssueEntry],
-	)
+	return Array.isArray(value)
+		? value.flatMap((entry: unknown) =>
+				Array.isArray(entry) ? (entry as KnipIssueEntry[]) : [entry as KnipIssueEntry],
+			)
+		: []
 }
 
 /** Parses `knip --reporter json` output into diagnostics. */

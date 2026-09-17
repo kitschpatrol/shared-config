@@ -20,13 +20,8 @@ export function stringify(object: any): string {
 function stringifyHelper(object: any): string {
 	return jsonStringifyPrettyCompact(decircular(object), {
 		indent: 2,
-		replacer(_, value) {
-			if (typeof value === 'function') {
-				// eslint-disable-next-line ts/no-unsafe-function-type
-				return (value as Function).name
-			}
-
-			return value as unknown
+		replacer(_, value: unknown) {
+			return typeof value === 'function' ? value.name : value
 		},
 	})
 }

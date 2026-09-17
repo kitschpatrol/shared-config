@@ -42,3 +42,9 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/typescript-estree@8.70.0'
   - '@typescript-eslint/utils@8.70.0'
   - '@typescript-eslint/visitor-keys@8.70.0'
+  - '@e18e/eslint-plugin@0.8.1'
+  - eslint-plugin-astro@3.2.1
+  - lognow@0.8.2
+  - mdat@3.2.1
+  - metascope@0.12.0
+  - remark-mdat@3.0.2

@@ -24,11 +24,9 @@ function toRule(source: unknown, code: unknown): string | undefined {
 	const sourceString = typeof source === 'string' && source.length > 0 ? source : undefined
 	const codeString = typeof code === 'string' || typeof code === 'number' ? String(code) : undefined
 
-	if (sourceString !== undefined && codeString !== undefined) {
-		return `${sourceString}(${codeString})`
-	}
-
-	return sourceString ?? codeString
+	return sourceString !== undefined && codeString !== undefined
+		? `${sourceString}(${codeString})`
+		: (sourceString ?? codeString)
 }
 
 function parseSvelteVerboseDiagnostic(line: string, cwd: string): Diagnostic | undefined {
@@ -79,18 +77,16 @@ function parseSvelteCompactDiagnostic(line: string, cwd: string): Diagnostic | u
 	const { column, file, line: lineNumber, message, severity } = match.groups
 	const parsedFile = parseJsonString(file ?? '')
 	const parsedMessage = parseJsonString(message ?? '')
-	if (parsedFile === undefined || parsedMessage === undefined) {
-		return undefined
-	}
-
-	return {
-		column: Number(column),
-		file: normalizeDiagnosticPath(parsedFile, cwd),
-		line: Number(lineNumber),
-		message: parsedMessage,
-		severity: severity === 'ERROR' ? 'error' : 'warning',
-		tool: 'svelte-check',
-	}
+	return parsedFile === undefined || parsedMessage === undefined
+		? undefined
+		: {
+				column: Number(column),
+				file: normalizeDiagnosticPath(parsedFile, cwd),
+				line: Number(lineNumber),
+				message: parsedMessage,
+				severity: severity === 'ERROR' ? 'error' : 'warning',
+				tool: 'svelte-check',
+			}
 }
 
 function parseSvelteFailureDiagnostic(line: string): Diagnostic | undefined {
