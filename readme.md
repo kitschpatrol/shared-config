@@ -371,6 +371,12 @@ Future versions of `@kitschpatrol/shared-config` might enforce this via a `.gita
 
 This project works on Windows, but it's recommend to run commands in a [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) environment or a Bash-compatible terminal like [Git Bash](https://git-scm.com/download/win) to avoid potential issues with package scripts.
 
+### Caching
+
+`ksc lint` and `ksc fix` enable tool-native caches by default (`--no-cache` disables them), stored below `node_modules/.cache/ksc` at the workspace root. Only CSpell, Prettier, and Stylelint participate, since they evaluate each file in isolation.
+
+ESLint never caches. Its cache is per-file, but type-aware and cross-file rules depend on other files, `tsconfig.json`, declaration files, and generated types, so a cached result can replay a stale failure or a stale pass after an unrelated file changes. See the [`@kitschpatrol/eslint-config` readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/eslint-config/readme.md#caching) for details.
+
 ### `check` vs `lint`
 
 This project combines a mix of tools that regard their core task variously as "linting" or "checking" code and prose.

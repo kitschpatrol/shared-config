@@ -237,6 +237,14 @@ The ESLint module and instances are cached internally for performance across mul
 
 ## Notes
 
+### Caching
+
+`ksc-eslint lint` and `ksc-eslint fix` never pass `--cache` to ESLint, and the shared `--cache` option has no effect on them.
+
+ESLint's cache is per-file: a result is reused whenever the file's own content and the resolved config are unchanged. Type-aware rules (enabled by default whenever a `tsconfig.json` is found) and cross-file rules like `import/no-cycle` also depend on the types and exports of other files, on `tsconfig.json`, on declaration files, and on generated types like Astro's `.astro/` output, none of which are part of the cache key. Changing a function's return type in `a.ts` can make a cached result for `b.ts` wrong in either direction: a stale error that `--no-cache` clears, or a stale pass that hides a real one. The `metadata` and `content` cache strategies differ only in how they detect changes to the file itself, so neither helps. typescript-eslint's [FAQ](https://typescript-eslint.io/troubleshooting/faqs/eslint#can-i-use-eslints---cache-with-typescript-eslint) recommends against `--cache` for the same reason.
+
+The other tools that cache (CSpell, Prettier, and Stylelint) evaluate each file in isolation, so their per-file caches remain enabled.
+
 ### Config location
 
 Regrettably the `eslint-config init --location package` option is not supported due to ESLint's removal of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).

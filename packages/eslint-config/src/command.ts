@@ -90,12 +90,16 @@ export function parseEslintJsonOutput(context: CollectContext): CollectResult {
 	return { diagnostics, unparsed: toOutputLines(context.stderr) }
 }
 
+// ESLint's --cache is deliberately not used: it keys results on each file's own
+// content and the config hash, but type-aware and cross-file rules also depend
+// on other files, tsconfig, declaration files, and generated types, none of
+// which are in the key. A cached entry can replay stale failures or stale
+// passes after an unrelated file changes. See the readme's "Caching" note.
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
 			commands: [
 				{
-					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'eslint' },
 					collect: {
 						// The --fix flag must be retained so fixes are still applied
 						optionFlags: ['--fix', '--max-warnings', '0', '--format', 'json'],
@@ -121,7 +125,6 @@ export const commandDefinition: CommandDefinition = {
 		lint: {
 			commands: [
 				{
-					cache: { flags: ['--cache', '--cache-strategy', 'content'], name: 'eslint' },
 					collect: {
 						optionFlags: ['--max-warnings', '0', '--format', 'json'],
 						parse: parseEslintJsonOutput,
