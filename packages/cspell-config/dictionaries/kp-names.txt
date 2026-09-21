@@ -820,7 +820,9 @@ Kutnow
 Kuzmin
 Kykuit
 Kyoko
+L’Óreal
 L'Rai
+L’Rai
 Laidlaw
 Laika
 Lalo
@@ -883,10 +885,8 @@ Loic
 Loïc
 Longyearbyen
 Loong
-L’Óreal
 Lovejoy
 Lrai
-L’Rai
 Ludion
 Luiz
 lukechilds
@@ -1254,6 +1254,7 @@ Ruberto
 Rucyl
 Rudtner
 Rutter
+rviscomi
 Ryoji
 Ryono
 Rzehak
