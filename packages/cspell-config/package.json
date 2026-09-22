@@ -69,8 +69,8 @@
 		"magicast": "^0.5.5",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.7",
-		"yargs": "^18.1.0"
+		"prettier": "^3.9.8",
+		"yargs": "^18.2.0"
 	},
 	"devDependencies": {
 		"globby": "^16.2.4",

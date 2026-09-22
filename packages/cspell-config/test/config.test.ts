@@ -7,8 +7,8 @@ import {
 import { describe, expect, it } from 'vitest'
 import { sharedCspellConfig } from '../src/config.js'
 
-const markdownSettings = sharedCspellConfig.languageSettings?.find(({ languageId }) =>
-	typeof languageId === 'string' ? languageId.split(',').includes('markdown') : false,
+const markdownSettings = sharedCspellConfig.languageSettings?.find(
+	({ languageId }) => typeof languageId === 'string' && languageId.split(',').includes('markdown'),
 )
 const markdownIgnorePatterns = markdownSettings?.ignoreRegExpList ?? []
 

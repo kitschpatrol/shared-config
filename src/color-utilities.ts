@@ -19,11 +19,9 @@ function environmentColorOverride(): boolean | undefined {
 		return false
 	}
 
-	if (env.FORCE_COLOR !== undefined) {
-		return env.FORCE_COLOR !== '0' && env.FORCE_COLOR !== 'false'
-	}
-
-	return env.TERM === 'dumb' ? false : undefined
+	return env.FORCE_COLOR === undefined
+		? env.TERM !== 'dumb' && undefined
+		: env.FORCE_COLOR !== '0' && env.FORCE_COLOR !== 'false'
 }
 
 /**
@@ -38,11 +36,7 @@ export function shouldColorStream(
 	{ ciColor = true }: { ciColor?: boolean } = {},
 ): boolean {
 	const override = environmentColorOverride()
-	if (override !== undefined) {
-		return override
-	}
-
-	return stream.isTTY === true ? true : ciColor && Boolean(process.env.CI)
+	return override ?? (stream.isTTY === true || (ciColor && Boolean(process.env.CI)))
 }
 
 /**

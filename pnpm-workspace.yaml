@@ -25,3 +25,27 @@ allowBuilds:
   unrs-resolver: true
 minimumReleaseAgeExclude:
   - '@rviscomi/capo.js@2.3.1'
+  - '@eslint-react/ast@5.20.5'
+  - '@eslint-react/core@5.20.5'
+  - '@eslint-react/eslint-plugin@5.20.5'
+  - '@eslint-react/eslint@5.20.5'
+  - '@eslint-react/jsx@5.20.5'
+  - '@eslint-react/shared@5.20.5'
+  - '@eslint-react/var@5.20.5'
+  - '@typescript-eslint/eslint-plugin@8.70.1'
+  - '@typescript-eslint/parser@8.70.1'
+  - '@typescript-eslint/project-service@8.70.1'
+  - '@typescript-eslint/scope-manager@8.70.1'
+  - '@typescript-eslint/tsconfig-utils@8.70.1'
+  - '@typescript-eslint/type-utils@8.70.1'
+  - '@typescript-eslint/types@8.70.1'
+  - '@typescript-eslint/typescript-estree@8.70.1'
+  - '@typescript-eslint/utils@8.70.1'
+  - '@typescript-eslint/visitor-keys@8.70.1'
+  - eslint-plugin-de-morgan@2.2.0
+  - eslint-plugin-react-dom@5.20.5
+  - eslint-plugin-react-jsx@5.20.5
+  - eslint-plugin-react-naming-convention@5.20.5
+  - eslint-plugin-react-rsc@5.20.5
+  - eslint-plugin-react-web-api@5.20.5
+  - eslint-plugin-react-x@5.20.5

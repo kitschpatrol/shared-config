@@ -9,7 +9,7 @@ async function createEslint(react = false): Promise<ESLint> {
 		isInEditor: false,
 		js: { typeAware: { enabled: false } },
 		jsx: { typeAware: { enabled: false } },
-		react: react ? { typeAware: { enabled: false } } : false,
+		react: react && { typeAware: { enabled: false } },
 		svelte: false,
 		ts: { typeAware: { enabled: false } },
 		tsx: { typeAware: { enabled: false } },

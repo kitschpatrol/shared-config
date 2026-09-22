@@ -55,8 +55,8 @@
 		"json-stringify-pretty-compact": "^4.0.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.7",
-		"yargs": "^18.1.0"
+		"prettier": "^3.9.8",
+		"yargs": "^18.2.0"
 	},
 	"devDependencies": {
 		"typescript": "~6.0.3"

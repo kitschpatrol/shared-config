@@ -673,12 +673,13 @@ function addCacheOption<T>(yargsInstance: Argv<T>) {
  * children, which render machine output themselves.
  */
 function shouldPassThrough(command: Command, format: OutputFormat): boolean {
-	return format === 'native'
-		? true
-		: format === 'machine' &&
-				!isCommandFunction(command) &&
-				!isCommandGroup(command) &&
-				command.outputFormatAware === true
+	return (
+		format === 'native' ||
+		(format === 'machine' &&
+			!isCommandFunction(command) &&
+			!isCommandGroup(command) &&
+			command.outputFormatAware === true)
+	)
 }
 
 /**
@@ -1048,7 +1049,7 @@ export async function executeCommands(
 	)
 
 	// The verbose "Running:" lines are human-facing chrome, shown in native format only
-	const nativeVerbose = format === 'native' ? verbose : false
+	const nativeVerbose = format === 'native' && verbose
 	const { cache, scheduler } = await prepareExecution(options)
 
 	const outcomes = await executeCommandPlan(

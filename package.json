@@ -59,7 +59,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.types": "^1100.1.1",
+		"@pnpm/lockfile.types": "^1100.1.2",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "~24.13.4",
 		"@types/react": "^19.3.0",
@@ -78,14 +78,14 @@
 		"mdat-plugin-cli-help": "^3.2.0",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.7",
+		"prettier": "^3.9.8",
 		"publint": "^0.3.24",
 		"shx": "^0.4.0",
 		"tsdown": "^0.23.0",
-		"tsx": "^4.23.13",
+		"tsx": "^4.23.15",
 		"typescript": "~6.0.3",
 		"vitest": "^5.0.1",
-		"yargs": "^18.1.0"
+		"yargs": "^18.2.0"
 	},
 	"packageManager": "pnpm@12.4.0",
 	"engines": {
