@@ -90,6 +90,11 @@ export function parseEslintJsonOutput(context: CollectContext): CollectResult {
 	return { diagnostics, unparsed: toOutputLines(context.stderr) }
 }
 
+// --max-warnings 0 fails on warnings. --no-warn-ignored keeps explicit file
+// arguments that ESLint ignores (or that match no config) from counting as
+// warnings, so aggregate ksc runs can hand every file to every tool.
+const sharedOptionFlags = ['--max-warnings', '0', '--no-warn-ignored']
+
 // ESLint's --cache is deliberately not used: it keys results on each file's own
 // content and the config hash, but type-aware and cross-file rules also depend
 // on other files, tsconfig, declaration files, and generated types, none of
@@ -102,7 +107,7 @@ export const commandDefinition: CommandDefinition = {
 				{
 					collect: {
 						// The --fix flag must be retained so fixes are still applied
-						optionFlags: ['--fix', '--max-warnings', '0', '--format', 'json'],
+						optionFlags: ['--fix', ...sharedOptionFlags, '--format', 'json'],
 						parse: parseEslintJsonOutput,
 					},
 					name: 'eslint',
@@ -110,7 +115,7 @@ export const commandDefinition: CommandDefinition = {
 					// Didn't benchmark particularly fast in September 2025
 					// Matching lint's --max-warnings 0 means unfixable warnings fail
 					// fix exactly as they'd fail a subsequent lint
-					optionFlags: ['--fix', '--max-warnings', '0'],
+					optionFlags: ['--fix', ...sharedOptionFlags],
 					receivePositionalArguments: true,
 				},
 			],
@@ -126,13 +131,13 @@ export const commandDefinition: CommandDefinition = {
 			commands: [
 				{
 					collect: {
-						optionFlags: ['--max-warnings', '0', '--format', 'json'],
+						optionFlags: [...sharedOptionFlags, '--format', 'json'],
 						parse: parseEslintJsonOutput,
 					},
 					name: 'eslint',
 					// Consider // Consider '--concurrency', 'auto'
 					// Didn't benchmark particularly fast in September 2025
-					optionFlags: ['--max-warnings', '0'],
+					optionFlags: sharedOptionFlags,
 					receivePositionalArguments: true,
 				},
 			],

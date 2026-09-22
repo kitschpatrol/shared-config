@@ -331,6 +331,120 @@ describe('command scheduler', () => {
 	})
 })
 
+describe('positional argument extensions', () => {
+	function createRecordingCommand(name: string, received: string[][]): CommandFunction {
+		return {
+			async execute(_logStream, positionalArguments) {
+				received.push(positionalArguments)
+				await delay(0)
+				return 0
+			},
+			name,
+		}
+	}
+
+	function createFilteringGroup(received: string[][]): CommandGroup {
+		return {
+			...createGroup('ksc-stylelint', [createRecordingCommand('stylelint', received)]),
+			positionalArgumentDefault: '**/*.{css,scss}',
+			positionalArgumentExtensions: ['css', 'scss'],
+			positionalArgumentMode: 'optional',
+		}
+	}
+
+	it('narrows explicit file arguments to the extensions a group handles', async () => {
+		const received: string[][] = []
+
+		const result = await executeCommands(
+			createLogStream(),
+			['a.json', 'b.css', 'C.SCSS', 'src', 'lib/**/*.ts', 'LICENSE'],
+			[],
+			[createFilteringGroup(received)],
+			undefined,
+			undefined,
+			undefined,
+			{ concurrency: 1, format: 'native' },
+		)
+
+		expect(result.exitCode).toBe(0)
+		expect(received).toEqual([['b.css', 'C.SCSS', 'src', 'lib/**/*.ts']])
+	})
+
+	it('falls back to the default glob when no file arguments are given', async () => {
+		const received: string[][] = []
+
+		await executeCommands(
+			createLogStream(),
+			[],
+			[],
+			[createFilteringGroup(received)],
+			undefined,
+			undefined,
+			undefined,
+			{ concurrency: 1, format: 'native' },
+		)
+
+		expect(received).toEqual([['**/*.{css,scss}']])
+	})
+
+	it('skips a group when no file arguments apply', async () => {
+		const received: string[][] = []
+		const { output, stream } = createCapturedLogStream()
+
+		const result = await executeCommands(
+			stream,
+			['a.json', 'LICENSE'],
+			[],
+			[createFilteringGroup(received)],
+			undefined,
+			undefined,
+			undefined,
+			{ concurrency: 1, format: 'native' },
+		)
+
+		expect(result.exitCode).toBe(0)
+		expect(received).toEqual([])
+		expect(output()).toContain('1 / 1 Command Skipped:')
+		expect(output()).toContain('ksc-stylelint')
+	})
+
+	it('narrows file arguments for a stand-alone tool', async () => {
+		const received: string[][] = []
+
+		const result = await executeCommands(
+			createLogStream(),
+			['a.json', 'b.css'],
+			[],
+			[createRecordingCommand('stylelint', received)],
+			undefined,
+			undefined,
+			undefined,
+			{ concurrency: 1, format: 'native', positionalArgumentExtensions: ['css'] },
+		)
+
+		expect(result.exitCode).toBe(0)
+		expect(received).toEqual([['b.css']])
+	})
+
+	it('skips every command when no file arguments apply to a stand-alone tool', async () => {
+		const received: string[][] = []
+
+		const result = await executeCommands(
+			createLogStream(),
+			['a.json'],
+			[],
+			[createRecordingCommand('stylelint', received)],
+			undefined,
+			undefined,
+			undefined,
+			{ concurrency: 1, format: 'native', positionalArgumentExtensions: ['css'] },
+		)
+
+		expect(result.exitCode).toBe(0)
+		expect(received).toEqual([])
+	})
+})
+
 describe('tool-native cache arguments', () => {
 	const printArgumentsScript = 'process.stdout.write(JSON.stringify(process.argv.slice(1)))'
 	const cacheCommand: Command = {

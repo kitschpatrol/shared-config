@@ -145,6 +145,7 @@ export type CommandGroup = CommandCommon & {
 	/** Whether commands in the same stage are parallel-safe. */
 	parallel?: boolean
 	positionalArgumentDefault?: string
+	positionalArgumentExtensions?: LintCommand['positionalArgumentExtensions']
 	positionalArgumentMode: LintCommand['positionalArgumentMode']
 	/** Append the resolved child command names to the parent `Running:` line. */
 	showResolvedCommands?: boolean
@@ -184,6 +185,13 @@ type LintCommand = {
 	 */
 	parallel?: boolean
 	positionalArgumentDefault?: string // Only applies if arguments mode is not 'none'
+	/**
+	 * File extensions (without dots) the tool handles. Explicit file arguments
+	 * with other extensions are dropped before the tool runs, and the tool is
+	 * skipped when none remain. Directories and globs pass through untouched
+	 * since the tool expands them against its own defaults.
+	 */
+	positionalArgumentExtensions?: string[]
 	positionalArgumentMode: 'none' | 'optional' | 'required'
 	/** Append the resolved child command names to an aggregate `Running:` line. */
 	showResolvedCommands?: boolean
@@ -717,6 +725,8 @@ export type ExecuteCommandsOptions = {
 	format?: OutputFormat
 	/** Run commands within a stage concurrently. */
 	parallel?: boolean
+	/** Extension filter for the file arguments, see `LintCommand`. */
+	positionalArgumentExtensions?: string[]
 }
 
 /** Default shared worker budget for lint and fix commands. */
@@ -786,6 +796,42 @@ type CommandExecutionContext = {
 	scheduler: CommandScheduler
 }
 
+const GLOB_MAGIC_REGEX = /[*?\[\]\{\}]/v
+
+/**
+ * Narrows explicit file arguments to the extensions a tool handles. Globs and
+ * directories pass through untouched since the tool expands them against its
+ * own defaults. Without an extension list, arguments pass through unchanged.
+ */
+function filterPositionalArguments(
+	positionalArguments: string[],
+	extensions: string[] | undefined,
+): string[] {
+	return extensions === undefined
+		? positionalArguments
+		: positionalArguments.filter(
+				(argument) =>
+					GLOB_MAGIC_REGEX.test(argument) ||
+					fs.statSync(argument, { throwIfNoEntry: false })?.isDirectory() === true ||
+					extensions.includes(path.extname(argument).slice(1).toLowerCase()),
+			)
+}
+
+/**
+ * False when file arguments were given but the extension filter drops every one
+ * of them. The tool then has nothing to do and is skipped rather than falling
+ * back to its default glob.
+ */
+function hasApplicablePositionalArguments(
+	positionalArguments: string[],
+	extensions: string[] | undefined,
+): boolean {
+	return (
+		positionalArguments.length === 0 ||
+		filterPositionalArguments(positionalArguments, extensions).length > 0
+	)
+}
+
 function resolveGroupPositionalArguments(
 	group: CommandGroup,
 	positionalArguments: string[],
@@ -795,7 +841,7 @@ function resolveGroupPositionalArguments(
 	}
 
 	if (positionalArguments.length > 0) {
-		return positionalArguments
+		return filterPositionalArguments(positionalArguments, group.positionalArgumentExtensions)
 	}
 
 	return group.positionalArgumentDefault === undefined ? [] : [group.positionalArgumentDefault]
@@ -991,18 +1037,29 @@ async function executeCommandPlan(
 
 /**
  * Partitions commands into run / skip lists based on `--skip` values, warning
- * about values that match no command.
+ * about values that match no command. Commands whose extension filter leaves no
+ * file arguments are skipped as well, since they would have nothing to do.
  */
 function partitionSkippedCommands(
 	logStream: NodeJS.WritableStream,
 	commands: Command[],
 	skip: string[],
+	positionalArguments: string[],
+	positionalArgumentExtensions: string[] | undefined,
 ): { commandsToRun: Command[]; skippedCommands: Command[] } {
 	const commandsToRun: Command[] = []
 	const skippedCommands: Command[] = []
+	const applicable = hasApplicablePositionalArguments(
+		positionalArguments,
+		positionalArgumentExtensions,
+	)
 
 	for (const command of commands) {
-		if (skip.length > 0 && skip.includes(normalizeCommandName(command.name))) {
+		const groupApplicable =
+			!isCommandGroup(command) ||
+			hasApplicablePositionalArguments(positionalArguments, command.positionalArgumentExtensions)
+
+		if (!applicable || !groupApplicable || skip.includes(normalizeCommandName(command.name))) {
 			skippedCommands.push(command)
 		} else {
 			commandsToRun.push(command)
@@ -1046,6 +1103,8 @@ export async function executeCommands(
 		logStream,
 		commands,
 		skip ?? [],
+		positionalArguments,
+		options.positionalArgumentExtensions,
 	)
 
 	// The verbose "Running:" lines are human-facing chrome, shown in native format only
@@ -1060,7 +1119,10 @@ export async function executeCommands(
 			logStream,
 			nativeVerbose,
 			optionFlags,
-			positionalArguments,
+			positionalArguments: filterPositionalArguments(
+				positionalArguments,
+				options.positionalArgumentExtensions,
+			),
 			scheduler,
 		},
 		options.parallel === true,
@@ -1402,6 +1464,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						cache: argv.cache,
 						format,
 						parallel: lint.parallel,
+						positionalArgumentExtensions: lint.positionalArgumentExtensions,
 					},
 				)
 
@@ -1461,6 +1524,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 						cache: argv.cache,
 						format,
 						parallel: fix.parallel,
+						positionalArgumentExtensions: fix.positionalArgumentExtensions,
 					},
 				)
 

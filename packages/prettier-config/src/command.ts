@@ -64,6 +64,9 @@ export function parsePrettierOutput(context: CollectContext): CollectResult {
 // when invoked from a subdirectory.
 const sharedOptions = [
 	'--log-level=warn',
+	// Explicit file arguments prettier has no parser for are skipped instead of
+	// erroring, so aggregate ksc runs can hand every file to every tool
+	'--ignore-unknown',
 	'--plugin=prettier-plugin-astro',
 	'--plugin=@prettier/plugin-php',
 	'--plugin=@prettier/plugin-ruby',

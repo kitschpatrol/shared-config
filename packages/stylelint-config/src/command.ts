@@ -16,7 +16,7 @@ const sharedOptionFlags = [
 	getFilePathAtProjectRoot('.gitignore') ?? '.gitignore',
 	'--allow-empty-input',
 ]
-const positionalArgumentDefaultSuffix = [
+const positionalArgumentExtensions = [
 	'css',
 	'scss',
 	'sass',
@@ -28,7 +28,7 @@ const positionalArgumentDefaultSuffix = [
 	'php',
 	'vue',
 ]
-const positionalArgumentDefault = `**/*.{${positionalArgumentDefaultSuffix.join(',')}}`
+const positionalArgumentDefault = `**/*.{${positionalArgumentExtensions.join(',')}}`
 
 type StylelintJsonWarning = {
 	column?: number
@@ -161,6 +161,7 @@ export const commandDefinition: CommandDefinition = {
 			],
 			description: `Fix your project with Stylelint. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault,
+			positionalArgumentExtensions,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
@@ -187,6 +188,7 @@ export const commandDefinition: CommandDefinition = {
 			],
 			description: `Lint your project with Stylelint. ${DESCRIPTION.fileRun}`,
 			positionalArgumentDefault,
+			positionalArgumentExtensions,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {

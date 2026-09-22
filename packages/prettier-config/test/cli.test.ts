@@ -98,6 +98,15 @@ describe('cli positional argument limiting', () => {
 		expect(cContent).toBe('const   x=1\n')
 	})
 
+	it('should skip explicit files it has no parser for', async () => {
+		const unknown = await writeUnformatted('unknown.xyz', 'not code\n')
+
+		const result = await runCli('lint', getPackageRelativePath(unknown))
+
+		expect(result.exitCode).toBe(0)
+		expect(result.stderr).not.toContain('No parser could be inferred')
+	})
+
 	it('should default to "." when no files are given', async () => {
 		const file = await writeUnformatted('default.ts')
 
