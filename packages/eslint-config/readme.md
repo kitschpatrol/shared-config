@@ -255,6 +255,10 @@ The `update-rules` script is used to manually regenerate preset rule sets when p
 
 The script requires two calls to `ksc-prettier fix` to accommodate a lack of idempotence in Prettier's handling of the resulting `typegen.d.ts` file. This surfaced a few Prettier versions ago, and the necessity of this work-around should be reevaluated periodically against future versions of Prettier.
 
+### ESLint version pin
+
+ESLint is pinned to `~10.10.0`. ESLint 10.11.0 added a private rule-definition cache to its `Config` class, which breaks the config cloning in [eslint-plugin-html](https://github.com/BenoitZugmeyer/eslint-plugin-html) and crashes linting of `.html` files. Restore the caret range once [eslint-plugin-html#342](https://github.com/BenoitZugmeyer/eslint-plugin-html/issues/342) is resolved.
+
 ### Origins
 
 This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation implementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config). See the [modification notes](./modification-notes.md) for more details on what's changed from Anthony's approach.

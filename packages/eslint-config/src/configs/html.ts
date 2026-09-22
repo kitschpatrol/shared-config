@@ -11,6 +11,9 @@ import { htmlRecommendedRules } from '../presets/html'
 
 // eslint-plugin-html lints scripts inside HTML files
 // @html-eslint/parser and @html-eslint/plugin are used to lint HTML files themselves
+// TODO: The eslint dependency in package.json is pinned to ~10.10.0 because ESLint 10.11.0's
+// private rule-definition cache breaks eslint-plugin-html's config cloning. Restore the caret
+// range once https://github.com/BenoitZugmeyer/eslint-plugin-html/issues/342 is resolved.
 
 export async function html(
 	options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
