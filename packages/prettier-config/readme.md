@@ -244,6 +244,13 @@ Config is resolved in priority order: shared defaults < local project config (vi
 
 The Prettier module and resolved plugin paths are cached internally for performance across multiple calls. Use `clearCache()` to force re-initialization.
 
+## Astro support
+
+Tailwind class sorting does not currently work in `.astro` files. [prettier-plugin-astro](https://github.com/withastro/prettier-plugin-astro) 1.0 was rebuilt on Astro's Rust compiler and now produces a JSX-style AST, but the Astro transform in [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) still expects the 0.x node shapes and silently sorts nothing. Track progress here:
+
+- [prettier-plugin-tailwindcss PR #473](https://github.com/tailwindlabs/prettier-plugin-tailwindcss/pull/473) (pending fix)
+- [prettier-plugin-astro issue #483](https://github.com/withastro/prettier-plugin-astro/issues/483)
+
 ## Ruby support
 
 Ruby formatting Expects a global Ruby install >=2.7 with the following gems:

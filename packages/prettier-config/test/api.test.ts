@@ -67,11 +67,16 @@ describe('fix', () => {
 		expect(result).toContain('className="flex p-4 text-white"')
 	})
 
-	it.each([
-		['Astro', 'file.astro'],
-		['Svelte', 'file.svelte'],
-	])('should sort Tailwind classes in the %s parser override', async (_, filePath) => {
-		const result = await fix('<div class="text-white p-4 flex">Hello</div>', filePath)
+	it('should sort Tailwind classes in the Svelte parser override', async () => {
+		const result = await fix('<div class="text-white p-4 flex">Hello</div>', 'file.svelte')
+
+		expect(result).toContain('class="flex p-4 text-white"')
+	})
+
+	// TODO: Re-enable once prettier-plugin-tailwindcss supports the prettier-plugin-astro 1.x AST.
+	// https://github.com/tailwindlabs/prettier-plugin-tailwindcss/pull/473
+	it.todo('should sort Tailwind classes in the Astro parser override', async () => {
+		const result = await fix('<div class="text-white p-4 flex">Hello</div>', 'file.astro')
 
 		expect(result).toContain('class="flex p-4 text-white"')
 	})
