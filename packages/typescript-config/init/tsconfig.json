@@ -6,7 +6,5 @@
 		// Consider enabling for new projects
 		// https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
 		// "exactOptionalPropertyTypes": true
-	},
-	"include": ["**/**.*"],
-	"exclude": ["dist/"]
+	}
 }

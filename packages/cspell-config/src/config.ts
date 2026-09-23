@@ -94,6 +94,7 @@ export const sharedCspellConfig: CspellConfig = {
 		'**/.claude/**',
 		'**/.vitest/**',
 		'**/.worktrees/**',
+		'**/coverage/**',
 		'*/*package.json',
 		'package-lock.json',
 		'package.json',

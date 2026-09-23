@@ -37,15 +37,15 @@ Facts verified 2026-07 against the installed versions: ESLint 10.7, Prettier 3.9
 
 Edit the package defaults, then release. Note the two `init/` boilerplate files only land on `ksc init` — existing consumer projects never pick up changes to them.
 
-| Tool          | Edit                                                                                                | Key / mechanism                                                                                                                                                                                       |
-| ------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ESLint        | [`packages/eslint-config/src/globs.ts`](../packages/eslint-config/src/globs.ts)                     | `GLOB_EXCLUDE`, merged into the `kp/ignores` config by [`configs/ignores.ts`](../packages/eslint-config/src/configs/ignores.ts)                                                                       |
-| CSpell        | [`packages/cspell-config/src/config.ts`](../packages/cspell-config/src/config.ts)                   | `ignorePaths` — also flows to Case Police (see gotchas)                                                                                                                                               |
-| Prettier      | [`packages/prettier-config/init/.prettierignore`](../packages/prettier-config/init/.prettierignore) | Boilerplate only — existing consumers edit their own `.prettierignore`                                                                                                                                |
-| Git & friends | [`packages/repo-config/init/.gitignore`](../packages/repo-config/init/.gitignore)                   | Boilerplate only — same caveat                                                                                                                                                                        |
-| Stylelint     | [`packages/stylelint-config/src/command.ts`](../packages/stylelint-config/src/command.ts)           | `positionalArgumentDefaultSuffix` — stylelint only ever sees `**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}`, so removing an extension here un-lints it everywhere                           |
-| Knip          | [`packages/knip-config/src/config.ts`](../packages/knip-config/src/config.ts)                       | No `ignore` array today; add one to ship a default                                                                                                                                                    |
-| TypeScript    | [`packages/typescript-config/init/tsconfig.json`](../packages/typescript-config/init/tsconfig.json) | `exclude` boilerplate (init-only). The shared [`tsconfigs/base.json`](../packages/typescript-config/tsconfigs/base.json) has no `include`/`exclude` — the consumer's tsconfig controls file selection |
+| Tool          | Edit                                                                                                | Key / mechanism                                                                                                                                                                                          |
+| ------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ESLint        | [`packages/eslint-config/src/globs.ts`](../packages/eslint-config/src/globs.ts)                     | `GLOB_EXCLUDE`, merged into the `kp/ignores` config by [`configs/ignores.ts`](../packages/eslint-config/src/configs/ignores.ts)                                                                          |
+| CSpell        | [`packages/cspell-config/src/config.ts`](../packages/cspell-config/src/config.ts)                   | `ignorePaths` — also flows to Case Police (see gotchas)                                                                                                                                                  |
+| Prettier      | [`packages/prettier-config/init/.prettierignore`](../packages/prettier-config/init/.prettierignore) | Boilerplate only — existing consumers edit their own `.prettierignore`                                                                                                                                   |
+| Git & friends | [`packages/repo-config/init/.gitignore`](../packages/repo-config/init/.gitignore)                   | Boilerplate only — same caveat                                                                                                                                                                           |
+| Stylelint     | [`packages/stylelint-config/src/config.ts`](../packages/stylelint-config/src/config.ts)             | `ignoreFiles` array (consumer overrides replace it). The CLI extension glob is configured separately in `src/command.ts`.                                                                                |
+| Knip          | [`packages/knip-config/src/config.ts`](../packages/knip-config/src/config.ts)                       | No `ignore` array today; add one to ship a default                                                                                                                                                       |
+| TypeScript    | [`packages/typescript-config/init/tsconfig.json`](../packages/typescript-config/init/tsconfig.json) | `exclude` boilerplate (init-only). Also update [`tsconfigs/base.json`](../packages/typescript-config/tsconfigs/base.json) for consumers inheriting its `exclude`; a consumer's own `exclude` replaces it |
 
 ## Will the tool even see a new file type?
 
@@ -53,6 +53,18 @@ For a brand-new extension, most tools ignore it implicitly — only some need an
 
 - **Always sees it:** Git (tracks anything), CSpell (spell-checks any text file — `enabledFileTypes: { '*': true }` in CSpell 10's defaults). These two are the usual mandatory edits.
 - **Sees it only if configured for it:** ESLint (a config's `files` glob must match — see `GLOB_*` in [`globs.ts`](../packages/eslint-config/src/globs.ts)), Prettier (must have a parser/plugin for the extension), Stylelint (extension must be in the `ksc` default glob list), TypeScript (JS/TS files only), Knip (default `project` glob is `**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}`), Vitest (must match `**/*.{test,spec}.?(c|m)[jt]s?(x)`).
+
+## Coverage reports
+
+Directories named `coverage` are ignored at any depth:
+
+- Git, Prettier, Stylelint, Knip, CSpell, and ESLint use the existing `coverage/` entry in `.gitignore` (also shipped in the repo-config template).
+- ESLint (including remark) already ships `**/coverage` in `GLOB_EXCLUDE`.
+- Case Police does not read `.gitignore`, so the shared CSpell `ignorePaths` explicitly includes `**/coverage/**`, which is passed through to Case Police.
+- TypeScript excludes coverage in the shared base config, the init template, and this repo's config. Existing consumers with their own `exclude` must add `**/coverage/` themselves; imports can still pull excluded files into the program.
+- This repo's Vitest config adds `**/coverage/**` while preserving Vitest's default excludes. Consumer projects must add this to their own test configs.
+
+Changes to init templates only apply on `ksc init`; they do not update existing projects automatically. mdat only processes the readme files it is given.
 
 ## Worktrees
 

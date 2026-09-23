@@ -9,6 +9,7 @@
 	// Includes project dot-files files for typescript-eslint integration
 	"include": ["**/**.*"],
 	"exclude": [
+		"**/coverage/",
 		"**/dist/",
 		"**/bin/",
 		"test/fixtures/input/*.*",
