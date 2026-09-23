@@ -43,6 +43,7 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/utils@8.70.1'
   - '@typescript-eslint/visitor-keys@8.70.1'
   - eslint-plugin-de-morgan@2.2.0
+  - eslint-plugin-html@8.2.1
   - eslint-plugin-react-dom@5.20.5
   - eslint-plugin-react-jsx@5.20.5
   - eslint-plugin-react-naming-convention@5.20.5
