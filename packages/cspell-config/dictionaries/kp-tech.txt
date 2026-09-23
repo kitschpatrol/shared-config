@@ -1,4 +1,3 @@
-
 aacbrew
 Acrobits
 adjustmentsinfo
@@ -595,6 +594,7 @@ Piwick
 piwik
 Pixelmator
 Pixera
+pixex
 pixi
 pkgroll
 pkill

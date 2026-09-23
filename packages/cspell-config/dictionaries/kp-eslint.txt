@@ -5,6 +5,7 @@ canonicalurl
 chunkname
 codespell
 curlies
+describedby
 displaynames
 eslintjs
 eslintjson

@@ -8,6 +8,7 @@ Adventureland
 AeroVironment
 Aescape
 AEVEX
+aicw
 AIEQ
 airtool
 Akasa
@@ -37,12 +38,14 @@ Asics
 ASUS
 Aukey
 Aurulent
+autostarter
 Avitto
 Axure
 Backblaze
 Baggu
 Bagjack
 Baldor
+bandbreite
 Baratza
 Bazel
 Beelink
@@ -84,10 +87,15 @@ Ciel
 cisofy
 Citi
 CLAE
+claudebar
+claudefordesktop
+clevelandart
 Cnet
 codemirror
 codewhisperer
+colorlight
 Cometa
+commongateway
 Conceptarium
 Connexion
 Coolhunting
@@ -106,6 +114,7 @@ daringfireball
 datacite
 Datomic
 Devtek
+devutils
 DigiKey
 Dinamo
 Displax
@@ -120,6 +129,8 @@ Eastpak
 Eldorado
 Elgato
 Enerloop
+eney
+enttec
 Envato
 Espiral
 Evangelion
@@ -137,6 +148,7 @@ Fiskars
 flashprint
 Flic
 Flickr
+fmail
 Focalin
 Fogia
 Foznt
@@ -198,6 +210,7 @@ Kingwin
 Kinka
 Kinkos
 kiro
+klack
 Knowfox
 Koche
 Kohler
@@ -206,6 +219,7 @@ L'Oréal
 Labdoor
 Lamy
 Lamzu
+leeum
 legcord
 Levain
 Loreal
@@ -214,6 +228,7 @@ Luxon
 Luxonis
 MacBook
 Macys
+maiborn
 mailarchiverx
 Malin
 Mandai
@@ -224,6 +239,7 @@ Mekelburg
 Melitta
 Meross
 metaimage
+metavideo
 Metra
 Metrograph
 Mets
@@ -231,6 +247,7 @@ Mikimoto
 mindmac
 mixcloud
 Moccamaster
+modallmedia
 Momofuku
 Monero
 Monoprice
@@ -242,6 +259,7 @@ Neatorama
 Nelnet
 networkidle
 Niimbot
+noosh
 Nord
 Northbank
 Northstar
@@ -262,11 +280,13 @@ Otta
 Pachube
 Palit
 Panera
+pangat
 Partiful
 Paxlovid
 Payboo
 Peakto
 Penco
+pennstate
 Performa
 Perlorian
 Perrotin
@@ -276,13 +296,16 @@ Phidgets
 phusion
 Piction
 Pirelli
+pixelmatorteam
 Plastite
+plausiblelabs
 Playmobil
 Ploopy
 Pocketmod
 Posay
 Prezi
 Protolabs
+publicspace
 Puro
 Qotom
 Qovery
@@ -349,6 +372,7 @@ Superbright
 Sutro
 Swappa
 syntheyes
+tableflip
 Tanita
 Tapo
 Targus
@@ -359,6 +383,7 @@ Thonet
 Tifosi
 TikTok
 Timbuk
+timpler
 Tinyletter
 Totokaelo
 Travelpro
@@ -372,6 +397,7 @@ Ubiquiti
 Ubisoft
 Ultimaker
 Uniqlo
+updatest
 Vava
 Venmo
 VENTUS
