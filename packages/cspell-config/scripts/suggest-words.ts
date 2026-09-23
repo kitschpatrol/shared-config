@@ -85,36 +85,40 @@ async function main() {
 
 	const categories = await getDictionaryCategories()
 
-	const llmPrompt = `You are helping to categorize words for a spell checker dictionary used in code projects.
+	const llmPrompt = `You are working in the shared-config repository. Categorize the words below and add them directly to its spell checker dictionaries.
 
-TASK: Categorize each word below into one of these categories:
-${categories.map((c) => `- ${c.toUpperCase()}`).join('\n')}
-- OBSCURE
+TASK: Categorize each word below and update the corresponding dictionary file:
+${categories.map((c) => `- ${c.toUpperCase()}: packages/cspell-config/dictionaries/kp-${c}.txt`).join('\n')}
+- OBSCURE: Report these words separately without adding them to a dictionary.
 	
 INSTRUCTIONS:
 - Assign each word to the most appropriate category based on its primary meaning or usage context
 - Only use "Obscure" for words that are genuinely uncommon, archaic, or don't fit any other category
 - Prioritize placing words in specific categories over using "Obscure"
 - Consider programming/technical contexts when categorizing
-- Do not make up and additional categories. Only use the ones provided above in TASK.
+- Do not make up any additional categories. Only use the ones provided above in TASK.
 - Do not repeat words or duplicate them across categories.
-- Do not make up and additional words. Only use the ones provided below in WORDS TO CATEGORIZE.
+- Do not make up any additional words. Only use the ones provided below in WORDS TO CATEGORIZE.
+- Edit the dictionary files directly, adding one word per line and keeping words sorted alphabetically, case-insensitively.
+- Before adding a word, check all existing dictionaries and skip words already present, ignoring case.
+- Preserve existing words, spelling, capitalization, and any unrelated changes in the repository.
+- Do not create new dictionary files.
 	
 WORDS TO CATEGORIZE:
 ${suggestedWords.join('\n')}
 	
 OUTPUT FORMAT:
-Return plain text with category headings in ALL CAPS, followed by words (one per line) that belong in that category.
+After editing the files, summarize the words added to each dictionary and list any skipped or OBSCURE words.
 	
 REMEMBER:
-- Do not make up and additional categories. Only use the ones provided above in TASK.
-- Do not make up and additional words. Only use the ones provided above in WORDS TO CATEGORIZE.`
+- Do not make up any additional categories. Only use the ones provided above in TASK.
+- Do not make up any additional words. Only use the ones provided above in WORDS TO CATEGORIZE.`
 
 	// Copy to pasteboard
 	await execa('pbcopy', { input: llmPrompt })
 
 	console.log(
-		`Found ${suggestedWords.length} words to suggest. An LLM prompt to assist categorization has been copied to the pasteboard.`,
+		`Found ${suggestedWords.length} words to suggest. A prompt to categorize and add them to the dictionaries has been copied to the pasteboard. Run it with a coding agent in the shared-config repository.`,
 	)
 }
 
