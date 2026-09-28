@@ -2316,6 +2316,13 @@ export interface RuleOptions {
 	 */
 	'json-package/require-os'?: Linter.RuleEntry<JsonPackageRequireOs>
 	/**
+	 * Ensures that if a package specifies `exports` (or `publishConfig.exports`),
+	 * an explicit `package.json` export is included.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/require-package-json-export
+	 */
+	'json-package/require-package-json-export'?: Linter.RuleEntry<[]>
+	/**
 	 * Requires the `packageManager` property to be present.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-packageManager

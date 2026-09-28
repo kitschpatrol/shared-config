@@ -505,7 +505,18 @@ export const xoTypescriptRules: Rules = {
 	'no-void': ['error', { allowAsStatement: true }],
 	'ts/no-floating-promises': [
 		'error',
-		{ checkThenables: true, ignoreVoid: true, ignoreIIFE: true },
+		{
+			checkThenables: true,
+			ignoreVoid: true,
+			ignoreIIFE: true,
+			allowForKnownSafeCalls: [
+				{
+					from: 'package',
+					package: 'node:test',
+					name: ['test', 'it', 'describe', 'suite', 'skip', 'todo', 'only'],
+				},
+			],
+		},
 	],
 	'ts/no-for-in-array': 'error',
 	'ts/no-inferrable-types': 'error',

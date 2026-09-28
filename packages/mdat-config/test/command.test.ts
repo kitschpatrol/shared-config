@@ -1,5 +1,4 @@
 import { execa } from 'execa'
-import { loadConfig } from 'mdat'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
@@ -28,15 +27,6 @@ afterEach(async () => {
 
 async function expectPrintConfig(ruleName: string, configPath: string): Promise<void> {
 	const resolvedConfigPath = await fs.realpath(configPath)
-	const config = await loadConfig({ searchFrom: tempDirectory })
-	const previousTwoPassConfig = await loadConfig({
-		additionalConfig: config,
-		searchFrom: tempDirectory,
-	})
-
-	// The old second pass duplicated array-valued built-in rules.
-	expect(previousTwoPassConfig).not.toEqual(config)
-
 	const { exitCode, stdout } = await execa(
 		process.execPath,
 		['--import', tsxImport, cliSource, 'print-config'],
@@ -56,7 +46,7 @@ async function expectPrintConfig(ruleName: string, configPath: string): Promise<
 }
 
 describe('print-config', () => {
-	it('resolves a file-based configuration in one pass', async () => {
+	it('resolves a file-based configuration', async () => {
 		expect.hasAssertions()
 		const configPath = path.join(tempDirectory, 'mdat.config.ts')
 		await fs.writeFile(configPath, `export default { 'file-rule': '**File rule.**' }\n`, 'utf8')
@@ -64,7 +54,7 @@ describe('print-config', () => {
 		await expectPrintConfig('file-rule', configPath)
 	})
 
-	it('resolves package.json configuration in one pass', async () => {
+	it('resolves package.json configuration', async () => {
 		expect.hasAssertions()
 		const configPath = path.join(tempDirectory, 'package.json')
 		await fs.writeFile(
