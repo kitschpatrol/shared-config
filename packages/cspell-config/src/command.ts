@@ -75,18 +75,15 @@ export function parseCspellOutput(context: CollectContext): CollectResult {
 			continue
 		}
 
-		const { column, file, line: lineNumber, message } = match.groups
-		const suggestionMatch = CSPELL_SUGGESTION_REGEX.exec(message ?? '')
+		const { column, file = '', line: lineNumber, message = '' } = match.groups
+		const suggestionMatch = CSPELL_SUGGESTION_REGEX.exec(message)
 		const suggestion = suggestionMatch?.groups?.suggestion
 
 		diagnostics.push({
 			column: Number(column),
-			file: normalizeDiagnosticPath(file ?? '', context.cwd),
+			file: normalizeDiagnosticPath(file, context.cwd),
 			line: Number(lineNumber),
-			message:
-				suggestionMatch === null
-					? (message ?? '')
-					: (message ?? '').slice(0, -suggestionMatch[0].length),
+			message: suggestionMatch === null ? message : message.slice(0, -suggestionMatch[0].length),
 			...(suggestion !== undefined && { suggestion }),
 			severity: 'warning',
 			tool: 'cspell',
@@ -263,10 +260,10 @@ export function parseCasePoliceOutput(context: CollectContext): CollectResult {
 			continue
 		}
 
-		const { column, file, from, line: lineNumber, to } = match.groups
+		const { column, file = '', from, line: lineNumber, to } = match.groups
 		diagnostics.push({
 			column: Number(column),
-			file: normalizeDiagnosticPath(file ?? '', context.cwd),
+			file: normalizeDiagnosticPath(file, context.cwd),
 			line: Number(lineNumber),
 			message: `Case error: "${from}" should be "${to}"`,
 			severity: 'warning',

@@ -13,7 +13,7 @@ import { commandDefinition as knipCommand } from '../../knip-config/src/command.
 import { commandDefinition as mdatCommand } from '../../mdat-config/src/command.js'
 import { commandDefinition as prettierCommand } from '../../prettier-config/src/command.js'
 import { commandDefinition as remarkCommand } from '../../remark-config/src/command.js'
-import { commandDefinition as repoCommand } from '../../repo-config/src/command.js'
+import { commandDefinition as repositoryCommand } from '../../repo-config/src/command.js'
 import { commandDefinition as stylelintCommand } from '../../stylelint-config/src/command.js'
 import { commandDefinition as typescriptCommand } from '../../typescript-config/src/command.js'
 
@@ -24,7 +24,7 @@ const subcommandDefinitions = [
 	mdatCommand,
 	prettierCommand,
 	remarkCommand,
-	repoCommand,
+	repositoryCommand,
 	stylelintCommand,
 	typescriptCommand,
 ]
@@ -40,9 +40,8 @@ const FIX_STAGES: Readonly<Record<string, number>> = {
 	'ksc-typescript': 6,
 }
 
-function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Command[] {
-	// Sort definition by order field in place
-	definitions.sort((a, b) => a.order - b.order)
+function getCommands(key: keyof Commands): Command[] {
+	const definitions = subcommandDefinitions.toSorted((a, b) => a.order - b.order)
 
 	// Tools without a fix command (e.g. type checking) run their lint during
 	// fix instead, after all the fixers so they see the fixed state. This way
@@ -113,25 +112,25 @@ function getCommands(key: keyof Commands, definitions: CommandDefinition[]): Com
 export const commandDefinition: CommandDefinition = {
 	commands: {
 		fix: {
-			commands: getCommands('fix', subcommandDefinitions),
+			commands: getCommands('fix'),
 			description: `Fix your project with multiple tools in one go. Tools without auto-fixes run their checks afterward, so remaining issues match a subsequent lint. ${DESCRIPTION.multiArgumentCaveat}`,
 			parallel: true,
 			positionalArgumentMode: 'optional',
 		},
 		init: {
-			commands: getCommands('init', subcommandDefinitions),
+			commands: getCommands('init'),
 			description: `Initialize configuration files for the entire suite of @kitschpatrol/shared-config tools. ${DESCRIPTION.multiOptionCaveat}`,
 			locationOptionFlag: true,
 			// The aggregate CLI contributes its own ksc tasks before running each package initializer.
 		},
 		lint: {
-			commands: getCommands('lint', subcommandDefinitions),
+			commands: getCommands('lint'),
 			description: `Lint your project with multiple tools in one go. ${DESCRIPTION.multiArgumentCaveat}`,
 			parallel: true,
 			positionalArgumentMode: 'optional',
 		},
 		printConfig: {
-			commands: getCommands('printConfig', subcommandDefinitions),
+			commands: getCommands('printConfig'),
 			description: `Print aggregated tool configuration data. ${DESCRIPTION.multiArgumentCaveat}`,
 			positionalArgumentMode: 'optional',
 		},

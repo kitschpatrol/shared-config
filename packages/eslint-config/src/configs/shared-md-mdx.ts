@@ -83,6 +83,7 @@ export function createMarkdownConfigs(options: MarkdownConfigOptions): TypedFlat
 				'jsdoc/require-returns': 'off',
 				'ts/no-unused-expressions': 'off',
 				'unicorn/filename-case': 'off',
+				'unicorn/no-top-level-side-effects': 'off', // Snippets often show `export default defineConfig(...)`
 				...overridesEmbeddedScripts,
 			},
 		},

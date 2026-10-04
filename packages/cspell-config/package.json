@@ -52,14 +52,14 @@
 		"suggest-words": "tsx ./scripts/suggest-words.ts"
 	},
 	"dependencies": {
-		"@cspell/cspell-types": "^10.3.5",
+		"@cspell/cspell-types": "^10.3.6",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"case-police": "^2.2.1",
 		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
-		"cspell": "^10.3.5",
-		"cspell-config-lib": "^10.3.5",
-		"cspell-lib": "^10.3.5",
+		"cspell": "^10.3.6",
+		"cspell-config-lib": "^10.3.6",
+		"cspell-lib": "^10.3.6",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"execa": "^10.0.1",

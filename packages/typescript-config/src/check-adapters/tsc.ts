@@ -20,12 +20,12 @@ export function parseTscOutput(context: CollectContext): CollectResult {
 	for (const line of toOutputLines(`${context.stdout}\n${context.stderr}`)) {
 		const fileMatch = TSC_FILE_DIAGNOSTIC_REGEX.exec(line)
 		if (fileMatch?.groups !== undefined) {
-			const { code, column, file, line: lineNumber, message, severity } = fileMatch.groups
+			const { code, column, file = '', line: lineNumber, message = '', severity } = fileMatch.groups
 			diagnostics.push({
 				column: Number(column),
-				file: normalizeDiagnosticPath(file ?? '', context.cwd),
+				file: normalizeDiagnosticPath(file, context.cwd),
 				line: Number(lineNumber),
-				message: message ?? '',
+				message,
 				rule: code,
 				severity: severity === 'warning' ? 'warning' : 'error',
 				tool: 'tsc',
@@ -35,9 +35,9 @@ export function parseTscOutput(context: CollectContext): CollectResult {
 
 		const globalMatch = TSC_GLOBAL_DIAGNOSTIC_REGEX.exec(line)
 		if (globalMatch?.groups !== undefined) {
-			const { code, message, severity } = globalMatch.groups
+			const { code, message = '', severity } = globalMatch.groups
 			diagnostics.push({
-				message: message ?? '',
+				message,
 				rule: code,
 				severity: severity === 'warning' ? 'warning' : 'error',
 				tool: 'tsc',

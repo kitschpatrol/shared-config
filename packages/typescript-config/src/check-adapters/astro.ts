@@ -56,12 +56,12 @@ function parseAstroFileDiagnostic(line: string, cwd: string): Diagnostic | undef
 		return undefined
 	}
 
-	const { column, file, line: lineNumber, message, rule, severity } = match.groups
+	const { column, file = '', line: lineNumber, message = '', rule, severity } = match.groups
 	return {
 		column: Number(column),
-		file: normalizeDiagnosticPath(file ?? '', cwd),
+		file: normalizeDiagnosticPath(file, cwd),
 		line: Number(lineNumber),
-		message: message ?? '',
+		message,
 		rule: rule?.trim() ?? 'unknown',
 		severity: severity === 'error' ? 'error' : severity === 'hint' ? 'info' : 'warning',
 		tool: 'astro',
@@ -74,10 +74,10 @@ function parseAstroTextLogDiagnostic(line: string): Diagnostic | undefined {
 		return undefined
 	}
 
-	const { label, message, severity } = match.groups
+	const { label, message = '', severity } = match.groups
 	return {
 		...(label !== undefined && { rule: label }),
-		message: message ?? '',
+		message,
 		severity: severity === 'ERROR' ? 'error' : 'warning',
 		tool: 'astro',
 	}

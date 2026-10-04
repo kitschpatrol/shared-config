@@ -42,6 +42,9 @@ export const GLOB_MDX_HTML_CODE = `${GLOB_MDX}/${GLOB_HTML}`
 export const GLOB_AGENT_SKILL = '**/skills/*/SKILL.md'
 export const GLOB_AGENT_SKILL_MARKDOWN_CODE = `**/skills/${GLOB_MARKDOWN_CODE}`
 
+// Tool config files conventionally default-export the result of a call
+export const GLOB_CONFIG_FILES = [`**/*.config.${GLOB_SRC_EXT}`, `**/.*rc.${GLOB_SRC_EXT}`]
+
 export const GLOB_TESTS = [
 	`**/__tests__/**/*.${GLOB_SRC_EXT}`,
 	`**/*.spec.${GLOB_SRC_EXT}`,

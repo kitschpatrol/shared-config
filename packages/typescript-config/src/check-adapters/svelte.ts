@@ -74,9 +74,9 @@ function parseSvelteCompactDiagnostic(line: string, cwd: string): Diagnostic | u
 		return undefined
 	}
 
-	const { column, file, line: lineNumber, message, severity } = match.groups
-	const parsedFile = parseJsonString(file ?? '')
-	const parsedMessage = parseJsonString(message ?? '')
+	const { column, file = '', line: lineNumber, message = '', severity } = match.groups
+	const parsedFile = parseJsonString(file)
+	const parsedMessage = parseJsonString(message)
 	return parsedFile === undefined || parsedMessage === undefined
 		? undefined
 		: {

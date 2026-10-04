@@ -465,6 +465,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 				},
 			},
 		],
+		'unicorn/no-asterisk-prefix-in-documentation-comments': 'off', // Comment shape is owned by prettier-plugin-jsdoc, which writes the asterisk prefixes
 		'unicorn/no-top-level-assignment-in-function': 'off', // Module-level memoization and caching are accepted patterns
 		'unicorn/prefer-math-trunc': 'off', // Superseded by math/prefer-math-trunc
 		'unicorn/prefer-modern-math-apis': 'off', // Superseded by eslint-plugin-math

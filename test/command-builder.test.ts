@@ -40,14 +40,13 @@ function createTrackedCommand(
 	}
 }
 
-function createGroup(name: string, commands: Command[], stage?: number): CommandGroup {
+function createGroup(name: string, commands: Command[]): CommandGroup {
 	return {
 		commands,
 		kind: 'group',
 		name,
 		parallel: true,
 		positionalArgumentMode: 'none',
-		stage,
 		subcommand: 'lint',
 	}
 }
@@ -332,20 +331,20 @@ describe('command scheduler', () => {
 })
 
 describe('positional argument extensions', () => {
-	function createRecordingCommand(name: string, received: string[][]): CommandFunction {
+	function createRecordingCommand(received: string[][]): CommandFunction {
 		return {
 			async execute(_logStream, positionalArguments) {
 				received.push(positionalArguments)
 				await delay(0)
 				return 0
 			},
-			name,
+			name: 'stylelint',
 		}
 	}
 
 	function createFilteringGroup(received: string[][]): CommandGroup {
 		return {
-			...createGroup('ksc-stylelint', [createRecordingCommand('stylelint', received)]),
+			...createGroup('ksc-stylelint', [createRecordingCommand(received)]),
 			positionalArgumentDefault: '**/*.{css,scss}',
 			positionalArgumentExtensions: ['css', 'scss'],
 			positionalArgumentMode: 'optional',
@@ -415,7 +414,7 @@ describe('positional argument extensions', () => {
 			createLogStream(),
 			['a.json', 'b.css'],
 			[],
-			[createRecordingCommand('stylelint', received)],
+			[createRecordingCommand(received)],
 			undefined,
 			undefined,
 			undefined,
@@ -433,7 +432,7 @@ describe('positional argument extensions', () => {
 			createLogStream(),
 			['a.json'],
 			[],
-			[createRecordingCommand('stylelint', received)],
+			[createRecordingCommand(received)],
 			undefined,
 			undefined,
 			undefined,
