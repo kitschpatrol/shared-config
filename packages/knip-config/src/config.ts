@@ -15,6 +15,7 @@ export const sharedKnipConfig: KnipConfig = {
 		// Customized entries
 		'src/{bin,lib,cli}/{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
 		'scripts/**/*.{js,mjs,cjs,ts,mts,cts}',
+		'skills/*/scripts/**/*.{js,mjs,cjs,ts,mts,cts}', // Agent Skills bundled scripts
 		'.remarkrc.{js,mjs,cjs,ts,mts,cts}',
 		'cspell.config.{js,mjs,cjs,ts,mts,cts}',
 		'eslint.config.{js,mjs,cjs,ts,mts,cts}',

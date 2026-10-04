@@ -37,6 +37,11 @@ export const GLOB_MDX_CODE = `${GLOB_MDX}/${GLOB_SRC}`
 export const GLOB_MARKDOWN_HTML_CODE = `${GLOB_MARKDOWN}/${GLOB_HTML}`
 export const GLOB_MDX_HTML_CODE = `${GLOB_MDX}/${GLOB_HTML}`
 
+// The Agent Skills specification requires a `skills/<name>/SKILL.md` layout
+// https://agentskills.io/specification
+export const GLOB_AGENT_SKILL = '**/skills/*/SKILL.md'
+export const GLOB_AGENT_SKILL_MARKDOWN_CODE = `**/skills/${GLOB_MARKDOWN_CODE}`
+
 export const GLOB_TESTS = [
 	`**/__tests__/**/*.${GLOB_SRC_EXT}`,
 	`**/*.spec.${GLOB_SRC_EXT}`,
