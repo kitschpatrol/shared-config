@@ -50,7 +50,8 @@
 	"files": [
 		"bin/*",
 		"dist/*",
-		"init/*"
+		"init/*",
+		"skills/*"
 	],
 	"scripts": {
 		"build": "tsdown",

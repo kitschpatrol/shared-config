@@ -21,6 +21,7 @@
 - [Overview](#overview)
 - [Getting started](#getting-started)
 - [Usage](#usage)
+- [Agent skills](#agent-skills)
 - [Implementation notes](#implementation-notes)
 - [Development notes](#development-notes)
 - [Background](#background)
@@ -368,6 +369,38 @@ Run them via the _Tasks: Run Task_ command (or the _Terminal → Run Task…_ me
 Each task's problem matcher parses the machine-format output and populates VS Code's [Problems panel](https://code.visualstudio.com/docs/editing/editingevolved#_errors-warnings) with every issue from every tool, pointing to the offending file, line, and column. Unlike the per-tool editor extensions, which only report on open files, this surfaces diagnostics for the entire project in one pass.
 
 The tasks share a problem matcher owner, so the panel reflects the most recent run instead of stacking duplicates across tasks. Existing `tasks.json` files are merged by task label: your own tasks are left alone, and same-label `ksc` tasks are updated in place.
+
+<!-- skills -->
+
+## Agent skills
+
+This project includes an [Agent Skill](https://agentskills.io) that teaches coding agents like Claude Code and Codex how to work with @kitschpatrol/shared-config:
+
+- **[`ksc`](skills/ksc/SKILL.md)**: Code conventions and lint workflow for projects that use @kitschpatrol/shared-config and its ksc CLI, which wraps ESLint, Prettier, TypeScript, Stylelint, CSpell, Knip, remark, and mdat. Use when writing or editing TypeScript, JavaScript, CSS, Markdown, JSON, or YAML in a project that depends on @kitschpatrol/shared-config, when running or fixing `ksc lint` / `ksc fix` failures, when writing eslint-disable comments, or when editing the tool config files it manages.
+
+The skill is published in the `skills` directory of the `@kitschpatrol/shared-config` package. Nothing is added to your project until you install it with one of the tools below.
+
+### Sync from the installed package (recommended)
+
+With `@kitschpatrol/shared-config` installed as a project dependency, the [`skills`](https://github.com/vercel-labs/skills) CLI finds skills bundled in your dependencies and copies them into your project's agent skill directories, so they match the version of `@kitschpatrol/shared-config` you have installed:
+
+```sh
+npx skills experimental_sync
+```
+
+Run the command again after upgrading `@kitschpatrol/shared-config` to refresh the copies. The `experimental_sync` command is experimental and its behavior may change.
+
+### Install from the repository
+
+If `@kitschpatrol/shared-config` is not a dependency of your project, for example because you use a global installation, install the skill from the repository instead:
+
+```sh
+npx skills add kitschpatrol/shared-config
+```
+
+A skill installed this way follows the repository's default branch rather than your installed version of `@kitschpatrol/shared-config`.
+
+<!-- /skills -->
 
 ## Implementation notes
 
