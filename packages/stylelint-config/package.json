@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/stylelint-config",
-	"version": "8.10.1",
+	"version": "8.11.0",
 	"description": "Stylelint configuration for @kitschpatrol/shared-config.",
 	"keywords": [
 		"stylelint-config",
