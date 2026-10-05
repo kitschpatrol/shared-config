@@ -1,3 +1,4 @@
+import { isPackageExists } from 'local-pkg'
 import process from 'node:process'
 import type {
 	OptionsOverrides,
@@ -14,9 +15,12 @@ import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './share
 export async function svelte(
 	options: OptionsOverrides &
 		OptionsTsconfigRootDirectory &
-		OptionsTypeAware & { typeAwareJavaScript?: boolean } = {},
+		OptionsTypeAware & { packageRootDirectory?: string; typeAwareJavaScript?: boolean } = {},
 ): Promise<TypedFlatConfigItem[]> {
 	const { overrides = {}, tsconfigRootDirectory = process.cwd() } = options
+	const hasTailwind = isPackageExists('tailwindcss', {
+		paths: [options.packageRootDirectory ?? tsconfigRootDirectory],
+	})
 	const { enabled = true, ignores = [] } = options.typeAware ?? {}
 	const typeAwareJavaScript = options.typeAwareJavaScript ?? enabled
 
@@ -100,7 +104,8 @@ export async function svelte(
 				'svelte/no-spaces-around-equal-signs-in-attribute': 'error',
 				'svelte/no-target-blank': 'error',
 				'svelte/no-trailing-spaces': 'error',
-				'svelte/no-unused-class-name': 'error',
+				// Tailwind classes are defined outside the component's style block.
+				'svelte/no-unused-class-name': hasTailwind ? 'off' : 'error',
 				'svelte/prefer-class-directive': 'error',
 				'svelte/prefer-const': 'error',
 				'svelte/prefer-derived-over-derived-by': 'error',

@@ -211,6 +211,8 @@ export async function eslintConfig(
 			svelte({
 				...resolveSubOptions(options, 'svelte'),
 				overrides: getOverrides(options, 'svelte'),
+				// Dependencies may be package-local even when the tsconfig is in a parent directory.
+				packageRootDirectory: eslintConfigRootDirectory,
 				tsconfigRootDirectory,
 				typeAware: resolveTypeAwareOptions(options, 'svelte', isTypeAwareTypeScript),
 				typeAwareJavaScript: resolveTypeAwareEnabled(options, 'svelte', isTypeAwareJavaScript),

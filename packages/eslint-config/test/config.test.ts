@@ -1,3 +1,4 @@
+import { ESLint } from 'eslint'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
@@ -257,6 +258,59 @@ describe('Svelte config layering', () => {
 		const appConfig = getConfig(configs, 'kp/svelte/sveltekit-app')
 		expect(appConfig.files).toEqual(['src/app.html'])
 		expect(appConfig.rules?.['html/require-title']).toBe('off')
+	})
+})
+
+describe('Svelte Tailwind detection', () => {
+	it.each([
+		{ hasTailwind: false, name: 'without-tailwind', override: undefined, reportsUnused: true },
+		{ hasTailwind: true, name: 'with-tailwind', override: undefined, reportsUnused: false },
+		{
+			hasTailwind: true,
+			name: 'explicit-override',
+			override: 'error' as const,
+			reportsUnused: true,
+		},
+	])('$name', async ({ hasTailwind, name, override, reportsUnused }) => {
+		const workspaceDirectory = path.join(tempDirectory, name)
+		const projectDirectory = path.join(workspaceDirectory, 'packages', 'app')
+		await fs.mkdir(projectDirectory, { recursive: true })
+		// Package-local Tailwind must be detected even with a shared parent tsconfig.
+		await fs.writeFile(path.join(workspaceDirectory, 'tsconfig.json'), '{}\n')
+		if (hasTailwind) {
+			const packageDirectory = path.join(projectDirectory, 'node_modules', 'tailwindcss')
+			await fs.mkdir(packageDirectory, { recursive: true })
+			await fs.writeFile(
+				path.join(packageDirectory, 'package.json'),
+				'{"name":"tailwindcss","version":"4.0.0"}\n',
+			)
+		}
+
+		const configs = await eslintConfig({
+			astro: false,
+			gitignore: false,
+			isInEditor: false,
+			react: false,
+			svelte: {
+				overrides: override === undefined ? {} : { 'svelte/no-unused-class-name': override },
+				typeAware: { enabled: false },
+			},
+			tsconfigRootDirectory: projectDirectory,
+		})
+		const eslint = new ESLint({
+			baseConfig: [...configs],
+			cwd: projectDirectory,
+			overrideConfigFile: true,
+		})
+		const [result] = await eslint.lintText('<div class="flex">Hello</div>\n', {
+			filePath: path.join(projectDirectory, 'Example.svelte'),
+		})
+
+		expect(result?.fatalErrorCount).toBe(0)
+		const unusedClasses = result?.messages.filter(
+			(message) => message.ruleId === 'svelte/no-unused-class-name',
+		)
+		expect(unusedClasses).toHaveLength(reportsUnused ? 1 : 0)
 	})
 })
 

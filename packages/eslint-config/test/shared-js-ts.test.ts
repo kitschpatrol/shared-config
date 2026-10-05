@@ -2,7 +2,7 @@ import { ESLint } from 'eslint'
 import { describe, expect, it } from 'vitest'
 import { eslintConfig } from '../src/index.js'
 
-async function createEslint(react = false): Promise<ESLint> {
+async function createEslint(react = false, fix = false): Promise<ESLint> {
 	const configs = await eslintConfig({
 		astro: false,
 		gitignore: false,
@@ -17,6 +17,7 @@ async function createEslint(react = false): Promise<ESLint> {
 
 	return new ESLint({
 		baseConfig: [...configs],
+		fix,
 		overrideConfigFile: true,
 	})
 }
@@ -62,6 +63,28 @@ describe('unused imports', () => {
 
 			expect(messages).toHaveLength(1)
 			expect(messages[0]?.message).toContain("'Unused'")
+		},
+	)
+})
+
+describe('negative splice indexes', () => {
+	it.each(['splice', 'toSpliced'])(
+		'accepts negative insertions with %s after autofix',
+		async (method) => {
+			const eslint = await createEslint(false, true)
+			const source = `export function insert(values, value) { return values.${method}(values.length - 1, 0, value) }\n`
+			const result = await lint(eslint, source, 'insert.js')
+
+			expect(result.fatalErrorCount).toBe(0)
+			expect(result.output).toContain(`${method}(-1, 0, value)`)
+			expect(result.messages.map((message) => message.ruleId)).not.toContain(
+				'unicorn/no-confusing-array-splice',
+			)
+			expect(result.messages.map((message) => message.ruleId)).not.toContain(
+				'unicorn/prefer-negative-index',
+			)
+			const secondPass = await lint(eslint, result.output!, 'insert.js')
+			expect(secondPass.output).toBeUndefined()
 		},
 	)
 })

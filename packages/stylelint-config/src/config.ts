@@ -34,6 +34,8 @@ export const sharedStylelintConfig: StylelintConfig = {
 		'defensive-css/require-named-grid-lines': null,
 		// Element selectors are idiomatic in scoped Svelte and Astro style blocks
 		'defensive-css/require-pure-selectors': null,
+		// Tailwind's PostCSS plugin needs string imports to inline its styles.
+		'import-notation': 'string',
 		// 'at-rule-empty-line-before': 'never',
 		'order/properties-order': [
 			propertiesOrder,

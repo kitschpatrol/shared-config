@@ -31,6 +31,17 @@ describe('fix', () => {
 		expect(result).toBe(source)
 	})
 
+	it('should preserve string imports for Tailwind PostCSS processing', async () => {
+		const source = '@import "tailwindcss";\n'
+		expect(await fix(source)).toBe(source)
+	})
+
+	it('should convert URL imports to strings for Tailwind PostCSS processing', async () => {
+		const result = await fix('@import url("tailwindcss");\n')
+		expect(result).toBe('@import "tailwindcss";\n')
+		expect(await fix(result)).toBe(result)
+	})
+
 	it('should fix with a bare extension', async () => {
 		const result = await fix('a { color: rgb(0, 0, 0); }\n', 'css')
 		expect(result).toContain('rgb(0 0 0)')
