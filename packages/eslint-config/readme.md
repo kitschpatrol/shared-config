@@ -79,7 +79,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-eslint`
 

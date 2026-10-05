@@ -123,7 +123,7 @@ Next line:
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-stylelint`
 

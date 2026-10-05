@@ -216,7 +216,7 @@ pnpm run fix
 
 ### CLI
 
-<!-- cli-help({ command: 'ksc' }) -->
+<!-- cli-help({ command: 'ksc', heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc`
 

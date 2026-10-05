@@ -94,7 +94,7 @@ pnpm exec ksc-prettier init --location package
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-prettier`
 

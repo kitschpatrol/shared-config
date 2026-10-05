@@ -71,7 +71,7 @@ If you really want to call it directly, you can integrate a command to the under
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-remark`
 

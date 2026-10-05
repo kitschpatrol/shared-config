@@ -188,7 +188,7 @@ In your project's root `.cspell.json`:
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-cspell`
 

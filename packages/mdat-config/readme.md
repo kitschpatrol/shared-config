@@ -96,7 +96,7 @@ pnpm exec ksc-mdat init --location package
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-mdat`
 

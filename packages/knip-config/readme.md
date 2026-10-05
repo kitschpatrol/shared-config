@@ -87,7 +87,7 @@ pnpm exec ksc-knip init --location package
 
 ### CLI
 
-<!-- cli-help -->
+<!-- cli-help({ heading: false, headingLevel: 3 }) -->
 
 #### Command: `ksc-knip`
 
