@@ -3,7 +3,9 @@
 
 # @kitschpatrol/repo-config boilerplate
 !.env.example
+.agents/
 .astro/
+.claude/
 .DS_Store
 .env
 .env.*
@@ -20,7 +22,7 @@ build/
 coverage/
 dist/
 node_modules/
+skills-lock.json
 vendor/
 
 # Customizations
-.claude/
