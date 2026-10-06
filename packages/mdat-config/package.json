@@ -10,7 +10,8 @@
 		"mdat",
 		"cli",
 		"ksc",
-		"ksc-mdat"
+		"ksc-mdat",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/mdat-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

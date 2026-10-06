@@ -16,7 +16,8 @@
 		"tsconfig",
 		"mdat",
 		"cli",
-		"ksc"
+		"ksc",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

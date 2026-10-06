@@ -7,7 +7,8 @@
 		"stylelint",
 		"cli",
 		"ksc",
-		"ksc-stylelint"
+		"ksc-stylelint",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/stylelint-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

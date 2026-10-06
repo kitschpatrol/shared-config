@@ -8,7 +8,8 @@
 		"eslint",
 		"cli",
 		"ksc",
-		"ksc-eslint"
+		"ksc-eslint",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/eslint-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

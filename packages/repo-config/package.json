@@ -7,7 +7,8 @@
 		"github-actions",
 		"cli",
 		"ksc",
-		"ksc-repo"
+		"ksc-repo",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/repo-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

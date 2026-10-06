@@ -8,7 +8,8 @@
 		"knip",
 		"cli",
 		"ksc",
-		"ksc-knip"
+		"ksc-knip",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/knip-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",

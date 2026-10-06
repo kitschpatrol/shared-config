@@ -9,7 +9,8 @@
 		"remark",
 		"cli",
 		"ksc",
-		"ksc-remark"
+		"ksc-remark",
+		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/shared-config/tree/main/packages/remark-config",
 	"bugs": "https://github.com/kitschpatrol/shared-config/issues",
