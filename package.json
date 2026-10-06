@@ -43,6 +43,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
+		"prepare": "skills experimental_sync -y -f",
 		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && pnpm -r publish --otp $(op item get npm --otp)",
 		"test": "vitest run"
 	},
@@ -81,6 +82,7 @@
 		"prettier": "^3.9.9",
 		"publint": "^0.3.25",
 		"shx": "^0.4.0",
+		"skills": "^1.7.0",
 		"tsdown": "^0.23.0",
 		"tsx": "^4.23.15",
 		"typescript": "~6.0.3",
