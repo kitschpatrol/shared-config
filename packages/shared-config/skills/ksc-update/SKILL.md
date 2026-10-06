@@ -44,11 +44,13 @@ instruction below to ask, confirm, or await a decision:
   including explicit approval for runtime-range restrictions and Node-types
   changes, still apply.
 - **Other decisions and missing prerequisites:** without prior authorization,
-  leave approval-dependent changes unapplied, including range restrictions and
-  peer-warning suppressions. Report missing consumer information, credentials,
-  permissions, or validation resources instead of requesting them. Continue
-  independent work; if a required prerequisite prevents progress, report the
-  affected work as blocked or incomplete without waiting or bypassing it.
+  leave approval-dependent changes unapplied, including range restrictions.
+  Scoped peer-warning suppressions with verified compatibility (step 5) are not
+  approval-dependent: apply them and report them. Report missing consumer
+  information, credentials, permissions, or validation resources instead of
+  requesting them. Continue independent work; if a required prerequisite
+  prevents progress, report the affected work as blocked or incomplete without
+  waiting or bypassing it.
 
 Review and validation remain required in both modes. Defer candidates whose
 impact cannot be established or whose migration cannot be validated. If safe
@@ -83,12 +85,17 @@ nothing can be applied, produce the report without manufacturing a change.
   apply.
 - **Release maturity:** third-party releases must be at least 24 hours old
   (`--maturity-period 1` for Taze, `--min-age 1` for Actions Up, pnpm
-  `minimumReleaseAge` of 1440 minutes). Never disable installation safeguards to
-  make an update succeed.
+  `minimumReleaseAge` of 1440 minutes). The period governs which releases a run
+  may introduce; it never requires downgrading a version that was locked before
+  the run. Never disable installation safeguards to make an update succeed.
 - **Authored packages:** packages owned by `kitschpatrol` (discovered at runtime
   in Setup) are exempt from maturity and target their latest stable release,
-  including majors. The exemption does not bypass security or compatibility
-  review.
+  including majors. pnpm enforces `minimumReleaseAge` silently by selecting the
+  newest mature version, so the exemption is only real while a
+  `minimumReleaseAgeExclude` entry for the young release exists: add it when
+  needed (step 5) and keep it through cleanup (step 6). The maturity period
+  must never hold an authored package back or downgrade it. The exemption does
+  not bypass security or compatibility review.
 - **Consumer ranges:** review the newest published version allowed by each
   runtime dependency's declared range, as well as the lockfile. A fresh consumer
   install can resolve that version even when CI locks an older one. Holding
@@ -113,8 +120,8 @@ nothing can be applied, produce the report without manufacturing a change.
   exception.
 - **No new noise:** every check is compared against the Setup baseline. A new
   warning, deprecation, or peer issue is a finding to trace and report, not
-  background noise. Report compatibility-preserving lint disables from step 5;
-  ask before silencing other findings.
+  background noise. Report compatibility-preserving lint disables and scoped
+  peer-warning entries from step 5; ask before silencing other findings.
 
 ## Environment
 
@@ -178,24 +185,37 @@ Under Claude Code's sandbox:
    separately in any independent package root. Check Taze config for anything
    that overrides mode, adds maturity exemptions, or auto-writes/installs.
    Record current project and published package versions to determine where the
-   zero-versioned exception applies.
+   zero-versioned exception applies. Record every existing
+   `minimumReleaseAgeExclude` entry with the publish time of that exact version
+   (`time` in the registry metadata), so step 6 can tell which entries still
+   matter.
    Create the baseline folder and preserve the starting manifests and lockfile
    before the package-manager sync or any other edit.
-3. Sync `packageManager` before installs and parsed pnpm output. Read the actual
-   installed pnpm from an empty directory so the project's stale pin cannot
-   select or download another version:
+3. Sync `packageManager` before installs and parsed pnpm output. Choose the
+   newest of three versions, so the pin only ever moves up:
 
-   ```bash
-   pnpm --version
-   ```
+   - the current `packageManager` pin;
+   - the pnpm installed on this host, read from a new empty directory under
+     `${TMPDIR:-/tmp}` so the project's stale pin cannot select or download
+     another version:
 
-   Run that command with a new empty directory under `${TMPDIR:-/tmp}` as its
-   working directory. Then edit only the workspace root's `packageManager`
-   directly to `pnpm@<observed-version>`, preserving all other manifest fields.
-   Use the editor or a structured JSON edit, not `pnpm pkg set`; use direct
-   edits for later specifiers and engines too. pnpm commands can trigger
-   version-manager downloads after the pin changes. If this crosses a pnpm
-   major, report it and verify the CI installer supports the selected version.
+     ```bash
+     pnpm --version
+     ```
+
+   - the newest stable pnpm release at least 24 hours old, from `versions` and
+     `time` in `https://registry.npmjs.org/pnpm` (`dist-tags.latest` when it
+     qualifies).
+
+   A CI runner usually installs the pinned version itself, so the installed
+   pnpm alone never moves the pin; the registry lookup is what keeps it
+   current. Then edit only the workspace root's `packageManager` directly to
+   `pnpm@<chosen-version>`, preserving all other manifest fields. Use the
+   editor or a structured JSON edit, not `pnpm pkg set`; use direct edits for
+   later specifiers and engines too. pnpm downloads and runs the pinned
+   version on demand after the pin changes. If this crosses a pnpm major,
+   report it, review the pnpm release notes for lockfile and settings changes,
+   and verify the CI installer supports the selected version.
 
 4. Install the starting dependency declarations and record a baseline before
    dependency updates. Keep the original files saved in Setup 2 even if
@@ -478,8 +498,13 @@ production changes fully and development-only transitives under step 3's
 narrower checks. If a deferred version is still allowed by a published runtime
 range, use the explicit range/consumer decision path rather than fighting the
 resolver with an older lockfile or an unapproved override.
-If an authored release is blocked by `minimumReleaseAge`, add only that
-package/version to `minimumReleaseAgeExclude`; never its dependencies.
+After every `pnpm update -r`, confirm each accepted authored package resolved
+to its accepted version. pnpm does not report a maturity holdback, so a lower
+resolved version means the release is blocked by `minimumReleaseAge`: add only
+that package/version to `minimumReleaseAgeExclude`, never its dependencies,
+and update again. If the release still cannot resolve because its own
+third-party dependencies are too young, defer that authored update, keep the
+previously locked version, and report the date it becomes installable.
 
 Compare every result with the baseline:
 
@@ -499,12 +524,16 @@ Compare every result with the baseline:
 - **Logs:** for each new warning, deprecation, or peer issue, find the package
   that introduced it (`pnpm why`) and search upstream for a known issue. Report
   it with the link. For a peer declaration lagging a verified compatible
-  version, offer a scoped `peerDependencyRules.allowedVersions` entry such as
-  `"parent@range>peer": "tested-range"` in `pnpm-workspace.yaml`, explaining
-  that it suppresses a warning rather than fixing incompatibility. Show the
-  exact entry and evidence, and ask before applying unless already authorized.
-  Do not use broad `allowAny` or disable strict peer checks. Revisit such
-  workarounds during step 8.
+  version, add a scoped `peerDependencyRules.allowedVersions` entry such as
+  `"parent@range>peer": "tested-range"` to `pnpm-workspace.yaml` in both modes,
+  and report the entry, the evidence, and that it suppresses a warning rather
+  than fixing incompatibility. Compatibility is verified when the checks pass
+  with the installed combination and no upstream report contradicts it. Apply
+  the entry even when the lagging declaration arrives through an authored
+  package: the consumer's `pnpm-workspace.yaml` is where the warning is
+  silenced, and the report flags the upstream fix separately. Do not use broad
+  `allowAny` or disable strict peer checks. Revisit such workarounds during
+  step 9.
 - **Build output:** if the baseline includes build output, rebuild with the
   same command and environment and diff the trees with content-hashed filenames
   normalized (`name.[hash].js`). Explain every remaining difference with an
@@ -541,15 +570,31 @@ rerun from the failing step:
   step 3; resetting a specifier or lockfile may not exclude it.
 
 Add focused tests only where a compatibility change touches behavior not
-already covered. Review `readme.md` accuracy and automation opportunities in step 7.
+already covered. Review `readme.md` accuracy and automation opportunities in step 8.
 
 ## 6. Exclusion cleanup
 
 Only if `minimumReleaseAgeExclude` is non-empty in any `pnpm-workspace.yaml`
-(at the start, or after step 5). Empty the list (`[]` or remove the key),
-preserving neighboring keys and comments. Repeat step 5's separate bare
+(at the start, or after step 5). Cleanup removes entries that no longer do
+anything; it never changes which version is installed and never downgrades a
+package.
+
+Decide each entry from the publish time recorded in Setup, or look it up now:
+
+- **Mature** (published at least 24 hours before the run): remove it; the
+  version resolves without it.
+- **Young, authored package:** keep it while that version is the release this
+  run installs. Removing it would hold the package back to an older release.
+- **Young, third-party package:** keep it while it holds a version that is
+  already locked; removing it would downgrade an installed package rather than
+  block a new one. Report it as pending with the date it can be removed. Do not
+  add new third-party entries.
+- **Unused** (the version is neither locked nor targeted): remove it.
+
+Edit the list directly, preserving neighboring keys and comments; use `[]` or
+remove the key when nothing remains. Then repeat step 5's separate bare
 `pnpm update -r` and `pnpm dedupe --check` invocations, followed by a separate
-`pnpm dedupe` only when the check reports available changes. Then run each check
+`pnpm dedupe` only when the check reports available changes, and run each check
 separately:
 
 ```bash
@@ -558,19 +603,46 @@ pnpm test
 pnpm lint
 ```
 
+Compare the resolved versions with the lockfile saved before cleanup. pnpm
+does not report a maturity holdback; it silently selects the newest mature
+version. An authored package that resolved below its latest stable release, or
+any package that resolved below its previous locked version, means a removed
+entry was still needed: re-add that narrowest package/version entry and resolve
+again. Never restore the whole previous list.
+
 If `pnpm-lock.yaml` comes out byte-identical and no ranges or build settings
 changed, the installed tree did not change; rerun only `pnpm lint`.
-
-If resolution is blocked: for an authored release, re-add the narrowest
-package/version entry; for a third-party release, choose a mature version or
-defer that upgrade. Obtain approval if that choice requires narrowing a
-published runtime range. Never restore the whole previous list.
 
 If the list was empty throughout, skip this section and continue to step 7.
 If cleanup changes resolution, repeat step 5's consumer compatibility review
 before reviewing documentation.
 
-## 7. Documentation review
+## 7. Side effects declaration
+
+For each published package, check that `sideEffects` in `package.json` tells
+the truth about the shipped code. Bundlers drop any import they consider
+side-effect-free when the declaration says `false`, and keep every module
+otherwise, so a wrong `false` silently removes code consumers rely on and a
+missing `false` on a pure package forfeits tree shaking.
+
+1. Read the declaration: `false`, an array of file patterns, `true`, or absent,
+   which means `true`.
+2. Inspect the published entry points and every module they reach, in the
+   build output that actually ships (`dist/` and the `files` list), including
+   bundled dependencies. Look for work that runs on import rather than on
+   call: assignments to globals or prototypes, polyfills, registrations such
+   as `customElements.define`, event listeners, process or environment setup,
+   CSS and asset imports, and bare imports kept only for their effects.
+3. Set the declaration to match: `false` when nothing runs on import, an array
+   naming the exact shipped files that do when only some do, and `true` when
+   most modules have effects. A package with no importable entry point, such
+   as a `bin`-only CLI, is unaffected either way; leave its declaration as is.
+4. Report every evaluation: the package, which modules were inspected, what
+   runs on import if anything, the declaration before and after, and why it
+   changed or stayed. A wrong `false` is a bug; a newly added `false` is a
+   performance improvement. Count either under the release recommendation.
+
+## 8. Documentation review
 
 Review `readme.md` against the updated project. Correct stale installation
 instructions, requirements, commands, examples, configuration guidance, and
@@ -594,7 +666,7 @@ no further changes. Validate any new dependency under steps 5 and 6 before
 continuing. Include documentation corrections and mdat conversions in the
 final report.
 
-## 8. @kitschpatrol/shared-config override minimization
+## 9. @kitschpatrol/shared-config override minimization
 
 Run this as the final cleanup after all accepted updates, migrations,
 validation, release-age exclusion cleanup, and documentation review, before
@@ -637,7 +709,8 @@ from the largest dependency version bump:
 
 - **Patch:** compatible bug or security fixes, performance improvements, or
   dependency/tooling maintenance with no new consumer-facing capability. A
-  development-only Node.js increase with the required notice can remain a patch.
+  development-only Node.js increase with the required notice can remain a
+  patch, and so does a corrected or newly added `sideEffects` declaration.
 - **Minor:** backward-compatible functionality or capabilities actually exposed
   to consumers by the accepted updates. Explain what consumers gain; an upstream
   minor or major alone is not a reason for a minor release. For zero-versioned
@@ -674,11 +747,14 @@ accepted under the zero-versioned policy;
 output differences and their upstream or migration explanations;
 consumer Node.js requirements before and after, development Node.js changes and
 their `devEngines.runtime` notices; the release recommendation and its rationale;
-baseline lockfile drift; runtime ranges, fresh-install exposure, and approved
+baseline lockfile drift; the `packageManager` version chosen and its source;
+`sideEffects` evaluations with their evidence and outcome; runtime ranges,
+fresh-install exposure, and approved
 range restrictions; TypeScript migrations; new warnings and scoped peer
 workarounds; what was validated, at which exact Node.js versions, and in which
 known consumers, including CLI/fixture comparisons and unavailable baselines;
-remaining `minimumReleaseAgeExclude` entries with reasons; deferred upgrades,
+remaining `minimumReleaseAgeExclude` entries with reasons and the dates they can
+be removed; deferred upgrades,
 documentation corrections and mdat conversions;
 shared-config overrides removed or retained with their justifications and any
 unresolved override reviews; unresolved failures, checks that could not run,

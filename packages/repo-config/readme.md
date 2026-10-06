@@ -97,8 +97,9 @@ If you want releases to come from your account instead of `github_actions`, then
    | Contents       | Read and write |
    | Metadata       | Read-only      |
    | Pull requests  | Read and write |
+   | Workflows      | Read and write |
 
-   _Pull requests_ access is only needed by the dependency update workflow described below.
+   _Pull requests_ and _Workflows_ access are only needed by the dependency update workflow described below.
 
 2. Add the token as a secret to your new GitHub repository.
 
@@ -134,7 +135,7 @@ Claude runs with the read-only `GITHUB_TOKEN` and can't push, so the workflow ne
    gh secret set CLAUDE_CODE_OAUTH_TOKEN --app actions --body $(op read 'op://Personal/Claude Code OAuth Token/credential')
    ```
 
-2. `PERSONAL_ACCESS_TOKEN` as described above, including _Pull requests_ access. It's used only to push the branch and open the pull request, which also lets the pull request trigger your CI workflows.
+2. `PERSONAL_ACCESS_TOKEN` as described above, including _Pull requests_ and _Workflows_ access. It's used only to push the branch and open the pull request, which also lets the pull request trigger your CI workflows. _Workflows_ access is required because the skill updates the action pins in `.github/workflows`, and GitHub rejects pushes that change workflow files from a token without it.
 
 GitHub disables scheduled workflows after 60 days without repository activity, and only runs them from the default branch.
 
