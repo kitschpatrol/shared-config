@@ -38,7 +38,7 @@
 		"build": "pnpm build:1-stand-alone && pnpm build:2-shared && pnpm build:3-readmes",
 		"build:1-stand-alone": "pnpm --filter=!shared-config --filter=!shared-config-monorepo build",
 		"build:2-shared": "pnpm --filter=shared-config build",
-		"build:3-readmes": "pnpm ksc-mdat fix && shx cp ./packages/shared-config/readme.md ./readme.md && mdat strip && shx sed -i 's/\\]\\(skills\\//](packages\\/shared-config\\/skills\\//g' ./readme.md && shx cp -r ./packages/shared-config/skills/ksc ./packages/repo-config/init/.claude/skills/",
+		"build:3-readmes": "pnpm ksc-mdat fix && shx cp ./packages/shared-config/readme.md ./readme.md && mdat strip && shx sed -i \"s/\\]\\(skills\\//](packages\\/shared-config\\/skills\\//g\" ./readme.md && shx cp -r ./packages/shared-config/skills/ksc ./packages/repo-config/init/.claude/skills/",
 		"clean-deep": "shx rm -f pnpm-lock.yaml && pnpm bin-restore && git clean -fdX -e !.claude/",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
