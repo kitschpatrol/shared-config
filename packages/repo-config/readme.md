@@ -33,9 +33,11 @@ This includes the following:
 - `.vscode` extension recommendations (additional settings and recommendations come from other `@kitschpatrol/shared-config` packages)
 - `.vscode/tasks.json` with `ksc-repo lint` and `ksc-repo fix` [tasks](https://code.visualstudio.com/docs/debugtest/tasks) that run the checks above in `--format machine` mode and feed reported issues into VS Code's Problems panel via a problem matcher. (The other `@kitschpatrol/shared-config` packages contribute tasks for their own tools the same way.) If a `tasks.json` already exists, `init` merges by task label, leaving your own tasks untouched.
 - `.github` folder with workflows:
-  - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
+  - `github-release.yml` Automates turning vX.X.X tags on main into GitHub releases with changelogs
   - `set-github-metadata.yml` Populates GitHub repo metadata from package.json
   - `ci.yml` Basic cross-platform CI action
+  - `check-links.yml` Checks links in Markdown files and on the project's homepage weekly
+  - `update-dependencies.yml` Runs the `ksc-update` skill with Claude Code weekly or on demand, then opens a pull request with the changes and the skill's report (see [Dependency updates](#dependency-updates))
 
 In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
 
@@ -94,6 +96,9 @@ If you want releases to come from your account instead of `github_actions`, then
    | Administration | Read and write |
    | Contents       | Read and write |
    | Metadata       | Read-only      |
+   | Pull requests  | Read and write |
+
+   _Pull requests_ access is only needed by the dependency update workflow described below.
 
 2. Add the token as a secret to your new GitHub repository.
 
@@ -104,6 +109,34 @@ If you want releases to come from your account instead of `github_actions`, then
    ```sh
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
    ```
+
+#### Dependency updates
+
+The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) every Sunday night, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config` and is synced from `node_modules` before each run with the [skills CLI](https://github.com/vercel-labs/skills). The workflow fails if no `ksc-update` skill is found.
+
+Claude runs with the read-only `GITHUB_TOKEN` and can't push, so the workflow needs two secrets:
+
+1. `CLAUDE_CODE_OAUTH_TOKEN`, a long-lived token for your Claude subscription. Generate it with the Claude Code CLI, which opens a browser to authorize and then prints the token:
+
+   ```sh
+   claude setup-token
+   ```
+
+   Then add it to the repository. You'll be prompted to paste the token:
+
+   ```sh
+   gh secret set CLAUDE_CODE_OAUTH_TOKEN --app actions
+   ```
+
+   Or, with a credential manager:
+
+   ```sh
+   gh secret set CLAUDE_CODE_OAUTH_TOKEN --app actions --body $(op read 'op://Personal/Claude Code OAuth Token/credential')
+   ```
+
+2. `PERSONAL_ACCESS_TOKEN` as described above, including _Pull requests_ access. It's used only to push the branch and open the pull request, which also lets the pull request trigger your CI workflows.
+
+GitHub disables scheduled workflows after 60 days without repository activity, and only runs them from the default branch.
 
 ### GitHub Actions
 

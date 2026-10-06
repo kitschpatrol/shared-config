@@ -190,10 +190,16 @@ pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add
 
 5. Set up GitHub action credentials (if desired)
 
-   The GitHub actions included in @kitschpatrol/repo-config require permissions to create releases and update your repository metadata. You can add these through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`, or with the [GitHub CLI](https://cli.github.com) and a credential manager like [1Password CLI](https://www.1password.dev/cli/get-started):
+   The GitHub actions included in @kitschpatrol/repo-config require permissions to create releases, update your repository metadata, and open dependency update pull requests. You can add these through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`, or with the [GitHub CLI](https://cli.github.com) and a credential manager like [1Password CLI](https://www.1password.dev/cli/get-started):
 
    ```sh
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
+   ```
+
+   The weekly dependency update workflow also needs a `CLAUDE_CODE_OAUTH_TOKEN` secret, a Claude subscription token generated with `claude setup-token`:
+
+   ```sh
+   gh secret set CLAUDE_CODE_OAUTH_TOKEN --app actions --body $(op read 'op://Personal/Claude Code OAuth Token/credential')
    ```
 
    See the [@kitschpatrol/repo-config readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/repo-config/readme.md#github-configuration) for more details.

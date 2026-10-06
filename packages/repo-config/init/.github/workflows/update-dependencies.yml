@@ -1,0 +1,109 @@
+name: Update Dependencies
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Sunday night in the Americas (Monday 03:00 UTC)
+    - cron: '0 3 * * 1'
+
+# Claude runs with the read-only GITHUB_TOKEN and can't push or open pull
+# requests. The pull request step uses PERSONAL_ACCESS_TOKEN instead.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check secrets
+        env:
+          HAS_CLAUDE_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+          HAS_PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN != '' }}
+        run: |
+          [[ $HAS_CLAUDE_TOKEN == 'true' ]] || echo '::error::Missing CLAUDE_CODE_OAUTH_TOKEN secret, generate one with claude setup-token'
+          [[ $HAS_PERSONAL_ACCESS_TOKEN == 'true' ]] || echo '::error::Missing PERSONAL_ACCESS_TOKEN secret, it needs contents and pull requests write access'
+          [[ $HAS_CLAUDE_TOKEN == 'true' && $HAS_PERSONAL_ACCESS_TOKEN == 'true' ]]
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm ci
+
+      - name: Sync skills
+        run: |
+          # Keep the synced skills out of the pull request
+          mkdir -p .git/info
+          printf '%s\n' .agents/ .claude/ skills-lock.json >> .git/info/exclude
+          pnpm dlx skills@1.7.0 experimental_sync --yes --agent claude-code
+
+      - name: Check for ksc-update skill
+        run: |
+          if [[ ! -f .claude/skills/ksc-update/SKILL.md ]]; then
+            echo '::error::No ksc-update skill found, it ships with @kitschpatrol/shared-config'
+            exit 1
+          fi
+
+      - name: Run ksc-update
+        uses: anthropics/claude-code-action@6c690188da61cf16ee7debb28383ba67f02abb4c # v1.0.242
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Run the `ksc-update` skill in this repository and follow it through to the end, including its final report.
+
+            This is an unattended CI run: never ask questions or wait for answers. Apply what the skill's policy allows without approval, defer the rest, and list deferred decisions in the report.
+
+            Do not commit, push, or use the GitHub API. Leave all changes in the working tree; a later workflow step commits them and opens a pull request.
+
+            When you are done, write the skill's final report as Markdown to `${{ runner.temp }}/ksc-update-report.md` with the Write tool. It becomes the pull request description, so start with a short summary of what changed and the release recommendation, then the full report. If nothing could be updated, say so.
+          claude_args: >-
+            --add-dir ${{ runner.temp }}
+            --allowedTools "Bash,Read,Edit,Write,Glob,Grep,Skill,Agent,TodoWrite,WebFetch,WebSearch"
+
+      - name: Build pull request body
+        env:
+          REPORT: ${{ runner.temp }}/ksc-update-report.md
+          BODY: ${{ runner.temp }}/pull-request-body.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [[ -s "$REPORT" ]]; then
+            cat "$REPORT" >> "$GITHUB_STEP_SUMMARY"
+            # Pull request bodies are limited to 65536 characters
+            head -c 60000 "$REPORT" > "$BODY"
+            if [[ $(wc -c < "$REPORT") -gt 60000 ]]; then
+              printf '\n\n_Report truncated, the full report is in the workflow run summary._\n' >> "$BODY"
+            fi
+          else
+            echo "::warning::No report found at $REPORT"
+            echo 'The ksc-update skill did not write a report. Check the workflow run for details.' > "$BODY"
+          fi
+          printf '\n\n---\n\nOpened by the [Update Dependencies workflow](%s) using the ksc-update skill.\n' "$RUN_URL" >> "$BODY"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          branch: update-dependencies
+          delete-branch: true
+          commit-message: Update dependencies.
+          title: Update dependencies
+          body-path: ${{ runner.temp }}/pull-request-body.md
