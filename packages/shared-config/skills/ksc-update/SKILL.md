@@ -6,8 +6,8 @@ description: >-
   breaking changes for zero-versioned projects. Use when asked to update,
   upgrade, refresh, or audit repository dependencies or GitHub Actions. Applies
   a 24-hour release maturity policy with exceptions for kitschpatrol's packages,
-  reviews fresh-install consumer compatibility, validates known consumers,
-  minimizes configuration overrides, and recommends a release level.
+  reviews fresh-install consumer compatibility, minimizes configuration
+  overrides, and recommends a release level.
   Does not commit or release.
 compatibility: Requires Node.js, pnpm/pnpx, curl, jq, git, Bash, and access to npm, GitHub, and upstream release documentation.
 ---
@@ -46,8 +46,8 @@ instruction below to ask, confirm, or await a decision:
 - **Other decisions and missing prerequisites:** without prior authorization,
   leave approval-dependent changes unapplied, including range restrictions.
   Scoped peer-warning suppressions with verified compatibility (step 5) are not
-  approval-dependent: apply them and report them. Report missing consumer
-  information, credentials, permissions, or validation resources instead of
+  approval-dependent: apply them and report them. Report missing credentials,
+  permissions, or validation resources instead of
   requesting them. Continue independent work; if a required prerequisite
   prevents progress, report the affected work as blocked or incomplete without
   waiting or bypassing it.
@@ -172,13 +172,8 @@ Under Claude Code's sandbox:
 1. Read repository instructions. Note uncommitted changes in the working tree
    and preserve them. If files change during the run that you did not touch,
    leave them alone and report them.
-   Read the `Known consumers` section in the project's `CLAUDE.md` or `AGENTS.md`.
-   Maintain a short section in the existing instruction file using confirmed
-   consumer names, local paths, consumed packages, test commands, and CLI
-   fixtures. If none are documented, ask for known consumers in interactive
-   mode; in unattended mode, report the missing information and use available
-   repository evidence. Continue independent review; do not invent consumers or
-   treat example paths as real. Report unavailable consumer validation as a gap.
+   Keep compatibility validation within this repository and isolated
+   package-install fixtures.
 2. Map the workspace: root, every maintained package root, catalogs, overrides,
    `pnpm-workspace.yaml`, Taze config. Exclude fixtures, generated files, and
    dependency directories. Run each step once per shared-lockfile workspace and
@@ -249,7 +244,7 @@ Under Claude Code's sandbox:
    manifest or current CI runtime. If no Node.js support policy is declared,
    establish the existing requirement from the published code and dependencies;
    do not assume the developer's Node.js version is the consumer minimum.
-   Save production-tree engine inventories and baseline consumer results using
+   Save production-tree engine inventories and baseline installation and fixture results using
    [the verification recipes](references/verification.md). Distinguish the
    starting locked tree, the newest versions a fresh consumer install can
    resolve, and the published release with its old dependencies when available.
@@ -338,8 +333,8 @@ specific narrower range and obtain the policy's required approval.
 
 Track breaking-candidate decisions throughout the run; report applied breaks
 and deferred opportunities separately.
-For each candidate, identify affected APIs, behavior, Node.js support, known
-consumers, migration work, validation results or gaps, and release implications.
+For each candidate, identify affected APIs, behavior, Node.js support,
+migration work, validation results or gaps, and release implications.
 Prepare a concrete proposal and, where useful, validate a trial migration in an
 isolated copy before seeking a decision. For stable projects in interactive
 mode, ask explicitly whether to accept each reviewed break unless that exact
@@ -515,7 +510,7 @@ Compare every result with the baseline:
   from checks needing the newer development runtime. Review `pnpm fix` changes
   to `engines.node` and `devEngines.runtime`; a passing fixer or build on newer
   Node.js does not establish consumer compatibility. Diff the production-engine
-  inventories, test the packed build in known consumers, and run fixtures at the
+  inventories, test an isolated install of the packed build, and run fixtures at the
   exact supported Node.js floor using [the verification recipes](references/verification.md).
   For stable projects, do not retain a newly introduced break outside explicit
   approval; present the candidate or defer it. Do not mask it with an unapproved
@@ -751,8 +746,8 @@ baseline lockfile drift; the `packageManager` version chosen and its source;
 `sideEffects` evaluations with their evidence and outcome; runtime ranges,
 fresh-install exposure, and approved
 range restrictions; TypeScript migrations; new warnings and scoped peer
-workarounds; what was validated, at which exact Node.js versions, and in which
-known consumers, including CLI/fixture comparisons and unavailable baselines;
+workarounds; what was validated and at which exact Node.js versions,
+including installation checks, CLI/fixture comparisons, and unavailable baselines;
 remaining `minimumReleaseAgeExclude` entries with reasons and the dates they can
 be removed; deferred upgrades,
 documentation corrections and mdat conversions;

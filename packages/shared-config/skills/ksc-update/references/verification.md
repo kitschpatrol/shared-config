@@ -76,33 +76,18 @@ dependencies and shipped/bundled code separately because one host's installed
 tree cannot prove their compatibility. This inventory does not replace the
 newest-in-range registry review.
 
-## Known consumers and packed builds
+## Packed builds
 
-Read confirmed consumers from the repository's existing `CLAUDE.md` or
-`AGENTS.md`. A useful `Known consumers` entry contains the consumer's name and
-path, which package/imports/CLI it uses, its test command, and representative
-CLI commands and fixture inputs. Preserve existing instructions; add only facts
-confirmed by the user or repository evidence.
+Use this repository's tests and CLI fixtures for baseline comparisons.
 
-1. Create a temporary directory under `${TMPDIR:-/tmp}`. Clone each local
-   consumer into it with `git clone --no-hardlinks <consumer-path> <temp-copy>`.
-   Record the commit. A clone excludes uncommitted changes; if those matter,
-   explicitly copy the needed working-tree files and record that baseline.
-   Do not modify the consumer's original checkout.
-2. Install and test the copied consumer with its starting lockfile. Save
-   its tests' results and representative CLI stdout, stderr, and exit codes.
-   Preserve this copy for baseline comparison.
-3. Build the updated package with its development Node.js version and run
+1. Build the updated package with its development Node.js version and run
    `pnpm pack` as a bare command in that package. Inspect the archive's contents
    and manifest, including exported entrypoints, engines, and dependency ranges.
-4. In a second consumer copy, replace the consumed dependency with a `file:`
-   specifier pointing to that tarball, using a direct manifest edit. Install
-   and rerun the same tests and CLI fixtures. If a workspace-local dependency
-   or alias is involved, replace the actual consuming edge and verify the
-   resolved path/version; do not assume a root-only edit reaches it. A linked
-   built package is useful for iteration, but the tarball verifies what ships
-   and avoids a link silently borrowing the producer's `node_modules`.
-5. Diff CLI output and fixture results. Inspect semantic differences, including
+2. Create an isolated fixture under `${TMPDIR:-/tmp}` with a `file:` dependency
+   pointing to that tarball. Install it and run representative API and CLI
+   checks using the repository's fixtures. Verify the resolved path/version;
+   the tarball checks what ships without borrowing the producer's `node_modules`.
+3. Diff CLI output and fixture results against the Setup baseline. Inspect semantic differences, including
    behavior JSON may hide, such as object prototypes, missing versus undefined
    values, ordering, and error handling. Explain each change against accepted
    migrations and consumer expectations.
