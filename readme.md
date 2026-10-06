@@ -356,31 +356,29 @@ The tasks share a problem matcher owner, so the panel reflects the most recent r
 
 ## Agent skills
 
-This project includes an [Agent Skill](https://agentskills.io) that teaches coding agents like Claude Code and Codex how to work with @kitschpatrol/shared-config:
+This project bundles 2 [Agent Skills](https://agentskills.io) in its published package to help coding agents work with @kitschpatrol/shared-config.
 
-- **[`ksc`](packages/shared-config/skills/ksc/SKILL.md)**: Code conventions and lint workflow for projects that use @kitschpatrol/shared-config and its ksc CLI, which wraps ESLint, Prettier, TypeScript, Stylelint, CSpell, Knip, remark, and mdat. Use when writing or editing TypeScript, JavaScript, CSS, Markdown, JSON, or YAML in a project that depends on @kitschpatrol/shared-config, when running or fixing `ksc lint` / `ksc fix` failures, when writing eslint-disable comments, or when editing the tool config files it manages.
-
-The skill is published in the `skills` directory of the `@kitschpatrol/shared-config` package. Nothing is added to your project until you install it with one of the tools below.
-
-### Sync from the installed package (recommended)
-
-With `@kitschpatrol/shared-config` installed as a project dependency, the [`skills`](https://github.com/vercel-labs/skills) CLI finds skills bundled in your dependencies and copies them into your project's agent skill directories, so they match the version of `@kitschpatrol/shared-config` you have installed:
+To sync the skills into your project, run Vercel's [skills CLI](https://github.com/vercel-labs/skills) from your project root:
 
 ```sh
 npx skills experimental_sync
 ```
 
-Run the command again after upgrading `@kitschpatrol/shared-config` to refresh the copies. The `experimental_sync` command is experimental and its behavior may change.
-
-### Install from the repository
-
-If `@kitschpatrol/shared-config` is not a dependency of your project, for example because you use a global installation, install the skill from the repository instead:
+Or install globally:
 
 ```sh
-npx skills add kitschpatrol/shared-config
+npx skills add kitschpatrol/shared-config --global
 ```
 
-A skill installed this way follows the repository's default branch rather than your installed version of `@kitschpatrol/shared-config`.
+Included skills:
+
+### Skill: [`ksc`](packages/shared-config/skills/ksc/SKILL.md)
+
+Code conventions and lint workflow for projects that use @kitschpatrol/shared-config and its ksc CLI, which wraps ESLint, Prettier, TypeScript, Stylelint, CSpell, Knip, remark, and mdat.
+
+### Skill: [`ksc-update`](packages/shared-config/skills/ksc-update/SKILL.md)
+
+Update dependencies in kitschpatrol shared config pnpm repositories and monorepos with compatible changes, explicitly approved breaking changes, or breaking changes for zero-versioned projects.
 
 ## Implementation notes
 

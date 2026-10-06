@@ -503,7 +503,6 @@ export interface RuleOptions {
 	curly?: Linter.RuleEntry<Curly>
 	/**
 	 * Transforms the negation of a conjunction !(A && B) into the equivalent !A
-	 *
 	 * || !B according to De Morgan’s law
 	 *
 	 * @see https://github.com/azat-io/eslint-plugin-de-morgan/blob/main/docs/no-negated-conjunction.md
@@ -27494,6 +27493,7 @@ type ReactDomNoUnknownProperty =
 	| [
 			{
 				ignore?: string[]
+
 				requireDataLowercase?: boolean
 			},
 	  ]

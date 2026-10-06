@@ -85,7 +85,7 @@
 		"globby": "^16.2.4",
 		"json-stringify-pretty-compact": "^4.0.0",
 		"magicast": "^0.5.5",
-		"mdat": "^3.5.0",
+		"mdat": "^3.6.1",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
 		"prettier": "^3.9.9",

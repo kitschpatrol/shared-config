@@ -29,35 +29,48 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const roots = JSON.parse(readFileSync(process.argv[2], 'utf8'))
-if (!Array.isArray(roots)) throw new Error('Expected pnpm list JSON array')
+if (!Array.isArray(roots)) {
+  throw new TypeError('Expected pnpm list JSON array')
+}
+
 const manifests = new Map()
 const rows = new Set()
 
 function visit(pkg) {
-  if (!pkg.path) throw new Error(`Missing installed path: ${pkg.name ?? pkg.version}`)
+  if (!pkg.path) {
+    throw new Error(`Missing installed path: ${pkg.name ?? pkg.version}`)
+  }
+
   if (!manifests.has(pkg.path)) {
     manifests.set(pkg.path, JSON.parse(readFileSync(join(pkg.path, 'package.json'), 'utf8')))
   }
+
   const manifest = manifests.get(pkg.path)
   rows.add(
     JSON.stringify({
       name: manifest.name,
+      node: manifest.engines?.node,
       version: manifest.version,
-      node: manifest.engines?.node ?? null,
     }),
   )
   for (const group of ['dependencies', 'optionalDependencies']) {
-    for (const child of Object.values(pkg[group] ?? {})) visit(child)
+    const children = Object.values(pkg[group] ?? {})
+    for (const child of children) {
+      visit(child)
+    }
   }
 }
 
-for (const root of roots) visit(root)
-process.stdout.write(`${[...rows].sort().join('\n')}\n`)
+for (const root of roots) {
+  visit(root)
+}
+
+process.stdout.write(`${[...rows].toSorted().join('\n')}\n`)
 ```
 
 Save the resulting inventory and diff it after resolution and deduplication.
-Investigate missing installed paths instead of omitting them. A `null` engine
-means undeclared support, not proof of compatibility. Check full semver ranges
+Investigate missing installed paths instead of omitting them. An omitted `node`
+field means undeclared support, not proof of compatibility. Check full semver ranges
 against every supported consumer Node.js line; check platform-specific optional
 dependencies and shipped/bundled code separately because one host's installed
 tree cannot prove their compatibility. This inventory does not replace the
