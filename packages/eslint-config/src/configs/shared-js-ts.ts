@@ -457,6 +457,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 					props: false,
 					ref: false,
 					refs: false,
+					repo: false,
 					sep: false, // Present in node:path library
 					src: false,
 					temp: false,
