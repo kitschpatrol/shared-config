@@ -243,6 +243,10 @@ If neither checker is declared, `tsc --noEmit` runs as usual, even in projects w
 - [Are The Types Wrong](https://github.com/arethetypeswrong/arethetypeswrong.github.io),\
   e.g. `attw --format ascii --no-summary --profile esm-only --pack .`
 
+### Future rules
+
+- Consider enabling [`exactOptionalPropertyTypes`](https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes) for new projects.
+
 <!-- license -->
 
 ## License
