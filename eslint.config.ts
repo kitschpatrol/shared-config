@@ -72,23 +72,10 @@ export default eslintConfig(
 		},
 	},
 	{
-		// Ignore template package.json fragment files
-		files: ['packages/*/init/package.json'],
-		rules: {
-			'json-package/require-author': 'off',
-			'json-package/require-keywords': 'off',
-			'json-package/require-name': 'off',
-			'json-package/require-version': 'off',
-			'json-package/valid-package-definition': 'off',
-		},
-	},
-	{
 		files: ['test/fixtures/output-fixed-manual/*'],
 		rules: {
 			// Fixture files deliberately mix exports with top-level calls
 			'unicorn/no-top-level-side-effects': 'off',
-			// Using these to force ES Modules...
-			'unicorn/require-module-specifiers': 'off',
 		},
 	},
 )
