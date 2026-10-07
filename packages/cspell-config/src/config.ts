@@ -101,6 +101,8 @@ export const sharedCspellConfig: CspellConfig = {
 		'patches/',
 		'pnpm-lock.yaml',
 		'skills-lock.json',
+		// Vite deletes these temporary config bundles while other tools may still be scanning.
+		'vite.config.*.timestamp-*',
 	],
 	ignoreRegExpList: ['tp-.+', 'tweakpane-plugin-.+', String.raw`v2_c_\w{21}`],
 	language: 'en,en-US',
