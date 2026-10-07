@@ -21,6 +21,35 @@ export async function yaml(options: OptionsOverrides = {}): Promise<TypedFlatCon
 			},
 		},
 		{
+			files: ['**/pnpm-workspace.yaml'],
+			name: 'kp/yaml/rules-pnpm-workspace',
+			rules: {
+				'yaml/sort-keys': ['error', 'asc', { caseSensitive: false }],
+				'yaml/sort-sequence-values': [
+					'error',
+					{
+						order: { caseSensitive: false, type: 'asc' },
+						// Alphabetize list values only in the fields listed below.
+						// Exclude hoistPattern and publicHoistPattern because reordering negated
+						// patterns can change which packages are hoisted. Exclude pnpmfile
+						// because its list order determines hook execution order.
+						pathPattern: `^(${[
+							'gitShallowHosts',
+							'ignoredBuiltDependencies',
+							'minimumReleaseAgeExclude',
+							'neverBuiltDependencies',
+							'onlyBuiltDependencies',
+							'packages',
+							'requiredScripts',
+							String.raw`supportedArchitectures(?:\.(?:cpu|libc|os))?`,
+							'syncInjectedDepsAfterScripts',
+							'trustPolicyExclude',
+						].join('|')})$`,
+					},
+				],
+			},
+		},
+		{
 			files,
 			languageOptions: {
 				parser: parserYaml,

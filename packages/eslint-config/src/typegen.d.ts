@@ -35940,4 +35940,5 @@ export type ConfigNames =
 	| 'kp/ts/dts'
 	| 'kp/tsx/rules'
 	| 'kp/yaml/setup'
+	| 'kp/yaml/rules-pnpm-workspace'
 	| 'kp/yaml/rules'

@@ -1,26 +1,7 @@
-packages:
-  - packages/*
-ignoreWorkspaceRootCheck: true
-publicHoistPattern:
-  - '@kitschpatrol/repo-config'
-  - '@kitschpatrol/typescript-config'
-  - 'case-police'
-  - '*cspell*'
-  - '*eslint*'
-  - '*knip*'
-  - '*mdat*'
-  - '*prettier*'
-  - '*remark*'
-  - '*stylelint*'
-overrides:
-  normalize-package-data: ^9.0.0
-peerDependencyRules:
-  allowedVersions:
-    # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
-    'eslint-plugin-jsx-a11y>eslint': '10'
 allowBuilds:
   esbuild: true
   unrs-resolver: true
+ignoreWorkspaceRootCheck: true
 minimumReleaseAgeExclude:
   - '@eslint-react/ast@5.24.5'
   - '@eslint-react/core@5.24.5'
@@ -45,3 +26,22 @@ minimumReleaseAgeExclude:
   - eslint-plugin-react-rsc@5.24.5
   - eslint-plugin-react-web-api@5.24.5
   - eslint-plugin-react-x@5.24.5
+overrides:
+  normalize-package-data: ^9.0.0
+packages:
+  - packages/*
+peerDependencyRules:
+  allowedVersions:
+    # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
+    'eslint-plugin-jsx-a11y>eslint': '10'
+publicHoistPattern:
+  - '@kitschpatrol/repo-config'
+  - '@kitschpatrol/typescript-config'
+  - 'case-police'
+  - '*cspell*'
+  - '*eslint*'
+  - '*knip*'
+  - '*mdat*'
+  - '*prettier*'
+  - '*remark*'
+  - '*stylelint*'

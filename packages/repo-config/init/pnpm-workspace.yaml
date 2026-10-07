@@ -1,3 +1,13 @@
+allowBuilds:
+  esbuild: true
+  oxc-resolver: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/*'
+peerDependencyRules:
+  allowedVersions:
+    # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
+    'eslint-plugin-jsx-a11y>eslint': '10'
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -9,13 +19,3 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
-allowBuilds:
-  esbuild: true
-  oxc-resolver: true
-  unrs-resolver: true
-minimumReleaseAgeExclude:
-  - '@kitschpatrol/*'
-peerDependencyRules:
-  allowedVersions:
-    # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
-    'eslint-plugin-jsx-a11y>eslint': '10'
