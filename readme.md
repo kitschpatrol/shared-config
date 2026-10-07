@@ -384,7 +384,7 @@ Code conventions and lint workflow for projects that use @kitschpatrol/shared-co
 
 ### Skill: [`ksc-update`](packages/shared-config/skills/ksc-update/SKILL.md)
 
-Update dependencies in kitschpatrol shared config pnpm repositories and monorepos with compatible changes, explicitly approved breaking changes, or breaking changes for zero-versioned projects.
+Run full dependency and repository maintenance in kitschpatrol shared config pnpm repositories and monorepos.
 
 ## Implementation notes
 
