@@ -85,6 +85,27 @@ pnpm exec ksc-knip init --location package
 
 (Note that this will delete the `knip.config.ts` file in your project root!)
 
+#### Monorepos
+
+`knipConfig()` merges the shared configuration with your customizations, but does not copy shared entry patterns into each workspace. In a monorepo, Knip ignores root-level `entry` and `project` options; configure the root workspace explicitly as `"."`. See [Knip's workspace documentation](https://knip.dev/features/monorepos-and-workspaces#configuration).
+
+To apply the shared entry patterns, including scripts and bundled skill scripts, to the root and each package:
+
+```ts
+import { knipConfig, sharedKnipConfig } from '@kitschpatrol/knip-config'
+
+const sharedEntry = typeof sharedKnipConfig === 'function' ? [] : (sharedKnipConfig.entry ?? [])
+
+export default knipConfig({
+  workspaces: {
+    '.': { entry: sharedEntry },
+    'packages/*': { entry: sharedEntry },
+  },
+})
+```
+
+Adjust `packages/*` to match your workspace layout, adding patterns such as `apps/*` if needed. Entry patterns are relative to each workspace directory. Without these entries, scripts that are not discovered through imports or plugins can be reported as unused.
+
 ### CLI
 
 <!-- cli-help({ heading: false, headingLevel: 3 }) -->

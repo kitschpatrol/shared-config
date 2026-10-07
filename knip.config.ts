@@ -1,4 +1,8 @@
-import { knipConfig } from '@kitschpatrol/knip-config'
+import { knipConfig, sharedKnipConfig } from '@kitschpatrol/knip-config'
+
+// Root-level entry patterns apply only to the root workspace, so the shared
+// patterns, including bundled skill scripts, are repeated for every workspace.
+const sharedEntry = typeof sharedKnipConfig === 'function' ? [] : (sharedKnipConfig.entry ?? [])
 
 export default knipConfig({
 	ignore: [
@@ -24,4 +28,8 @@ export default knipConfig({
 		'stylelint-config-standard',
 		'stylelint-plugin-defensive-css',
 	],
+	workspaces: {
+		'.': { entry: sharedEntry },
+		'packages/*': { entry: sharedEntry },
+	},
 })
