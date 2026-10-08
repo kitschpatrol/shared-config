@@ -40,7 +40,13 @@ jobs:
             Note that this project has a complex monorepo configuration.
             You will also need to run the update-rules script in the
             packages/eslint-config package if the @kitschpatrol/eslint-config
-            dependencies in that project change.
+            dependencies in that project change to regenerate types and update rules.
+            Pay special attention to the eslint-config package in general, sometimes
+            the generated presets in packages/eslint-config/src/presets need updates
+            to their `// Begin expansion` template scripts.
+            In prettier-config, prettier-plugin-svelte must remain on 3.5 since
+            we have consuming projects that run on Svelte 4. Don't update any
+            other packages that would break Svelte 4 compatibility.
           model: claude-opus-5-5
           effort: high
           max-turns: 400
