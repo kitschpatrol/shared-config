@@ -103,8 +103,24 @@ registry metadata and raw changelogs over GitHub API calls, and cache responses
 for reuse between reviewers. Diagnose actual failures rather than assuming
 sandbox restrictions, and never add sandbox workarounds.
 
-The run directory is `${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ksc-update/`. Keep every
-baseline, log, fetched metadata file, and decision record there; it survives
+Before saving any starting files, create a fresh run directory once per run:
+
+```bash
+set -euo pipefail
+repo_name="$(basename "$(git rev-parse --show-toplevel)")"
+run_dir="$(mktemp -d "${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ksc-update-${repo_name}.XXXXXX")"
+export KSC_UPDATE_RUN_DIR="$run_dir"
+```
+
+The repository name identifies the run; the random suffix prevents collisions
+between concurrent runs, including separate checkouts of the same repository.
+Record the absolute path and reuse it for every command and reviewer in this
+run. In later shells, restore `KSC_UPDATE_RUN_DIR` and `run_dir` to that recorded
+path rather than rerunning initialization. Bundled scripts require
+`KSC_UPDATE_RUN_DIR`; never use a shared fixed directory or overwrite another
+run's saved files.
+
+Keep every baseline, log, fetched metadata file, and decision record there; it survives
 pnpm rebuilding `node_modules` and never enters the pull request. Preserve exit
 codes when capturing logs, for example with `set -o pipefail` before
 `cmd 2>&1 | tee log`.
@@ -192,8 +208,7 @@ observations before relying on it.
 
    ```bash
    set -euo pipefail
-   run_dir="${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ksc-update"
-   mkdir -p "$run_dir"
+   run_dir="${KSC_UPDATE_RUN_DIR:?Restore the recorded run directory first}"
    curl -fsS https://registry.npmjs.org/-/user/kitschpatrol/package \
      | jq -er 'keys | join(",") | select(length > 0)' \
        > "$run_dir/authored-packages.txt"
@@ -221,9 +236,10 @@ ships, such as templates that an init command copies into consumer projects
 Find them with a search for `workflows` directories outside dependency and
 fixture folders.
 
-`Skipped`, `Failed`, or `Rate Limit` anywhere in the output means incomplete,
-even beside "All actions are up to date"; fix the cause and rerun, and report
-unresolved access or service failures instead of claiming success.
+Treat `Skipped N actions` as a failure even when Actions Up also says "All
+actions are up to date" or exits successfully. Any `Skipped`, `Failed`, or
+`Rate Limit` output means the workflow-action check failed; fix the cause and
+rerun, and report unresolved failures instead of claiming success.
 
 Review major bumps and runner, input, output, and permission changes. Pin every
 external action and reusable workflow, including `kitschpatrol/*`, to a verified

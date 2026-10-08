@@ -5,8 +5,7 @@
  */
 import { execFile, execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { isAbsolute, join } from 'node:path'
 import process from 'node:process'
 
 const NOT_FOUND_PATTERN = /E404|ERR_PNPM_NO_MATCHING_VERSION|not found/iv
@@ -43,11 +42,14 @@ export function asString(value) {
 /**
  * Resolves the run directory the skill uses for logs and state, creating it.
  *
- * @returns {string} `${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ksc-update`.
+ * @returns {string} The absolute path in `KSC_UPDATE_RUN_DIR`.
  */
 export function runDirectory() {
-	const base = process.env.RUNNER_TEMP ?? process.env.TMPDIR ?? tmpdir()
-	const directory = join(base, 'ksc-update')
+	const directory = process.env.KSC_UPDATE_RUN_DIR
+	if (directory === undefined || !isAbsolute(directory)) {
+		throw new Error('Set KSC_UPDATE_RUN_DIR to the absolute run directory created during Setup')
+	}
+
 	mkdirSync(directory, { recursive: true })
 	return directory
 }

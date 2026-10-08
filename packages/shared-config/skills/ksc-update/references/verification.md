@@ -1,7 +1,8 @@
 # Verification recipes
 
 Use these recipes during Setup and step 5. Save commands, versions, raw logs,
-and results in the run directory, `${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ksc-update/`,
+and results in the run directory, `$KSC_UPDATE_RUN_DIR`, created once using the
+[Environment instructions](../SKILL.md#environment),
 under `baseline/` and `updated/`. Capture output without losing exit codes and
 use the runner's normal permissions.
 
