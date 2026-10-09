@@ -7,6 +7,7 @@
 [![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://www.npmjs.com/package/@kitschpatrol/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 [![CI](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/shared-config/actions/workflows/ci.yml)
+[![NPM Downloads @kitschpatrol/shared-config](https://img.shields.io/npm/dm/@kitschpatrol/shared-config)](https://www.npmjs.com/package/@kitschpatrol/shared-config)
 
 <!-- description -->
 
