@@ -115,6 +115,12 @@ If you want releases to come from your account instead of `github_actions`, then
 
 The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) every Sunday night, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config` and is synced from `node_modules` before each run with the [skills CLI](https://github.com/vercel-labs/skills). The workflow fails if no `ksc-update` skill is found.
 
+The pull request is titled `Update dependencies.`, so GitHub's _Default to pull request title_ squash merge setting produces commits like `Update dependencies. (#12)` without the report in the body. Enable it once per repository:
+
+```sh
+gh api -X PATCH repos/{owner}/{repo} -f squash_merge_commit_title=PR_TITLE -f squash_merge_commit_message=BLANK
+```
+
 Claude runs with the read-only `GITHUB_TOKEN` and can't push, so the workflow needs two secrets:
 
 1. `CLAUDE_CODE_OAUTH_TOKEN`, a long-lived token for your Claude subscription. Generate it with the Claude Code CLI, which opens a browser to authorize and then prints the token:
