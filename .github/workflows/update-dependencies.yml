@@ -3,7 +3,7 @@ name: Update Dependencies
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: '0 3 * * 1'
+    - cron: '0 3 1 * *'
 
 permissions:
   contents: read
@@ -39,15 +39,27 @@ jobs:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           instructions: |
             Note that this project has a complex monorepo configuration.
+            Package updates also need to be applied for all the  `./packages/*` workspace
+            projects.
+
             You will also need to run the update-rules script in the
             packages/eslint-config package if the @kitschpatrol/eslint-config
             dependencies in that project change to regenerate types and update rules.
+
             Pay special attention to the eslint-config package in general, sometimes
             the generated presets in packages/eslint-config/src/presets need updates
             to their `// Begin expansion` template scripts.
+
             In prettier-config, prettier-plugin-svelte must remain on 3.5 since
             we have consuming projects that run on Svelte 4. Don't update any
             other packages that would break Svelte 4 compatibility.
+            Every packages/*/bin/cli.js is build output over a committed placeholder.
+
+            Building overwrites them; that is expected, but those changes must never
+            reach the PR. After the final build and validation, run
+            `git restore -- 'packages/*/bin/cli.js'` and confirm
+            `git status --porcelain -- 'packages/*/bin/cli.js'` prints nothing
+            before writing the report.
           model: claude-opus-5-5
           effort: high
           max-turns: 400

@@ -121,6 +121,10 @@ export function createTypeScriptWorkspaceLintCommands(
 	})
 }
 
+/**
+ * Discover the current workspace's packages and resolve the TypeScript lint
+ * commands for each one.
+ */
 async function generateTypeScriptLintCommands(): Promise<Command[]> {
 	const packageDirectories = findWorkspacePackageDirectories()
 	const packages = await Promise.all(
