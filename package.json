@@ -33,9 +33,9 @@
 	},
 	"type": "module",
 	"scripts": {
-		"bin-ignore": "git ls-files | grep cli.js | xargs -I {} git update-index --skip-worktree {}",
+		"bin-ignore": "git ls-files -z -- '*/bin/cli.js' | xargs -0 git update-index --skip-worktree",
 		"bin-restore": "pnpm bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm bin-ignore",
-		"bin-unignore": "git ls-files | grep cli.js | xargs -I {} git update-index --no-skip-worktree {}",
+		"bin-unignore": "git ls-files -z -- '*/bin/cli.js' | xargs -0 git update-index --no-skip-worktree",
 		"build": "pnpm build:1-stand-alone && pnpm build:2-shared && pnpm build:3-readmes",
 		"build:1-stand-alone": "pnpm --filter=!shared-config --filter=!shared-config-monorepo build",
 		"build:2-shared": "pnpm --filter=shared-config build",
@@ -90,7 +90,7 @@
 		"vitest": "^5.0.3",
 		"yargs": "^18.2.0"
 	},
-	"packageManager": "pnpm@12.9.1",
+	"packageManager": "pnpm@12.14.0",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	}

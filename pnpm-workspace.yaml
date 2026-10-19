@@ -2,14 +2,6 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
 ignoreWorkspaceRootCheck: true
-minimumReleaseAgeExclude:
-  - '@kitschpatrol/safe-stable-stringify@2.5.0-fork.2'
-  - 'lognow@0.8.5'
-  - 'mdat-plugin-cli-help@3.4.1'
-  - 'mdat@3.6.2'
-  - 'metascope@0.12.2'
-  - 'read-pyproject@0.4.1'
-  - 'remark-mdat@3.1.1'
 overrides:
   normalize-package-data: ^9.0.0
 packages:
