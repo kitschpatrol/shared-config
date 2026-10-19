@@ -77,8 +77,40 @@ function maskLicenseBoilerplateDates(content: string): string {
 
 const YEAR_RANGE_REGEX = /(\d{4})\s*-\s*(\d{4})/v
 const YEAR_REGEX = /(\d{4})/v
+const COPYRIGHT_REGEX = /\bcopyright\b|©/iv
 
-function updateLicenseContent(content: string, currentYear: number): string {
+/**
+ * Character span of the last copyright line containing a year, or the whole
+ * content if there is none. Forks conventionally keep upstream notices verbatim
+ * and append the maintainer's own line last, so only that line should track the
+ * current year.
+ */
+function getCopyrightYearSpan(maskedContent: string): { start: number; end: number } {
+	let span = { start: 0, end: maskedContent.length }
+	let lineStart = 0
+	for (const line of maskedContent.split('\n')) {
+		if (COPYRIGHT_REGEX.test(line) && YEAR_REGEX.test(line)) {
+			span = { start: lineStart, end: lineStart + line.length }
+		}
+
+		lineStart += line.length + 1
+	}
+
+	return span
+}
+
+/**
+ * Update the copyright year in license file content to include the current
+ * year. Only the last copyright line with a year is considered, leaving any
+ * earlier notices (e.g. preserved upstream notices in a fork) untouched.
+ */
+export function updateLicenseContent(content: string, currentYear: number): string {
+	const { start, end } = getCopyrightYearSpan(maskLicenseBoilerplateDates(content))
+	const updatedSpan = updateYearInSpan(content.slice(start, end), currentYear)
+	return content.slice(0, start) + updatedSpan + content.slice(end)
+}
+
+function updateYearInSpan(content: string, currentYear: number): string {
 	const maskedContent = maskLicenseBoilerplateDates(content)
 
 	// Match a four-digit range with optional spaces around the dash.
