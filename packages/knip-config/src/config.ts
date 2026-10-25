@@ -62,6 +62,7 @@ export const sharedKnipConfig: KnipConfig = {
 		'remark-directive', // From prettier-plugin-astro, needed when added to tsconfig, TODO evaluate continued necessity...
 		'sharp', // Astro projects sometimes need this
 		'svelte-check', // Needed for @kitschpatrol/eslint-config detection and invocation in lieu of tsc
+		'tslib', // Runtime helpers emitted by TypeScript with importHelpers, never imported directly
 	],
 }
 
