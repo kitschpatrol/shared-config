@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises'
+import os from 'node:os'
 import path from 'node:path'
 import { PassThrough } from 'node:stream'
 import { describe, expect, it } from 'vitest'
@@ -366,7 +368,36 @@ describe('positional argument extensions', () => {
 		)
 
 		expect(result.exitCode).toBe(0)
-		expect(received).toEqual([['b.css', 'C.SCSS', 'src', 'lib/**/*.ts']])
+		expect(received).toEqual([['b.css', 'C.SCSS', 'src/**/*.{css,scss}', 'lib/**/*.ts']])
+	})
+
+	it('limits directory arguments to the extensions a group handles', async () => {
+		const received: string[][] = []
+		const temporaryDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'ksc-positional-'))
+		const routeDirectory = path.join(temporaryDirectory, '[slug]')
+		await fs.mkdir(routeDirectory)
+
+		try {
+			await executeCommands(
+				createLogStream(),
+				[`${temporaryDirectory}/`, routeDirectory],
+				[],
+				[createFilteringGroup(received)],
+				undefined,
+				undefined,
+				undefined,
+				{ concurrency: 1, format: 'native' },
+			)
+		} finally {
+			await fs.rm(temporaryDirectory, { force: true, recursive: true })
+		}
+
+		expect(received).toEqual([
+			[
+				`${temporaryDirectory}/**/*.{css,scss}`,
+				String.raw`${temporaryDirectory}/\[slug\]/**/*.{css,scss}`,
+			],
+		])
 	})
 
 	it('falls back to the default glob when no file arguments are given', async () => {
@@ -412,7 +443,7 @@ describe('positional argument extensions', () => {
 
 		const result = await executeCommands(
 			createLogStream(),
-			['a.json', 'b.css'],
+			['a.json', 'b.css', 'src'],
 			[],
 			[createRecordingCommand(received)],
 			undefined,
@@ -422,7 +453,7 @@ describe('positional argument extensions', () => {
 		)
 
 		expect(result.exitCode).toBe(0)
-		expect(received).toEqual([['b.css']])
+		expect(received).toEqual([['b.css', 'src/**/*.css']])
 	})
 
 	it('skips every command when no file arguments apply to a stand-alone tool', async () => {

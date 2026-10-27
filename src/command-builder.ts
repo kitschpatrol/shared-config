@@ -797,24 +797,38 @@ type CommandExecutionContext = {
 }
 
 const GLOB_MAGIC_REGEX = /[*?\[\]\{\}]/v
+const GLOB_SPECIAL_CHARACTER_REGEX = /[!\(\)*+?@\[\]\{\|\}]/gv
+const TRAILING_SLASHES_REGEX = /\/+$/v
 
 /**
- * Narrows explicit file arguments to the extensions a tool handles. Globs and
- * directories pass through untouched since the tool expands them against its
- * own defaults. Without an extension list, arguments pass through unchanged.
+ * Narrows explicit file arguments to the extensions a tool handles. Globs pass
+ * through untouched. Directories become globs limited to the extensions, since
+ * tools like Stylelint otherwise lint every file inside them. Without an
+ * extension list, arguments pass through unchanged.
  */
 function filterPositionalArguments(
 	positionalArguments: string[],
 	extensions: string[] | undefined,
 ): string[] {
-	return extensions === undefined
-		? positionalArguments
-		: positionalArguments.filter(
-				(argument) =>
-					GLOB_MAGIC_REGEX.test(argument) ||
-					fs.statSync(argument, { throwIfNoEntry: false })?.isDirectory() === true ||
-					extensions.includes(path.extname(argument).slice(1).toLowerCase()),
-			)
+	if (extensions === undefined) {
+		return positionalArguments
+	}
+
+	const extensionGlob = extensions.length === 1 ? extensions[0] : `{${extensions.join(',')}}`
+
+	return positionalArguments.flatMap((argument) => {
+		if (fs.statSync(argument, { throwIfNoEntry: false })?.isDirectory() === true) {
+			const escapedDirectory = argument
+				.replace(TRAILING_SLASHES_REGEX, '')
+				.replaceAll(GLOB_SPECIAL_CHARACTER_REGEX, String.raw`\$&`)
+			return `${escapedDirectory}/**/*.${extensionGlob}`
+		}
+
+		return GLOB_MAGIC_REGEX.test(argument) ||
+			extensions.includes(path.extname(argument).slice(1).toLowerCase())
+			? argument
+			: []
+	})
 }
 
 /**
