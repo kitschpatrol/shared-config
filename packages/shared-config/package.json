@@ -49,10 +49,10 @@
 		"ksc": "bin/cli.js"
 	},
 	"files": [
-		"bin/*",
-		"dist/*",
-		"init/*",
-		"skills/*"
+		"bin",
+		"dist",
+		"init",
+		"skills"
 	],
 	"scripts": {
 		"build": "tsdown",

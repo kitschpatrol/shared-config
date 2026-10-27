@@ -37,9 +37,9 @@
 		"ksc-stylelint": "bin/cli.js"
 	},
 	"files": [
-		"bin/*",
-		"dist/*",
-		"init/*"
+		"bin",
+		"dist",
+		"init"
 	],
 	"scripts": {
 		"build": "tsdown",

@@ -38,10 +38,10 @@
 		"ksc-cspell": "bin/cli.js"
 	},
 	"files": [
-		"bin/*",
-		"dictionaries/*",
-		"dist/*",
-		"init/*"
+		"bin",
+		"dictionaries",
+		"dist",
+		"init"
 	],
 	"scripts": {
 		"build": "tsdown",

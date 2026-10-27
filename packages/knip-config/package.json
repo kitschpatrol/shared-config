@@ -38,9 +38,9 @@
 		"ksc-knip": "bin/cli.js"
 	},
 	"files": [
-		"dist/*",
-		"bin/*",
-		"init/*"
+		"dist",
+		"bin",
+		"init"
 	],
 	"scripts": {
 		"build": "tsdown",
