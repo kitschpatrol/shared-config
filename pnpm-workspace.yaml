@@ -16,8 +16,6 @@ peerDependencyRules:
     # https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/pull/1081
     eslint-plugin-jsx-a11y@6>eslint: ^10.0.0
 permissions:
-  '@kitschpatrol/shared-config':
-    skills: true
   # Vendored and re-shipped by @kitschpatrol/shared-config (see build:3-skills)
   mdat:
     skills: false

@@ -28,3 +28,9 @@ skills-lock.json
 vendor/
 
 # Customizations
+!.agents/
+.agents/*
+!.agents/skills/
+!.claude/
+.claude/*
+!.claude/skills/
