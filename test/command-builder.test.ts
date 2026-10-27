@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
+import process from 'node:process'
 import { PassThrough } from 'node:stream'
 import { describe, expect, it } from 'vitest'
 import type { Command, CommandFunction, CommandGroup } from '../src/command-builder.js'
@@ -392,13 +393,38 @@ describe('positional argument extensions', () => {
 			await fs.rm(temporaryDirectory, { force: true, recursive: true })
 		}
 
+		const globDirectory = temporaryDirectory.split(path.sep).join('/')
 		expect(received).toEqual([
-			[
-				`${temporaryDirectory}/**/*.{css,scss}`,
-				String.raw`${temporaryDirectory}/\[slug\]/**/*.{css,scss}`,
-			],
+			[`${globDirectory}/**/*.{css,scss}`, String.raw`${globDirectory}/\[slug\]/**/*.{css,scss}`],
 		])
 	})
+
+	it.skipIf(process.platform === 'win32')(
+		'escapes backslashes in POSIX directory names',
+		async () => {
+			const received: string[][] = []
+			const temporaryDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'ksc-positional-'))
+			const backslashDirectory = path.join(temporaryDirectory, String.raw`back\slash`)
+			await fs.mkdir(backslashDirectory)
+
+			try {
+				await executeCommands(
+					createLogStream(),
+					[backslashDirectory],
+					[],
+					[createFilteringGroup(received)],
+					undefined,
+					undefined,
+					undefined,
+					{ concurrency: 1, format: 'native' },
+				)
+			} finally {
+				await fs.rm(temporaryDirectory, { force: true, recursive: true })
+			}
+
+			expect(received).toEqual([[String.raw`${temporaryDirectory}/back\\slash/**/*.{css,scss}`]])
+		},
+	)
 
 	it('falls back to the default glob when no file arguments are given', async () => {
 		const received: string[][] = []

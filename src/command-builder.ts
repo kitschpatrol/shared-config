@@ -797,7 +797,7 @@ type CommandExecutionContext = {
 }
 
 const GLOB_MAGIC_REGEX = /[*?\[\]\{\}]/v
-const GLOB_SPECIAL_CHARACTER_REGEX = /[!\(\)*+?@\[\]\{\|\}]/gv
+const GLOB_SPECIAL_CHARACTER_REGEX = /[!\(\)*+?@\[\\\]\{\|\}]/gv
 const TRAILING_SLASHES_REGEX = /\/+$/v
 
 /**
@@ -818,7 +818,10 @@ function filterPositionalArguments(
 
 	return positionalArguments.flatMap((argument) => {
 		if (fs.statSync(argument, { throwIfNoEntry: false })?.isDirectory() === true) {
+			// Globs treat backslashes as escapes, so Windows separators must become slashes
 			const escapedDirectory = argument
+				.split(path.sep)
+				.join('/')
 				.replace(TRAILING_SLASHES_REGEX, '')
 				.replaceAll(GLOB_SPECIAL_CHARACTER_REGEX, String.raw`\$&`)
 			return `${escapedDirectory}/**/*.${extensionGlob}`
