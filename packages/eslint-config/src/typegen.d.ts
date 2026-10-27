@@ -503,7 +503,6 @@ export interface RuleOptions {
 	curly?: Linter.RuleEntry<Curly>
 	/**
 	 * Transforms the negation of a conjunction !(A && B) into the equivalent !A
-	 *
 	 * || !B according to De Morgan’s law
 	 *
 	 * @see https://github.com/azat-io/eslint-plugin-de-morgan/blob/main/docs/no-negated-conjunction.md
@@ -2089,6 +2088,19 @@ export interface RuleOptions {
 	 */
 	'json-package/bin-name-casing'?: Linter.RuleEntry<[]>
 	/**
+	 * Enforce that the package manager is declared in either `packageManager` or
+	 * `devEngines.packageManager`.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/consistent-package-manager-declaration
+	 */
+	'json-package/consistent-package-manager-declaration'?: Linter.RuleEntry<JsonPackageConsistentPackageManagerDeclaration>
+	/**
+	 * Enforce a consistent spelling for properties that have a well-known alias.
+	 *
+	 * @see https://eslint-plugin-package-json.dev/rules/consistent-property-aliases
+	 */
+	'json-package/consistent-property-aliases'?: Linter.RuleEntry<JsonPackageConsistentPropertyAliases>
+	/**
 	 * Enforce consistent format for the exports field (implicit or explicit
 	 * subpaths).
 	 *
@@ -2172,7 +2184,8 @@ export interface RuleOptions {
 	 */
 	'json-package/require-bugs'?: Linter.RuleEntry<JsonPackageRequireBugs>
 	/**
-	 * Requires the `bundleDependencies` property to be present.
+	 * Requires the `bundleDependencies` property (or its alias
+	 * `bundledDependencies`) to be present.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-bundleDependencies
 	 */
@@ -2274,7 +2287,7 @@ export interface RuleOptions {
 	 */
 	'json-package/require-libc'?: Linter.RuleEntry<JsonPackageRequireLibc>
 	/**
-	 * Requires the `license` property to be present.
+	 * Requires the `license` property (or its alias `licence`) to be present.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/require-properties/require-license
 	 */
@@ -2466,8 +2479,8 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-bugs'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that the `bundleDependencies` (also `bundledDependencies`) property
-	 * is valid.
+	 * Enforce that the `bundleDependencies` property (or its alias
+	 * `bundledDependencies`) is valid.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-bundleDependencies
 	 */
@@ -2569,7 +2582,7 @@ export interface RuleOptions {
 	 */
 	'json-package/valid-libc'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforce that the `license` property is valid.
+	 * Enforce that the `license` property (or its alias `licence`) is valid.
 	 *
 	 * @see https://eslint-plugin-package-json.dev/rules/valid-properties/valid-license
 	 */
@@ -4888,6 +4901,12 @@ export interface RuleOptions {
 	 */
 	'perfectionist/sort-classes'?: Linter.RuleEntry<PerfectionistSortClasses>
 	/**
+	 * Enforce sorted constructor parameters.
+	 *
+	 * @see https://perfectionist.dev/rules/sort-constructor-parameters
+	 */
+	'perfectionist/sort-constructor-parameters'?: Linter.RuleEntry<PerfectionistSortConstructorParameters>
+	/**
 	 * Enforce sorted decorators.
 	 *
 	 * @see https://perfectionist.dev/rules/sort-decorators
@@ -5204,11 +5223,11 @@ export interface RuleOptions {
 	 */
 	'react/dom-no-unsafe-iframe-sandbox'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallows 'target="_blank"' without 'rel="noreferrer noopener"'.
+	 * Disallows 'target="_blank"' without 'rel="noreferrer"'.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank
 	 */
-	'react/dom-no-unsafe-target-blank'?: Linter.RuleEntry<[]>
+	'react/dom-no-unsafe-target-blank'?: Linter.RuleEntry<ReactDomNoUnsafeTargetBlank>
 	/**
 	 * Replaces usage of 'useFormState' with 'useActionState'.
 	 *
@@ -5231,7 +5250,7 @@ export interface RuleOptions {
 	/**
 	 * Verifies the list of dependencies for Hooks like 'useEffect' and similar.
 	 *
-	 * @see https://github.com/facebook/react/issues/14920
+	 * @see https://github.com/react/react/issues/14920
 	 */
 	'react/exhaustive-deps'?: Linter.RuleEntry<ReactExhaustiveDeps>
 	/**
@@ -5453,8 +5472,8 @@ export interface RuleOptions {
 	 */
 	'react/no-leaked-conditional-rendering'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces that all components have a 'displayName' that can be used in
-	 * DevTools.
+	 * Enforces that anonymous components wrapped in 'memo' or 'forwardRef' have a
+	 * 'displayName' that can be used in DevTools.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-missing-component-display-name
 	 */
@@ -5485,8 +5504,8 @@ export interface RuleOptions {
 	 */
 	'react/no-nested-component-definitions'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallows nesting lazy component declarations inside other components or
-	 * hooks.
+	 * Disallows declaring lazy components that wrap dynamic imports inside other
+	 * components or hooks.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-nested-lazy-component-declarations
 	 */
@@ -5540,7 +5559,8 @@ export interface RuleOptions {
 	'react/no-unsafe-component-will-update'?: Linter.RuleEntry<[]>
 	/**
 	 * Prevents non-stable values (i.e., object literals) from being used as a
-	 * value for 'Context.Provider'.
+	 * value for 'Context.Provider' or the '<Context>' shorthand in React 19 and
+	 * above.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-unstable-context-value
 	 */
@@ -5578,7 +5598,8 @@ export interface RuleOptions {
 	'react/no-use-context'?: Linter.RuleEntry<[]>
 	/**
 	 * Validates that components and hooks are pure by checking that they do not
-	 * call known-impure functions during render.
+	 * call known-impure functions or construct known-impure objects during
+	 * render.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/purity
 	 */
@@ -5629,7 +5650,9 @@ export interface RuleOptions {
 	 */
 	'react/unsupported-syntax'?: Linter.RuleEntry<[]>
 	/**
-	 * Validates that 'useMemo' is called with a callback that returns a value.
+	 * Validates 'useMemo' usage: the result must be used and the callback must
+	 * take no parameters, not be async or a generator, not reassign outer
+	 * variables, and return a value.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/use-memo
 	 */
@@ -5694,7 +5717,7 @@ export interface RuleOptions {
 	/**
 	 * Verifies the list of dependencies for Hooks like 'useEffect' and similar.
 	 *
-	 * @see https://github.com/facebook/react/issues/14920
+	 * @see https://github.com/react/react/issues/14920
 	 */
 	'react/x-exhaustive-deps'?: Linter.RuleEntry<ReactXExhaustiveDeps>
 	/**
@@ -5840,8 +5863,8 @@ export interface RuleOptions {
 	 */
 	'react/x-no-leaked-conditional-rendering'?: Linter.RuleEntry<[]>
 	/**
-	 * Enforces that all components have a 'displayName' that can be used in
-	 * DevTools.
+	 * Enforces that anonymous components wrapped in 'memo' or 'forwardRef' have a
+	 * 'displayName' that can be used in DevTools.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-missing-component-display-name
 	 */
@@ -5872,8 +5895,8 @@ export interface RuleOptions {
 	 */
 	'react/x-no-nested-component-definitions'?: Linter.RuleEntry<[]>
 	/**
-	 * Disallows nesting lazy component declarations inside other components or
-	 * hooks.
+	 * Disallows declaring lazy components that wrap dynamic imports inside other
+	 * components or hooks.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-nested-lazy-component-declarations
 	 */
@@ -5927,7 +5950,8 @@ export interface RuleOptions {
 	'react/x-no-unsafe-component-will-update'?: Linter.RuleEntry<[]>
 	/**
 	 * Prevents non-stable values (i.e., object literals) from being used as a
-	 * value for 'Context.Provider'.
+	 * value for 'Context.Provider' or the '<Context>' shorthand in React 19 and
+	 * above.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/no-unstable-context-value
 	 */
@@ -5965,7 +5989,8 @@ export interface RuleOptions {
 	'react/x-no-use-context'?: Linter.RuleEntry<[]>
 	/**
 	 * Validates that components and hooks are pure by checking that they do not
-	 * call known-impure functions during render.
+	 * call known-impure functions or construct known-impure objects during
+	 * render.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/purity
 	 */
@@ -6010,7 +6035,9 @@ export interface RuleOptions {
 	 */
 	'react/x-unsupported-syntax'?: Linter.RuleEntry<[]>
 	/**
-	 * Validates that 'useMemo' is called with a callback that returns a value.
+	 * Validates 'useMemo' usage: the result must be used and the callback must
+	 * take no parameters, not be async or a generator, not reassign outer
+	 * variables, and return a value.
 	 *
 	 * @see https://eslint-react.xyz/docs/rules/use-memo
 	 */
@@ -8461,7 +8488,7 @@ export interface RuleOptions {
 	 *
 	 * @see https://typescript-eslint.io/rules/await-thenable
 	 */
-	'ts/await-thenable'?: Linter.RuleEntry<[]>
+	'ts/await-thenable'?: Linter.RuleEntry<TsAwaitThenable>
 	/**
 	 * Disallow `@ts-<directive>` comments or require descriptions after
 	 * directives
@@ -13613,6 +13640,8 @@ type JsdocCheckAlignment =
 	| []
 	| [
 			{
+				ignoreEmptyLines?: boolean
+
 				innerIndent?: number
 			},
 	  ]
@@ -14073,6 +14102,8 @@ type JsdocNoUnnecessaryTypeAssertion =
 				checkLiteralConstAssertions?: boolean
 
 				enableFixer?: boolean
+
+				fixTypeChangingCasts?: boolean
 
 				preferConstToLiteralTuples?: boolean
 
@@ -14739,6 +14770,26 @@ type JsdocValidTypes =
 	| [
 			{
 				allowEmptyNamepaths?: boolean
+			},
+	  ]
+// ----- json-package/consistent-package-manager-declaration -----
+type JsonPackageConsistentPackageManagerDeclaration =
+	| []
+	| [
+			{
+				prefer?: 'devEngines' | 'packageManager'
+			},
+	  ]
+// ----- json-package/consistent-property-aliases -----
+type JsonPackageConsistentPropertyAliases =
+	| []
+	| [
+			{
+				prefer?: {
+					bundleDependencies?: boolean | ('bundleDependencies' | 'bundledDependencies')
+
+					license?: boolean | ('license' | 'licence')
+				}
 			},
 	  ]
 // ----- json-package/exports-subpaths-style -----
@@ -18999,6 +19050,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'AbortSignal.timeout'
 					| 'AbortSignal.any'
 					| 'DOMException'
+					| 'QuotaExceededError'
 					| 'FormData'
 					| 'Headers'
 					| 'MessageEvent'
@@ -19006,6 +19058,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'Request'
 					| 'Response'
 					| 'WebAssembly'
+					| 'Worker'
 					| 'WebSocket'
 					| 'fetch'
 					| 'global'
@@ -19036,6 +19089,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'Buffer.from'
 					| 'Buffer.isBuffer'
 					| 'Buffer.isEncoding'
+					| 'Buffer.stringLength'
 					| 'File'
 					| 'atob'
 					| 'btoa'
@@ -19090,6 +19144,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'SubtleCrypto.supports'
 					| 'CloseEvent'
 					| 'CustomEvent'
+					| 'ErrorEvent'
 					| 'Event'
 					| 'EventSource'
 					| 'EventTarget'
@@ -19158,6 +19213,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.mainModule'
 					| 'process.noDeprecation'
 					| 'process.permission'
+					| 'process.permission.drop'
 					| 'process.pid'
 					| 'process.platform'
 					| 'process.ppid'
@@ -19199,6 +19255,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'process.version'
 					| 'process.versions'
 					| 'process.abort'
+					| 'process.addUncaughtExceptionCaptureCallback'
 					| 'process.chdir'
 					| 'process.constrainedMemory'
 					| 'process.cpuUsage'
@@ -19344,6 +19401,24 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'async_hooks.AsyncLocalStorage.snapshot'
 					| 'async_hooks.AsyncResource'
 					| 'async_hooks.AsyncResource.bind'
+					| 'bench'
+					| 'bench.after'
+					| 'bench.afterEach'
+					| 'bench.before'
+					| 'bench.beforeEach'
+					| 'bench.bench'
+					| 'bench.bench.only'
+					| 'bench.bench.skip'
+					| 'bench.createRunner'
+					| 'bench.describe'
+					| 'bench.only'
+					| 'bench.run'
+					| 'bench.runFile'
+					| 'bench.skip'
+					| 'bench.suite'
+					| 'bench/reporters'
+					| 'bench/reporters.json'
+					| 'bench/reporters.spec'
 					| 'buffer'
 					| 'buffer.constants'
 					| 'buffer.INSPECT_MAX_BYTES'
@@ -19352,6 +19427,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'buffer.atob'
 					| 'buffer.btoa'
 					| 'buffer.isAscii'
+					| 'buffer.isLatin1'
 					| 'buffer.isUtf8'
 					| 'buffer.resolveObjectURL'
 					| 'buffer.transcode'
@@ -19369,6 +19445,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'buffer.Buffer.from'
 					| 'buffer.Buffer.isBuffer'
 					| 'buffer.Buffer.isEncoding'
+					| 'buffer.Buffer.stringLength'
 					| 'buffer.File'
 					| 'child_process'
 					| 'child_process.exec'
@@ -19428,6 +19505,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.createECDH'
 					| 'crypto.createHash'
 					| 'crypto.createHmac'
+					| 'crypto.createMac'
 					| 'crypto.createPrivateKey'
 					| 'crypto.createPublicKey'
 					| 'crypto.createSecretKey'
@@ -19448,9 +19526,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.getDiffieHellman'
 					| 'crypto.getFips'
 					| 'crypto.getHashes'
+					| 'crypto.getMacs'
 					| 'crypto.hash'
 					| 'crypto.hkdf'
 					| 'crypto.hkdfSync'
+					| 'crypto.parsePKCS12'
 					| 'crypto.pbkdf2'
 					| 'crypto.pbkdf2Sync'
 					| 'crypto.privateDecrypt'
@@ -19461,6 +19541,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'crypto.randomFillSync'
 					| 'crypto.randomFill'
 					| 'crypto.randomInt'
+					| 'crypto.randomUUIDv7'
 					| 'crypto.scrypt'
 					| 'crypto.scryptSync'
 					| 'crypto.secureHeapUsed'
@@ -19499,8 +19580,10 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'diagnostics_channel.subscribe'
 					| 'diagnostics_channel.unsubscribe'
 					| 'diagnostics_channel.tracingChannel'
+					| 'diagnostics_channel.boundedChannel'
 					| 'diagnostics_channel.Channel'
 					| 'diagnostics_channel.TracingChannel'
+					| 'diagnostics_channel.BoundedChannel'
 					| 'dns'
 					| 'dns.Resolver'
 					| 'dns.getServers'
@@ -19572,6 +19655,10 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'dns/promises.setDefaultResultOrder'
 					| 'dns/promises.getDefaultResultOrder'
 					| 'dns/promises.setServers'
+					| 'dtls'
+					| 'dtls.connect'
+					| 'dtls.createSecureContext'
+					| 'dtls.listen'
 					| 'domain'
 					| 'domain.create'
 					| 'domain.Domain'
@@ -19615,6 +19702,42 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'events.on'
 					| 'events.setMaxListeners'
 					| 'events.addAbortListener'
+					| 'ffi'
+					| 'ffi.DynamicLibrary'
+					| 'ffi.dlclose'
+					| 'ffi.dlopen'
+					| 'ffi.dlsym'
+					| 'ffi.exportArrayBuffer'
+					| 'ffi.exportArrayBufferView'
+					| 'ffi.exportBuffer'
+					| 'ffi.exportString'
+					| 'ffi.getCurrentEventLoop'
+					| 'ffi.getFloat32'
+					| 'ffi.getFloat64'
+					| 'ffi.getInt16'
+					| 'ffi.getInt32'
+					| 'ffi.getInt64'
+					| 'ffi.getInt8'
+					| 'ffi.getRawPointer'
+					| 'ffi.getUint16'
+					| 'ffi.getUint32'
+					| 'ffi.getUint64'
+					| 'ffi.getUint8'
+					| 'ffi.setFloat32'
+					| 'ffi.setFloat64'
+					| 'ffi.setInt16'
+					| 'ffi.setInt32'
+					| 'ffi.setInt64'
+					| 'ffi.setInt8'
+					| 'ffi.setUint16'
+					| 'ffi.setUint32'
+					| 'ffi.setUint64'
+					| 'ffi.setUint8'
+					| 'ffi.suffix'
+					| 'ffi.toArrayBuffer'
+					| 'ffi.toBuffer'
+					| 'ffi.toString'
+					| 'ffi.types'
 					| 'fs'
 					| 'fs.promises'
 					| 'fs.promises.FileHandle'
@@ -19728,6 +19851,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs.mkdtempDisposableSync'
 					| 'fs.opendirSync'
 					| 'fs.openSync'
+					| 'fs.openAsBlobSync'
 					| 'fs.readdirSync'
 					| 'fs.readFileSync'
 					| 'fs.readlinkSync'
@@ -19748,6 +19872,10 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'fs.writeSync'
 					| 'fs.writevSync'
 					| 'fs.constants'
+					| 'fs.F_OK'
+					| 'fs.R_OK'
+					| 'fs.W_OK'
+					| 'fs.X_OK'
 					| 'fs.Dir'
 					| 'fs.Dirent'
 					| 'fs.FSWatcher'
@@ -19825,7 +19953,12 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'http.request'
 					| 'http.validateHeaderName'
 					| 'http.validateHeaderValue'
+					| 'http.isValidHeaderName'
+					| 'http.isValidHeaderValue'
+					| 'http.websocketMask'
+					| 'http.websocketUnmask'
 					| 'http.setMaxIdleHTTPParsers'
+					| 'http.setGlobalProxyFromEnv'
 					| 'http.Agent()'
 					| 'http.Agent'
 					| 'http.ClientRequest()'
@@ -19855,6 +19988,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'https.Server'
 					| 'inspector'
 					| 'inspector.Session'
+					| 'inspector.DOMStorage.domStorageItemAdded'
+					| 'inspector.DOMStorage.domStorageItemRemoved'
+					| 'inspector.DOMStorage.domStorageItemUpdated'
+					| 'inspector.DOMStorage.domStorageItemsCleared'
+					| 'inspector.DOMStorage.registerStorage'
 					| 'inspector.Network.dataReceived'
 					| 'inspector.Network.dataSent'
 					| 'inspector.Network.loadingFailed'
@@ -19872,6 +20010,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'inspector.waitForDebugger'
 					| 'inspector/promises'
 					| 'inspector/promises.Session'
+					| 'inspector/promises.DOMStorage.domStorageItemAdded'
+					| 'inspector/promises.DOMStorage.domStorageItemRemoved'
+					| 'inspector/promises.DOMStorage.domStorageItemUpdated'
+					| 'inspector/promises.DOMStorage.domStorageItemsCleared'
+					| 'inspector/promises.DOMStorage.registerStorage'
 					| 'inspector/promises.Network.dataReceived'
 					| 'inspector/promises.Network.dataSent'
 					| 'inspector/promises.Network.loadingFailed'
@@ -19887,6 +20030,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'inspector/promises.open'
 					| 'inspector/promises.url'
 					| 'inspector/promises.waitForDebugger'
+					| 'module._debug'
 					| 'module.builtinModules'
 					| 'module.constants.compileCacheStatus'
 					| 'module.createRequire'
@@ -19904,6 +20048,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'module.syncBuiltinESMExports'
 					| 'module.findSourceMap'
 					| 'module.SourceMap'
+					| 'module.Module._debug'
 					| 'module.Module.builtinModules'
 					| 'module.Module.createRequire'
 					| 'module.Module.createRequireFromPath'
@@ -19931,8 +20076,10 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'net.isIP'
 					| 'net.isIPv4'
 					| 'net.isIPv6'
+					| 'net.BoundSocket'
 					| 'net.BlockList'
 					| 'net.BlockList.isBlockList'
+					| 'net.BlockList.PRIVATE_RANGES'
 					| 'net.SocketAddress'
 					| 'net.SocketAddress.parse'
 					| 'net.Server'
@@ -20065,7 +20212,9 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'perf_hooks.performance.timerify'
 					| 'perf_hooks.performance.toJSON'
 					| 'perf_hooks.createHistogram'
+					| 'perf_hooks.createSlidingWindowHistogram'
 					| 'perf_hooks.eventLoopUtilization'
+					| 'perf_hooks.importHistogram'
 					| 'perf_hooks.timerify'
 					| 'perf_hooks.monitorEventLoopDelay'
 					| 'perf_hooks.PerformanceEntry'
@@ -20168,6 +20317,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'stream/web.ReadableStreamDefaultController'
 					| 'stream/web.ReadableByteStreamController'
 					| 'stream/web.ReadableStreamBYOBRequest'
+					| 'stream/web.ReadableStreamTee'
 					| 'stream/web.WritableStream'
 					| 'stream/web.WritableStreamDefaultWriter'
 					| 'stream/web.WritableStreamDefaultController'
@@ -20183,8 +20333,84 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'stream/consumers.arrayBuffer'
 					| 'stream/consumers.blob'
 					| 'stream/consumers.buffer'
+					| 'stream/consumers.bytes'
 					| 'stream/consumers.json'
 					| 'stream/consumers.text'
+					| 'stream/iter'
+					| 'stream/iter.array'
+					| 'stream/iter.arrayBuffer'
+					| 'stream/iter.arrayBufferSync'
+					| 'stream/iter.arraySync'
+					| 'stream/iter.broadcast'
+					| 'stream/iter.broadcastProtocol'
+					| 'stream/iter.bytes'
+					| 'stream/iter.bytesSync'
+					| 'stream/iter.drainableProtocol'
+					| 'stream/iter.dump'
+					| 'stream/iter.dumpSync'
+					| 'stream/iter.duplex'
+					| 'stream/iter.from'
+					| 'stream/iter.fromSync'
+					| 'stream/iter.merge'
+					| 'stream/iter.ondrain'
+					| 'stream/iter.pipeTo'
+					| 'stream/iter.pipeToSync'
+					| 'stream/iter.pull'
+					| 'stream/iter.pullSync'
+					| 'stream/iter.push'
+					| 'stream/iter.share'
+					| 'stream/iter.shareProtocol'
+					| 'stream/iter.shareSync'
+					| 'stream/iter.shareSyncProtocol'
+					| 'stream/iter.tap'
+					| 'stream/iter.tapSync'
+					| 'stream/iter.text'
+					| 'stream/iter.textSync'
+					| 'stream/iter.toAsyncStreamable'
+					| 'stream/iter.toStreamable'
+					| 'stream/iter.fromReadable'
+					| 'stream/iter.fromWritable'
+					| 'stream/iter.toReadable'
+					| 'stream/iter.toReadableSync'
+					| 'stream/iter.toWritable'
+					| 'stream/iter.Broadcast'
+					| 'stream/iter.Broadcast.from'
+					| 'stream/iter.Share'
+					| 'stream/iter.Share.from'
+					| 'stream/iter.Stream'
+					| 'stream/iter.Stream.array'
+					| 'stream/iter.Stream.arrayBuffer'
+					| 'stream/iter.Stream.arrayBufferSync'
+					| 'stream/iter.Stream.arraySync'
+					| 'stream/iter.Stream.broadcast'
+					| 'stream/iter.Stream.broadcastProtocol'
+					| 'stream/iter.Stream.bytes'
+					| 'stream/iter.Stream.bytesSync'
+					| 'stream/iter.Stream.drainableProtocol'
+					| 'stream/iter.Stream.dump'
+					| 'stream/iter.Stream.dumpSync'
+					| 'stream/iter.Stream.duplex'
+					| 'stream/iter.Stream.from'
+					| 'stream/iter.Stream.fromSync'
+					| 'stream/iter.Stream.merge'
+					| 'stream/iter.Stream.ondrain'
+					| 'stream/iter.Stream.pipeTo'
+					| 'stream/iter.Stream.pipeToSync'
+					| 'stream/iter.Stream.pull'
+					| 'stream/iter.Stream.pullSync'
+					| 'stream/iter.Stream.push'
+					| 'stream/iter.Stream.share'
+					| 'stream/iter.Stream.shareProtocol'
+					| 'stream/iter.Stream.shareSync'
+					| 'stream/iter.Stream.shareSyncProtocol'
+					| 'stream/iter.Stream.tap'
+					| 'stream/iter.Stream.tapSync'
+					| 'stream/iter.Stream.text'
+					| 'stream/iter.Stream.textSync'
+					| 'stream/iter.Stream.toAsyncStreamable'
+					| 'stream/iter.Stream.toStreamable'
+					| 'stream/iter.SyncShare'
+					| 'stream/iter.SyncShare.fromSync'
 					| '_stream_duplex'
 					| '_stream_passthrough'
 					| '_stream_readable'
@@ -20199,8 +20425,10 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'sqlite.constants.SQLITE_CHANGESET_REPLACE'
 					| 'sqlite.constants.SQLITE_CHANGESET_ABORT'
 					| 'sqlite.backup'
+					| 'sqlite.Database'
 					| 'sqlite.DatabaseSync'
 					| 'sqlite.Session'
+					| 'sqlite.Statement'
 					| 'sqlite.StatementSync'
 					| 'sqlite.SQLITE_CHANGESET_OMIT'
 					| 'sqlite.SQLITE_CHANGESET_REPLACE'
@@ -20216,6 +20444,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'test.describe.only'
 					| 'test.describe.skip'
 					| 'test.describe.todo'
+					| 'test.getTestContext'
 					| 'test.it'
 					| 'test.it.only'
 					| 'test.it.skip'
@@ -20277,6 +20506,7 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'tls.DEFAULT_ECDH_CURVE'
 					| 'tls.DEFAULT_MAX_VERSION'
 					| 'tls.DEFAULT_MIN_VERSION'
+					| 'tls.getCertificateCompressionAlgorithms'
 					| 'tls.getCACertificates'
 					| 'tls.getCiphers'
 					| 'tls.rootCertificates'
@@ -20311,6 +20541,8 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util.promisify'
 					| 'util.promisify.custom'
 					| 'util.callbackify'
+					| 'util.convertProcessSignalToExitCode'
+					| 'util.debounce'
 					| 'util.debuglog'
 					| 'util.debug'
 					| 'util.deprecate'
@@ -20328,16 +20560,20 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'util.inspect.defaultOptions'
 					| 'util.inspect.replDefaults'
 					| 'util.isDeepStrictEqual'
+					| 'util.isPartialDeepStrictEqual'
+					| 'util.markPromiseAsHandled'
 					| 'util.parseArgs'
 					| 'util.parseEnv'
 					| 'util.setTraceSigInt'
 					| 'util.stripVTControlCharacters'
 					| 'util.styleText'
+					| 'util.throttle'
 					| 'util.toUSVString'
 					| 'util.transferableAbortController'
 					| 'util.transferableAbortSignal'
 					| 'util.aborted'
 					| 'util.MIMEType'
+					| 'util.MIMEType.parse'
 					| 'util.MIMEParams'
 					| 'util.TextDecoder'
 					| 'util.TextEncoder'
@@ -20479,8 +20715,20 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'v8.takeCoverage'
 					| 'v8.writeHeapSnapshot'
 					| 'v8.setHeapSnapshotNearHeapLimit'
+					| 'v8.setHeapProfileNearHeapLimit'
 					| 'v8.GCProfiler'
 					| 'v8.startCpuProfile'
+					| 'v8.startHeapProfile'
+					| 'vfs'
+					| 'vfs.ComposableProvider'
+					| 'vfs.create'
+					| 'vfs.MemoryProvider'
+					| 'vfs.registerProvider'
+					| 'vfs.RealFSProvider'
+					| 'vfs.vfsBase'
+					| 'vfs.VirtualFileSystem'
+					| 'vfs.VirtualProvider'
+					| 'vfs.ZipProvider'
 					| 'vm.constants'
 					| 'vm.compileFunction'
 					| 'vm.createContext'
@@ -20617,6 +20865,11 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'zlib.zstdCompressSync'
 					| 'zlib.zstdDecompress'
 					| 'zlib.zstdDecompressSync'
+					| 'zlib.createZipArchive'
+					| 'zlib.createZipArchiveSync'
+					| 'zlib.getMaxZipContentSize'
+					| 'zlib.setMaxZipContentSize'
+					| 'zlib.zipFiles'
 					| 'zlib.BrotliCompress()'
 					| 'zlib.BrotliCompress'
 					| 'zlib.BrotliDecompress()'
@@ -20638,7 +20891,34 @@ type NodeNoUnsupportedFeaturesNodeBuiltins =
 					| 'zlib.ZstdCompress'
 					| 'zlib.ZstdDecompress'
 					| 'zlib.ZstdOptions'
+					| 'zlib.ZipBuffer'
+					| 'zlib.ZipEntry'
+					| 'zlib.ZipEntry.create'
+					| 'zlib.ZipEntry.createStream'
+					| 'zlib.ZipEntry.createSymlink'
+					| 'zlib.ZipEntry.createSync'
+					| 'zlib.ZipEntry.read'
+					| 'zlib.ZipFile'
+					| 'zlib.ZipFile.open'
+					| 'zlib.ZipFile.openSync'
 					| 'zlib'
+					| 'zlib/iter'
+					| 'zlib/iter.compressBrotli'
+					| 'zlib/iter.compressBrotliSync'
+					| 'zlib/iter.compressDeflate'
+					| 'zlib/iter.compressDeflateSync'
+					| 'zlib/iter.compressGzip'
+					| 'zlib/iter.compressGzipSync'
+					| 'zlib/iter.compressZstd'
+					| 'zlib/iter.compressZstdSync'
+					| 'zlib/iter.decompressBrotli'
+					| 'zlib/iter.decompressBrotliSync'
+					| 'zlib/iter.decompressDeflate'
+					| 'zlib/iter.decompressDeflateSync'
+					| 'zlib/iter.decompressGzip'
+					| 'zlib/iter.decompressGzipSync'
+					| 'zlib/iter.decompressZstd'
+					| 'zlib/iter.decompressZstdSync'
 					| 'import.meta.resolve'
 					| 'import.meta.dirname'
 					| 'import.meta.filename'
@@ -22137,6 +22417,607 @@ type PerfectionistSortClasses = {
 
 	partitionByNewLine?: boolean
 }[]
+// ----- perfectionist/sort-constructor-parameters -----
+type PerfectionistSortConstructorParameters = [
+	{
+		fallbackSort?: {
+			type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+			order?: 'asc' | 'desc'
+		}
+
+		type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+		specialCharacters?: 'remove' | 'trim' | 'keep'
+
+		ignoreCase?: boolean
+
+		alphabet?: string
+
+		locales?: string | string[]
+
+		order?: 'asc' | 'desc'
+
+		customGroups?: (
+			| {
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+					groupName: string
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+
+					anyOf: [
+						{
+							elementNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+
+							modifiers?: (
+								'decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public'
+							)[]
+
+							selector?: 'parameter'
+
+							decoratorNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						},
+						...{
+							elementNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+
+							modifiers?: (
+								'decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public'
+							)[]
+
+							selector?: 'parameter'
+
+							decoratorNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						}[],
+					]
+			  }
+			| {
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+					groupName: string
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+
+					elementNamePattern?:
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )[]
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )
+
+					modifiers?: ('decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public')[]
+
+					selector?: 'parameter'
+
+					decoratorNamePattern?:
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )[]
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )
+			  }
+		)[]
+		newlinesInside?: ('ignore' | number) | 'newlinesBetween'
+
+		groups?: (
+			| string
+			| [string, ...string[]]
+			| {
+					newlinesBetween: 'ignore' | number
+			  }
+			| {
+					group: string | [string, ...string[]]
+
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					commentAbove?: string
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+			  }
+		)[]
+		newlinesBetween?: 'ignore' | number
+
+		useConfigurationIf: {
+			allNamesMatchPattern?:
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )[]
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )
+
+			matchesAstSelector?: string
+		}
+
+		partitionByComment?:
+			| boolean
+			| (
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+			  )
+			| {
+					block?:
+						| boolean
+						| (
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						  )
+
+					line?:
+						| boolean
+						| (
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						  )
+			  }
+
+		partitionByNewLine?: boolean
+	},
+	...{
+		fallbackSort?: {
+			type: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+			order?: 'asc' | 'desc'
+		}
+
+		type?: 'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+		specialCharacters?: 'remove' | 'trim' | 'keep'
+
+		ignoreCase?: boolean
+
+		alphabet?: string
+
+		locales?: string | string[]
+
+		order?: 'asc' | 'desc'
+
+		customGroups?: (
+			| {
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+					groupName: string
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+
+					anyOf: [
+						{
+							elementNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+
+							modifiers?: (
+								'decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public'
+							)[]
+
+							selector?: 'parameter'
+
+							decoratorNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						},
+						...{
+							elementNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+
+							modifiers?: (
+								'decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public'
+							)[]
+
+							selector?: 'parameter'
+
+							decoratorNamePattern?:
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						}[],
+					]
+			  }
+			| {
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+					groupName: string
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+
+					elementNamePattern?:
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )[]
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )
+
+					modifiers?: ('decorated' | 'override' | 'readonly' | 'protected' | 'private' | 'public')[]
+
+					selector?: 'parameter'
+
+					decoratorNamePattern?:
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )[]
+						| (
+								| {
+										pattern: string
+
+										flags?: string
+								  }
+								| string
+						  )
+			  }
+		)[]
+		newlinesInside?: ('ignore' | number) | 'newlinesBetween'
+
+		groups?: (
+			| string
+			| [string, ...string[]]
+			| {
+					newlinesBetween: 'ignore' | number
+			  }
+			| {
+					group: string | [string, ...string[]]
+
+					fallbackSort?: {
+						type:
+							'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+
+						order?: 'asc' | 'desc'
+					}
+
+					commentAbove?: string
+
+					type?:
+						'alphabetical' | 'natural' | 'line-length' | 'custom' | 'unsorted' | 'subgroup-order'
+					newlinesInside?: 'ignore' | number
+
+					order?: 'asc' | 'desc'
+			  }
+		)[]
+		newlinesBetween?: 'ignore' | number
+
+		useConfigurationIf: {
+			allNamesMatchPattern?:
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )[]
+				| (
+						| {
+								pattern: string
+
+								flags?: string
+						  }
+						| string
+				  )
+
+			matchesAstSelector?: string
+		}
+
+		partitionByComment?:
+			| boolean
+			| (
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )[]
+					| (
+							| {
+									pattern: string
+
+									flags?: string
+							  }
+							| string
+					  )
+			  )
+			| {
+					block?:
+						| boolean
+						| (
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						  )
+
+					line?:
+						| boolean
+						| (
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )[]
+								| (
+										| {
+												pattern: string
+
+												flags?: string
+										  }
+										| string
+								  )
+						  )
+			  }
+
+		partitionByNewLine?: boolean
+	}[],
+]
 // ----- perfectionist/sort-decorators -----
 type PerfectionistSortDecorators = {
 	fallbackSort?: {
@@ -27498,6 +28379,14 @@ type ReactDomNoUnknownProperty =
 				requireDataLowercase?: boolean
 			},
 	  ]
+// ----- react/dom-no-unsafe-target-blank -----
+type ReactDomNoUnsafeTargetBlank =
+	| []
+	| [
+			{
+				allowReferrer?: boolean
+			},
+	  ]
 // ----- react/exhaustive-deps -----
 type ReactExhaustiveDeps =
 	| []
@@ -30789,6 +31678,14 @@ type TsArrayType =
 				default?: 'array' | 'generic' | 'array-simple'
 
 				readonly?: 'array' | 'generic' | 'array-simple'
+			},
+	  ]
+// ----- ts/await-thenable -----
+type TsAwaitThenable =
+	| []
+	| [
+			{
+				allowMixedPromiseArrays?: boolean
 			},
 	  ]
 // ----- ts/ban-ts-comment -----

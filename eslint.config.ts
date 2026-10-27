@@ -59,6 +59,8 @@ export default eslintConfig(
 			// Don't sort generated preset rules
 			'perfectionist/sort-objects': 'off',
 			'ts/naming-convention': 'off',
+			// Presets must reference deprecated rules to configure or disable them
+			'ts/no-deprecated': 'off',
 			'unicorn/name-replacements': 'off',
 			'unicorn/no-null': 'off',
 		},

@@ -365,7 +365,7 @@ The tasks share a problem matcher owner, so the panel reflects the most recent r
 
 ## Agent skills
 
-This project bundles 2 [Agent Skills](https://agentskills.io) in its published package to help coding agents work with @kitschpatrol/shared-config.
+This project bundles 4 [Agent Skills](https://agentskills.io) in its published package to help coding agents work with @kitschpatrol/shared-config.
 
 To sync the skills into your project, run Vercel's [skills CLI](https://github.com/vercel-labs/skills) from your project root:
 
@@ -388,6 +388,14 @@ Code conventions and lint workflow for projects that use @kitschpatrol/shared-co
 ### Skill: [`ksc-update`](packages/shared-config/skills/ksc-update/SKILL.md)
 
 Run full dependency and repository maintenance in kitschpatrol shared config pnpm repositories and monorepos.
+
+### Skill: [`mdat`](packages/shared-config/skills/mdat/SKILL.md)
+
+Use and configure mdat, the Markdown Autophagic Template CLI and library that expands HTML comment placeholders such as `<!-- title -->` in Markdown files.
+
+### Skill: [`mdat-plugin-authoring`](packages/shared-config/skills/mdat-plugin-authoring/SKILL.md)
+
+Write custom mdat expansion rules and publishable mdat rule plugins (mdat-plugin-\* packages).
 
 ## Implementation notes
 

@@ -36,15 +36,15 @@
 		"bin-ignore": "git ls-files -z -- '*/bin/cli.js' | xargs -0 git update-index --skip-worktree",
 		"bin-restore": "pnpm bin-unignore && git ls-files | grep cli.js | xargs -I {} git restore --source HEAD -- {} && pnpm bin-ignore",
 		"bin-unignore": "git ls-files -z -- '*/bin/cli.js' | xargs -0 git update-index --no-skip-worktree",
-		"build": "pnpm build:1-stand-alone && pnpm build:2-shared && pnpm build:3-readmes",
+		"build": "pnpm build:1-stand-alone && pnpm build:2-shared && pnpm build:3-skills && pnpm build:4-readmes",
 		"build:1-stand-alone": "pnpm --filter=!shared-config --filter=!shared-config-monorepo build",
 		"build:2-shared": "pnpm --filter=shared-config build",
-		"build:3-readmes": "pnpm ksc-mdat fix && shx cp ./packages/shared-config/readme.md ./readme.md && mdat strip && shx sed -i \"s/\\]\\(skills\\//](packages\\/shared-config\\/skills\\//g\" ./readme.md && shx cp -r ./packages/shared-config/skills/ksc ./packages/repo-config/init/.claude/skills/",
+		"build:3-skills": "shx rm -rf ./packages/shared-config/skills/mdat ./packages/shared-config/skills/mdat-plugin-authoring && shx cp -r ./packages/shared-config/node_modules/mdat/skills/mdat ./packages/shared-config/node_modules/mdat/skills/mdat-plugin-authoring ./packages/shared-config/skills/",
+		"build:4-readmes": "pnpm ksc-mdat fix && shx cp ./packages/shared-config/readme.md ./readme.md && mdat strip && shx sed -i \"s/\\]\\(skills\\//](packages\\/shared-config\\/skills\\//g\" ./readme.md",
 		"clean-deep": "shx rm -f pnpm-lock.yaml && pnpm bin-restore && git clean -fdX",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"merge-ignores": "ksdiff --merge ./packages/eslint-config/.eslintignore ./packages/stylelint-config/.stylelintignore",
-		"prepare": "skills experimental_sync -y -f",
 		"release": "pnpm build && bumpp -r --commit 'Release: %s' && pnpm build && pnpm -r publish --otp $(op item get npm --otp)",
 		"test": "vitest run"
 	},
@@ -83,14 +83,13 @@
 		"prettier": "^3.9.9",
 		"publint": "^0.3.25",
 		"shx": "^0.4.0",
-		"skills": "^1.7.1",
 		"tsdown": "^0.23.0",
 		"tsx": "^4.23.15",
 		"typescript": "~6.0.3",
 		"vitest": "^5.0.3",
 		"yargs": "^18.2.0"
 	},
-	"packageManager": "pnpm@12.14.0",
+	"packageManager": "pnpm@12.15.0",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	}

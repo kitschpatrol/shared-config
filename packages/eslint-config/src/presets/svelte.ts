@@ -46,7 +46,6 @@ export const svelteRecommendedRules: Rules = {
 export const svelteAllRules: Rules = {
 	// Brittle since there's no negative index access in dot-prop
 	// Begin expansion 'eslint-plugin-svelte' 'flat/all[3]'
-	'svelte/@typescript-eslint/no-unnecessary-condition': 'error',
 	'svelte/block-lang': 'error',
 	'svelte/button-has-type': 'error',
 	'svelte/comment-directive': 'error',
@@ -75,16 +74,13 @@ export const svelteAllRules: Rules = {
 	'svelte/no-dupe-on-directives': 'error',
 	'svelte/no-dupe-style-properties': 'error',
 	'svelte/no-dupe-use-directives': 'error',
-	'svelte/no-dynamic-slot-name': 'error',
 	'svelte/no-export-load-in-svelte-module-in-kit-pages': 'error',
 	'svelte/no-extra-reactive-curlies': 'error',
-	'svelte/no-goto-without-base': 'error',
 	'svelte/no-ignored-unsubscribe': 'error',
 	'svelte/no-immutable-reactive-statements': 'error',
 	'svelte/no-inline-styles': 'error',
 	'svelte/no-inner-declarations': 'error',
 	'svelte/no-inspect': 'error',
-	'svelte/no-navigation-without-base': 'error',
 	'svelte/no-navigation-without-resolve': 'error',
 	'svelte/no-nested-style-tag': 'error',
 	'svelte/no-not-function-handler': 'error',
