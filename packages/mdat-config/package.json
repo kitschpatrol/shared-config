@@ -56,14 +56,14 @@
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
-		"execa": "^10.1.0",
+		"execa": "^10.2.1",
 		"find-workspaces": "^0.3.1",
 		"fs-extra": "^11.4.1",
 		"json-stringify-pretty-compact": "^4.0.0",
-		"mdat": "^3.6.2",
+		"mdat": "^3.6.6",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.9",
+		"prettier": "^3.9.10",
 		"yargs": "^18.2.0"
 	},
 	"engines": {

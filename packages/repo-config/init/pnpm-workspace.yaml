@@ -24,4 +24,5 @@ publicHoistPattern:
   - 'case-police'
 skills:
   dirs:
+    - .agents/skills
     - .claude/skills

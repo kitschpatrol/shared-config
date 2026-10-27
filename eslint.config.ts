@@ -73,11 +73,4 @@ export default eslintConfig(
 			'unicorn/no-null': 'off',
 		},
 	},
-	{
-		files: ['test/fixtures/output-fixed-manual/*'],
-		rules: {
-			// Fixture files deliberately mix exports with top-level calls
-			'unicorn/no-top-level-side-effects': 'off',
-		},
-	},
 )

@@ -36,20 +36,15 @@ async function generateMdatReadmeCommands(action: 'check' | 'expand'): Promise<C
 	const packageDirectories = findWorkspacePackageDirectories()
 	const configPath = await getMdatConfigFilepath()
 
-	const commands: CommandCli[] = []
-	for (const directory of packageDirectories) {
-		commands.push({
-			cwdOverride: directory,
-			name: 'mdat',
-			optionFlags:
-				configPath === undefined || configPath === ''
-					? ['--format']
-					: ['--config', configPath, '--format'], // Don't love this
-			subcommands: [action],
-		})
-	}
-
-	return commands
+	return packageDirectories.map((directory) => ({
+		cwdOverride: directory,
+		name: 'mdat',
+		optionFlags:
+			configPath === undefined || configPath === ''
+				? ['--format']
+				: ['--config', configPath, '--format'], // Don't love this
+		subcommands: [action],
+	}))
 }
 
 export const commandDefinition: CommandDefinition = {

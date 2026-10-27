@@ -37,7 +37,7 @@ This includes the following:
   - `set-github-metadata.yml` Populates GitHub repo metadata from package.json
   - `ci.yml` Basic cross-platform CI action
   - `check-links.yml` Checks links in Markdown files and on the project's homepage weekly
-  - `update-dependencies.yml` Runs the `ksc-update` skill with Claude Code weekly or on demand, then opens a pull request with the changes and the skill's report (see [Dependency updates](#dependency-updates))
+  - `update-dependencies.yml` Runs the `ksc-update` skill with Claude Code monthly or on demand, then opens a pull request with the changes and the skill's report (see [Dependency updates](#dependency-updates))
 
 In order to work around some hoisting issues related to plugin resolution in the other `@kitschpatrol/shared-config` packages, it's critical that it is applied _before_ any other `@kitschpatrol/shared-config` packages are installed.
 
@@ -113,7 +113,7 @@ If you want releases to come from your account instead of `github_actions`, then
 
 #### Dependency updates
 
-The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) every Sunday night, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config`, and pnpm links it into `.claude/skills` during install because the starter `pnpm-workspace.yaml` approves the package's [agent skills](https://pnpm.io/agent-skills). The workflow fails if no `ksc-update` skill is found.
+The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) every Sunday night, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config`, and pnpm links it into `.agents/skills` and `.claude/skills` during install because the starter `pnpm-workspace.yaml` approves the package's [agent skills](https://pnpm.io/agent-skills). The workflow fails if no `ksc-update` skill is found.
 
 The pull request is titled `Update dependencies.`, so GitHub's _Default to pull request title_ squash merge setting produces commits like `Update dependencies. (#12)` without the report in the body. Enable it once per repository:
 

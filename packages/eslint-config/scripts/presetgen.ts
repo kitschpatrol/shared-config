@@ -137,11 +137,7 @@ async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise
 			key.startsWith(deprecatedRulePrefix),
 		)
 
-		if (isDeprecated) {
-			jsonLines.push(`// ${line}`)
-		} else {
-			jsonLines.push(line)
-		}
+		jsonLines.push(isDeprecated ? `// ${line}` : line)
 	}
 
 	// Remove the opening and closing braces and add trailing comma to make prettier happy

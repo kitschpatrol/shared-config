@@ -24,9 +24,9 @@ function toRule(source: unknown, code: unknown): string | undefined {
 	const sourceString = typeof source === 'string' && source.length > 0 ? source : undefined
 	const codeString = typeof code === 'string' || typeof code === 'number' ? String(code) : undefined
 
-	return sourceString !== undefined && codeString !== undefined
-		? `${sourceString}(${codeString})`
-		: (sourceString ?? codeString)
+	return sourceString === undefined || codeString === undefined
+		? (sourceString ?? codeString)
+		: `${sourceString}(${codeString})`
 }
 
 function parseSvelteVerboseDiagnostic(line: string, cwd: string): Diagnostic | undefined {

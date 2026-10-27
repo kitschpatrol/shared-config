@@ -187,7 +187,7 @@ pnpm --package=@kitschpatrol/repo-config dlx ksc-repo init && pnpm i && pnpm add
    gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub Mika/PERSONAL_ACCESS_TOKEN')
    ```
 
-   The weekly dependency update workflow also needs a `CLAUDE_CODE_OAUTH_TOKEN` secret, a Claude subscription token generated with `claude setup-token`:
+   The monthly dependency update workflow also needs a `CLAUDE_CODE_OAUTH_TOKEN` secret, a Claude subscription token generated with `claude setup-token`:
 
    ```sh
    gh secret set CLAUDE_CODE_OAUTH_TOKEN --app actions --body $(op read 'op://Personal/Claude Code OAuth Token/credential')
@@ -367,7 +367,13 @@ The tasks share a problem matcher owner, so the panel reflects the most recent r
 
 This project bundles 4 [Agent Skills](https://agentskills.io) in its published package to help coding agents work with @kitschpatrol/shared-config.
 
-To sync the skills into your project, run Vercel's [skills CLI](https://github.com/vercel-labs/skills) from your project root:
+To link the skills into your project with [pnpm](https://pnpm.io/agent-skills) 12.11 or later, approve the package once and pnpm links its skills on every install:
+
+```sh
+pnpm approve @kitschpatrol/shared-config
+```
+
+With other package managers, sync the skills from your project root with Vercel's [skills CLI](https://github.com/vercel-labs/skills):
 
 ```sh
 npx skills experimental_sync

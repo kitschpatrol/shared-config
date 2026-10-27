@@ -10,32 +10,30 @@ import type { Rules } from '../types'
 
 // Many are skipped on account of our managing these concerns elsewhere (or not
 // at all). Note that config order can shift between releases (e.g. when xo/css
-// was added). Indices below last verified against eslint-config-xo 5.0.0.
+// was added). Indices below last verified against eslint-config-xo 7.0.0.
 
 // [0] xo/ignores - Skipped
-// [1] xo/ava - Skipped
-// [2] xo/ava-package-json - Skipped
-// [3] node-test/recommended - Skipped
-// [4] xo/base - Included
-// [5] xo/json - Skipped
-// [6] xo/json5 - Skipped
-// [7] xo/jsonc - Skipped
-// [8] xo/package-json - Skipped
-// [9] xo/regexp - Skipped
-// [10] xo/jsdoc - Skipped
-// [11] xo/jsdoc-typescript - Skipped
-// [12] xo/html - Skipped
-// [13] xo/markdown - Skipped
-// [14] xo/css - Skipped (New in 72!)
-// [15] xo/typescript - Included
-// [16] xo/typescript-declaration - Included
-// [17] xo/typescript-test-declaration - Included
-// [18] xo/typescript-jsx - Included
-// [19] xo/config-file - Skipped
+// [1] node-test/recommended - Skipped
+// [2] xo/base - Included
+// [3] xo/json - Skipped
+// [4] xo/json5 - Skipped
+// [5] xo/jsonc - Skipped
+// [6] xo/package-json - Skipped
+// [7] xo/regexp - Skipped
+// [8] xo/jsdoc - Skipped
+// [9] xo/jsdoc-typescript - Skipped
+// [10] xo/html - Skipped
+// [11] xo/markdown - Skipped
+// [12] xo/css - Skipped
+// [13] xo/typescript - Included
+// [14] xo/typescript-declaration - Included
+// [15] xo/typescript-test-declaration - Included
+// [16] xo/typescript-jsx - Included
+// [17] xo/config-file - Skipped
 
 // (xo/base)
 export const xoJavascriptRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[4].rules' 'exclude: @eslint-community/eslint-comments/, import-x/, n/, no-use-extend-native/, unicorn/, xo/'
+	// Begin expansion 'eslint-config-xo' '[2].rules' 'exclude: @eslint-community/eslint-comments/, import-x/, n/, no-use-extend-native/, unicorn/, xo/'
 	'logical-assignment-operators': 'off',
 	'no-negated-condition': 'off',
 	'no-nested-ternary': 'off',
@@ -230,7 +228,8 @@ export const xoJavascriptRules: Rules = {
 		'error',
 		'always',
 		{
-			ignorePattern: String.raw`pragma|\w{1,40}[\-:]ignore|ignore|webpack\w+:|c8|v8|type-coverage:|const |let |var |import |export |function |class |if \(|for \(|while \(|switch \(`,
+			ignorePattern:
+				'pragma|\\w{1,40}[\\-:]ignore|ignore|webpack\\w+:|c8|v8|type-coverage:|const |let |var |import |export |function |class |if \\(|for \\(|while \\(|switch \\(',
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},
@@ -355,7 +354,7 @@ export const xoJavascriptRules: Rules = {
 
 // (xo/typescript)
 export const xoTypescriptRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[15].rules'
+	// Begin expansion 'eslint-config-xo' '[13].rules'
 	'ts/adjacent-overload-signatures': 'error',
 	'ts/array-type': ['error', { default: 'array-simple' }],
 	'ts/await-thenable': 'error',
@@ -375,7 +374,7 @@ export const xoTypescriptRules: Rules = {
 				},
 				null: {
 					message: 'Use `undefined` instead. See: https://github.com/sindresorhus/meta/issues/7',
-					fixWith: 'undefined',
+					suggest: ['undefined'],
 				},
 				Buffer: {
 					message:
@@ -716,14 +715,14 @@ export const xoTypescriptRules: Rules = {
 
 // (xo/typescript-declaration)
 export const xoTypescriptDtsRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[16].rules'
+	// Begin expansion 'eslint-config-xo' '[14].rules'
 	'ts/no-unused-vars': 'off',
 	// End expansion
 }
 
 // (xo/typescript-test-declaration)
 export const xoTypescriptTestRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[17].rules'
+	// Begin expansion 'eslint-config-xo' '[15].rules'
 	'ts/no-unsafe-call': 'off',
 	'ts/no-confusing-void-expression': 'off',
 	'ts/no-unnecessary-type-arguments': 'off',
@@ -733,7 +732,7 @@ export const xoTypescriptTestRules: Rules = {
 
 // (xo/typescript-jsx)
 export const xoTsxRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[18].rules'
+	// Begin expansion 'eslint-config-xo' '[16].rules'
 	'ts/naming-convention': [
 		'error',
 		{

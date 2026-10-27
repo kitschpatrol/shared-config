@@ -9,10 +9,6 @@ import { eslintConfig } from '../src/index.js'
 
 let tempDirectory: string
 
-type ParserOptions = {
-	extraFileExtensions?: unknown
-}
-
 const scriptFiles = [
 	'script.ts',
 	'script.mts',
@@ -57,6 +53,10 @@ async function createEslint(options: OptionsConfig): Promise<ESLint> {
 }
 
 async function getExtraFileExtensions(eslint: ESLint, fileName: string): Promise<unknown> {
+	type ParserOptions = {
+		extraFileExtensions?: unknown
+	}
+
 	// ESLint currently types this API's result as `any`.
 	// eslint-disable-next-line ts/no-unsafe-assignment
 	const config: Linter.Config | undefined = await eslint.calculateConfigForFile(

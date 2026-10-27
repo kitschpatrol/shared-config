@@ -19,35 +19,36 @@ type AstroLogEvent = {
 	message: string
 }
 
+const ASTRO_LOG_LEVELS: ReadonlySet<unknown> = new Set(['debug', 'error', 'info', 'warn'])
+
+function isAstroLogLevel(value: unknown): value is AstroLogEvent['level'] {
+	return ASTRO_LOG_LEVELS.has(value)
+}
+
 function parseAstroLogEvent(line: string): AstroLogEvent | undefined {
 	try {
 		const value: unknown = JSON.parse(line)
-		return !isRecord(value) ||
-			typeof value.message !== 'string' ||
-			(value.level !== 'debug' &&
-				value.level !== 'error' &&
-				value.level !== 'info' &&
-				value.level !== 'warn')
-			? undefined
-			: {
+		return isRecord(value) && typeof value.message === 'string' && isAstroLogLevel(value.level)
+			? {
 					...(typeof value.label === 'string' && value.label.length > 0 && { label: value.label }),
 					level: value.level,
 					message: value.message,
 				}
+			: undefined
 	} catch {
 		return undefined
 	}
 }
 
 function toAstroLogDiagnostic(logEvent: AstroLogEvent): Diagnostic | undefined {
-	return logEvent.level !== 'error' && logEvent.level !== 'warn'
-		? undefined
-		: {
+	return logEvent.level === 'error' || logEvent.level === 'warn'
+		? {
 				...(logEvent.label !== undefined && { rule: logEvent.label }),
 				message: logEvent.message,
 				severity: logEvent.level === 'error' ? 'error' : 'warning',
 				tool: 'astro',
 			}
+		: undefined
 }
 
 function parseAstroFileDiagnostic(line: string, cwd: string): Diagnostic | undefined {

@@ -1,14 +1,10 @@
 allowBuilds:
   esbuild: true
   unrs-resolver: true
-auditConfig:
-  ignoreGhsas:
-    # braces: stack-exhaustion DOS from deeply nested glob patterns, reached via
-    # fast-glob > micromatch from shx, globby, and find-workspaces. No patched
-    # release exists, and these only expand glob patterns from repo config and
-    # package.json scripts, never untrusted input.
-    - GHSA-vfj7-8cjw-p6xm
 ignoreWorkspaceRootCheck: true
+minimumReleaseAgeExclude:
+  - mdat@3.6.6
+  - remark-mdat@3.1.2
 overrides:
   normalize-package-data: ^9.0.0
 packages:
@@ -19,6 +15,12 @@ peerDependencyRules:
     # https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/1075
     # https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/pull/1081
     eslint-plugin-jsx-a11y@6>eslint: ^10.0.0
+permissions:
+  '@kitschpatrol/shared-config':
+    skills: true
+  # Vendored and re-shipped by @kitschpatrol/shared-config (see build:3-skills)
+  mdat:
+    skills: false
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -30,3 +32,7 @@ publicHoistPattern:
   - '*remark*'
   - '*stylelint*'
   - 'case-police'
+skills:
+  dirs:
+    - .agents/skills
+    - .claude/skills

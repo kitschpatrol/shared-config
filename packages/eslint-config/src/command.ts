@@ -39,25 +39,25 @@ async function printEslintConfigCommand(
 	return exitCode
 }
 
-type EslintJsonMessage = {
-	column?: number
-	endColumn?: number
-	endLine?: number
-	fatal?: boolean
-	line?: number
-	message: string
-	// eslint-disable-next-line ts/no-restricted-types
-	ruleId: null | string
-	severity: number
-}
-
-type EslintJsonResult = {
-	filePath: string
-	messages: EslintJsonMessage[]
-}
-
 /** Parses `eslint --format json` output into diagnostics. */
 export function parseEslintJsonOutput(context: CollectContext): CollectResult {
+	type EslintJsonMessage = {
+		column?: number
+		endColumn?: number
+		endLine?: number
+		fatal?: boolean
+		line?: number
+		message: string
+		// eslint-disable-next-line ts/no-restricted-types
+		ruleId: null | string
+		severity: number
+	}
+
+	type EslintJsonResult = {
+		filePath: string
+		messages: EslintJsonMessage[]
+	}
+
 	let results: EslintJsonResult[]
 	try {
 		results = JSON.parse(context.stdout) as EslintJsonResult[]

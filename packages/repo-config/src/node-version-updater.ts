@@ -166,13 +166,13 @@ async function nodeVersionCheckSingle(
 		return enginesNodeVersionWanted ?? enginesNode
 	})()
 	const effectiveEnginesNodeMin =
-		effectiveEnginesNode !== undefined && effectiveEnginesNode !== ''
-			? semver.minVersion(effectiveEnginesNode)
-			: undefined
+		effectiveEnginesNode === undefined || effectiveEnginesNode === ''
+			? undefined
+			: semver.minVersion(effectiveEnginesNode)
 	const devWantedMin =
-		devEnginesVersionWanted !== undefined && devEnginesVersionWanted !== ''
-			? semver.minVersion(devEnginesVersionWanted)
-			: undefined
+		devEnginesVersionWanted === undefined || devEnginesVersionWanted === ''
+			? undefined
+			: semver.minVersion(devEnginesVersionWanted)
 
 	const devEnginesNeeded =
 		devWantedMin && effectiveEnginesNodeMin && semver.gt(devWantedMin, effectiveEnginesNodeMin)

@@ -32,8 +32,6 @@ const KNIP_CATEGORY_LABELS: Record<string, string> = {
 
 type KnipIssueEntry = string | { col?: number; line?: number; name: string }
 
-type KnipIssue = Record<string, unknown> & { file: string }
-
 function flattenKnipEntries(value: unknown): KnipIssueEntry[] {
 	// Some categories (e.g. duplicates) nest entries one level deeper
 	return Array.isArray(value)
@@ -45,6 +43,7 @@ function flattenKnipEntries(value: unknown): KnipIssueEntry[] {
 
 /** Parses `knip --reporter json` output into diagnostics. */
 export function parseKnipJsonOutput(context: CollectContext): CollectResult {
+	type KnipIssue = Record<string, unknown> & { file: string }
 	let parsed: { issues?: KnipIssue[] }
 	try {
 		parsed = JSON.parse(context.stdout) as { issues?: KnipIssue[] }

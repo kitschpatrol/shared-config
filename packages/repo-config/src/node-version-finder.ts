@@ -222,19 +222,19 @@ export async function getMinimumNodeVersions(projectPath: string): Promise<Minim
 
 	return {
 		dependencies:
-			overallProductionMax !== undefined && overallProductionMax !== ''
-				? {
+			overallProductionMax === undefined || overallProductionMax === ''
+				? undefined
+				: {
 						topLevelCauses: [...(productionCauses[overallProductionMax] ?? [])],
 						version: `>=${overallProductionMax}`,
-					}
-				: undefined,
+					},
 		devDependencies:
-			overallDevMax !== undefined && overallDevMax !== ''
-				? {
+			overallDevMax === undefined || overallDevMax === ''
+				? undefined
+				: {
 						topLevelCauses: [...(devCauses[overallDevMax] ?? [])],
 						version: `>=${overallDevMax}`,
-					}
-				: undefined,
+					},
 		lockfile: lockfilePath,
 		version,
 	}

@@ -865,9 +865,9 @@ function getResolvedCommandName(command: Command): string {
 		return `${command.name} ${command.subcommand}`
 	}
 
-	return !isCommandFunction(command) && command.subcommands !== undefined
-		? [command.name, ...command.subcommands].join(' ')
-		: command.name
+	return isCommandFunction(command) || command.subcommands === undefined
+		? command.name
+		: [command.name, ...command.subcommands].join(' ')
 }
 
 async function executeCommand(

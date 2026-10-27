@@ -30,27 +30,27 @@ const positionalArgumentExtensions = [
 ]
 const positionalArgumentDefault = `**/*.{${positionalArgumentExtensions.join(',')}}`
 
-type StylelintJsonWarning = {
-	column?: number
-	endColumn?: number
-	endLine?: number
-	line?: number
-	rule?: string
-	severity: string
-	text: string
-}
-
-type StylelintJsonResult = {
-	parseErrors?: Array<{ column?: number; line?: number; text: string }>
-	source: string
-	warnings: StylelintJsonWarning[]
-}
-
 /**
  * Parses `stylelint --formatter json` output into diagnostics. Stylelint writes
  * formatter output to stderr, not stdout.
  */
 export function parseStylelintJsonOutput(context: CollectContext): CollectResult {
+	type StylelintJsonWarning = {
+		column?: number
+		endColumn?: number
+		endLine?: number
+		line?: number
+		rule?: string
+		severity: string
+		text: string
+	}
+
+	type StylelintJsonResult = {
+		parseErrors?: Array<{ column?: number; line?: number; text: string }>
+		source: string
+		warnings: StylelintJsonWarning[]
+	}
+
 	let results: StylelintJsonResult[]
 	try {
 		results = JSON.parse(context.stderr) as StylelintJsonResult[]

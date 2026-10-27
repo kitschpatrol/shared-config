@@ -53,9 +53,9 @@ export function getLogDestination(): NodeJS.WriteStream {
  * parseable stream, even under FORCE_COLOR or CI.
  */
 export function getColors(): Colors {
-	return getOutputFormat() === 'machine'
-		? picocolors.createColors(false)
-		: picocolors.createColors(shouldColorStream(getLogDestination()))
+	return picocolors.createColors(
+		getOutputFormat() !== 'machine' && shouldColorStream(getLogDestination()),
+	)
 }
 
 /**
