@@ -2,9 +2,6 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
 ignoreWorkspaceRootCheck: true
-minimumReleaseAgeExclude:
-  - mdat@3.6.6
-  - remark-mdat@3.1.2
 overrides:
   normalize-package-data: ^9.0.0
 packages:

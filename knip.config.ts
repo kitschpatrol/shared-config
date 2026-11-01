@@ -23,8 +23,6 @@ export default knipConfig({
 		'stylelint-config-html',
 		'stylelint-config-standard',
 		'stylelint-plugin-defensive-css',
-		// Undeclared runtime import of eslint-mdx 3.8.2, provided by eslint-config
-		'tslib',
 	],
 	workspaces: {
 		'.': { entry: sharedEntry },

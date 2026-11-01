@@ -10,11 +10,13 @@ export const mdxRecommendedRules: Rules = {
 export const mdxCodeBlocksRules: Rules = {
 	// Begin expansion 'eslint-plugin-mdx' 'flatCodeBlocks.rules'
 	'eol-last': 'off',
+	// "@stylistic/eol-last":"off",
 	'no-undef': 'off',
 	'no-unused-expressions': 'off',
 	'no-unused-vars': 'off',
 	'ts/no-unused-vars': 'off',
 	'padded-blocks': 'off',
+	// "@stylistic/padded-blocks":"off",
 	strict: 'off',
 	'unicode-bom': 'off',
 	// End expansion
