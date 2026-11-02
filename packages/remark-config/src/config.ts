@@ -25,6 +25,7 @@ import remarkLintFencedCodeFlag from 'remark-lint-fenced-code-flag' // Warn when
 import remarkLintFinalDefinition from 'remark-lint-final-definition' // Warn when definitions are not placed at the end of the file
 import remarkLintFirstHeadingLevel from 'remark-lint-first-heading-level' // Warn when the first heading has a level other than a specified value
 import remarkLintHeadingIncrement from 'remark-lint-heading-increment' // Warn when headings increment with more than 1 level at a time
+import remarkLintHeadingStyle from 'remark-lint-heading-style' // Require ATX headings; Prettier preserves the original style.
 import remarkLintLinebreakStyle from 'remark-lint-linebreak-style' // Warn when linebreaks violate a given or detected style
 import remarkLintMaximumHeadingLength from 'remark-lint-maximum-heading-length' // Warn when headings are too long
 // import remarkLintMdxJsxAttributeSort from 'remark-lint-mdx-jsx-attribute-sort' // Check mdx jsx attribute order
@@ -76,7 +77,6 @@ import remarkLintStrikethroughMarker from 'remark-lint-strikethrough-marker' // 
 // import remarkLintFencedCodeMarker from 'remark-lint-fenced-code-marker' // Warn when fenced code markers violate the given style
 // import remarkLintFinalNewline from 'remark-lint-final-newline' //  Warn when a newline at the end of a file is missing
 // import remarkLintHardBreakSpaces from 'remark-lint-hard-break-spaces' //  Warn when too many spaces are used to create a hard break
-// import remarkLintHeadingStyle from 'remark-lint-heading-style' //  Warn when heading style violates the given style
 // import remarkLintBlankLines102 from 'remark-lint-blank-lines-1-0-2' // Ensure a specific number of lines between blocks
 // import remarkLintHeadingWhitespace from 'remark-lint-heading-whitespace' //  Ensure heading parsing is not broken by weird whitespace
 // import remarkLintLinkTitleStyle from 'remark-lint-link-title-style' // Warn when link and definition titles occur with incorrect quotes
@@ -145,6 +145,7 @@ export const remarkSharedConfig: RemarkConfig = {
 		remarkLintFinalDefinition,
 		remarkLintFirstHeadingLevel,
 		remarkLintHeadingIncrement,
+		[remarkLintHeadingStyle, 'atx'],
 		remarkLintLinebreakStyle,
 		remarkLintMaximumHeadingLength,
 		remarkLintNoDuplicateDefinedUrls,

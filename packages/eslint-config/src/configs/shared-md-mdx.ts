@@ -6,6 +6,7 @@ import type {
 	TypedFlatConfigItem,
 } from '../types'
 import { GLOB_MARKDOWN, GLOB_MDX } from '../globs'
+import { remarkRule } from '../mdx-remark'
 import { tsParser } from '../parsers'
 import { mdxCodeBlocksRules, mdxRecommendedRules } from '../presets'
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
@@ -51,7 +52,10 @@ export function createMarkdownConfigs(options: MarkdownConfigOptions): TypedFlat
 			name: remarkName,
 			plugins: {
 				...sharedScriptConfig.plugins,
-				mdx: pluginMdx,
+				mdx: {
+					...pluginMdx,
+					rules: { ...pluginMdx.rules, remark: remarkRule },
+				},
 			},
 			processor: pluginMdx.createRemarkProcessor({
 				lintCodeBlocks: true,

@@ -71,7 +71,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.fs": "^1100.2.14",
+		"@pnpm/lockfile.fs": "^1100.2.16",
 		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
 		"cspell": "^10.4.0",

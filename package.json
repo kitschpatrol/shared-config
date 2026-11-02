@@ -61,7 +61,7 @@
 		"@kitschpatrol/stylelint-config": "workspace:*",
 		"@kitschpatrol/typescript-config": "workspace:*",
 		"@pinojs/json-colorizer": "^4.0.0",
-		"@pnpm/lockfile.types": "^1100.1.5",
+		"@pnpm/lockfile.types": "^1100.1.6",
 		"@types/fs-extra": "^11.0.4",
 		"@types/node": "~24.13.6",
 		"@types/react": "^19.3.0",
@@ -83,13 +83,13 @@
 		"prettier": "^3.9.10",
 		"publint": "^0.3.25",
 		"shx": "^0.4.0",
-		"tsdown": "^0.23.2",
+		"tsdown": "^0.23.4",
 		"tsx": "^4.23.15",
 		"typescript": "~6.0.3",
 		"vitest": "^5.0.5",
 		"yargs": "^18.2.0"
 	},
-	"packageManager": "pnpm@12.15.0",
+	"packageManager": "pnpm@12.16.1",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	}

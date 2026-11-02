@@ -26,7 +26,7 @@ function identity(x) {
 ---
 
 - List
-- with a \[link] (/to/somewhere)
+- with a [link] (/to/somewhere)
 - and [another one]
 
   [another one]: https://example.com 'Example title'

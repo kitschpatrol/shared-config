@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { OptionsConfig } from '../src/types.js'
 import { eslintConfig } from '../src/index.js'
 
-async function createEslint(options: OptionsConfig = {}): Promise<ESLint> {
+async function createEslint(options: OptionsConfig = {}, fix = false): Promise<ESLint> {
 	const configs = await eslintConfig({
 		astro: false,
 		gitignore: false,
@@ -19,6 +19,7 @@ async function createEslint(options: OptionsConfig = {}): Promise<ESLint> {
 
 	return new ESLint({
 		baseConfig: [...configs],
+		fix,
 		overrideConfigFile: true,
 	})
 }
@@ -31,6 +32,107 @@ async function lint(eslint: ESLint, source: string, filePath: string): Promise<E
 
 	return result
 }
+
+describe('MDX expressions', () => {
+	it('accepts content expressions and JSX comments', async () => {
+		const eslint = await createEslint()
+		const result = await lint(
+			eslint,
+			[
+				"export const title = 'Example'",
+				'',
+				'# Example',
+				'',
+				'{title}',
+				'',
+				'Text {title}.',
+				'',
+				'<div>{/* Comment */}</div>',
+				'',
+			].join('\n'),
+			'example.mdx',
+		)
+
+		expect(result.fatalErrorCount).toBe(0)
+		expect(result.messages).toEqual([])
+	})
+
+	it('still reports unused expressions inside exported JavaScript', async () => {
+		const eslint = await createEslint()
+		const result = await lint(
+			eslint,
+			'export function example() {\n  value\n}\n\n# Example\n',
+			'example.mdx',
+		)
+
+		expect(result.fatalErrorCount).toBe(0)
+		expect(result.messages.map((message) => message.ruleId)).toContain('no-unused-expressions')
+	})
+})
+
+describe.each(['example.md', 'example.mdx'])('%s remark warnings', (filePath) => {
+	it.each([
+		{
+			ruleId: 'remark-lint-no-multiple-toplevel-headings',
+			source: '# Example\n\n*   Keep this list spacing.\n\n# Another heading\n',
+		},
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\n* First\n * with a [link] (/to/somewhere)\n* Third\n',
+		},
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\nSome *emphasis*[link] (/to/somewhere).\n',
+		},
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\nLine\u{2028}separator before a [link] (/to/somewhere).\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\n> Quoted\n> -------\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\nTwo\nlines\n-----\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\nTrailing #\n----------\n',
+		},
+	])('reports $ruleId without changing the source', async ({ ruleId, source }) => {
+		const eslint = await createEslint({}, true)
+		const result = await lint(eslint, source, filePath)
+
+		expect(result.fatalErrorCount).toBe(0)
+		expect(result.messages.map((message) => message.ruleId)).toContain(ruleId)
+		expect(result.output).toBeUndefined()
+	})
+
+	it.each([
+		{
+			fixed: '# Title\n\n## Section\n',
+			name: 'top-level headings',
+			source: 'Title\n=====\n\nSection\n-------\n',
+		},
+		{
+			fixed: '# Example\n\n* First\n* ## Title\n* Third\n',
+			name: 'a heading in a list item',
+			source: '# Example\n\n* First\n* Title\n  -----\n* Third\n',
+		},
+		{
+			fixed: '# Example\n\nLine\u{2028}separator.\n\n## Title *emphasis*\n',
+			name: 'a heading after a line separator',
+			source: '# Example\n\nLine\u{2028}separator.\n\nTitle *emphasis*\n----------------\n',
+		},
+	])('converts $name from Setext to ATX', async ({ fixed, source }) => {
+		const eslint = await createEslint({}, true)
+		const result = await lint(eslint, source, filePath)
+
+		expect(result.messages).toEqual([])
+		expect(result.output).toBe(fixed)
+	})
+})
 
 describe('HTML ownership', () => {
 	it('lints markup but not literal script bodies in tagged templates', async () => {

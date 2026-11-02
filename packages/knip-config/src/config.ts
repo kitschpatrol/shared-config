@@ -7,6 +7,8 @@ export type { KnipConfig } from 'knip'
  * Must return a POJO to be merged into package.json
  */
 export const sharedKnipConfig: KnipConfig = {
+	// Consumers may install CSpell only through @kitschpatrol/shared-config.
+	cspell: true,
 	entry: [
 		// Default entry... not merging in from default Knip config?
 		'{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!',
@@ -17,7 +19,6 @@ export const sharedKnipConfig: KnipConfig = {
 		'scripts/**/*.{js,mjs,cjs,ts,mts,cts}',
 		'skills/*/scripts/**/*.{js,mjs,cjs,ts,mts,cts}', // Agent Skills bundled scripts
 		'.remarkrc.{js,mjs,cjs,ts,mts,cts}',
-		'cspell.config.{js,mjs,cjs,ts,mts,cts}',
 		'eslint.config.{js,mjs,cjs,ts,mts,cts}',
 		'mdat.config.{js,mjs,cjs,ts,mts,cts}',
 		'prettier.config.{js,mjs,cjs,ts,mts,cts}',
@@ -39,8 +40,7 @@ export const sharedKnipConfig: KnipConfig = {
 	],
 	ignoreDependencies: [
 		'@astrojs/check', // Called by @kitschpatrol/typescript-config
-		'@kitschpatrol/cspell-config',
-		'@kitschpatrol/dict-en-wiktionary', // Undetected due to string import in cspell.config.ts
+		'@kitschpatrol/cspell-config', // Consumers import the factory through shared-config.
 		'@kitschpatrol/eslint-config',
 		'@kitschpatrol/knip-config',
 		'@kitschpatrol/mdat-config',
