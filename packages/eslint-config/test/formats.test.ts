@@ -1,14 +1,7 @@
-import type { Linter } from 'eslint'
 import { ESLint } from 'eslint'
-import { flat as mdxFlat } from 'eslint-plugin-mdx'
-import { format } from 'prettier'
 import { describe, expect, it } from 'vitest'
 import type { OptionsConfig } from '../src/types.js'
 import { eslintConfig } from '../src/index.js'
-
-const markdownParser = mdxFlat.languageOptions?.parser as {
-	parseForESLint(source: string, options: Record<string, unknown>): Linter.ESLintParseResult
-}
 
 async function createEslint(options: OptionsConfig = {}, fix = false): Promise<ESLint> {
 	const configs = await eslintConfig({
@@ -77,79 +70,68 @@ describe('MDX expressions', () => {
 	})
 })
 
-describe('remark fixes', () => {
-	it.each(['example.md', 'example.mdx'])(
-		'preserves unrelated list formatting when reporting a heading warning in %s',
-		async (filePath) => {
-			const eslint = await createEslint({}, true)
-			const source = '# Example\n\n*   Keep this list spacing.\n\n# Another heading\n'
-			const result = await lint(eslint, source, filePath)
-
-			expect(result.fatalErrorCount).toBe(0)
-			expect(result.messages.map((message) => message.ruleId)).toContain(
-				'remark-lint-no-multiple-toplevel-headings',
-			)
-			expect(result.output ?? source).toBe(source)
+describe.each(['example.md', 'example.mdx'])('%s remark warnings', (filePath) => {
+	it.each([
+		{
+			ruleId: 'remark-lint-no-multiple-toplevel-headings',
+			source: '# Example\n\n*   Keep this list spacing.\n\n# Another heading\n',
 		},
-	)
-})
-
-describe.each(['example.md', 'example.mdx'])('%s list fixes', (filePath) => {
-	it.each(['+', '*', '-'])(
-		'keeps a %s list together when fixing a reference in its middle item',
-		async (marker) => {
-			const source = `# Example\n\n${marker} First\n ${marker} with a [link] (/to/somewhere)\n${marker} Third\n`
-			const eslint = await createEslint({}, true)
-			const result = await lint(eslint, source, filePath)
-			expect(result.messages).toEqual([])
-			const fixed = result.output ?? source
-			const formatted = await format(fixed, { filepath: filePath })
-
-			for (const text of [fixed, formatted]) {
-				// This Markdown-only sample also parses as MDX, whose AST exposes list nodes.
-				const { ast } = markdownParser.parseForESLint(text, {
-					filePath: 'structure.mdx',
-					ignoreRemarkConfig: true,
-				})
-				const lists = ast.body.filter((node: { type: string }) => node.type === 'MDList')
-				expect(lists).toMatchObject([
-					{
-						children: [{ type: 'MDListItem' }, { type: 'MDListItem' }, { type: 'MDListItem' }],
-					},
-				])
-			}
-
-			const secondPass = await lint(eslint, formatted, filePath)
-			expect(secondPass.messages).toEqual([])
-			expect(secondPass.output).toBeUndefined()
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\n* First\n * with a [link] (/to/somewhere)\n* Third\n',
 		},
-	)
-})
-
-describe('Markdown headings', () => {
-	it.each(['example.md', 'example.mdx'])(
-		'reports and converts Setext headings to ATX in %s',
-		async (filePath) => {
-			const source = 'Title\n=====\n\nSection\n-------\n'
-			const eslint = await createEslint()
-			const result = await lint(eslint, source, filePath)
-
-			expect(result.fatalErrorCount).toBe(0)
-			expect(result.messages.map((message) => message.ruleId)).toEqual([
-				'remark-lint-heading-style',
-				'remark-lint-heading-style',
-			])
-
-			const eslintWithFixes = await createEslint({}, true)
-			const fixed = await lint(eslintWithFixes, source, filePath)
-			expect(fixed.messages).toEqual([])
-			expect(fixed.output).toBe('# Title\n\n## Section\n')
-
-			const secondPass = await lint(eslintWithFixes, fixed.output ?? source, filePath)
-			expect(secondPass.messages).toEqual([])
-			expect(secondPass.output).toBeUndefined()
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\nSome *emphasis*[link] (/to/somewhere).\n',
 		},
-	)
+		{
+			ruleId: 'remark-lint-no-undefined-references',
+			source: '# Example\n\nLine\u{2028}separator before a [link] (/to/somewhere).\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\n> Quoted\n> -------\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\nTwo\nlines\n-----\n',
+		},
+		{
+			ruleId: 'remark-lint-heading-style',
+			source: '# Example\n\nTrailing #\n----------\n',
+		},
+	])('reports $ruleId without changing the source', async ({ ruleId, source }) => {
+		const eslint = await createEslint({}, true)
+		const result = await lint(eslint, source, filePath)
+
+		expect(result.fatalErrorCount).toBe(0)
+		expect(result.messages.map((message) => message.ruleId)).toContain(ruleId)
+		expect(result.output).toBeUndefined()
+	})
+
+	it.each([
+		{
+			fixed: '# Title\n\n## Section\n',
+			name: 'top-level headings',
+			source: 'Title\n=====\n\nSection\n-------\n',
+		},
+		{
+			fixed: '# Example\n\n* First\n* ## Title\n* Third\n',
+			name: 'a heading in a list item',
+			source: '# Example\n\n* First\n* Title\n  -----\n* Third\n',
+		},
+		{
+			fixed: '# Example\n\nLine\u{2028}separator.\n\n## Title *emphasis*\n',
+			name: 'a heading after a line separator',
+			source: '# Example\n\nLine\u{2028}separator.\n\nTitle *emphasis*\n----------------\n',
+		},
+	])('converts $name from Setext to ATX', async ({ fixed, source }) => {
+		const eslint = await createEslint({}, true)
+		const result = await lint(eslint, source, filePath)
+
+		expect(result.messages).toEqual([])
+		expect(result.output).toBe(fixed)
+	})
 })
 
 describe('HTML ownership', () => {

@@ -1,74 +1,75 @@
 import type { Rule } from 'eslint'
 import * as pluginMdx from 'eslint-plugin-mdx'
-import diff from 'fast-diff'
 
-function splitFix(source: string, fix: Rule.Fix): Rule.Fix[] {
-	const fixes: Rule.Fix[] = []
-	let offset = fix.range[0]
-	let pending: Rule.Fix | undefined
-	const differences = diff(source.slice(...fix.range), fix.text)
+// One line of content followed by an `=` or `-` underline, with no block quote marker
+const setextHeadingPattern = /^(?<content>[^\n\r]+)(?:\r\n|\r|\n)[\t ]*(?<underline>=+|-+)[\t ]*$/v
+// Trailing hashes would become an ATX closing sequence and drop out of the heading text
+const closingSequencePattern = /(?:^|[\t ])#+$/v
 
-	for (const [operation, text] of differences) {
-		if (operation === diff.EQUAL) {
-			if (pending !== undefined) {
-				fixes.push(pending)
-				pending = undefined
-			}
-
-			offset += text.length
-		} else {
-			pending ??= { range: [offset, offset], text: '' }
-			if (operation === diff.DELETE) {
-				pending.range[1] += text.length
-				offset += text.length
-			} else {
-				pending.text += text
-			}
-		}
+function isHeadingStyleReport(descriptor: Rule.ReportDescriptor): boolean {
+	if (!('message' in descriptor) || typeof descriptor.message !== 'string') {
+		return false
 	}
 
-	if (pending !== undefined) {
-		fixes.push(pending)
+	const { ruleId, source } = JSON.parse(descriptor.message) as {
+		ruleId?: unknown
+		source?: unknown
 	}
-
-	return fixes
+	return source === 'remark-lint' && ruleId === 'heading-style'
 }
 
 /**
- * Keep MDX 3.9's same-line fix batches from changing text outside a diagnostic.
- * A link fix must not change one list marker and split the surrounding list.
+ * Rewrite a reported single-line Setext heading as ATX, replacing only the
+ * heading's own text. Returns undefined for headings where the rewrite could
+ * change the document.
  */
-export const localizedRemarkRule: Rule.RuleModule = {
+function getSetextHeadingFix(
+	text: string,
+	descriptor: Rule.ReportDescriptor,
+): Rule.Fix | undefined {
+	if (!isHeadingStyleReport(descriptor) || !('loc' in descriptor) || !('start' in descriptor.loc)) {
+		return undefined
+	}
+
+	// eslint-plugin-mdx passes remark's positions through, including source offsets
+	type RemarkLocation = {
+		start: { offset?: unknown }
+		end: { offset?: unknown }
+	}
+	const { start, end } = descriptor.loc as RemarkLocation
+	if (typeof start.offset !== 'number' || typeof end.offset !== 'number') {
+		return undefined
+	}
+
+	const groups = setextHeadingPattern.exec(text.slice(start.offset, end.offset))?.groups
+	const content = groups?.content?.trim()
+	if (
+		content === undefined ||
+		groups?.underline === undefined ||
+		closingSequencePattern.test(content)
+	) {
+		return undefined
+	}
+
+	const level = groups.underline.startsWith('=') ? 1 : 2
+	return { range: [start.offset, end.offset], text: `${'#'.repeat(level)} ${content}` }
+}
+
+/**
+ * The eslint-plugin-mdx remark rule without its own fixes, leaving Markdown
+ * formatting to Prettier. Those fixes splice pieces of remark-stringify output
+ * into the document, which can split a list or break emphasis. Setext headings
+ * are still converted to ATX, which Prettier does not do in Markdown files, by
+ * rewriting only the reported heading.
+ */
+export const remarkRule: Rule.RuleModule = {
 	...pluginMdx.rules.remark,
 	create(context) {
 		const wrappedContext = Object.create(context) as Rule.RuleContext
 		Object.defineProperty(wrappedContext, 'report', {
 			value(descriptor: Rule.ReportDescriptor) {
-				const originalFix = descriptor.fix
-				if (originalFix === undefined || originalFix === null || !('loc' in descriptor)) {
-					context.report(descriptor)
-					return
-				}
-
-				const location = descriptor.loc
-				const start = 'start' in location ? location.start : location
-				const end = 'end' in location ? location.end : start
-				context.report({
-					...descriptor,
-					fix(fixer) {
-						const proposed = originalFix(fixer)
-						if (proposed === null) {
-							return []
-						}
-
-						const startOffset = context.sourceCode.getIndexFromLoc(start)
-						const endOffset = context.sourceCode.getIndexFromLoc(end)
-						const fixes = 'range' in proposed ? [proposed] : [...proposed]
-						return fixes
-							.flatMap((fix) => splitFix(context.sourceCode.text, fix))
-							.filter((fix) => fix.range[0] <= endOffset && fix.range[1] >= startOffset)
-					},
-				})
+				const fix = getSetextHeadingFix(context.sourceCode.text, descriptor)
+				context.report({ ...descriptor, fix: fix === undefined ? undefined : () => fix })
 			},
 		})
 		return pluginMdx.rules.remark.create(wrappedContext)
