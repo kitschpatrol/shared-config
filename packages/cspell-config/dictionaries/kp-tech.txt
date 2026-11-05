@@ -81,6 +81,7 @@ canparse
 capsizecss
 carbonetes
 certbot
+chagent
 charuco
 checkjs
 cherrypy

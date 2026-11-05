@@ -2,6 +2,8 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
 ignoreWorkspaceRootCheck: true
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/chagent@0.3.0'
 overrides:
   normalize-package-data: ^9.0.0
 packages:

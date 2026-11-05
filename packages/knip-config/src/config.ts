@@ -40,6 +40,7 @@ export const sharedKnipConfig: KnipConfig = {
 	],
 	ignoreDependencies: [
 		'@astrojs/check', // Called by @kitschpatrol/typescript-config
+		'@kitschpatrol/chagent', // Typically invoked through bumpp's --execute argument, which Knip doesn't parse
 		'@kitschpatrol/cspell-config', // Consumers import the factory through shared-config.
 		'@kitschpatrol/eslint-config',
 		'@kitschpatrol/knip-config',
