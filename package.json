@@ -50,7 +50,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.5",
-		"@kitschpatrol/chagent": "0.3.0",
+		"@kitschpatrol/chagent": "^0.5.0",
 		"@kitschpatrol/cspell-config": "workspace:*",
 		"@kitschpatrol/eslint-config": "workspace:*",
 		"@kitschpatrol/knip-config": "workspace:*",
