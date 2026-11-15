@@ -24,6 +24,7 @@ Anacapa
 Anduril
 Anker
 ankiweb
+anomalyco
 appsemble
 Apress
 Aqara
@@ -66,6 +67,7 @@ Bormioli
 Botanica
 bouffalolab
 Bria
+brightcove
 Brita
 Buefy
 Buspar
@@ -86,6 +88,7 @@ Cheogram
 Ciel
 cisofy
 Citi
+civildebatewall
 CLAE
 claudebar
 claudefordesktop
@@ -106,6 +109,7 @@ côte
 côte&ciel
 Crestron
 Cydwoq
+czkawka
 dailymotion
 Daiso
 dancecraft
@@ -113,6 +117,7 @@ Danspace
 daringfireball
 datacite
 Datomic
+dejavu
 Devtek
 devutils
 DigiKey
@@ -121,6 +126,7 @@ Displax
 Dorkbot
 Dretec
 Duolingo
+dupeguru
 Duralex
 Dymo
 dynalist
@@ -128,6 +134,8 @@ Dyneema
 Eastpak
 Eldorado
 Elgato
+emsign
+emudhra
 Enerloop
 eney
 enttec
@@ -142,10 +150,12 @@ Fanprix
 Fastmail
 Ferrero
 Fira
+firesheep
 fisco
 Fishs
 Fiskars
 flashprint
+flatseal
 Flic
 Flickr
 fmail
@@ -168,6 +178,7 @@ Glamtech
 Glasslands
 Glorietta
 Goetz
+googlecode
 Goppion
 Graffle
 Grailed
@@ -185,11 +196,13 @@ Hotmail
 Hunkemöller
 Illesteva
 iMac
+imageoptim
 imazing
 Incfile
 inoreader
 Intdev
 Isaora
+iterm
 Izipizi
 Jaden
 Juul
@@ -235,6 +248,7 @@ Mandai
 Maybach
 Mechanix
 Mechano
+medialon
 Mekelburg
 Melitta
 Meross
@@ -250,6 +264,7 @@ Moccamaster
 modallmedia
 Momofuku
 Monero
+monitorcontrol
 Monoprice
 Monoprix
 mothsoftware
@@ -272,6 +287,8 @@ Ohaus
 Oishii
 Oncorus
 onenote
+onepassword
+openemu
 Optery
 Optimo
 Optoma
@@ -289,6 +306,7 @@ Penco
 pennstate
 Performa
 Perlorian
+permanente
 Perrotin
 peterborgapps
 Phaidon
@@ -309,6 +327,7 @@ publicspace
 Puro
 Qotom
 Qovery
+quadro
 Quantbase
 Quercia
 rarlab
@@ -337,6 +356,7 @@ Scarpa
 Scarpia
 Schiff
 screenstudio
+sectigo
 Segoe
 selfcontrol
 Selfridges
@@ -348,9 +368,11 @@ Shopt
 Siig
 Smartsheet
 Smartwool
+solarbotics
 solidworks
 Somaxis
 Sonicare
+sonoma
 Sotheby
 soundsource
 sparkfun
@@ -398,6 +420,7 @@ Ubisoft
 Ultimaker
 Uniqlo
 updatest
+usertrust
 Vava
 Venmo
 VENTUS
@@ -407,6 +430,7 @@ vicon
 Videlio
 Vitra
 VOCOlinc
+vuforia
 Vyvanse
 Waleda
 Wegman's

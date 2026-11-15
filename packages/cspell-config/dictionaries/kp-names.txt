@@ -219,6 +219,7 @@ Britz
 Bront
 Brower
 brownlee
+Bruggen
 Brutvan
 Bryson
 Bubuck
@@ -290,6 +291,7 @@ Chuuk
 Ciudad
 Civitai
 Cixin
+Claes
 Clancey
 Classon
 Cleary
@@ -304,6 +306,7 @@ Cohrs
 Coill
 Condon
 Consolas
+Coosje
 Copia
 Corbin
 Corbis
@@ -617,6 +620,7 @@ Hirschmiller
 Hiscox
 Hito
 Hiveage
+Hoberman
 Hodder
 Hodgson
 Hoefler
@@ -705,6 +709,7 @@ Jojo
 Jong
 Jonny
 Jony
+jordanbaird
 jorisjh
 joshuakgoldberg
 Jott
@@ -744,6 +749,7 @@ Kearny
 Keeli
 Keijiro
 Keiko
+Kellen
 Kemper
 Kengo
 Kenji
@@ -772,6 +778,7 @@ Kitts
 Kleinberger
 Kleiner
 Klim
+Klingemann
 Klompus
 Klosterman
 Kochan
@@ -792,6 +799,7 @@ Kottke
 Koustantinich
 Kovach
 Kovarik
+kovidgoyal
 Koze
 Koźniewski
 Kralendijk
@@ -888,6 +896,7 @@ Lovejoy
 Lrai
 L’Rai
 Ludion
+Luís
 Luiz
 lukechilds
 Lumpur
@@ -912,6 +921,7 @@ Majer
 Makari
 Makiura
 Makoto
+Malik
 Malkin
 Manaus
 Marais
@@ -1001,6 +1011,7 @@ Mirada
 Mishima
 Misrahi
 Mistry
+mitchellh
 Miyake
 Miyazaki
 mmackh
@@ -1115,6 +1126,7 @@ Orland
 Osawa
 osnr
 Ôtomo
+Ottosson
 Outkast
 Ozge
 Pachucki
@@ -1239,6 +1251,7 @@ Romare
 Romie
 romkatv
 ronaldpr
+Rondinone
 Ronin
 Roopa
 Rosado
@@ -1267,6 +1280,7 @@ Safrin
 Saggau
 Saldaña
 Salles
+Saltzman
 Sami
 Samia
 Samira
@@ -1507,6 +1521,7 @@ Ulaanbaatar
 Ullman
 Umar
 unitedstates
+unixorn
 Urbach
 ürich
 Ursus
@@ -1539,6 +1554,7 @@ Vikar
 Vikram
 Viktor
 Vimpat
+Viñoly
 Virilio
 Virno
 Vogel
@@ -1633,6 +1649,7 @@ Zannah
 Zanzouri
 Zareen
 Zavala
+zdharma
 Zeena
 Zeki
 Zena

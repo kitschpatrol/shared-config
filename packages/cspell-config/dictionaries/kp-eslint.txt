@@ -4,6 +4,7 @@ biblioref
 canonicalurl
 chunkname
 codespell
+contenteditable
 curlies
 describedby
 displaynames
@@ -13,6 +14,7 @@ esmodule
 fetchcontent
 findlast
 findlastindex
+flowto
 flowtype
 formatrange
 formatrangetoparts
@@ -21,10 +23,12 @@ fromentries
 getentrybyslug
 glossref
 groupby
+haspopup
 helpes
 innerhtml
 iswellformed
 jsxdev
+labelledby
 lintroll
 lookarounds
 matchall
@@ -44,6 +48,7 @@ nums
 ocsp
 proptypes
 replaceall
+roledescription
 sameline
 selectrange
 setstate

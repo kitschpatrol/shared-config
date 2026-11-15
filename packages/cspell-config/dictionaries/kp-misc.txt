@@ -24,6 +24,7 @@ artlens
 assed
 autofiction
 autophagic
+autoplaying
 Ayurvedic
 backgrounding
 badass
@@ -56,6 +57,7 @@ Canalside
 cantine
 Caprica
 carb
+caricaturization
 catechins
 ceci
 Changdu
@@ -66,6 +68,7 @@ clicky
 clozed
 clozing
 colorimetrically
+colourspace
 comparables
 confit
 connectome
@@ -166,6 +169,7 @@ immersiveness
 indo
 inpainting
 instrumentalization
+interactives
 Interactivos
 intergenerational
 jankiness
@@ -180,12 +184,14 @@ kludgey
 kombucha
 kunst
 kunstmuseum
+l'oeil
 Ladenburg
 lemmatization
 letterboxed
 lightboxes
 Lockerbie
 Lockport
+lofi
 longshed
 lorax
 mafé
@@ -216,6 +222,7 @@ normies
 Nostrand
 noteless
 obrigado
+oneliner
 onesie
 opensource
 opsomaniac
@@ -249,6 +256,7 @@ randos
 rebake
 rebindablereencoded
 rebranded
+recalc
 recents
 refurb
 reimplementation
@@ -268,6 +276,7 @@ satisfiability
 Schizopolis
 sclavin
 scorable
+sectionizes
 Shinkansen
 shroom
 sidenote
@@ -306,6 +315,8 @@ timelapse
 titleless
 tldr
 tongkat
+topo
+trackpad
 trailhead
 transhumanism
 traunch
@@ -317,8 +328,10 @@ uberbeamer
 umami
 unagi
 uncapitalize
+unconfigured
 undelightable
 underrepresent
+undock
 ungoogleable
 unignore
 unitless

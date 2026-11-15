@@ -3,10 +3,13 @@ apacheconf
 apkg
 ashx
 authinfo
+bcmaps
 binarycookies
 btif
+bunfig
 bzexcluderules
 bzexclusions
+chezmoiscripts
 cjpeg
 cjsx
 ctsx
@@ -19,6 +22,7 @@ gcode
 ghfile
 gif
 gifs
+hprof
 icns
 importmap
 inputrc
@@ -30,8 +34,10 @@ mdtxt
 mjsx
 mtsx
 nirc
+pipfile
 pnpmfile
 pubspec
+pycache
 pyproject
 readmetoo
 refspec
@@ -55,5 +61,6 @@ vmwarevm
 wgsl
 xcodeproj
 xhtm
+zcompdump
 zhistory
 zpreztorc

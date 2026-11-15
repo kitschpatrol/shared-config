@@ -9,5 +9,5 @@ export default cspellConfig({
 		'./packages/eslint-config/src/typegen.d.ts',
 		'**/changelog.md',
 	],
-	words: ['lockfiles', 'unvalidated'],
+	words: ['unvalidated'],
 })
