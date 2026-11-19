@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
-## [Unreleased]
+Entries are drafted with LLM assistance via [Chagent](https://github.com/kitschpatrol/chagent).
+
+## [8.15.0] - 2026-11-19
 
 ### Changed
 
 - Ignore `@kitschpatrol/chagent` as an unused dependency, since it's usually invoked through bumpp's `--execute` argument.
+
+### Maintenance
+
+- Update Knip to 6.46.0 and Prettier to 3.10.1.
 
 ## [8.14.1] - 2026-11-03
 
@@ -691,3 +697,4 @@ No notable changes.
 [8.13.1]: https://github.com/kitschpatrol/shared-config/compare/v8.13.0...v8.13.1
 [8.14.0]: https://github.com/kitschpatrol/shared-config/compare/v8.13.1...v8.14.0
 [8.14.1]: https://github.com/kitschpatrol/shared-config/compare/v8.14.0...v8.14.1
+[8.15.0]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...v8.15.0

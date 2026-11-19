@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
-## [Unreleased]
+Entries are drafted with LLM assistance via [Chagent](https://github.com/kitschpatrol/chagent).
+
+## [8.15.0] - 2026-11-19
 
 ### Added
 
@@ -16,6 +18,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update Stylelint to 18 and `stylelint-config-standard` to 41. Configs that set the removed `declaration-block-single-line-max-declarations` rule or the removed `ignoreSelectors` option of `selector-max-specificity` must drop them. See the [Stylelint 18 migration guide](https://github.com/stylelint/stylelint/blob/main/docs/migration-guide/to-18.md).
+- **Breaking:** Load `stylelint.config.ts` through Node.js type stripping in Stylelint 18, which requires erasable TypeScript syntax.
+- Resolve `var()` references when checking declaration values with `declaration-property-value-no-unknown`.
+
+### Removed
+
+- **Breaking:** Drop resolution of extensionless relative `extends` and `plugins` paths and packages installed in global `node_modules`.
+- **Breaking:** Remove `context.fix` from Stylelint's custom plugin API.
+- **Breaking:** Remove flag aliases and camelCase flags from direct `stylelint` invocations.
+
+### Maintenance
+
+- Update `stylelint-plugin-defensive-css` to 2.10.0 and Prettier to 3.10.1.
 
 ## [8.14.1] - 2026-11-03
 
@@ -1046,3 +1060,4 @@ No notable changes.
 [8.13.1]: https://github.com/kitschpatrol/shared-config/compare/v8.13.0...v8.13.1
 [8.14.0]: https://github.com/kitschpatrol/shared-config/compare/v8.13.1...v8.14.0
 [8.14.1]: https://github.com/kitschpatrol/shared-config/compare/v8.14.0...v8.14.1
+[8.15.0]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...v8.15.0

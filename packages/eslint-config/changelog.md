@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
-## [Unreleased]
+Entries are drafted with LLM assistance via [Chagent](https://github.com/kitschpatrol/chagent).
+
+## [8.15.0] - 2026-11-19
 
 ### Added
 
 - Enable `ts/method-signature-style`, `ts/no-unnecessary-parameter-property-assignment`, `ts/no-unsafe-class-instance-assignment`, `unicorn/prefer-options-parameter`, `unicorn/prefer-regexp-exec`, and `unicorn/require-spread-parentheses`. `ts/method-signature-style` autofixes interface method signatures to property signatures. TypeScript checks property signatures more strictly under `strictFunctionTypes`, so the fix can surface new type errors.
+- Expose typed overrides for new import, package.json, MDX, React, Stylistic, and YAML rules, plus new options for existing Stylistic and Unicorn rules.
+- Expose `kp/svelte/typescript` as a named config for overriding TypeScript-specific Svelte rules.
 
 ### Changed
 
@@ -21,9 +25,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable `unicorn/no-invalid-argument-count` and `unicorn/no-useless-undefined` in TypeScript files, following eslint-config-xo 8, and in Astro components and scripts, Svelte components, and `.svelte.ts` modules. Both stay enabled in JavaScript files.
 - Exclude lowercase `changelog.md` files from default ESLint linting.
 
+### Removed
+
+- **Breaking:** Drop `stylistic/exp-list-style`, `stylistic/jsx-indent`, `stylistic/jsx-props-no-multi-spaces`, and `stylistic/jsx-sort-props` from the supported custom rules after upgrading to Stylistic 6.
+
 ### Maintenance
 
 - Update `@stylistic/eslint-plugin` to 6, `eslint-plugin-unicorn` to 80, `eslint-config-xo` to 8, `local-pkg` to 2, and typescript-eslint to 8.73.
+- Update ESLint to 10.15 and refresh its HTML, React, MDX, import, package.json, Svelte, and YAML integrations along with Prettier.
+- Add regression tests for TypeScript-only overrides in Astro and Svelte, including argument-count checks in `.svelte.js` modules, and update the Svelte test dependency.
 
 ## [8.14.1] - 2026-11-03
 
@@ -1347,7 +1357,6 @@ No notable changes.
 
 - Set up public npm distribution for ESLint 8.52 or newer, with Node.js 18 and pnpm 8 minimums.
 
-[Unreleased]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...HEAD
 [1.0.0]: https://github.com/kitschpatrol/shared-config/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kitschpatrol/shared-config/compare/v1.0.0...v1.0.1
 [2.0.0]: https://github.com/kitschpatrol/shared-config/compare/v1.0.1...v2.0.0
@@ -1476,3 +1485,4 @@ No notable changes.
 [8.13.1]: https://github.com/kitschpatrol/shared-config/compare/v8.13.0...v8.13.1
 [8.14.0]: https://github.com/kitschpatrol/shared-config/compare/v8.13.1...v8.14.0
 [8.14.1]: https://github.com/kitschpatrol/shared-config/compare/v8.14.0...v8.14.1
+[8.15.0]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...v8.15.0

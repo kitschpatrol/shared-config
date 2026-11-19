@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
+Entries are drafted with LLM assistance via [Chagent](https://github.com/kitschpatrol/chagent).
+
+## [8.15.0] - 2026-11-19
+
+### Added
+
+- Enable `at-charset-rule-no-invalid`, `selector-no-deprecated`, `selector-no-invalid`, `selector-no-unmatchable`, and `value-no-invalid` in the default CSS checks through `stylelint-config-standard` 41.
+
+### Changed
+
+- **Breaking:** Run CSS checks with Stylelint 18, which loads `stylelint.config.ts` through Node.js type stripping and requires erasable TypeScript syntax.
+- Resolve `var()` references when checking declaration values with `declaration-property-value-no-unknown`.
+
+### Removed
+
+- **Breaking:** Drop Stylelint's `declaration-block-single-line-max-declarations` rule and the `ignoreSelectors` option for `selector-max-specificity`.
+- **Breaking:** Drop Stylelint resolution of extensionless relative `extends` and `plugins` paths and packages installed in global `node_modules`.
+- **Breaking:** Remove `context.fix` from Stylelint's custom plugin API.
+- **Breaking:** Remove flag aliases and camelCase flags from direct `stylelint` invocations.
+
+### Maintenance
+
+- Update CSpell to 10.5.2 and MDAT to 3.7.0, and refresh Prettier, `semver`, and the pnpm lockfile reader.
+
 ## [8.14.1] - 2026-11-03
 
 ### Fixed
@@ -1058,3 +1082,4 @@ No notable changes.
 [8.13.1]: https://github.com/kitschpatrol/shared-config/compare/v8.13.0...v8.13.1
 [8.14.0]: https://github.com/kitschpatrol/shared-config/compare/v8.13.1...v8.14.0
 [8.14.1]: https://github.com/kitschpatrol/shared-config/compare/v8.14.0...v8.14.1
+[8.15.0]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...v8.15.0

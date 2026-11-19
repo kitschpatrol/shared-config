@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
-## [Unreleased]
+Entries are drafted with LLM assistance via [Chagent](https://github.com/kitschpatrol/chagent).
+
+## [8.15.0] - 2026-11-19
 
 ### Added
 
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [@kitschpatrol/knip-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/knip-config/changelog.md#unreleased): Ignore `@kitschpatrol/chagent` as an unused dependency.
 - [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Generate GitHub release notes from `changelog.md` when available.
 - [@kitschpatrol/stylelint-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/stylelint-config/changelog.md#unreleased): Update Stylelint to 18 and `stylelint-config-standard` to 41.
+- **Breaking:** Require custom Stylelint configs, plugins, and direct CLI calls to follow Stylelint 18 in `@kitschpatrol/stylelint-config` and `@kitschpatrol/shared-config`. Custom configs for `@kitschpatrol/eslint-config` must also replace removed Stylistic rule names.
 
 ### Documentation
 
@@ -33,6 +36,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [@kitschpatrol/eslint-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/eslint-config/changelog.md#unreleased): Update `@stylistic/eslint-plugin` to 6, `eslint-plugin-unicorn` to 80, `eslint-config-xo` to 8, and `local-pkg` to 2.
 - [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Update workflow actions in the init templates.
+- Stage generated changelogs through the bumpp hook during `pnpm release` to keep unrelated working-tree files out of release commits.
+- Update CSpell in `@kitschpatrol/cspell-config` and Knip in `@kitschpatrol/knip-config`, refresh Prettier across the workspace, and update the monorepo's pnpm, build, and test tooling.
+
+### Packages
+
+- [@kitschpatrol/cspell-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/cspell-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/eslint-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/eslint-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/knip-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/knip-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/mdat-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/mdat-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/prettier-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/prettier-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/remark-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/remark-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/repo-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/shared-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/shared-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/stylelint-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/stylelint-config/changelog.md#8150---2026-11-19)
+- [@kitschpatrol/typescript-config 8.15.0](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/typescript-config/changelog.md#8150---2026-11-19)
 
 ## [8.14.1] - 2026-11-03
 
@@ -3689,7 +3707,6 @@ No notable changes.
 
 - Establish the pnpm workspace, contributor linting and formatting, MIT licensing, and public package distribution.
 
-[Unreleased]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...HEAD
 [1.0.0]: https://github.com/kitschpatrol/shared-config/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kitschpatrol/shared-config/compare/v1.0.0...v1.0.1
 [1.0.2]: https://github.com/kitschpatrol/shared-config/compare/v1.0.1...v1.0.2
@@ -3820,3 +3837,4 @@ No notable changes.
 [8.13.1]: https://github.com/kitschpatrol/shared-config/compare/v8.13.0...v8.13.1
 [8.14.0]: https://github.com/kitschpatrol/shared-config/compare/v8.13.1...v8.14.0
 [8.14.1]: https://github.com/kitschpatrol/shared-config/compare/v8.14.0...v8.14.1
+[8.15.0]: https://github.com/kitschpatrol/shared-config/compare/v8.14.1...v8.15.0
