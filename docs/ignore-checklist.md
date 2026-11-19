@@ -4,7 +4,7 @@
 
 Where to add an ignore pattern for every tool in this repo, plus what each tool ignores on its own. Two scenarios: ignoring something **in this repo only**, and shipping a **new default ignore to all shared-config consumers**.
 
-Facts verified 2026-07 against the installed versions: ESLint 10.7, Prettier 3.9, CSpell 10.0, Stylelint 17.14, Knip 6.27, TypeScript 6.0, Vitest 5.0 (re-verified 2026-09).
+Facts verified 2026-07 against the installed versions: ESLint 10.7, Prettier 3.9, CSpell 10.0, Stylelint 18.0, Knip 6.27, TypeScript 6.0, Vitest 5.0 (re-verified 2026-09; Stylelint re-verified 2026-11).
 
 ## Scenario 1: Ignore a file type in this repo
 
@@ -117,7 +117,7 @@ No built-in patterns. Reads nested `.gitignore` files, `.git/info/exclude`, and 
 - `ignorePaths` from imported configs **merge** — the consumer's list adds to the shared package's list (which already covers media/binary extensions, lockfiles, `.claude/`, etc.).
 - **Case Police**: `ksc-cspell lint` passes the resolved CSpell `ignorePaths` to case-police via `--ignore` ([`command.ts`](../packages/cspell-config/src/command.ts)) — but `.gitignore` does _not_ flow through, only `ignorePaths` entries.
 
-### Stylelint 17
+### Stylelint 18
 
 Docs: [`ignoreFiles`](https://stylelint.io/user-guide/configure/#ignorefiles) · [`--ignore-path`](https://stylelint.io/user-guide/options/#ignorepath). Behavior below verified from installed source.
 
