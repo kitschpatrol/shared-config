@@ -1,4 +1,5 @@
 import {
+	checkFilenameMatchesGlob,
 	checkTextDocument,
 	createTextDocument,
 	finalizeSettings,
@@ -72,5 +73,22 @@ describe('Markdown code-fence ignore pattern', () => {
 		expect(includedText).toContain('After prose.')
 		expect(includedText).not.toContain('first fenced content')
 		expect(includedText).not.toContain('second fenced content')
+	})
+})
+
+describe('changelog ignore paths', () => {
+	const ignorePaths = sharedCspellConfig.ignorePaths ?? []
+
+	it.each([
+		'changelog.md',
+		'CHANGELOG.md',
+		'packages/example/changelog.md',
+		'packages/example/CHANGELOG.md',
+	])('ignores %s', (filename) => {
+		expect(checkFilenameMatchesGlob(filename, ignorePaths)).toBe(true)
+	})
+
+	it('still checks other Markdown files', () => {
+		expect(checkFilenameMatchesGlob('docs/changes.md', ignorePaths)).toBe(false)
 	})
 })
