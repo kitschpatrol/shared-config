@@ -20,9 +20,8 @@ permissions:
   # Vendored and re-shipped by @kitschpatrol/shared-config (see build:3-skills)
   mdat:
     skills: false
-  # Skills awaiting a maintainer decision; denied by default
   tsdown:
-    skills: false
+    skills: true
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
