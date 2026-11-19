@@ -37652,6 +37652,7 @@ export type ConfigNames =
 	| 'kp/react/disable-type-aware'
 	| 'kp/svelte/setup'
 	| 'kp/svelte/scripts'
+	| 'kp/svelte/typescript'
 	| 'kp/svelte/component'
 	| 'kp/svelte/rules'
 	| 'kp/svelte/sveltekit-routes'

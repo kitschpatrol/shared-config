@@ -10,7 +10,11 @@ import { GLOB_ASTRO, GLOB_ASTRO_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { astroJsxA11yRecommendedRules, astroRecommendedRules } from '../presets'
 import { interopDefault } from '../utilities'
-import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
+import {
+	sharedScriptConfig,
+	sharedScriptDisableTypeCheckedRules,
+	typescriptOnlyRules,
+} from './shared-js-ts'
 
 export async function astro(
 	options: OptionsOverrides &
@@ -67,6 +71,7 @@ export async function astro(
 			rules: {
 				...sharedScriptConfig.rules,
 				...(!enabled && sharedScriptDisableTypeCheckedRules),
+				...typescriptOnlyRules,
 				'perfectionist/sort-intersection-types': [
 					'error',
 					{
@@ -143,6 +148,7 @@ export async function astro(
 			rules: {
 				...sharedScriptConfig.rules,
 				...sharedScriptDisableTypeCheckedRules,
+				...typescriptOnlyRules,
 				'unicorn/filename-case': 'off',
 				...overridesEmbeddedScripts,
 			},

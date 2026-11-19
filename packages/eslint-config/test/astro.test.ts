@@ -119,3 +119,30 @@ describe('Astro parsing', () => {
 		expect(noUndefinedMessages[0]?.message).toContain('externalValue')
 	})
 })
+
+describe('TypeScript-only rule overrides', () => {
+	it('leaves argument counts and explicit undefined arguments to TypeScript', async () => {
+		const projectDirectory = path.join(tempDirectory, 'typescript-only')
+		await fs.mkdir(projectDirectory)
+		const eslint = await createEslint(projectDirectory, {
+			astro: { typeAware: { enabled: false } },
+		})
+		const source = [
+			'---',
+			"const id = crypto.randomUUID('extra')",
+			'const last = [id].at(undefined)',
+			'---',
+			'',
+			'<p>{last}</p>',
+			'<script>',
+			"  console.log(crypto.randomUUID('extra'), [1].at(undefined))",
+			'</script>',
+		].join('\n')
+		const result = await lint(eslint, source, path.join(projectDirectory, 'Example.astro'))
+		const ruleIds = result.messages.map((message) => message.ruleId)
+
+		expect(result.fatalErrorCount).toBe(0)
+		expect(ruleIds).not.toContain('unicorn/no-invalid-argument-count')
+		expect(ruleIds).not.toContain('unicorn/no-useless-undefined')
+	})
+})

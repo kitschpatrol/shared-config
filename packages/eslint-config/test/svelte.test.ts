@@ -104,3 +104,33 @@ describe('Svelte parsing', () => {
 		expect(config?.rules?.['ts/no-throw-literal']).toEqual([0])
 	})
 })
+
+describe('TypeScript-only rule overrides', () => {
+	// TypeScript already rejects the argument, since `crypto.randomUUID()` takes none
+	const moduleSource = "export const id = crypto.randomUUID('extra')\n"
+
+	it.each([
+		[
+			'components',
+			'test/fixtures/Id.svelte',
+			'<script lang="ts">\n\tconst id = crypto.randomUUID(\'extra\')\n</script>\n\n<p>{id}</p>\n',
+		],
+		['TypeScript modules', 'test/fixtures/id.svelte.ts', moduleSource],
+	])('leaves argument counts to TypeScript in %s', async (_, filePath, source) => {
+		const result = await lint(source, filePath)
+
+		expectNoFatalErrors(result)
+		expect(result.messages.map((message) => message.ruleId)).not.toContain(
+			'unicorn/no-invalid-argument-count',
+		)
+	})
+
+	it('still checks argument counts in JavaScript modules', async () => {
+		const result = await lint(moduleSource, 'test/fixtures/id.svelte.js')
+
+		expectNoFatalErrors(result)
+		expect(result.messages.map((message) => message.ruleId)).toContain(
+			'unicorn/no-invalid-argument-count',
+		)
+	})
+})

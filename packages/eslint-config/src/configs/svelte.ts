@@ -10,7 +10,11 @@ import { GLOB_SVELTE, GLOB_SVELTE_JS, GLOB_SVELTE_TS } from '../globs'
 import { tsParser } from '../parsers'
 import { svelteRecommendedRules } from '../presets'
 import { interopDefault } from '../utilities'
-import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
+import {
+	sharedScriptConfig,
+	sharedScriptDisableTypeCheckedRules,
+	typescriptOnlyRules,
+} from './shared-js-ts'
 
 export async function svelte(
 	options: OptionsOverrides &
@@ -72,6 +76,14 @@ export async function svelte(
 				'ts/no-confusing-void-expression': 'off', // Reactive statements
 				'ts/no-unused-expressions': 'off', // Needed for reactive statements
 				'unicorn/no-useless-undefined': 'off', // Needed for let props
+			},
+		},
+		{
+			// Svelte modules with a `.js` extension keep the JavaScript rules
+			files: [GLOB_SVELTE, GLOB_SVELTE_TS],
+			name: 'kp/svelte/typescript',
+			rules: {
+				...typescriptOnlyRules,
 			},
 		},
 		{
