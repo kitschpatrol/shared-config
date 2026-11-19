@@ -2,6 +2,10 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
 ignoreWorkspaceRootCheck: true
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/chagent@0.8.0'
+  - mdat@3.7.0
+  - remark-mdat@3.1.4
 overrides:
   normalize-package-data: ^9.0.0
 packages:
@@ -16,6 +20,8 @@ permissions:
   # Vendored and re-shipped by @kitschpatrol/shared-config (see build:3-skills)
   mdat:
     skills: false
+  tsdown:
+    skills: true
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'

@@ -61,6 +61,7 @@ async function getStylelint(): Promise<Stylelint> {
  */
 export async function fix(
 	source: string,
+	// eslint-disable-next-line unicorn/prefer-options-parameter -- Public API signature; an options object would break existing callers
 	fileTypeOrConfig?: FileType | StylelintConfig,
 	config?: StylelintConfig,
 ): Promise<string> {
