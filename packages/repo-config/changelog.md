@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Generate GitHub release notes from the latest released section of `changelog.md` when one exists, falling back to the commit list.
 - Remove `.claude/skills` from the skill directories in the `pnpm-workspace.yaml` template.
 
+### Documentation
+
+- Correct the dependency-update workflow's schedule and skill directory in the readme.
+
 ### Maintenance
 
 - Fetch full history in the dependency-update workflow and update the pnpm setup, repo sync, and Skill to PR actions.

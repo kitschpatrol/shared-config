@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Enable `at-charset-rule-no-invalid`, `selector-no-deprecated`, `selector-no-invalid`, `selector-no-unmatchable`, and `value-no-invalid` through `stylelint-config-recommended` 19.
+
 ### Changed
 
 - Update Stylelint to 18 and `stylelint-config-standard` to 41. Configs that set the removed `declaration-block-single-line-max-declarations` rule or the removed `ignoreSelectors` option of `selector-max-specificity` must drop them. See the [Stylelint 18 migration guide](https://github.com/stylelint/stylelint/blob/main/docs/migration-guide/to-18.md).

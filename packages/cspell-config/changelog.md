@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Exclude `**/changelog.md` from default spell checks.
+- Exclude `**/changelog.md` and `**/CHANGELOG*.md` from default spell checks.
 
 ## [8.14.1] - 2026-11-03
 

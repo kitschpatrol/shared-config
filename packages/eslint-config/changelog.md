@@ -11,14 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enable `ts/method-signature-style`, `ts/no-unnecessary-parameter-property-assignment`, `ts/no-unsafe-class-instance-assignment`, `unicorn/prefer-options-parameter`, `unicorn/prefer-regexp-exec`, and `unicorn/require-spread-parentheses`. `ts/method-signature-style` autofixes interface method signatures to property signatures.
+- Enable `ts/method-signature-style`, `ts/no-unnecessary-parameter-property-assignment`, `ts/no-unsafe-class-instance-assignment`, `unicorn/prefer-options-parameter`, `unicorn/prefer-regexp-exec`, and `unicorn/require-spread-parentheses`. `ts/method-signature-style` autofixes interface method signatures to property signatures. TypeScript checks property signatures more strictly under `strictFunctionTypes`, so the fix can surface new type errors.
 
 ### Changed
 
 - Require camelCase private class members without a leading underscore in JSX and TSX files, following eslint-config-xo 8.
 - Replace `ts/prefer-regexp-exec` with `unicorn/prefer-regexp-exec`, `ts/no-loop-func` with `no-loop-func`, and `ts/no-restricted-imports` with `no-restricted-imports`. Disable comments that name the old rules need updating.
 - Disable `unicorn/no-async-promise-finally`, matching unicorn's recommended config.
-- Disable `unicorn/no-invalid-argument-count` and `unicorn/no-useless-undefined` in TypeScript files, following eslint-config-xo 8. Both stay enabled in JavaScript files.
+- Disable `unicorn/no-invalid-argument-count` and `unicorn/no-useless-undefined` in TypeScript files, following eslint-config-xo 8, and in Astro components and scripts, Svelte components, and `.svelte.ts` modules. Both stay enabled in JavaScript files.
 - Exclude lowercase `changelog.md` files from default ESLint linting.
 
 ### Maintenance
