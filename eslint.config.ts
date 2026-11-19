@@ -9,7 +9,6 @@ export default eslintConfig(
 			'packages/eslint-config/src/typegen.d.ts',
 			'test/fixtures/input/*',
 			'test/fixtures/output-fixed-auto/*',
-			'**/changelog.md',
 		],
 		react: true,
 		svelte: {
