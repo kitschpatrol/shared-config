@@ -53,14 +53,14 @@
 		"suggest-words": "tsx ./scripts/suggest-words.ts"
 	},
 	"dependencies": {
-		"@cspell/cspell-types": "^10.4.0",
+		"@cspell/cspell-types": "^10.5.2",
 		"@pinojs/json-colorizer": "^4.0.0",
 		"case-police": "^2.2.1",
 		"cosmiconfig": "^10.0.1",
 		"cosmiconfig-typescript-loader": "^6.3.0",
-		"cspell": "^10.4.0",
-		"cspell-config-lib": "^10.4.0",
-		"cspell-lib": "^10.4.0",
+		"cspell": "^10.5.2",
+		"cspell-config-lib": "^10.5.2",
+		"cspell-lib": "^10.5.2",
 		"decircular": "^1.0.0",
 		"deepmerge": "^4.3.1",
 		"execa": "^10.2.1",
@@ -70,7 +70,7 @@
 		"magicast": "^0.5.5",
 		"package-up": "^5.0.0",
 		"picocolors": "^1.1.1",
-		"prettier": "^3.9.10",
+		"prettier": "^3.10.1",
 		"yargs": "^18.2.0"
 	},
 	"devDependencies": {

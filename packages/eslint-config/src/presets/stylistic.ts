@@ -4,7 +4,6 @@ import type { Rules } from '../types'
 
 export const stylisticRecommendedRules: Rules = {
 	// Begin expansion '@stylistic/eslint-plugin' 'recommended'
-	// "@stylistic/array-bracket-spacing":["error","never"],
 	// "@stylistic/arrow-parens":["error","as-needed",{"requireForBlockBody":true}],
 	// "@stylistic/arrow-spacing":["error",{"after":true,"before":true}],
 	// "@stylistic/block-spacing":["error","always"],
@@ -13,7 +12,7 @@ export const stylisticRecommendedRules: Rules = {
 	// "@stylistic/comma-spacing":["error",{"after":true,"before":false}],
 	// "@stylistic/comma-style":["error","last"],
 	// "@stylistic/computed-property-spacing":["error","never",{"enforceForClassMembers":true}],
-	// "@stylistic/dot-location":["error","property"],
+	// "@stylistic/dot-location":"error",
 	// "@stylistic/eol-last":"error",
 	// "@stylistic/generator-star-spacing":["error",{"after":true,"before":false}],
 	// "@stylistic/indent":["error",2,{"ArrayExpression":1,"CallExpression":{"arguments":1},"flatTernaryExpressions":false,"FunctionDeclaration":{"body":1,"parameters":1,"returnType":1},"FunctionExpression":{"body":1,"parameters":1,"returnType":1},"ignoreComments":false,"ignoredNodes":["TSUnionType","TSIntersectionType"],"ImportDeclaration":1,"MemberExpression":1,"ObjectExpression":1,"offsetTernaryExpressions":true,"outerIIFEBody":1,"SwitchCase":1,"tabLength":2,"VariableDeclarator":1}],
@@ -21,6 +20,7 @@ export const stylisticRecommendedRules: Rules = {
 	// "@stylistic/key-spacing":["error",{"afterColon":true,"beforeColon":false}],
 	// "@stylistic/keyword-spacing":["error",{"after":true,"before":true}],
 	// "@stylistic/lines-between-class-members":["error","always",{"exceptAfterSingleLine":true}],
+	// "@stylistic/list-style":"error",
 	// "@stylistic/max-statements-per-line":["error",{"max":1}],
 	// "@stylistic/member-delimiter-style":["error",{"multiline":{"delimiter":"none","requireLast":false},"multilineDetection":"brackets","overrides":{"interface":{"multiline":{"delimiter":"none","requireLast":false}}},"singleline":{"delimiter":"comma"}}],
 	// "@stylistic/multiline-ternary":["error","always-multiline"],
@@ -34,7 +34,6 @@ export const stylisticRecommendedRules: Rules = {
 	// "@stylistic/no-tabs":"error",
 	// "@stylistic/no-trailing-spaces":"error",
 	// "@stylistic/no-whitespace-before-property":"error",
-	// "@stylistic/object-curly-spacing":["error","always"],
 	// "@stylistic/operator-linebreak":["error","before"],
 	// "@stylistic/padded-blocks":["error",{"blocks":"never","classes":"never","switches":"never"}],
 	// "@stylistic/quote-props":["error","consistent-as-needed"],
