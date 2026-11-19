@@ -22,12 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [@kitschpatrol/eslint-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/eslint-config/changelog.md#unreleased): Require camelCase private class members without a leading underscore in JSX and TSX files, swap several `ts/` rules for their core or unicorn equivalents, and disable `unicorn/no-invalid-argument-count` and `unicorn/no-useless-undefined` in TypeScript files, including Astro and Svelte.
 - [@kitschpatrol/eslint-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/eslint-config/changelog.md#unreleased): Exclude lowercase `changelog.md` files from default ESLint linting.
 - [@kitschpatrol/knip-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/knip-config/changelog.md#unreleased): Ignore `@kitschpatrol/chagent` as an unused dependency.
-- [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Generate GitHub release notes from `changelog.md` when available, and drop `.claude/skills` from the `pnpm-workspace.yaml` template.
+- [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Generate GitHub release notes from `changelog.md` when available.
 - [@kitschpatrol/stylelint-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/stylelint-config/changelog.md#unreleased): Update Stylelint to 18 and `stylelint-config-standard` to 41.
 
 ### Documentation
 
-- [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Correct the dependency-update workflow's schedule and skill directory in the readme.
+- [@kitschpatrol/repo-config Unreleased](https://github.com/kitschpatrol/shared-config/blob/HEAD/packages/repo-config/changelog.md#unreleased): Correct the dependency-update workflow's schedule in the readme.
 
 ### Maintenance
 
