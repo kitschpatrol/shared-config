@@ -113,7 +113,7 @@ If you want releases to come from your account instead of `github_actions`, then
 
 #### Dependency updates
 
-The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) every Sunday night, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config`, and pnpm links it into `.agents/skills` and `.claude/skills` during install because the starter `pnpm-workspace.yaml` approves the package's [agent skills](https://pnpm.io/agent-skills). The workflow fails if no `ksc-update` skill is found.
+The `update-dependencies.yml` workflow runs the [`ksc-update`](https://github.com/kitschpatrol/shared-config/blob/main/packages/shared-config/skills/ksc-update/SKILL.md) skill through [Claude Code](https://code.claude.com/docs/en/github-actions) on the first of each month, or on demand from the repository's _Actions_ tab, then opens a pull request with the changes and the skill's report. The skill ships with `@kitschpatrol/shared-config`, and pnpm links it into `.agents/skills` during install because the starter `pnpm-workspace.yaml` approves the package's [agent skills](https://pnpm.io/agent-skills). The workflow fails if no `ksc-update` skill is found.
 
 The pull request is titled `Update dependencies.`, so GitHub's _Default to pull request title_ squash merge setting produces commits like `Update dependencies. (#12)` without the report in the body. Enable it once per repository:
 
