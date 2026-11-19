@@ -7,7 +7,11 @@ import type {
 import { getLanguageOptions } from '../config'
 import { GLOB_TS } from '../globs'
 import { xoTypescriptDtsRules } from '../presets'
-import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
+import {
+	sharedScriptConfig,
+	sharedScriptDisableTypeCheckedRules,
+	typescriptOnlyRules,
+} from './shared-js-ts'
 
 export async function ts(
 	options: OptionsOverrides & OptionsTsconfigRootDirectory & OptionsTypeAware = {},
@@ -26,6 +30,7 @@ export async function ts(
 				...(!enabled && sharedScriptDisableTypeCheckedRules),
 				'jsdoc/require-param': 'off',
 				'jsdoc/require-returns': 'off',
+				...typescriptOnlyRules,
 				...overrides,
 			},
 		},

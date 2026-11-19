@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
+## [Unreleased]
+
+### Changed
+
+- Ignore `@kitschpatrol/chagent` as an unused dependency, since it's usually invoked through bumpp's `--execute` argument.
+
 ## [8.14.1] - 2026-11-03
 
 ### Fixed

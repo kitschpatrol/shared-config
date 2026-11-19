@@ -4,13 +4,15 @@ import type { Rules } from '../types'
 // presets aren't exported individually (eslint-config-xo-typescript was merged
 // into eslint-config-xo in 2026). Index breadcrumbs note each entry's `name` at
 // generation time — verify against the package if expansion output looks off.
-// Plugin opinion layers are excluded from the base expansion: unicorn, import,
-// node, and eslint-comments authority stays with this config's own presets, and
-// the no-use-extend-native and xo plugins aren't registered here.
+// Plugin opinion layers are excluded from the base and TypeScript expansions:
+// unicorn, import, node, and eslint-comments authority stays with this config's
+// own presets, and the no-use-extend-native and xo plugins aren't registered
+// here. The TypeScript expansion is shared by JavaScript files, so its
+// TypeScript-only plugin overrides live in the ts and tsx configs.
 
 // Many are skipped on account of our managing these concerns elsewhere (or not
 // at all). Note that config order can shift between releases (e.g. when xo/css
-// was added). Indices below last verified against eslint-config-xo 7.0.0.
+// was added). Indices below last verified against eslint-config-xo 8.0.0.
 
 // [0] xo/ignores - Skipped
 // [1] node-test/recommended - Skipped
@@ -350,7 +352,7 @@ export const xoJavascriptRules: Rules = {
 
 // (xo/typescript)
 export const xoTypescriptRules: Rules = {
-	// Begin expansion 'eslint-config-xo' '[13].rules'
+	// Begin expansion 'eslint-config-xo' '[13].rules' 'exclude: import-x/, n/, unicorn/'
 	'ts/adjacent-overload-signatures': 'error',
 	'ts/array-type': ['error', { default: 'array-simple' }],
 	'ts/await-thenable': 'error',
@@ -483,8 +485,6 @@ export const xoTypescriptRules: Rules = {
 	'ts/no-dynamic-delete': 'error',
 	'no-empty-function': 'off',
 	'ts/no-empty-function': 'error',
-	'unicorn/no-useless-undefined': 'off',
-	'unicorn/no-invalid-argument-count': 'off',
 	'ts/no-empty-object-type': 'error',
 	'ts/no-extra-non-null-assertion': 'error',
 	// "@stylistic/no-extra-semi":"error",
@@ -587,10 +587,8 @@ export const xoTypescriptRules: Rules = {
 	// "@stylistic/quotes":["error","single"],
 	'ts/restrict-plus-operands': ['error', { allowAny: false }],
 	'ts/restrict-template-expressions': ['error', { allowNumber: true }],
-	'unicorn/no-useless-template-literals': 'off',
 	'ts/no-unnecessary-template-expression': 'error',
 	'ts/return-await': 'error',
-	'unicorn/require-array-sort-compare': 'off',
 	'ts/require-array-sort-compare': ['error', { ignoreStringArrays: true }],
 	// "@stylistic/space-before-function-paren":["error",{"anonymous":"always","named":"never","asyncArrow":"always"}],
 	// "@stylistic/space-infix-ops":"error",
@@ -635,15 +633,7 @@ export const xoTypescriptRules: Rules = {
 	'no-unreachable': 'off',
 	'no-unsafe-negation': 'off',
 	'no-with': 'off',
-	'node/no-unsupported-features/es-syntax': 'off',
-	'node/no-unsupported-features/es-builtins': 'off',
-	'import/namespace': 'off',
-	'import/named': 'off',
 	'no-duplicate-imports': 'off',
-	'unicorn/import-style': 'off',
-	'import/extensions': 'off',
-	'import/export': 'off',
-	'import/default': 'off',
 	// "@stylistic/operator-linebreak":["error","before",{"overrides":{"=":"after"}}],
 	// "@stylistic/indent-binary-ops":["error","tab"],
 	// End expansion

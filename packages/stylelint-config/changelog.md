@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
+## [Unreleased]
+
+### Changed
+
+- Update Stylelint to 18 and `stylelint-config-standard` to 41. Configs that set the removed `declaration-block-single-line-max-declarations` rule or the removed `ignoreSelectors` option of `selector-max-specificity` must drop them. See the [Stylelint 18 migration guide](https://github.com/stylelint/stylelint/blob/main/docs/migration-guide/to-18.md).
+
 ## [8.14.1] - 2026-11-03
 
 No notable changes.

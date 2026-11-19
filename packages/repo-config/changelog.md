@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (Node.js support requirements have sometimes increased in minor or patch releases.)
 
+## [Unreleased]
+
+### Changed
+
+- Generate GitHub release notes from the latest released section of `changelog.md` when one exists, falling back to the commit list.
+- Remove `.claude/skills` from the skill directories in the `pnpm-workspace.yaml` template.
+
+### Maintenance
+
+- Fetch full history in the dependency-update workflow and update the pnpm setup, repo sync, and Skill to PR actions.
+
 ## [8.14.1] - 2026-11-03
 
 ### Maintenance

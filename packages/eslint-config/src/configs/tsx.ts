@@ -6,7 +6,7 @@ import type {
 } from '../types'
 import { getLanguageOptions } from '../config'
 import { GLOB_TSX } from '../globs'
-import { sharedScriptDisableTypeCheckedRules } from './shared-js-ts'
+import { sharedScriptDisableTypeCheckedRules, typescriptOnlyRules } from './shared-js-ts'
 import { sharedJsxTsxConfig } from './shared-jsx-tsx'
 
 export async function tsx(
@@ -24,6 +24,7 @@ export async function tsx(
 			rules: {
 				...sharedJsxTsxConfig.rules,
 				...(!enabled && sharedScriptDisableTypeCheckedRules),
+				...typescriptOnlyRules,
 				...overrides,
 			},
 		},

@@ -228,6 +228,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'node/no-process-exit': 'off',
 		// Too many false positives
 		'node/no-unpublished-import': 'off',
+		'node/no-unsupported-features/es-builtins': 'off', // Governed by TypeScript's `target` and `lib` settings
+		'node/no-unsupported-features/es-syntax': 'off', // Governed by TypeScript's `target` and `lib` settings
 		'node/no-unsupported-features/node-builtins': 'error',
 		'operator-assignment': 'off', // Superseded by unicorn/operator-assignment
 		'perfectionist/sort-imports': [
@@ -469,11 +471,13 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 		'unicorn/no-asterisk-prefix-in-documentation-comments': 'off', // Comment shape is owned by prettier-plugin-jsdoc, which writes the asterisk prefixes
 		'unicorn/no-confusing-array-splice': 'off', // Conflicts with prefer-negative-index for splice(-1, 0, value)
 		'unicorn/no-top-level-assignment-in-function': 'off', // Module-level memoization and caching are accepted patterns
+		'unicorn/no-useless-template-literals': 'off', // Superseded by ts/no-unnecessary-template-expression
 		'unicorn/prefer-math-trunc': 'off', // Superseded by math/prefer-math-trunc
 		'unicorn/prefer-modern-math-apis': 'off', // Superseded by eslint-plugin-math
 		'unicorn/prefer-number-is-safe-integer': 'off', // Superseded by math/prefer-number-is-safe-integer
 		'unicorn/prefer-number-properties': 'off', // Superseded by eslint-plugin-math
 		'unicorn/prefer-type-literal-last': 'off', // Conflicts with perfectionist/sort-union-types and sort-intersection-types
+		'unicorn/require-array-sort-compare': 'off', // Superseded by ts/require-array-sort-compare
 		'unicorn/single-line-block-comment-style': 'off', // Comment shape is owned by prettier-plugin-jsdoc; the fixer's un-prefixed multiline output also gets misread as indented code and fenced by jsdocPreferCodeFences
 	},
 	settings: {
@@ -507,4 +511,10 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
 export const sharedScriptDisableTypeCheckedRules: Rules = {
 	...eslintTypescriptDisableTypeCheckedRules,
 	...kpSharedDisableTypeCheckedRules,
+}
+
+/** Plugin overrides from xo/typescript that don't apply to JavaScript files */
+export const typescriptOnlyRules: Rules = {
+	'unicorn/no-invalid-argument-count': 'off', // TypeScript checks argument counts
+	'unicorn/no-useless-undefined': 'off', // TypeScript signatures can require explicit `undefined` arguments
 }
